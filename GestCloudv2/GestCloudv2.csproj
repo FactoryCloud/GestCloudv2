@@ -93,5 +93,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FrameworkDB\FrameworkDB.csproj">
+      <Project>{8f03a58f-0834-43e5-a968-ce75afaa02f2}</Project>
+      <Name>FrameworkDB</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
