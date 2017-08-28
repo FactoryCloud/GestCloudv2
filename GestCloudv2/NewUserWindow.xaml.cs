@@ -52,8 +52,6 @@ namespace GestCloudv2
 
         private void BacktoMenu(object sender, RoutedEventArgs e)
         {
-            MainWindow mainWindow = new MainWindow();
-            mainWindow.Show();
             this.Close();
         }
     }

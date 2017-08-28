@@ -32,11 +32,16 @@ namespace GestCloudv2
             
             foreach (var u in query)
             {
-                if (u.Username == UserNameText.Text && u.Password == PasswordText.Text)
+                if (u.Username == UserNameText.Text && u.Password == PasswordText.Password)
                 {
-                    MessageBoxResult result = MessageBox.Show("Los datos estan correctos");
+                   
+                    UserMantenantWindow userMantenant = new UserMantenantWindow();
+                    userMantenant.Show();
+                    this.Close();
+                    return;
                 }
             }
+            MessageBoxResult result = MessageBox.Show("Los datos son incorrectos");
         }
     }
 }

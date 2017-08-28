@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using FrameworkDB.V1;
 
 namespace GestCloudv2
 {
@@ -22,6 +23,12 @@ namespace GestCloudv2
         public UserMantenantWindow()
         {
             InitializeComponent();
+        }
+
+        private void NewUser(object sender, RoutedEventArgs e)
+        {
+            NewUserWindow newuserwindow = new NewUserWindow();
+            newuserwindow.Show();
         }
     }
 }
