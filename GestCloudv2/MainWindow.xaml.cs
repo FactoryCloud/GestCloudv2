@@ -35,7 +35,22 @@ namespace GestCloudv2
 
         private void EditUserEvent(object sender, RoutedEventArgs e)
         {
+            ModifyUserWindow modifyUserWindow = new ModifyUserWindow();
+            modifyUserWindow.Show();
+            this.Close();
+        }
 
+        private void DeleteUserEvent(object sender, RoutedEventArgs e)
+        {
+            DeleteUserWindow deleteUserWindows = new DeleteUserWindow();
+            deleteUserWindows.Show();
+            this.Close();
+        }
+
+        private void LoginUserEvent(object sender, RoutedEventArgs e)
+        {
+            LoginUserWindow loginUserWindow = new LoginUserWindow();
+            loginUserWindow.Show();
         }
     }
 }
