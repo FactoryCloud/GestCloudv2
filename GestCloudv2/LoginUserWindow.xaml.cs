@@ -10,28 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using FrameworkDB.V1;
 
 namespace GestCloudv2
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for LoginUserWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class LoginUserWindow : Window
     {
-        public MainWindow()
+        public LoginUserWindow()
         {
             InitializeComponent();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-            NewUserWindow newUserWindow = new NewUserWindow();
-            newUserWindow.Show();
-            this.Close();
         }
     }
 }
