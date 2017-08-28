@@ -7,9 +7,9 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="720" Width="1280">
     <Grid>
-        <Button Click="Button_Click" Height="60" Width="180">Nuevo Usuario</Button>
-        <Button Click="Button_Click" Height="60" Width="180" Margin="800,314,292,315">Login Usuario</Button>
-        <Button Click="Button_Click" Height="60" Width="180" Margin="546,425,546,204" RenderTransformOrigin="-0.142,1.317">Editar Usuario</Button>
-        <Button Click="Button_Click" Height="60" Width="180" Margin="800,425,292,204">Eliminar Usuario</Button>
+        <Button Click="NewUserEvent" Height="60" Width="180">Nuevo Usuario</Button>
+        <Button Click="LoginUserEvent" Height="60" Width="180" Margin="800,314,292,315">Login Usuario</Button>
+        <Button Click="EditUserEvent" Height="60" Width="180" Margin="546,425,546,204" RenderTransformOrigin="-0.142,1.317">Editar Usuario</Button>
+        <Button Click="DeleteUserEvent" Height="60" Width="180" Margin="800,425,292,204">Eliminar Usuario</Button>
     </Grid>
 </Window>

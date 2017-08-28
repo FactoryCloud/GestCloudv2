@@ -26,12 +26,16 @@ namespace GestCloudv2
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void NewUserEvent(object sender, RoutedEventArgs e)
         {
-
             NewUserWindow newUserWindow = new NewUserWindow();
             newUserWindow.Show();
             this.Close();
+        }
+
+        private void EditUserEvent(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
