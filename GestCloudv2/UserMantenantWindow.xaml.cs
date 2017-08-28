@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Microsoft.EntityFrameworkCore;
+using FrameworkDB.V1;
 
 namespace GestCloudv2
 {
@@ -22,6 +24,21 @@ namespace GestCloudv2
         public UserMantenantWindow()
         {
             InitializeComponent();
+            GestCloudDB db = new GestCloudDB();
+            List<User> users = db.Users.ToList();
+
+            UsersTable.ItemsSource = null;
+            System.Data.DataTable dt = new System.Data.DataTable();
+            dt.Columns.Add("Code", typeof(int));
+            dt.Columns.Add("First Name", typeof(string));
+            dt.Columns.Add("Last Name", typeof(string));
+            dt.Columns.Add("Username", typeof(string));
+
+            foreach (var item in users)
+            {
+                dt.Rows.Add(item.UserID, item.FirstName, item.LastName, item.Username);
+            }
+            UsersTable.ItemsSource = dt.DefaultView;
         }
     }
 }
