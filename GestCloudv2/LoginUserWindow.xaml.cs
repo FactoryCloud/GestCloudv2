@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using FrameworkDB.V1;
 
 namespace GestCloudv2
 {
@@ -22,6 +23,20 @@ namespace GestCloudv2
         public LoginUserWindow()
         {
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            GestCloudDB db = new GestCloudDB();
+            var query =  db.Users.Select(u => new {u.Username, u.Password,u.UserID});
+            
+            foreach (var u in query)
+            {
+                if (u.Username == UserNameText.Text && u.Password == PasswordText.Text)
+                {
+                    MessageBoxResult result = MessageBox.Show("Los datos estan correctos");
+                }
+            }
         }
     }
 }

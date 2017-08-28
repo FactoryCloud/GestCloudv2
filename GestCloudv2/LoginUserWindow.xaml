@@ -32,6 +32,6 @@
         <TextBox Name="PasswordText" FontSize="20" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="5" VerticalAlignment="Center"></TextBox>
 
         <Button FontSize="12" Grid.Column="1" Grid.Row="7" HorizontalAlignment="Center" VerticalAlignment="Center" Click="Button_Click">Entrar</Button>
-        <Button FontSize="12" Grid.Column="2" Grid.Row="7" HorizontalAlignment="Center" VerticalAlignment="Center" Click="Button_Click">Recuperar Contraseña</Button>
+        <Button FontSize="12" Grid.Column="2" Grid.Row="7" HorizontalAlignment="Center" VerticalAlignment="Center">Recuperar Contraseña</Button>
     </Grid>
 </Window>

@@ -29,7 +29,7 @@ namespace GestCloudv2
             this.InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void SaveUser(object sender, RoutedEventArgs e)
         {
             using (db = new GestCloudDB())
             {
@@ -43,6 +43,18 @@ namespace GestCloudv2
                 db.Users.Add(newUser);
                 db.SaveChanges();
             }
+            MessageBoxResult result = MessageBox.Show("Datos guardados correctamente");
+            firsnameText.Text = "";
+            lastnameText.Text = "";
+            usernameText.Text = "";
+            passwordText.Password = "";
+        }
+
+        private void BacktoMenu(object sender, RoutedEventArgs e)
+        {
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.Show();
+            this.Close();
         }
     }
 }

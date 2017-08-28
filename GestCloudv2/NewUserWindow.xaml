@@ -36,6 +36,7 @@
         <TextBlock FontSize="20" Grid.Column="1" Grid.Row="4" TextAlignment="Center" VerticalAlignment="Center">Contraseña:</TextBlock>
         <PasswordBox Name="passwordText" FontSize="20" Grid.Column="3" Grid.Row="4"  VerticalAlignment="Center"></PasswordBox>
 
-        <Button FontSize="20" Grid.Column="2" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center" Click="Button_Click">Guardar Usuario</Button>
+        <Button FontSize="20" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center" Click="SaveUser">Guardar Usuario</Button>
+        <Button FontSize="20" Grid.Column="3" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center" Click="BacktoMenu">Volver al menu</Button>
     </Grid>
 </Window>
