@@ -26,7 +26,7 @@
         <Button Grid.Column="1" Grid.Row="1" Margin="10" Click="NewUser">Nuevo Usuario</Button>
         <Button Grid.Column="1" Grid.Row="2" Margin="10">Editar Usuario</Button>
         <Button Grid.Column="1" Grid.Row="3" Margin="10">Eliminar Usuario</Button>
-        <DataGrid Name="UserData" Grid.Column="3" Grid.Row="1" Grid.RowSpan="5">
+        <DataGrid Name="UsersTable" Grid.Column="3" Grid.Row="1" Grid.RowSpan="5">
         </DataGrid>
     </Grid>
 </Window>
