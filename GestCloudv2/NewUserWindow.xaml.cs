@@ -23,7 +23,7 @@ namespace GestCloudv2
     public sealed partial class NewUserWindow : Window
     {
         GestCloudDB db;
-        public event EventHandler MyEvent;
+        public event EventHandler UpdateDataEvent;
         private int UpdateFlag;
         
 
@@ -66,9 +66,9 @@ namespace GestCloudv2
             UpdateFlag++;
             if (UpdateFlag >= 1)
             {
-                if (this.MyEvent != null)
+                if (this.UpdateDataEvent != null)
                 {
-                    this.MyEvent(this, EventArgs.Empty);
+                    this.UpdateDataEvent(this, EventArgs.Empty);
                 }
             }
         }

@@ -11,6 +11,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using FrameworkDB.V1;
+using System.Data;
+using FrameworkView.V1;
 
 namespace GestCloudv2
 {
@@ -19,9 +22,43 @@ namespace GestCloudv2
     /// </summary>
     public partial class ModifyUserWindow : Window
     {
-        public ModifyUserWindow()
+        UserView userView;
+        public event EventHandler UpdateDataEvent;
+        private int UpdateFlag;
+
+        public ModifyUserWindow(int userID)
         {
             InitializeComponent();
+            UpdateFlag = 0;
+            userView = new UserView(userID);
+
+            firsnameText.Text = userView.user.FirstName;
+            lastnameText.Text = userView.user.LastName;
+            usernameText.Text = userView.user.Username;
+        }
+
+        private void SaveUser(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("Datos guardados correctamente");
+
+            UpdateData();
+        }
+
+        private void BacktoMenu(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        public void UpdateData()
+        {
+            UpdateFlag++;
+            if (UpdateFlag >= 1)
+            {
+                if (this.UpdateDataEvent != null)
+                {
+                    this.UpdateDataEvent(this, EventArgs.Empty);
+                }
+            }
         }
     }
 }
