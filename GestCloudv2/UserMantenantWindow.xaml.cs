@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using FrameworkDB.V1;
 using System.Data;
 using FrameworkView.V1;
+using System.Windows.Controls.Primitives;
 
 namespace GestCloudv2
 {
@@ -52,6 +53,15 @@ namespace GestCloudv2
         private void newuserwindow_MyEvent(object sender, EventArgs e)
         {
             UpdateData();
+        }
+
+        private void EditUser(object sender, RoutedEventArgs e)
+        {
+
+            int user = UsersTable.SelectedIndex;
+            DataGridRow row = (DataGridRow)UsersTable.ItemContainerGenerator.ContainerFromIndex(user);
+            DataRowView dr = row.Item as DataRowView;
+            MessageBox.Show(dr.Row.ItemArray[0].ToString());
         }
     }
     
