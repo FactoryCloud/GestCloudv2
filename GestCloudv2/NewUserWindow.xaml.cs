@@ -23,10 +23,14 @@ namespace GestCloudv2
     public sealed partial class NewUserWindow : Window
     {
         GestCloudDB db;
+        public event EventHandler MyEvent;
+        private int UpdateFlag;
+        
 
         public NewUserWindow()
         {
             this.InitializeComponent();
+            UpdateFlag = 0;
         }
 
         private void SaveUser(object sender, RoutedEventArgs e)
@@ -48,11 +52,25 @@ namespace GestCloudv2
             lastnameText.Text = "";
             usernameText.Text = "";
             passwordText.Password = "";
+
+            UpdateData();
         }
 
         private void BacktoMenu(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        public void UpdateData()
+        {
+            UpdateFlag++;
+            if (UpdateFlag >= 1)
+            {
+                if (this.MyEvent != null)
+                {
+                    this.MyEvent(this, EventArgs.Empty);
+                }
+            }
         }
     }
 }

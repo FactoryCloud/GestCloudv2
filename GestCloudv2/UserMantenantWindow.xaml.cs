@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using FrameworkDB.V1;
 using System.Data;
+using FrameworkView.V1;
 
 namespace GestCloudv2
 {
@@ -21,29 +22,37 @@ namespace GestCloudv2
     /// </summary>
     public partial class UserMantenantWindow : Window
     {
+        UsersView userView;
+        NewUserWindow newuserwindow;
         public UserMantenantWindow()
         {
             InitializeComponent();
-            GestCloudDB db = new GestCloudDB();
-            List < User > users = db.Users.ToList();
+            this.Loaded += new RoutedEventHandler(MainWindow_Loaded);
+            userView = new UsersView();
 
-            UsersTable.ItemsSource = null;
-            DataTable dt = new DataTable();
-            dt.Columns.Add("Codigo", typeof(int));
-            dt.Columns.Add("Nombre", typeof(string));
-            dt.Columns.Add("Apellido", typeof(string));
-            dt.Columns.Add("Usuario", typeof(string));
-            foreach (var item in users)
-            {
-                dt.Rows.Add(item.UserID, item.FirstName, item.LastName, item.Username);
-            }
-            UsersTable.ItemsSource = dt.DefaultView;
+            UpdateData();
         }
 
         private void NewUser(object sender, RoutedEventArgs e)
         {
-            NewUserWindow newuserwindow = new NewUserWindow();
             newuserwindow.Show();
         }
+
+        public void UpdateData()
+        {
+            UsersTable.ItemsSource = null;
+            UsersTable.ItemsSource = userView.GetTable();
+        }
+
+        private void MainWindow_Loaded(object sender, EventArgs e)
+        {
+            newuserwindow = new NewUserWindow();
+            newuserwindow.MyEvent += new EventHandler(newuserwindow_MyEvent);
+        }
+        private void newuserwindow_MyEvent(object sender, EventArgs e)
+        {
+            UpdateData();
+        }
     }
+    
 }
