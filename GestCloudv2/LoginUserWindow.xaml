@@ -31,7 +31,7 @@
         <TextBlock FontSize="20" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="4" TextAlignment="Center" VerticalAlignment="Center">Contraseña</TextBlock>
         <PasswordBox Name="PasswordText" FontSize="20" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="5" VerticalAlignment="Center"></PasswordBox>
 
-        <Button FontSize="12" Grid.Column="1" Grid.Row="7" HorizontalAlignment="Center" VerticalAlignment="Center" Click="Button_Click">Entrar</Button>
-        <Button FontSize="12" Grid.Column="2" Grid.Row="7" HorizontalAlignment="Center" VerticalAlignment="Center">Recuperar Contraseña</Button>
+        <Button Name="EnterButton" FontSize="14" Grid.Column="1" Grid.Row="7" Margin="10" Click="Button_Click">Entrar</Button>
+        <Button Name="ForgottenUserButton" FontSize="10" Grid.Column="2" Grid.Row="7" Margin="10">Recuperar Contraseña</Button>
     </Grid>
 </Window>
