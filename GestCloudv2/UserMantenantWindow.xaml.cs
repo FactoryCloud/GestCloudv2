@@ -26,13 +26,13 @@ namespace GestCloudv2
             InitializeComponent();
             GestCloudDB db = new GestCloudDB();
             List < User > users = db.Users.ToList();
-            
+
             UsersTable.ItemsSource = null;
             DataTable dt = new DataTable();
-            dt.Columns.Add("Code", typeof(int));
-            dt.Columns.Add("First Name", typeof(string));
-            dt.Columns.Add("Last Name", typeof(string));
-            dt.Columns.Add("Username", typeof(string));
+            dt.Columns.Add("Codigo", typeof(int));
+            dt.Columns.Add("Nombre", typeof(string));
+            dt.Columns.Add("Apellido", typeof(string));
+            dt.Columns.Add("Usuario", typeof(string));
             foreach (var item in users)
             {
                 dt.Rows.Add(item.UserID, item.FirstName, item.LastName, item.Username);
