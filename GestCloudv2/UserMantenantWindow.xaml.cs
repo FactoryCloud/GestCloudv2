@@ -64,5 +64,4 @@ namespace GestCloudv2
             MessageBox.Show(dr.Row.ItemArray[0].ToString());
         }
     }
-    
 }
