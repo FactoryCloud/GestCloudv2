@@ -35,8 +35,8 @@ namespace GestCloudv2
 
         private void EditUserEvent(object sender, RoutedEventArgs e)
         {
-            ModifyUserWindow modifyUserWindow = new ModifyUserWindow();
-            modifyUserWindow.Show();
+            //ModifyUserWindow modifyUserWindow = new ModifyUserWindow();
+            //modifyUserWindow.Show();
             this.Close();
         }
 
