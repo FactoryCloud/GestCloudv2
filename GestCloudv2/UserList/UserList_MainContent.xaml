@@ -9,7 +9,6 @@
       Title="UserList_MainContent">
 
     <Grid Margin="20">
-        <DataGrid Name="UsersTable" FontSize="20" IsReadOnly="True" SelectionMode="Single">
-        </DataGrid>
+        <DataGrid Name="UsersTable" FontSize="20" IsReadOnly="True" SelectionMode="Single" CanUserResizeColumns="False" CanUserResizeRows="False"/>
     </Grid>
 </Page>
