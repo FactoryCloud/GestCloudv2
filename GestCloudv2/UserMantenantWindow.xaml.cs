@@ -28,6 +28,7 @@ namespace GestCloudv2
         public UserMantenantWindow()
         {
             InitializeComponent();
+            this.WindowState = WindowState.Maximized;
             this.Loaded += new RoutedEventHandler(MainWindow_Loaded);
             userView = new UsersView();
 
@@ -58,11 +59,10 @@ namespace GestCloudv2
 
         private void EditUser(object sender, RoutedEventArgs e)
         {
-
             int user = UsersTable.SelectedIndex;
             DataGridRow row = (DataGridRow)UsersTable.ItemContainerGenerator.ContainerFromIndex(user);
             DataRowView dr = row.Item as DataRowView;
-            //MessageBox.Show(dr.Row.ItemArray[0].ToString());
+
             modifyUserWindow = new ModifyUserWindow(Int32.Parse(dr.Row.ItemArray[0].ToString()));
             modifyUserWindow.UpdateDataEvent += new EventHandler(newuserwindow_MyEvent);
             modifyUserWindow.Show();

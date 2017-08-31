@@ -125,9 +125,41 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CardList\CardList_MainContent.xaml.cs">
+      <DependentUpon>CardList_MainContent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CardList\CardList_ToolSide.xaml.cs">
+      <DependentUpon>CardList_ToolSide.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Main\Main_Navigation.xaml.cs">
+      <DependentUpon>Main_Navigation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserItem\NewUser_MainPage.xaml.cs">
+      <DependentUpon>NewUser_MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserItem\NewUser_Navigation.xaml.cs">
+      <DependentUpon>NewUser_Navigation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserItem\NewUser_ToolSide.xaml.cs">
+      <DependentUpon>NewUser_ToolSide.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserList\UserList_MainContent.xaml.cs">
+      <DependentUpon>UserList_MainContent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserList\UserList_ToolSide.xaml.cs">
+      <DependentUpon>UserList_ToolSide.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserMantenantWindow.xaml.cs">
       <DependentUpon>UserMantenantWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="CardList\CardList_MainContent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CardList\CardList_ToolSide.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="DeleteUserWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -154,11 +186,35 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Main\Main_Navigation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ModifyUserWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="NewUserWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserItem\NewUser_MainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserItem\NewUser_Navigation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserItem\NewUser_ToolSide.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserList\UserList_MainContent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserList\UserList_ToolSide.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
