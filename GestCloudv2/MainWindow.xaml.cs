@@ -21,9 +21,36 @@ namespace GestCloudv2
     /// </summary>
     public partial class MainWindow : Window
     {
+        //UserList_ToolSide toolSide;
+        //UserList_MainContent mainContent;
+        Main_Navigation topNavigation;
+
         public MainWindow()
         {
             InitializeComponent();
+            Application.Current.MainWindow = this;
+            //toolSide = new UserList_ToolSide();
+            //mainContent = new UserList_MainContent();
+            topNavigation = new Main_Navigation();
+
+            TopSide.Content = topNavigation;
+            //LeftSide.Content = toolSide;
+            //MainContent.Content = mainContent;
+        }
+
+        public void changeLeftSide(Page page)
+        {
+            LeftSide.Content = page;
+        }
+
+        public void changeMainContent(Page page)
+        {
+            MainContent.Content = page;
+        }
+
+        public void changeTopSide(Page page)
+        {
+            TopSide.Content = page;
         }
 
         private void NewUserEvent(object sender, RoutedEventArgs e)

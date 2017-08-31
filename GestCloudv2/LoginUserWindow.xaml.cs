@@ -23,6 +23,7 @@ namespace GestCloudv2
         public LoginUserWindow()
         {
             InitializeComponent();
+            this.WindowStyle = WindowStyle.ToolWindow;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -35,7 +36,7 @@ namespace GestCloudv2
                 if (u.Username == UserNameText.Text && u.Password == PasswordText.Password)
                 {
                    
-                    UserMantenantWindow userMantenant = new UserMantenantWindow();
+                    MainWindow userMantenant = new MainWindow();
                     userMantenant.Show();
                     this.Close();
                     return;
