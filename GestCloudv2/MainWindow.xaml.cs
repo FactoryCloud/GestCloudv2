@@ -28,6 +28,7 @@ namespace GestCloudv2
         public MainWindow()
         {
             InitializeComponent();
+            this.WindowState = WindowState.Maximized;
             Application.Current.MainWindow = this;
             //toolSide = new UserList_ToolSide();
             //mainContent = new UserList_MainContent();
