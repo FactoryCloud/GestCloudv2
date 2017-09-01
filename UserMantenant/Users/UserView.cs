@@ -17,11 +17,11 @@ namespace FrameworkView.V1
         GestCloudDB db;
         public User user;
 
-        public UserView(int userID)
+        public UserView(User user)
         {
             db = new GestCloudDB();
-            var users = db.Users.Where(c => c.UserID == userID).ToArray();
-            user = new User
+            var users = db.Users.Where(c => c.UserID == user.UserID).ToArray();
+            this.user = new User
             {
                 UserID = users[0].UserID,
                 Username = users[0].Username,

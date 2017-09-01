@@ -134,6 +134,15 @@
     <Compile Include="Main\Main_Navigation.xaml.cs">
       <DependentUpon>Main_Navigation.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserItem\InfoUser_MainContent.xaml.cs">
+      <DependentUpon>InfoUser_MainContent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserItem\InfoUser_Navigation.xaml.cs">
+      <DependentUpon>InfoUser_Navigation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserItem\InfoUser_ToolSide.xaml.cs">
+      <DependentUpon>InfoUser_ToolSide.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserItem\NewUser_MainPage.xaml.cs">
       <DependentUpon>NewUser_MainPage.xaml</DependentUpon>
     </Compile>
@@ -195,6 +204,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="NewUserWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserItem\InfoUser_MainContent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserItem\InfoUser_Navigation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserItem\InfoUser_ToolSide.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

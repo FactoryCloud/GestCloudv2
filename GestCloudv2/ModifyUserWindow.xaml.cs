@@ -30,11 +30,11 @@ namespace GestCloudv2
         {
             InitializeComponent();
             UpdateFlag = 0;
-            userView = new UserView(userID);
+            /*userView = new UserView(userID);
 
             firsnameText.Text = userView.user.FirstName;
             lastnameText.Text = userView.user.LastName;
-            usernameText.Text = userView.user.Username;
+            usernameText.Text = userView.user.Username;*/
         }
 
         private void SaveUser(object sender, RoutedEventArgs e)

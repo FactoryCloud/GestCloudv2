@@ -39,6 +39,13 @@ namespace GestCloudv2
             //MainContent.Content = mainContent;
         }
 
+        public void ChangeContent(Page mainPage, Page navigationPage, Page toolPage)
+        {
+            MainContent.Content = mainPage;
+            TopSide.Content = navigationPage;
+            LeftSide.Content = toolPage;
+        }
+
         public void changeLeftSide(Page page)
         {
             LeftSide.Content = page;

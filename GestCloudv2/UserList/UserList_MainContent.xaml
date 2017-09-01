@@ -27,6 +27,7 @@
             <Label Grid.Column="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">Nombre:</Label>
             <TextBox Name="NameSearchBox"  Grid.Column="1" VerticalContentAlignment="Center" Margin="20" MaxHeight="30"></TextBox>
         </Grid>
-        <DataGrid Grid.ColumnSpan="4" Grid.Row="1" Name="UsersTable" FontSize="20" IsReadOnly="True" SelectionMode="Single" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserReorderColumns="False"/>
+        <DataGrid Grid.ColumnSpan="4" Grid.Row="1" Name="UsersTable" FontSize="20" IsReadOnly="True" SelectionMode="Single" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserReorderColumns="False"
+                  HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" ColumnWidth="*"/>
     </Grid>
 </Page>

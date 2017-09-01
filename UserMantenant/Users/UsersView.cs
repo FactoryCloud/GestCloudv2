@@ -17,6 +17,7 @@ namespace FrameworkView.V1
         private GestCloudDB db;
         private DataTable dt;
         public User userSearch;
+        public User SelectedUser;
 
         public UsersView()
         {
@@ -54,6 +55,13 @@ namespace FrameworkView.V1
         private Boolean UserFilterName(User user)
         {
             return user.FirstName.ToLower().Contains(userSearch.FirstName.ToLower()) || user.LastName.ToLower().Contains(userSearch.LastName.ToLower());
+        }
+
+        public User UpdateUserSelected (int userID)
+        {
+            List<User> users = db.Users.Where(u => u.UserID == userID).ToList();
+            SelectedUser = users[0];
+            return SelectedUser;
         }
 
         public IEnumerable GetTable()

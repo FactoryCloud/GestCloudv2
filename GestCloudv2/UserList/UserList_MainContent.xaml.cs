@@ -31,8 +31,21 @@ namespace GestCloudv2
             this.Loaded += new RoutedEventHandler(MainWindow_Loaded);
             userView = new UsersView();
             NameSearchBox.KeyUp += new KeyEventHandler(Data_Search);
-
+            UsersTable.MouseDoubleClick += new MouseButtonEventHandler(UserInfo_Event);
+            UsersTable.MouseLeftButtonUp += new MouseButtonEventHandler(UserSelected_Event);
             UpdateData();
+        }
+
+        private void UserSelected_Event(object sender, MouseButtonEventArgs e)
+        {
+            SelectedUserUpdate();
+        }
+
+        private void UserInfo_Event(object sender, MouseButtonEventArgs e)
+        {
+            SelectedUserUpdate();
+            UserInfoLoad();
+            //MessageBox.Show(userView.SelectedUser.UserID.ToString());
         }
 
         private void Data_Search(object sender, RoutedEventArgs e)
@@ -57,12 +70,42 @@ namespace GestCloudv2
         private void MainWindow_Loaded(object sender, EventArgs e)
         {
             newUserWindow = new NewUserWindow();
-            newUserWindow.UpdateDataEvent += new EventHandler(newUserWindow_MyEvent);
+            newUserWindow.UpdateDataEvent += new EventHandler(NewUserWindow_MyEvent);
         }
 
-        private void newUserWindow_MyEvent(object sender, EventArgs e)
+        private void NewUserWindow_MyEvent(object sender, EventArgs e)
         {
             UpdateData();
+        }
+
+        public void SelectedUserUpdate()
+        {
+            int user = UsersTable.SelectedIndex;
+            DataGridRow row = (DataGridRow)UsersTable.ItemContainerGenerator.ContainerFromIndex(user);
+            DataRowView dr = row.Item as DataRowView;
+
+            userView.UpdateUserSelected(Int32.Parse(dr.Row.ItemArray[0].ToString()));
+            Window mainWindow = Application.Current.MainWindow;
+            var a = (MainWindow)mainWindow;
+            var b = (UserList_ToolSide)a.LeftSide.Content;
+            b.EditUserButton.IsEnabled = true;
+            b.DeleteUserButton.IsEnabled = true;
+        }
+
+        public void UserInfoLoad()
+        {
+            Window mainWindow = Application.Current.MainWindow;
+            var a = (MainWindow)mainWindow;
+            a.changeMainContent(new UserItem.InfoUser_MainContent(userView.SelectedUser, false));
+            a.changeLeftSide(new UserItem.InfoUser_ToolSide(false));
+            a.changeTopSide(new UserItem.InfoUser_Navigation());
+        }
+
+        public void UserEditLoad()
+        {
+            Window mainWindow = Application.Current.MainWindow;
+            var a = (MainWindow)mainWindow;
+            a.ChangeContent(new UserItem.InfoUser_MainContent(userView.SelectedUser, true), new UserItem.InfoUser_Navigation(), new UserItem.InfoUser_ToolSide(true));
         }
     }
 }

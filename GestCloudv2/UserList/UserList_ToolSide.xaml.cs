@@ -36,7 +36,10 @@ namespace GestCloudv2
 
         private void EditUserEvent(object sender, RoutedEventArgs e)
         {
-
+            Window mainWindow = Application.Current.MainWindow;
+            var a = (MainWindow)mainWindow;
+            var b = (UserList_MainContent)a.MainContent.Content;
+            b.UserEditLoad();
         }
     }
 }
