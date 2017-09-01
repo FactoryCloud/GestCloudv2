@@ -16,11 +16,13 @@ namespace FrameworkView.V1
     {
         private GestCloudDB db;
         private DataTable dt;
+        public User userSearch;
 
         public UsersView()
         {
             db = new GestCloudDB();
             dt = new DataTable();
+            userSearch = new User();
             dt.Columns.Add("Codigo", typeof(int));
             dt.Columns.Add("Nombre", typeof(string));
             dt.Columns.Add("Apellido", typeof(string));
@@ -37,10 +39,32 @@ namespace FrameworkView.V1
                 dt.Rows.Add(item.UserID, item.FirstName, item.LastName, item.Username);
             }
         }
-        
+
+        public void UpdateFilteredTable()
+        {
+            List<User> users = db.Users.Where(u=> UserFilterName(u)).ToList();
+
+            dt.Clear();
+            foreach (var item in users)
+            {
+                dt.Rows.Add(item.UserID, item.FirstName, item.LastName, item.Username);
+            }
+        }
+
+        private Boolean UserFilterName(User user)
+        {
+            return user.FirstName.ToLower().Contains(userSearch.FirstName.ToLower()) || user.LastName.ToLower().Contains(userSearch.LastName.ToLower());
+        }
+
         public IEnumerable GetTable()
         {
             UpdateTable();
+            return dt.DefaultView;
+        }
+
+        public IEnumerable GetTableFiltered()
+        {
+            UpdateFilteredTable();
             return dt.DefaultView;
         }
     }

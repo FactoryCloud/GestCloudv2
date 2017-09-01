@@ -30,14 +30,28 @@ namespace GestCloudv2
             InitializeComponent();
             this.Loaded += new RoutedEventHandler(MainWindow_Loaded);
             userView = new UsersView();
+            NameSearchBox.KeyUp += new KeyEventHandler(Data_Search);
 
             UpdateData();
+        }
+
+        private void Data_Search(object sender, RoutedEventArgs e)
+        {
+            userView.userSearch.FirstName = NameSearchBox.Text;
+            userView.userSearch.LastName = NameSearchBox.Text;
+            SearchData();
         }
 
         public void UpdateData()
         {
             UsersTable.ItemsSource = null;
             UsersTable.ItemsSource = userView.GetTable();
+        }
+
+        public void SearchData()
+        {
+            UsersTable.ItemsSource = null;
+            UsersTable.ItemsSource = userView.GetTableFiltered();
         }
 
         private void MainWindow_Loaded(object sender, EventArgs e)
