@@ -43,7 +43,6 @@ namespace GestCloudv2
                         DateStartAccess = DateTime.Now,
                         DateEndAccess = DateTime.Now
                     };
-                    MessageBox.Show(accessControl.UserAccessControlID.ToString());
                     db.UsersAccessControl.Add(accessControl);
                     db.SaveChanges();
                     MainWindow userMantenant = new MainWindow();
