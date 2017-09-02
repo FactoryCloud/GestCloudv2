@@ -12,8 +12,9 @@ namespace FrameworkDB.V1
     {
         public int AccessTypeID { get; set; }
 
-        [Required]
         [StringLength(20)]
         public string Name { get; set; }
+
+        public virtual List<UserAccessControl> UsersAccessControl { get; set; }
     }
 }

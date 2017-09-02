@@ -36,5 +36,12 @@ namespace FrameworkDB.V1
 
         [StringLength(10)]
         public string ActivationCode { get; set; }
+
+        public virtual List<UserAccessControl> UsersAccessControl { get; set; }
+
+        public User()
+        {
+            Mail = "test@test.com";
+        }
     }
 }

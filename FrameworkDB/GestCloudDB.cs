@@ -19,5 +19,23 @@ namespace FrameworkDB.V1
         {
             optionsBuilder.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=GestCloud;Integrated Security=True");
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<UserAccessControl>()
+                .HasKey(a => a.UserAccessControlID);
+
+            modelBuilder.Entity<UserAccessControl>()
+                .HasOne(a => a.user)
+                .WithMany(b => b.UsersAccessControl)
+                .HasForeignKey(a => a.UserID)
+                .HasConstraintName("FK_UserID_Users");
+
+            modelBuilder.Entity<UserAccessControl>()
+                .HasOne(a => a.accessType)
+                .WithMany(b => b.UsersAccessControl)
+                .HasForeignKey(a => a.AccessTypeID)
+                .HasConstraintName("FK_AcessTypeID_AcessTypes");
+        }
     }
 }

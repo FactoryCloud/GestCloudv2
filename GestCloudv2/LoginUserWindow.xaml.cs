@@ -29,13 +29,23 @@ namespace GestCloudv2
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             GestCloudDB db = new GestCloudDB();
-            var query =  db.Users.Select(u => new {u.Username, u.Password,u.UserID});
-            
-            foreach (var u in query)
+            List<User> users = db.Users.ToList();
+            List<AccessType> accessTypes = db.AccessTypes.Where(a => a.Name == "WindowsApp_Password").ToList();
+
+            foreach (User u in users)
             {
                 if (u.Username == UserNameText.Text && u.Password == PasswordText.Password)
                 {
-                   
+                    UserAccessControl accessControl = new UserAccessControl
+                    {
+                        user = u,
+                        accessType = accessTypes[0],
+                        DateStartAccess = DateTime.Now,
+                        DateEndAccess = DateTime.Now
+                    };
+                    MessageBox.Show(accessControl.UserAccessControlID.ToString());
+                    db.UsersAccessControl.Add(accessControl);
+                    db.SaveChanges();
                     MainWindow userMantenant = new MainWindow();
                     userMantenant.Show();
                     this.Close();
