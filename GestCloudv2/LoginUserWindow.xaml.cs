@@ -20,9 +20,12 @@ namespace GestCloudv2
     /// </summary>
     public partial class LoginUserWindow : Window
     {
+        int mode;
+
         public LoginUserWindow()
         {
             InitializeComponent();
+            mode = 0;
             this.WindowStyle = WindowStyle.ToolWindow;
         }
 
@@ -30,28 +33,101 @@ namespace GestCloudv2
         {
             GestCloudDB db = new GestCloudDB();
             List<User> users = db.Users.ToList();
-            List<AccessType> accessTypes = db.AccessTypes.Where(a => a.Name == "WindowsApp_Password").ToList();
 
-            foreach (User u in users)
+            if (mode == 0)
             {
-                if (u.Username == UserNameText.Text && u.Password == PasswordText.Password)
+                List<AccessType> accessTypes = db.AccessTypes.Where(a => a.Name == "WindowsApp_Password").ToList();
+
+                foreach (User u in users)
                 {
-                    UserAccessControl accessControl = new UserAccessControl
+                    if (u.Username == UserNameText.Text && u.Password == PasswordText.Password)
                     {
-                        user = u,
-                        accessType = accessTypes[0],
-                        DateStartAccess = DateTime.Now,
-                        DateEndAccess = DateTime.Now
-                    };
-                    db.UsersAccessControl.Add(accessControl);
-                    db.SaveChanges();
-                    MainWindow userMantenant = new MainWindow();
-                    userMantenant.Show();
-                    this.Close();
-                    return;
+                        UserAccessControl accessControl = new UserAccessControl
+                        {
+                            user = u,
+                            accessType = accessTypes[0],
+                            DateStartAccess = DateTime.Now,
+                            DateEndAccess = DateTime.Now
+                        };
+                        db.UsersAccessControl.Add(accessControl);
+                        db.SaveChanges();
+                        MainWindow mainWindow = new MainWindow();
+                        mainWindow.Show();
+                        this.Close();
+                        return;
+                    }
                 }
+                MessageBoxResult result = MessageBox.Show("Los datos son incorrectos");
             }
-            MessageBoxResult result = MessageBox.Show("Los datos son incorrectos");
+
+            else if(mode == 1)
+            {
+                List<AccessType> accessTypes = db.AccessTypes.Where(a => a.Name == "WindowsApp_Code").ToList();
+                foreach (User u in users)
+                {
+                    if (u.ActivationCode == CodeText.Password)
+                    {
+                        UserAccessControl accessControl = new UserAccessControl
+                        {
+                            user = u,
+                            accessType = accessTypes[0],
+                            DateStartAccess = DateTime.Now,
+                            DateEndAccess = DateTime.Now
+                        };
+                        db.UsersAccessControl.Add(accessControl);
+                        //u.ActivationCode = null;
+                        //db.UpdateRange(users);
+                        db.SaveChanges();
+                        ChangePasswordUserWindow mainWindow = new ChangePasswordUserWindow(u);
+                        mainWindow.Show();
+                        this.Close();
+                        return;
+                    }
+                }
+                MessageBoxResult result = MessageBox.Show("Los datos son incorrectos");
+            }
+            
+        }
+
+        private void ActivateCode_Event(object sender, RoutedEventArgs e)
+        {
+            ChangeMode(1);
+        }
+
+        private void ActivateUser_Event(object sender, RoutedEventArgs e)
+        {
+            ChangeMode(0);
+        }
+
+        private void ChangeMode(int mode)
+        {
+            if(mode == 0)
+            {
+                this.mode = mode;
+                ActivateCodeButton.Visibility = Visibility.Visible;
+                UserNameLabel.Visibility = Visibility.Visible;
+                UserNameText.Visibility = Visibility.Visible;
+                PasswordLabel.Visibility = Visibility.Visible;
+                PasswordText.Visibility = Visibility.Visible;
+
+                ActivateUserButton.Visibility = Visibility.Hidden;
+                CodeLabel.Visibility = Visibility.Hidden;
+                CodeText.Visibility = Visibility.Hidden;
+            }
+
+            else if(mode == 1)
+            {
+                this.mode = mode;
+                ActivateCodeButton.Visibility = Visibility.Hidden;
+                UserNameLabel.Visibility = Visibility.Hidden;
+                UserNameText.Visibility = Visibility.Hidden;
+                PasswordLabel.Visibility = Visibility.Hidden;
+                PasswordText.Visibility = Visibility.Hidden;
+
+                ActivateUserButton.Visibility = Visibility.Visible;
+                CodeLabel.Visibility = Visibility.Visible;
+                CodeText.Visibility = Visibility.Visible;
+            }
         }
     }
 }

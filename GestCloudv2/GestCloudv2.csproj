@@ -131,6 +131,9 @@
     <Compile Include="CardList\CardList_ToolSide.xaml.cs">
       <DependentUpon>CardList_ToolSide.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ChangePasswordUserWindow.xaml.cs">
+      <DependentUpon>ChangePasswordUserWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Main\Main_Navigation.xaml.cs">
       <DependentUpon>Main_Navigation.xaml</DependentUpon>
     </Compile>
@@ -166,6 +169,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="CardList\CardList_ToolSide.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ChangePasswordUserWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
