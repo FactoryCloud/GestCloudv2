@@ -12,6 +12,8 @@ namespace FrameworkDB.V1
     {
         public int UserID { get; set; }
 
+        public int UserCode { get; set; }
+
         [Required]
         [StringLength(30)]
         public string LastName { get; set; }
@@ -21,11 +23,18 @@ namespace FrameworkDB.V1
         public string FirstName { get; set; }
 
         [Required]
+        [StringLength(50)]
+        public string Mail { get; set; }
+
+        [Required]
         [StringLength(20)]
         public string Username { get; set; }
 
         [Required]
         [StringLength(20)]
         public string Password { get; set; }
+
+        [StringLength(10)]
+        public string ActivationCode { get; set; }
     }
 }

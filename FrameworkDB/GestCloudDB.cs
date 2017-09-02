@@ -12,6 +12,8 @@ namespace FrameworkDB.V1
     public class GestCloudDB : DbContext
     {
         public DbSet<User> Users { get; set; }
+        public DbSet<AccessType> AccessTypes { get; set; }
+        public DbSet<UserAccessControl> UsersAccessControl { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
