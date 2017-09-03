@@ -73,7 +73,6 @@ namespace GestCloudv2.UserItem
             
         }
 
-
         private Boolean UserControlExist()
         {
             List<User> users = db.Users.ToList();
