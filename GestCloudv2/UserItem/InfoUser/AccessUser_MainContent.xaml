@@ -43,7 +43,7 @@
             <!--<Label Grid.Column="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">Usuario:</Label>
             <TextBox Name="UserSeachBox"  Grid.Column="1" VerticalContentAlignment="Center" Margin="20" MaxHeight="30"></TextBox>-->
         </Grid>
-        <DataGrid Grid.ColumnSpan="4" Grid.Row="1" Name="UserAccess" FontSize="20" IsReadOnly="True" SelectionMode="Single" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserReorderColumns="False"
+        <DataGrid Grid.ColumnSpan="4" Grid.Row="1" Name="AccessUserTable" FontSize="20" IsReadOnly="True" SelectionMode="Single" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserReorderColumns="False"
                   HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" ColumnWidth="*"/>
     </Grid>
 </Page>

@@ -36,6 +36,7 @@ namespace GestCloudv2.UserItem
 
             a.changeLeftSide(new UserItem.InfoUser.AccessUser_ToolSide());
             a.changeMainContent(new UserItem.InfoUser.AccessUser_MainContent());
+
         }
 
         private void EditInfoUserEvent(object sender, RoutedEventArgs e)
