@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -86,6 +87,19 @@ namespace GestCloudv2
         {
             LoginUserWindow loginUserWindow = new LoginUserWindow();
             loginUserWindow.Show();
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("¿Esta seguro que desea salir?","Salir", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.No)
+            {
+                e.Cancel = true;
+            }
+            else
+            {
+                Application.Current.Shutdown();
+            }
         }
     }
 }

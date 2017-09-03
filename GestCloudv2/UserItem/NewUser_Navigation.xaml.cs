@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using GestCloudv2;
+using FrameworkDB.V1;
 
 namespace GestCloudv2.UserItem
 {
@@ -29,9 +31,14 @@ namespace GestCloudv2.UserItem
         {
             Window main = Application.Current.MainWindow;
             var a = (MainWindow)main;
+            var b = (NewUser_MainPage)a.MainContent.Content;
+            b.Data_Control();
+            /*Window main = Application.Current.MainWindow;
+            var a = (MainWindow)main;
             a.changeLeftSide(new UserList_ToolSide());
             a.changeMainContent(new UserList_MainContent());
-            a.changeTopSide(new Main_Navigation());
+            a.changeTopSide(new Main_Navigation());*/
         }
+        
     }
 }

@@ -31,6 +31,8 @@ namespace GestCloudv2
             this.Loaded += new RoutedEventHandler(MainWindow_Loaded);
             userView = new UsersView();
             NameSearchBox.KeyUp += new KeyEventHandler(Data_Search);
+            CodeSearchBox.KeyUp += new KeyEventHandler(Data_SearchCod);
+            UserSeachBox.KeyUp += new KeyEventHandler(Data_SearchUserName);
             UsersTable.MouseDoubleClick += new MouseButtonEventHandler(UserInfo_Event);
             UsersTable.MouseLeftButtonUp += new MouseButtonEventHandler(UserSelected_Event);
             UpdateData();
@@ -55,6 +57,26 @@ namespace GestCloudv2
             SearchData();
         }
 
+        private void Data_SearchUserName(object sender, RoutedEventArgs e)
+        {
+            userView.userSearch.Username = UserSeachBox.Text;
+            SearchDataUserName();
+        }
+
+        private void Data_SearchCod(object sender, RoutedEventArgs e)
+        {
+            //string userID = userView.userSearch.UserID.ToString();
+            if (string.IsNullOrWhiteSpace(CodeSearchBox.Text))
+            {
+                UpdateData();
+            }
+            else
+            {
+                userView.userSearch.UserID = int.Parse(CodeSearchBox.Text);
+                SearchDataCod();
+            }
+        }
+
         public void UpdateData()
         {
             UsersTable.ItemsSource = null;
@@ -65,6 +87,18 @@ namespace GestCloudv2
         {
             UsersTable.ItemsSource = null;
             UsersTable.ItemsSource = userView.GetTableFiltered();
+        }
+
+        public void SearchDataUserName()
+        {
+            UsersTable.ItemsSource = null;
+            UsersTable.ItemsSource = userView.GetTableFilteredUserName();
+        }
+
+        public void SearchDataCod()
+        {
+            UsersTable.ItemsSource = null;
+            UsersTable.ItemsSource = userView.GetTableFilteredCod();
         }
 
         private void MainWindow_Loaded(object sender, EventArgs e)
