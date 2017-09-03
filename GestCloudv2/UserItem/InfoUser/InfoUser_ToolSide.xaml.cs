@@ -31,6 +31,11 @@ namespace GestCloudv2.UserItem
 
         private void AccessInfoUserEvent(object sender, RoutedEventArgs e)
         {
+            Window mainWindow = Application.Current.MainWindow;
+            var a = (MainWindow)mainWindow;
+
+            a.changeLeftSide(new UserItem.InfoUser.AccessUser_ToolSide());
+            a.changeMainContent(new UserItem.InfoUser.AccessUser_MainContent());
 
         }
 

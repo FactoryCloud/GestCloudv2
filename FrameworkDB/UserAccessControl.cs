@@ -5,11 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Collections;
+using System.Data;
 
 namespace FrameworkDB.V1
 {
     public class UserAccessControl
     {
+
         public int UserAccessControlID { get; set; }
 
         [Key]
