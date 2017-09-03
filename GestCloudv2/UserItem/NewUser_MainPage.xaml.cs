@@ -67,7 +67,7 @@ namespace GestCloudv2.UserItem
                 }
                 else
                 {
-                    MessageBox.Show("Los datos son incorrectos o el usuario ya existe");
+                    MessageBox.Show("Los datos son incorrectos");
                 }
             }
             
