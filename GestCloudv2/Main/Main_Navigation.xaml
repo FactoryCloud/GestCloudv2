@@ -19,7 +19,7 @@
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
-        <Button Grid.Column="0" Margin="10" Click="UsersNavigationEvent">Usuarios</Button>
-        <Button Grid.Column="1" Margin="10" Click="CardsNavigationEvent">Cartas</Button>
+        <Button Name="UsersNavigationButton" Grid.Column="0" Margin="10" Click="UsersNavigationEvent" Visibility="Hidden">Usuarios</Button>
+        <Button Name ="CardsNavigationButton" Grid.Column="1" Margin="10" Click="CardsNavigationEvent" Visibility="Hidden">Cartas</Button>
     </Grid>
 </Page>

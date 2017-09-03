@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.EntityFrameworkCore;
+using FrameworkDB.V1;
 
 namespace GestCloudv2
 {
@@ -23,6 +25,21 @@ namespace GestCloudv2
         public Main_Navigation()
         {
             InitializeComponent();
+            var a = (MainWindow)Application.Current.MainWindow;
+            List<UserPermission> UserPermissions = a.UserPermissions;
+
+            foreach(UserPermission u in UserPermissions)
+            {
+                if(u.permissionType.Item == "Users" && u.permissionType.Subitem == "General" && u.permissionType.Mode == 1)
+                {
+                    UsersNavigationButton.Visibility = Visibility.Visible;
+                }
+
+                if (u.permissionType.Item == "Cards" && u.permissionType.Subitem == "General" && u.permissionType.Mode == 1)
+                {
+                    CardsNavigationButton.Visibility = Visibility.Hidden;
+                }
+            }
         }
 
         private void UsersNavigationEvent(object sender, RoutedEventArgs e)

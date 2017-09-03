@@ -38,6 +38,7 @@ namespace FrameworkDB.V1
         public string ActivationCode { get; set; }
 
         public virtual List<UserAccessControl> UsersAccessControl { get; set; }
+        public virtual List<UserPermission> UserPermissions { get; set; }
 
         public User()
         {

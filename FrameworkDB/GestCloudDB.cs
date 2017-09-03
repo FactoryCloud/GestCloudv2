@@ -15,6 +15,10 @@ namespace FrameworkDB.V1
         public DbSet<AccessType> AccessTypes { get; set; }
         public DbSet<UserAccessControl> UsersAccessControl { get; set; }
 
+        public DbSet<UserType> UserTypes { get; set; }
+        public DbSet<PermissionType> PermissionTypes { get; set; }
+        public DbSet<UserPermission> UserPermissions { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=GestCloud;Integrated Security=True");
@@ -36,6 +40,27 @@ namespace FrameworkDB.V1
                 .WithMany(b => b.UsersAccessControl)
                 .HasForeignKey(a => a.AccessTypeID)
                 .HasConstraintName("FK_AcessTypeID_AcessTypes");
+
+            modelBuilder.Entity<UserPermission>()
+                .HasKey(a => a.UserPermissionID);
+
+            modelBuilder.Entity<UserPermission>()
+                .HasOne(a => a.user)
+                .WithMany(b => b.UserPermissions)
+                .HasForeignKey(a => a.UserID)
+                .HasConstraintName("FK_UserPermissions_UserID_Users");
+
+            modelBuilder.Entity<UserPermission>()
+                .HasOne(a => a.userType)
+                .WithMany(b => b.UserPermissions)
+                .HasForeignKey(a => a.UserTypeID)
+                .HasConstraintName("FK_UserPermissions_UserTypeID_UserTypes");
+
+            modelBuilder.Entity<UserPermission>()
+                .HasOne(a => a.permissionType)
+                .WithMany(b => b.UserPermissions)
+                .HasForeignKey(a => a.PermissionTypeID)
+                .HasConstraintName("FK_UserPermissions_permissionTypeID_permissionTypes");
         }
     }
 }

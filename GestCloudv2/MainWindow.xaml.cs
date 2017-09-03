@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.EntityFrameworkCore;
 using FrameworkDB.V1;
 
 namespace GestCloudv2
@@ -22,20 +23,28 @@ namespace GestCloudv2
     /// </summary>
     public partial class MainWindow : Window
     {
+        GestCloudDB db;
         //UserList_ToolSide toolSide;
         //UserList_MainContent mainContent;
         Main_Navigation topNavigation;
-        Dictionary<string, string> Information;
-        User user;
+        public Dictionary<string, string> Information;
+        public User user;
+        public List<UserPermission> UserPermissions;
 
         public MainWindow(User user)
         {
             InitializeComponent();
             this.WindowState = WindowState.Maximized;
             Application.Current.MainWindow = this;
+            db = new GestCloudDB();
 
+            UserPermissions = new List<UserPermission>();
             Information = new Dictionary<string, string>();
             this.user = user;
+
+            UserPermissions = db.UserPermissions.Where(u => u.user == this.user)
+                .Include(u => u.user).Include(u => u.userType).Include(u => u.permissionType).ToList();
+            MessageBox.Show(UserPermissions.Count.ToString());
 
             //toolSide = new UserList_ToolSide();
             //mainContent = new UserList_MainContent();
