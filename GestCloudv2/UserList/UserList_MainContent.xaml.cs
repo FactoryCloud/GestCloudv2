@@ -115,24 +115,30 @@ namespace GestCloudv2
         public void SelectedUserUpdate()
         {
             int user = UsersTable.SelectedIndex;
-            DataGridRow row = (DataGridRow)UsersTable.ItemContainerGenerator.ContainerFromIndex(user);
-            DataRowView dr = row.Item as DataRowView;
-
-            userView.UpdateUserSelected(Int32.Parse(dr.Row.ItemArray[0].ToString()));
-            Window mainWindow = Application.Current.MainWindow;
-            var a = (MainWindow)mainWindow;
-            var b = (UserList_ToolSide)a.LeftSide.Content;
-            b.EditUserButton.IsEnabled = true;
-            b.DeleteUserButton.IsEnabled = true;
+            if (user >= 0)
+            {
+                DataGridRow row = (DataGridRow)UsersTable.ItemContainerGenerator.ContainerFromIndex(user);
+                DataRowView dr = row.Item as DataRowView;
+                userView.UpdateUserSelected(Int32.Parse(dr.Row.ItemArray[0].ToString()));
+                Window mainWindow = Application.Current.MainWindow;
+                var a = (MainWindow)mainWindow;
+                var b = (UserList_ToolSide)a.LeftSide.Content;
+                b.EditUserButton.IsEnabled = true;
+                b.DeleteUserButton.IsEnabled = true;
+            }
         }
 
         public void UserInfoLoad()
         {
-            Window mainWindow = Application.Current.MainWindow;
-            var a = (MainWindow)mainWindow;
-            a.changeMainContent(new UserItem.InfoUser_MainContent(userView.SelectedUser, false));
-            a.changeLeftSide(new UserItem.InfoUser_ToolSide(false));
-            a.changeTopSide(new UserItem.InfoUser_Navigation());
+            int user = UsersTable.SelectedIndex;
+            if (user >= 0)
+            {
+                Window mainWindow = Application.Current.MainWindow;
+                var a = (MainWindow)mainWindow;
+                a.changeMainContent(new UserItem.InfoUser_MainContent(userView.SelectedUser, false));
+                a.changeLeftSide(new UserItem.InfoUser_ToolSide(false));
+                a.changeTopSide(new UserItem.InfoUser_Navigation());
+            }
         }
 
         public void UserEditLoad()

@@ -42,9 +42,9 @@ namespace GestCloudv2
             Information = new Dictionary<string, string>();
             this.user = user;
 
-            UserPermissions = db.UserPermissions.Where(u => u.user == this.user)
+            UserPermissions = db.UserPermissions
                 .Include(u => u.user).Include(u => u.userType).Include(u => u.permissionType).ToList();
-            MessageBox.Show(UserPermissions.Count.ToString());
+            //MessageBox.Show(UserPermissions.Count.ToString());
 
             //toolSide = new UserList_ToolSide();
             //mainContent = new UserList_MainContent();

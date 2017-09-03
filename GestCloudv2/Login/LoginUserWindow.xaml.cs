@@ -87,7 +87,7 @@ namespace GestCloudv2
                         }
                     }
                 }
-                MessageBoxResult result = MessageBox.Show(advice);
+               MessageBoxResult result = MessageBox.Show(advice);
             }
 
             else if(mode == 1)
