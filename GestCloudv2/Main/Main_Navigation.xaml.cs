@@ -37,7 +37,7 @@ namespace GestCloudv2
 
                 if (u.permissionType.Item == "Cards" && u.permissionType.Subitem == "General" && u.permissionType.Mode == 1)
                 {
-                    CardsNavigationButton.Visibility = Visibility.Hidden;
+                    CardsNavigationButton.Visibility = Visibility.Visible;
                 }
             }
         }
