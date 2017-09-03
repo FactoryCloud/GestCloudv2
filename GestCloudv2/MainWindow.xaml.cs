@@ -25,17 +25,24 @@ namespace GestCloudv2
         //UserList_ToolSide toolSide;
         //UserList_MainContent mainContent;
         Main_Navigation topNavigation;
+        Dictionary<string, string> Information;
+        User user;
 
-        public MainWindow()
+        public MainWindow(User user)
         {
             InitializeComponent();
             this.WindowState = WindowState.Maximized;
             Application.Current.MainWindow = this;
+
+            Information = new Dictionary<string, string>();
+            this.user = user;
+
             //toolSide = new UserList_ToolSide();
             //mainContent = new UserList_MainContent();
-            topNavigation = new Main_Navigation();
 
+            topNavigation = new Main_Navigation();
             TopSide.Content = topNavigation;
+
             //LeftSide.Content = toolSide;
             //MainContent.Content = mainContent;
         }

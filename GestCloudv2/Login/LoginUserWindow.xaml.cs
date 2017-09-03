@@ -27,12 +27,34 @@ namespace GestCloudv2
             InitializeComponent();
             mode = 0;
             this.WindowStyle = WindowStyle.ToolWindow;
+            UserNameText.KeyUp += new KeyEventHandler(KeyPushDetected_Event);
+            PasswordText.KeyUp += new KeyEventHandler(KeyPushDetected_Event);
+            CodeText.KeyUp += new KeyEventHandler(KeyPushDetected_Event);
+        }
+
+        private void KeyPushDetected_Event(object sender, RoutedEventArgs e)
+        {
+            if(!string.IsNullOrEmpty(UserNameText.Text) && !string.IsNullOrEmpty(PasswordText.Password) && mode == 0)
+            {
+                EnterButton.IsEnabled = true;
+            }
+
+            else if(!string.IsNullOrEmpty(CodeText.Password) && mode == 1)
+            {
+                EnterButton.IsEnabled = true;
+            }
+
+            else
+            {
+                EnterButton.IsEnabled = false;
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             GestCloudDB db = new GestCloudDB();
             List<User> users = db.Users.ToList();
+            string advice = "Los datos son incorrectos";
 
             if (mode == 0)
             {
@@ -42,22 +64,30 @@ namespace GestCloudv2
                 {
                     if (u.Username == UserNameText.Text && u.Password == PasswordText.Password)
                     {
-                        UserAccessControl accessControl = new UserAccessControl
+                        if(u.ActivationCode != null)
                         {
-                            user = u,
-                            accessType = accessTypes[0],
-                            DateStartAccess = DateTime.Now,
-                            DateEndAccess = DateTime.Now
-                        };
-                        db.UsersAccessControl.Add(accessControl);
-                        db.SaveChanges();
-                        MainWindow mainWindow = new MainWindow();
-                        mainWindow.Show();
-                        this.Close();
-                        return;
+                            advice = "Este usuario tiene un código de activación, no se puede iniciar sesión mediante la contraseña actual.";
+                        }
+
+                        else
+                        {
+                            UserAccessControl accessControl = new UserAccessControl
+                            {
+                                user = u,
+                                accessType = accessTypes[0],
+                                DateStartAccess = DateTime.Now,
+                                DateEndAccess = DateTime.Now
+                            };
+                            db.UsersAccessControl.Add(accessControl);
+                            db.SaveChanges();
+                            MainWindow mainWindow = new MainWindow(u);
+                            mainWindow.Show();
+                            this.Close();
+                            return;
+                        }
                     }
                 }
-                MessageBoxResult result = MessageBox.Show("Los datos son incorrectos");
+                MessageBoxResult result = MessageBox.Show(advice);
             }
 
             else if(mode == 1)
@@ -113,6 +143,16 @@ namespace GestCloudv2
                 ActivateUserButton.Visibility = Visibility.Hidden;
                 CodeLabel.Visibility = Visibility.Hidden;
                 CodeText.Visibility = Visibility.Hidden;
+
+                if (!string.IsNullOrEmpty(UserNameText.Text) && !string.IsNullOrEmpty(PasswordText.Password) && mode == 0)
+                {
+                    EnterButton.IsEnabled = true;
+                }
+
+                else
+                {
+                    EnterButton.IsEnabled = false;
+                }
             }
 
             else if(mode == 1)
@@ -127,6 +167,16 @@ namespace GestCloudv2
                 ActivateUserButton.Visibility = Visibility.Visible;
                 CodeLabel.Visibility = Visibility.Visible;
                 CodeText.Visibility = Visibility.Visible;
+
+                if (!string.IsNullOrEmpty(CodeText.Password) && mode == 1)
+                {
+                    EnterButton.IsEnabled = true;
+                }
+
+                else
+                {
+                    EnterButton.IsEnabled = false;
+                }
             }
         }
     }

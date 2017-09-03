@@ -25,20 +25,43 @@ namespace GestCloudv2
         {
             InitializeComponent();
             this.WindowStyle = WindowStyle.ToolWindow;
+            NewPasswordText.KeyUp += new KeyEventHandler(KeyPushDetected_Event);
             this.user = user;
+        }
+
+        private void KeyPushDetected_Event(object sender, RoutedEventArgs e)
+        {
+            if(!string.IsNullOrEmpty(NewPasswordText.Password))
+            {
+                SaveNewPasswordButton.IsEnabled = true;
+            }
+
+            else
+            {
+                SaveNewPasswordButton.IsEnabled = false;
+            }
         }
 
         private void PasswordChange_Event(object sender, RoutedEventArgs e)
         {
             GestCloudDB db = new GestCloudDB();
             List<User> users = db.Users.Where(u => u.UserID == user.UserID).ToList();
-            users[0].Password = NewPasswordText.Password;
-            //u.ActivationCode = null;
-            //db.UpdateRange(users);
-            db.SaveChanges();
-            MainWindow mainWindow = new MainWindow();
-            mainWindow.Show();
-            this.Close();
+            if(users[0].Password == NewPasswordText.Password)
+            {
+                NewPasswordText.Password = "";
+                MessageBox.Show("La contraseña debe ser diferente a la que usaba anteriormente.");
+            }
+
+            else
+            {
+                users[0].Password = NewPasswordText.Password;
+                //u.ActivationCode = null;
+                //db.UpdateRange(users);
+                db.SaveChanges();
+                MainWindow mainWindow = new MainWindow(user);
+                mainWindow.Show();
+                this.Close();
+            }
         }
     }
 }
