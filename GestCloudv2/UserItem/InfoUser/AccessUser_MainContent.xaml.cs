@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using FrameworkDB.V1;
+using FrameworkView.V1;
 
 namespace GestCloudv2.UserItem.InfoUser
 {
@@ -21,11 +22,11 @@ namespace GestCloudv2.UserItem.InfoUser
     /// </summary>
     public partial class AccessUser_MainContent : Page
     {
-        UsersAccessControl usersControl;
+        UsersAccessControlView usersControl;
 
         public AccessUser_MainContent()
         {
-            usersControl = new UsersAccessControl();
+            usersControl = new UsersAccessControlView();
             InitializeComponent();
             UpdateDataAccess();
         }
