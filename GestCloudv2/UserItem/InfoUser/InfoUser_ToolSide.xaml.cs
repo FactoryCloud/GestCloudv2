@@ -25,7 +25,7 @@ namespace GestCloudv2.UserItem
             InitializeComponent();
             if(editable)
             {
-                ChangeToEdit(true);
+                ChangeToEdit();
             }
         }
 
@@ -37,17 +37,14 @@ namespace GestCloudv2.UserItem
 
         private void EditInfoUserEvent(object sender, RoutedEventArgs e)
         {
-            ChangeToEdit(true);
+            ChangeToEdit();
         }
 
-        public void ChangeToEdit(bool editable)
+        public void ChangeToEdit()
         {
             EditButton.Visibility = Visibility.Hidden;
             SaveButton.Visibility = Visibility.Visible;
-            if(!editable)
-            {
-                GetController().ChangeEditable(Convert.ToInt32(editable));
-            } 
+            GetController().ChangeEditable(1);
         }
 
         private InfoUser.InfoUser_Controller GetController()

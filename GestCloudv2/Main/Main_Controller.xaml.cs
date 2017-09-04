@@ -22,7 +22,9 @@ namespace GestCloudv2.Main
     /// </summary>
     public partial class Main_Controller : Page
     {
-        private Main_Navigation Navigation;
+        private Page NavigationDesktop;
+        private Page MainContentDesktop;
+        private Page ToolSideDesktop;
         Dictionary<string, int> Information;
         User user;
 
@@ -36,7 +38,7 @@ namespace GestCloudv2.Main
             Information.Add("old_mode", 0);
             Information.Add("selected", 0);
             Information.Add("old_selected", 0);
-            Information.Add("user", 0);
+            Information.Add("controller", 0);
         }
 
         private void StartMainPage_Event(object sender, RoutedEventArgs e)
@@ -53,7 +55,7 @@ namespace GestCloudv2.Main
 
         public void StartUser(User user)
         {
-            Information["user"] = 1;
+            Information["controller"] = 1;
             this.user = user;
             ChangeComponents();
         }
@@ -63,25 +65,36 @@ namespace GestCloudv2.Main
             switch(Information["mode"])
             {
                 case 0:
-                    Navigation = new Main_Navigation();
-                    TopSide.Content = Navigation;
+                    NavigationDesktop = new Main_Navigation();
+                    MainContentDesktop = null;
+                    ToolSideDesktop = null;
+                    ChangeEnviroment();
                     break;
 
                 case 1:
-                    Navigation = new Main_Navigation();
-                    TopSide.Content = Navigation;
-                    MainContent.Content = new UserList_MainContent();
-                    LeftSide.Content = new UserList_ToolSide();
+                    NavigationDesktop = new Main_Navigation();
+                    MainContentDesktop = new UserList_MainContent();
+                    ToolSideDesktop = new UserList_ToolSide();
+                    ChangeEnviroment();
                     break;
             }
         }
 
+        private void ChangeEnviroment()
+        {
+            TopSide.Content = NavigationDesktop;
+            MainContent.Content = MainContentDesktop;
+            LeftSide.Content= ToolSideDesktop;
+        }
+
         private void ChangeComponents()
         {
-            if (Information["user"] ==1)
+            switch (Information["controller"])
             {
-                MainWindow a = (MainWindow)Application.Current.MainWindow;
-                a.MainPage.Content = new UserItem.InfoUser.InfoUser_Controller(user, false);
+                case 1:
+                    MainWindow a = (MainWindow)Application.Current.MainWindow;
+                    a.MainPage.Content = new UserItem.InfoUser.InfoUser_Controller(user, false);
+                    break;
             }
         }
     }

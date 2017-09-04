@@ -39,6 +39,7 @@ namespace GestCloudv2.UserItem
             lastnameText.Text = user.LastName;
             usernameText.Text = user.Username;
 
+            MessageBox.Show(GetController().Information["editable"].ToString());
             if(Convert.ToBoolean(GetController().Information["editable"]))
             {
                 firsnameText.IsReadOnly = false;
