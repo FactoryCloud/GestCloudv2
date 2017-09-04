@@ -31,17 +31,13 @@ namespace GestCloudv2.UserItem
 
         private void AccessInfoUserEvent(object sender, RoutedEventArgs e)
         {
-            Window mainWindow = Application.Current.MainWindow;
-            var a = (MainWindow)mainWindow;
-
-            //a.changeLeftSide(new UserItem.InfoUser.AccessUser_ToolSide());
-            //a.changeMainContent(new UserItem.InfoUser.AccessUser_MainContent());
+            GetController().ChangeMode(1);
 
         }
 
         private void EditInfoUserEvent(object sender, RoutedEventArgs e)
         {
-            ChangeToEdit(false);
+            ChangeToEdit(true);
         }
 
         public void ChangeToEdit(bool editable)
@@ -50,7 +46,7 @@ namespace GestCloudv2.UserItem
             SaveButton.Visibility = Visibility.Visible;
             if(!editable)
             {
-                GetController().ChangeEditable(1);
+                GetController().ChangeEditable(Convert.ToInt32(editable));
             } 
         }
 
@@ -58,7 +54,7 @@ namespace GestCloudv2.UserItem
         {
             Window mainWindow = Application.Current.MainWindow;
             var a = (MainWindow)mainWindow;
-            return (InfoUser.InfoUser_Controller)a.Content;
+            return (InfoUser.InfoUser_Controller)a.MainPage.Content;
         }
     }
 }

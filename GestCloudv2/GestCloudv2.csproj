@@ -143,9 +143,6 @@
     <Compile Include="UserItem\InfoUser\AccessUser_MainContent.xaml.cs">
       <DependentUpon>AccessUser_MainContent.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserItem\InfoUser\AccessUser_Navigation.xaml.cs">
-      <DependentUpon>AccessUser_Navigation.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UserItem\InfoUser\AccessUser_ToolSide.xaml.cs">
       <DependentUpon>AccessUser_ToolSide.xaml</DependentUpon>
     </Compile>
@@ -238,10 +235,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserItem\InfoUser\AccessUser_MainContent.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserItem\InfoUser\AccessUser_Navigation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -24,9 +24,9 @@ namespace GestCloudv2.UserItem.InfoUser
     {
         public UserView userView;
         public Dictionary<string, int> Information;
-        private InfoUser_MainContent MainContentUser;
-        private InfoUser_ToolSide ToolSideUser;
-        private InfoUser_Navigation NavigationUser;
+        private Page MainContentUser;
+        private Page ToolSideUser;
+        private Page NavigationUser;
 
         public InfoUser_Controller(User user, bool editable)
         {
@@ -61,14 +61,29 @@ namespace GestCloudv2.UserItem.InfoUser
             ChangeEnviroment();
         }
 
+        public void ChangeMode(int i)
+        {
+            Information["mode"] = i;
+            ChangeEnviroment();
+        }
+
         public void ChangeEnviroment()
         {
-            if(Information["mode"] ==0)
+            switch(Information["mode"])
             {
-                MainContentUser = new InfoUser_MainContent(userView.user, Convert.ToBoolean(Information["editable"]));
-                ToolSideUser = new InfoUser_ToolSide(Convert.ToBoolean(Information["editable"]));
-                NavigationUser = new InfoUser_Navigation();
-                UpdateComponents();
+                case 0:
+                    MainContentUser = new InfoUser_MainContent(userView.user, Convert.ToBoolean(Information["editable"]));
+                    ToolSideUser = new InfoUser_ToolSide(Convert.ToBoolean(Information["editable"]));
+                    NavigationUser = new InfoUser_Navigation();
+                    UpdateComponents();
+                    break;
+
+                case 1:
+                    MainContentUser = new UserItem.InfoUser.AccessUser_MainContent();
+                    ToolSideUser = new UserItem.InfoUser.AccessUser_ToolSide();
+                    NavigationUser = new InfoUser_Navigation();
+                    UpdateComponents();
+                    break;
             }
         }
     }
