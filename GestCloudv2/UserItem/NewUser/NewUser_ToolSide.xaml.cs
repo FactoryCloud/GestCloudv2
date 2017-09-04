@@ -35,5 +35,17 @@ namespace GestCloudv2.UserItem
             var c = (NewUser_MainPage)b.MainContent.Content;
             c.SaveUser();
         }
+
+        public void EnableButtonSaveUser(bool enable)
+        {
+            if (enable)
+            {
+                SaveButton.IsEnabled = true;
+            }
+            else
+            {
+                SaveButton.IsEnabled = false;
+            }
+        }
     }
 }

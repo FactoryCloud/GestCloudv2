@@ -33,17 +33,47 @@ namespace GestCloudv2.UserItem
             InitializeComponent();
             dt = new DataTable();
             db = new GestCloudDB();
+            this.Loaded += new RoutedEventHandler(StartNewUserMain_Event);
+        }
+
+        private void StartNewUserMain_Event(object sender, RoutedEventArgs e)
+        {
+            firstnameText.KeyUp += new KeyEventHandler(ControlFieldsKey_Event);
+            lastnameText.KeyUp += new KeyEventHandler(ControlFieldsKey_Event);
+            usernameText.KeyUp += new KeyEventHandler(ControlFieldsKey_Event);
+        }
+
+        private void ControlFieldsKey_Event(object sender, RoutedEventArgs e)
+        {
+            //MessageBox.Show("Entrando");
+            if (firstnameText.Text.Length <= 30 && lastnameText.Text.Length <= 30 && usernameText.Text.Length <= 20 && passwordText.Password.Length <= 20 && UserControlExist() == false)
+            {
+                //MessageBox.Show("Dentro");
+                GetController().ControlFieldChangeButton(true);
+            }
+            else
+            {
+                //MessageBox.Show("Fuera");
+                GetController().ControlFieldChangeButton(false);
+            }
+        }
+
+        private NewUser.NewUser_Controller GetController()
+        {
+            Window mainWindow = Application.Current.MainWindow;
+            var a = (MainWindow)mainWindow;
+            return (NewUser.NewUser_Controller)a.MainPage.Content;
         }
 
         public void SaveUser()
         {
-            if (firsnameText.Text.Length <= 30 && lastnameText.Text.Length <= 30 && usernameText.Text.Length <= 20 && passwordText.Password.Length <= 20 && UserControlExist() == false)
+            if (firstnameText.Text.Length <= 30 && lastnameText.Text.Length <= 30 && usernameText.Text.Length <= 20 && passwordText.Password.Length <= 20 && UserControlExist() == false)
             {
                 using (db = new GestCloudDB())
                 {
                     var newUser = new User()
                     {
-                        FirstName = firsnameText.Text,
+                        FirstName = firstnameText.Text,
                         LastName = lastnameText.Text,
                         Username = usernameText.Text,
                         Password = passwordText.Password
@@ -59,7 +89,7 @@ namespace GestCloudv2.UserItem
                 //a.changeMainContent(new UserList_MainContent());
                 //a.changeTopSide(new Main_Navigation());
             }
-            else
+            /*else
             {
                 if (UserControlExist() == true)
                 {
@@ -69,7 +99,7 @@ namespace GestCloudv2.UserItem
                 {
                     MessageBox.Show("Los datos son incorrectos");
                 }
-            }
+            }*/
             
         }
 
@@ -84,9 +114,9 @@ namespace GestCloudv2.UserItem
                 }
             }
             return false;
-
         }
-        public void Data_Control()
+
+        /*public void Data_Control()
         {
             if (string.IsNullOrWhiteSpace(firsnameText.Text) && string.IsNullOrWhiteSpace(lastnameText.Text) && string.IsNullOrWhiteSpace(usernameText.Text))
             {
@@ -112,6 +142,7 @@ namespace GestCloudv2.UserItem
                     //a.changeTopSide(new Main_Navigation());
                 }
             }
-        }
+        }*/
+
     }
 }

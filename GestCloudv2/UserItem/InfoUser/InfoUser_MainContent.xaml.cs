@@ -28,7 +28,6 @@ namespace GestCloudv2.UserItem
         {
             InitializeComponent();
             this.user = user;
-
             this.Loaded += new RoutedEventHandler(StartInfoUser);
 
         }
@@ -39,7 +38,6 @@ namespace GestCloudv2.UserItem
             lastnameText.Text = user.LastName;
             usernameText.Text = user.Username;
 
-            MessageBox.Show(GetController().Information["editable"].ToString());
             if(Convert.ToBoolean(GetController().Information["editable"]))
             {
                 firsnameText.IsReadOnly = false;

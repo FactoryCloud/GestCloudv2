@@ -158,6 +158,9 @@
     <Compile Include="UserItem\InfoUser\InfoUser_ToolSide.xaml.cs">
       <DependentUpon>InfoUser_ToolSide.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserItem\NewUser\NewUser_Controller.xaml.cs">
+      <DependentUpon>NewUser_Controller.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserItem\NewUser\NewUser_MainPage.xaml.cs">
       <DependentUpon>NewUser_MainPage.xaml</DependentUpon>
     </Compile>
@@ -193,6 +196,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserItem\InfoUser\InfoUser_Controller.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserItem\NewUser\NewUser_Controller.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -25,7 +25,7 @@ namespace GestCloudv2.Main
         private Page NavigationDesktop;
         private Page MainContentDesktop;
         private Page ToolSideDesktop;
-        Dictionary<string, int> Information;
+        Dictionary<string, int> Information;//Guarda el estado de la aplicacion, para controlar los permisos del usuario
         User user;
 
         public Main_Controller()
@@ -60,6 +60,14 @@ namespace GestCloudv2.Main
             ChangeComponents();
         }
 
+        public void StartNewUser()
+        {
+            Information["controller"] = 2;
+            ChangeComponents();
+        }
+
+
+        //Prepara los componentes para que los cargue ChangeEnviroment
         private void UpdateComponents ()
         {
             switch(Information["mode"])
@@ -80,6 +88,8 @@ namespace GestCloudv2.Main
             }
         }
 
+
+        //Actualiza los componentes de la ventana
         private void ChangeEnviroment()
         {
             TopSide.Content = NavigationDesktop;
@@ -87,6 +97,8 @@ namespace GestCloudv2.Main
             LeftSide.Content= ToolSideDesktop;
         }
 
+
+        //A quien cedo el control
         private void ChangeComponents()
         {
             switch (Information["controller"])
@@ -94,6 +106,11 @@ namespace GestCloudv2.Main
                 case 1:
                     MainWindow a = (MainWindow)Application.Current.MainWindow;
                     a.MainPage.Content = new UserItem.InfoUser.InfoUser_Controller(user, false);
+                    break;
+
+                case 2:
+                    MainWindow b = (MainWindow)Application.Current.MainWindow;
+                    b.MainPage.Content = new UserItem.NewUser.NewUser_Controller();
                     break;
             }
         }

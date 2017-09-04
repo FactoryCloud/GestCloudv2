@@ -16,6 +16,6 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <Button Grid.Column="1" Grid.Row="0" Margin="10" Click="SaveUserEvent">Guardar Usuario</Button>
+        <Button Name="SaveButton" Grid.Column="1" Grid.Row="0" Margin="10" Click="SaveUserEvent" IsEnabled="False">Guardar Usuario</Button>
     </Grid>
 </Page>

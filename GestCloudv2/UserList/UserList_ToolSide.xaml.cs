@@ -27,19 +27,21 @@ namespace GestCloudv2
 
         private void NewUserEvent(object sender, RoutedEventArgs e)
         {
-            Window mainWindow = Application.Current.MainWindow;
-            var a = (MainWindow)mainWindow;
-            //a.changeMainContent(new UserItem.NewUser_MainPage());
-            //a.changeLeftSide(new UserItem.NewUser_ToolSide());
-            //a.changeTopSide(new UserItem.NewUser_Navigation());
+            GetController().StartNewUser();
         }
 
         private void EditUserEvent(object sender, RoutedEventArgs e)
         {
+            /*Window mainWindow = Application.Current.MainWindow;
+            var a = (MainWindow)mainWindow;
+            var b = (Main.Main_Controller)a.MainPage.Content;*/
+        }
+
+        private Main.Main_Controller GetController()
+        {
             Window mainWindow = Application.Current.MainWindow;
             var a = (MainWindow)mainWindow;
-            var b = (Main.Main_Controller)a.MainPage.Content;
-            //b.UserEditLoad();
+            return (Main.Main_Controller)a.MainPage.Content;
         }
     }
 }
