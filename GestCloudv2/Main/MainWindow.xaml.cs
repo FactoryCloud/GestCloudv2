@@ -41,7 +41,7 @@ namespace GestCloudv2
             Information = new Dictionary<string, string>();
             this.user = user;
 
-            UserPermissions = db.UserPermissions
+            UserPermissions = db.UserPermissions.Where(u => u.user == user)
                 .Include(u => u.user).Include(u => u.userType).Include(u => u.permissionType).ToList();
 
             MainPage.Content = new Main.Main_Controller();
