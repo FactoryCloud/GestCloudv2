@@ -55,9 +55,9 @@ namespace GestCloudv2.UserItem
 
                 Window main = Application.Current.MainWindow;
                 var a = (MainWindow)main;
-                a.changeLeftSide(new UserList_ToolSide());
-                a.changeMainContent(new UserList_MainContent());
-                a.changeTopSide(new Main_Navigation());
+                //a.changeLeftSide(new UserList_ToolSide());
+                //a.changeMainContent(new UserList_MainContent());
+                //a.changeTopSide(new Main_Navigation());
             }
             else
             {
@@ -92,9 +92,9 @@ namespace GestCloudv2.UserItem
             {
                 Window mainWindow = Application.Current.MainWindow;
                 var a = (MainWindow)mainWindow;
-                a.changeMainContent(new UserList_MainContent());
-                a.changeLeftSide(new UserList_ToolSide());
-                a.changeTopSide(new Main_Navigation());
+                //a.changeMainContent(new UserList_MainContent());
+                //a.changeLeftSide(new UserList_ToolSide());
+                //a.changeTopSide(new Main_Navigation());
             }
             else
             {
@@ -107,9 +107,9 @@ namespace GestCloudv2.UserItem
                 {
                     Window mainWindow = Application.Current.MainWindow;
                     var a = (MainWindow)mainWindow;
-                    a.changeMainContent(new UserList_MainContent());
-                    a.changeLeftSide(new UserList_ToolSide());
-                    a.changeTopSide(new Main_Navigation());
+                    //a.changeMainContent(new UserList_MainContent());
+                    //a.changeLeftSide(new UserList_ToolSide());
+                    //a.changeTopSide(new Main_Navigation());
                 }
             }
         }

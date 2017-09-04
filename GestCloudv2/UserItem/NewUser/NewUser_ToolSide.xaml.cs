@@ -12,33 +12,28 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using GestCloudv2;
-using FrameworkDB.V1;
 
 namespace GestCloudv2.UserItem
 {
     /// <summary>
-    /// Interaction logic for NewUser_Navigation.xaml
+    /// Interaction logic for NewUser_ToolSide.xaml
     /// </summary>
-    public partial class NewUser_Navigation : Page
+    public partial class NewUser_ToolSide : Page
     {
-        public NewUser_Navigation()
+        public NewUser_ToolSide()
         {
+ 
             InitializeComponent();
+            //newUserWindows.firsnameText.KeyUp += new KeyEventHandler(Data_Control);
         }
 
-        private void BackUserListEvent(object sender, RoutedEventArgs e)
+        private void SaveUserEvent(object sender, RoutedEventArgs e)
         {
             Window main = Application.Current.MainWindow;
             var a = (MainWindow)main;
-            var b = (NewUser_MainPage)a.MainContent.Content;
-            b.Data_Control();
-            /*Window main = Application.Current.MainWindow;
-            var a = (MainWindow)main;
-            a.changeLeftSide(new UserList_ToolSide());
-            a.changeMainContent(new UserList_MainContent());
-            a.changeTopSide(new Main_Navigation());*/
+            var b = (Main.Main_Controller)a.MainPage.Content;
+            var c = (NewUser_MainPage)b.MainContent.Content;
+            c.SaveUser();
         }
-        
     }
 }

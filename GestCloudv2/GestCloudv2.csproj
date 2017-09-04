@@ -134,6 +134,9 @@
     <Compile Include="Login\ChangePasswordUserWindow.xaml.cs">
       <DependentUpon>ChangePasswordUserWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Main\Main_Controller.xaml.cs">
+      <DependentUpon>Main_Controller.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Main\Main_Navigation.xaml.cs">
       <DependentUpon>Main_Navigation.xaml</DependentUpon>
     </Compile>
@@ -146,6 +149,9 @@
     <Compile Include="UserItem\InfoUser\AccessUser_ToolSide.xaml.cs">
       <DependentUpon>AccessUser_ToolSide.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserItem\InfoUser\InfoUser_Controller.xaml.cs">
+      <DependentUpon>InfoUser_Controller.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserItem\InfoUser\InfoUser_MainContent.xaml.cs">
       <DependentUpon>InfoUser_MainContent.xaml</DependentUpon>
     </Compile>
@@ -155,13 +161,13 @@
     <Compile Include="UserItem\InfoUser\InfoUser_ToolSide.xaml.cs">
       <DependentUpon>InfoUser_ToolSide.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserItem\NewUser_MainPage.xaml.cs">
+    <Compile Include="UserItem\NewUser\NewUser_MainPage.xaml.cs">
       <DependentUpon>NewUser_MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserItem\NewUser_Navigation.xaml.cs">
+    <Compile Include="UserItem\NewUser\NewUser_Navigation.xaml.cs">
       <DependentUpon>NewUser_Navigation.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserItem\NewUser_ToolSide.xaml.cs">
+    <Compile Include="UserItem\NewUser\NewUser_ToolSide.xaml.cs">
       <DependentUpon>NewUser_ToolSide.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserList\UserList_MainContent.xaml.cs">
@@ -170,7 +176,7 @@
     <Compile Include="UserList\UserList_ToolSide.xaml.cs">
       <DependentUpon>UserList_ToolSide.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserMantenantWindow.xaml.cs">
+    <Compile Include="_Old\UserMantenantWindow.xaml.cs">
       <DependentUpon>UserMantenantWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="CardList\CardList_MainContent.xaml">
@@ -185,7 +191,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="DeleteUserWindow.xaml">
+    <Page Include="Main\Main_Controller.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserItem\InfoUser\InfoUser_Controller.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="_Old\DeleteUserWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -193,7 +207,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="Main\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -201,13 +215,13 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DeleteUserWindow.xaml.cs">
+    <Compile Include="_Old\DeleteUserWindow.xaml.cs">
       <DependentUpon>DeleteUserWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Login\LoginUserWindow.xaml.cs">
       <DependentUpon>LoginUserWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="Main\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -215,11 +229,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ModifyUserWindow.xaml">
+    <Page Include="_Old\ModifyUserWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="NewUserWindow.xaml">
+    <Page Include="_Old\NewUserWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -247,15 +261,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserItem\NewUser_MainPage.xaml">
+    <Page Include="UserItem\NewUser\NewUser_MainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserItem\NewUser_Navigation.xaml">
+    <Page Include="UserItem\NewUser\NewUser_Navigation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserItem\NewUser_ToolSide.xaml">
+    <Page Include="UserItem\NewUser\NewUser_ToolSide.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -267,16 +281,16 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserMantenantWindow.xaml">
+    <Page Include="_Old\UserMantenantWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ModifyUserWindow.xaml.cs">
+    <Compile Include="_Old\ModifyUserWindow.xaml.cs">
       <DependentUpon>ModifyUserWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="NewUserWindow.xaml.cs">
+    <Compile Include="_Old\NewUserWindow.xaml.cs">
       <DependentUpon>NewUserWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">

@@ -26,7 +26,6 @@ namespace GestCloudv2
         GestCloudDB db;
         //UserList_ToolSide toolSide;
         //UserList_MainContent mainContent;
-        Main_Navigation topNavigation;
         public Dictionary<string, string> Information;
         public User user;
         public List<UserPermission> UserPermissions;
@@ -44,19 +43,11 @@ namespace GestCloudv2
 
             UserPermissions = db.UserPermissions
                 .Include(u => u.user).Include(u => u.userType).Include(u => u.permissionType).ToList();
-            //MessageBox.Show(UserPermissions.Count.ToString());
 
-            //toolSide = new UserList_ToolSide();
-            //mainContent = new UserList_MainContent();
-
-            topNavigation = new Main_Navigation();
-            TopSide.Content = topNavigation;
-
-            //LeftSide.Content = toolSide;
-            //MainContent.Content = mainContent;
+            MainPage.Content = new Main.Main_Controller();
         }
 
-        public void ChangeContent(Page mainPage, Page navigationPage, Page toolPage)
+        /*public void ChangeContent(Page mainPage, Page navigationPage, Page toolPage)
         {
             MainContent.Content = mainPage;
             TopSide.Content = navigationPage;
@@ -103,7 +94,7 @@ namespace GestCloudv2
         {
             LoginUserWindow loginUserWindow = new LoginUserWindow();
             loginUserWindow.Show();
-        }
+        }*/
 
         protected override void OnClosing(CancelEventArgs e)
         {

@@ -34,8 +34,8 @@ namespace GestCloudv2.UserItem
             Window mainWindow = Application.Current.MainWindow;
             var a = (MainWindow)mainWindow;
 
-            a.changeLeftSide(new UserItem.InfoUser.AccessUser_ToolSide());
-            a.changeMainContent(new UserItem.InfoUser.AccessUser_MainContent());
+            //a.changeLeftSide(new UserItem.InfoUser.AccessUser_ToolSide());
+            //a.changeMainContent(new UserItem.InfoUser.AccessUser_MainContent());
 
         }
 
@@ -50,11 +50,15 @@ namespace GestCloudv2.UserItem
             SaveButton.Visibility = Visibility.Visible;
             if(!editable)
             {
-                Window mainWindow = Application.Current.MainWindow;
-                var a = (MainWindow)mainWindow;
-                var b = (InfoUser_MainContent)a.MainContent.Content;
-                b.ChangeToEdit();
+                GetController().ChangeEditable(1);
             } 
+        }
+
+        private InfoUser.InfoUser_Controller GetController()
+        {
+            Window mainWindow = Application.Current.MainWindow;
+            var a = (MainWindow)mainWindow;
+            return (InfoUser.InfoUser_Controller)a.Content;
         }
     }
 }

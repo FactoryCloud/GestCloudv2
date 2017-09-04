@@ -23,25 +23,35 @@ namespace GestCloudv2.UserItem
     /// </summary>
     public partial class InfoUser_MainContent : Page
     {
-        UserView userView;
+        User user;
         public InfoUser_MainContent(User user, bool editable)
         {
             InitializeComponent();
-            userView = new UserView(user);
+            this.user = user;
 
-            firsnameText.Text = userView.user.FirstName;
-            lastnameText.Text = userView.user.LastName;
-            usernameText.Text = userView.user.Username;
+            this.Loaded += new RoutedEventHandler(StartInfoUser);
 
-            if (editable)
-                ChangeToEdit();
         }
 
-        public void ChangeToEdit()
+        private void StartInfoUser(object sender, RoutedEventArgs e)
         {
-            firsnameText.IsReadOnly = false;
-            lastnameText.IsReadOnly = false;
-            usernameText.IsReadOnly = false;
+            firsnameText.Text = user.FirstName;
+            lastnameText.Text = user.LastName;
+            usernameText.Text = user.Username;
+
+            if(Convert.ToBoolean(GetController().Information["editable"]))
+            {
+                firsnameText.IsReadOnly = false;
+                lastnameText.IsReadOnly = false;
+                usernameText.IsReadOnly = false;
+            }
+        }
+
+        private InfoUser.InfoUser_Controller GetController()
+        {
+            Window mainWindow = Application.Current.MainWindow;
+            var a = (MainWindow)mainWindow;
+            return (InfoUser.InfoUser_Controller)a.MainPage.Content;
         }
     }
 }

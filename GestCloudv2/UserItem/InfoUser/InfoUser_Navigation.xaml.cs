@@ -34,9 +34,14 @@ namespace GestCloudv2.UserItem
         {
             Window main = Application.Current.MainWindow;
             var a = (MainWindow)main;
-            a.changeLeftSide(new UserList_ToolSide());
-            a.changeMainContent(new UserList_MainContent());
-            a.changeTopSide(new Main_Navigation());
+            //a.changeLeftSide(new UserList_ToolSide());
+            //a.changeMainContent(new UserList_MainContent());
+            //a.changeTopSide(new Main_Navigation());
+        }
+
+        private void UserPermission_Event(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

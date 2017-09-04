@@ -122,9 +122,9 @@ namespace GestCloudv2
                 userView.UpdateUserSelected(Int32.Parse(dr.Row.ItemArray[0].ToString()));
                 Window mainWindow = Application.Current.MainWindow;
                 var a = (MainWindow)mainWindow;
-                var b = (UserList_ToolSide)a.LeftSide.Content;
-                b.EditUserButton.IsEnabled = true;
-                b.DeleteUserButton.IsEnabled = true;
+                //var b = (UserList_ToolSide)a.LeftSide.Content;
+                //b.EditUserButton.IsEnabled = true;
+                //b.DeleteUserButton.IsEnabled = true;
             }
         }
 
@@ -133,11 +133,11 @@ namespace GestCloudv2
             int user = UsersTable.SelectedIndex;
             if (user >= 0)
             {
-                Window mainWindow = Application.Current.MainWindow;
-                var a = (MainWindow)mainWindow;
-                a.changeMainContent(new UserItem.InfoUser_MainContent(userView.SelectedUser, false));
-                a.changeLeftSide(new UserItem.InfoUser_ToolSide(false));
-                a.changeTopSide(new UserItem.InfoUser_Navigation());
+                GetController().StartUser(userView.SelectedUser);
+                //a.MainPage.Content = new UserItem.InfoUser.InfoUser_Controller(userView.SelectedUser, false);
+                //a.changeMainContent(new UserItem.InfoUser_MainContent(userView.SelectedUser, false));
+                //a.changeLeftSide(new UserItem.InfoUser_ToolSide(false));
+                //a.changeTopSide(new UserItem.InfoUser_Navigation());
             }
         }
 
@@ -145,7 +145,14 @@ namespace GestCloudv2
         {
             Window mainWindow = Application.Current.MainWindow;
             var a = (MainWindow)mainWindow;
-            a.ChangeContent(new UserItem.InfoUser_MainContent(userView.SelectedUser, true), new UserItem.InfoUser_Navigation(), new UserItem.InfoUser_ToolSide(true));
+            //a.ChangeContent(new UserItem.InfoUser_MainContent(userView.SelectedUser, true), new UserItem.InfoUser_Navigation(), new UserItem.InfoUser_ToolSide(true));
+        }
+
+        private Main.Main_Controller GetController()
+        {
+            Window mainWindow = Application.Current.MainWindow;
+            var a = (MainWindow)mainWindow;
+            return (Main.Main_Controller)a.MainPage.Content;
         }
     }
 }

@@ -44,11 +44,7 @@ namespace GestCloudv2
 
         private void UsersNavigationEvent(object sender, RoutedEventArgs e)
         {
-            Window mainWindow = Application.Current.MainWindow;
-            var a = (MainWindow)mainWindow;
-
-            a.changeLeftSide(new UserList_ToolSide());
-            a.changeMainContent(new UserList_MainContent());
+            GetController().ChangeMode(1);
         }
 
         private void CardsNavigationEvent(object sender, RoutedEventArgs e)
@@ -56,8 +52,15 @@ namespace GestCloudv2
             Window mainWindow = Application.Current.MainWindow;
             var a = (MainWindow)mainWindow;
 
-            a.changeLeftSide(new CardList.CardList_ToolSide());
-            a.changeMainContent(new CardList.CardList_MainContent());
+            //a.changeLeftSide(new CardList.CardList_ToolSide());
+            //a.changeMainContent(new CardList.CardList_MainContent());
+        }
+
+        private Main.Main_Controller GetController()
+        {
+            Window mainWindow = Application.Current.MainWindow;
+            var a = (MainWindow)mainWindow;
+            return (Main.Main_Controller)a.MainPage.Content;
         }
     }
 }
