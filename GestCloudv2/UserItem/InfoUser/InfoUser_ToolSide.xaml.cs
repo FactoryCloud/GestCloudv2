@@ -20,10 +20,10 @@ namespace GestCloudv2.UserItem
     /// </summary>
     public partial class InfoUser_ToolSide : Page
     {
-        public InfoUser_ToolSide(bool editable)
+        public InfoUser_ToolSide()
         {
             InitializeComponent();
-            if(editable)
+            if(GetController().Information["old_editable"] == 0 && GetController().Information["editable"] == 1)
             {
                 ChangeToEdit();
             }

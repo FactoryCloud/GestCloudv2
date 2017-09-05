@@ -33,7 +33,9 @@ namespace GestCloudv2.UserItem.InfoUser
             InitializeComponent();
             Information = new Dictionary<string, int>();
             Information.Add("editable", Convert.ToInt32(editable));
+            Information.Add("old_editable", 0);
             Information.Add("mode", 0);
+            Information.Add("old_mode", 0);
 
             userView = new UserView(user);
 
@@ -42,8 +44,8 @@ namespace GestCloudv2.UserItem.InfoUser
 
         private void StartUserInfo_Event(object sender, RoutedEventArgs e)
         {
-            MainContentUser = new InfoUser_MainContent(userView.user, Convert.ToBoolean(Information["editable"]));
-            ToolSideUser = new InfoUser_ToolSide(Convert.ToBoolean(Information["editable"]));
+            MainContentUser = new InfoUser_MainContent();
+            ToolSideUser = new InfoUser_ToolSide();
             NavigationUser = new InfoUser_Navigation();
             UpdateComponents();
         }
@@ -57,6 +59,7 @@ namespace GestCloudv2.UserItem.InfoUser
 
         public void ChangeEditable (int i)
         {
+            Information["old_editable"] = Information["editable"];
             Information["editable"] = i;
             ChangeEnviroment();
         }
@@ -72,8 +75,8 @@ namespace GestCloudv2.UserItem.InfoUser
             switch(Information["mode"])
             {
                 case 0:
-                    MainContentUser = new InfoUser_MainContent(userView.user, Convert.ToBoolean(Information["editable"]));
-                    ToolSideUser = new InfoUser_ToolSide(Convert.ToBoolean(Information["editable"]));
+                    MainContentUser = new InfoUser_MainContent();
+                    ToolSideUser = new InfoUser_ToolSide();
                     NavigationUser = new InfoUser_Navigation();
                     UpdateComponents();
                     break;
