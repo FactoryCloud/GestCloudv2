@@ -23,11 +23,12 @@ namespace GestCloudv2.UserItem.InfoUser
     public partial class AccessUser_MainContent : Page
     {
         UsersAccessControlView usersControl;
-
+        
         public AccessUser_MainContent()
         {
-            usersControl = new UsersAccessControlView();
             InitializeComponent();
+            MainWindow a = (MainWindow)Application.Current.MainWindow;
+            usersControl = new UsersAccessControlView(a.user);
             UpdateDataAccess();
         }
 

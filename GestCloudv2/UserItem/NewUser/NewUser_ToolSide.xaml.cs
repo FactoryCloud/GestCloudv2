@@ -31,7 +31,7 @@ namespace GestCloudv2.UserItem
         {
             Window main = Application.Current.MainWindow;
             var a = (MainWindow)main;
-            var b = (Main.Main_Controller)a.MainPage.Content;
+            var b = (UserItem.NewUser.NewUser_Controller)a.MainPage.Content;
             var c = (NewUser_MainPage)b.MainContent.Content;
             c.SaveUser();
         }

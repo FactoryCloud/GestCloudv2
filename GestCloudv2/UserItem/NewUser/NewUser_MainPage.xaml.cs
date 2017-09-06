@@ -46,7 +46,7 @@ namespace GestCloudv2.UserItem
         private void ControlFieldsKey_Event(object sender, RoutedEventArgs e)
         {
             //MessageBox.Show("Entrando");
-            if (firstnameText.Text.Length <= 30 && lastnameText.Text.Length <= 30 && usernameText.Text.Length <= 20 && passwordText.Password.Length <= 20 && UserControlExist() == false)
+            if (firstnameText.Text.Length <= 30 && lastnameText.Text.Length <= 30 && usernameText.Text.Length <= 20 && UserControlExist() == false)
             {
                 //MessageBox.Show("Dentro");
                 GetController().ControlFieldChangeButton(true);
@@ -67,7 +67,7 @@ namespace GestCloudv2.UserItem
 
         public void SaveUser()
         {
-            if (firstnameText.Text.Length <= 30 && lastnameText.Text.Length <= 30 && usernameText.Text.Length <= 20 && passwordText.Password.Length <= 20 && UserControlExist() == false)
+            if (firstnameText.Text.Length <= 30 && lastnameText.Text.Length <= 30 && usernameText.Text.Length <= 20 && UserControlExist() == false)
             {
                 using (db = new GestCloudDB())
                 {
@@ -76,7 +76,9 @@ namespace GestCloudv2.UserItem
                         FirstName = firstnameText.Text,
                         LastName = lastnameText.Text,
                         Username = usernameText.Text,
-                        Password = passwordText.Password
+                        Password = "NULL",
+                        Mail = mailText.Text,
+                        ActivationCode = "1"
                     };
                     db.Users.Add(newUser);
                     db.SaveChanges();
