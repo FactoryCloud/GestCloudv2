@@ -23,24 +23,22 @@ namespace GestCloudv2.UserItem.InfoUser.Permissions
     /// </summary>
     public partial class UsersPermissionUser_MainContent : Page
     {
-        public List<UserPermission> UserPermissions;
+        
 
         public UsersPermissionUser_MainContent()
         {
             InitializeComponent();
 
-            GestCloudDB db = new GestCloudDB();
-            UserPermissions = new List<UserPermission>();
-
-            UserPermissions = db.UserPermissions.Where(u => u.user == GetController().userView.user)
-                .Include(u => u.user).Include(u => u.permissionType).ToList();
-
             this.Loaded += new RoutedEventHandler(StartUserPermissions);
+            AccessYes.Checked += new RoutedEventHandler(UpdateInfoDB);
+            AccessNo.Checked += new RoutedEventHandler(UpdateInfoDB);
+            InformationYes.Checked += new RoutedEventHandler(UpdateInfoDB);
+            InformationNo.Checked += new RoutedEventHandler(UpdateInfoDB);
         }
 
         private void StartUserPermissions(object sender, RoutedEventArgs e)
         {
-            foreach(UserPermission permission in UserPermissions)
+            foreach(UserPermission permission in GetController().UserPermissions)
             {
                 if(permission.permissionType.Item == "Users")
                 {
@@ -58,6 +56,60 @@ namespace GestCloudv2.UserItem.InfoUser.Permissions
                     {
                         BasicEditYes.IsChecked = true;
                     }
+                }
+            }
+        }
+
+        private void UpdateInfoDB(object sender, RoutedEventArgs e)
+        {
+            int[] db = new int[6] { 0, 0, 0, 0, 0, 0 };
+            int[] visual = new int[6] { 0, 0, 0, 0, 0, 0 };
+            foreach (UserPermission permission in GetController().UserPermissions)
+            {
+                if (permission.permissionType.Item == "Users")
+                {
+                    if (Convert.ToBoolean(AccessYes.IsChecked))
+                    {
+                        visual[0]=1;
+                    }
+
+                    if (permission.permissionType.Mode == 1)
+                    {
+                        db[0] = 1;
+                    }
+
+                    if (Convert.ToBoolean(InformationYes.IsChecked))
+                    {
+                        visual[1] = 1;
+                    }
+
+                    if (permission.permissionType.Mode == 2)
+                    {
+                        db[1] = 1;
+                    }
+
+                    if (Convert.ToBoolean(BasicEditYes.IsChecked))
+                    {
+                        visual[2] = 1;
+                    }
+
+                    if (permission.permissionType.Mode == 3)
+                    {
+                        db[2] = 1;
+                    }
+                }
+            }
+
+            for (int i=0; i<6; i++)
+            {
+                if(db[i] == 1 && visual[i] == 0)
+                {
+                    MessageBox.Show($"Pierdes acceso {i}");
+                }
+
+                else if (db[i] == 0 && visual[i] == 1)
+                {
+                    MessageBox.Show($"Ganas acceso {i}");
                 }
             }
         }

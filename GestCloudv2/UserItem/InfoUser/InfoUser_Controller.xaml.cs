@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.EntityFrameworkCore;
 using FrameworkDB.V1;
 using FrameworkView.V1;
 
@@ -27,6 +29,7 @@ namespace GestCloudv2.UserItem.InfoUser
         private Page MainContentUser;
         private Page ToolSideUser;
         private Page NavigationUser;
+        public List<UserPermission> UserPermissions;
 
         public InfoUser_Controller(User user, bool editable)
         {
@@ -40,6 +43,11 @@ namespace GestCloudv2.UserItem.InfoUser
             Information.Add("old_permission", 0);
 
             userView = new UserView(user);
+            GestCloudDB db = new GestCloudDB();
+            UserPermissions = new List<UserPermission>();
+
+            UserPermissions = db.UserPermissions.Where(u => u.user == userView.user)
+                .Include(u => u.user).Include(u => u.permissionType).ToList();
 
             this.Loaded += new RoutedEventHandler(StartUserInfo_Event);
         }
