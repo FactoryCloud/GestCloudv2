@@ -23,17 +23,11 @@ namespace GestCloudv2.UserItem.InfoUser.Permissions
     /// </summary>
     public partial class UsersPermissionUser_MainContent : Page
     {
-        
-
         public UsersPermissionUser_MainContent()
         {
             InitializeComponent();
 
             this.Loaded += new RoutedEventHandler(StartUserPermissions);
-            AccessYes.Checked += new RoutedEventHandler(UpdateInfoDB);
-            AccessNo.Checked += new RoutedEventHandler(UpdateInfoDB);
-            InformationYes.Checked += new RoutedEventHandler(UpdateInfoDB);
-            InformationNo.Checked += new RoutedEventHandler(UpdateInfoDB);
         }
 
         private void StartUserPermissions(object sender, RoutedEventArgs e)
@@ -56,8 +50,36 @@ namespace GestCloudv2.UserItem.InfoUser.Permissions
                     {
                         BasicEditYes.IsChecked = true;
                     }
+
+                    if (permission.permissionType.Mode == 4)
+                    {
+                        AdvancedEditYes.IsChecked = true;
+                    }
+
+                    if (permission.permissionType.Mode == 5)
+                    {
+                        DeleteYes.IsChecked = true;
+                    }
+
+                    if (permission.permissionType.Mode == 6)
+                    {
+                        PermissionsYes.IsChecked = true;
+                    }
                 }
             }
+
+            AccessYes.Checked += new RoutedEventHandler(UpdateInfoDB);
+            AccessNo.Checked += new RoutedEventHandler(UpdateInfoDB);
+            InformationYes.Checked += new RoutedEventHandler(UpdateInfoDB);
+            InformationNo.Checked += new RoutedEventHandler(UpdateInfoDB);
+            BasicEditYes.Checked += new RoutedEventHandler(UpdateInfoDB);
+            BasicEditNo.Checked += new RoutedEventHandler(UpdateInfoDB);
+            AdvancedEditYes.Checked += new RoutedEventHandler(UpdateInfoDB);
+            AdvancedEditNo.Checked += new RoutedEventHandler(UpdateInfoDB);
+            DeleteYes.Checked += new RoutedEventHandler(UpdateInfoDB);
+            DeleteNo.Checked += new RoutedEventHandler(UpdateInfoDB);
+            PermissionsYes.Checked += new RoutedEventHandler(UpdateInfoDB);
+            PermissionsNo.Checked += new RoutedEventHandler(UpdateInfoDB);
         }
 
         private void UpdateInfoDB(object sender, RoutedEventArgs e)
@@ -104,12 +126,16 @@ namespace GestCloudv2.UserItem.InfoUser.Permissions
             {
                 if(db[i] == 1 && visual[i] == 0)
                 {
-                    MessageBox.Show($"Pierdes acceso {i}");
+                    MessageBox.Show($"Pierdes acceso {i}.");
+                    GetController().DeletePermission(GetController().GetPermission("Users", i + 1));
+                    MessageBox.Show($"{GetController().UserPermissions.Count}");
                 }
 
                 else if (db[i] == 0 && visual[i] == 1)
                 {
-                    MessageBox.Show($"Ganas acceso {i}");
+                    MessageBox.Show($"Ganas acceso {i}.");
+                    GetController().CreatePermission("Users", i + 1);
+                    MessageBox.Show($"{GetController().UserPermissions.Count}");
                 }
             }
         }

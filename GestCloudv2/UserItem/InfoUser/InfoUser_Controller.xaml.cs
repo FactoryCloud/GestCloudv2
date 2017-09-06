@@ -30,6 +30,7 @@ namespace GestCloudv2.UserItem.InfoUser
         private Page ToolSideUser;
         private Page NavigationUser;
         public List<UserPermission> UserPermissions;
+        GestCloudDB db;
 
         public InfoUser_Controller(User user, bool editable)
         {
@@ -43,7 +44,7 @@ namespace GestCloudv2.UserItem.InfoUser
             Information.Add("old_permission", 0);
 
             userView = new UserView(user);
-            GestCloudDB db = new GestCloudDB();
+            db = new GestCloudDB();
             UserPermissions = new List<UserPermission>();
 
             UserPermissions = db.UserPermissions.Where(u => u.user == userView.user)
@@ -58,6 +59,30 @@ namespace GestCloudv2.UserItem.InfoUser
             ToolSideUser = new InfoUser_ToolSide();
             NavigationUser = new InfoUser_Navigation();
             UpdateComponents();
+        }
+
+        public UserPermission GetPermission (string type, int number)
+        {
+            PermissionType permissionType = db.PermissionTypes.First(u => (u.Item == type && u.Mode == number));
+            UserPermission userPermission = UserPermissions.First(u => (u.UserID == userView.user.UserID && u.PermissionTypeID == permissionType.PermissionTypeID));
+
+            return userPermission;
+        }
+
+        public void CreatePermission (string type, int number)
+        {
+            PermissionType permissionType = db.PermissionTypes.First(u => (u.Item == type && u.Mode == number));
+            UserPermission userPermission = new UserPermission
+            {
+                user = userView.user,
+                permissionType = permissionType
+            };
+            UserPermissions.Add(userPermission);
+        }
+
+        public void DeletePermission (UserPermission userPermission)
+        {
+            UserPermissions.Remove(userPermission);
         }
 
         private void UpdateComponents ()
