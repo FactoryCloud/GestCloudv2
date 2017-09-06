@@ -36,5 +36,10 @@ namespace GestCloudv2.UserItem.InfoUser
             AccessUserTable.ItemsSource = null;
             AccessUserTable.ItemsSource = usersControl.GetTableAccess();
         }
+
+        private void AccessUserTable_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

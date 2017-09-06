@@ -38,6 +38,6 @@
             </Grid.ColumnDefinitions>
         </Grid>
         <DataGrid Grid.ColumnSpan="4" Grid.Row="1" Name="AccessUserTable" FontSize="20" IsReadOnly="True" SelectionMode="Single" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserReorderColumns="False"
-                  HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" ColumnWidth="*"/>
+                  HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" ColumnWidth="*" SelectionChanged="AccessUserTable_SelectionChanged"/>
     </Grid>
 </Page>

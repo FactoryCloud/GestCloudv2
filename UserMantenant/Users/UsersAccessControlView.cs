@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,10 +35,12 @@ namespace FrameworkView.V1
         {
             List<UserAccessControl> AccessControl = db.UsersAccessControl.Include(u => u.user).ToList();
 
+            //TimeZoneInfo dataStartAcess = TimeZoneInfo.FindSystemTimeZoneById("Central European Standad Time");
+            var usCulture = "en-US";
             dt.Clear();
             foreach (var item in AccessControl)
             {
-                dt.Rows.Add(item.user.Username, item.DateStartAccess, item.DateEndAccess);
+                dt.Rows.Add(item.user.Username, DateTime.Parse(item.DateStartAccess.ToString(), new CultureInfo(usCulture,false)), DateTime.Parse(item.DateEndAccess.ToString(), new CultureInfo(usCulture,false)));
             }
         }
     }
