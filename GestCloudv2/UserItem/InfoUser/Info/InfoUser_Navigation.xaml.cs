@@ -27,21 +27,24 @@ namespace GestCloudv2.UserItem
 
         private void BackUserListEvent(object sender, RoutedEventArgs e)
         {
-            UserListLoad();
-        }
 
-        public void UserListLoad()
-        {
-            Window main = Application.Current.MainWindow;
-            var a = (MainWindow)main;
-            //a.changeLeftSide(new UserList_ToolSide());
-            //a.changeMainContent(new UserList_MainContent());
-            //a.changeTopSide(new Main_Navigation());
         }
 
         private void UserPermission_Event(object sender, RoutedEventArgs e)
         {
+            GetController().ChangeMode(2);
+        }
 
+        private void UserBasic_Event(object sender, RoutedEventArgs e)
+        {
+            GetController().ChangeMode(0);
+        }
+
+        private InfoUser.InfoUser_Controller GetController()
+        {
+            Window mainWindow = Application.Current.MainWindow;
+            var a = (MainWindow)mainWindow;
+            return (InfoUser.InfoUser_Controller)a.MainPage.Content;
         }
     }
 }

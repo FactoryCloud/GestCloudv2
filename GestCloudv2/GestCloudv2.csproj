@@ -140,23 +140,35 @@
     <Compile Include="Main\Main_Navigation.xaml.cs">
       <DependentUpon>Main_Navigation.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserItem\InfoUser\AccessUser_MainContent.xaml.cs">
+    <Compile Include="UserItem\InfoUser\Access\AccessUser_MainContent.xaml.cs">
       <DependentUpon>AccessUser_MainContent.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserItem\InfoUser\AccessUser_ToolSide.xaml.cs">
+    <Compile Include="UserItem\InfoUser\Access\AccessUser_ToolSide.xaml.cs">
       <DependentUpon>AccessUser_ToolSide.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserItem\InfoUser\InfoUser_Controller.xaml.cs">
       <DependentUpon>InfoUser_Controller.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserItem\InfoUser\InfoUser_MainContent.xaml.cs">
+    <Compile Include="UserItem\InfoUser\Info\InfoUser_MainContent.xaml.cs">
       <DependentUpon>InfoUser_MainContent.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserItem\InfoUser\InfoUser_Navigation.xaml.cs">
+    <Compile Include="UserItem\InfoUser\Info\InfoUser_Navigation.xaml.cs">
       <DependentUpon>InfoUser_Navigation.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserItem\InfoUser\InfoUser_ToolSide.xaml.cs">
+    <Compile Include="UserItem\InfoUser\Info\InfoUser_ToolSide.xaml.cs">
       <DependentUpon>InfoUser_ToolSide.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserItem\InfoUser\Permissions\CardsPermissionUser_MainContent.xaml.cs">
+      <DependentUpon>CardsPermissionUser_MainContent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserItem\InfoUser\Permissions\UsersPermissionUser_MainContent.xaml.cs">
+      <DependentUpon>UsersPermissionUser_MainContent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserItem\InfoUser\Permissions\PermissionUser_MainContent.xaml.cs">
+      <DependentUpon>PermissionUser_MainContent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserItem\InfoUser\Permissions\PermissionUser_ToolSide.xaml.cs">
+      <DependentUpon>PermissionUser_ToolSide.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserItem\NewUser\NewUser_Controller.xaml.cs">
       <DependentUpon>NewUser_Controller.xaml</DependentUpon>
@@ -196,6 +208,22 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserItem\InfoUser\InfoUser_Controller.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserItem\InfoUser\Permissions\CardsPermissionUser_MainContent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserItem\InfoUser\Permissions\UsersPermissionUser_MainContent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserItem\InfoUser\Permissions\PermissionUser_MainContent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserItem\InfoUser\Permissions\PermissionUser_ToolSide.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -241,23 +269,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserItem\InfoUser\AccessUser_MainContent.xaml">
+    <Page Include="UserItem\InfoUser\Access\AccessUser_MainContent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserItem\InfoUser\AccessUser_ToolSide.xaml">
+    <Page Include="UserItem\InfoUser\Access\AccessUser_ToolSide.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserItem\InfoUser\InfoUser_MainContent.xaml">
+    <Page Include="UserItem\InfoUser\Info\InfoUser_MainContent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserItem\InfoUser\InfoUser_Navigation.xaml">
+    <Page Include="UserItem\InfoUser\Info\InfoUser_Navigation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserItem\InfoUser\InfoUser_ToolSide.xaml">
+    <Page Include="UserItem\InfoUser\Info\InfoUser_ToolSide.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

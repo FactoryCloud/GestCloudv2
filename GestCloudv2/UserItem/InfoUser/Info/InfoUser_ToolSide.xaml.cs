@@ -23,9 +23,10 @@ namespace GestCloudv2.UserItem
         public InfoUser_ToolSide()
         {
             InitializeComponent();
-            if(GetController().Information["old_editable"] == 0 && GetController().Information["editable"] == 1)
+            if(GetController().Information["editable"] == 1)
             {
-                ChangeToEdit();
+                EditButton.Visibility = Visibility.Hidden;
+                SaveButton.Visibility = Visibility.Visible;
             }
         }
 

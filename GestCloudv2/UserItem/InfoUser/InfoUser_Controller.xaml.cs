@@ -36,6 +36,8 @@ namespace GestCloudv2.UserItem.InfoUser
             Information.Add("old_editable", 0);
             Information.Add("mode", 0);
             Information.Add("old_mode", 0);
+            Information.Add("permission", 0);
+            Information.Add("old_permission", 0);
 
             userView = new UserView(user);
 
@@ -70,6 +72,13 @@ namespace GestCloudv2.UserItem.InfoUser
             ChangeEnviroment();
         }
 
+        public void ChangePermission(int i)
+        {
+            Information["old_permission"] = Information["permission"];
+            Information["permission"] = i;
+            ChangeEnviroment();
+        }
+
         public void ChangeEnviroment()
         {
             switch(Information["mode"])
@@ -85,6 +94,26 @@ namespace GestCloudv2.UserItem.InfoUser
                     MainContentUser = new UserItem.InfoUser.AccessUser_MainContent();
                     ToolSideUser = new UserItem.InfoUser.AccessUser_ToolSide();
                     NavigationUser = new InfoUser_Navigation();
+                    UpdateComponents();
+                    break;
+
+                case 2:
+                    ToolSideUser = new UserItem.InfoUser.PermissionUser_ToolSide();
+                    NavigationUser = new InfoUser_Navigation();
+                    switch(Information["permission"])
+                    {
+                        case 0:
+                            MainContentUser = new UserItem.InfoUser.PermissionUser_MainContent();
+                            break;
+
+                        case 1:
+                            MainContentUser = new UserItem.InfoUser.Permissions.UsersPermissionUser_MainContent();
+                            break;
+
+                        case 2:
+                            MainContentUser = new UserItem.InfoUser.Permissions.CardsPermissionUser_MainContent();
+                            break;
+                    }
                     UpdateComponents();
                     break;
             }

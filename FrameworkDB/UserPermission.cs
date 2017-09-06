@@ -18,7 +18,7 @@ namespace FrameworkDB.V1
         public virtual User user { get; set; }
 
         [ForeignKey("UserTypeID")]
-        public int UserTypeID { get; set; }
+        public int? UserTypeID { get; set; }
         public virtual UserType userType { get; set; }
 
         [ForeignKey("PermissionTypeID")]
