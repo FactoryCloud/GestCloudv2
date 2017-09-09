@@ -53,6 +53,13 @@ namespace GestCloudv2.Main
             UpdateComponents();
         }
 
+        /*public void BackUserList(int i)
+        {
+            Information["mode"] = i;
+            UpdateComponents();
+        }*/
+
+
         public void StartUser(User user)
         {
             Information["controller"] = 1;
@@ -65,7 +72,6 @@ namespace GestCloudv2.Main
             Information["controller"] = 2;
             ChangeComponents();
         }
-
 
         //Prepara los componentes para que los cargue ChangeEnviroment
         private void UpdateComponents ()
@@ -80,6 +86,13 @@ namespace GestCloudv2.Main
                     break;
 
                 case 1:
+                    NavigationDesktop = new Main_Navigation();
+                    MainContentDesktop = new UserList_MainContent();
+                    ToolSideDesktop = new UserList_ToolSide();
+                    ChangeEnviroment();
+                    break;
+
+                case 2:
                     NavigationDesktop = new Main_Navigation();
                     MainContentDesktop = new UserList_MainContent();
                     ToolSideDesktop = new UserList_ToolSide();

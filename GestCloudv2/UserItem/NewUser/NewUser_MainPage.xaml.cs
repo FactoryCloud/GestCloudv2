@@ -45,15 +45,12 @@ namespace GestCloudv2.UserItem
 
         private void ControlFieldsKey_Event(object sender, RoutedEventArgs e)
         {
-            //MessageBox.Show("Entrando");
             if (firstnameText.Text.Length <= 30 && lastnameText.Text.Length <= 30 && usernameText.Text.Length <= 20 && UserControlExist() == false)
             {
-                //MessageBox.Show("Dentro");
                 GetController().ControlFieldChangeButton(true);
             }
             else
             {
-                //MessageBox.Show("Fuera");
                 GetController().ControlFieldChangeButton(false);
             }
         }
@@ -63,6 +60,26 @@ namespace GestCloudv2.UserItem
             Window mainWindow = Application.Current.MainWindow;
             var a = (MainWindow)mainWindow;
             return (NewUser.NewUser_Controller)a.MainPage.Content;
+        }
+
+        public void BackUserList()
+        {
+            if (firstnameText.Text.Length >= 1 || lastnameText.Text.Length >= 1 || usernameText.Text.Length >= 1 || mailText.Text.Length >= 1)
+            {
+                MessageBoxResult result = MessageBox.Show("¿Esta seguro que desea salir?", "Salir", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.No)
+                {
+
+                }
+                else
+                {
+                    GetController().ChangeMode(1);
+                }
+            }
+            else
+            {
+                GetController().ChangeMode(1);
+            }
         }
 
         public void SaveUser()
@@ -87,22 +104,7 @@ namespace GestCloudv2.UserItem
 
                 Window main = Application.Current.MainWindow;
                 var a = (MainWindow)main;
-                //a.changeLeftSide(new UserList_ToolSide());
-                //a.changeMainContent(new UserList_MainContent());
-                //a.changeTopSide(new Main_Navigation());
-            }
-            /*else
-            {
-                if (UserControlExist() == true)
-                {
-                    MessageBox.Show("El usuario ya existe");
-                }
-                else
-                {
-                    MessageBox.Show("Los datos son incorrectos");
-                }
-            }*/
-            
+            }         
         }
 
         private Boolean UserControlExist()
@@ -117,34 +119,5 @@ namespace GestCloudv2.UserItem
             }
             return false;
         }
-
-        /*public void Data_Control()
-        {
-            if (string.IsNullOrWhiteSpace(firsnameText.Text) && string.IsNullOrWhiteSpace(lastnameText.Text) && string.IsNullOrWhiteSpace(usernameText.Text))
-            {
-                Window mainWindow = Application.Current.MainWindow;
-                var a = (MainWindow)mainWindow;
-                //a.changeMainContent(new UserList_MainContent());
-                //a.changeLeftSide(new UserList_ToolSide());
-                //a.changeTopSide(new Main_Navigation());
-            }
-            else
-            {
-                MessageBoxResult result = MessageBox.Show("¿Usted ha realizado cambios, esta segudo de que desea salir?", "Volver", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                if (result == MessageBoxResult.No)
-                {
-
-                }
-                else
-                {
-                    Window mainWindow = Application.Current.MainWindow;
-                    var a = (MainWindow)mainWindow;
-                    //a.changeMainContent(new UserList_MainContent());
-                    //a.changeLeftSide(new UserList_ToolSide());
-                    //a.changeTopSide(new Main_Navigation());
-                }
-            }
-        }*/
-
     }
 }

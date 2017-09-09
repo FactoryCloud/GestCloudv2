@@ -31,14 +31,9 @@ namespace GestCloudv2.UserItem
         {
             Window main = Application.Current.MainWindow;
             var a = (MainWindow)main;
-            //var b = (NewUser_MainPage)a.MainContent.Content;
-            //b.Data_Control();
-            /*Window main = Application.Current.MainWindow;
-            var a = (MainWindow)main;
-            a.changeLeftSide(new UserList_ToolSide());
-            a.changeMainContent(new UserList_MainContent());
-            a.changeTopSide(new Main_Navigation());*/
+            var b = (UserItem.NewUser.NewUser_Controller)a.MainPage.Content;
+            var c = (NewUser_MainPage)b.MainContent.Content;
+            c.BackUserList();
         }
-        
     }
 }

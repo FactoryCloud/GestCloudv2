@@ -17,7 +17,7 @@
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <Button Grid.Column="1" Grid.Row="0" Margin="10">Restablecer contraseña</Button>
-        <Button Name="DisableUser" Grid.Column="1" Grid.Row="1" Margin="10">Desactivar usuario</Button>
+        <Button Name="DisableUser" Grid.Column="1" Grid.Row="1" Margin="10" Click="DisableUser_Click">Desactivar usuario</Button>
         <!--<Button Name="SaveButton" Grid.Column="1" Grid.Row="4" Margin="10" Visibility="Hidden">Guardar Cambios</Button>-->
     </Grid>
 </Page>

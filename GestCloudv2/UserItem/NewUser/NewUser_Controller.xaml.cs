@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using FrameworkDB.V1;
 
 namespace GestCloudv2.UserItem.NewUser
 {
@@ -24,6 +25,7 @@ namespace GestCloudv2.UserItem.NewUser
         private Page MainContentUser;
         private Page ToolSideUser;
         private Page NavigationUser;
+        User user;
 
         public NewUser_Controller()
         {
@@ -42,6 +44,13 @@ namespace GestCloudv2.UserItem.NewUser
             ChangeEnviroment();
         }
 
+        public void ChangeMode(int i)
+        {
+            Information["old_mode"] = Information["mode"];
+            Information["mode"] = i;
+            UpdateComponents();
+        }
+
         private void UpdateComponents()
         {
             switch (Information["mode"])
@@ -53,13 +62,28 @@ namespace GestCloudv2.UserItem.NewUser
                     ChangeEnviroment();
                     break;
 
-                /*case 1:
+                case 1:
                     NavigationUser = new Main_Navigation();
                     MainContentUser = new UserList_MainContent();
                     ToolSideUser = new UserList_ToolSide();
                     ChangeEnviroment();
                     break;
-                */
+            }
+        }
+
+        private void ChangeComponents()
+        {
+            switch (Information["controller"])
+            {
+                case 1:
+                    MainWindow a = (MainWindow)Application.Current.MainWindow;
+                    a.MainPage.Content = new UserItem.InfoUser.InfoUser_Controller(user, false);
+                    break;
+
+                case 2:
+                    MainWindow b = (MainWindow)Application.Current.MainWindow;
+                    b.MainPage.Content = new UserItem.NewUser.NewUser_Controller();
+                    break;
             }
         }
 

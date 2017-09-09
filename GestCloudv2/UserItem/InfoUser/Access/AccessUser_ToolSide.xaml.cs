@@ -24,5 +24,10 @@ namespace GestCloudv2.UserItem.InfoUser
         {
             InitializeComponent();
         }
+
+        private void DisableUser_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
