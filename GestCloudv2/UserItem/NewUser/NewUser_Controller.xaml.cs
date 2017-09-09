@@ -32,23 +32,34 @@ namespace GestCloudv2.UserItem.NewUser
             InitializeComponent();
             Information = new Dictionary<string, int>();
             Information.Add("mode", 0);
+            Information.Add("fieldEmpty", 0);
+            Information.Add("controller", 0);
+            user = new User();
 
             this.Loaded += new RoutedEventHandler(StartNewUser_Event);
         }
 
         private void StartNewUser_Event(object sender, RoutedEventArgs e)
         {
-            MainContentUser = new UserItem.NewUser_MainPage();
-            ToolSideUser = new UserItem.NewUser_ToolSide();
-            NavigationUser = new UserItem.NewUser_Navigation();
-            ChangeEnviroment();
+            UpdateComponents();
         }
 
-        public void ChangeMode(int i)
+        public void UpdateIfNotEmpty(bool empty)
         {
-            Information["old_mode"] = Information["mode"];
-            Information["mode"] = i;
-            UpdateComponents();
+            if(empty)
+            {
+                Information["fieldEmpty"] = 1;
+            }
+            else
+            {
+                Information["fieldEmpty"] = 0;
+            }
+        }
+
+        public void BackToMain()
+        {
+            Information["controller"] = 0;
+            ChangeComponents();
         }
 
         private void UpdateComponents()
@@ -61,13 +72,6 @@ namespace GestCloudv2.UserItem.NewUser
                     ToolSideUser = new UserItem.NewUser_ToolSide();
                     ChangeEnviroment();
                     break;
-
-                case 1:
-                    NavigationUser = new Main_Navigation();
-                    MainContentUser = new UserList_MainContent();
-                    ToolSideUser = new UserList_ToolSide();
-                    ChangeEnviroment();
-                    break;
             }
         }
 
@@ -75,14 +79,17 @@ namespace GestCloudv2.UserItem.NewUser
         {
             switch (Information["controller"])
             {
-                case 1:
+                case 0:
+                    if (Information["fieldEmpty"] == 1)
+                    {
+                        MessageBoxResult result = MessageBox.Show("¿Esta seguro que desea salir?", "Salir", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                        if (result == MessageBoxResult.No)
+                        {
+                            return;
+                        }
+                    }
                     MainWindow a = (MainWindow)Application.Current.MainWindow;
-                    a.MainPage.Content = new UserItem.InfoUser.InfoUser_Controller(user, false);
-                    break;
-
-                case 2:
-                    MainWindow b = (MainWindow)Application.Current.MainWindow;
-                    b.MainPage.Content = new UserItem.NewUser.NewUser_Controller();
+                    a.MainPage.Content = new Main.Main_Controller();
                     break;
             }
         }

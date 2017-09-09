@@ -42,6 +42,7 @@ namespace GestCloudv2.UserItem.InfoUser
             Information.Add("old_mode", 0);
             Information.Add("permission", 0);
             Information.Add("old_permission", 0);
+            Information.Add("controller", 0);
 
             userView = new UserView(user);
             db = new GestCloudDB();
@@ -83,6 +84,12 @@ namespace GestCloudv2.UserItem.InfoUser
         public void DeletePermission (UserPermission userPermission)
         {
             UserPermissions.Remove(userPermission);
+        }
+
+        public void BackToMain()
+        {
+            Information["controller"] = 0;
+            ChangeComponents();
         }
 
         private void UpdateComponents ()
@@ -148,6 +155,17 @@ namespace GestCloudv2.UserItem.InfoUser
                             break;
                     }
                     UpdateComponents();
+                    break;
+            }
+        }
+
+        private void ChangeComponents()
+        {
+            switch (Information["controller"])
+            {
+                case 0:
+                    MainWindow a = (MainWindow)Application.Current.MainWindow;
+                    a.MainPage.Content = new Main.Main_Controller();
                     break;
             }
         }

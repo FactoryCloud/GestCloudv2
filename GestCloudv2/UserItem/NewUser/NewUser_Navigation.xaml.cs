@@ -27,13 +27,16 @@ namespace GestCloudv2.UserItem
             InitializeComponent();
         }
 
-        private void BackUserListEvent(object sender, RoutedEventArgs e)
+        private void BackMainWindowEvent(object sender, RoutedEventArgs e)
         {
-            Window main = Application.Current.MainWindow;
-            var a = (MainWindow)main;
-            var b = (UserItem.NewUser.NewUser_Controller)a.MainPage.Content;
-            var c = (NewUser_MainPage)b.MainContent.Content;
-            c.BackUserList();
+            GetController().BackToMain();
+        }
+
+        private UserItem.NewUser.NewUser_Controller GetController()
+        {
+            Window mainWindow = Application.Current.MainWindow;
+            var a = (MainWindow)mainWindow;
+            return (UserItem.NewUser.NewUser_Controller)a.MainPage.Content;
         }
     }
 }

@@ -53,32 +53,15 @@ namespace GestCloudv2.UserItem
             {
                 GetController().ControlFieldChangeButton(false);
             }
-        }
 
-        private NewUser.NewUser_Controller GetController()
-        {
-            Window mainWindow = Application.Current.MainWindow;
-            var a = (MainWindow)mainWindow;
-            return (NewUser.NewUser_Controller)a.MainPage.Content;
-        }
-
-        public void BackUserList()
-        {
-            if (firstnameText.Text.Length >= 1 || lastnameText.Text.Length >= 1 || usernameText.Text.Length >= 1 || mailText.Text.Length >= 1)
+            if(!string.IsNullOrEmpty(firstnameText.Text.ToString()) || !string.IsNullOrEmpty(lastnameText.Text.ToString()) || !string.IsNullOrEmpty(usernameText.Text.ToString()))
             {
-                MessageBoxResult result = MessageBox.Show("¿Esta seguro que desea salir?", "Salir", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                if (result == MessageBoxResult.No)
-                {
-
-                }
-                else
-                {
-                    GetController().ChangeMode(1);
-                }
+                GetController().UpdateIfNotEmpty(true);
             }
+
             else
             {
-                GetController().ChangeMode(1);
+                GetController().UpdateIfNotEmpty(false);
             }
         }
 
@@ -118,6 +101,13 @@ namespace GestCloudv2.UserItem
                 }
             }
             return false;
+        }
+
+        private UserItem.NewUser.NewUser_Controller GetController()
+        {
+            Window mainWindow = Application.Current.MainWindow;
+            var a = (MainWindow)mainWindow;
+            return (UserItem.NewUser.NewUser_Controller)a.MainPage.Content;
         }
     }
 }

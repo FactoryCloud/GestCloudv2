@@ -22,18 +22,13 @@ namespace GestCloudv2.UserItem
     {
         public NewUser_ToolSide()
         {
- 
             InitializeComponent();
             //newUserWindows.firsnameText.KeyUp += new KeyEventHandler(Data_Control);
         }
 
         private void SaveUserEvent(object sender, RoutedEventArgs e)
         {
-            Window main = Application.Current.MainWindow;
-            var a = (MainWindow)main;
-            var b = (UserItem.NewUser.NewUser_Controller)a.MainPage.Content;
-            var c = (NewUser_MainPage)b.MainContent.Content;
-            c.SaveUser();
+            GetController().BackToMain();
         }
 
         public void EnableButtonSaveUser(bool enable)
@@ -46,6 +41,13 @@ namespace GestCloudv2.UserItem
             {
                 SaveButton.IsEnabled = false;
             }
+        }
+
+        private UserItem.NewUser.NewUser_Controller GetController()
+        {
+            Window mainWindow = Application.Current.MainWindow;
+            var a = (MainWindow)mainWindow;
+            return (UserItem.NewUser.NewUser_Controller)a.MainPage.Content;
         }
     }
 }
