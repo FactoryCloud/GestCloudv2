@@ -12,6 +12,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using FrameworkDB.V1;
+using System.IO;
+using System.Xml.Serialization;
+using System.Xml;
+using System.Xml.Linq;
 
 namespace GestCloudv2
 {
@@ -27,9 +31,17 @@ namespace GestCloudv2
             InitializeComponent();
             mode = 0;
             this.WindowStyle = WindowStyle.ToolWindow;
+            this.Loaded += new RoutedEventHandler(StartLogin_Event);
             UserNameText.KeyUp += new KeyEventHandler(KeyPushDetected_Event);
             PasswordText.KeyUp += new KeyEventHandler(KeyPushDetected_Event);
             CodeText.KeyUp += new KeyEventHandler(KeyPushDetected_Event);
+        }
+
+        private void StartLogin_Event(object sender, RoutedEventArgs e)
+        {
+            ExpansionsManager expansionsManager = new ExpansionsManager();
+
+            MessageBox.Show($"{expansionsManager.ExpansionsList.Count}");
         }
 
         private void KeyPushDetected_Event(object sender, RoutedEventArgs e)

@@ -97,7 +97,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccessType.cs" />
+    <Compile Include="Expansion.cs" />
     <Compile Include="GestCloudDB.cs" />
+    <Compile Include="MkmApiManager.cs" />
     <Compile Include="PermissionTypes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="User.cs" />
