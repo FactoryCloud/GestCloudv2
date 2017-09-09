@@ -23,11 +23,12 @@ namespace GestCloudv2.UserItem
         public NewUser_ToolSide()
         {
             InitializeComponent();
-            //newUserWindows.firsnameText.KeyUp += new KeyEventHandler(Data_Control);
         }
 
         private void SaveUserEvent(object sender, RoutedEventArgs e)
         {
+            GetController().SaveNewUser();
+            GetController().Information["fieldEmpty"] = 0;
             GetController().BackToMain();
         }
 

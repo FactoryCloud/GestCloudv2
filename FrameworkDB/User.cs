@@ -37,6 +37,9 @@ namespace FrameworkDB.V1
         [StringLength(10)]
         public string ActivationCode { get; set; }
 
+        [Required]
+        public int Enabled { get; set; }
+
         public virtual List<UserAccessControl> UsersAccessControl { get; set; }
         public virtual List<UserPermission> UserPermissions { get; set; }
 

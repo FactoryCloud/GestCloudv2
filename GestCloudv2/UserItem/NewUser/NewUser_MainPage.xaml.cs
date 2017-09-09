@@ -41,12 +41,24 @@ namespace GestCloudv2.UserItem
             firstnameText.KeyUp += new KeyEventHandler(ControlFieldsKey_Event);
             lastnameText.KeyUp += new KeyEventHandler(ControlFieldsKey_Event);
             usernameText.KeyUp += new KeyEventHandler(ControlFieldsKey_Event);
+            mailText.KeyUp += new KeyEventHandler(ControlFieldsKey_Event);
         }
 
         private void ControlFieldsKey_Event(object sender, RoutedEventArgs e)
         {
-            if (firstnameText.Text.Length <= 30 && lastnameText.Text.Length <= 30 && usernameText.Text.Length <= 20 && UserControlExist() == false)
+            if (firstnameText.Text.Length <= 30 && lastnameText.Text.Length <= 30 && usernameText.Text.Length <= 20 && mailText.Text.Length <= 50 && firstnameText.Text.Length > 0 && lastnameText.Text.Length > 0 && usernameText.Text.Length > 0 && mailText.Text.Length > 0 && !UserControlExist()) 
             {
+                GetController().user = new User
+                {
+                    FirstName = firstnameText.Text.ToString(),
+                    LastName = lastnameText.Text.ToString(),
+                    Username = usernameText.Text.ToString(),
+                    UserCode = 0,
+                    Mail = mailText.Text.ToString(),
+                    Password = "NULL",
+                    ActivationCode = "1",
+                    Enabled = 1
+                };
                 GetController().ControlFieldChangeButton(true);
             }
             else
@@ -54,7 +66,7 @@ namespace GestCloudv2.UserItem
                 GetController().ControlFieldChangeButton(false);
             }
 
-            if(!string.IsNullOrEmpty(firstnameText.Text.ToString()) || !string.IsNullOrEmpty(lastnameText.Text.ToString()) || !string.IsNullOrEmpty(usernameText.Text.ToString()))
+            if(!string.IsNullOrEmpty(firstnameText.Text.ToString()) || !string.IsNullOrEmpty(lastnameText.Text.ToString()) || !string.IsNullOrEmpty(usernameText.Text.ToString()) || !string.IsNullOrEmpty(mailText.Text.ToString()))
             {
                 GetController().UpdateIfNotEmpty(true);
             }
@@ -67,7 +79,7 @@ namespace GestCloudv2.UserItem
 
         public void SaveUser()
         {
-            if (firstnameText.Text.Length <= 30 && lastnameText.Text.Length <= 30 && usernameText.Text.Length <= 20 && UserControlExist() == false)
+            if (firstnameText.Text.Length <= 30 && lastnameText.Text.Length <= 30 && usernameText.Text.Length <= 20 && mailText.Text.Length <= 50 && UserControlExist() == false)
             {
                 using (db = new GestCloudDB())
                 {
@@ -97,6 +109,7 @@ namespace GestCloudv2.UserItem
             {
                 if (item.Username.Contains(usernameText.Text))
                 {
+                    //MessageBox.Show(usernameText.Text.ToString());
                     return true;
                 }
             }

@@ -25,7 +25,7 @@ namespace GestCloudv2.UserItem.NewUser
         private Page MainContentUser;
         private Page ToolSideUser;
         private Page NavigationUser;
-        User user;
+        public User user;
 
         public NewUser_Controller()
         {
@@ -62,7 +62,15 @@ namespace GestCloudv2.UserItem.NewUser
             ChangeComponents();
         }
 
-        private void UpdateComponents()
+        public void SaveNewUser()
+        {
+            GestCloudDB db = new GestCloudDB();
+            MessageBox.Show("Datos guardados correctamente");
+            db.Users.Add(user);
+            db.SaveChanges();
+        }
+
+        public void UpdateComponents()
         {
             switch (Information["mode"])
             {
@@ -82,7 +90,7 @@ namespace GestCloudv2.UserItem.NewUser
                 case 0:
                     if (Information["fieldEmpty"] == 1)
                     {
-                        MessageBoxResult result = MessageBox.Show("¿Esta seguro que desea salir?", "Salir", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                        MessageBoxResult result = MessageBox.Show("Usted ha realizado cambios, ¿Esta seguro que desea salir?", "Volver", MessageBoxButton.YesNo, MessageBoxImage.Question);
                         if (result == MessageBoxResult.No)
                         {
                             return;
