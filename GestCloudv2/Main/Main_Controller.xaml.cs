@@ -64,7 +64,6 @@ namespace GestCloudv2.Main
             LeftSide.Content = ToolSideDesktop;
         }
 
-
         public void StartViewUser()
         {
             Information["controller"] = 1;
@@ -105,8 +104,8 @@ namespace GestCloudv2.Main
 
                 case 2:
                     NavigationDesktop = new Main_Navigation();
-                    MainContentDesktop = new UserList_MainContent();
-                    ToolSideDesktop = new UserList_ToolSide();
+                    MainContentDesktop = new CardList.CardList_MainContent();
+                    ToolSideDesktop = new CardList.CardList_ToolSide();
                     ChangeEnviroment();
                     break;
             }

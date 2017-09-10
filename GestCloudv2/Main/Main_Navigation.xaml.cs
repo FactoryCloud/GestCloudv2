@@ -49,11 +49,7 @@ namespace GestCloudv2
 
         private void CardsNavigationEvent(object sender, RoutedEventArgs e)
         {
-            Window mainWindow = Application.Current.MainWindow;
-            var a = (MainWindow)mainWindow;
-
-            //a.changeLeftSide(new CardList.CardList_ToolSide());
-            //a.changeMainContent(new CardList.CardList_MainContent());
+            GetController().ChangeMode(2);
         }
 
         private Main.Main_Controller GetController()

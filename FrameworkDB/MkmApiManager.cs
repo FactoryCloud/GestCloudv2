@@ -74,7 +74,9 @@ namespace FrameworkDB.V1
                 ExpansionID = Convert.ToInt32(u.Element("idExpansion").Value),
                 EnName = u.Element("enName").Value,
                 Abbreviation = u.Element("abbreviation").Value,
-                //ReleaseDate = u.Element("releaseDate").Value,
+                Icon = Convert.ToInt32(u.Element("icon").Value),
+                ReleaseDate = Convert.ToDateTime(u.Element("releaseDate").Value),
+                IsReleased = Convert.ToInt32(Convert.ToBoolean(u.Element("isReleased").Value))
             }).ToList();
 
             List<Expansion> temp = db.Expansions.ToList();
@@ -83,6 +85,20 @@ namespace FrameworkDB.V1
                 if(temp.Where(u=> u.ExpansionID == ex.ExpansionID).ToList().Count==0)
                 {
                     db.Add(ex);
+                }
+                else
+                {
+                    Expansion nex = temp.First(u => u.ExpansionID == ex.ExpansionID);
+                    if (ex.EnName != nex.EnName || ex.Abbreviation != nex.Abbreviation || 
+                        ex.Icon != nex.Icon || ex.ReleaseDate != nex.ReleaseDate || ex.IsReleased != nex.IsReleased)
+                    {
+                        nex.EnName = ex.EnName;
+                        nex.Abbreviation = ex.Abbreviation;
+                        nex.Icon = ex.Icon;
+                        nex.ReleaseDate = ex.ReleaseDate;
+                        nex.IsReleased = ex.IsReleased;
+                        db.Update(nex);
+                    }
                 }
             }
 
@@ -95,7 +111,6 @@ namespace FrameworkDB.V1
             }
 
             db.SaveChanges();
-            // proceed further
         }
 
         public void singlesMakeRequest()
@@ -103,8 +118,8 @@ namespace FrameworkDB.V1
             String method = "GET";
 
             GestCloudDB db = new GestCloudDB();
-            db.Database.ExecuteSqlCommand("TRUNCATE TABLE [MTGCards]");
-            db.SaveChanges();
+            /*db.Database.ExecuteSqlCommand("TRUNCATE TABLE [MTGCards]");
+            db.SaveChanges();*/
 
             List<MTGCard> List = new List<MTGCard>();
             foreach (Expansion exp in db.Expansions.ToList())
@@ -124,6 +139,9 @@ namespace FrameworkDB.V1
                 List<MTGCard> Temp = xmlDoc.Descendants("single").Select(u => new MTGCard
                 {
                     ProductID = Convert.ToInt32(u.Element("idProduct").Value),
+                    MetaproductID = Convert.ToInt32(u.Element("idMetaproduct").Value),
+                    CountReprints = Convert.ToInt32(u.Element("countReprints").Value),
+                    Number = u.Element("number").Value,
                     EnName = u.Element("enName").Value,
                     Rarity = u.Element("rarity").Value,
                     Website = u.Element("website").Value,
@@ -140,6 +158,25 @@ namespace FrameworkDB.V1
                 {
                     db.Add(ex);
                 }
+
+                else
+                {
+                    MTGCard oldcard = temp.First(u => u.ProductID == ex.ProductID);
+                    if (ex.MetaproductID != oldcard.MetaproductID || ex.CountReprints != oldcard.CountReprints ||
+                        ex.EnName != oldcard.EnName || ex.Rarity != oldcard.Rarity || ex.Website != oldcard.Website ||
+                        ex.Image != oldcard.Image || ex.ExpansionID != oldcard.ExpansionID || ex.Number != oldcard.Number)
+                    {
+                        oldcard.MetaproductID = ex.MetaproductID;
+                        oldcard.CountReprints = ex.CountReprints;
+                        oldcard.Number = ex.Number;
+                        oldcard.EnName = ex.EnName;
+                        oldcard.Rarity = ex.Rarity;
+                        oldcard.Website = ex.Website;
+                        oldcard.Image = ex.Image;
+                        oldcard.ExpansionID = ex.ExpansionID;
+                        db.Update(oldcard);
+                    }
+                }
             }
 
             foreach (MTGCard ex in temp)
@@ -154,6 +191,7 @@ namespace FrameworkDB.V1
         }
     }
 
+     
 
     /// <summary>
     /// Class encapsulates tokens and secret to create OAuth signatures and return Authorization headers for web requests.

@@ -26,8 +26,9 @@ namespace FrameworkDB.V1
         [StringLength(50)]
         public string Abbreviation { get; set; }
 
-        //[XmlElement("releaseDate")]
-        //public string ReleaseDate { get; set; }
+        public int? Icon { get; set; }
+        public DateTime? ReleaseDate { get; set; }
+        public int? IsReleased { get; set; }
 
         public virtual List<MTGCard> MTGCards { get; set; }
 

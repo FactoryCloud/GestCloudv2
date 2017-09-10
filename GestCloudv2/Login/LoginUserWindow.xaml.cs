@@ -40,9 +40,9 @@ namespace GestCloudv2
 
         private void StartLogin_Event(object sender, RoutedEventArgs e)
         {
-            RequestHelper req = new RequestHelper();
-            //req.expansionsMakeRequest();
-            //req.singlesMakeRequest();
+            GestCloudDB db = new GestCloudDB();
+            //db.UpdateFromMKM();
+            //db.UpdateProductsList();
             MessageBox.Show("Base de datos cargada");
         }
 

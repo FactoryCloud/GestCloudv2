@@ -96,6 +96,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cards\CardsView.cs" />
     <Compile Include="Users\UsersAccessControlView.cs" />
     <Compile Include="Users\UsersView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
