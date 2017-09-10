@@ -32,11 +32,11 @@ namespace GestCloudv2.UserItem.InfoUser
         public GestCloudDB db;
         List<UserPermission> userPermissions;
 
-        public InfoUser_Controller(User user, bool editable)
+        public InfoUser_Controller(User user, int editable)
         {
             InitializeComponent();
             Information = new Dictionary<string, int>();
-            Information.Add("editable", Convert.ToInt32(editable));
+            Information.Add("editable", editable);
             Information.Add("old_editable", 0);
             Information.Add("mode", 0);
             Information.Add("old_mode", 0);
@@ -149,6 +149,7 @@ namespace GestCloudv2.UserItem.InfoUser
                 }
             }
             db.SaveChanges();
+            Information["changes"] = 0;
             MessageBox.Show("Se han guardado los cambios");
         }
 

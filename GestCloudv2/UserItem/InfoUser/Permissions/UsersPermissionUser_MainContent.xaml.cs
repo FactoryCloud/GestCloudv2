@@ -80,6 +80,22 @@ namespace GestCloudv2.UserItem.InfoUser.Permissions
             DeleteNo.Checked += new RoutedEventHandler(UpdateInfoDB);
             PermissionsYes.Checked += new RoutedEventHandler(UpdateInfoDB);
             PermissionsNo.Checked += new RoutedEventHandler(UpdateInfoDB);
+
+            if(GetController().Information["editable"]==1)
+            {
+                AccessYes.IsEnabled = true;
+                AccessNo.IsEnabled = true;
+                InformationYes.IsEnabled = true;
+                InformationNo.IsEnabled = true;
+                BasicEditYes.IsEnabled = true;
+                BasicEditNo.IsEnabled = true;
+                AdvancedEditYes.IsEnabled = true;
+                AdvancedEditNo.IsEnabled = true;
+                DeleteYes.IsEnabled = true;
+                DeleteNo.IsEnabled = true;
+                PermissionsYes.IsEnabled = true;
+                PermissionsNo.IsEnabled = true;
+            }
         }
 
         private void UpdateInfoDB(object sender, RoutedEventArgs e)

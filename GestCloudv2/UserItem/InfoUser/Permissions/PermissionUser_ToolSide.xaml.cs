@@ -23,6 +23,17 @@ namespace GestCloudv2.UserItem.InfoUser
         public PermissionUser_ToolSide()
         {
             InitializeComponent();
+
+            this.Loaded += new RoutedEventHandler(StartEvent);
+        }
+
+        private void StartEvent(object sender, RoutedEventArgs e)
+        {
+            if(GetController().Information["editable"] == 1)
+            {
+                EditModeButton.Visibility = Visibility.Hidden;
+                SaveChangesButton.Visibility = Visibility.Visible;
+            }
         }
 
         private void BasicPermissionEvent(object sender, RoutedEventArgs e)
@@ -43,6 +54,18 @@ namespace GestCloudv2.UserItem.InfoUser
         private void SaveChangesEvent(object sender, RoutedEventArgs e)
         {
             GetController().SaveChanges();
+        }
+
+        private void EditModeEvent(object sender, RoutedEventArgs e)
+        {
+            ChangeToEdit();
+        }
+
+        public void ChangeToEdit()
+        {
+            EditModeButton.Visibility = Visibility.Hidden;
+            SaveChangesButton.Visibility = Visibility.Visible;
+            GetController().ChangeEditable(1);
         }
 
         private InfoUser.InfoUser_Controller GetController()

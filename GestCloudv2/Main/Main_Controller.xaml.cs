@@ -25,7 +25,8 @@ namespace GestCloudv2.Main
         private Page NavigationDesktop;
         private Page MainContentDesktop;
         private Page ToolSideDesktop;
-        Dictionary<string, int> Information;//Guarda el estado de la aplicacion, para controlar los permisos del usuario
+        GestCloudDB db;
+        public Dictionary<string, int> Information;//Guarda el estado de la aplicacion, para controlar los permisos del usuario
         User user;
 
         public Main_Controller()
@@ -36,14 +37,16 @@ namespace GestCloudv2.Main
             Information = new Dictionary<string, int>();
             Information.Add("mode", 0);
             Information.Add("old_mode", 0);
-            Information.Add("selected", 0);
+            Information.Add("selectedUser", 0);
             Information.Add("old_selected", 0);
             Information.Add("controller", 0);
+            Information.Add("userModeEditable", 0);
         }
 
         private void StartMainPage_Event(object sender, RoutedEventArgs e)
         {
             UpdateComponents();
+            db = new GestCloudDB();
         }
 
         public void ChangeMode(int i)
@@ -53,17 +56,25 @@ namespace GestCloudv2.Main
             UpdateComponents();
         }
 
-        /*public void BackUserList(int i)
+        public void UpdateUserSelected(int i)
         {
-            Information["mode"] = i;
-            UpdateComponents();
-        }*/
+            user = db.Users.First(u => u.UserID == i);
+            Information["selectedUser"] = 1;
+            ToolSideDesktop = new UserList_ToolSide();
+            LeftSide.Content = ToolSideDesktop;
+        }
 
 
-        public void StartUser(User user)
+        public void StartViewUser()
         {
             Information["controller"] = 1;
-            this.user = user;
+            ChangeComponents();
+        }
+
+        public void StartEditUser()
+        {
+            Information["userModeEditable"] = 1;
+            Information["controller"] = 1;
             ChangeComponents();
         }
 
@@ -118,7 +129,7 @@ namespace GestCloudv2.Main
             {
                 case 1:
                     MainWindow a = (MainWindow)Application.Current.MainWindow;
-                    a.MainPage.Content = new UserItem.InfoUser.InfoUser_Controller(user, false);
+                    a.MainPage.Content = new UserItem.InfoUser.InfoUser_Controller(user, Information["userModeEditable"]);
                     break;
 
                 case 2:

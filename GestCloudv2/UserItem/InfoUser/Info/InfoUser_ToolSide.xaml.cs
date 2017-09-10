@@ -33,7 +33,6 @@ namespace GestCloudv2.UserItem
         private void AccessInfoUserEvent(object sender, RoutedEventArgs e)
         {
             GetController().ChangeMode(1);
-
         }
 
         private void EditInfoUserEvent(object sender, RoutedEventArgs e)

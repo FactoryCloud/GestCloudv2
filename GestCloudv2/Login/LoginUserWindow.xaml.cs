@@ -41,8 +41,8 @@ namespace GestCloudv2
         private void StartLogin_Event(object sender, RoutedEventArgs e)
         {
             RequestHelper req = new RequestHelper();
-            req.expansionsMakeRequest();
-            req.singlesMakeRequest();
+            //req.expansionsMakeRequest();
+            //req.singlesMakeRequest();
             MessageBox.Show("Base de datos cargada");
         }
 

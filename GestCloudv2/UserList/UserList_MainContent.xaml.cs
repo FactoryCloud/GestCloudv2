@@ -24,11 +24,10 @@ namespace GestCloudv2
     public partial class UserList_MainContent : Page
     {
         UsersView userView;
-        NewUserWindow newUserWindow;
         public UserList_MainContent()
         {
             InitializeComponent();
-            this.Loaded += new RoutedEventHandler(MainWindow_Loaded);
+            this.Loaded += new RoutedEventHandler(StartEvent);
             userView = new UsersView();
             NameSearchBox.KeyUp += new KeyEventHandler(Data_Search);
             CodeSearchBox.KeyUp += new KeyEventHandler(Data_SearchCod);
@@ -36,6 +35,11 @@ namespace GestCloudv2
             UsersTable.MouseDoubleClick += new MouseButtonEventHandler(UserInfo_Event);
             UsersTable.MouseLeftButtonUp += new MouseButtonEventHandler(UserSelected_Event);
             UpdateData();
+        }
+
+        private void StartEvent(object sender, RoutedEventArgs e)
+        {
+
         }
 
         private void UserSelected_Event(object sender, MouseButtonEventArgs e)
@@ -47,7 +51,6 @@ namespace GestCloudv2
         {
             SelectedUserUpdate();
             UserInfoLoad();
-            //MessageBox.Show(userView.SelectedUser.UserID.ToString());
         }
 
         private void Data_Search(object sender, RoutedEventArgs e)
@@ -65,7 +68,6 @@ namespace GestCloudv2
 
         private void Data_SearchCod(object sender, RoutedEventArgs e)
         {
-            //string userID = userView.userSearch.UserID.ToString();
             if (string.IsNullOrWhiteSpace(CodeSearchBox.Text))
             {
                 UpdateData();
@@ -101,17 +103,6 @@ namespace GestCloudv2
             UsersTable.ItemsSource = userView.GetTableFilteredCod();
         }
 
-        private void MainWindow_Loaded(object sender, EventArgs e)
-        {
-            newUserWindow = new NewUserWindow();
-            newUserWindow.UpdateDataEvent += new EventHandler(NewUserWindow_MyEvent);
-        }
-
-        private void NewUserWindow_MyEvent(object sender, EventArgs e)
-        {
-            UpdateData();
-        }
-
         public void SelectedUserUpdate()
         {
             int user = UsersTable.SelectedIndex;
@@ -119,12 +110,7 @@ namespace GestCloudv2
             {
                 DataGridRow row = (DataGridRow)UsersTable.ItemContainerGenerator.ContainerFromIndex(user);
                 DataRowView dr = row.Item as DataRowView;
-                userView.UpdateUserSelected(Int32.Parse(dr.Row.ItemArray[0].ToString()));
-                Window mainWindow = Application.Current.MainWindow;
-                var a = (MainWindow)mainWindow;
-                //var b = (UserList_ToolSide)a.LeftSide.Content;
-                //b.EditUserButton.IsEnabled = true;
-                //b.DeleteUserButton.IsEnabled = true;
+                GetController().UpdateUserSelected(Int32.Parse(dr.Row.ItemArray[0].ToString()));
             }
         }
 
@@ -133,19 +119,8 @@ namespace GestCloudv2
             int user = UsersTable.SelectedIndex;
             if (user >= 0)
             {
-                GetController().StartUser(userView.SelectedUser);
-                //a.MainPage.Content = new UserItem.InfoUser.InfoUser_Controller(userView.SelectedUser, false);
-                //a.changeMainContent(new UserItem.InfoUser_MainContent(userView.SelectedUser, false));
-                //a.changeLeftSide(new UserItem.InfoUser_ToolSide(false));
-                //a.changeTopSide(new UserItem.InfoUser_Navigation());
+                GetController().StartViewUser();
             }
-        }
-
-        public void UserEditLoad()
-        {
-            Window mainWindow = Application.Current.MainWindow;
-            var a = (MainWindow)mainWindow;
-            //a.ChangeContent(new UserItem.InfoUser_MainContent(userView.SelectedUser, true), new UserItem.InfoUser_Navigation(), new UserItem.InfoUser_ToolSide(true));
         }
 
         private Main.Main_Controller GetController()

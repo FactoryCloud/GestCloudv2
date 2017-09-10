@@ -34,8 +34,8 @@
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
             <TextBlock TextWrapping="Wrap" Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center">Permiso para entrar a la sección:</TextBlock>
-            <RadioButton Name="AccessYes" GroupName="Access" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" FlowDirection="RightToLeft">Si</RadioButton>
-            <RadioButton Name="AccessNo" GroupName="Access" IsChecked="True"  Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" FlowDirection="RightToLeft">No</RadioButton>
+            <RadioButton IsEnabled="false" Name="AccessYes" GroupName="Access" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" FlowDirection="RightToLeft">Si</RadioButton>
+            <RadioButton IsEnabled="false" Name="AccessNo" GroupName="Access" IsChecked="True"  Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" FlowDirection="RightToLeft">No</RadioButton>
         </Grid>
 
         <Grid Grid.Column="1" Grid.Row="2" Margin="10">
@@ -48,8 +48,8 @@
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
             <TextBlock TextWrapping="Wrap" Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center">Permiso para ver detalles de la sección:</TextBlock>
-            <RadioButton Name="InformationYes" GroupName="Information" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" FlowDirection="RightToLeft">Si</RadioButton>
-            <RadioButton Name="InformationNo" IsChecked="True"  GroupName="Information" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" FlowDirection="RightToLeft">No</RadioButton>
+            <RadioButton IsEnabled="false" Name="InformationYes" GroupName="Information" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" FlowDirection="RightToLeft">Si</RadioButton>
+            <RadioButton IsEnabled="false" Name="InformationNo" IsChecked="True"  GroupName="Information" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" FlowDirection="RightToLeft">No</RadioButton>
         </Grid>
 
         <Grid Grid.Column="1" Grid.Row="3" Margin="10">
@@ -62,8 +62,8 @@
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
             <TextBlock TextWrapping="Wrap" Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center">Permiso para editar datos básicos a la sección:</TextBlock>
-            <RadioButton Name="BasicEditYes" GroupName="BasicEdit" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" FlowDirection="RightToLeft">Si</RadioButton>
-            <RadioButton Name="BasicEditNo" IsChecked="True" GroupName="BasicEdit" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" FlowDirection="RightToLeft">No</RadioButton>
+            <RadioButton IsEnabled="false" Name="BasicEditYes" GroupName="BasicEdit" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" FlowDirection="RightToLeft">Si</RadioButton>
+            <RadioButton IsEnabled="false" Name="BasicEditNo" IsChecked="True" GroupName="BasicEdit" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" FlowDirection="RightToLeft">No</RadioButton>
         </Grid>
 
         <Grid Grid.Column="3" Grid.Row="1" Margin="10">
@@ -76,8 +76,8 @@
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
             <TextBlock TextWrapping="Wrap" Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center">Permiso para editar datos avanzados de la sección:</TextBlock>
-            <RadioButton Name="AdvancedEditYes" GroupName="AdvancedEdit" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" FlowDirection="RightToLeft">Si</RadioButton>
-            <RadioButton Name="AdvancedEditNo" IsChecked="True" GroupName="AdvancedEdit" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" FlowDirection="RightToLeft">No</RadioButton>
+            <RadioButton IsEnabled="false" Name="AdvancedEditYes" GroupName="AdvancedEdit" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" FlowDirection="RightToLeft">Si</RadioButton>
+            <RadioButton IsEnabled="false" Name="AdvancedEditNo" IsChecked="True" GroupName="AdvancedEdit" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" FlowDirection="RightToLeft">No</RadioButton>
         </Grid>
 
         <Grid Grid.Column="3" Grid.Row="2" Margin="10">
@@ -90,8 +90,8 @@
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
             <TextBlock TextWrapping="Wrap" Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center">Permiso para eliminar o bloquear datos de la sección:</TextBlock>
-            <RadioButton Name="DeleteYes" GroupName="Delete" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" FlowDirection="RightToLeft">Si</RadioButton>
-            <RadioButton Name="DeleteNo" IsChecked="True" GroupName="Delete" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" FlowDirection="RightToLeft">No</RadioButton>
+            <RadioButton IsEnabled="false" Name="DeleteYes" GroupName="Delete" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" FlowDirection="RightToLeft">Si</RadioButton>
+            <RadioButton IsEnabled="false" Name="DeleteNo" IsChecked="True" GroupName="Delete" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" FlowDirection="RightToLeft">No</RadioButton>
         </Grid>
 
         <Grid Grid.Column="3" Grid.Row="3" Margin="10">
@@ -104,8 +104,8 @@
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
             <TextBlock TextWrapping="Wrap" Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center">Permiso para modificar los permisos de la sección:</TextBlock>
-            <RadioButton Name="PermissionsYes" GroupName="Permissions" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" FlowDirection="RightToLeft">Si</RadioButton>
-            <RadioButton Name="PermissionsNo" IsChecked="True" GroupName="Permissions" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" FlowDirection="RightToLeft">No</RadioButton>
+            <RadioButton IsEnabled="false" Name="PermissionsYes" GroupName="Permissions" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" FlowDirection="RightToLeft">Si</RadioButton>
+            <RadioButton IsEnabled="false" Name="PermissionsNo" IsChecked="True" GroupName="Permissions" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" FlowDirection="RightToLeft">No</RadioButton>
         </Grid>
     </Grid>
 </Page>
