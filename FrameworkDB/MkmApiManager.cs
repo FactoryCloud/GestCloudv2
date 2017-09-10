@@ -103,11 +103,11 @@ namespace FrameworkDB.V1
             String method = "GET";
 
             GestCloudDB db = new GestCloudDB();
-            db.Database.ExecuteSqlCommand("TRUNCATE TABLE [MTGCards]");
-            db.SaveChanges();
+            /*db.Database.ExecuteSqlCommand("TRUNCATE TABLE [MTGCards]");
+            db.SaveChanges();*/
 
             List<MTGCard> List = new List<MTGCard>();
-            foreach (Expansion exp in db.Expansions.ToList())
+            foreach (Expansion exp in db.Expansions.ToList().Take(20))
             {
                 String url = "https://www.mkmapi.eu/ws/v2.0/expansions/"+exp.ExpansionID.ToString()+"/singles";
 
