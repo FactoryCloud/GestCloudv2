@@ -31,6 +31,7 @@ namespace GestCloudv2.UserItem.InfoUser
         private Page NavigationUser;
         public GestCloudDB db;
         List<UserPermission> userPermissions;
+        private User userlist;
 
         public InfoUser_Controller(User user, int editable)
         {
@@ -108,6 +109,15 @@ namespace GestCloudv2.UserItem.InfoUser
             MainContent.Content = MainContentUser;
             LeftSide.Content = ToolSideUser;
             TopSide.Content = NavigationUser;
+        }
+
+        public void DisableUserEvent()
+        {
+            GestCloudDB db = new GestCloudDB();
+            userlist = db.Users.First(u => u.UserID == userlist.UserID);
+            userlist.Enabled = 0;
+            db.Users.Update(userlist);
+            db.SaveChanges();
         }
 
         public void ChangeEditable (int i)
