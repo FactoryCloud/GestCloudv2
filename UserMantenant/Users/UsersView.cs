@@ -37,7 +37,10 @@ namespace FrameworkView.V1
             dt.Clear();
             foreach (var item in users)
             {
-                dt.Rows.Add(item.UserID, item.FirstName, item.LastName, item.Username);
+                if (item.Enabled == 1)
+                {
+                    dt.Rows.Add(item.UserID, item.FirstName, item.LastName, item.Username);
+                }                
             }
         }
 

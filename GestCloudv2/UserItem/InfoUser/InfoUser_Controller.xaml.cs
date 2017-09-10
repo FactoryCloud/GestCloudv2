@@ -114,10 +114,8 @@ namespace GestCloudv2.UserItem.InfoUser
         public void DisableUserEvent()
         {
             GestCloudDB db = new GestCloudDB();
-            userlist = db.Users.First(u => u.UserID == userlist.UserID);
-            userlist.Enabled = 0;
-            db.Users.Update(userlist);
-            db.SaveChanges();
+            userView.user.Enabled = 0;
+            Information["changes"]++;
         }
 
         public void ChangeEditable (int i)
@@ -158,6 +156,7 @@ namespace GestCloudv2.UserItem.InfoUser
                     db.Remove(up);
                 }
             }
+            db.Users.Update(userView.user);
             db.SaveChanges();
             Information["changes"] = 0;
             MessageBox.Show("Se han guardado los cambios");

@@ -27,8 +27,7 @@ namespace GestCloudv2.UserItem.InfoUser
         public AccessUser_MainContent()
         {
             InitializeComponent();
-            MainWindow a = (MainWindow)Application.Current.MainWindow;
-            usersControl = new UsersAccessControlView(a.user);
+            usersControl = new UsersAccessControlView(GetController().userView.user);
             UpdateDataAccess();
         }
 
@@ -41,6 +40,13 @@ namespace GestCloudv2.UserItem.InfoUser
         private void AccessUserTable_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
+        }
+
+        private InfoUser.InfoUser_Controller GetController()
+        {
+            Window mainWindow = Application.Current.MainWindow;
+            var a = (MainWindow)mainWindow;
+            return (InfoUser.InfoUser_Controller)a.MainPage.Content;
         }
     }
 }

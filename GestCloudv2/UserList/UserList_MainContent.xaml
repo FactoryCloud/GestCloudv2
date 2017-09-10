@@ -24,7 +24,7 @@
                 <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
-            <Label Grid.Column="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">Nombre:</Label>
+            <Label Grid.Column="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Width="26">Nombre:</Label>
             <TextBox Name="NameSearchBox"  Grid.Column="1" VerticalContentAlignment="Center" Margin="20" MaxHeight="30"></TextBox>
         </Grid>
         <Grid Grid.Column="1">
@@ -42,6 +42,13 @@
             </Grid.ColumnDefinitions>
             <Label Grid.Column="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">Usuario:</Label>
             <TextBox Name="UserSeachBox"  Grid.Column="1" VerticalContentAlignment="Center" Margin="20" MaxHeight="30"></TextBox>
+        </Grid>
+        <Grid Grid.Column="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <CheckBox Name="ListAllUser" Content="Mostrar todos los usuarios" Grid.Column="0" Grid.ColumnSpan="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  MaxHeight="30"/>
         </Grid>
         <DataGrid Grid.ColumnSpan="4" Grid.Row="1" Name="UsersTable" FontSize="20" IsReadOnly="True" SelectionMode="Single" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserReorderColumns="False"
                   HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" ColumnWidth="*"/>
