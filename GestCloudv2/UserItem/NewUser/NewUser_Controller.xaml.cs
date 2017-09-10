@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using FrameworkDB.V1;
+using System.Security.Cryptography;
 
 namespace GestCloudv2.UserItem.NewUser
 {
@@ -25,6 +26,7 @@ namespace GestCloudv2.UserItem.NewUser
         private Page MainContentUser;
         private Page ToolSideUser;
         private Page NavigationUser;
+        GestCloudDB db;
         public User user;
 
         public NewUser_Controller()
@@ -56,6 +58,26 @@ namespace GestCloudv2.UserItem.NewUser
             }
         }
 
+        public static string GetUniqueKey(int maxSize)
+        {
+            char[] chars = new char[62];
+            chars =
+            "1234567890".ToCharArray();
+            byte[] data = new byte[1];
+            using (RNGCryptoServiceProvider crypto = new RNGCryptoServiceProvider())
+            {
+                crypto.GetNonZeroBytes(data);
+                data = new byte[maxSize];
+                crypto.GetNonZeroBytes(data);
+            }
+            StringBuilder result = new StringBuilder(maxSize);
+            foreach (byte b in data)
+            {
+                result.Append(chars[b % (chars.Length)]);
+            }
+            return result.ToString();
+        }
+
         public void BackToMain()
         {
             Information["controller"] = 0;
@@ -67,6 +89,10 @@ namespace GestCloudv2.UserItem.NewUser
             GestCloudDB db = new GestCloudDB();
             MessageBox.Show("Datos guardados correctamente");
             db.Users.Add(user);
+            db.SaveChanges();
+            user = db.Users.First(u => u.Username == user.Username);
+            user.ActivationCode = user.UserID.ToString() + GetUniqueKey(5).ToString();
+            db.Users.Update(user);
             db.SaveChanges();
         }
 

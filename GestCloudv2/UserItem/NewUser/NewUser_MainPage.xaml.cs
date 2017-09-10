@@ -56,7 +56,7 @@ namespace GestCloudv2.UserItem
                     UserCode = 0,
                     Mail = mailText.Text.ToString(),
                     Password = "NULL",
-                    ActivationCode = "1",
+                    ActivationCode = "2",
                     Enabled = 1
                 };
                 GetController().ControlFieldChangeButton(true);

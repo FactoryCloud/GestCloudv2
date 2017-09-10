@@ -27,7 +27,14 @@ namespace GestCloudv2.UserItem.InfoUser
 
         private void DisableUser_Click(object sender, RoutedEventArgs e)
         {
+            GetController().DisableUserEvent();
+        }
 
+        private InfoUser.InfoUser_Controller GetController()
+        {
+            Window mainWindow = Application.Current.MainWindow;
+            var a = (MainWindow)mainWindow;
+            return (InfoUser.InfoUser_Controller)a.MainPage.Content;
         }
     }
 }
