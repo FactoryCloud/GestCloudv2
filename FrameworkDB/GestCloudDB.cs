@@ -19,6 +19,9 @@ namespace FrameworkDB.V1
         public DbSet<PermissionType> PermissionTypes { get; set; }
         public DbSet<UserPermission> UserPermissions { get; set; }
 
+        public DbSet<Expansion> Expansions { get; set; }
+        public DbSet<MTGCard> MTGCards { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=GestCloud;Integrated Security=True");
@@ -26,8 +29,17 @@ namespace FrameworkDB.V1
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<MTGCard>()
+                .HasKey(m => m.Id);
+
+            modelBuilder.Entity<MTGCard>()
+                .HasOne(a => a.expansion)
+                .WithMany(b => b.MTGCards)
+                .HasForeignKey(a => a.ExpansionID)
+                .HasConstraintName("FK_MTGCards_ExpansionID_Expansions");
+
             modelBuilder.Entity<UserAccessControl>()
-                .HasKey(a => a.UserAccessControlID);
+                .HasKey(a => new { a.UserAccessControlID });
 
             modelBuilder.Entity<UserAccessControl>()
                 .HasOne(a => a.user)
@@ -63,4 +75,6 @@ namespace FrameworkDB.V1
                 .HasConstraintName("FK_UserPermissions_permissionTypeID_permissionTypes");
         }
     }
+
+    
 }

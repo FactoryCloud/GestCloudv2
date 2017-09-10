@@ -16,6 +16,7 @@ using System.IO;
 using System.Xml.Serialization;
 using System.Xml;
 using System.Xml.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace GestCloudv2
 {
@@ -39,9 +40,10 @@ namespace GestCloudv2
 
         private void StartLogin_Event(object sender, RoutedEventArgs e)
         {
-            ExpansionsManager expansionsManager = new ExpansionsManager();
-
-            MessageBox.Show($"{expansionsManager.ExpansionsList.Count}");
+            RequestHelper req = new RequestHelper();
+            //req.expansionsMakeRequest();
+            //req.singlesMakeRequest();
+            MessageBox.Show("Base de datos cargada");
         }
 
         private void KeyPushDetected_Event(object sender, RoutedEventArgs e)

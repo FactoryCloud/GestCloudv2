@@ -10,11 +10,11 @@ namespace FrameworkDB.V1
 {
     public class UserPermission
     {
-        public int UserPermissionID { get; set; }
-
         [Key]
+        public int UserPermissionID { get; set; }
+        
         [ForeignKey("UserID")]
-        public int UserID { get; set; }
+        public int? UserID { get; set; }
         public virtual User user { get; set; }
 
         [ForeignKey("UserTypeID")]
@@ -22,7 +22,7 @@ namespace FrameworkDB.V1
         public virtual UserType userType { get; set; }
 
         [ForeignKey("PermissionTypeID")]
-        public int PermissionTypeID { get; set; }
+        public int? PermissionTypeID { get; set; }
         public virtual PermissionType permissionType { get; set; }
     }
 }

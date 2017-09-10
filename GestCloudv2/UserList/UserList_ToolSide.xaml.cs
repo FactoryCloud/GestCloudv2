@@ -23,6 +23,16 @@ namespace GestCloudv2
         public UserList_ToolSide()
         {
             InitializeComponent();
+            this.Loaded += new RoutedEventHandler(StartEvent);
+        }
+
+        private void StartEvent(object sender, RoutedEventArgs e)
+        {
+            if(GetController().Information["selectedUser"]==1)
+            {
+                ViewUserButton.IsEnabled = true;
+                EditUserButton.IsEnabled = true;
+            }
         }
 
         private void NewUserEvent(object sender, RoutedEventArgs e)
@@ -32,9 +42,12 @@ namespace GestCloudv2
 
         private void EditUserEvent(object sender, RoutedEventArgs e)
         {
-            /*Window mainWindow = Application.Current.MainWindow;
-            var a = (MainWindow)mainWindow;
-            var b = (Main.Main_Controller)a.MainPage.Content;*/
+            GetController().StartEditUser();
+        }
+
+        private void ViewUserEvent(object sender, RoutedEventArgs e)
+        {
+            GetController().StartViewUser();
         }
 
         private Main.Main_Controller GetController()
@@ -42,6 +55,6 @@ namespace GestCloudv2
             Window mainWindow = Application.Current.MainWindow;
             var a = (MainWindow)mainWindow;
             return (Main.Main_Controller)a.MainPage.Content;
-        }
+        } 
     }
 }

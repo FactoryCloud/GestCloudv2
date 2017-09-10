@@ -1,11 +1,14 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Xml;
+using System.Xml.Linq;
 
 namespace FrameworkDB.V1
 {
@@ -45,8 +48,13 @@ namespace FrameworkDB.V1
             // proceed further
         }
 
-        public XmlDocument expansionsMakeRequest()
+        public void expansionsMakeRequest()
         {
+            GestCloudDB db = new GestCloudDB();
+            /*db.Database.ExecuteSqlCommand("TRUNCATE TABLE [MTGCards]");
+            db.Database.ExecuteSqlCommand("TRUNCATE TABLE [Expansions]");
+            db.SaveChanges();*/
+
             String method = "GET";
             String url = "https://www.mkmapi.eu/ws/v2.0/games/1/expansions";
 
@@ -58,8 +66,91 @@ namespace FrameworkDB.V1
             HttpWebResponse response = request.GetResponse() as HttpWebResponse;
             XmlDocument doc = new XmlDocument();
             doc.Load(response.GetResponseStream());
-            return doc;
+
+            XDocument xmlDoc = XDocument.Parse(doc.OuterXml);
+
+            List<Expansion> List = xmlDoc.Descendants("expansion").Select(u => new Expansion
+            {
+                ExpansionID = Convert.ToInt32(u.Element("idExpansion").Value),
+                EnName = u.Element("enName").Value,
+                Abbreviation = u.Element("abbreviation").Value,
+                //ReleaseDate = u.Element("releaseDate").Value,
+            }).ToList();
+
+            List<Expansion> temp = db.Expansions.ToList();
+            foreach(Expansion ex in List)
+            {
+                if(temp.Where(u=> u.ExpansionID == ex.ExpansionID).ToList().Count==0)
+                {
+                    db.Add(ex);
+                }
+            }
+
+            foreach (Expansion ex in temp)
+            {
+                if (List.Where(u => u.ExpansionID == ex.ExpansionID).ToList().Count == 0)
+                {
+                    db.Remove(ex);
+                }
+            }
+
+            db.SaveChanges();
             // proceed further
+        }
+
+        public void singlesMakeRequest()
+        {
+            String method = "GET";
+
+            GestCloudDB db = new GestCloudDB();
+            db.Database.ExecuteSqlCommand("TRUNCATE TABLE [MTGCards]");
+            db.SaveChanges();
+
+            List<MTGCard> List = new List<MTGCard>();
+            foreach (Expansion exp in db.Expansions.ToList())
+            {
+                String url = "https://www.mkmapi.eu/ws/v2.0/expansions/"+exp.ExpansionID.ToString()+"/singles";
+
+                HttpWebRequest request = WebRequest.CreateHttp(url) as HttpWebRequest;
+                OAuthHeader header = new OAuthHeader();
+                request.Headers.Add(HttpRequestHeader.Authorization, header.getAuthorizationHeader(method, url));
+                request.Method = method;
+
+                HttpWebResponse response = request.GetResponse() as HttpWebResponse;
+                XmlDocument doc = new XmlDocument();
+                doc.Load(response.GetResponseStream());
+
+                XDocument xmlDoc = XDocument.Parse(doc.OuterXml);
+                List<MTGCard> Temp = xmlDoc.Descendants("single").Select(u => new MTGCard
+                {
+                    ProductID = Convert.ToInt32(u.Element("idProduct").Value),
+                    EnName = u.Element("enName").Value,
+                    Rarity = u.Element("rarity").Value,
+                    Website = u.Element("website").Value,
+                    Image = u.Element("image").Value,
+                    ExpansionID = exp.Id
+                }).ToList();
+                List.AddRange(Temp);
+            }
+
+            List<MTGCard> temp = db.MTGCards.ToList();
+            foreach (MTGCard ex in List)
+            {
+                if (temp.Where(u => u.ProductID == ex.ProductID).ToList().Count == 0)
+                {
+                    db.Add(ex);
+                }
+            }
+
+            foreach (MTGCard ex in temp)
+            {
+                if (List.Where(u => u.ProductID == ex.ProductID).ToList().Count == 0)
+                {
+                    db.Remove(ex);
+                }
+            }
+
+            db.SaveChanges();
         }
     }
 

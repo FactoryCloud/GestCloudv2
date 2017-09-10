@@ -19,5 +19,8 @@
         <Button Name="BasicPermissionButton" Grid.Column="1" Grid.Row="0" Margin="10" Click="BasicPermissionEvent">Permisos Generales</Button>
         <Button Name="UsersPermissionButton" Grid.Column="1" Grid.Row="1" Margin="10" Click="UsersPermissionEvent">Permisos Usuarios</Button>
         <Button Name="CardsPermissionButton" Grid.Column="1" Grid.Row="2" Margin="10" Click="CardsPermissionEvent">Permisos Cartas</Button>
+        <Button Name="EditModeButton" Grid.Column="1" Grid.Row="4" Margin="10" Click="EditModeEvent">Editar Usuario</Button>
+        <Button Visibility="Hidden" Name="SaveChangesButton" Grid.Column="1" Grid.Row="4" Margin="10" Click="SaveChangesEvent">Guardar Cambios</Button>
+        
     </Grid>
 </Page>

@@ -10,6 +10,7 @@ namespace FrameworkDB.V1
 {
     public class User
     {
+        [Key]
         public int UserID { get; set; }
 
         public int UserCode { get; set; }

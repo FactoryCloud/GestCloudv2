@@ -17,7 +17,7 @@
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <Button Grid.Column="1" Grid.Row="0" Margin="10" Click="NewUserEvent">Nuevo Usuario</Button>
-        <Button Name="EditUserButton" IsEnabled="False" Grid.Column="1" Grid.Row="1" Margin="10" Click="EditUserEvent">Editar Usuario</Button>
-        <Button Name ="DeleteUserButton" IsEnabled="False" Grid.Column="1" Grid.Row="2" Margin="10">Eliminar Usuario</Button>
+        <Button Name="ViewUserButton" IsEnabled="False" Grid.Column="1" Grid.Row="1" Margin="10" Click="ViewUserEvent">Ver Usuario</Button>
+        <Button Name ="EditUserButton" IsEnabled="False" Grid.Column="1" Grid.Row="2" Margin="10" Click="EditUserEvent">Editar Usuario</Button>
     </Grid>
 </Page>
