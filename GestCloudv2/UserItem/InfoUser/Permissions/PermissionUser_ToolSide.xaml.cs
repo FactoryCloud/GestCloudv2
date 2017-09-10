@@ -40,6 +40,11 @@ namespace GestCloudv2.UserItem.InfoUser
             GetController().ChangePermission(2);
         }
 
+        private void SaveChangesEvent(object sender, RoutedEventArgs e)
+        {
+            GetController().SaveChanges();
+        }
+
         private InfoUser.InfoUser_Controller GetController()
         {
             Window mainWindow = Application.Current.MainWindow;

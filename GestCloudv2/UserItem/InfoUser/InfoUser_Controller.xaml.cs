@@ -29,8 +29,8 @@ namespace GestCloudv2.UserItem.InfoUser
         private Page MainContentUser;
         private Page ToolSideUser;
         private Page NavigationUser;
-        public List<UserPermission> UserPermissions;
-        GestCloudDB db;
+        public GestCloudDB db;
+        List<UserPermission> userPermissions;
 
         public InfoUser_Controller(User user, bool editable)
         {
@@ -43,13 +43,11 @@ namespace GestCloudv2.UserItem.InfoUser
             Information.Add("permission", 0);
             Information.Add("old_permission", 0);
             Information.Add("controller", 0);
+            Information.Add("changes", 0);
 
             userView = new UserView(user);
             db = new GestCloudDB();
-            UserPermissions = new List<UserPermission>();
-
-            UserPermissions = db.UserPermissions.Where(u => u.user == userView.user)
-                .Include(u => u.user).Include(u => u.permissionType).ToList();
+            userPermissions = db.UserPermissions.Where(u => (u.UserID == userView.user.UserID)).Include(u => u.permissionType).ToList();
 
             this.Loaded += new RoutedEventHandler(StartUserInfo_Event);
         }
@@ -62,28 +60,41 @@ namespace GestCloudv2.UserItem.InfoUser
             UpdateComponents();
         }
 
+        public List<UserPermission> GetPermissions()
+        {
+            //List<UserPermission> userPermissions = db.UserPermissions.Where(u => (u.UserID == userView.user.UserID)).Include(u => u.permissionType).ToList();
+            return userPermissions;
+        }
+
         public UserPermission GetPermission (string type, int number)
         {
             PermissionType permissionType = db.PermissionTypes.First(u => (u.Item == type && u.Mode == number));
-            UserPermission userPermission = UserPermissions.First(u => (u.UserID == userView.user.UserID && u.PermissionTypeID == permissionType.PermissionTypeID));
+            UserPermission userPermission = userPermissions.First(u => (u.UserID == userView.user.UserID && u.PermissionTypeID == permissionType.PermissionTypeID));
 
             return userPermission;
         }
 
         public void CreatePermission (string type, int number)
         {
+            Information["changes"] ++;
             PermissionType permissionType = db.PermissionTypes.First(u => (u.Item == type && u.Mode == number));
             UserPermission userPermission = new UserPermission
             {
-                user = userView.user,
-                permissionType = permissionType
+                UserID = userView.user.UserID,
+                PermissionTypeID = permissionType.PermissionTypeID,
+                permissionType = permissionType,
             };
-            UserPermissions.Add(userPermission);
+            userPermissions.Add(userPermission);
+            MessageBox.Show($"Permisos para usuario {userView.user.UserID} = {userPermissions.Where(u => (u.UserID == userView.user.UserID)).ToList().Count.ToString()}");
         }
 
-        public void DeletePermission (UserPermission userPermission)
+        public void DeletePermission (string type, int number)
         {
-            UserPermissions.Remove(userPermission);
+            Information["changes"]++;
+            PermissionType permissionType = db.PermissionTypes.First(u => (u.Item == type && u.Mode == number));
+            UserPermission userPermission = userPermissions.First(u => (u.UserID == userView.user.UserID && u.PermissionTypeID == permissionType.PermissionTypeID));
+            userPermissions.Remove(userPermission);
+            MessageBox.Show($"Permisos para usuario {userView.user.UserID} = {userPermissions.Where(u => (u.UserID == userView.user.UserID)).ToList().Count.ToString()}");
         }
 
         public void BackToMain()
@@ -117,6 +128,28 @@ namespace GestCloudv2.UserItem.InfoUser
             Information["old_permission"] = Information["permission"];
             Information["permission"] = i;
             ChangeEnviroment();
+        }
+
+        public void SaveChanges()
+        {
+            List<UserPermission> temp = db.UserPermissions.Where(u => (u.UserID == userView.user.UserID)).Include(u => u.permissionType).ToList();
+            foreach (UserPermission up in userPermissions)
+            {
+                if(temp.Where(u=> (u.UserID == up.UserID && u.PermissionTypeID == up.PermissionTypeID)).ToList().Count == 0)
+                {
+                    db.Add(up);
+                }
+            }
+
+            foreach (UserPermission up in temp)
+            {
+                if (userPermissions.Where(u => (u.UserID == up.UserID && u.PermissionTypeID == up.PermissionTypeID)).ToList().Count == 0)
+                {
+                    db.Remove(up);
+                }
+            }
+            db.SaveChanges();
+            MessageBox.Show("Se han guardado los cambios");
         }
 
         public void ChangeEnviroment()
@@ -164,6 +197,14 @@ namespace GestCloudv2.UserItem.InfoUser
             switch (Information["controller"])
             {
                 case 0:
+                    if (Information["changes"] > 0)
+                    {
+                        MessageBoxResult result = MessageBox.Show("Usted ha realizado cambios, ¿Esta seguro que desea salir?", "Volver", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                        if (result == MessageBoxResult.No)
+                        {
+                            return;
+                        }
+                    }
                     MainWindow a = (MainWindow)Application.Current.MainWindow;
                     a.MainPage.Content = new Main.Main_Controller();
                     break;

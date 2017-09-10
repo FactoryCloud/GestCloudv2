@@ -5,41 +5,35 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Xml.Serialization;
-
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 namespace FrameworkDB.V1
 {
     public class Expansion
     {
-        [XmlElement("idExanpasion")]
-        public string ExpansionID { get; set; }
+        [Key]
+        [Required]
+        public int Id { get; set; }
 
-        [XmlElement("enName")]
+        [Required]
+        public int ExpansionID { get; set; }
+
+        [Column(TypeName = "ntext")]
+        [StringLength(50)]
         public string EnName { get; set; }
 
-        [XmlElement("abbreviation")]
+        [Column(TypeName = "ntext")]
+        [StringLength(50)]
         public string Abbreviation { get; set; }
 
-        [XmlElement("releaseDate")]
-        public string ReleaseDate { get; set; }
-    }
+        //[XmlElement("releaseDate")]
+        //public string ReleaseDate { get; set; }
 
-    [XmlRoot("Expansions")]
-    public class ExpansionsManager
-    {
-        [XmlElement("Expansion", typeof(Expansion))]
-        public List<Expansion> ExpansionsList { get; set; }
+        public virtual List<MTGCard> MTGCards { get; set; }
 
-        public ExpansionsManager()
+        public string Print()
         {
-            RequestHelper req = new RequestHelper();
-            XDocument xmlDoc = XDocument.Parse(req.expansionsMakeRequest().OuterXml);
-            ExpansionsList = xmlDoc.Descendants("expansion").Select(u => new Expansion
-            {
-                ExpansionID = u.Element("idExpansion").Value,
-                EnName = u.Element("enName").Value,
-                Abbreviation = u.Element("abbreviation").Value,
-                ReleaseDate = u.Element("releaseDate").Value,
-            }).ToList();
+            return ($"id={ExpansionID}, Name={EnName}, Abbreviation={Abbreviation}");
         }
     }
 }
