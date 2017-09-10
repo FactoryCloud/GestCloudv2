@@ -24,10 +24,10 @@ namespace FrameworkView.V1
             db = new GestCloudDB();
             dt = new DataTable();
             expansionSearch = new Expansion();
-            dt.Columns.Add("Codigo", typeof(int));
-            dt.Columns.Add("Producto", typeof(int));
-            dt.Columns.Add("Expansion", typeof(string));
             dt.Columns.Add("Nombre", typeof(string));
+            dt.Columns.Add("Número", typeof(string));
+            dt.Columns.Add("Expansion", typeof(string));
+            dt.Columns.Add("Rareza", typeof(string));
         }
 
         public void SetExpansion(int num)
@@ -37,29 +37,29 @@ namespace FrameworkView.V1
 
         public List<Expansion> GetExpansions()
         {
-            List<Expansion> expansions = db.Expansions.OrderBy(ex => ex.ExpansionID).ToList();
+            List<Expansion> expansions = db.Expansions.OrderByDescending(ex => ex.ReleaseDate).ToList();
             return expansions;
         }
 
         public void UpdateTable()
         {
-            List<MTGCard> cards = db.MTGCards.Include(u => u.expansion).OrderBy(u => u.ProductID).OrderBy(u => u.expansion.ExpansionID).ToList();
+            List<MTGCard> cards = db.MTGCards.Include(u => u.expansion).OrderBy(u => u.Number).OrderBy(u => u.expansion.ReleaseDate).ToList();
 
             dt.Clear();
             foreach (MTGCard item in cards)
             {
-                dt.Rows.Add(item.Id, item.ProductID, item.expansion.EnName, item.EnName);
+                dt.Rows.Add(item.EnName, item.Number, item.expansion.Abbreviation, item.Rarity);
             }
         }
 
         public void UpdateFilteredTable()
         {
-            List<MTGCard> cards = db.MTGCards.Where(u => CardFilterExpansion(u)).OrderBy(u => u.ProductID).OrderBy(u => u.expansion.ExpansionID).ToList();
+            List<MTGCard> cards = db.MTGCards.Where(u => CardFilterExpansion(u)).OrderBy(u => u.Rarity).ToList();
 
             dt.Clear();
             foreach (MTGCard item in cards)
             {
-                dt.Rows.Add(item.Id, item.ProductID, item.expansion.EnName, item.EnName);
+                dt.Rows.Add(item.EnName, item.Number, item.expansion.Abbreviation, item.Rarity);
             }
         }
 

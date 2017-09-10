@@ -41,7 +41,8 @@ namespace GestCloudv2
         private void StartLogin_Event(object sender, RoutedEventArgs e)
         {
             GestCloudDB db = new GestCloudDB();
-            db.UpdateProductsList();
+            //db.UpdateFromMKM();
+            //db.UpdateProductsList();
             MessageBox.Show("Base de datos cargada");
         }
 

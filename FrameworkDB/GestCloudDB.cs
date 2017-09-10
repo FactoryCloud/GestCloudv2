@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.SqlServer;
 using Microsoft.EntityFrameworkCore;
-
+using System.Windows;
 
 namespace FrameworkDB.V1
 {
@@ -114,20 +114,23 @@ namespace FrameworkDB.V1
                 if (temp.Count == 0)
                 {
                     // Accion para cartas que aun no están en la base de Productos
-                    Products.Add(new Product
+                    /*Products.Add(new Product
                     {
                         Name = $"{card.EnName} ({card.expansion.Abbreviation})",
                         ProductTypeID = ProductTypes.First(t => t.Name == "MTGCard").ProductTypeID,
                         ExternalID = card.ProductID,
-                    });
+                        DateLaunch = card.expansion.ReleaseDate
+                    });*/
                 }
 
                 else
                 {
                     // Accion para cartas que ya están en la base de Productos
-                    if(temp[0].Name != $"{card.EnName} ({card.expansion.Abbreviation})")
+                    if (temp[0].Name != $"{card.EnName} ({card.expansion.Abbreviation})" || 
+                        temp[0].DateLaunch != card.expansion.ReleaseDate)
                     {
                         temp[0].Name = $"{card.EnName} ({card.expansion.Abbreviation})";
+                        temp[0].DateLaunch = card.expansion.ReleaseDate;
                         Products.Update(temp[0]);
                     }
                 }

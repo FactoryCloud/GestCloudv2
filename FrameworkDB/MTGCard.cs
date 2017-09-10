@@ -15,7 +15,12 @@ namespace FrameworkDB.V1
         public int Id { get; set; }
 
         public int ProductID { get; set; }
-        public int MetaproductID { get; set; }
+        public int? MetaproductID { get; set; }
+        public int? CountReprints { get; set; }
+
+        [Column(TypeName = "ntext")]
+        [StringLength(20)]
+        public string Number { get; set; }
 
         [Column(TypeName = "ntext")]
         [StringLength(200)]

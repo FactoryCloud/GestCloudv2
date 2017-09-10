@@ -38,7 +38,7 @@ namespace GestCloudv2.CardList
         {
             List<Expansion> expansions = cardsView.GetExpansions();
 
-            foreach(Expansion exp in expansions.Take(150))
+            foreach(Expansion exp in expansions)
             {
                 ComboBoxItem temp = new ComboBoxItem();
                 temp.Content = $"{exp.EnName} ({exp.Abbreviation})";
