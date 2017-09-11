@@ -32,21 +32,18 @@ namespace FrameworkView.V1
 
         public void UpdateTable()
         {
-            List<User> users = db.Users.ToList();
+            List<User> users = db.Users.OrderByDescending(u => u.Enabled).ToList();
 
             dt.Clear();
             foreach (var item in users)
             {
-                if (item.Enabled == 1)
-                {
-                    dt.Rows.Add(item.UserID, item.FirstName, item.LastName, item.Username);
-                }                
+                    dt.Rows.Add(item.UserID, item.FirstName, item.LastName, item.Username);               
             }
         }
 
         public void UpdateFilteredTable()
         {
-            List<User> users = db.Users.Where(u=> UserFilterName(u)).ToList();
+            List<User> users = db.Users.Where(u=> UserFilterName(u)).OrderByDescending(u => u.Enabled).ToList();
 
             dt.Clear();
             foreach (var item in users)
@@ -57,7 +54,7 @@ namespace FrameworkView.V1
 
         public void UpdateFilteredTableUserName()
         {
-            List<User> users = db.Users.Where(u => UserFilterUserName(u)).ToList();
+            List<User> users = db.Users.Where(u => UserFilterUserName(u)).OrderByDescending(u => u.Enabled).ToList();
 
             dt.Clear();
             foreach (var item in users)
@@ -68,7 +65,7 @@ namespace FrameworkView.V1
 
         public void UpdateFilteredTableCod()
         {
-            List<User> users = db.Users.Where(u => UserFilterCod(u)).ToList();
+            List<User> users = db.Users.Where(u => UserFilterCod(u)).OrderByDescending(u => u.Enabled).ToList();
 
             dt.Clear();
             foreach (var item in users)
