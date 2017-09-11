@@ -25,6 +25,11 @@ namespace FrameworkDB.V1
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductType> ProductTypes { get; set; }
 
+        public DbSet<Condition> Conditions { get; set; }
+        public DbSet<DocumentType> DocumentTypes { get; set; }
+        public DbSet<Movement> Movements { get; set; }
+        public DbSet<StockAdjust> StockAdjusts { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=GestCloud;Integrated Security=True");
@@ -85,6 +90,24 @@ namespace FrameworkDB.V1
                 .WithMany(b => b.UserPermissions)
                 .HasForeignKey(a => a.PermissionTypeID)
                 .HasConstraintName("FK_UserPermissions_permissionTypeID_permissionTypes");
+
+            modelBuilder.Entity<Movement>()
+                .HasOne(a => a.product)
+                .WithMany(b => b.Movements)
+                .HasForeignKey(a => a.ProductID)
+                .HasConstraintName("FK_Movements_ProductID_Products");
+
+            modelBuilder.Entity<Movement>()
+                .HasOne(a => a.documentType)
+                .WithMany(b => b.Movements)
+                .HasForeignKey(a => a.DocumentTypeID)
+                .HasConstraintName("FK_Movements_DocumentTypeID_DocumentTypes");
+
+            modelBuilder.Entity<Movement>()
+                .HasOne(a => a.condition)
+                .WithMany(b => b.Movements)
+                .HasForeignKey(a => a.ConditionID)
+                .HasConstraintName("FK_Movements_ConditionID_Conditions");
         }
 
         public void UpdateFromMKM()
@@ -114,13 +137,13 @@ namespace FrameworkDB.V1
                 if (temp.Count == 0)
                 {
                     // Accion para cartas que aun no están en la base de Productos
-                    /*Products.Add(new Product
+                    Products.Add(new Product
                     {
                         Name = $"{card.EnName} ({card.expansion.Abbreviation})",
                         ProductTypeID = ProductTypes.First(t => t.Name == "MTGCard").ProductTypeID,
                         ExternalID = card.ProductID,
                         DateLaunch = card.expansion.ReleaseDate
-                    });*/
+                    });
                 }
 
                 else
