@@ -55,8 +55,8 @@ namespace GestCloudv2
             else
             {
                 users[0].Password = NewPasswordText.Password;
-                //u.ActivationCode = null;
-                //db.UpdateRange(users);
+                users[0].ActivationCode = null;
+                db.UpdateRange(users);
                 db.SaveChanges();
                 MainWindow mainWindow = new MainWindow(user);
                 mainWindow.Show();
