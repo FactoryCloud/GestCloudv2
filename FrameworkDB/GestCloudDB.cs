@@ -114,13 +114,13 @@ namespace FrameworkDB.V1
                 if (temp.Count == 0)
                 {
                     // Accion para cartas que aun no están en la base de Productos
-                    /*Products.Add(new Product
+                    Products.Add(new Product
                     {
                         Name = $"{card.EnName} ({card.expansion.Abbreviation})",
                         ProductTypeID = ProductTypes.First(t => t.Name == "MTGCard").ProductTypeID,
                         ExternalID = card.ProductID,
                         DateLaunch = card.expansion.ReleaseDate
-                    });*/
+                    });
                 }
 
                 else

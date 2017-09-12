@@ -76,28 +76,35 @@ namespace GestCloudv2
 
                 foreach (User u in users)
                 {
-                    if (u.Username == UserNameText.Text && u.Password == PasswordText.Password)
+                    if (u.Enabled == 0)
                     {
-                        if(u.ActivationCode != null)
+                        MessageBox.Show("Este usuario esta desactivado");
+                    }
+                    else
+                    {
+                        if (u.Username == UserNameText.Text && u.Password == PasswordText.Password)
                         {
-                            advice = "Este usuario tiene un código de activación, no se puede iniciar sesión mediante la contraseña actual.";
-                        }
-
-                        else
-                        {
-                            UserAccessControl accessControl = new UserAccessControl
+                            if (u.ActivationCode != null)
                             {
-                                user = u,
-                                accessType = accessTypes[0],
-                                DateStartAccess = DateTime.Now,
-                                DateEndAccess = DateTime.Now
-                            };
-                            db.UsersAccessControl.Add(accessControl);
-                            db.SaveChanges();
-                            MainWindow mainWindow = new MainWindow(u);
-                            mainWindow.Show();
-                            this.Close();
-                            return;
+                                advice = "Este usuario tiene un código de activación, no se puede iniciar sesión mediante la contraseña actual.";
+                            }
+
+                            else
+                            {
+                                UserAccessControl accessControl = new UserAccessControl
+                                {
+                                    user = u,
+                                    accessType = accessTypes[0],
+                                    DateStartAccess = DateTime.Now,
+                                    DateEndAccess = DateTime.Now
+                                };
+                                db.UsersAccessControl.Add(accessControl);
+                                db.SaveChanges();
+                                MainWindow mainWindow = new MainWindow(u);
+                                mainWindow.Show();
+                                this.Close();
+                                return;
+                            }
                         }
                     }
                 }
@@ -119,8 +126,8 @@ namespace GestCloudv2
                             DateEndAccess = DateTime.Now
                         };
                         db.UsersAccessControl.Add(accessControl);
-                        //u.ActivationCode = null;
-                        //db.UpdateRange(users);
+                        u.ActivationCode = null;
+                        db.UpdateRange(users);
                         db.SaveChanges();
                         ChangePasswordUserWindow mainWindow = new ChangePasswordUserWindow(u);
                         mainWindow.Show();

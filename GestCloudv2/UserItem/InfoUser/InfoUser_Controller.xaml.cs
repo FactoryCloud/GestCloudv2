@@ -114,8 +114,16 @@ namespace GestCloudv2.UserItem.InfoUser
         public void DisableUserEvent()
         {
             GestCloudDB db = new GestCloudDB();
-            userView.user.Enabled = 0;
-            Information["changes"]++;
+            
+            MessageBoxResult result = MessageBox.Show("Si usted desactiva el usuario no podre acceder a él,¿Desea desactivarlo?", "Desactivar", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                userView.user.Enabled = 0;
+                //Information["changes"]++;
+                db.Users.Update(userView.user);
+                db.SaveChanges();
+                MessageBox.Show("Usuario desactivado");
+            }           
         }
 
         public void ChangeEditable (int i)
