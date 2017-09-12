@@ -30,14 +30,19 @@ namespace GestCloudv2
 
             foreach(UserPermission u in UserPermissions)
             {
-                if(u.permissionType.Item == "Users" && u.permissionType.Subitem == "General" && u.permissionType.Mode == 1)
+                if(u.permissionType.Item == "Users" && u.permissionType.Mode == 1)
                 {
                     UsersNavigationButton.Visibility = Visibility.Visible;
                 }
 
-                if (u.permissionType.Item == "Cards" && u.permissionType.Subitem == "General" && u.permissionType.Mode == 1)
+                if (u.permissionType.Item == "Cards" && u.permissionType.Mode == 1)
                 {
                     CardsNavigationButton.Visibility = Visibility.Visible;
+                }
+
+                if (u.permissionType.Item == "Stock" && u.permissionType.Mode == 1)
+                {
+                    StockNavigationButton.Visibility = Visibility.Visible;
                 }
             }
         }
@@ -50,6 +55,11 @@ namespace GestCloudv2
         private void CardsNavigationEvent(object sender, RoutedEventArgs e)
         {
             GetController().ChangeMode(2);
+        }
+
+        private void StockNavigationEvent(object sender, RoutedEventArgs e)
+        {
+            GetController().ChangeMode(3);
         }
 
         private Main.Main_Controller GetController()
