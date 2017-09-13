@@ -150,7 +150,6 @@ namespace GestCloudv2.Main
                     break;
 
                 case 3:
-                    MessageBox.Show("entra a stock");
                     MainWindow c = (MainWindow)Application.Current.MainWindow;
                     c.MainPage.Content = new StockItem.AddStock.AddStock_Controller();
                     break;

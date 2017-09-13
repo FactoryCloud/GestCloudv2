@@ -24,5 +24,18 @@ namespace GestCloudv2.StockItem.AddStock.MainAddStock
         {
             InitializeComponent();
         }
+
+        private void Event_NewLine(object sender, RoutedEventArgs e)
+        {
+            FloatWindows.ProductSelectWindow floatWindow = new FloatWindows.ProductSelectWindow(GetController());
+            floatWindow.Show();
+        }
+
+        private StockItem.AddStock.AddStock_Controller GetController()
+        {
+            Window mainWindow = Application.Current.MainWindow;
+            var a = (MainWindow)mainWindow;
+            return (StockItem.AddStock.AddStock_Controller)a.MainPage.Content;
+        }
     }
 }
