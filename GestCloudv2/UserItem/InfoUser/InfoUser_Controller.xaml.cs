@@ -223,6 +223,7 @@ namespace GestCloudv2.UserItem.InfoUser
                             return;
                         }
                     }
+
                     MainWindow a = (MainWindow)Application.Current.MainWindow;
                     a.MainPage.Content = new Main.Main_Controller();
                     break;
