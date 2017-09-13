@@ -37,7 +37,7 @@ namespace GestCloudv2.UserItem
 
             if (GetController().Information["editable"] == 1)
             {
-                MessageBox.Show("modo editable");
+                //MessageBox.Show("modo editable");
                 firsnameText.IsReadOnly = false;
                 lastnameText.IsReadOnly = false;
                 usernameText.IsReadOnly = false;

@@ -32,7 +32,7 @@ namespace GestCloudv2.UserItem.InfoUser
         private Page NavigationUser;
         public GestCloudDB db;
         List<UserPermission> userPermissions;
-        private User userlist;
+        //private User userlist;
 
         public InfoUser_Controller(User user, int editable)
         {
