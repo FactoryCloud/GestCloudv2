@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using Microsoft.EntityFrameworkCore;
 using FrameworkDB.V1;
 using FrameworkView.V1;
+using System.Security.Cryptography;
 
 namespace GestCloudv2.UserItem.InfoUser
 {
@@ -61,6 +62,26 @@ namespace GestCloudv2.UserItem.InfoUser
             UpdateComponents();
         }
 
+        public static string GetUniqueKey(int maxSize)
+        {
+            char[] chars = new char[62];
+            chars =
+            "1234567890".ToCharArray();
+            byte[] data = new byte[1];
+            using (RNGCryptoServiceProvider crypto = new RNGCryptoServiceProvider())
+            {
+                crypto.GetNonZeroBytes(data);
+                data = new byte[maxSize];
+                crypto.GetNonZeroBytes(data);
+            }
+            StringBuilder result = new StringBuilder(maxSize);
+            foreach (byte b in data)
+            {
+                result.Append(chars[b % (chars.Length)]);
+            }
+            return result.ToString();
+        }
+
         public List<UserPermission> GetPermissions()
         {
             //List<UserPermission> userPermissions = db.UserPermissions.Where(u => (u.UserID == userView.user.UserID)).Include(u => u.permissionType).ToList();
@@ -104,7 +125,7 @@ namespace GestCloudv2.UserItem.InfoUser
             ChangeComponents();
         }
 
-        private void UpdateComponents ()
+        private void UpdateComponents()
         {
             MainContent.Content = MainContentUser;
             LeftSide.Content = ToolSideUser;
@@ -115,7 +136,7 @@ namespace GestCloudv2.UserItem.InfoUser
         {
             GestCloudDB db = new GestCloudDB();
             
-            MessageBoxResult result = MessageBox.Show("Si usted desactiva el usuario no podre acceder a él,¿Desea desactivarlo?", "Desactivar", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            MessageBoxResult result = MessageBox.Show("Si usted desactiva el usuario no podre acceder a él,¿Desea desactivarlo?", "Desactivar usuario", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
             {
                 userView.user.Enabled = 0;
@@ -124,6 +145,21 @@ namespace GestCloudv2.UserItem.InfoUser
                 db.SaveChanges();
                 MessageBox.Show("Usuario desactivado");
             }           
+        }
+
+        public void EnableUserEvent()
+        {
+            GestCloudDB db = new GestCloudDB();
+
+            MessageBoxResult result = MessageBox.Show("¿Desea activar el usuario?", "Activar usuario", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                userView.user.Enabled = 1;
+                //Information["changes"]++;
+                db.Users.Update(userView.user);
+                db.SaveChanges();
+                MessageBox.Show("Usuario activado");
+            }
         }
 
         public void ChangeEditable (int i)
@@ -227,6 +263,20 @@ namespace GestCloudv2.UserItem.InfoUser
                     MainWindow a = (MainWindow)Application.Current.MainWindow;
                     a.MainPage.Content = new Main.Main_Controller();
                     break;
+            }
+        }
+
+        public void RestorePassword()
+        {
+            MessageBoxResult result = MessageBox.Show($"¿Esta seguro que desea restaurar la contraseña del usuario {userView.user.Username}?", "Restaurar contraseña", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                GestCloudDB db = new GestCloudDB();
+                userView.user.ActivationCode = userView.user.UserID + GetUniqueKey(5);
+                db.Users.Update(userView.user);
+                db.SaveChanges();
+                MessageBox.Show($"Se ha restablecido la contraseña de {userView.user.Username}.\nA Continuación se mostrara el codigo de activacion, por favor, apuntelo");
+                MessageBox.Show(userView.user.ActivationCode);
             }
         }
     }

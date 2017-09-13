@@ -16,8 +16,9 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <Button Grid.Column="1" Grid.Row="0" Margin="10">Restablecer contraseña</Button>
-        <Button Name="DisableUser" Grid.Column="1" Grid.Row="1" Margin="10" Click="DisableUser_Click">Desactivar usuario</Button>
+        <Button Name="BT_ResetPassword" Grid.Column="1" Grid.Row="0" Margin="10" Click="EV_ResetPassword">Restablecer contraseña</Button>
+        <Button Name="BT_DisableUser" Grid.Column="1" Grid.Row="1" Margin="10" Visibility="Hidden" Click="EV_DisableUser">Desactivar usuario</Button>
+        <Button Name="BT_EnableUser" Grid.Column="1" Grid.Row="1" Margin="10" Visibility="Hidden" Click="EV_EnableUser">Activar usuario</Button>
         <!--<Button Name="SaveButton" Grid.Column="1" Grid.Row="4" Margin="10" Visibility="Hidden">Guardar Cambios</Button>-->
     </Grid>
 </Page>

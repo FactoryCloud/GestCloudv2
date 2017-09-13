@@ -60,6 +60,7 @@ namespace GestCloudv2.Main
         {
             user = db.Users.First(u => u.UserID == i);
             Information["selectedUser"] = 1;
+            //MessageBox.Show($"{user.Enabled}");
             ToolSideDesktop = new UserList_ToolSide();
             LeftSide.Content = ToolSideDesktop;
         }

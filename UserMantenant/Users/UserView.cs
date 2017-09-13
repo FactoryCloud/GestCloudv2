@@ -19,16 +19,7 @@ namespace FrameworkView.V1
 
         public UserView(User user)
         {
-            db = new GestCloudDB();
-            var users = db.Users.Where(c => c.UserID == user.UserID).ToArray();
-            this.user = new User
-            {
-                UserID = users[0].UserID,
-                Username = users[0].Username,
-                FirstName = users[0].FirstName,
-                LastName = users[0].LastName,
-                Password = users[0].Password
-            };
+            this.user = user;
         }
     }
 }
