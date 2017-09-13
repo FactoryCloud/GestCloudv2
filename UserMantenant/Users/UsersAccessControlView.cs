@@ -23,8 +23,8 @@ namespace FrameworkView.V1
             dt = new DataTable();
             this.user = user;
             dt.Columns.Add("Usuario", typeof(string));
-            dt.Columns.Add("Fecha Entrada", typeof(DateTime));
-            dt.Columns.Add("Fecha Salida", typeof(DateTime));
+            dt.Columns.Add("Fecha Entrada", typeof(string));
+            dt.Columns.Add("Fecha Salida", typeof(string));
         }
 
         public IEnumerable GetTableAccess()
@@ -34,21 +34,14 @@ namespace FrameworkView.V1
         }
 
         public void UpdateTableAccess()
-        {
-            //List<UserAccessControl> AccessControl = db.UsersAccessControl.Include(u => u.user).ToList();
-             
+        {             
             List<UserAccessControl> AccessControl = db.UsersAccessControl.Where(u => u.user == user)
                 .Include(u => u.user).ToList();
-            //TimeZoneInfo dataStartAcess = TimeZoneInfo.FindSystemTimeZoneById("Central European Standad Time");
-            var usCulture = "en-US";
+            String format = "dd/MM/yyyy HH:mm:ss";
             dt.Clear();
             foreach (var item in AccessControl)
             {
-                DateTime date;
-                if(DateTime.TryParse(item.DateStartAccess.ToString(), out date) && DateTime.TryParse(item.DateEndAccess.ToString(), out date))
-                {
-                    dt.Rows.Add(item.user.Username, DateTime.Parse(item.DateStartAccess.ToString(), new CultureInfo(usCulture, false)), DateTime.Parse(item.DateEndAccess.ToString(), new CultureInfo(usCulture, false)));
-                }
+                dt.Rows.Add(item.user.Username,  item.DateStartAccess.ToString(format) , item.DateEndAccess.ToString(format));
             }
         }
     }
