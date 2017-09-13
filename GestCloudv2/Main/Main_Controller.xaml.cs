@@ -83,6 +83,12 @@ namespace GestCloudv2.Main
             ChangeComponents();
         }
 
+        public void StartAddStock()
+        {
+            Information["controller"] = 3;
+            ChangeComponents();
+        }
+
         //Prepara los componentes para que los cargue ChangeEnviroment
         private void UpdateComponents ()
         {
@@ -106,6 +112,13 @@ namespace GestCloudv2.Main
                     NavigationDesktop = new Main_Navigation();
                     MainContentDesktop = new CardList.CardList_MainContent();
                     ToolSideDesktop = new CardList.CardList_ToolSide();
+                    ChangeEnviroment();
+                    break;
+
+                case 3:
+                    NavigationDesktop = new Main_Navigation();
+                    MainContentDesktop = null;
+                    ToolSideDesktop = new StockList.StockList_ToolSide();
                     ChangeEnviroment();
                     break;
             }
@@ -134,6 +147,11 @@ namespace GestCloudv2.Main
                 case 2:
                     MainWindow b = (MainWindow)Application.Current.MainWindow;
                     b.MainPage.Content = new UserItem.NewUser.NewUser_Controller();
+                    break;
+
+                case 3:
+                    MainWindow c = (MainWindow)Application.Current.MainWindow;
+                    c.MainPage.Content = new StockItem.AddStock.AddStock_Controller();
                     break;
             }
         }

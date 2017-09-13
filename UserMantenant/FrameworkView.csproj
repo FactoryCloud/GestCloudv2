@@ -97,6 +97,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cards\CardsView.cs" />
+    <Compile Include="Movements\MovementsView.cs" />
+    <Compile Include="Products\ProductsView.cs" />
+    <Compile Include="Products\ProductView.cs" />
     <Compile Include="Users\UsersAccessControlView.cs" />
     <Compile Include="Users\UsersView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -110,6 +113,9 @@
       <Project>{8f03a58f-0834-43e5-a968-ce75afaa02f2}</Project>
       <Name>FrameworkDB</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Stock\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

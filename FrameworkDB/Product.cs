@@ -27,5 +27,7 @@ namespace FrameworkDB.V1
         public decimal? Price { get; set; }
 
         public DateTime? DateLaunch { get; set; }
+
+        public virtual List<Movement> Movements { get; set; }
     }
 }

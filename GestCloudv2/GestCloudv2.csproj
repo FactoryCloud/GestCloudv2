@@ -131,6 +131,9 @@
     <Compile Include="CardList\CardList_ToolSide.xaml.cs">
       <DependentUpon>CardList_ToolSide.xaml</DependentUpon>
     </Compile>
+    <Compile Include="FloatWindows\ProductSelectWindow.xaml.cs">
+      <DependentUpon>ProductSelectWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Login\ChangePasswordUserWindow.xaml.cs">
       <DependentUpon>ChangePasswordUserWindow.xaml</DependentUpon>
     </Compile>
@@ -139,6 +142,21 @@
     </Compile>
     <Compile Include="Main\Main_Navigation.xaml.cs">
       <DependentUpon>Main_Navigation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="StockItem\AddStock\AddStock_Controller.xaml.cs">
+      <DependentUpon>AddStock_Controller.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="StockItem\AddStock\MainAddStock\AddStock_MainContent.xaml.cs">
+      <DependentUpon>AddStock_MainContent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="StockItem\AddStock\MainAddStock\AddStock_Navigation.xaml.cs">
+      <DependentUpon>AddStock_Navigation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="StockItem\AddStock\MainAddStock\AddStock_ToolSide.xaml.cs">
+      <DependentUpon>AddStock_ToolSide.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="StockList\StockList_ToolSide.xaml.cs">
+      <DependentUpon>StockList_ToolSide.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserItem\InfoUser\Access\AccessUser_MainContent.xaml.cs">
       <DependentUpon>AccessUser_MainContent.xaml</DependentUpon>
@@ -199,11 +217,35 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="FloatWindows\ProductSelectWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Login\ChangePasswordUserWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Main\Main_Controller.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="StockItem\AddStock\AddStock_Controller.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="StockItem\AddStock\MainAddStock\AddStock_MainContent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="StockItem\AddStock\MainAddStock\AddStock_Navigation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="StockItem\AddStock\MainAddStock\AddStock_ToolSide.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="StockList\StockList_ToolSide.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
