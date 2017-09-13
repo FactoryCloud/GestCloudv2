@@ -44,7 +44,11 @@ namespace FrameworkView.V1
             dt.Clear();
             foreach (var item in AccessControl)
             {
-                dt.Rows.Add(item.user.Username, DateTime.Parse(item.DateStartAccess.ToString(), new CultureInfo(usCulture,false)), DateTime.Parse(item.DateEndAccess.ToString(), new CultureInfo(usCulture,false)));
+                DateTime date;
+                if(DateTime.TryParse(item.DateStartAccess.ToString(), out date) && DateTime.TryParse(item.DateEndAccess.ToString(), out date))
+                {
+                    dt.Rows.Add(item.user.Username, DateTime.Parse(item.DateStartAccess.ToString(), new CultureInfo(usCulture, false)), DateTime.Parse(item.DateEndAccess.ToString(), new CultureInfo(usCulture, false)));
+                }
             }
         }
     }
