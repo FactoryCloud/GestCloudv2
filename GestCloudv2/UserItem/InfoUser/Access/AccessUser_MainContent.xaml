@@ -37,6 +37,14 @@
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
         </Grid>
+        <Grid Grid.ColumnSpan="2" VerticalAlignment="Center">
+            <Label Content="Fecha entrada:"/>
+            <DatePicker Name="DateStart" VerticalAlignment="Center" SelectedDateChanged="DateStart_SelectedDateChanged" HorizontalAlignment="Center"/>
+        </Grid>
+        <Grid Grid.Column="2" Grid.ColumnSpan="2" VerticalAlignment="Center">
+            <Label Content="Fecha salida:"/>
+            <DatePicker Name="DateEnd" VerticalAlignment="Center" SelectedDateChanged="DateExit_SelectedDateChanged" HorizontalAlignment="Center"/>
+        </Grid>
         <DataGrid Grid.ColumnSpan="4" Grid.Row="1" Name="AccessUserTable" FontSize="20" IsReadOnly="True" SelectionMode="Single" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserReorderColumns="False"
                   HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" ColumnWidth="*" SelectionChanged="AccessUserTable_SelectionChanged"/>
     </Grid>

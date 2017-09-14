@@ -37,9 +37,60 @@ namespace GestCloudv2.UserItem.InfoUser
             AccessUserTable.ItemsSource = usersControl.GetTableAccess();
         }
 
+        private void FilteredBetweenDate()
+        {
+
+        }
+
         private void AccessUserTable_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
+        }
+
+        public void DateStart_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // ... Get DatePicker reference.
+            var picker = sender as DatePicker;
+
+            // ... Get nullable DateTime from SelectedDate.
+            DateTime? date = picker.SelectedDate;
+            if (date == null)
+            {
+                // ... A null object.
+                this.Title = "No date";
+                usersControl.dateStart = null;
+            }
+            else
+            {
+                // ... No need to display the time.
+                this.Title = date.Value.ToShortDateString();
+                usersControl.dateStart = date.Value;
+            }
+            UpdateDataAccess();
+            //MessageBox.Show(date.Value.ToShortDateString());
+        }
+
+        public void DateExit_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // ... Get DatePicker reference.
+            var picker = sender as DatePicker;
+
+            // ... Get nullable DateTime from SelectedDate.
+            DateTime? date = picker.SelectedDate;
+            if (date == null)
+            {
+                // ... A null object.
+                this.Title = "No date";
+                usersControl.dateEnd = null;
+            }
+            else
+            {
+                // ... No need to display the time.
+                this.Title = date.Value.ToShortDateString();
+                usersControl.dateEnd = date.Value;
+            }
+            UpdateDataAccess();
+            //MessageBox.Show(date.Value.ToShortDateString());
         }
 
         private InfoUser.InfoUser_Controller GetController()

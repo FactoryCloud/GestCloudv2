@@ -16,6 +16,8 @@ namespace FrameworkView.V1
         private GestCloudDB db;
         private DataTable dt;
         private User user;
+        public DateTime? dateStart { get; set;}
+        public DateTime? dateEnd { get; set; }
 
         public UsersAccessControlView(User user)
         {
@@ -34,9 +36,28 @@ namespace FrameworkView.V1
         }
 
         public void UpdateTableAccess()
-        {             
-            List<UserAccessControl> AccessControl = db.UsersAccessControl.Where(u => u.user == user)
+        {
+            List<UserAccessControl> AccessControl;
+            if (dateStart != null && dateEnd != null)
+            {
+                AccessControl = db.UsersAccessControl.Where(u => (u.user == user && dateEnd.Value.AddDays(1) > u.DateEndAccess && dateStart <= u.DateStartAccess))
                 .Include(u => u.user).ToList();
+            }
+            else if (dateStart != null)
+            {
+                AccessControl = db.UsersAccessControl.Where(u => (u.user == user && dateStart <= u.DateStartAccess))
+                 .Include(u => u.user).ToList();
+            }
+            else if (dateEnd != null)
+            {
+                AccessControl = db.UsersAccessControl.Where(u => (u.user == user && dateEnd.Value.AddDays(1) >= u.DateEndAccess))
+                 .Include(u => u.user).ToList();
+            }
+            else
+            {
+                AccessControl = db.UsersAccessControl.Where(u => u.user == user)
+                  .Include(u => u.user).ToList();
+            }
             String format = "dd/MM/yyyy HH:mm:ss";
             dt.Clear();
             foreach (var item in AccessControl)
