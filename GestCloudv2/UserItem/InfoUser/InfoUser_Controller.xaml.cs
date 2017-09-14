@@ -121,8 +121,17 @@ namespace GestCloudv2.UserItem.InfoUser
 
         public void BackToMain()
         {
-            Information["controller"] = 0;
-            ChangeComponents();
+            if (Information["changes"] > 0)
+            {
+                //MessageBoxResult result = MessageBox.Show("Usted ha realizado cambios ¿Dese salir?", "Salir al menú", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                Information["controller"] = 0;
+                ChangeComponents();
+            }
+            else
+            {
+                Information["controller"] = 0;
+                ChangeComponents();
+            }
         }
 
         private void UpdateComponents()
@@ -259,7 +268,6 @@ namespace GestCloudv2.UserItem.InfoUser
                             return;
                         }
                     }
-
                     MainWindow a = (MainWindow)Application.Current.MainWindow;
                     a.MainPage.Content = new Main.Main_Controller();
                     break;
