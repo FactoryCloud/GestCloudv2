@@ -40,6 +40,7 @@ namespace GestCloudv2.FloatWindows
             this.Loaded += new RoutedEventHandler(StartEvent);
             CB_ProductType.SelectionChanged += new SelectionChangedEventHandler(SearchEvent);
             CB_Expansion.SelectionChanged += new SelectionChangedEventHandler(SearchEvent);
+            TB_ProductName.KeyUp += new KeyEventHandler(SearchEvent);
             TX_Quantity.KeyUp += new KeyEventHandler(EV_QuantityChange);
             DG_Products.MouseLeftButtonUp += new MouseButtonEventHandler(ProductSelected_Event);
 
@@ -57,6 +58,7 @@ namespace GestCloudv2.FloatWindows
             this.Loaded += new RoutedEventHandler(StartEvent_Edit);
             CB_ProductType.SelectionChanged += new SelectionChangedEventHandler(SearchEvent);
             CB_Expansion.SelectionChanged += new SelectionChangedEventHandler(SearchEvent);
+            TB_ProductName.KeyUp += new KeyEventHandler(SearchEvent);
             TX_Quantity.KeyUp += new KeyEventHandler(EV_QuantityChange);
             DG_Products.MouseLeftButtonUp += new MouseButtonEventHandler(ProductSelected_Event);
 
@@ -189,6 +191,16 @@ namespace GestCloudv2.FloatWindows
             if (CB_Expansion.SelectedIndex >= 0)
             {
                 productsView.SetExpansion(Convert.ToInt32(temp2.Name.Replace("expansion", "")));
+            }
+
+            if(TB_ProductName.Text.Length >= 3)
+            {
+                productsView.ProductName = TB_ProductName.Text;
+            }
+
+            else
+            {
+                productsView.ProductName = null;
             }
 
             productsView.UpdateFilteredTable();

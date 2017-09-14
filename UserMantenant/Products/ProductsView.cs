@@ -7,12 +7,14 @@ using FrameworkDB.V1;
 using System.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Collections;
+using System.Windows;
 
 namespace FrameworkView.V1
 {
     public class ProductsView
     {
         List<Product> products { get; set; }
+        public string ProductName { get; set; }
         public GestCloudDB db;
 
         public ProductType productType;
@@ -74,15 +76,13 @@ namespace FrameworkView.V1
                 switch(productType.ProductTypeID)
                 {
                     case 1:
-                        if (expansion.ExpansionID > 0)
-                        {
-                            List<MTGCard> cards = db.MTGCards.Where(u => CardFilterExpansion(u)).OrderBy(u => u.EnName).ToList();
+                        List<MTGCard> cards = db.MTGCards.Where(u => CardFilterExpansion(u)).OrderBy(u => u.EnName).ToList();
+                        //MessageBox.Show($"{cards.Count}");
 
-                            foreach (MTGCard item in cards)
-                            {
-                                Product temp = db.Products.First(p => p.ExternalID == item.ProductID);
-                                products.Add(temp);
-                            }
+                        foreach (MTGCard item in cards.Take(300))
+                        {
+                            Product temp = db.Products.First(p => p.ExternalID == item.ProductID);
+                            products.Add(temp);
                         }
                         break;
                 }
@@ -99,7 +99,25 @@ namespace FrameworkView.V1
 
         private Boolean CardFilterExpansion(MTGCard card)
         {
-            return card.ExpansionID == expansion.Id;
+            if(ProductName != null && expansion.ExpansionID > 0)
+            {
+                return card.ExpansionID == expansion.Id && card.EnName.ToLower().Contains(ProductName.ToLower());
+            }
+
+            else if (ProductName != null)
+            {               
+                return card.EnName.ToLower().Contains(ProductName.ToLower());
+            }
+
+            else if(ProductName == null && expansion.ExpansionID>0)
+            {
+                return card.ExpansionID == expansion.Id;
+            }
+
+            else
+            {
+                return false;
+            }
         }
 
         public IEnumerable GetTable()
