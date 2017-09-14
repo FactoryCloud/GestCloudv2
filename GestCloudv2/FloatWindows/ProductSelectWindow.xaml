@@ -60,7 +60,7 @@
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
                 <Label FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center">Cantidad</Label>
-                <TextBox FontSize="12" Grid.Row="1" VerticalAlignment="Center" Margin="20"></TextBox>
+                <TextBox Name="TX_Quantity" FontSize="12" Grid.Row="1" VerticalAlignment="Center" Margin="20"></TextBox>
             </Grid>
             <Grid Margin="5" Grid.Column="1">
                 <Grid.RowDefinitions>
@@ -74,7 +74,7 @@
             </Grid>
             
         </Grid>
-        <Button FontSize="10" Grid.Row="2" Margin="15">Guardar línea</Button>
+        <Button Name="BT_SaveMovement" FontSize="10" Grid.Row="2" Margin="15" Click="EV_SaveMovement">Guardar línea</Button>
         <Button FontSize="10" Grid.Row="2" Grid.Column="1" Margin="15">Descartar línea</Button>
     </Grid>
 </Window>

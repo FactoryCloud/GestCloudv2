@@ -17,7 +17,7 @@ namespace FrameworkDB.V1
         [Column(TypeName = "money")]
         public decimal? Base { get; set; }
 
-        public float? Tax { get; set; }
+        public decimal? Tax { get; set; }
 
         public int? IsFoil { get; set; }
         public int? IsSigned { get; set; }
