@@ -27,7 +27,9 @@ namespace GestCloudv2.UserItem
 
         private void BackUserListEvent(object sender, RoutedEventArgs e)
         {
-            GetController().BackToMain();
+            UserItem.InfoUser_MainContent infouser = new UserItem.InfoUser_MainContent();
+            infouser.ControlBackUser();
+            //GetController().BackToMain();
         }
 
         private void UserPermission_Event(object sender, RoutedEventArgs e)
