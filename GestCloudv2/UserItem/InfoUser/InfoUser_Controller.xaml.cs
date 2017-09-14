@@ -134,6 +134,11 @@ namespace GestCloudv2.UserItem.InfoUser
             }
         }
 
+        public void ControlChanges()
+        {
+            Information["changes"]++;
+        }
+
         private void UpdateComponents()
         {
             MainContent.Content = MainContentUser;

@@ -27,21 +27,9 @@ namespace GestCloudv2.UserItem
         {
             InitializeComponent();
             this.Loaded += new RoutedEventHandler(StartInfoUser);
-        }
-        
-        public void ControlBackUser()
-        {
-            MessageBox.Show($"primer valor{GetController().userView.user.FirstName} segundo{firsnameText.Text.ToString()}");
-            if (firsnameText.Text == GetController().userView.user.FirstName || lastnameText.Text == GetController().userView.user.LastName || usernameText.Text == GetController().userView.user.Username)
-            {
-                GetController().Information["changes"] = 0;
-                GetController().BackToMain();
-            }
-            else
-            {
-                GetController().Information["changes"]++;
-                GetController().BackToMain();
-            }
+            firsnameText.KeyUp += new KeyEventHandler(EV_TXChanges);
+            lastnameText.KeyUp += new KeyEventHandler(EV_TXChanges);
+            usernameText.KeyUp += new KeyEventHandler(EV_TXChanges);
         }
 
         private void StartInfoUser(object sender, RoutedEventArgs e)
@@ -57,6 +45,11 @@ namespace GestCloudv2.UserItem
                 lastnameText.IsReadOnly = false;
                 usernameText.IsReadOnly = false;
             }
+        }
+
+        private void EV_TXChanges(object sender, RoutedEventArgs e)
+        {
+            GetController().ControlChanges();
         }
 
         private InfoUser.InfoUser_Controller GetController()
