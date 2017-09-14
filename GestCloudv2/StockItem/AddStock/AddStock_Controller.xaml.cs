@@ -35,6 +35,7 @@ namespace GestCloudv2.StockItem.AddStock
         {
             InitializeComponent();
             db = new GestCloudDB();
+            movementsView = new MovementsView();
             Information = new Dictionary<string, int>();
             Information.Add("changes", 0);
 
@@ -47,6 +48,13 @@ namespace GestCloudv2.StockItem.AddStock
             ToolSideStock = new MainAddStock.AddStock_ToolSide();
             NavigationStock = new MainAddStock.AddStock_Navigation();
             UpdateComponents();
+        }
+
+        public void AddNewMovement (Movement mov)
+        {
+            movementsView.AddMovement(mov);
+            MainContentStock = new MainAddStock.AddStock_MainContent();
+            MainContent.Content = MainContentStock;
         }
 
         private void UpdateComponents()

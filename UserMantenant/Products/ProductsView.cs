@@ -27,6 +27,7 @@ namespace FrameworkView.V1
             productType = new ProductType();
             //productType = db.ProductTypes.First(p => p.Name == "MTGCard");
             expansion = new Expansion();
+            dt.Columns.Add("ID", typeof(int));
             dt.Columns.Add("Nombre", typeof(string));
             dt.Columns.Add("Tipo Producto", typeof(string));
             dt.Columns.Add("Precio", typeof(decimal));
@@ -61,7 +62,7 @@ namespace FrameworkView.V1
             dt.Clear();
             foreach (Product item in products)
             {
-                dt.Rows.Add(item.Name, item.productType.Name, item.Price);
+                dt.Rows.Add(item.ProductID, item.Name, item.productType.Name, item.Price);
             }
         }
 
@@ -91,7 +92,7 @@ namespace FrameworkView.V1
                 dt.Clear();
                 foreach (Product item in products)
                 {
-                    dt.Rows.Add(item.Name, item.productType.Name, item.Price);
+                    dt.Rows.Add(item.ProductID, item.Name, item.productType.Name, item.Price);
                 }
             }
         }

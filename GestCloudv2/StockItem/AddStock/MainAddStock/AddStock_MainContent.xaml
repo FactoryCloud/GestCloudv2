@@ -39,7 +39,7 @@
         </Grid>
         <Label VerticalAlignment="Center">Fecha</Label>
         <DatePickerTextBox Grid.Column="1" VerticalAlignment="Center"></DatePickerTextBox>
-        <DataGrid Grid.ColumnSpan="4" Grid.Row="1" Name="MovementsTable" FontSize="20" IsReadOnly="True" SelectionMode="Single" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserReorderColumns="False"
+        <DataGrid Name="DB_Movements" Grid.ColumnSpan="4" Grid.Row="1" FontSize="20" IsReadOnly="True" SelectionMode="Single" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserReorderColumns="False"
                   HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" ColumnWidth="*"/>
     </Grid>
 </Page>
