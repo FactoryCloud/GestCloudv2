@@ -12,7 +12,7 @@ namespace FrameworkDB.V1
     {
         public int MovementID { get; set; }
 
-        public float? Quantity { get; set; }
+        public decimal? Quantity { get; set; }
 
         [Column(TypeName = "money")]
         public decimal? Base { get; set; }
