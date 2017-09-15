@@ -27,13 +27,13 @@ namespace GestCloudv2.StockItem.AddStock.MainAddStock
 
         private void Event_NewLine(object sender, RoutedEventArgs e)
         {
-            FloatWindows.ProductSelectWindow floatWindow = new FloatWindows.ProductSelectWindow(GetController());
+            FloatWindows.ProductSelectWindow floatWindow = new FloatWindows.ProductSelectWindow();
             floatWindow.Show();
         }
 
         private void EV_EditMovement(object sender, RoutedEventArgs e)
         {
-            FloatWindows.ProductSelectWindow floatWindow = new FloatWindows.ProductSelectWindow(GetController(),
+            FloatWindows.ProductSelectWindow floatWindow = new FloatWindows.ProductSelectWindow(
                 GetController().movementsView.movements[0], "AddStock_EditMovement");
             floatWindow.Show();
         }

@@ -39,10 +39,10 @@ namespace GestCloudv2.StockItem.AddStock
             Information = new Dictionary<string, int>();
             Information.Add("changes", 0);
 
-            this.Loaded += new RoutedEventHandler(StartAddStock_Event);
+            this.Loaded += new RoutedEventHandler(EV_StartAddStock);
         }
 
-        private void StartAddStock_Event(object sender, RoutedEventArgs e)
+        private void EV_StartAddStock(object sender, RoutedEventArgs e)
         {
             MainContentStock = new MainAddStock.AddStock_MainContent();
             ToolSideStock = new MainAddStock.AddStock_ToolSide();
@@ -55,6 +55,13 @@ namespace GestCloudv2.StockItem.AddStock
             movementsView.AddMovement(mov);
             MainContentStock = new MainAddStock.AddStock_MainContent();
             MainContent.Content = MainContentStock;
+        }
+
+        public void RestartNewMovement()
+        {
+            FloatWindows.ProductSelectWindow floatWindow = new FloatWindows.ProductSelectWindow(
+                movementsView.movements.Last(), "AddStock_NewMovement");
+            floatWindow.Show();
         }
 
         private void UpdateComponents()
