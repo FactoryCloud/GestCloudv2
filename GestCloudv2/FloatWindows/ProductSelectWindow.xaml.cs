@@ -173,11 +173,14 @@ namespace GestCloudv2.FloatWindows
                 for (int i = 0; i < DG_Products.Items.Count; i++)
                 {
                     DataGridRow row = (DataGridRow)DG_Products.ItemContainerGenerator.ContainerFromIndex(i);
-                    DataRowView dr = row.Item as DataRowView;
-                    if (Int32.Parse(dr.Row.ItemArray[0].ToString()) == movement.ProductID)
+                    if(row != null)
                     {
-                        DG_Products.SelectedIndex = i;
-                        return;
+                        DataRowView dr = row.Item as DataRowView;
+                        if (Int32.Parse(dr.Row.ItemArray[0].ToString()) == movement.ProductID)
+                        {
+                            DG_Products.SelectedIndex = i;
+                            return;
+                        }
                     }
                 }
             }
@@ -216,7 +219,7 @@ namespace GestCloudv2.FloatWindows
 
         private void EV_QuantityChange(object sender, RoutedEventArgs e)
         {
-            movement.Quantity = float.Parse(TX_Quantity.Text);
+            movement.Quantity = decimal.Parse(TX_Quantity.Text);
         }
 
         private void EV_SaveMovement(object sender, RoutedEventArgs e)
