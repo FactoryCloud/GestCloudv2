@@ -95,8 +95,6 @@ namespace GestCloudv2.UserItem
                     db.Users.Add(newUser);
                     db.SaveChanges();
                 }
-                MessageBoxResult result = MessageBox.Show("Datos guardados correctamente");
-
                 Window main = Application.Current.MainWindow;
                 var a = (MainWindow)main;
             }         

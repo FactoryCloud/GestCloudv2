@@ -34,9 +34,9 @@ namespace GestCloudv2.UserItem
 
         private void StartInfoUser(object sender, RoutedEventArgs e)
         {
-            firsnameText.Text = GetController().userView.user.FirstName;
-            lastnameText.Text = GetController().userView.user.LastName;
-            usernameText.Text = GetController().userView.user.Username;
+            firsnameText.Text = GetController().user.FirstName;
+            lastnameText.Text = GetController().user.LastName;
+            usernameText.Text = GetController().user.Username;
 
             if (GetController().Information["editable"] == 1)
             {
@@ -49,6 +49,9 @@ namespace GestCloudv2.UserItem
 
         private void EV_TXChanges(object sender, RoutedEventArgs e)
         {
+            GetController().user.FirstName = firsnameText.Text;
+            GetController().user.LastName = lastnameText.Text;
+            GetController().user.Username = usernameText.Text;
             GetController().ControlChanges();
         }
 

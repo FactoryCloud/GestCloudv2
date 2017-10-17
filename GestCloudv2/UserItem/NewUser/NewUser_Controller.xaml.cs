@@ -87,13 +87,13 @@ namespace GestCloudv2.UserItem.NewUser
         public void SaveNewUser()
         {
             GestCloudDB db = new GestCloudDB();
-            MessageBox.Show("Datos guardados correctamente");
             db.Users.Add(user);
             db.SaveChanges();
             user = db.Users.First(u => u.Username == user.Username);
             user.ActivationCode = user.UserID.ToString() + GetUniqueKey(5).ToString();
             db.Users.Update(user);
             db.SaveChanges();
+            MessageBox.Show("Datos guardados correctamente");
         }
 
         public void UpdateComponents()

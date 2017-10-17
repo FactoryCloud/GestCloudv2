@@ -26,6 +26,7 @@ namespace GestCloudv2.UserItem.InfoUser
     public partial class InfoUser_Controller : Page
     {
         public UserView userView;
+        public User user;
         public Dictionary<string, int> Information;
         private Page MainContentUser;
         private Page ToolSideUser;
@@ -46,9 +47,13 @@ namespace GestCloudv2.UserItem.InfoUser
             Information.Add("old_permission", 0);
             Information.Add("controller", 0);
             Information.Add("changes", 0);
-
+            
             userView = new UserView(user);
             db = new GestCloudDB();
+            this.user = new User();
+            this.user.FirstName = user.FirstName;
+            this.user.LastName = user.LastName;
+            this.user.Username = user.Username;
             userPermissions = db.UserPermissions.Where(u => (u.UserID == userView.user.UserID)).Include(u => u.permissionType).ToList();
 
             this.Loaded += new RoutedEventHandler(StartUserInfo_Event);
@@ -136,6 +141,7 @@ namespace GestCloudv2.UserItem.InfoUser
 
         public void ControlChanges()
         {
+            
             Information["changes"]++;
         }
 
@@ -174,6 +180,20 @@ namespace GestCloudv2.UserItem.InfoUser
                 db.SaveChanges();
                 MessageBox.Show("Usuario activado");
             }
+        }
+
+        public void SaveUserChange()
+        {
+            GestCloudDB db = new GestCloudDB();
+            userView.user.FirstName = user.FirstName;
+            userView.user.LastName = user.LastName;
+            userView.user.Username = user.Username;
+            db.Users.Update(userView.user);
+            db.SaveChanges();
+            Information["changes"] = 0;
+            MessageBox.Show($"Datos Guardados");
+            Information["mode"] = 3;
+            ChangeEnviroment();
         }
 
         public void ChangeEditable (int i)
@@ -256,6 +276,11 @@ namespace GestCloudv2.UserItem.InfoUser
                             break;
                     }
                     UpdateComponents();
+                    break;
+
+                case 3:
+                    MainWindow a = (MainWindow)Application.Current.MainWindow;
+                    a.MainPage.Content = new Main.Main_Controller();
                     break;
             }
         }

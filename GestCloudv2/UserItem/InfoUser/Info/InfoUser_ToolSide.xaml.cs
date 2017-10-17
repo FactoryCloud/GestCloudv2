@@ -20,6 +20,7 @@ namespace GestCloudv2.UserItem
     /// </summary>
     public partial class InfoUser_ToolSide : Page
     {
+
         public InfoUser_ToolSide()
         {
             InitializeComponent();
@@ -28,6 +29,7 @@ namespace GestCloudv2.UserItem
                 EditButton.Visibility = Visibility.Hidden;
                 SaveButton.Visibility = Visibility.Visible;
             }
+
         }
 
         private void AccessInfoUserEvent(object sender, RoutedEventArgs e)
@@ -38,6 +40,14 @@ namespace GestCloudv2.UserItem
         private void EditInfoUserEvent(object sender, RoutedEventArgs e)
         {
             ChangeToEdit();
+        }
+
+        private void SaveInfoUserEvent(object sender, RoutedEventArgs e)
+        {
+            GetController().user.FirstName.ToString();
+            GetController().user.LastName.ToString();
+            GetController().user.Username.ToString();
+            GetController().SaveUserChange();
         }
 
         public void ChangeToEdit()
