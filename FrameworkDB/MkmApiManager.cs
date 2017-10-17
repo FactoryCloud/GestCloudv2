@@ -189,6 +189,39 @@ namespace FrameworkDB.V1
 
             db.SaveChanges();
         }
+
+        public void productsMakeRequest(List<Product> products)
+        {
+            GestCloudDB db = new GestCloudDB();
+
+            String method = "GET";
+            String urlbase = "https://www.mkmapi.eu/ws/v2.0/products/";
+
+            foreach(var product in products)
+            {
+                String url = urlbase + $"{product.ExternalID}";
+                HttpWebRequest request = WebRequest.CreateHttp(url) as HttpWebRequest;
+                OAuthHeader header = new OAuthHeader();
+                request.Headers.Add(HttpRequestHeader.Authorization, header.getAuthorizationHeader(method, url));
+                request.Method = method;
+
+                HttpWebResponse response = request.GetResponse() as HttpWebResponse;
+                XmlDocument doc = new XmlDocument();
+                doc.Load(response.GetResponseStream());
+
+                XDocument xmlDoc = XDocument.Parse(doc.OuterXml);
+
+                List<PriceGuide> prices = xmlDoc.Descendants("priceGuide").Select(u => new PriceGuide
+                {
+                    AVG = Convert.ToDecimal(u.Element("AVG").Value)/100,
+                }).ToList();
+
+                product.Price = prices.First().AVG;
+                db.Products.Update(product);
+            }
+
+            db.SaveChanges();
+        }
     }
 
      

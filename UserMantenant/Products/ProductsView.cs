@@ -59,8 +59,11 @@ namespace FrameworkView.V1
 
         public void UpdateTable()
         {
+            MessageBox.Show("prueba");
             List<Product> products = db.Products.Include(p=> p.productType).OrderBy(u => u.Name).ToList();
+            db.UpdatePricesMKM(products);
 
+            products = db.Products.Include(p => p.productType).OrderBy(u => u.Name).ToList();
             dt.Clear();
             foreach (Product item in products)
             {
@@ -71,6 +74,24 @@ namespace FrameworkView.V1
         public void UpdateFilteredTable()
         {
             List<Product> products = new List<Product>();
+            /*if (productType.ProductTypeID > 0)
+            {
+                switch (productType.ProductTypeID)
+                {
+                    case 1:
+                        List<MTGCard> cards = db.MTGCards.Where(u => CardFilterExpansion(u)).OrderBy(u => u.EnName).ToList();
+                        //MessageBox.Show($"{cards.Count}");
+
+                        foreach (MTGCard item in cards.Take(300))
+                        {
+                            Product temp = db.Products.First(p => p.ExternalID == item.ProductID);
+                            products.Add(temp);
+                        }
+                        break;
+                }
+                db.UpdatePricesMKM(products);
+            }*/
+
             if (productType.ProductTypeID > 0)
             {
                 switch(productType.ProductTypeID)

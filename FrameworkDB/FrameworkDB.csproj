@@ -106,6 +106,7 @@
     <Compile Include="Movement.cs" />
     <Compile Include="MTGCard.cs" />
     <Compile Include="PermissionTypes.cs" />
+    <Compile Include="PriceGuide.cs" />
     <Compile Include="Product.cs" />
     <Compile Include="ProductType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

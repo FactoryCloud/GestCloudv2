@@ -117,6 +117,12 @@ namespace FrameworkDB.V1
             req.singlesMakeRequest();
         }
 
+        public void UpdatePricesMKM(List<Product> products)
+        {
+            RequestHelper req = new RequestHelper();
+            req.productsMakeRequest(products);
+        }
+
         public void UpdateProductsList()
         {
             /*foreach(Product p in Products)
