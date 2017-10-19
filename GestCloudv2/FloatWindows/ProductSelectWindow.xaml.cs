@@ -90,6 +90,7 @@ namespace GestCloudv2.FloatWindows
 
             List<Expansion> expansions = productsView.GetExpansions();
             List<ProductType> productTypes = productsView.GetProductTypes();
+            List<FrameworkDB.V1.Condition> conditions = productsView.GetConditions();
 
             foreach (Expansion exp in expansions)
             {
@@ -105,6 +106,14 @@ namespace GestCloudv2.FloatWindows
                 temp.Content = $"{pt.Name}";
                 temp.Name = $"productType{pt.ProductTypeID}";
                 CB_ProductType.Items.Add(temp);
+            }
+
+            foreach (FrameworkDB.V1.Condition ct in conditions)
+            {
+                ComboBoxItem temp = new ComboBoxItem();
+                temp.Content = $"{ct.Name}";
+                temp.Name = $"conditions{ct.ConditionID}";
+                CB_states.Items.Add(temp);
             }
 
             CB_ProductType.SelectedIndex = 0;
@@ -123,6 +132,7 @@ namespace GestCloudv2.FloatWindows
 
             List<Expansion> expansions = productsView.GetExpansions();
             List<ProductType> productTypes = productsView.GetProductTypes();
+            List<FrameworkDB.V1.Condition> conditions = productsView.GetConditions();
 
             int count = 0;
             foreach (Expansion exp in expansions)
@@ -147,6 +157,14 @@ namespace GestCloudv2.FloatWindows
                 temp.Content = $"{pt.Name}";
                 temp.Name = $"productType{pt.ProductTypeID}";
                 CB_ProductType.Items.Add(temp);
+            }
+
+            foreach (FrameworkDB.V1.Condition ct in conditions)
+            {
+                ComboBoxItem temp = new ComboBoxItem();
+                temp.Content = $"{ct.Name}";
+                temp.Name = $"conditions{ct.ConditionID}";
+                CB_states.Items.Add(temp);
             }
 
             CB_ProductType.SelectedIndex = 0;
@@ -219,7 +237,30 @@ namespace GestCloudv2.FloatWindows
 
         private void EV_QuantityChange(object sender, RoutedEventArgs e)
         {
-            movement.Quantity = decimal.Parse(TX_Quantity.Text);
+            if (System.Text.RegularExpressions.Regex.IsMatch(TX_Quantity.Text, "[^0-9]"))
+            {
+                if (SP_Quantity.Children.Count == 1)
+                {
+                    TextBlock message = new TextBlock();
+                    message.TextWrapping = TextWrapping.WrapWithOverflow;
+                    message.Text = "Solo se permiten números";
+                    SP_Quantity.Children.Add(message);
+                }
+                TX_Quantity.Text = TX_Quantity.Text.Remove(TX_Quantity.Text.Length - 1);
+            }
+
+            else
+            {
+                if (SP_Quantity.Children.Count == 2)
+                {
+                    SP_Quantity.Children.RemoveAt(SP_Quantity.Children.Count - 1);
+                }
+            }
+
+            if (decimal.TryParse(TX_Quantity.Text, out decimal d))
+            {
+                movement.Quantity = decimal.Parse(TX_Quantity.Text);
+            }
         }
 
         private void EV_SaveMovement(object sender, RoutedEventArgs e)

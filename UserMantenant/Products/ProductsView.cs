@@ -57,6 +57,12 @@ namespace FrameworkView.V1
             return productTypes;
         }
 
+        public List<FrameworkDB.V1.Condition> GetConditions()
+        {
+            List<FrameworkDB.V1.Condition> conditions = db.Conditions.OrderBy(ex => ex.ConditionID).ToList();
+            return conditions;
+        }
+
         public void UpdateTable()
         {
             MessageBox.Show("prueba");

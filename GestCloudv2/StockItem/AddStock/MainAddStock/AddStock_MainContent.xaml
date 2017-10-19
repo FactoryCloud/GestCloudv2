@@ -38,7 +38,13 @@
             </Grid.ColumnDefinitions>
         </Grid>
         <Label VerticalAlignment="Center">Fecha</Label>
-        <DatePickerTextBox Grid.Column="1" VerticalAlignment="Center"></DatePickerTextBox>
+        <DatePicker x:Name="Date" VerticalAlignment="Center" HorizontalAlignment="Right">
+            <DatePicker.Resources>
+                <Style TargetType="DatePickerTextBox">
+                    <Setter Property="IsReadOnly" Value="True"/>
+                </Style>
+            </DatePicker.Resources>
+        </DatePicker>
         <DataGrid Name="DB_Movements" Grid.ColumnSpan="4" Grid.Row="1" FontSize="20" IsReadOnly="True" SelectionMode="Single" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserReorderColumns="False"
                   HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" ColumnWidth="*"/>
     </Grid>

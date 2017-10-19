@@ -43,5 +43,10 @@ namespace GestCloudv2.StockItem.AddStock.MainAddStock
             var a = (MainWindow)mainWindow;
             return (StockItem.AddStock.AddStock_Controller)a.MainPage.Content;
         }
+
+        private void DatePicker_IsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+
+        }
     }
 }
