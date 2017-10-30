@@ -21,7 +21,7 @@ namespace FrameworkDB.V1
         public int? ProductTypeID { get; set; }
         public virtual ProductType productType { get; set; }
 
-        [ForeignKey("CompanyID")]
+        [ForeignKey("FK_Products_CompanyID_Companies")]
         public int? CompanyID { get; set; }
         public virtual Company company { get; set; }
 

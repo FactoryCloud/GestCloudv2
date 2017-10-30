@@ -10,13 +10,13 @@ namespace FrameworkDB.V1
 {
     public class CompanyStore
     {
-        int CompanyStoreID { get; set; }
+        public int CompanyStoreID { get; set; }
 
-        [ForeignKey("CompanyID")]
+        [ForeignKey("FK_CompaniesStores_CompanyID_Companies")]
         public int? CompanyID { get; set; }
         public virtual Company company { get; set; }
 
-        [ForeignKey("StoreID")]
+        [ForeignKey("FK_CompaniesStores_StoreID_Stores")]
         public int? StoreID { get; set; }
         public virtual Store store { get; set; }
     }
