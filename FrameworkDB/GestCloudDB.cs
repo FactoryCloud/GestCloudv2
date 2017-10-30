@@ -109,6 +109,54 @@ namespace FrameworkDB.V1
                 .WithMany(b => b.Movements)
                 .HasForeignKey(a => a.ConditionID)
                 .HasConstraintName("FK_Movements_ConditionID_Conditions");
+
+            modelBuilder.Entity<Movement>()
+                .HasOne(a => a.store)
+                .WithMany(b => b.Movements)
+                .HasForeignKey(a => a.StoreID)
+                .HasConstraintName("FK_Movements_StoreID_Stores");
+
+            modelBuilder.Entity<CompanyStore>()
+                .HasOne(a => a.company)
+                .WithMany(b => b.CompaniesStores)
+                .HasForeignKey(a => a.CompanyID)
+                .HasConstraintName("FK_CompaniesStores_CompanyID_Companies");
+
+            modelBuilder.Entity<CompanyStore>()
+                .HasOne(a => a.store)
+                .WithMany(b => b.CompaniesStores)
+                .HasForeignKey(a => a.StoreID)
+                .HasConstraintName("FK_CompaniesStores_StoreID_Stores");
+
+            modelBuilder.Entity<StockAdjust>()
+                .HasOne(a => a.company)
+                .WithMany(b => b.StockAdjusts)
+                .HasForeignKey(a => a.CompanyID)
+                .HasConstraintName("FK_StockAdjusts_CompanyID_Companies");
+
+            modelBuilder.Entity<PurchaseDelivery>()
+                .HasOne(a => a.company)
+                .WithMany(b => b.PurchaseDeliveries)
+                .HasForeignKey(a => a.CompanyID)
+                .HasConstraintName("FK_PurchaseDeliveries_CompanyID_Companies");
+
+            modelBuilder.Entity<PurchaseInvoice>()
+                .HasOne(a => a.company)
+                .WithMany(b => b.PurchaseInvoices)
+                .HasForeignKey(a => a.CompanyID)
+                .HasConstraintName("FK_PurchaseInvoices_CompanyID_Companies");
+
+            modelBuilder.Entity<SaleDelivery>()
+                .HasOne(a => a.company)
+                .WithMany(b => b.SaleDeliveries)
+                .HasForeignKey(a => a.CompanyID)
+                .HasConstraintName("FK_SaleDeliveries_CompanyID_Companies");
+
+            modelBuilder.Entity<SaleInvoice>()
+                .HasOne(a => a.company)
+                .WithMany(b => b.SaleInvoices)
+                .HasForeignKey(a => a.CompanyID)
+                .HasConstraintName("FK_SaleInvoices_CompanyID_Companies");
         }
 
         public void UpdateFromMKM()

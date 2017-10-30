@@ -12,6 +12,8 @@ namespace FrameworkDB.V1
     {
         public int MovementID { get; set; }
 
+        public int? DocumentID { get; set; }
+
         public decimal? Quantity { get; set; }
 
         [Column(TypeName = "money")]
@@ -35,5 +37,9 @@ namespace FrameworkDB.V1
         [ForeignKey("FK_Movements_ConditionID_Conditions")]
         public int? ConditionID { get; set; }
         public virtual Condition condition { get; set; }
+
+        [ForeignKey("FK_Movements_StoreID_Stores")]
+        public int? StoreID { get; set; }
+        public virtual Store store { get; set; }
     }
 }

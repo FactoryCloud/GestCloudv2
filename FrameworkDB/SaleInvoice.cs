@@ -10,9 +10,11 @@ namespace FrameworkDB.V1
 {
     public class SaleInvoice
     {
-        int SaleInvoiceID { get; set; }
+        public int SaleInvoiceID { get; set; }
 
-        [ForeignKey("CompanyID")]
+        public DateTime? Date { get; set; }
+
+        [ForeignKey("FK_SaleInvoices_CompanyID_Companies")]
         public int? CompanyID { get; set; }
         public virtual Company company { get; set; }
     }
