@@ -144,37 +144,37 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="CardList\CardList_MainContent.xaml.cs">
+    <Compile Include="Files\Nodes\External\Cards\CardList\CardList_MainContent.xaml.cs">
       <DependentUpon>CardList_MainContent.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CardList\CardList_ToolSide.xaml.cs">
+    <Compile Include="Files\Nodes\External\Cards\CardList\CardList_ToolSide.xaml.cs">
       <DependentUpon>CardList_ToolSide.xaml</DependentUpon>
     </Compile>
     <Compile Include="FloatWindows\ProductSelectWindow.xaml.cs">
       <DependentUpon>ProductSelectWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Login\ChangePasswordUserWindow.xaml.cs">
+    <Compile Include="Main\Login\ChangePasswordUserWindow.xaml.cs">
       <DependentUpon>ChangePasswordUserWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Main\Main_Controller.xaml.cs">
+    <Compile Include="Main\Controller\Main_Controller.xaml.cs">
       <DependentUpon>Main_Controller.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Main\Main_Navigation.xaml.cs">
+    <Compile Include="Main\View\Main_Navigation.xaml.cs">
       <DependentUpon>Main_Navigation.xaml</DependentUpon>
     </Compile>
-    <Compile Include="StockItem\AddStock\AddStock_Controller.xaml.cs">
+    <Compile Include="Stocks\StockAdjusts\StockItem\AddStock\AddStock_Controller.xaml.cs">
       <DependentUpon>AddStock_Controller.xaml</DependentUpon>
     </Compile>
-    <Compile Include="StockItem\AddStock\MainAddStock\AddStock_MainContent.xaml.cs">
+    <Compile Include="Stocks\StockAdjusts\StockItem\AddStock\MainAddStock\AddStock_MainContent.xaml.cs">
       <DependentUpon>AddStock_MainContent.xaml</DependentUpon>
     </Compile>
-    <Compile Include="StockItem\AddStock\MainAddStock\AddStock_Navigation.xaml.cs">
+    <Compile Include="Stocks\StockAdjusts\StockItem\AddStock\MainAddStock\AddStock_Navigation.xaml.cs">
       <DependentUpon>AddStock_Navigation.xaml</DependentUpon>
     </Compile>
-    <Compile Include="StockItem\AddStock\MainAddStock\AddStock_ToolSide.xaml.cs">
+    <Compile Include="Stocks\StockAdjusts\StockItem\AddStock\MainAddStock\AddStock_ToolSide.xaml.cs">
       <DependentUpon>AddStock_ToolSide.xaml</DependentUpon>
     </Compile>
-    <Compile Include="StockList\StockList_ToolSide.xaml.cs">
+    <Compile Include="Stocks\StockAdjusts\StockList\StockList_ToolSide.xaml.cs">
       <DependentUpon>StockList_ToolSide.xaml</DependentUpon>
     </Compile>
     <Compile Include="Files\Nodes\Users\UserItem\InfoUser\Access\AccessUser_MainContent.xaml.cs">
@@ -219,20 +219,17 @@
     <Compile Include="Files\Nodes\Users\UserItem\NewUser\NewUser_ToolSide.xaml.cs">
       <DependentUpon>NewUser_ToolSide.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Files\Nodes\Users\UserMenu\UserList_MainContent.xaml.cs">
+    <Compile Include="Files\Nodes\Users\UserMenu\View\UserList_MainContent.xaml.cs">
       <DependentUpon>UserList_MainContent.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Files\Nodes\Users\UserMenu\UserList_ToolSide.xaml.cs">
+    <Compile Include="Files\Nodes\Users\UserMenu\View\UserList_ToolSide.xaml.cs">
       <DependentUpon>UserList_ToolSide.xaml</DependentUpon>
     </Compile>
-    <Compile Include="_Old\UserMantenantWindow.xaml.cs">
-      <DependentUpon>UserMantenantWindow.xaml</DependentUpon>
-    </Compile>
-    <Page Include="CardList\CardList_MainContent.xaml">
+    <Page Include="Files\Nodes\External\Cards\CardList\CardList_MainContent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="CardList\CardList_ToolSide.xaml">
+    <Page Include="Files\Nodes\External\Cards\CardList\CardList_ToolSide.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -240,31 +237,31 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Login\ChangePasswordUserWindow.xaml">
+    <Page Include="Main\Login\ChangePasswordUserWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Main\Main_Controller.xaml">
+    <Page Include="Main\Controller\Main_Controller.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="StockItem\AddStock\AddStock_Controller.xaml">
+    <Page Include="Stocks\StockAdjusts\StockItem\AddStock\AddStock_Controller.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="StockItem\AddStock\MainAddStock\AddStock_MainContent.xaml">
+    <Page Include="Stocks\StockAdjusts\StockItem\AddStock\MainAddStock\AddStock_MainContent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="StockItem\AddStock\MainAddStock\AddStock_Navigation.xaml">
+    <Page Include="Stocks\StockAdjusts\StockItem\AddStock\MainAddStock\AddStock_Navigation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="StockItem\AddStock\MainAddStock\AddStock_ToolSide.xaml">
+    <Page Include="Stocks\StockAdjusts\StockItem\AddStock\MainAddStock\AddStock_ToolSide.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="StockList\StockList_ToolSide.xaml">
+    <Page Include="Stocks\StockAdjusts\StockList\StockList_ToolSide.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -292,15 +289,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="_Old\DeleteUserWindow.xaml">
+    <Page Include="Main\Login\LoginUserWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Login\LoginUserWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Main\MainWindow.xaml">
+    <Page Include="Main\View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -308,25 +301,14 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="_Old\DeleteUserWindow.xaml.cs">
-      <DependentUpon>DeleteUserWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Login\LoginUserWindow.xaml.cs">
+    <Compile Include="Main\Login\LoginUserWindow.xaml.cs">
       <DependentUpon>LoginUserWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Main\MainWindow.xaml.cs">
+    <Compile Include="Main\View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Main\Main_Navigation.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="_Old\ModifyUserWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="_Old\NewUserWindow.xaml">
+    <Page Include="Main\View\Main_Navigation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -362,26 +344,16 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Files\Nodes\Users\UserMenu\UserList_MainContent.xaml">
+    <Page Include="Files\Nodes\Users\UserMenu\View\UserList_MainContent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Files\Nodes\Users\UserMenu\UserList_ToolSide.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="_Old\UserMantenantWindow.xaml">
+    <Page Include="Files\Nodes\Users\UserMenu\View\UserList_ToolSide.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="_Old\ModifyUserWindow.xaml.cs">
-      <DependentUpon>ModifyUserWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="_Old\NewUserWindow.xaml.cs">
-      <DependentUpon>NewUserWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -434,8 +406,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Files\Controller\" />
-    <Folder Include="Files\Nodes\Companies\CompanyItem\" />
-    <Folder Include="Files\Nodes\Companies\CompanyMenu\" />
+    <Folder Include="Files\Nodes\Companies\CompanyItem\Controller\" />
+    <Folder Include="Files\Nodes\Companies\CompanyItem\View\" />
+    <Folder Include="Files\Nodes\Companies\CompanyMenu\Controller\" />
+    <Folder Include="Files\Nodes\Companies\CompanyMenu\View\" />
+    <Folder Include="Files\Nodes\Users\UserMenu\Controller\" />
     <Folder Include="Files\View\" />
     <Folder Include="Models\" />
   </ItemGroup>
