@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FrameworkDB.V1
 {
-    public class Entity
+    public class Entities
     {
         public int id { get; set; }
 
@@ -23,11 +23,11 @@ namespace FrameworkDB.V1
         public string address { get; set; }
         public string contact { get; set; }
 
-        [ForeignKey("FK_Entity_country_Country")]
+        [ForeignKey("FK_Entities_country_Country")]
         public int country { get; set; }
         public virtual Country countries { get; set; }
 
-        [ForeignKey("FK_Entity_city_City")]
+        [ForeignKey("FK_Entities_city_City")]
         public int city { get; set; }
         public virtual City cities { get; set; }
     }
