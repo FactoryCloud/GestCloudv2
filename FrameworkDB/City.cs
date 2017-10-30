@@ -17,6 +17,6 @@ namespace FrameworkDB.V1
         [StringLength(5)]
         public string pc { get; set; }
 
-        public decimal? country { get; set; }
+        public decimal country { get; set; }
     }
 }

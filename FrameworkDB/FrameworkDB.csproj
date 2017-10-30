@@ -98,11 +98,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccessType.cs" />
+    <Compile Include="Agents.cs" />
     <Compile Include="City.cs" />
+    <Compile Include="Clients.cs" />
     <Compile Include="Company.cs" />
     <Compile Include="CompanyStore.cs" />
     <Compile Include="Condition.cs" />
     <Compile Include="Country.cs" />
+    <Compile Include="Providers.cs" />
     <Compile Include="PurchaseDelivery.cs" />
     <Compile Include="SaleDelivery.cs" />
     <Compile Include="DocumentType.cs" />
