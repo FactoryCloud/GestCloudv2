@@ -51,9 +51,9 @@ namespace FrameworkDB.V1
         public void expansionsMakeRequest()
         {
             GestCloudDB db = new GestCloudDB();
-            /*db.Database.ExecuteSqlCommand("TRUNCATE TABLE [MTGCards]");
+            /* db.Database.ExecuteSqlCommand("TRUNCATE TABLE [MTGCards]");
             db.Database.ExecuteSqlCommand("TRUNCATE TABLE [Expansions]");
-            db.SaveChanges();*/
+            db.SaveChanges(); */
 
             String method = "GET";
             String url = "https://www.mkmapi.eu/ws/v2.0/games/1/expansions";

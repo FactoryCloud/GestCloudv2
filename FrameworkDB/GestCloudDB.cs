@@ -32,7 +32,8 @@ namespace FrameworkDB.V1
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=GestCloud;Integrated Security=True");
+            //optionsBuilder.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=GestCloud;Integrated Security=True");
+            optionsBuilder.UseSqlServer(@"Data Source=85.214.204.242\SQLEXPRESS,47192;Initial Catalog=GestCloudV1;Persist Security Info=True;User ID=ceballos;Password=?/(&MndZ#5""mk,RD");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -163,8 +164,8 @@ namespace FrameworkDB.V1
                         Products.Update(temp[0]);
                     }
                 }
+                this.SaveChanges();
             }
-            this.SaveChanges();
         }
     }
 
