@@ -98,8 +98,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccessType.cs" />
+    <Compile Include="City.cs" />
     <Compile Include="Condition.cs" />
+    <Compile Include="Country.cs" />
     <Compile Include="DocumentType.cs" />
+    <Compile Include="Entity.cs" />
     <Compile Include="Expansion.cs" />
     <Compile Include="GestCloudDB.cs" />
     <Compile Include="MkmApiManager.cs" />
