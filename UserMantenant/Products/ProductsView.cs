@@ -106,7 +106,7 @@ namespace FrameworkView.V1
                         List<MTGCard> cards = db.MTGCards.Where(u => CardFilterExpansion(u)).OrderBy(u => u.EnName).ToList();
                         //MessageBox.Show($"{cards.Count}");
 
-                        foreach (MTGCard item in cards.Take(300))
+                        foreach (MTGCard item in cards)
                         {
                             Product temp = db.Products.First(p => p.ExternalID == item.ProductID);
                             products.Add(temp);
