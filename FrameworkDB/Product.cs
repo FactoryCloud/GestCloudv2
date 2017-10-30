@@ -21,6 +21,10 @@ namespace FrameworkDB.V1
         public int? ProductTypeID { get; set; }
         public virtual ProductType productType { get; set; }
 
+        [ForeignKey("CompanyID")]
+        public int? CompanyID { get; set; }
+        public virtual Company company { get; set; }
+
         public int? ExternalID { get; set; }
 
         [Column(TypeName = "money")]
