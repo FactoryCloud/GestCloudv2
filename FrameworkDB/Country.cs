@@ -20,6 +20,5 @@ namespace FrameworkDB.V1
         public string iso { get; set; }
         [StringLength(1)]
         public string tip { get; set; }
-        
     }
 }

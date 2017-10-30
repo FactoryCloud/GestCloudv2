@@ -9,7 +9,7 @@ namespace FrameworkDB.V1
 {
     public class Entity
     {
-        public int? id { get; set; }
+        public int id { get; set; }
 
         public string cod { get; set; }
         public string name { get; set; }
@@ -24,11 +24,11 @@ namespace FrameworkDB.V1
         public string contact { get; set; }
 
         [ForeignKey("FK_Entity_country_Country")]
-        public int? country { get; set; }
+        public int country { get; set; }
         public virtual Country countries { get; set; }
 
         [ForeignKey("FK_Entity_city_City")]
-        public int? city { get; set; }
+        public int city { get; set; }
         public virtual City cities { get; set; }
     }
 }
