@@ -109,7 +109,7 @@
     <Compile Include="PurchaseDelivery.cs" />
     <Compile Include="SaleDelivery.cs" />
     <Compile Include="DocumentType.cs" />
-    <Compile Include="Entities.cs" />
+    <Compile Include="Entity.cs" />
     <Compile Include="Expansion.cs" />
     <Compile Include="GestCloudDB.cs" />
     <Compile Include="PurchaseInvoice.cs" />
