@@ -9,9 +9,9 @@ namespace FrameworkDB.V1
 {
     public class Entity
     {
-        public int id { get; set; }
+        public int EntityID { get; set; }
 
-        public string cod { get; set; }
+        /*public string cod { get; set; }
         public string name { get; set; }
         public string subname { get; set; }
         public string phone1 { get; set; }
@@ -21,14 +21,14 @@ namespace FrameworkDB.V1
         public string pc { get; set; }
         public string email { get; set; }
         public string address { get; set; }
-        public string contact { get; set; }
+        public string contact { get; set; }*/
 
-        [ForeignKey("FK_Entity_country_Country")]
-        public int country { get; set; }
+        [ForeignKey("FK_Entity_CountryID_Countries")]
+        public int? CountryID { get; set; }
         public virtual Country countries { get; set; }
 
-        [ForeignKey("FK_Entity_city_City")]
-        public int city { get; set; }
+        [ForeignKey("FK_Entity_CityID_Cities")]
+        public int? CityID { get; set; }
         public virtual City cities { get; set; }
     }
 }

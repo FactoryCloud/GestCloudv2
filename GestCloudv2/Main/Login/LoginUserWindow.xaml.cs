@@ -18,10 +18,10 @@ using System.Xml;
 using System.Xml.Linq;
 using Microsoft.EntityFrameworkCore;
 
-namespace GestCloudv2
+namespace GestCloudv2.Main.Login
 {
     /// <summary>
-    /// Interaction logic for LoginUserWindow.xaml
+    /// Interaction logic for GestCloudv2.Main.Login.LoginUserWindow.xaml
     /// </summary>
     public partial class LoginUserWindow : Window
     {
