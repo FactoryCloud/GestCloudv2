@@ -16,12 +16,12 @@ using System.Windows.Shapes;
 using Microsoft.EntityFrameworkCore;
 using FrameworkDB.V1;
 
-namespace GestCloudv2
+namespace GestCloudv2.Main.View
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for MC_Main.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MC_Main : Window
     {
         GestCloudDB db;
         //UserList_ToolSide toolSide;
@@ -30,7 +30,7 @@ namespace GestCloudv2
         public User user;
         public List<UserPermission> UserPermissions;
 
-        public MainWindow(User user)
+        public MC_Main(User user)
         {
             InitializeComponent();
             this.WindowState = WindowState.Maximized;
@@ -44,7 +44,7 @@ namespace GestCloudv2
             UserPermissions = db.UserPermissions.Where(u => u.user == user)
                 .Include(u => u.user).Include(u => u.userType).Include(u => u.permissionType).ToList();
 
-            MainPage.Content = new Main.Main_Controller();
+            MainPage.Content = new Main.Controller.CT_Main();
         }
 
         /*public void ChangeContent(Page mainPage, Page navigationPage, Page toolPage)

@@ -15,17 +15,17 @@ using System.Windows.Shapes;
 using Microsoft.EntityFrameworkCore;
 using FrameworkDB.V1;
 
-namespace GestCloudv2
+namespace GestCloudv2.Main.View
 {
     /// <summary>
-    /// Interaction logic for Main_Navigation.xaml
+    /// Interaction logic for NV_Main.xaml
     /// </summary>
-    public partial class Main_Navigation : Page
+    public partial class NV_Main : Page
     {
-        public Main_Navigation()
+        public NV_Main()
         {
             InitializeComponent();
-            var a = (MainWindow)Application.Current.MainWindow;
+            var a = (Main.View.MC_Main)Application.Current.MainWindow;
             List<UserPermission> UserPermissions = a.UserPermissions;
 
             foreach(UserPermission u in UserPermissions)
@@ -62,11 +62,11 @@ namespace GestCloudv2
             GetController().ChangeMode(3);
         }
 
-        private Main.Main_Controller GetController()
+        private Main.Controller.CT_Main GetController()
         {
             Window mainWindow = Application.Current.MainWindow;
-            var a = (MainWindow)mainWindow;
-            return (Main.Main_Controller)a.MainPage.Content;
+            var a = (Main.View.MC_Main)mainWindow;
+            return (Main.Controller.CT_Main)a.MainPage.Content;
         }
     }
 }

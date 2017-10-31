@@ -30,11 +30,11 @@ namespace GestCloudv2.StockList
             GetController().StartAddStock();
         }
 
-        private Main.Main_Controller GetController()
+        private Main.Controller.CT_Main GetController()
         {
             Window mainWindow = Application.Current.MainWindow;
-            var a = (MainWindow)mainWindow;
-            return (Main.Main_Controller)a.MainPage.Content;
+            var a = (Main.View.MC_Main)mainWindow;
+            return (Main.Controller.CT_Main)a.MainPage.Content;
         }
     }
 }

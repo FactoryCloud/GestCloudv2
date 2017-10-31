@@ -96,7 +96,7 @@ namespace GestCloudv2.UserItem
                     db.SaveChanges();
                 }
                 Window main = Application.Current.MainWindow;
-                var a = (MainWindow)main;
+                var a = (Main.View.MC_Main)main;
             }         
         }
 
@@ -117,7 +117,7 @@ namespace GestCloudv2.UserItem
         private UserItem.NewUser.NewUser_Controller GetController()
         {
             Window mainWindow = Application.Current.MainWindow;
-            var a = (MainWindow)mainWindow;
+            var a = (Main.View.MC_Main)mainWindow;
             return (UserItem.NewUser.NewUser_Controller)a.MainPage.Content;
         }
     }

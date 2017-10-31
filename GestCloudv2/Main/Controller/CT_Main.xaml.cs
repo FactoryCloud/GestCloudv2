@@ -15,12 +15,12 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using FrameworkDB.V1;
 
-namespace GestCloudv2.Main
+namespace GestCloudv2.Main.Controller
 {
     /// <summary>
-    /// Interaction logic for Main_Controller.xaml
+    /// Interaction logic for CT_Main.xaml
     /// </summary>
-    public partial class Main_Controller : Page
+    public partial class CT_Main : Page
     {
         private Page NavigationDesktop;
         private Page MainContentDesktop;
@@ -29,7 +29,7 @@ namespace GestCloudv2.Main
         public Dictionary<string, int> Information;//Guarda el estado de la aplicacion, para controlar los permisos del usuario
         User user;
 
-        public Main_Controller()
+        public CT_Main()
         {
             InitializeComponent();
             this.Loaded += new RoutedEventHandler(StartMainPage_Event);
@@ -96,28 +96,28 @@ namespace GestCloudv2.Main
             switch(Information["mode"])
             {
                 case 0:
-                    NavigationDesktop = new Main_Navigation();
+                    NavigationDesktop = new Main.View.NV_Main();
                     MainContentDesktop = null;
                     ToolSideDesktop = null;
                     ChangeEnviroment();
                     break;
 
                 case 1:
-                    NavigationDesktop = new Main_Navigation();
+                    NavigationDesktop = new Main.View.NV_Main();
                     MainContentDesktop = new UserList_MainContent();
                     ToolSideDesktop = new UserList_ToolSide();
                     ChangeEnviroment();
                     break;
 
                 case 2:
-                    NavigationDesktop = new Main_Navigation();
+                    NavigationDesktop = new Main.View.NV_Main();
                     MainContentDesktop = new CardList.CardList_MainContent();
                     ToolSideDesktop = new CardList.CardList_ToolSide();
                     ChangeEnviroment();
                     break;
 
                 case 3:
-                    NavigationDesktop = new Main_Navigation();
+                    NavigationDesktop = new Main.View.NV_Main();
                     MainContentDesktop = null;
                     ToolSideDesktop = new StockList.StockList_ToolSide();
                     ChangeEnviroment();
@@ -141,17 +141,17 @@ namespace GestCloudv2.Main
             switch (Information["controller"])
             {
                 case 1:
-                    MainWindow a = (MainWindow)Application.Current.MainWindow;
+                    Main.View.MC_Main a = (Main.View.MC_Main)Application.Current.MainWindow;
                     a.MainPage.Content = new UserItem.InfoUser.InfoUser_Controller(user, Information["userModeEditable"]);
                     break;
 
                 case 2:
-                    MainWindow b = (MainWindow)Application.Current.MainWindow;
+                    Main.View.MC_Main b = (Main.View.MC_Main)Application.Current.MainWindow;
                     b.MainPage.Content = new UserItem.NewUser.NewUser_Controller();
                     break;
 
                 case 3:
-                    MainWindow c = (MainWindow)Application.Current.MainWindow;
+                    Main.View.MC_Main c = (Main.View.MC_Main)Application.Current.MainWindow;
                     c.MainPage.Content = new StockItem.AddStock.AddStock_Controller();
                     break;
             }

@@ -190,7 +190,7 @@ namespace GestCloudv2.UserItem.InfoUser.Permissions
         private InfoUser.InfoUser_Controller GetController()
         {
             Window mainWindow = Application.Current.MainWindow;
-            var a = (MainWindow)mainWindow;
+            var a = (Main.View.MC_Main)mainWindow;
             return (InfoUser.InfoUser_Controller)a.MainPage.Content;
         }
     }

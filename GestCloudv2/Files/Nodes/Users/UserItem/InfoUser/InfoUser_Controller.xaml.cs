@@ -279,8 +279,8 @@ namespace GestCloudv2.UserItem.InfoUser
                     break;
 
                 case 3:
-                    MainWindow a = (MainWindow)Application.Current.MainWindow;
-                    a.MainPage.Content = new Main.Main_Controller();
+                    Main.View.MC_Main a = (Main.View.MC_Main)Application.Current.MainWindow;
+                    a.MainPage.Content = new Main.Controller.CT_Main();
                     break;
             }
         }
@@ -298,8 +298,8 @@ namespace GestCloudv2.UserItem.InfoUser
                             return;
                         }
                     }
-                    MainWindow a = (MainWindow)Application.Current.MainWindow;
-                    a.MainPage.Content = new Main.Main_Controller();
+                    Main.View.MC_Main a = (Main.View.MC_Main)Application.Current.MainWindow;
+                    a.MainPage.Content = new Main.Controller.CT_Main();
                     break;
             }
         }

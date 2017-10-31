@@ -156,11 +156,11 @@
     <Compile Include="Main\Login\ChangePasswordUserWindow.xaml.cs">
       <DependentUpon>ChangePasswordUserWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Main\Controller\Main_Controller.xaml.cs">
-      <DependentUpon>Main_Controller.xaml</DependentUpon>
+    <Compile Include="Main\Controller\CT_Main.xaml.cs">
+      <DependentUpon>CT_Main.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Main\View\Main_Navigation.xaml.cs">
-      <DependentUpon>Main_Navigation.xaml</DependentUpon>
+    <Compile Include="Main\View\NV_Main.xaml.cs">
+      <DependentUpon>NV_Main.xaml</DependentUpon>
     </Compile>
     <Compile Include="Stocks\StockAdjusts\StockItem\AddStock\AddStock_Controller.xaml.cs">
       <DependentUpon>AddStock_Controller.xaml</DependentUpon>
@@ -241,7 +241,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Main\Controller\Main_Controller.xaml">
+    <Page Include="Main\Controller\CT_Main.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -293,7 +293,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Main\View\MainWindow.xaml">
+    <Page Include="Main\View\MC_Main.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -304,11 +304,11 @@
     <Compile Include="Main\Login\LoginUserWindow.xaml.cs">
       <DependentUpon>LoginUserWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Main\View\MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="Main\View\MC_Main.xaml.cs">
+      <DependentUpon>MC_Main.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Main\View\Main_Navigation.xaml">
+    <Page Include="Main\View\NV_Main.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

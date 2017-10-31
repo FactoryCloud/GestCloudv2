@@ -1,19 +1,10 @@
-﻿using System;
+﻿using FrameworkDB.V1;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using FrameworkDB.V1;
-using System.Security.Cryptography;
 
 namespace GestCloudv2.UserItem.NewUser
 {
@@ -122,8 +113,8 @@ namespace GestCloudv2.UserItem.NewUser
                             return;
                         }
                     }
-                    MainWindow a = (MainWindow)Application.Current.MainWindow;
-                    a.MainPage.Content = new Main.Main_Controller();
+                    Main.View.MC_Main a = (Main.View.MC_Main)Application.Current.MainWindow;
+                    a.MainPage.Content = new Main.Controller.CT_Main();
                     break;
             }
         }

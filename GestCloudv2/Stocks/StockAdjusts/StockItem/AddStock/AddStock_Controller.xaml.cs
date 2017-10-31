@@ -90,8 +90,8 @@ namespace GestCloudv2.StockItem.AddStock
                             return;
                         }
                     }
-                    MainWindow a = (MainWindow)Application.Current.MainWindow;
-                    a.MainPage.Content = new Main_Controller();
+                    Main.View.MC_Main a = (Main.View.MC_Main)Application.Current.MainWindow;
+                    a.MainPage.Content = new Main.Controller.CT_Main();
                     break;
             }
         }
