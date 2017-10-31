@@ -10,6 +10,6 @@ namespace FrameworkView.V1
     public class ClientView
     {
         GestCloudDB db;
-        public FrameworkDB.V1. client;
+        public Client Client;
     }
 }
