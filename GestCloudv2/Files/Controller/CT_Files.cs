@@ -54,6 +54,12 @@ namespace GestCloudv2.Files.Controller
             UpdateComponents();
         }
 
+        public void CT_Companies()
+        {
+            Information["controller"] = 5;
+            ChangeController();
+        }
+
         public void CT_Main()
         {
             Information["controller"] = 0;
@@ -72,24 +78,6 @@ namespace GestCloudv2.Files.Controller
                     NV_Page = new Files.View.NV_Files_Main();
                     TS_Page = null;
                     MC_Page = null;
-                    ChangeComponents();
-                    break;
-
-                case 2:
-                    ChangeComponents();
-                    break;
-
-                case 3:
-                    ChangeComponents();
-                    break;
-
-                case 4:
-                    ChangeComponents();
-                    break;
-                case 5:
-                    NV_Page = new Files.Nodes.Clients.ClientMenu.View.NV_Client();
-                    TS_Page = null;
-                    MC_Page = new Files.Nodes.Clients.ClientMenu.View.MC_Client();
                     ChangeComponents();
                     break;
             }
@@ -111,9 +99,9 @@ namespace GestCloudv2.Files.Controller
                     a.MainFrame.Content = new Main.Controller.CT_Main();
                     break;
 
-                case 1:
-                    /*MainWindow b = (MainWindow)System.Windows.Application.Current.MainWindow;
-                    b.MainFrame.Content = new Main.Controller.MainController();*/
+                case 5:
+                    Main.View.MainWindow b = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
+                    b.MainFrame.Content = new Files.Nodes.Companies.CompanyMenu.Controller.CT_CompanyMenu();
                     break;
             }
         }

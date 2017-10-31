@@ -156,6 +156,15 @@
       <DependentUpon>TS_Client.xaml</DependentUpon>
     </Compile>
     <Compile Include="Files\Nodes\Companies\CompanyMenu\Controller\CT_CompanyMenu.cs" />
+    <Compile Include="Files\Nodes\Companies\CompanyMenu\View\MC_CPN_Menu.xaml.cs">
+      <DependentUpon>MC_CPN_Menu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Nodes\Companies\CompanyMenu\View\NV_CPN_Menu.xaml.cs">
+      <DependentUpon>NV_CPN_Menu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Nodes\Companies\CompanyMenu\View\TS_CPN_Menu.xaml.cs">
+      <DependentUpon>TS_CPN_Menu.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Files\Nodes\External\Cards\CardList\CardList_MainContent.xaml.cs">
       <DependentUpon>CardList_MainContent.xaml</DependentUpon>
     </Compile>
@@ -252,6 +261,18 @@
     <Page Include="Files\Nodes\Clients\ClientMenu\View\TS_Client.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Files\Nodes\Companies\CompanyMenu\View\MC_CPN_Menu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Files\Nodes\Companies\CompanyMenu\View\NV_CPN_Menu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Files\Nodes\Companies\CompanyMenu\View\TS_CPN_Menu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Files\Nodes\External\Cards\CardList\CardList_MainContent.xaml">
       <SubType>Designer</SubType>
@@ -441,7 +462,6 @@
     <Folder Include="Files\Nodes\Clients\ClientItem\View\" />
     <Folder Include="Files\Nodes\Companies\CompanyItem\Controller\" />
     <Folder Include="Files\Nodes\Companies\CompanyItem\View\" />
-    <Folder Include="Files\Nodes\Companies\CompanyMenu\View\" />
     <Folder Include="Files\Nodes\Users\UserMenu\Controller\" />
     <Folder Include="Models\" />
   </ItemGroup>
