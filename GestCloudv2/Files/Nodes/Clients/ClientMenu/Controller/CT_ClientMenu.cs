@@ -8,13 +8,13 @@ using System.Windows.Controls;
 
 namespace GestCloudv2.Files.Nodes.Clients.ClientMenu.Controller
 {
-    public partial class ClientController : Main.Controller.CT_Common
+    public partial class CT_ClientMenu : Main.Controller.CT_Common
     {
         private Page MC_Page;
         private Page TS_Page;
         private Page NV_Page;
 
-        public ClientController()
+        public CT_ClientMenu()
         {
             InitializeComponent();
             Information = new Dictionary<string, int>();
