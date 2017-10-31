@@ -145,6 +145,16 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Files\Controller\CT_Files.cs" />
+    <Compile Include="Files\Nodes\Clients\ClientMenu\Controller\ClientController.cs" />
+    <Compile Include="Files\Nodes\Clients\ClientMenu\View\MC_Client.xaml.cs">
+      <DependentUpon>MC_Client.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Nodes\Clients\ClientMenu\View\NV_Client.xaml.cs">
+      <DependentUpon>NV_Client.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Nodes\Clients\ClientMenu\View\TS_Client.xaml.cs">
+      <DependentUpon>TS_Client.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Files\Nodes\External\Cards\CardList\CardList_MainContent.xaml.cs">
       <DependentUpon>CardList_MainContent.xaml</DependentUpon>
     </Compile>
@@ -229,6 +239,18 @@
     <Compile Include="Files\Nodes\Users\UserMenu\View\UserList_ToolSide.xaml.cs">
       <DependentUpon>UserList_ToolSide.xaml</DependentUpon>
     </Compile>
+    <Page Include="Files\Nodes\Clients\ClientMenu\View\MC_Client.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Files\Nodes\Clients\ClientMenu\View\NV_Client.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Files\Nodes\Clients\ClientMenu\View\TS_Client.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Files\Nodes\External\Cards\CardList\CardList_MainContent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -413,6 +435,8 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Files\Nodes\Clients\ClientItem\Controller\" />
+    <Folder Include="Files\Nodes\Clients\ClientItem\View\" />
     <Folder Include="Files\Nodes\Companies\CompanyItem\Controller\" />
     <Folder Include="Files\Nodes\Companies\CompanyItem\View\" />
     <Folder Include="Files\Nodes\Companies\CompanyMenu\Controller\" />
