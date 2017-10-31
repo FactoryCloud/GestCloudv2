@@ -86,6 +86,12 @@ namespace GestCloudv2.Files.Controller
                 case 4:
                     ChangeComponents();
                     break;
+                case 5:
+                    NV_Page = new Files.Nodes.Clients.ClientMenu.View.NV_Client();
+                    TS_Page = null;
+                    MC_Page = new Files.Nodes.Clients.ClientMenu.View.MC_Client();
+                    ChangeComponents();
+                    break;
             }
         }
 

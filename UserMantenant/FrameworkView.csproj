@@ -98,6 +98,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cards\CardsView.cs" />
+    <Compile Include="Clients\ClientView.cs" />
     <Compile Include="Movements\MovementsView.cs" />
     <Compile Include="Products\ProductsView.cs" />
     <Compile Include="Products\ProductView.cs" />

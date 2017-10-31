@@ -145,7 +145,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Files\Controller\CT_Files.cs" />
-    <Compile Include="Files\Nodes\Clients\ClientMenu\Controller\ClientController.cs" />
+    <Compile Include="Files\Nodes\Clients\ClientMenu\Controller\CT_ClientMenu.cs" />
     <Compile Include="Files\Nodes\Clients\ClientMenu\View\MC_Client.xaml.cs">
       <DependentUpon>MC_Client.xaml</DependentUpon>
     </Compile>

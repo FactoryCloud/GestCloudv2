@@ -55,6 +55,11 @@ namespace GestCloudv2.Files.View
             GetController().CT_Main();
         }
 
+        private void BT_Clients_Click(object sender, RoutedEventArgs e)
+        {
+            GetController().MD_Change(5);
+        }
+
         private Files.Controller.CT_Files GetController()
         {
             Window mainWindow = Application.Current.MainWindow;
