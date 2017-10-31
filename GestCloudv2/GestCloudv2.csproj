@@ -151,17 +151,18 @@
     <Compile Include="Files\Nodes\External\Cards\CardList\CardList_ToolSide.xaml.cs">
       <DependentUpon>CardList_ToolSide.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Files\View\NV_Files_Main.xaml.cs">
+      <DependentUpon>NV_Files_Main.xaml</DependentUpon>
+    </Compile>
     <Compile Include="FloatWindows\ProductSelectWindow.xaml.cs">
       <DependentUpon>ProductSelectWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Main\Controller\CT_Common.xaml.cs">
       <DependentUpon>CT_Common.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Main\Controller\CT_Main.cs" />
     <Compile Include="Main\Login\ChangePasswordUserWindow.xaml.cs">
       <DependentUpon>ChangePasswordUserWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Main\Controller\CT_Main.xaml.cs">
-      <DependentUpon>CT_Main.xaml</DependentUpon>
     </Compile>
     <Compile Include="Main\View\NV_Main.xaml.cs">
       <DependentUpon>NV_Main.xaml</DependentUpon>
@@ -237,6 +238,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Files\View\NV_Files_Main.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="FloatWindows\ProductSelectWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -246,10 +251,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Main\Login\ChangePasswordUserWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Main\Controller\CT_Main.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -301,7 +302,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Main\View\MC_Main.xaml">
+    <Page Include="Main\View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -312,8 +313,8 @@
     <Compile Include="Main\Login\LoginUserWindow.xaml.cs">
       <DependentUpon>LoginUserWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Main\View\MC_Main.xaml.cs">
-      <DependentUpon>MC_Main.xaml</DependentUpon>
+    <Compile Include="Main\View\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Main\View\NV_Main.xaml">
@@ -418,7 +419,6 @@
     <Folder Include="Files\Nodes\Companies\CompanyMenu\Controller\" />
     <Folder Include="Files\Nodes\Companies\CompanyMenu\View\" />
     <Folder Include="Files\Nodes\Users\UserMenu\Controller\" />
-    <Folder Include="Files\View\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

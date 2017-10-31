@@ -58,7 +58,7 @@ namespace GestCloudv2
                 users[0].ActivationCode = null;
                 db.UpdateRange(users);
                 db.SaveChanges();
-                Main.View.MC_Main mainWindow = new Main.View.MC_Main(user);
+                Main.View.MainWindow mainWindow = new Main.View.MainWindow(user);
                 mainWindow.Show();
                 this.Close();
             }

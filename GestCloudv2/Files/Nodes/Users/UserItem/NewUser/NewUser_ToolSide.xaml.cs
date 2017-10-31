@@ -47,8 +47,8 @@ namespace GestCloudv2.UserItem
         private UserItem.NewUser.NewUser_Controller GetController()
         {
             Window mainWindow = Application.Current.MainWindow;
-            var a = (Main.View.MC_Main)mainWindow;
-            return (UserItem.NewUser.NewUser_Controller)a.MainPage.Content;
+            var a = (Main.View.MainWindow)mainWindow;
+            return (UserItem.NewUser.NewUser_Controller)a.MainFrame.Content;
         }
     }
 }

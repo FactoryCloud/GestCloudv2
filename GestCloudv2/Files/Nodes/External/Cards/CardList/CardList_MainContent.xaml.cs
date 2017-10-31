@@ -65,8 +65,8 @@ namespace GestCloudv2.CardList
         private Main.Controller.CT_Main GetController()
         {
             Window mainWindow = Application.Current.MainWindow;
-            var a = (Main.View.MC_Main)mainWindow;
-            return (Main.Controller.CT_Main)a.MainPage.Content;
+            var a = (Main.View.MainWindow)mainWindow;
+            return (Main.Controller.CT_Main)a.MainFrame.Content;
         }
     }
 }

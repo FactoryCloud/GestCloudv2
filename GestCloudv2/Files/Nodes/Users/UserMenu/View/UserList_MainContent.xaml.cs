@@ -110,7 +110,7 @@ namespace GestCloudv2
             {
                 DataGridRow row = (DataGridRow)UsersTable.ItemContainerGenerator.ContainerFromIndex(user);
                 DataRowView dr = row.Item as DataRowView;
-                GetController().UpdateUserSelected(Int32.Parse(dr.Row.ItemArray[0].ToString()));
+                //GetController().UpdateUserSelected(Int32.Parse(dr.Row.ItemArray[0].ToString()));
             }
         }
 
@@ -119,15 +119,15 @@ namespace GestCloudv2
             int user = UsersTable.SelectedIndex;
             if (user >= 0)
             {
-                GetController().StartViewUser();
+                //GetController().StartViewUser();
             }
         }
 
         private Main.Controller.CT_Main GetController()
         {
             Window mainWindow = Application.Current.MainWindow;
-            var a = (Main.View.MC_Main)mainWindow;
-            return (Main.Controller.CT_Main)a.MainPage.Content;
+            var a = (Main.View.MainWindow)mainWindow;
+            return (Main.Controller.CT_Main)a.MainFrame.Content;
         }
     }
 }

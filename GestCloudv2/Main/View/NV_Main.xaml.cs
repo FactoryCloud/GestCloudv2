@@ -25,48 +25,28 @@ namespace GestCloudv2.Main.View
         public NV_Main()
         {
             InitializeComponent();
-            var a = (Main.View.MC_Main)Application.Current.MainWindow;
+            var a = (Main.View.MainWindow)Application.Current.MainWindow;
             List<UserPermission> UserPermissions = a.UserPermissions;
 
             foreach(UserPermission u in UserPermissions)
             {
-                if(u.permissionType.Item == "Users" && u.permissionType.Mode == 1)
+                if(u.permissionType.Item == "Files" && u.permissionType.Mode == 1)
                 {
                     //UsersNavigationButton.Visibility = Visibility.Visible;
-                }
-
-                if (u.permissionType.Item == "Cards" && u.permissionType.Mode == 1)
-                {
-                    //CardsNavigationButton.Visibility = Visibility.Visible;
-                }
-
-                if (u.permissionType.Item == "Stock" && u.permissionType.Mode == 1)
-                {
-                    //StockNavigationButton.Visibility = Visibility.Visible;
                 }
             }
         }
 
         private void EV_NV_Files(object sender, RoutedEventArgs e)
         {
-            GetController().ChangeMode(1);
-        }
-
-        private void CardsNavigationEvent(object sender, RoutedEventArgs e)
-        {
-            GetController().ChangeMode(2);
-        }
-
-        private void StockNavigationEvent(object sender, RoutedEventArgs e)
-        {
-            GetController().ChangeMode(3);
+            GetController().CT_Files();
         }
 
         private Main.Controller.CT_Main GetController()
         {
             Window mainWindow = Application.Current.MainWindow;
-            var a = (Main.View.MC_Main)mainWindow;
-            return (Main.Controller.CT_Main)a.MainPage.Content;
+            var a = (Main.View.MainWindow)mainWindow;
+            return (Main.Controller.CT_Main)a.MainFrame.Content;
         }
     }
 }

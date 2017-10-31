@@ -315,8 +315,8 @@ namespace GestCloudv2.FloatWindows
         private StockItem.AddStock.AddStock_Controller GetController()
         {
             Window mainWindow = Application.Current.MainWindow;
-            var a = (Main.View.MC_Main)mainWindow;
-            return (StockItem.AddStock.AddStock_Controller)a.MainPage.Content;
+            var a = (Main.View.MainWindow)mainWindow;
+            return (StockItem.AddStock.AddStock_Controller)a.MainFrame.Content;
         }
     }
 }

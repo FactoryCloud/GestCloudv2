@@ -100,7 +100,7 @@ namespace GestCloudv2.Main.Login
                                 };
                                 db.UsersAccessControl.Add(accessControl);
                                 db.SaveChanges();
-                                Main.View.MC_Main mainWindow = new Main.View.MC_Main(u);
+                                Main.View.MainWindow mainWindow = new Main.View.MainWindow(u);
                                 mainWindow.Show();
                                 this.Close();
                                 return;

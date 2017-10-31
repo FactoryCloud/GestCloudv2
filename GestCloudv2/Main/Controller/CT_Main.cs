@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FrameworkView.V1;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,88 +14,85 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using FrameworkDB.V1;
-using Microsoft.EntityFrameworkCore;
 
-namespace GestCloudv2.Files.Controller
+namespace GestCloudv2.Main.Controller
 {
     /// <summary>
-    /// Interaction logic for MainController.xaml
+    /// Interaction logic for CT_Main.xaml
     /// </summary>
-    public partial class CT_Files : Main.Controller.CT_Common
+    public partial class CT_Main : Main.Controller.CT_Common
     {
         private Page NV_Page;
         private Page TS_Page;
         private Page MC_Page;
-
         GestCloudDB db;
+        public Dictionary<string, int> Information;//Guarda el estado de la aplicacion, para controlar los permisos del usuario
+        User user;
 
-        public CT_Files()
+        public CT_Main()
         {
             InitializeComponent();
+
             db = new GestCloudDB();
             Information = new Dictionary<string, int>();
-            Information.Add("mode", 1);
-            Information.Add("oldmode", 1);
+            Information.Add("mode", 0);
+            Information.Add("old_mode", 0);
+            Information.Add("selectedUser", 0);
+            Information.Add("old_selected", 0);
             Information.Add("controller", 0);
-            Information.Add("oldcontroller", 0);
+            Information.Add("userModeEditable", 0);
 
             this.Loaded += new RoutedEventHandler(EV_Start);
         }
 
-        private void EV_Start (object sender, RoutedEventArgs e)
+        private void EV_Start(object sender, RoutedEventArgs e)
         {
             UpdateComponents();
         }
 
         public void MD_Change(int i)
         {
-            Information["oldmode"] = Information["mode"];
+            Information["old_mode"] = Information["mode"];
             Information["mode"] = i;
-
+            Information["option"] = i + 1;
             UpdateComponents();
         }
 
-        public void CT_Main()
+        public void CT_MainBack()
         {
             Information["controller"] = 0;
             ChangeController();
         }
 
-        private void UpdateComponents()
+        public void CT_Files()
+        {
+            Information["controller"] = 1;
+            ChangeController();
+        }
+
+        //Prepara los componentes para que los cargue ChangeEnviroment
+        private void UpdateComponents ()
         {
             switch(Information["mode"])
             {
                 case 0:
-                    ChangeComponents();
-                    break;
-
-                case 1:
-                    NV_Page = new Files.View.NV_Files_Main();
-                    TS_Page = null;
+                    NV_Page = new Main.View.NV_Main();
                     MC_Page = null;
-                    ChangeComponents();
-                    break;
-
-                case 2:
-                    ChangeComponents();
-                    break;
-
-                case 3:
-                    ChangeComponents();
-                    break;
-
-                case 4:
-                    ChangeComponents();
+                    TS_Page = null;
+                    ChangeEnviroment();
                     break;
             }
         }
 
-        private void ChangeComponents()
+
+        //Actualiza los componentes de la ventana
+        private void ChangeEnviroment()
         {
             TopSide.Content = NV_Page;
-            LeftSide.Content = TS_Page;
             MainContent.Content = MC_Page;
+            LeftSide.Content= TS_Page;
         }
+
 
         private void ChangeController()
         {
@@ -106,8 +104,8 @@ namespace GestCloudv2.Files.Controller
                     break;
 
                 case 1:
-                    /*MainWindow b = (MainWindow)System.Windows.Application.Current.MainWindow;
-                    b.MainFrame.Content = new Main.Controller.MainController();*/
+                    Main.View.MainWindow b = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
+                    b.MainFrame.Content = new Files.Controller.CT_Files();
                     break;
             }
         }

@@ -96,8 +96,8 @@ namespace GestCloudv2.UserItem.InfoUser
         private InfoUser.InfoUser_Controller GetController()
         {
             Window mainWindow = Application.Current.MainWindow;
-            var a = (Main.View.MC_Main)mainWindow;
-            return (InfoUser.InfoUser_Controller)a.MainPage.Content;
+            var a = (Main.View.MainWindow)mainWindow;
+            return (InfoUser.InfoUser_Controller)a.MainFrame.Content;
         }
     }
 }
