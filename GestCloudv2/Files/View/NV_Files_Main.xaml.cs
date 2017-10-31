@@ -50,7 +50,7 @@ namespace GestCloudv2.Files.View
             GetController().MD_Change(4);
         }
 
-        private void MD_Back(object sender, RoutedEventArgs e)
+        private void CT_Back(object sender, RoutedEventArgs e)
         {
             GetController().CT_Main();
         }
@@ -66,5 +66,7 @@ namespace GestCloudv2.Files.View
             var a = (Main.View.MainWindow)mainWindow;
             return (Files.Controller.CT_Files)a.MainFrame.Content;
         }
+
+        
     }
 }

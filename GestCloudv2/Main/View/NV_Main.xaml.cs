@@ -42,6 +42,11 @@ namespace GestCloudv2.Main.View
             GetController().CT_Files();
         }
 
+        private void EV_Exit(object sender, RoutedEventArgs e)
+        {
+            Application.Current.MainWindow.Close();
+        }
+
         private Main.Controller.CT_Main GetController()
         {
             Window mainWindow = Application.Current.MainWindow;
