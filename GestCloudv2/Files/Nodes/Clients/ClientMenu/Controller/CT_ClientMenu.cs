@@ -5,16 +5,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using FrameworkView.V1;
 
 namespace GestCloudv2.Files.Nodes.Clients.ClientMenu.Controller
 {
-    public partial class ClientController : Main.Controller.CT_Common
+    public partial class CT_ClientMenu : Main.Controller.CT_Common
     {
         private Page MC_Page;
         private Page TS_Page;
         private Page NV_Page;
+        public ClientsView clientView;
 
-        public ClientController()
+        public CT_ClientMenu()
         {
             InitializeComponent();
             Information = new Dictionary<string, int>();
@@ -27,6 +29,7 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientMenu.Controller
 
         private void EV_Start(object sender, RoutedEventArgs e)
         {
+            clientView = new ClientsView();
             UpdateComponents();
         }
 

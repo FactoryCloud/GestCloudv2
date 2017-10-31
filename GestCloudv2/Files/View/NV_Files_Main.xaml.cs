@@ -35,13 +35,16 @@ namespace GestCloudv2.Files.View
             GetController().CT_Main();
         }
 
+        private void EV_CT_Clients(object sender, RoutedEventArgs e)
+        {
+            GetController().CT_Clients();
+        }
+
         private Files.Controller.CT_Files GetController()
         {
             Window mainWindow = Application.Current.MainWindow;
             var a = (Main.View.MainWindow)mainWindow;
             return (Files.Controller.CT_Files)a.MainFrame.Content;
         }
-
-        
     }
 }
