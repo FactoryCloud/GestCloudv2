@@ -13,35 +13,27 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace GestCloudv2.Files.View
+namespace GestCloudv2.Files.Nodes.Companies.CompanyMenu.View
 {
     /// <summary>
-    /// Interaction logic for NV_Files_Main.xaml
+    /// Interaction logic for TS_CPN_Menu.xaml
     /// </summary>
-    public partial class NV_Files_Main : Page
+    public partial class TS_CPN_Menu : Page
     {
-        public NV_Files_Main()
+        public TS_CPN_Menu()
         {
             InitializeComponent();
         }
 
-        private void EV_CT_Companies(object sender, RoutedEventArgs e)
+        private void EV_StartNewCompany(object sender, RoutedEventArgs e)
         {
-            GetController().CT_Companies();
         }
 
-        private void EV_CT_Back(object sender, RoutedEventArgs e)
-        {
-            GetController().CT_Main();
-        }
-
-        private Files.Controller.CT_Files GetController()
+        private Files.Nodes.Companies.CompanyMenu.Controller.CT_CompanyMenu GetController()
         {
             Window mainWindow = Application.Current.MainWindow;
             var a = (Main.View.MainWindow)mainWindow;
-            return (Files.Controller.CT_Files)a.MainFrame.Content;
+            return (Files.Nodes.Companies.CompanyMenu.Controller.CT_CompanyMenu)a.MainFrame.Content;
         }
-
-        
     }
 }

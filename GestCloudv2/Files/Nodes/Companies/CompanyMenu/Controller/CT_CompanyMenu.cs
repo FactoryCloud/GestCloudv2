@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 using FrameworkDB.V1;
 using Microsoft.EntityFrameworkCore;
 
-namespace GestCloudv2.Files.Nodes.Companies.CompanyMenu
+namespace GestCloudv2.Files.Nodes.Companies.CompanyMenu.Controller
 {
     /// <summary>
     /// Interaction logic for CT_CompanyMenu.xaml
@@ -69,9 +69,9 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyMenu
                     break;
 
                 case 1:
-                    NV_Page = new Files.View.NV_Files_Main();
-                    TS_Page = null;
-                    MC_Page = null;
+                    NV_Page = new Files.Nodes.Companies.CompanyMenu.View.NV_CPN_Menu();
+                    TS_Page = new Files.Nodes.Companies.CompanyMenu.View.TS_CPN_Menu(); ;
+                    MC_Page = new Files.Nodes.Companies.CompanyMenu.View.MC_CPN_Menu(); ;
                     ChangeComponents();
                     break;
 
@@ -102,7 +102,7 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyMenu
             {
                 case 0:
                     Main.View.MainWindow a = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
-                    a.MainFrame.Content = new Main.Controller.CT_Main();
+                    a.MainFrame.Content = new Files.Controller.CT_Files();
                     break;
 
                 case 1:
