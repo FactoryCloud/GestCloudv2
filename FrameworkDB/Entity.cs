@@ -11,7 +11,7 @@ namespace FrameworkDB.V1
     {
         public int EntityID { get; set; }
 
-        /*public string cod { get; set; }
+        public string cod { get; set; }
         public string name { get; set; }
         public string subname { get; set; }
         public string phone1 { get; set; }
@@ -21,7 +21,7 @@ namespace FrameworkDB.V1
         public string pc { get; set; }
         public string email { get; set; }
         public string address { get; set; }
-        public string contact { get; set; }*/
+        public string contact { get; set; }
 
         [ForeignKey("FK_Entity_CountryID_Countries")]
         public int? CountryID { get; set; }
