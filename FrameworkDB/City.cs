@@ -18,8 +18,8 @@ namespace FrameworkDB.V1
         [StringLength(5)]
         public string P_C { get; set; }
 
-        [ForeignKey("FK_Cities_CountryID_Cities")]
-        public int CountryID { get; set; }
-        public virtual Country country { get; set; }
+        [ForeignKey("FK_City_CountryID_Countries")]
+        public int? CountryID { get; set; }
+        public virtual Country countries { get; set; }
     }
 }
