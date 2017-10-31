@@ -99,6 +99,7 @@
   <ItemGroup>
     <Compile Include="Cards\CardsView.cs" />
     <Compile Include="Clients\ClientView.cs" />
+    <Compile Include="Companies\CompaniesView.cs" />
     <Compile Include="Movements\MovementsView.cs" />
     <Compile Include="Products\ProductsView.cs" />
     <Compile Include="Products\ProductView.cs" />
@@ -117,7 +118,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Companies\" />
     <Folder Include="Stock\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
