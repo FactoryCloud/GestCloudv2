@@ -144,6 +144,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Files\Controller\CT_Files.cs" />
     <Compile Include="Files\Nodes\External\Cards\CardList\CardList_MainContent.xaml.cs">
       <DependentUpon>CardList_MainContent.xaml</DependentUpon>
     </Compile>
@@ -152,6 +153,9 @@
     </Compile>
     <Compile Include="FloatWindows\ProductSelectWindow.xaml.cs">
       <DependentUpon>ProductSelectWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Main\Controller\CT_Common.xaml.cs">
+      <DependentUpon>CT_Common.xaml</DependentUpon>
     </Compile>
     <Compile Include="Main\Login\ChangePasswordUserWindow.xaml.cs">
       <DependentUpon>ChangePasswordUserWindow.xaml</DependentUpon>
@@ -236,6 +240,10 @@
     <Page Include="FloatWindows\ProductSelectWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Main\Controller\CT_Common.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Main\Login\ChangePasswordUserWindow.xaml">
       <SubType>Designer</SubType>
@@ -405,7 +413,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Files\Controller\" />
     <Folder Include="Files\Nodes\Companies\CompanyItem\Controller\" />
     <Folder Include="Files\Nodes\Companies\CompanyItem\View\" />
     <Folder Include="Files\Nodes\Companies\CompanyMenu\Controller\" />

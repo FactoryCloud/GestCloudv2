@@ -42,8 +42,8 @@ namespace GestCloudv2.Main.Login
         {
             GestCloudDB db = new GestCloudDB();
             //db.UpdateFromMKM();
-            db.UpdateProductsList();
-            MessageBox.Show("Base de datos cargada");
+            //db.UpdateProductsList();
+            //MessageBox.Show("Base de datos cargada");
         }
 
         private void KeyPushDetected_Event(object sender, RoutedEventArgs e)

@@ -32,22 +32,22 @@ namespace GestCloudv2.Main.View
             {
                 if(u.permissionType.Item == "Users" && u.permissionType.Mode == 1)
                 {
-                    UsersNavigationButton.Visibility = Visibility.Visible;
+                    //UsersNavigationButton.Visibility = Visibility.Visible;
                 }
 
                 if (u.permissionType.Item == "Cards" && u.permissionType.Mode == 1)
                 {
-                    CardsNavigationButton.Visibility = Visibility.Visible;
+                    //CardsNavigationButton.Visibility = Visibility.Visible;
                 }
 
                 if (u.permissionType.Item == "Stock" && u.permissionType.Mode == 1)
                 {
-                    StockNavigationButton.Visibility = Visibility.Visible;
+                    //StockNavigationButton.Visibility = Visibility.Visible;
                 }
             }
         }
 
-        private void UsersNavigationEvent(object sender, RoutedEventArgs e)
+        private void EV_NV_Files(object sender, RoutedEventArgs e)
         {
             GetController().ChangeMode(1);
         }
