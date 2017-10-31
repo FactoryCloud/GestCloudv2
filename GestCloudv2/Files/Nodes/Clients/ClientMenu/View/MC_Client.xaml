@@ -27,6 +27,6 @@
             <TextBox Name="SearchBox"  Grid.Column="1" VerticalContentAlignment="Center" Margin="20" MaxHeight="30"></TextBox>
         </Grid>
         <DataGrid Name="DG_Clients" Grid.ColumnSpan="4" Grid.Row="1" FontSize="14" IsReadOnly="True" SelectionMode="Single" CanUserResizeRows="False" CanUserReorderColumns="False"
-                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" ColumnWidth="*" Margin="20"/>
+                  HorizontalContentAlignment="Center" ColumnWidth="*" Margin="20"/>
     </Grid>
 </Page>

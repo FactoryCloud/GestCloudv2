@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using FrameworkView.V1;
 
 namespace GestCloudv2.Files.Nodes.Clients.ClientMenu.Controller
 {
@@ -13,6 +14,7 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientMenu.Controller
         private Page MC_Page;
         private Page TS_Page;
         private Page NV_Page;
+        public ClientsView clientView;
 
         public CT_ClientMenu()
         {
@@ -27,6 +29,7 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientMenu.Controller
 
         private void EV_Start(object sender, RoutedEventArgs e)
         {
+            clientView = new ClientsView();
             UpdateComponents();
         }
 
