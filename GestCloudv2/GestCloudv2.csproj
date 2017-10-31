@@ -155,6 +155,7 @@
     <Compile Include="Files\Nodes\Clients\ClientMenu\View\TS_Client.xaml.cs">
       <DependentUpon>TS_Client.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Files\Nodes\Companies\CompanyMenu\Controller\CT_CompanyMenu.cs" />
     <Compile Include="Files\Nodes\External\Cards\CardList\CardList_MainContent.xaml.cs">
       <DependentUpon>CardList_MainContent.xaml</DependentUpon>
     </Compile>
@@ -440,7 +441,6 @@
     <Folder Include="Files\Nodes\Clients\ClientItem\View\" />
     <Folder Include="Files\Nodes\Companies\CompanyItem\Controller\" />
     <Folder Include="Files\Nodes\Companies\CompanyItem\View\" />
-    <Folder Include="Files\Nodes\Companies\CompanyMenu\Controller\" />
     <Folder Include="Files\Nodes\Companies\CompanyMenu\View\" />
     <Folder Include="Files\Nodes\Users\UserMenu\Controller\" />
     <Folder Include="Models\" />
