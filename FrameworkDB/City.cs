@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,13 +11,15 @@ namespace FrameworkDB.V1
     public class City
     {
         [Key]
-        public int id { get; set; }
+        public int CityID { get; set; }
 
         [StringLength(40)]
-        public string name { get; set; }
+        public string Name { get; set; }
         [StringLength(5)]
-        public string pc { get; set; }
+        public string P_C { get; set; }
 
-        public decimal country { get; set; }
+        [ForeignKey("FK_Cities_CountryID_Cities")]
+        public int CountryID { get; set; }
+        public virtual Country country { get; set; }
     }
 }

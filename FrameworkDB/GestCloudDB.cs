@@ -185,12 +185,12 @@ namespace FrameworkDB.V1
                     }
                 }
             }*/
-            List<MTGCard> cards = MTGCards.Include(c => c.expansion).OrderBy(c=> c.expansion.ExpansionID).ToList();
+            List<MTGCard> cards = MTGCards.Include(c => c.expansion).ToList();
             foreach (MTGCard card in cards)
             {
-                List<Product> temp = Products.Where(p => card.ProductID == p.ExternalID).Include(p => p.productType).ToList();
-                if (temp.Count == 0)
-                {
+                //List<Product> temp = Products.Where(p => card.ProductID == p.ExternalID).Include(p => p.productType).ToList();
+                /*if (temp.Count == 0)
+                {*/
                     // Accion para cartas que aun no están en la base de Productos
                     Products.Add(new Product
                     {
@@ -199,7 +199,7 @@ namespace FrameworkDB.V1
                         ExternalID = card.ProductID,
                         DateLaunch = card.expansion.ReleaseDate
                     });
-                }
+                /*}
 
                 else
                 {
@@ -211,9 +211,9 @@ namespace FrameworkDB.V1
                         temp[0].DateLaunch = card.expansion.ReleaseDate;
                         Products.Update(temp[0]);
                     }
-                }
-                this.SaveChanges();
+                }*/
             }
+            this.SaveChanges();
         }
     }
 

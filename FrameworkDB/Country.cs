@@ -10,15 +10,15 @@ namespace FrameworkDB.V1
     public class Country
     {
         [Key]
-        public int id { get; set; }
+        public int CountryID { get; set; }
 
         [StringLength(40)]
-        public string name { get; set; }
+        public string Name { get; set; }
         [StringLength(2)]
-        public string sig { get; set; }
+        public string Sig { get; set; }
         [StringLength(3)]
-        public string iso { get; set; }
+        public string Iso { get; set; }
         [StringLength(1)]
-        public string tip { get; set; }
+        public string Tip { get; set; }
     }
 }
