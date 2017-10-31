@@ -30,6 +30,8 @@ namespace FrameworkDB.V1
         public DbSet<Movement> Movements { get; set; }
         public DbSet<StockAdjust> StockAdjusts { get; set; }
 
+        public DbSet<Client> Clients { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             //optionsBuilder.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=GestCloud;Integrated Security=True");
