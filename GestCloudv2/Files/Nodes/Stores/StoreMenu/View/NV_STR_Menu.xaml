@@ -1,0 +1,22 @@
+﻿<Page x:Class="GestCloudv2.Files.Nodes.Stores.StoreMenu.View.NV_STR_Menu"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:GestCloudv2.Files.Nodes.Stores.StoreMenu.View"
+      mc:Ignorable="d" 
+      d:DesignHeight="200" d:DesignWidth="1500"
+      Title="NV_STR_Menu">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Button Name="BT_Close" Margin="20" Grid.Column="5" Click="EV_CT_Back">Volver</Button>
+    </Grid>
+</Page>

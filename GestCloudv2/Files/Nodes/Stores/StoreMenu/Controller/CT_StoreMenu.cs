@@ -13,14 +13,15 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using FrameworkDB.V1;
+using FrameworkView.V1;
 using Microsoft.EntityFrameworkCore;
 
-namespace GestCloudv2.Files.Controller
+namespace GestCloudv2.Files.Nodes.Stores.StoreMenu.Controller
 {
     /// <summary>
-    /// Interaction logic for MainController.xaml
+    /// Interaction logic for CT_StoreMenu.xaml
     /// </summary>
-    public partial class CT_Files : Main.Controller.CT_Common
+    public partial class CT_StoreMenu : Main.Controller.CT_Common
     {
         private Page NV_Page;
         private Page TS_Page;
@@ -28,10 +29,14 @@ namespace GestCloudv2.Files.Controller
 
         GestCloudDB db;
 
-        public CT_Files()
+        public StoresView StoresView;
+        public Store Store;
+
+        public CT_StoreMenu()
         {
             InitializeComponent();
             db = new GestCloudDB();
+            StoresView = new StoresView();
             Information = new Dictionary<string, int>();
             Information.Add("mode", 1);
             Information.Add("oldmode", 1);
@@ -39,6 +44,13 @@ namespace GestCloudv2.Files.Controller
             Information.Add("oldcontroller", 0);
 
             this.Loaded += new RoutedEventHandler(EV_Start);
+        }
+
+        public void SetCompany(int num)
+        {
+            Store = db.Stores.Where(c => c.StoreID == num).Include(c => c.CompaniesStores).First();
+            //TS_Page = new WorkingBoard.View.TS_WB_ToDo();
+            //LeftSide.Content = TS_Page;
         }
 
         private void EV_Start (object sender, RoutedEventArgs e)
@@ -52,24 +64,6 @@ namespace GestCloudv2.Files.Controller
             Information["mode"] = i;
 
             UpdateComponents();
-        }
-
-        public void CT_Stores()
-        {
-            Information["controller"] = 4;
-            ChangeController();
-        }
-
-        public void CT_Companies()
-        {
-            Information["controller"] = 5;
-            ChangeController();
-        }
-
-        public void CT_Clients()
-        {
-            Information["controller"] = 7;
-            ChangeController();
         }
 
         public void CT_Main()
@@ -87,9 +81,21 @@ namespace GestCloudv2.Files.Controller
                     break;
 
                 case 1:
-                    NV_Page = new Files.View.NV_Files_Main();
-                    TS_Page = null;
-                    MC_Page = null;
+                    NV_Page = new Files.Nodes.Stores.StoreMenu.View.NV_STR_Menu();
+                    TS_Page = new Files.Nodes.Stores.StoreMenu.View.TS_STR_Menu(); ;
+                    MC_Page = new Files.Nodes.Stores.StoreMenu.View.MC_STR_Menu(); ;
+                    ChangeComponents();
+                    break;
+
+                case 2:
+                    ChangeComponents();
+                    break;
+
+                case 3:
+                    ChangeComponents();
+                    break;
+
+                case 4:
                     ChangeComponents();
                     break;
             }
@@ -108,22 +114,12 @@ namespace GestCloudv2.Files.Controller
             {
                 case 0:
                     Main.View.MainWindow a = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
-                    a.MainFrame.Content = new Main.Controller.CT_Main();
+                    a.MainFrame.Content = new Files.Controller.CT_Files();
                     break;
 
-                case 4:
-                    Main.View.MainWindow e = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
-                    e.MainFrame.Content = new Files.Nodes.Stores.StoreMenu.Controller.CT_StoreMenu();
-                    break;
-
-                case 5:
-                    Main.View.MainWindow f = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
-                    f.MainFrame.Content = new Files.Nodes.Companies.CompanyMenu.Controller.CT_CompanyMenu();
-                    break;
-
-                case 7:
-                    Main.View.MainWindow c = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
-                    c.MainFrame.Content = new Files.Nodes.Clients.ClientMenu.Controller.CT_ClientMenu();
+                case 1:
+                    /*MainWindow b = (MainWindow)System.Windows.Application.Current.MainWindow;
+                    b.MainFrame.Content = new Main.Controller.MainController();*/
                     break;
             }
         }

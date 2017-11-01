@@ -155,6 +155,16 @@
     <Compile Include="Files\Nodes\Clients\ClientMenu\View\TS_Client.xaml.cs">
       <DependentUpon>TS_Client.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Files\Nodes\Stores\StoreMenu\Controller\CT_StoreMenu.cs" />
+    <Compile Include="Files\Nodes\Stores\StoreMenu\View\MC_STR_Menu.xaml.cs">
+      <DependentUpon>MC_STR_Menu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Nodes\Stores\StoreMenu\View\NV_STR_Menu.xaml.cs">
+      <DependentUpon>NV_STR_Menu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Nodes\Stores\StoreMenu\View\TS_STR_Menu.xaml.cs">
+      <DependentUpon>TS_STR_Menu.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Files\Nodes\Companies\CompanyMenu\Controller\CT_CompanyMenu.cs" />
     <Compile Include="Files\Nodes\Companies\CompanyMenu\View\MC_CPN_Menu.xaml.cs">
       <DependentUpon>MC_CPN_Menu.xaml</DependentUpon>
@@ -187,19 +197,19 @@
     <Compile Include="Main\View\NV_Main.xaml.cs">
       <DependentUpon>NV_Main.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Stocks\StockAdjusts\StockItem\AddStock\AddStock_Controller.xaml.cs">
+    <Compile Include="Stocks\Nodes\StockAdjusts\StockItem\AddStock\AddStock_Controller.xaml.cs">
       <DependentUpon>AddStock_Controller.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Stocks\StockAdjusts\StockItem\AddStock\MainAddStock\AddStock_MainContent.xaml.cs">
+    <Compile Include="Stocks\Nodes\StockAdjusts\StockItem\AddStock\MainAddStock\AddStock_MainContent.xaml.cs">
       <DependentUpon>AddStock_MainContent.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Stocks\StockAdjusts\StockItem\AddStock\MainAddStock\AddStock_Navigation.xaml.cs">
+    <Compile Include="Stocks\Nodes\StockAdjusts\StockItem\AddStock\MainAddStock\AddStock_Navigation.xaml.cs">
       <DependentUpon>AddStock_Navigation.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Stocks\StockAdjusts\StockItem\AddStock\MainAddStock\AddStock_ToolSide.xaml.cs">
+    <Compile Include="Stocks\Nodes\StockAdjusts\StockItem\AddStock\MainAddStock\AddStock_ToolSide.xaml.cs">
       <DependentUpon>AddStock_ToolSide.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Stocks\StockAdjusts\StockList\StockList_ToolSide.xaml.cs">
+    <Compile Include="Stocks\Nodes\StockAdjusts\StockList\StockList_ToolSide.xaml.cs">
       <DependentUpon>StockList_ToolSide.xaml</DependentUpon>
     </Compile>
     <Compile Include="Files\Nodes\Users\UserItem\InfoUser\Access\AccessUser_MainContent.xaml.cs">
@@ -262,6 +272,18 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Files\Nodes\Stores\StoreMenu\View\MC_STR_Menu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Files\Nodes\Stores\StoreMenu\View\NV_STR_Menu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Files\Nodes\Stores\StoreMenu\View\TS_STR_Menu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Files\Nodes\Companies\CompanyMenu\View\MC_CPN_Menu.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -298,23 +320,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Stocks\StockAdjusts\StockItem\AddStock\AddStock_Controller.xaml">
+    <Page Include="Stocks\Nodes\StockAdjusts\StockItem\AddStock\AddStock_Controller.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Stocks\StockAdjusts\StockItem\AddStock\MainAddStock\AddStock_MainContent.xaml">
+    <Page Include="Stocks\Nodes\StockAdjusts\StockItem\AddStock\MainAddStock\AddStock_MainContent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Stocks\StockAdjusts\StockItem\AddStock\MainAddStock\AddStock_Navigation.xaml">
+    <Page Include="Stocks\Nodes\StockAdjusts\StockItem\AddStock\MainAddStock\AddStock_Navigation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Stocks\StockAdjusts\StockItem\AddStock\MainAddStock\AddStock_ToolSide.xaml">
+    <Page Include="Stocks\Nodes\StockAdjusts\StockItem\AddStock\MainAddStock\AddStock_ToolSide.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Stocks\StockAdjusts\StockList\StockList_ToolSide.xaml">
+    <Page Include="Stocks\Nodes\StockAdjusts\StockList\StockList_ToolSide.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -462,6 +484,8 @@
     <Folder Include="Files\Nodes\Clients\ClientItem\View\" />
     <Folder Include="Files\Nodes\Companies\CompanyItem\Controller\" />
     <Folder Include="Files\Nodes\Companies\CompanyItem\View\" />
+    <Folder Include="Files\Nodes\Stores\StoreItem\Controller\" />
+    <Folder Include="Files\Nodes\Stores\StoreItem\View\" />
     <Folder Include="Files\Nodes\Users\UserMenu\Controller\" />
     <Folder Include="Models\" />
   </ItemGroup>

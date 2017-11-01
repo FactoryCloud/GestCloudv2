@@ -100,6 +100,7 @@
     <Compile Include="Cards\CardsView.cs" />
     <Compile Include="Clients\ClientsView.cs" />
     <Compile Include="Clients\ClientView.cs" />
+    <Compile Include="Stores\StoresView.cs" />
     <Compile Include="Companies\CompaniesView.cs" />
     <Compile Include="Movements\MovementsView.cs" />
     <Compile Include="Products\ProductsView.cs" />

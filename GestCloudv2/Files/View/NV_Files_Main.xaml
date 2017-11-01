@@ -24,7 +24,7 @@
         <Button Name="BT_Products" Margin="20">Artículos</Button>
         <!--<Button Name="BT_Providers" Margin="20" Grid.Column="1">Proveedores</Button>-->
         <Button Name="BT_ToFinish" Margin="20" Grid.Column="2">Externos</Button>
-        <Button Name="BT_Stores" Margin="20" Grid.Column="3">Almacenes</Button>
+        <Button Name="BT_Stores" Margin="20" Grid.Column="3" Click="EV_CT_Stores">Almacenes</Button>
         <Button Name="BT_Companies" Margin="20" Grid.Column="4" Click="EV_CT_Companies">Empresas</Button>
         <!--<Button Name="BT_Close" Margin="20" Grid.Column="5">Volver</Button>-->
         <Button Name="BT_Clients" Margin="20" Grid.Row="1" Click="EV_CT_Clients">Clientes</Button>

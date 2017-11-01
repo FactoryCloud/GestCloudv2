@@ -13,26 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace GestCloudv2.Files.View
+namespace GestCloudv2.Files.Nodes.Stores.StoreMenu.View
 {
     /// <summary>
-    /// Interaction logic for NV_Files_Main.xaml
+    /// Interaction logic for NV_STR_Menu.xaml
     /// </summary>
-    public partial class NV_Files_Main : Page
+    public partial class NV_STR_Menu : Page
     {
-        public NV_Files_Main()
+        public NV_STR_Menu()
         {
             InitializeComponent();
-        }
-
-        private void EV_CT_Stores(object sender, RoutedEventArgs e)
-        {
-            GetController().CT_Stores();
-        }
-
-        private void EV_CT_Companies(object sender, RoutedEventArgs e)
-        {
-            GetController().CT_Companies();
         }
 
         private void EV_CT_Back(object sender, RoutedEventArgs e)
@@ -40,16 +30,11 @@ namespace GestCloudv2.Files.View
             GetController().CT_Main();
         }
 
-        private void EV_CT_Clients(object sender, RoutedEventArgs e)
-        {
-            GetController().CT_Clients();
-        }
-
-        private Files.Controller.CT_Files GetController()
+        private Files.Nodes.Stores.StoreMenu.Controller.CT_StoreMenu GetController()
         {
             Window mainWindow = Application.Current.MainWindow;
             var a = (Main.View.MainWindow)mainWindow;
-            return (Files.Controller.CT_Files)a.MainFrame.Content;
+            return (Files.Nodes.Stores.StoreMenu.Controller.CT_StoreMenu)a.MainFrame.Content;
         }
     }
 }

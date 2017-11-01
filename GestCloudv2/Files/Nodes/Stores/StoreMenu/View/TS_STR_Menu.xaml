@@ -1,0 +1,42 @@
+﻿<Page x:Class="GestCloudv2.Files.Nodes.Stores.StoreMenu.View.TS_STR_Menu"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:GestCloudv2.Files.Nodes.Stores.StoreMenu.View"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300"
+      Title="TS_STR_Menu">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Button Margin="10" Click="EV_StartNewStore">
+            <TextBlock TextAlignment="Center">Nuevo<LineBreak/>Almacén</TextBlock>
+        </Button>
+        <!--<Button Margin="10" Grid.Column="1" Click="EV_StartNewFile">
+            <TextBlock TextAlignment="Center">Crear<LineBreak/>Expediente</TextBlock>
+        </Button>
+        <Button Name="BT_OpenFile" IsEnabled="False" Margin="10" Grid.Row="1" Click="EV_OpenFile">
+            <TextBlock TextAlignment="Center">Ver<LineBreak/>Expediente</TextBlock>
+        </Button>
+        <Button Name="BT_SaveFile" IsEnabled="False" Margin="10" Grid.Column="1" Grid.Row="1" Click="EV_SaveFile">
+            <TextBlock TextAlignment="Center">Guardar<LineBreak/>Expediente</TextBlock>
+        </Button>
+        <Button Name="BT_FinishFile" IsEnabled="False" Margin="10" Grid.Column="0" Grid.Row="2" Click="EV_FinishFile">
+            <TextBlock TextAlignment="Center">Terminar<LineBreak/>Expediente</TextBlock>
+        </Button>
+        <Button Name="BT_FreeFile" IsEnabled="False" Margin="10" Grid.Column="1" Grid.Row="2" Click="EV_FreeFile">
+            <TextBlock TextAlignment="Center">Liberar<LineBreak/>Expediente</TextBlock>
+        </Button>-->
+    </Grid>
+</Page>
