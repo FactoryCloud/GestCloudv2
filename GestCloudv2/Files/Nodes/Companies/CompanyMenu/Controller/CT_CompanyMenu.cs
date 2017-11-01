@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using FrameworkDB.V1;
+using FrameworkView.V1;
 using Microsoft.EntityFrameworkCore;
 
 namespace GestCloudv2.Files.Nodes.Companies.CompanyMenu.Controller
@@ -28,10 +29,14 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyMenu.Controller
 
         GestCloudDB db;
 
+        public CompaniesView CompaniesView;
+        public Company Company;
+
         public CT_CompanyMenu()
         {
             InitializeComponent();
             db = new GestCloudDB();
+            CompaniesView = new CompaniesView();
             Information = new Dictionary<string, int>();
             Information.Add("mode", 1);
             Information.Add("oldmode", 1);
@@ -39,6 +44,13 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyMenu.Controller
             Information.Add("oldcontroller", 0);
 
             this.Loaded += new RoutedEventHandler(EV_Start);
+        }
+
+        public void SetCompany(int num)
+        {
+            Company = db.Companies.Where(c => c.CompanyID == num).Include(c => c.CompaniesStores).First();
+            //TS_Page = new WorkingBoard.View.TS_WB_ToDo();
+            //LeftSide.Content = TS_Page;
         }
 
         private void EV_Start (object sender, RoutedEventArgs e)

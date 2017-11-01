@@ -30,6 +30,21 @@ namespace FrameworkDB.V1
         public DbSet<Movement> Movements { get; set; }
         public DbSet<StockAdjust> StockAdjusts { get; set; }
 
+        public DbSet<Client> Clients { get; set; }
+        public DbSet<Entity> Entities {get; set; }
+
+        public DbSet<City> Cities { get; set; }
+        public DbSet<Country> Countries { get; set; }
+
+        public DbSet<Company> Companies { get; set; }
+        public DbSet<Store> Stores { get; set; }
+        public DbSet<CompanyStore> CompaniesStores { get; set; }
+
+        public DbSet<PurchaseDelivery> PurchaseDeliveries { get; set; }
+        public DbSet<PurchaseInvoice> PurchaseInvoices { get; set; }
+        public DbSet<SaleDelivery> SaleDeliveries { get; set; }
+        public DbSet<SaleInvoice> SaleInvoices { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             //optionsBuilder.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=GestCloud;Integrated Security=True");

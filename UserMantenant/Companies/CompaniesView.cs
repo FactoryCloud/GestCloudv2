@@ -28,7 +28,19 @@ namespace FrameworkView.V1
 
         public void UpdateTable()
         {
-            companies = db.Co
+            companies = db.Companies.ToList();
+
+            dt.Clear();
+            foreach(Company comp in companies)
+            {
+                dt.Rows.Add(comp.CompanyID, comp.Name);
+            }
+        }
+
+        public IEnumerable GetTable()
+        {
+            UpdateTable();
+            return dt.DefaultView;
         }
     }
 }
