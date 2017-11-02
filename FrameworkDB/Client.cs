@@ -13,6 +13,8 @@ namespace FrameworkDB.V1
         [Key]
         public int ClientID { get; set; }
 
+        public int Cod { get; set; }
+
         [ForeignKey("FK_Clients_EntityID_Entities")]
         public int? EntityID { get; set; }
         public virtual Entity entity { get; set; }
