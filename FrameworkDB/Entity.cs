@@ -11,7 +11,7 @@ namespace FrameworkDB.V1
     {
         public int EntityID { get; set; }
 
-        public string Cod { get; set; }
+        public int Cod { get; set; }
         public string Name { get; set; }
         public string Subname { get; set; }
         public string Phone1 { get; set; }
