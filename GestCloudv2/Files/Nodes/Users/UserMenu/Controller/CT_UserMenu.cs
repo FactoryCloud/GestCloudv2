@@ -16,31 +16,31 @@ using FrameworkDB.V1;
 using FrameworkView.V1;
 using Microsoft.EntityFrameworkCore;
 
-namespace GestCloudv2.Files.Nodes.Stores.StoreMenu.Controller
+namespace GestCloudv2.Files.Nodes.Users.UserMenu.Controller
 {
     /// <summary>
     /// Interaction logic for CT_StoreMenu.xaml
     /// </summary>
-    public partial class CT_StoreMenu : Main.Controller.CT_Common
+    public partial class CT_UserMenu : Main.Controller.CT_Common
     {
-        public StoresView StoresView;
-        public Store Store;
+        public UsersView UsersView;
+        public User User;
 
-        public CT_StoreMenu()
+        public CT_UserMenu()
         {
-            StoresView = new StoresView();
+            UsersView = new UsersView();
         }
 
-        public void SetCompany(int num)
-        {
-            Store = db.Stores.Where(c => c.StoreID == num).Include(c => c.CompaniesStores).First();
-            //TS_Page = new WorkingBoard.View.TS_WB_ToDo();
-            //LeftSide.Content = TS_Page;
-        }
-
-        override public void EV_Start (object sender, RoutedEventArgs e)
+        override public void EV_Start(object sender, RoutedEventArgs e)
         {
             UpdateComponents();
+        }
+
+        public void SetUser(int num)
+        {
+            User = db.Users.Where(c => c.UserID == num).Include(c => c.UserPermissions).First();
+            TS_Page = new Files.Nodes.Users.UserMenu.View.TS_USR_Menu();
+            LeftSide.Content = TS_Page;
         }
 
         public void MD_Change(int i)
@@ -49,6 +49,12 @@ namespace GestCloudv2.Files.Nodes.Stores.StoreMenu.Controller
             Information["mode"] = i;
 
             UpdateComponents();
+        }
+
+        public void CT_UserNew()
+        {
+            Information["controller"] = 1;
+            ChangeController();
         }
 
         public void CT_Main()
@@ -66,9 +72,9 @@ namespace GestCloudv2.Files.Nodes.Stores.StoreMenu.Controller
                     break;
 
                 case 1:
-                    NV_Page = new Files.Nodes.Stores.StoreMenu.View.NV_STR_Menu();
-                    TS_Page = new Files.Nodes.Stores.StoreMenu.View.TS_STR_Menu(); ;
-                    MC_Page = new Files.Nodes.Stores.StoreMenu.View.MC_STR_Menu(); ;
+                    NV_Page = new Files.Nodes.Users.UserMenu.View.NV_USR_Menu();
+                    TS_Page = new Files.Nodes.Users.UserMenu.View.TS_USR_Menu(); ;
+                    MC_Page = new Files.Nodes.Users.UserMenu.View.MC_USR_Menu(); ;
                     ChangeComponents();
                     break;
 
@@ -96,8 +102,8 @@ namespace GestCloudv2.Files.Nodes.Stores.StoreMenu.Controller
                     break;
 
                 case 1:
-                    /*MainWindow b = (MainWindow)System.Windows.Application.Current.MainWindow;
-                    b.MainFrame.Content = new Main.Controller.MainController();*/
+                    Main.View.MainWindow b = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
+                    b.MainFrame.Content = new Files.Nodes.Users.UserItem.UserItem_New.Controller.CT_USR_Item_New();
                     break;
             }
         }

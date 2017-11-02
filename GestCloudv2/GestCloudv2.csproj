@@ -181,6 +181,10 @@
     <Compile Include="Files\Nodes\External\Cards\CardList\CardList_ToolSide.xaml.cs">
       <DependentUpon>CardList_ToolSide.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Files\Nodes\Users\UserMenu\Controller\CT_UserMenu.cs" />
+    <Compile Include="Files\Nodes\Users\UserMenu\View\NV_USR_Menu.xaml.cs">
+      <DependentUpon>NV_USR_Menu.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Files\View\NV_Files_Main.xaml.cs">
       <DependentUpon>NV_Files_Main.xaml</DependentUpon>
     </Compile>
@@ -212,53 +216,50 @@
     <Compile Include="Stocks\Nodes\StockAdjusts\StockList\StockList_ToolSide.xaml.cs">
       <DependentUpon>StockList_ToolSide.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Files\Nodes\Users\UserItem\InfoUser\Access\AccessUser_MainContent.xaml.cs">
+    <Compile Include="Files\Nodes\Users\UserItem\UserItem_Info\Access\AccessUser_MainContent.xaml.cs">
       <DependentUpon>AccessUser_MainContent.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Files\Nodes\Users\UserItem\InfoUser\Access\AccessUser_ToolSide.xaml.cs">
+    <Compile Include="Files\Nodes\Users\UserItem\UserItem_Info\Access\AccessUser_ToolSide.xaml.cs">
       <DependentUpon>AccessUser_ToolSide.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Files\Nodes\Users\UserItem\InfoUser\InfoUser_Controller.xaml.cs">
+    <Compile Include="Files\Nodes\Users\UserItem\UserItem_Info\InfoUser_Controller.xaml.cs">
       <DependentUpon>InfoUser_Controller.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Files\Nodes\Users\UserItem\InfoUser\Info\InfoUser_MainContent.xaml.cs">
+    <Compile Include="Files\Nodes\Users\UserItem\UserItem_Info\Info\InfoUser_MainContent.xaml.cs">
       <DependentUpon>InfoUser_MainContent.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Files\Nodes\Users\UserItem\InfoUser\Info\InfoUser_Navigation.xaml.cs">
+    <Compile Include="Files\Nodes\Users\UserItem\UserItem_Info\Info\InfoUser_Navigation.xaml.cs">
       <DependentUpon>InfoUser_Navigation.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Files\Nodes\Users\UserItem\InfoUser\Info\InfoUser_ToolSide.xaml.cs">
+    <Compile Include="Files\Nodes\Users\UserItem\UserItem_Info\Info\InfoUser_ToolSide.xaml.cs">
       <DependentUpon>InfoUser_ToolSide.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Files\Nodes\Users\UserItem\InfoUser\Permissions\CardsPermissionUser_MainContent.xaml.cs">
+    <Compile Include="Files\Nodes\Users\UserItem\UserItem_Info\Permissions\CardsPermissionUser_MainContent.xaml.cs">
       <DependentUpon>CardsPermissionUser_MainContent.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Files\Nodes\Users\UserItem\InfoUser\Permissions\UsersPermissionUser_MainContent.xaml.cs">
+    <Compile Include="Files\Nodes\Users\UserItem\UserItem_Info\Permissions\UsersPermissionUser_MainContent.xaml.cs">
       <DependentUpon>UsersPermissionUser_MainContent.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Files\Nodes\Users\UserItem\InfoUser\Permissions\PermissionUser_MainContent.xaml.cs">
+    <Compile Include="Files\Nodes\Users\UserItem\UserItem_Info\Permissions\PermissionUser_MainContent.xaml.cs">
       <DependentUpon>PermissionUser_MainContent.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Files\Nodes\Users\UserItem\InfoUser\Permissions\PermissionUser_ToolSide.xaml.cs">
+    <Compile Include="Files\Nodes\Users\UserItem\UserItem_Info\Permissions\PermissionUser_ToolSide.xaml.cs">
       <DependentUpon>PermissionUser_ToolSide.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Files\Nodes\Users\UserItem\NewUser\NewUser_Controller.xaml.cs">
-      <DependentUpon>NewUser_Controller.xaml</DependentUpon>
+    <Compile Include="Files\Nodes\Users\UserItem\UserItem_New\View\MC_USR_Item_New.xaml.cs">
+      <DependentUpon>MC_USR_Item_New.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Files\Nodes\Users\UserItem\NewUser\NewUser_MainPage.xaml.cs">
-      <DependentUpon>NewUser_MainPage.xaml</DependentUpon>
+    <Compile Include="Files\Nodes\Users\UserItem\UserItem_New\View\NV_USR_Item_New.xaml.cs">
+      <DependentUpon>NV_USR_Item_New.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Files\Nodes\Users\UserItem\NewUser\NewUser_Navigation.xaml.cs">
-      <DependentUpon>NewUser_Navigation.xaml</DependentUpon>
+    <Compile Include="Files\Nodes\Users\UserItem\UserItem_New\View\TS_USR_Item_New.xaml.cs">
+      <DependentUpon>TS_USR_Item_New.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Files\Nodes\Users\UserItem\NewUser\NewUser_ToolSide.xaml.cs">
-      <DependentUpon>NewUser_ToolSide.xaml</DependentUpon>
+    <Compile Include="Files\Nodes\Users\UserMenu\View\MC_USR_Menu.xaml.cs">
+      <DependentUpon>MC_USR_Menu.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Files\Nodes\Users\UserMenu\View\UserList_MainContent.xaml.cs">
-      <DependentUpon>UserList_MainContent.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Files\Nodes\Users\UserMenu\View\UserList_ToolSide.xaml.cs">
-      <DependentUpon>UserList_ToolSide.xaml</DependentUpon>
+    <Compile Include="Files\Nodes\Users\UserMenu\View\TS_USR_Menu.xaml.cs">
+      <DependentUpon>TS_USR_Menu.xaml</DependentUpon>
     </Compile>
     <Page Include="Files\Nodes\Clients\ClientMenu\View\MC_Client.xaml">
       <SubType>Designer</SubType>
@@ -304,6 +305,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Files\Nodes\Users\UserMenu\View\NV_USR_Menu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Files\View\NV_Files_Main.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -340,30 +345,29 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Files\Nodes\Users\UserItem\InfoUser\InfoUser_Controller.xaml">
+    <Page Include="Files\Nodes\Users\UserItem\UserItem_Info\InfoUser_Controller.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Files\Nodes\Users\UserItem\InfoUser\Permissions\CardsPermissionUser_MainContent.xaml">
+    <Page Include="Files\Nodes\Users\UserItem\UserItem_Info\Permissions\CardsPermissionUser_MainContent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Files\Nodes\Users\UserItem\InfoUser\Permissions\UsersPermissionUser_MainContent.xaml">
+    <Page Include="Files\Nodes\Users\UserItem\UserItem_Info\Permissions\UsersPermissionUser_MainContent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Files\Nodes\Users\UserItem\InfoUser\Permissions\PermissionUser_MainContent.xaml">
+    <Page Include="Files\Nodes\Users\UserItem\UserItem_Info\Permissions\PermissionUser_MainContent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Files\Nodes\Users\UserItem\InfoUser\Permissions\PermissionUser_ToolSide.xaml">
+    <Page Include="Files\Nodes\Users\UserItem\UserItem_Info\Permissions\PermissionUser_ToolSide.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Files\Nodes\Users\UserItem\NewUser\NewUser_Controller.xaml">
-      <SubType>Designer</SubType>
+    <Compile Include="Files\Nodes\Users\UserItem\UserItem_New\Controller\CT_USR_Item_New.cs">
       <Generator>MSBuild:Compile</Generator>
-    </Page>
+    </Compile>
     <Page Include="Main\Login\LoginUserWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -387,43 +391,43 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Files\Nodes\Users\UserItem\InfoUser\Access\AccessUser_MainContent.xaml">
+    <Page Include="Files\Nodes\Users\UserItem\UserItem_Info\Access\AccessUser_MainContent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Files\Nodes\Users\UserItem\InfoUser\Access\AccessUser_ToolSide.xaml">
+    <Page Include="Files\Nodes\Users\UserItem\UserItem_Info\Access\AccessUser_ToolSide.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Files\Nodes\Users\UserItem\InfoUser\Info\InfoUser_MainContent.xaml">
+    <Page Include="Files\Nodes\Users\UserItem\UserItem_Info\Info\InfoUser_MainContent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Files\Nodes\Users\UserItem\InfoUser\Info\InfoUser_Navigation.xaml">
+    <Page Include="Files\Nodes\Users\UserItem\UserItem_Info\Info\InfoUser_Navigation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Files\Nodes\Users\UserItem\InfoUser\Info\InfoUser_ToolSide.xaml">
+    <Page Include="Files\Nodes\Users\UserItem\UserItem_Info\Info\InfoUser_ToolSide.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Files\Nodes\Users\UserItem\NewUser\NewUser_MainPage.xaml">
+    <Page Include="Files\Nodes\Users\UserItem\UserItem_New\View\MC_USR_Item_New.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Files\Nodes\Users\UserItem\NewUser\NewUser_Navigation.xaml">
+    <Page Include="Files\Nodes\Users\UserItem\UserItem_New\View\NV_USR_Item_New.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Files\Nodes\Users\UserItem\NewUser\NewUser_ToolSide.xaml">
+    <Page Include="Files\Nodes\Users\UserItem\UserItem_New\View\TS_USR_Item_New.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Files\Nodes\Users\UserMenu\View\UserList_MainContent.xaml">
+    <Page Include="Files\Nodes\Users\UserMenu\View\MC_USR_Menu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Files\Nodes\Users\UserMenu\View\UserList_ToolSide.xaml">
+    <Page Include="Files\Nodes\Users\UserMenu\View\TS_USR_Menu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -486,7 +490,6 @@
     <Folder Include="Files\Nodes\Companies\CompanyItem\View\" />
     <Folder Include="Files\Nodes\Stores\StoreItem\Controller\" />
     <Folder Include="Files\Nodes\Stores\StoreItem\View\" />
-    <Folder Include="Files\Nodes\Users\UserMenu\Controller\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

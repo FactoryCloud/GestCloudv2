@@ -16,19 +16,17 @@ using FrameworkDB.V1;
 using System.Data;
 using FrameworkView.V1;
 
-namespace GestCloudv2
+namespace GestCloudv2.Files.Nodes.Users.UserMenu.View
 {
     /// <summary>
     /// Interaction logic for UserList_MainContent.xaml
     /// </summary>
-    public partial class UserList_MainContent : Page
+    public partial class MC_USR_Menu : Page
     {
-        UsersView userView;
-        public UserList_MainContent()
+        public MC_USR_Menu()
         {
             InitializeComponent();
-            this.Loaded += new RoutedEventHandler(StartEvent);
-            userView = new UsersView();
+            this.Loaded += new RoutedEventHandler(EV_Start);
             NameSearchBox.KeyUp += new KeyEventHandler(Data_Search);
             CodeSearchBox.KeyUp += new KeyEventHandler(Data_SearchCod);
             UserSeachBox.KeyUp += new KeyEventHandler(Data_SearchUserName);
@@ -37,7 +35,7 @@ namespace GestCloudv2
             UpdateData();
         }
 
-        private void StartEvent(object sender, RoutedEventArgs e)
+        private void EV_Start(object sender, RoutedEventArgs e)
         {
 
         }
@@ -55,14 +53,14 @@ namespace GestCloudv2
 
         private void Data_Search(object sender, RoutedEventArgs e)
         {
-            userView.userSearch.FirstName = NameSearchBox.Text;
-            userView.userSearch.LastName = NameSearchBox.Text;
+            GetController().UsersView.userSearch.FirstName = NameSearchBox.Text;
+            GetController().UsersView.userSearch.LastName = NameSearchBox.Text;
             SearchData();
         }
 
         private void Data_SearchUserName(object sender, RoutedEventArgs e)
         {
-            userView.userSearch.Username = UserSeachBox.Text;
+            GetController().UsersView.userSearch.Username = UserSeachBox.Text;
             SearchDataUserName();
         }
 
@@ -74,7 +72,7 @@ namespace GestCloudv2
             }
             else
             {
-                userView.userSearch.UserID = int.Parse(CodeSearchBox.Text);
+                GetController().UsersView.userSearch.UserID = int.Parse(CodeSearchBox.Text);
                 SearchDataCod();
             }
         }
@@ -82,25 +80,25 @@ namespace GestCloudv2
         public void UpdateData()
         {
             UsersTable.ItemsSource = null;
-            UsersTable.ItemsSource = userView.GetTable();
+            UsersTable.ItemsSource = GetController().UsersView.GetTable();
         }
 
         public void SearchData()
         {
             UsersTable.ItemsSource = null;
-            UsersTable.ItemsSource = userView.GetTableFiltered();
+            UsersTable.ItemsSource = GetController().UsersView.GetTableFiltered();
         }
 
         public void SearchDataUserName()
         {
             UsersTable.ItemsSource = null;
-            UsersTable.ItemsSource = userView.GetTableFilteredUserName();
+            UsersTable.ItemsSource = GetController().UsersView.GetTableFilteredUserName();
         }
 
         public void SearchDataCod()
         {
             UsersTable.ItemsSource = null;
-            UsersTable.ItemsSource = userView.GetTableFilteredCod();
+            UsersTable.ItemsSource = GetController().UsersView.GetTableFilteredCod();
         }
 
         public void SelectedUserUpdate()
@@ -110,7 +108,7 @@ namespace GestCloudv2
             {
                 DataGridRow row = (DataGridRow)UsersTable.ItemContainerGenerator.ContainerFromIndex(user);
                 DataRowView dr = row.Item as DataRowView;
-                //GetController().UpdateUserSelected(Int32.Parse(dr.Row.ItemArray[0].ToString()));
+                GetController().SetUser(Int32.Parse(dr.Row.ItemArray[0].ToString()));
             }
         }
 
@@ -123,11 +121,11 @@ namespace GestCloudv2
             }
         }
 
-        private Main.Controller.CT_Main GetController()
+        private Files.Nodes.Users.UserMenu.Controller.CT_UserMenu GetController()
         {
             Window mainWindow = Application.Current.MainWindow;
             var a = (Main.View.MainWindow)mainWindow;
-            return (Main.Controller.CT_Main)a.MainFrame.Content;
+            return (Files.Nodes.Users.UserMenu.Controller.CT_UserMenu)a.MainFrame.Content;
         }
     }
 }

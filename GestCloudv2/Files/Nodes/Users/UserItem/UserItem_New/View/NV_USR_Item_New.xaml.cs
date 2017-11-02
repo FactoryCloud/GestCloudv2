@@ -15,28 +15,28 @@ using System.Windows.Shapes;
 using GestCloudv2;
 using FrameworkDB.V1;
 
-namespace GestCloudv2.UserItem
+namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_New.View
 {
     /// <summary>
-    /// Interaction logic for NewUser_Navigation.xaml
+    /// Interaction logic for NV_USR_Item_New.xaml
     /// </summary>
-    public partial class NewUser_Navigation : Page
+    public partial class NV_USR_Item_New : Page
     {
-        public NewUser_Navigation()
+        public NV_USR_Item_New()
         {
             InitializeComponent();
         }
 
-        private void BackMainWindowEvent(object sender, RoutedEventArgs e)
+        private void EV_CT_Menu(object sender, RoutedEventArgs e)
         {
-            GetController().BackToMain();
+            GetController().CT_Menu();
         }
 
-        private UserItem.NewUser.NewUser_Controller GetController()
+        private Files.Nodes.Users.UserItem.UserItem_New.Controller.CT_USR_Item_New GetController()
         {
             Window mainWindow = Application.Current.MainWindow;
             var a = (Main.View.MainWindow)mainWindow;
-            return (UserItem.NewUser.NewUser_Controller)a.MainFrame.Content;
+            return (Files.Nodes.Users.UserItem.UserItem_New.Controller.CT_USR_Item_New)a.MainFrame.Content;
         }
     }
 }

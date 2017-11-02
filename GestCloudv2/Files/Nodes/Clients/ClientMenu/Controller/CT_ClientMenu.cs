@@ -11,33 +11,29 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientMenu.Controller
 {
     public partial class CT_ClientMenu : Main.Controller.CT_Common
     {
-        private Page MC_Page;
-        private Page TS_Page;
-        private Page NV_Page;
         public ClientsView clientView;
 
         public CT_ClientMenu()
         {
-            InitializeComponent();
-            Information = new Dictionary<string, int>();
-            Information.Add("mode", 0);
-            Information.Add("controller", 0);
-
-            this.Loaded += new RoutedEventHandler(EV_Start);
         }
 
-
-        private void EV_Start(object sender, RoutedEventArgs e)
+        override public void EV_Start(object sender, RoutedEventArgs e)
         {
             clientView = new ClientsView();
             UpdateComponents();
+        }
+
+        public void CT_Main()
+        {
+            Information["controller"] = 0;
+            ChangeController();
         }
 
         private void UpdateComponents()
         {
             switch (Information["mode"])
             {
-                case 0:
+                case 1:
                     NV_Page = new View.NV_Client();
                     TS_Page = new View.TS_Client();
                     MC_Page = new View.MC_Client();
@@ -46,11 +42,20 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientMenu.Controller
             }
         }
 
-        private void ChangeComponents()
+        private void ChangeController()
         {
-            TopSide.Content = NV_Page;
-            LeftSide.Content = TS_Page;
-            MainContent.Content = MC_Page;
+            switch (Information["controller"])
+            {
+                case 0:
+                    Main.View.MainWindow a = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
+                    a.MainFrame.Content = new Files.Controller.CT_Files();
+                    break;
+
+                case 1:
+                    /*MainWindow b = (MainWindow)System.Windows.Application.Current.MainWindow;
+                    b.MainFrame.Content = new Main.Controller.MainController();*/
+                    break;
+            }
         }
     }
 }

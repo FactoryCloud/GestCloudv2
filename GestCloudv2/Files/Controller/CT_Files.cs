@@ -22,26 +22,12 @@ namespace GestCloudv2.Files.Controller
     /// </summary>
     public partial class CT_Files : Main.Controller.CT_Common
     {
-        private Page NV_Page;
-        private Page TS_Page;
-        private Page MC_Page;
-
-        GestCloudDB db;
-
         public CT_Files()
         {
-            InitializeComponent();
-            db = new GestCloudDB();
-            Information = new Dictionary<string, int>();
-            Information.Add("mode", 1);
-            Information.Add("oldmode", 1);
-            Information.Add("controller", 0);
-            Information.Add("oldcontroller", 0);
-
             this.Loaded += new RoutedEventHandler(EV_Start);
         }
 
-        private void EV_Start (object sender, RoutedEventArgs e)
+        override public void EV_Start (object sender, RoutedEventArgs e)
         {
             UpdateComponents();
         }
@@ -72,6 +58,12 @@ namespace GestCloudv2.Files.Controller
             ChangeController();
         }
 
+        public void CT_Users()
+        {
+            Information["controller"] = 11;
+            ChangeController();
+        }
+
         public void CT_Main()
         {
             Information["controller"] = 0;
@@ -93,13 +85,6 @@ namespace GestCloudv2.Files.Controller
                     ChangeComponents();
                     break;
             }
-        }
-
-        private void ChangeComponents()
-        {
-            TopSide.Content = NV_Page;
-            LeftSide.Content = TS_Page;
-            MainContent.Content = MC_Page;
         }
 
         private void ChangeController()
@@ -124,6 +109,11 @@ namespace GestCloudv2.Files.Controller
                 case 7:
                     Main.View.MainWindow c = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
                     c.MainFrame.Content = new Files.Nodes.Clients.ClientMenu.Controller.CT_ClientMenu();
+                    break;
+
+                case 11:
+                    Main.View.MainWindow k = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
+                    k.MainFrame.Content = new Files.Nodes.Users.UserMenu.Controller.CT_UserMenu();
                     break;
             }
         }

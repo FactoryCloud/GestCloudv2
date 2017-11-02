@@ -1,45 +1,44 @@
-﻿using FrameworkDB.V1;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+using FrameworkDB.V1;
+using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography;
 
-namespace GestCloudv2.UserItem.NewUser
+namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_New.Controller
 {
     /// <summary>
-    /// Interaction logic for NewUser_Controller.xaml
+    /// Interaction logic for CT_USR_Item_New.xaml
     /// </summary>
-    public partial class NewUser_Controller : Page
+    public partial class CT_USR_Item_New : Main.Controller.CT_Common
     {
-        public Dictionary<string, int> Information;
-        private Page MainContentUser;
-        private Page ToolSideUser;
-        private Page NavigationUser;
-        GestCloudDB db;
         public User user;
 
-        public NewUser_Controller()
+        public CT_USR_Item_New()
         {
-            InitializeComponent();
-            Information = new Dictionary<string, int>();
-            Information.Add("mode", 0);
-            Information.Add("fieldEmpty", 0);
-            Information.Add("controller", 0);
             user = new User();
-
-            this.Loaded += new RoutedEventHandler(StartNewUser_Event);
         }
 
-        private void StartNewUser_Event(object sender, RoutedEventArgs e)
+        override public void EV_Start(object sender, RoutedEventArgs e)
         {
             UpdateComponents();
+            Information.Add("fieldEmpty", 0);
         }
 
         public void UpdateIfNotEmpty(bool empty)
         {
-            if(empty)
+            if (empty)
             {
                 Information["fieldEmpty"] = 1;
             }
@@ -69,12 +68,6 @@ namespace GestCloudv2.UserItem.NewUser
             return result.ToString();
         }
 
-        public void BackToMain()
-        {
-            Information["controller"] = 0;
-            ChangeComponents();
-        }
-
         public void SaveNewUser()
         {
             GestCloudDB db = new GestCloudDB();
@@ -87,20 +80,42 @@ namespace GestCloudv2.UserItem.NewUser
             MessageBox.Show("Datos guardados correctamente");
         }
 
-        public void UpdateComponents()
+        public void CT_Menu()
+        {
+            Information["controller"] = 0;
+            ChangeController();
+        }
+
+        private void UpdateComponents()
         {
             switch (Information["mode"])
             {
                 case 0:
-                    NavigationUser = new UserItem.NewUser_Navigation();
-                    MainContentUser = new UserItem.NewUser_MainPage();
-                    ToolSideUser = new UserItem.NewUser_ToolSide();
-                    ChangeEnviroment();
+                    ChangeComponents();
+                    break;
+
+                case 1:
+                    NV_Page = new Files.Nodes.Users.UserItem.UserItem_New.View.NV_USR_Item_New();
+                    TS_Page = new Files.Nodes.Users.UserItem.UserItem_New.View.TS_USR_Item_New(); ;
+                    MC_Page = new Files.Nodes.Users.UserItem.UserItem_New.View.MC_USER_Item_New(); ;
+                    ChangeComponents();
+                    break;
+
+                case 2:
+                    ChangeComponents();
+                    break;
+
+                case 3:
+                    ChangeComponents();
+                    break;
+
+                case 4:
+                    ChangeComponents();
                     break;
             }
         }
 
-        private void ChangeComponents()
+        private void ChangeController()
         {
             switch (Information["controller"])
             {
@@ -113,22 +128,20 @@ namespace GestCloudv2.UserItem.NewUser
                             return;
                         }
                     }
-                    Main.View.MainWindow a = (Main.View.MainWindow)Application.Current.MainWindow;
-                    a.MainFrame.Content = new Main.Controller.CT_Main();
+                    Main.View.MainWindow a = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
+                    a.MainFrame.Content = new Files.Nodes.Users.UserMenu.Controller.CT_UserMenu();
+                    break;
+
+                case 1:
+                    /*MainWindow b = (MainWindow)System.Windows.Application.Current.MainWindow;
+                    b.MainFrame.Content = new Main.Controller.MainController();*/
                     break;
             }
         }
 
-        private void ChangeEnviroment()
-        {
-            TopSide.Content = NavigationUser;
-            MainContent.Content = MainContentUser;
-            LeftSide.Content = ToolSideUser;
-        }
-
         public void ControlFieldChangeButton(bool verificated)
         {
-            var a = (NewUser_ToolSide)LeftSide.Content;
+            var a = (Files.Nodes.Users.UserItem.UserItem_New.View.TS_USR_Item_New)LeftSide.Content;
             a.EnableButtonSaveUser(verificated);
         }
     }

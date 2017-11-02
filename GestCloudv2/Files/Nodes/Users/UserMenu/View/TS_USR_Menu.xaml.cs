@@ -13,31 +13,31 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace GestCloudv2
+namespace GestCloudv2.Files.Nodes.Users.UserMenu.View
 {
     /// <summary>
     /// Interaction logic for UserList_ToolSide.xaml
     /// </summary>
-    public partial class UserList_ToolSide : Page
+    public partial class TS_USR_Menu : Page
     {
-        public UserList_ToolSide()
+        public TS_USR_Menu()
         {
             InitializeComponent();
-            this.Loaded += new RoutedEventHandler(StartEvent);
+            this.Loaded += new RoutedEventHandler(EV_Start);
         }
 
-        private void StartEvent(object sender, RoutedEventArgs e)
+        private void EV_Start(object sender, RoutedEventArgs e)
         {
-            if(GetController().Information["selectedUser"]==1)
+            if(GetController().User != null)
             {
                 ViewUserButton.IsEnabled = true;
                 EditUserButton.IsEnabled = true;
             }
         }
 
-        private void NewUserEvent(object sender, RoutedEventArgs e)
+        private void EV_CT_UserNew(object sender, RoutedEventArgs e)
         {
-            //GetController().StartNewUser();
+            GetController().CT_UserNew();
         }
 
         private void EditUserEvent(object sender, RoutedEventArgs e)
@@ -50,11 +50,11 @@ namespace GestCloudv2
             //GetController().StartViewUser();
         }
 
-        private Main.Controller.CT_Main GetController()
+        private Files.Nodes.Users.UserMenu.Controller.CT_UserMenu GetController()
         {
             Window mainWindow = Application.Current.MainWindow;
             var a = (Main.View.MainWindow)mainWindow;
-            return (Main.Controller.CT_Main)a.MainFrame.Content;
-        } 
+            return (Files.Nodes.Users.UserMenu.Controller.CT_UserMenu)a.MainFrame.Content;
+        }
     }
 }

@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using FrameworkDB.V1;
 
 namespace GestCloudv2.Main.Controller
 {
@@ -20,10 +21,38 @@ namespace GestCloudv2.Main.Controller
     /// </summary>
     public partial class CT_Common : Page
     {
+        protected Page NV_Page;
+        protected Page TS_Page;
+        protected Page MC_Page;
+
+        protected GestCloudDB db;
+
         public Dictionary<string, int> Information;
+
         public CT_Common()
         {
             InitializeComponent();
+            db = new GestCloudDB();
+
+            Information = new Dictionary<string, int>();
+            Information.Add("mode", 1);
+            Information.Add("oldmode", 1);
+            Information.Add("controller", 0);
+            Information.Add("oldcontroller", 0);
+
+            this.Loaded += new RoutedEventHandler(EV_Start);
+        }
+
+        protected void ChangeComponents()
+        {
+            TopSide.Content = NV_Page;
+            LeftSide.Content = TS_Page;
+            MainContent.Content = MC_Page;
+        }
+
+        virtual public void EV_Start(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

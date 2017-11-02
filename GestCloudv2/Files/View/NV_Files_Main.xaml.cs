@@ -35,14 +35,19 @@ namespace GestCloudv2.Files.View
             GetController().CT_Companies();
         }
 
-        private void EV_CT_Back(object sender, RoutedEventArgs e)
-        {
-            GetController().CT_Main();
-        }
-
         private void EV_CT_Clients(object sender, RoutedEventArgs e)
         {
             GetController().CT_Clients();
+        }
+
+        private void EV_CT_Users(object sender, RoutedEventArgs e)
+        {
+            GetController().CT_Users();
+        }
+
+        private void EV_CT_Back(object sender, RoutedEventArgs e)
+        {
+            GetController().CT_Main();
         }
 
         private Files.Controller.CT_Files GetController()

@@ -13,42 +13,42 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace GestCloudv2.UserItem
+namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_New.View
 {
     /// <summary>
-    /// Interaction logic for NewUser_ToolSide.xaml
+    /// Interaction logic for TS_USR_Item_New.xaml
     /// </summary>
-    public partial class NewUser_ToolSide : Page
+    public partial class TS_USR_Item_New : Page
     {
-        public NewUser_ToolSide()
+        public TS_USR_Item_New()
         {
             InitializeComponent();
         }
 
-        private void SaveUserEvent(object sender, RoutedEventArgs e)
+        private void EV_UserSave(object sender, RoutedEventArgs e)
         {
             GetController().SaveNewUser();
             GetController().Information["fieldEmpty"] = 0;
-            GetController().BackToMain();
+            GetController().CT_Menu();
         }
 
         public void EnableButtonSaveUser(bool enable)
         {
             if (enable)
             {
-                SaveButton.IsEnabled = true;
+                BT_UserSave.IsEnabled = true;
             }
             else
             {
-                SaveButton.IsEnabled = false;
+                BT_UserSave.IsEnabled = false;
             }
         }
 
-        private UserItem.NewUser.NewUser_Controller GetController()
+        private Files.Nodes.Users.UserItem.UserItem_New.Controller.CT_USR_Item_New GetController()
         {
             Window mainWindow = Application.Current.MainWindow;
             var a = (Main.View.MainWindow)mainWindow;
-            return (UserItem.NewUser.NewUser_Controller)a.MainFrame.Content;
+            return (Files.Nodes.Users.UserItem.UserItem_New.Controller.CT_USR_Item_New)a.MainFrame.Content;
         }
     }
 }

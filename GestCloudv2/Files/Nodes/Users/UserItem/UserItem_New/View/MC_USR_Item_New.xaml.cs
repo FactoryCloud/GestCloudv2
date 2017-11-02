@@ -18,17 +18,17 @@ using Microsoft.SqlServer;
 using System.Data;
 using System.Collections;
 
-namespace GestCloudv2.UserItem
+namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_New.View
 {
     /// <summary>
     /// Interaction logic for NewUser_MainPage.xaml
     /// </summary>
-    public partial class NewUser_MainPage : Page
+    public partial class MC_USER_Item_New : Page
     {
         private GestCloudDB db;
         private DataTable dt;
 
-        public NewUser_MainPage()
+        public MC_USER_Item_New()
         {
             InitializeComponent();
             dt = new DataTable();
@@ -114,11 +114,11 @@ namespace GestCloudv2.UserItem
             return false;
         }
 
-        private UserItem.NewUser.NewUser_Controller GetController()
+        private Files.Nodes.Users.UserItem.UserItem_New.Controller.CT_USR_Item_New GetController()
         {
             Window mainWindow = Application.Current.MainWindow;
             var a = (Main.View.MainWindow)mainWindow;
-            return (UserItem.NewUser.NewUser_Controller)a.MainFrame.Content;
+            return (Files.Nodes.Users.UserItem.UserItem_New.Controller.CT_USR_Item_New)a.MainFrame.Content;
         }
     }
 }

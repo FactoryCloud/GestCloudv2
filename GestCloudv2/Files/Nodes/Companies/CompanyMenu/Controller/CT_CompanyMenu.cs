@@ -23,27 +23,12 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyMenu.Controller
     /// </summary>
     public partial class CT_CompanyMenu : Main.Controller.CT_Common
     {
-        private Page NV_Page;
-        private Page TS_Page;
-        private Page MC_Page;
-
-        GestCloudDB db;
-
         public CompaniesView CompaniesView;
         public Company Company;
 
         public CT_CompanyMenu()
         {
-            InitializeComponent();
-            db = new GestCloudDB();
             CompaniesView = new CompaniesView();
-            Information = new Dictionary<string, int>();
-            Information.Add("mode", 1);
-            Information.Add("oldmode", 1);
-            Information.Add("controller", 0);
-            Information.Add("oldcontroller", 0);
-
-            this.Loaded += new RoutedEventHandler(EV_Start);
         }
 
         public void SetCompany(int num)
@@ -53,7 +38,7 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyMenu.Controller
             //LeftSide.Content = TS_Page;
         }
 
-        private void EV_Start (object sender, RoutedEventArgs e)
+        override public void EV_Start (object sender, RoutedEventArgs e)
         {
             UpdateComponents();
         }
@@ -99,13 +84,6 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyMenu.Controller
                     ChangeComponents();
                     break;
             }
-        }
-
-        private void ChangeComponents()
-        {
-            TopSide.Content = NV_Page;
-            LeftSide.Content = TS_Page;
-            MainContent.Content = MC_Page;
         }
 
         private void ChangeController()
