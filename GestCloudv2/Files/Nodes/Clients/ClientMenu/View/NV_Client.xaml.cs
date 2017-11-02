@@ -24,5 +24,17 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientMenu.View
         {
             InitializeComponent();
         }
+
+        private void EV_CloseClient(object sender, RoutedEventArgs e)
+        {
+            GetController().CT_Main();
+        }
+
+        private Clients.ClientMenu.Controller.CT_ClientMenu GetController()
+        {
+            Window mainWindow = Application.Current.MainWindow;
+            var a = (Main.View.MainWindow)mainWindow;
+            return (Clients.ClientMenu.Controller.CT_ClientMenu)a.MainFrame.Content;
+        }
     }
 }

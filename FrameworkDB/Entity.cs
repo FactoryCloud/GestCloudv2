@@ -15,13 +15,13 @@ namespace FrameworkDB.V1
         public string name { get; set; }
         public string subname { get; set; }
         public string phone1 { get; set; }
-        public string phone2 { get; set; }
+        /*public string phone2 { get; set; }
         public string mobile { get; set; }
         public string nif { get; set; }
         public string pc { get; set; }
         public string email { get; set; }
         public string address { get; set; }
-        public string contact { get; set; }
+        public string contact { get; set; }*/
 
         [ForeignKey("FK_Entity_CountryID_Countries")]
         public int? CountryID { get; set; }

@@ -29,12 +29,12 @@ namespace FrameworkView.V1
 
         public void UpdateTable()
         {
-            List<Client> clients = db.Clients.OrderByDescending(u => u.ClientID).ToList();
+            List<Entity> entities = db.Entities.OrderByDescending(u => u.EntityID).ToList();
 
             dt.Clear();
-            foreach (var item in clients) 
+            foreach (var item in entities) 
             {
-                dt.Rows.Add(item.ClientID, item.EntityID);
+                dt.Rows.Add(item.cod, item.name,item.subname,item.phone1);
             }
         }
 

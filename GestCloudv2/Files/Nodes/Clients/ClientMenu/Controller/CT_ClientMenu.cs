@@ -29,6 +29,8 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientMenu.Controller
             ChangeController();
         }
 
+
+
         private void UpdateComponents()
         {
             switch (Information["mode"])

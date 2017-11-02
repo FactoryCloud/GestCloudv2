@@ -17,9 +17,9 @@
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
-        <Button Name="BT_Commercial" IsEnabled="False" Margin="20">Datos Comerciales</Button>
-        <Button Name="BT_Delivery" IsEnabled="False" Margin="20" Grid.Column="1">Albaranes</Button>
-        <Button Name="BT_Invoice" IsEnabled="false" Margin="20" Grid.Column="2">Facturas</Button>
-        <Button Name="BT_Close" Margin="20" Grid.Column="5">Salir</Button>
+        <Button Name="BT_Commercial" IsEnabled="False" Margin="20">Botón 1</Button>
+        <Button Name="BT_Delivery" IsEnabled="False" Margin="20" Grid.Column="1">Botón 2</Button>
+        <Button Name="BT_Invoice" IsEnabled="false" Margin="20" Grid.Column="2">Botón 3</Button>
+        <Button Name="BT_Close" Margin="20" Grid.Column="5" Click="EV_CloseClient">Salir</Button>
     </Grid>
 </Page>
