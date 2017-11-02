@@ -29,7 +29,11 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientMenu.Controller
             ChangeController();
         }
 
-
+        public void CT_ClientNew()
+        {
+            Information["controller"] = 1;
+            ChangeController();
+        }
 
         private void UpdateComponents()
         {
@@ -54,8 +58,8 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientMenu.Controller
                     break;
 
                 case 1:
-                    /*MainWindow b = (MainWindow)System.Windows.Application.Current.MainWindow;
-                    b.MainFrame.Content = new Main.Controller.MainController();*/
+                    Main.View.MainWindow b = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
+                    b.MainFrame.Content = new ClientItem.ClientItem_New.Controller.CT_CLI_Item_New();
                     break;
             }
         }

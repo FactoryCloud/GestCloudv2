@@ -12,29 +12,31 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using GestCloudv2;
+using FrameworkDB.V1;
 
-namespace GestCloudv2.Files.Nodes.Clients.ClientMenu.View
+namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_New.View
 {
     /// <summary>
-    /// Interaction logic for TS_Client.xaml
+    /// Interaction logic for NV_USR_Item_New.xaml
     /// </summary>
-    public partial class TS_Client : Page
+    public partial class NV_CLI_Item_New : Page
     {
-        public TS_Client()
+        public NV_CLI_Item_New()
         {
             InitializeComponent();
         }
 
-        private void EV_CT_ClientNew(object sender, RoutedEventArgs e)
+        /*private void EV_CT_Menu(object sender, RoutedEventArgs e)
         {
-            GetController().CT_ClientNew();
+            GetController().CT_Menu();
         }
 
-        private ClientMenu.Controller.CT_ClientMenu GetController()
+        private Files.Nodes.Users.UserItem.UserItem_New.Controller.CT_USR_Item_New GetController()
         {
             Window mainWindow = Application.Current.MainWindow;
             var a = (Main.View.MainWindow)mainWindow;
-            return (ClientMenu.Controller.CT_ClientMenu)a.MainFrame.Content;
-        }
+            return (Files.Nodes.Users.UserItem.UserItem_New.Controller.CT_USR_Item_New)a.MainFrame.Content;
+        }*/
     }
 }

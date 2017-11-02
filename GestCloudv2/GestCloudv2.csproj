@@ -145,6 +145,18 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Files\Controller\CT_Files.cs" />
+    <Compile Include="Files\Nodes\Clients\ClientItem\ClientItem_New\Controller\CT_CLI_Item_New.cs">
+      <Generator>MSBuild:Compile</Generator>
+    </Compile>
+    <Compile Include="Files\Nodes\Clients\ClientItem\ClientItem_New\View\MC_CLI_Item_New.xaml.cs">
+      <DependentUpon>MC_CLI_Item_New.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Nodes\Clients\ClientItem\ClientItem_New\View\NV_CLI_Item_New.xaml.cs">
+      <DependentUpon>NV_CLI_Item_New.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Nodes\Clients\ClientItem\ClientItem_New\View\TS_CLI_Item_New.xaml.cs">
+      <DependentUpon>TS_CLI_Item_New.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Files\Nodes\Clients\ClientMenu\Controller\CT_ClientMenu.cs" />
     <Compile Include="Files\Nodes\Clients\ClientMenu\View\MC_Client.xaml.cs">
       <DependentUpon>MC_Client.xaml</DependentUpon>
@@ -154,6 +166,12 @@
     </Compile>
     <Compile Include="Files\Nodes\Clients\ClientMenu\View\TS_Client.xaml.cs">
       <DependentUpon>TS_Client.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Nodes\Entities\View\MC_Entity_Modify.xaml.cs">
+      <DependentUpon>MC_Entity_Modify.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Nodes\Entities\View\MC_Entity_New.xaml.cs">
+      <DependentUpon>MC_Entity_New.xaml</DependentUpon>
     </Compile>
     <Compile Include="Files\Nodes\Stores\StoreMenu\Controller\CT_StoreMenu.cs" />
     <Compile Include="Files\Nodes\Stores\StoreMenu\View\MC_STR_Menu.xaml.cs">
@@ -261,6 +279,18 @@
     <Compile Include="Files\Nodes\Users\UserMenu\View\TS_USR_Menu.xaml.cs">
       <DependentUpon>TS_USR_Menu.xaml</DependentUpon>
     </Compile>
+    <Page Include="Files\Nodes\Clients\ClientItem\ClientItem_New\View\MC_CLI_Item_New.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Files\Nodes\Clients\ClientItem\ClientItem_New\View\NV_CLI_Item_New.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Files\Nodes\Clients\ClientItem\ClientItem_New\View\TS_CLI_Item_New.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Files\Nodes\Clients\ClientMenu\View\MC_Client.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -270,6 +300,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Files\Nodes\Clients\ClientMenu\View\TS_Client.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Files\Nodes\Entities\View\MC_Entity_Modify.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Files\Nodes\Entities\View\MC_Entity_New.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -484,8 +522,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Files\Nodes\Clients\ClientItem\Controller\" />
-    <Folder Include="Files\Nodes\Clients\ClientItem\View\" />
     <Folder Include="Files\Nodes\Companies\CompanyItem\Controller\" />
     <Folder Include="Files\Nodes\Companies\CompanyItem\View\" />
     <Folder Include="Files\Nodes\Stores\StoreItem\Controller\" />

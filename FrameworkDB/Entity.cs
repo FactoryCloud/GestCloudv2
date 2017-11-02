@@ -11,16 +11,16 @@ namespace FrameworkDB.V1
     {
         public int EntityID { get; set; }
 
-        public string cod { get; set; }
-        public string name { get; set; }
-        public string subname { get; set; }
-        public string phone1 { get; set; }
+        public string Cod { get; set; }
+        public string Name { get; set; }
+        public string Subname { get; set; }
+        public string Phone1 { get; set; }
         /*public string phone2 { get; set; }
         public string mobile { get; set; }
         public string nif { get; set; }
-        public string pc { get; set; }
-        public string email { get; set; }
-        public string address { get; set; }
+        public string pc { get; set; }*/
+        public string Email { get; set; }
+        /*public string address { get; set; }
         public string contact { get; set; }*/
 
         [ForeignKey("FK_Entity_CountryID_Countries")]

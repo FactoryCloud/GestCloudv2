@@ -25,7 +25,7 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientMenu.View
             InitializeComponent();
         }
 
-        private void EV_CloseClient(object sender, RoutedEventArgs e)
+        private void EV_BackEvent(object sender, RoutedEventArgs e)
         {
             GetController().CT_Main();
         }
