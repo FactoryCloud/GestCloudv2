@@ -43,14 +43,6 @@ namespace GestCloudv2.Files.Nodes.Stores.StoreMenu.Controller
             UpdateComponents();
         }
 
-        public void MD_Change(int i)
-        {
-            Information["oldmode"] = Information["mode"];
-            Information["mode"] = i;
-
-            UpdateComponents();
-        }
-
         public void CT_Main()
         {
             Information["controller"] = 0;

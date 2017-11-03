@@ -24,28 +24,78 @@ namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_New.Controller
     public partial class CT_USR_Item_New : Main.Controller.CT_Common
     {
         public User user;
+        public UserType userType;
 
         public CT_USR_Item_New()
         {
             user = new User();
+            Information.Add("minimalInformation", 0);
         }
 
         override public void EV_Start(object sender, RoutedEventArgs e)
         {
             UpdateComponents();
-            Information.Add("fieldEmpty", 0);
         }
 
-        public void UpdateIfNotEmpty(bool empty)
+        public List<User> GetUsers()
         {
-            if (empty)
+            return db.Users.OrderBy(u => u.Code).ToList();
+        }
+
+        public List<UserType> GetUserTypes()
+        {
+            return db.UserTypes.ToList();
+        }
+
+        public void SetUserCode(int num)
+        {
+            user.Code = num;
+            TestMinimalInformation();
+        }
+
+        public void SetUserType(int num)
+        {
+            userType = db.UserTypes.Where(c => c.UserTypeID == num).Include(c => c.UserPermissions).First();
+            TestMinimalInformation();
+        }
+
+        public void CleanUsername()
+        {
+            user.Username = "";
+            TestMinimalInformation();
+        }
+
+        public Boolean UserControlExist(string username)
+        {
+            List<User> users = db.Users.ToList();
+            foreach (var item in users)
             {
-                Information["fieldEmpty"] = 1;
+                if (item.Username.Contains(username) || username.Length == 0)
+                {
+                    CleanUsername();
+                    return true;
+                }
             }
+            user.Username = username;
+            TestMinimalInformation();
+            return false;
+        }
+
+        private void TestMinimalInformation()
+        {
+            if(user.Username.Length > 0 && userType != null && user.Code > 0)
+            {
+                Information["minimalInformation"] = 1;
+                
+            }
+
             else
             {
-                Information["fieldEmpty"] = 0;
+                Information["minimalInformation"] = 0;
             }
+
+            TS_Page = new Files.Nodes.Users.UserItem.UserItem_New.View.TS_USR_Item_New(Information["minimalInformation"]);
+            LeftSide.Content = TS_Page;
         }
 
         public static string GetUniqueKey(int maxSize)
@@ -70,14 +120,15 @@ namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_New.Controller
 
         public void SaveNewUser()
         {
-            GestCloudDB db = new GestCloudDB();
+            user.userType = userType;
+            user.ActivationCode = user.Code.ToString() + GetUniqueKey(5).ToString();
+            user.Enabled = 1;
             db.Users.Add(user);
             db.SaveChanges();
-            user = db.Users.First(u => u.Username == user.Username);
-            user.ActivationCode = user.UserID.ToString() + GetUniqueKey(5).ToString();
-            db.Users.Update(user);
-            db.SaveChanges();
             MessageBox.Show("Datos guardados correctamente");
+
+            Information["fieldEmpty"] = 0;
+            CT_Menu();
         }
 
         public void CT_Menu()
@@ -86,7 +137,7 @@ namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_New.Controller
             ChangeController();
         }
 
-        private void UpdateComponents()
+        override public void UpdateComponents()
         {
             switch (Information["mode"])
             {
@@ -96,12 +147,15 @@ namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_New.Controller
 
                 case 1:
                     NV_Page = new Files.Nodes.Users.UserItem.UserItem_New.View.NV_USR_Item_New();
-                    TS_Page = new Files.Nodes.Users.UserItem.UserItem_New.View.TS_USR_Item_New(); ;
-                    MC_Page = new Files.Nodes.Users.UserItem.UserItem_New.View.MC_USER_Item_New(); ;
+                    TS_Page = new Files.Nodes.Users.UserItem.UserItem_New.View.TS_USR_Item_New(Information["minimalInformation"]); ;
+                    MC_Page = new Files.Nodes.Users.UserItem.UserItem_New.View.MC_USR_Item_New_User(); ;
                     ChangeComponents();
                     break;
 
                 case 2:
+                    NV_Page = new Files.Nodes.Users.UserItem.UserItem_New.View.NV_USR_Item_New();
+                    TS_Page = new Files.Nodes.Users.UserItem.UserItem_New.View.TS_USR_Item_New(Information["minimalInformation"]); ;
+                    MC_Page = new Files.Nodes.Users.UserItem.UserItem_New.View.MC_USR_Item_New_Entity(); ;
                     ChangeComponents();
                     break;
 
@@ -141,8 +195,7 @@ namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_New.Controller
 
         public void ControlFieldChangeButton(bool verificated)
         {
-            var a = (Files.Nodes.Users.UserItem.UserItem_New.View.TS_USR_Item_New)LeftSide.Content;
-            a.EnableButtonSaveUser(verificated);
+            TestMinimalInformation();
         }
     }
 }

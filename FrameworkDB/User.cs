@@ -13,19 +13,7 @@ namespace FrameworkDB.V1
         [Key]
         public int UserID { get; set; }
 
-        public int UserCode { get; set; }
-
-        [Required]
-        [StringLength(30)]
-        public string LastName { get; set; }
-
-        [Required]
-        [StringLength(30)]
-        public string FirstName { get; set; }
-
-        [Required]
-        [StringLength(50)]
-        public string Mail { get; set; }
+        public int Code { get; set; }
 
         [Required]
         [StringLength(20)]
@@ -41,12 +29,15 @@ namespace FrameworkDB.V1
         [Required]
         public int Enabled { get; set; }
 
+        [ForeignKey("FK_Users_UserTypeID_UserTypes")]
+        public int? UserTypeID { get; set; }
+        public virtual UserType userType { get; set; }
+
+        [ForeignKey("FK_Users_EntityID_Entities")]
+        public int? EntityID { get; set; }
+        public virtual Entity entity { get; set; }
+
         public virtual List<UserAccessControl> UsersAccessControl { get; set; }
         public virtual List<UserPermission> UserPermissions { get; set; }
-
-        public User()
-        {
-            Mail = "test@test.com";
-        }
     }
 }

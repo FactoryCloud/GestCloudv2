@@ -25,19 +25,23 @@ namespace FrameworkView.V1
             dt = new DataTable();
             userSearch = new User();
             dt.Columns.Add("Codigo", typeof(int));
-            dt.Columns.Add("Nombre", typeof(string));
-            dt.Columns.Add("Apellido", typeof(string));
             dt.Columns.Add("Usuario", typeof(string));
+            dt.Columns.Add("Nombre", typeof(string));
+            dt.Columns.Add("NIF", typeof(string));
         }
 
         public void UpdateTable()
         {
-            List<User> users = db.Users.OrderByDescending(u => u.Enabled).ToList();
+            List<User> users = db.Users.OrderByDescending(u => u.Enabled).Include(u => u.entity).ToList();
 
             dt.Clear();
             foreach (var item in users)
             {
-                    dt.Rows.Add(item.UserID, item.FirstName, item.LastName, item.Username);               
+                if (item.entity != null)
+                    dt.Rows.Add(item.UserID, item.Username, item.entity.Name, item.entity.NIF);
+
+                else
+                    dt.Rows.Add(item.UserID, item.Username, "", "");
             }
         }
 
@@ -48,7 +52,11 @@ namespace FrameworkView.V1
             dt.Clear();
             foreach (var item in users)
             {
-                dt.Rows.Add(item.UserID, item.FirstName, item.LastName, item.Username);
+                if(item.entity != null)
+                    dt.Rows.Add(item.UserID, item.Username, item.entity.Name, item.entity.NIF);
+
+                else
+                    dt.Rows.Add(item.UserID, item.Username, "", "");
             }
         }
 
@@ -59,7 +67,11 @@ namespace FrameworkView.V1
             dt.Clear();
             foreach (var item in users)
             {
-                dt.Rows.Add(item.UserID, item.FirstName, item.LastName, item.Username);
+                if (item.entity != null)
+                    dt.Rows.Add(item.UserID, item.Username, item.entity.Name, item.entity.NIF);
+
+                else
+                    dt.Rows.Add(item.UserID, item.Username, "", "");
             }
         }
 
@@ -70,13 +82,17 @@ namespace FrameworkView.V1
             dt.Clear();
             foreach (var item in users)
             {
-                dt.Rows.Add(item.UserID, item.FirstName, item.LastName, item.Username);
+                if (item.entity != null)
+                    dt.Rows.Add(item.UserID, item.Username, item.entity.Name, item.entity.NIF);
+
+                else
+                    dt.Rows.Add(item.UserID, item.Username, "", "");
             }
         }
 
         private Boolean UserFilterName(User user)
         {
-            return user.FirstName.ToLower().Contains(userSearch.FirstName.ToLower()) || user.LastName.ToLower().Contains(userSearch.LastName.ToLower());
+            return user.entity.Name.ToLower().Contains(userSearch.entity.Name.ToLower()) || user.entity.Subname.ToLower().Contains(userSearch.entity.Subname.ToLower());
         }
 
         private Boolean UserFilterUserName(User user)

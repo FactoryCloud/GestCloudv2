@@ -12,34 +12,30 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using FrameworkDB.V1;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.SqlServer;
+using System.Data;
+using System.Collections;
 
 namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_New.View
 {
     /// <summary>
-    /// Interaction logic for TS_USR_Item_New.xaml
+    /// Interaction logic for NewUser_MainPage.xaml
     /// </summary>
-    public partial class TS_USR_Item_New : Page
+    public partial class MC_USR_Item_New_Entity : Files.Nodes.Entities.View.MC_Entity_New
     {
-        public TS_USR_Item_New(int num)
-        {
-            InitializeComponent();
 
-            if(num >= 1)
-            {
-                BT_UserSave.IsEnabled = true;
-            }
+        public MC_USR_Item_New_Entity()
+        {
+
         }
 
-        private void EV_UserSave(object sender, RoutedEventArgs e)
-        {
-            GetController().SaveNewUser();
-        }
-
-        private Files.Nodes.Users.UserItem.UserItem_New.Controller.CT_USR_Item_New GetController()
+        override public Main.Controller.CT_Common GetController()
         {
             Window mainWindow = Application.Current.MainWindow;
             var a = (Main.View.MainWindow)mainWindow;
-            return (Files.Nodes.Users.UserItem.UserItem_New.Controller.CT_USR_Item_New)a.MainFrame.Content;
+            return (UserItem_New.Controller.CT_USR_Item_New)a.MainFrame.Content;
         }
     }
 }

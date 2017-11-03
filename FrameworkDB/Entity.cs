@@ -30,5 +30,11 @@ namespace FrameworkDB.V1
         [ForeignKey("FK_Entity_CityID_Cities")]
         public int? CityID { get; set; }
         public virtual City cities { get; set; }
+
+        public virtual List<User> users { get; set; }
+        public virtual List<Client> clients { get; set; }
+        public virtual List<Providers> providers { get; set; }
+        public virtual List<Agents> agents { get; set; }
+        //public virtual List<Employee> employeers { get; set; }
     }
 }

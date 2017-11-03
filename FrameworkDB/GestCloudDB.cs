@@ -172,6 +172,18 @@ namespace FrameworkDB.V1
                 .WithMany(b => b.SaleInvoices)
                 .HasForeignKey(a => a.CompanyID)
                 .HasConstraintName("FK_SaleInvoices_CompanyID_Companies");
+
+            modelBuilder.Entity<User>()
+                .HasOne(a => a.userType)
+                .WithMany(b => b.users)
+                .HasForeignKey(a => a.UserTypeID)
+                .HasConstraintName("FK_Users_UserTypeID_UserTypes");
+
+            modelBuilder.Entity<User>()
+                .HasOne(a => a.entity)
+                .WithMany(b => b.users)
+                .HasForeignKey(a => a.EntityID)
+                .HasConstraintName("FK_Users_EntityID_Entities");
         }
 
         public void UpdateFromMKM()

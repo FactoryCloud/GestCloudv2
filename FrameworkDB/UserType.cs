@@ -17,5 +17,6 @@ namespace FrameworkDB.V1
         public string Name { get; set; }
 
         public virtual List<UserPermission> UserPermissions { get; set; }
+        public virtual List<User> users { get; set; }
     }
 }

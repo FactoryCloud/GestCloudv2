@@ -44,8 +44,8 @@ namespace GestCloudv2.UserItem
 
         private void SaveInfoUserEvent(object sender, RoutedEventArgs e)
         {
-            GetController().user.FirstName.ToString();
-            GetController().user.LastName.ToString();
+            GetController().user.entity.Name.ToString();
+            GetController().user.entity.Subname.ToString();
             GetController().user.Username.ToString();
             GetController().SaveUserChange();
         }

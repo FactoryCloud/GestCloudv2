@@ -53,8 +53,8 @@ namespace GestCloudv2.Files.Nodes.Users.UserMenu.View
 
         private void Data_Search(object sender, RoutedEventArgs e)
         {
-            GetController().UsersView.userSearch.FirstName = NameSearchBox.Text;
-            GetController().UsersView.userSearch.LastName = NameSearchBox.Text;
+            GetController().UsersView.userSearch.entity.Name = NameSearchBox.Text;
+            GetController().UsersView.userSearch.entity.Subname = NameSearchBox.Text;
             SearchData();
         }
 

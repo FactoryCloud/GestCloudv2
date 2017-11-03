@@ -51,8 +51,8 @@ namespace GestCloudv2.UserItem.InfoUser
             userView = new UserView(user);
             db = new GestCloudDB();
             this.user = new User();
-            this.user.FirstName = user.FirstName;
-            this.user.LastName = user.LastName;
+            this.user.entity.Name = user.entity.Name;
+            this.user.entity.Subname = user.entity.Subname;
             this.user.Username = user.Username;
             userPermissions = db.UserPermissions.Where(u => (u.UserID == userView.user.UserID)).Include(u => u.permissionType).ToList();
 
@@ -185,8 +185,8 @@ namespace GestCloudv2.UserItem.InfoUser
         public void SaveUserChange()
         {
             GestCloudDB db = new GestCloudDB();
-            userView.user.FirstName = user.FirstName;
-            userView.user.LastName = user.LastName;
+            userView.user.entity.Name = user.entity.Name;
+            userView.user.entity.Subname = user.entity.Subname;
             userView.user.Username = user.Username;
             db.Users.Update(userView.user);
             db.SaveChanges();

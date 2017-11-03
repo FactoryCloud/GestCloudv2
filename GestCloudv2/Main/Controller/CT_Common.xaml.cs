@@ -46,11 +46,24 @@ namespace GestCloudv2.Main.Controller
             this.Loaded += new RoutedEventHandler(EV_Start);
         }
 
+        public void MD_Change(int i)
+        {
+            Information["oldmode"] = Information["mode"];
+            Information["mode"] = i;
+
+            UpdateComponents();
+        }
+
         protected void ChangeComponents()
         {
             TopSide.Content = NV_Page;
             LeftSide.Content = TS_Page;
             MainContent.Content = MC_Page;
+        }
+
+        virtual public void UpdateComponents()
+        {
+
         }
 
         virtual public void EV_Start(object sender, RoutedEventArgs e)

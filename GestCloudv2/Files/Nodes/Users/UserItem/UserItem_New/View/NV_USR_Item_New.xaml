@@ -17,7 +17,8 @@
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
-        <Button Grid.Column="0" Margin="20">Datos Personales</Button>
+        <Button Grid.Column="0" Margin="20" Click="EV_MD_User">Datos Usuario</Button>
+        <Button Grid.Column="1" Margin="20" Click="EV_MD_Entity">Datos Personales</Button>
         <Button Grid.Column="7" Margin="20" Click="EV_CT_Menu">Volver</Button>
     </Grid>
 </Page>

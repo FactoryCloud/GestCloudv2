@@ -197,6 +197,10 @@
     <Compile Include="Files\Nodes\External\Cards\CardList\CardList_ToolSide.xaml.cs">
       <DependentUpon>CardList_ToolSide.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Files\Nodes\Users\UserItem\UserItem_New\View\MC_USR_Item_New_Entity.cs" />
+    <Compile Include="Files\Nodes\Users\UserItem\UserItem_New\View\MC_USR_Item_New_User.xaml.cs">
+      <DependentUpon>MC_USR_Item_New_User.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Files\Nodes\Users\UserMenu\Controller\CT_UserMenu.cs" />
     <Compile Include="Files\Nodes\Users\UserMenu\View\NV_USR_Menu.xaml.cs">
       <DependentUpon>NV_USR_Menu.xaml</DependentUpon>
@@ -261,9 +265,6 @@
     </Compile>
     <Compile Include="Files\Nodes\Users\UserItem\UserItem_Info\Permissions\PermissionUser_ToolSide.xaml.cs">
       <DependentUpon>PermissionUser_ToolSide.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Files\Nodes\Users\UserItem\UserItem_New\View\MC_USR_Item_New.xaml.cs">
-      <DependentUpon>MC_USR_Item_New.xaml</DependentUpon>
     </Compile>
     <Compile Include="Files\Nodes\Users\UserItem\UserItem_New\View\NV_USR_Item_New.xaml.cs">
       <DependentUpon>NV_USR_Item_New.xaml</DependentUpon>
@@ -334,6 +335,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Files\Nodes\External\Cards\CardList\CardList_ToolSide.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Files\Nodes\Users\UserItem\UserItem_New\View\MC_USR_Item_New_User.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -440,10 +445,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Files\Nodes\Users\UserItem\UserItem_Info\Info\InfoUser_ToolSide.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Files\Nodes\Users\UserItem\UserItem_New\View\MC_USR_Item_New.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

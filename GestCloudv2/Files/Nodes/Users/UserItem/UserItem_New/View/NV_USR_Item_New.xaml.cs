@@ -27,6 +27,16 @@ namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_New.View
             InitializeComponent();
         }
 
+        private void EV_MD_User(object sender, RoutedEventArgs e)
+        {
+            GetController().MD_Change(1);
+        }
+
+        private void EV_MD_Entity(object sender, RoutedEventArgs e)
+        {
+            GetController().MD_Change(2);
+        }
+
         private void EV_CT_Menu(object sender, RoutedEventArgs e)
         {
             GetController().CT_Menu();
