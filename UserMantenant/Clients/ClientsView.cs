@@ -1,4 +1,5 @@
-﻿using FrameworkDB.V1;
+﻿using Microsoft.EntityFrameworkCore;
+using FrameworkDB.V1;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -29,12 +30,12 @@ namespace FrameworkView.V1
 
         public void UpdateTable()
         {
-            List<Entity> entities = db.Entities.OrderByDescending(u => u.EntityID).ToList();
+            List<Client> clients = db.Clients.OrderBy(u => u.ClientID).Include(c => c.entity).ToList();
 
             dt.Clear();
-            foreach (var item in entities) 
+            foreach (var item in clients) 
             {
-                dt.Rows.Add(item.Cod, item.Name,item.Subname,item.Phone1);
+                dt.Rows.Add(item.Cod, item.entity.Name,item.entity.Subname,item.entity.Phone1);
             }
         }
 

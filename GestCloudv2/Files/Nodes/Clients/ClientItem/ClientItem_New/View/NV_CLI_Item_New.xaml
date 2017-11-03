@@ -18,6 +18,6 @@
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
         <Button Grid.Column="0" Margin="20" IsEnabled="False">Botón 1</Button>
-        <Button Grid.Column="7" Margin="20" IsEnabled="False">Volver</Button>
+        <Button Grid.Column="7" Margin="20" IsEnabled="True" Click="EV_CT_Menu">Volver</Button>
     </Grid>
 </Page>

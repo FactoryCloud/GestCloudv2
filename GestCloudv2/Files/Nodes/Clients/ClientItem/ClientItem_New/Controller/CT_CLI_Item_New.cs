@@ -23,7 +23,6 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_New.Controller
     /// </summary>
     public partial class CT_CLI_Item_New : Main.Controller.CT_Common
     {
-        public Entity entity;
         public Client client;
 
         public CT_CLI_Item_New()
@@ -35,19 +34,6 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_New.Controller
         override public void EV_Start(object sender, RoutedEventArgs e)
         {
             UpdateComponents();
-            Information.Add("fieldEmpty", 0);
-        }
-
-        public void UpdateIfNotEmpty(bool empty)
-        {
-            if (empty)
-            {
-                Information["fieldEmpty"] = 1;
-            }
-            else
-            {
-                Information["fieldEmpty"] = 0;
-            }
         }
 
         public void SaveNewClient()
@@ -116,7 +102,7 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_New.Controller
             }
         }
 
-        public void ControlFieldChangeButton(bool verificated)
+        override public void EV_ActivateSaveButton(bool verificated)
         {
             var a = (ClientItem_New.View.TS_CLI_Item_New)LeftSide.Content;
             a.EnableButtonSaveUser(verificated);

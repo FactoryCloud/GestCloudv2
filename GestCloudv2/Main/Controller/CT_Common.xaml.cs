@@ -24,6 +24,7 @@ namespace GestCloudv2.Main.Controller
         protected Page NV_Page;
         protected Page TS_Page;
         protected Page MC_Page;
+        public Entity entity;
 
         protected GestCloudDB db;
 
@@ -33,12 +34,14 @@ namespace GestCloudv2.Main.Controller
         {
             InitializeComponent();
             db = new GestCloudDB();
+            entity = new Entity();
 
             Information = new Dictionary<string, int>();
             Information.Add("mode", 1);
             Information.Add("oldmode", 1);
             Information.Add("controller", 0);
             Information.Add("oldcontroller", 0);
+            Information.Add("fieldEmpty", 0);
 
             this.Loaded += new RoutedEventHandler(EV_Start);
         }
@@ -53,6 +56,23 @@ namespace GestCloudv2.Main.Controller
         virtual public void EV_Start(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        virtual public void EV_ActivateSaveButton(bool verificated)
+        {
+            
+        }
+
+        public void EV_UpdateIfNotEmpty(bool empty)
+        {
+            if (empty)
+            {
+                Information["fieldEmpty"] = 1;
+            }
+            else
+            {
+                Information["fieldEmpty"] = 0;
+            }
         }
     }
 }

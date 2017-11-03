@@ -148,9 +148,7 @@
     <Compile Include="Files\Nodes\Clients\ClientItem\ClientItem_New\Controller\CT_CLI_Item_New.cs">
       <Generator>MSBuild:Compile</Generator>
     </Compile>
-    <Compile Include="Files\Nodes\Clients\ClientItem\ClientItem_New\View\MC_CLI_Item_New.xaml.cs">
-      <DependentUpon>MC_CLI_Item_New.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Files\Nodes\Clients\ClientItem\ClientItem_New\View\MC_CLI_Item_New.cs" />
     <Compile Include="Files\Nodes\Clients\ClientItem\ClientItem_New\View\NV_CLI_Item_New.xaml.cs">
       <DependentUpon>NV_CLI_Item_New.xaml</DependentUpon>
     </Compile>
@@ -279,10 +277,6 @@
     <Compile Include="Files\Nodes\Users\UserMenu\View\TS_USR_Menu.xaml.cs">
       <DependentUpon>TS_USR_Menu.xaml</DependentUpon>
     </Compile>
-    <Page Include="Files\Nodes\Clients\ClientItem\ClientItem_New\View\MC_CLI_Item_New.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Files\Nodes\Clients\ClientItem\ClientItem_New\View\NV_CLI_Item_New.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
