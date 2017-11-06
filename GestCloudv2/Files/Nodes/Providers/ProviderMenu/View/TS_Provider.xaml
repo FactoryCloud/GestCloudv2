@@ -1,0 +1,25 @@
+﻿<Page x:Class="GestCloudv2.Files.Nodes.Providers.ProviderMenu.View.TS_Provider"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:GestCloudv2.Files.Nodes.Providers.ProviderMenu.View"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300"
+      Title="TS_Provider">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Button Name="BT_NewProvider" Grid.Column="1" Grid.Row="0" Margin="20" IsEnabled="True" Click="EV_CT_ProviderNew">Nuevo proveedor</Button>
+        <Button Name="BT_ModifyProvider" Grid.Column="1" Grid.Row="1" Margin="20" IsEnabled="False">Modificar proveedor</Button>
+        <Button Name="BT_DeleteProvider" Grid.Column="1" Grid.Row="2" Margin="20" IsEnabled="False">Eliminar proveedor</Button>
+
+
+    </Grid>
+</Page>

@@ -33,7 +33,7 @@ namespace FrameworkDB.V1
 
         public virtual List<User> users { get; set; }
         public virtual List<Client> clients { get; set; }
-        public virtual List<Providers> providers { get; set; }
+        public virtual List<Provider> providers { get; set; }
         public virtual List<Agents> agents { get; set; }
         //public virtual List<Employee> employeers { get; set; }
     }

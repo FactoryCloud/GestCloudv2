@@ -30,6 +30,7 @@ namespace FrameworkDB.V1
         public DbSet<Movement> Movements { get; set; }
         public DbSet<StockAdjust> StockAdjusts { get; set; }
 
+        public DbSet<Provider> Providers { get; set; }
         public DbSet<Client> Clients { get; set; }
         public DbSet<Entity> Entities {get; set; }
 

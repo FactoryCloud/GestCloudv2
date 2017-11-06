@@ -58,6 +58,12 @@ namespace GestCloudv2.Files.Controller
             ChangeController();
         }
 
+        public void CT_Providers()
+        {
+            Information["controller"] = 8;
+            ChangeController();
+        }
+
         public void CT_Users()
         {
             Information["controller"] = 11;
@@ -109,6 +115,11 @@ namespace GestCloudv2.Files.Controller
                 case 7:
                     Main.View.MainWindow c = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
                     c.MainFrame.Content = new Files.Nodes.Clients.ClientMenu.Controller.CT_ClientMenu();
+                    break;
+
+                case 8:
+                    Main.View.MainWindow d = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
+                    d.MainFrame.Content = new Files.Nodes.Providers.ProviderMenu.Controller.CT_ProviderMenu();
                     break;
 
                 case 11:

@@ -145,6 +145,26 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Files\Controller\CT_Files.cs" />
+    <Compile Include="Files\Nodes\Providers\ProviderItem\ProviderItem_New\Controller\CT_PRO_Item_New.cs">
+      <Generator>MSBuild:Compile</Generator>
+    </Compile>
+    <Compile Include="Files\Nodes\Providers\ProviderItem\ProviderItem_New\View\MC_PRO_Item_New.cs" />
+    <Compile Include="Files\Nodes\Providers\ProviderItem\ProviderItem_New\View\NV_PRO_Item_New.xaml.cs">
+      <DependentUpon>NV_PRO_Item_New.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Nodes\Providers\ProviderItem\ProviderItem_New\View\TS_PRO_Item_New.xaml.cs">
+      <DependentUpon>TS_PRO_Item_New.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Nodes\Providers\ProviderMenu\Controller\CT_ProviderMenu.cs" />
+    <Compile Include="Files\Nodes\Providers\ProviderMenu\View\MC_Provider.xaml.cs">
+      <DependentUpon>MC_Provider.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Nodes\Providers\ProviderMenu\View\NV_Provider.xaml.cs">
+      <DependentUpon>NV_Provider.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Nodes\Providers\ProviderMenu\View\TS_Provider.xaml.cs">
+      <DependentUpon>TS_Provider.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Files\Nodes\Clients\ClientItem\ClientItem_New\Controller\CT_CLI_Item_New.cs">
       <Generator>MSBuild:Compile</Generator>
     </Compile>
@@ -281,6 +301,26 @@
     <Compile Include="Files\Nodes\Users\UserMenu\View\TS_USR_Menu.xaml.cs">
       <DependentUpon>TS_USR_Menu.xaml</DependentUpon>
     </Compile>
+    <Page Include="Files\Nodes\Providers\ProviderItem\ProviderItem_New\View\NV_PRO_Item_New.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Files\Nodes\Providers\ProviderItem\ProviderItem_New\View\TS_PRO_Item_New.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Files\Nodes\Providers\ProviderMenu\View\MC_Provider.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Files\Nodes\Providers\ProviderMenu\View\NV_Provider.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Files\Nodes\Providers\ProviderMenu\View\TS_Provider.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Files\Nodes\Clients\ClientItem\ClientItem_New\View\NV_CLI_Item_New.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

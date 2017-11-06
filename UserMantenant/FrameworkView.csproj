@@ -98,6 +98,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cards\CardsView.cs" />
+    <Compile Include="Providers\ProvidersView.cs" />
+    <Compile Include="Providers\ProviderView.cs" />
     <Compile Include="Clients\ClientsView.cs" />
     <Compile Include="Clients\ClientView.cs" />
     <Compile Include="Stores\StoresView.cs" />
