@@ -171,6 +171,9 @@
     <Compile Include="Files\Nodes\Entities\View\MC_Entity_New.xaml.cs">
       <DependentUpon>MC_Entity_New.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Files\Nodes\Entities\View\MC_Entity_Select.xaml.cs">
+      <DependentUpon>MC_Entity_Select.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Files\Nodes\Stores\StoreMenu\Controller\CT_StoreMenu.cs" />
     <Compile Include="Files\Nodes\Stores\StoreMenu\View\MC_STR_Menu.xaml.cs">
       <DependentUpon>MC_STR_Menu.xaml</DependentUpon>
@@ -303,6 +306,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Files\Nodes\Entities\View\MC_Entity_New.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Files\Nodes\Entities\View\MC_Entity_Select.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
