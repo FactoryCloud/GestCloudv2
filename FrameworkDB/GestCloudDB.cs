@@ -193,8 +193,13 @@ namespace FrameworkDB.V1
                 .HasForeignKey<User>(c => c.EntityID);
 
             modelBuilder.Entity<Entity>()
+               .HasOne(a => a.provider)
+               .WithOne(b => b.entity)
+               .HasForeignKey<Provider>(c => c.EntityID);
+
+            modelBuilder.Entity<Entity>()
                 .HasOne(a => a.entityType)
-                .WithMany(b => b.entities)
+                .WithMany(b => b.)
                 .HasForeignKey(a => a.EntityTypeID)
                 .HasConstraintName("FK_Entity_EntityTypeID_EntityTypes");
 

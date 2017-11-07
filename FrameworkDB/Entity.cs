@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -35,11 +36,15 @@ namespace FrameworkDB.V1
         public int? CityID { get; set; }
         public virtual City city { get; set; }
 
+        //[ForeignKey("FK_Entity_ProvidersID_Providers")]
+        //public int? ProvidersID { get; set; }
+        //public virtual Provider provider { get; set; }
+
         public virtual Client client { get; set; }
 
         public virtual User user { get; set; }
 
-        public virtual List<Provider> providers { get; set; }
+        public virtual Provider provider { get; set; }
         public virtual List<Agents> agents { get; set; }
         //public virtual List<Employee> employeers { get; set; }
     }

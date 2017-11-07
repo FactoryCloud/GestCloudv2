@@ -15,8 +15,9 @@ namespace FrameworkDB.V1
 
         public int Cod { get; set; }
 
-        [ForeignKey("FK_Providers_EntityID_Entities")]
         public int? EntityID { get; set; }
         public virtual Entity entity { get; set; }
+
+        //public virtual List<Entity> entities { get; set; }
     }
 }
