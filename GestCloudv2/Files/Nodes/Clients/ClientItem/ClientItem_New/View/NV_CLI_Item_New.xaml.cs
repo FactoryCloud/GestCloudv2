@@ -32,6 +32,11 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_New.View
             GetController().CT_Menu();
         }
 
+        private void EV_MD_Entity(object sender, RoutedEventArgs e)
+        {
+
+        }
+
         private ClientItem_New.Controller.CT_CLI_Item_New GetController()
         {
             Window mainWindow = Application.Current.MainWindow;
