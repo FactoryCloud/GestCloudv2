@@ -24,9 +24,12 @@ namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_New.View
         public MC_USR_Item_New_User()
         {
             InitializeComponent();
+
+            MessageBox.Show(GetController().user.Code.ToString());
+
             this.Loaded += new RoutedEventHandler(EV_Start);
 
-            CB_UserType.SelectionChanged += new SelectionChangedEventHandler(EV_CB_Changes);
+            CB_UserCode.SelectionChanged += new SelectionChangedEventHandler(EV_CB_Changes);
             CB_UserType.SelectionChanged += new SelectionChangedEventHandler(EV_CB_Changes);
             TB_UserName.KeyUp += new KeyEventHandler(EV_UserName);
             TB_UserName.Loaded += new RoutedEventHandler(EV_UserName);
@@ -43,6 +46,12 @@ namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_New.View
                 temp.Content = $"{userType.Name}";
                 temp.Name = $"userType{userType.UserTypeID}";
                 CB_UserType.Items.Add(temp);
+                
+                if(GetController().userType != null)
+                {
+                    if(String.Equals(GetController().userType.Name, $"{temp.Content}", StringComparison.CurrentCulture))
+                        CB_UserType.SelectedItem = $"{temp.Content}";
+                }
             }
 
             List<User> users = GetController().GetUsers();
@@ -60,9 +69,17 @@ namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_New.View
                     temp.Content = $"{i}";
                     temp.Name = $"userCode{i}";
                     CB_UserCode.Items.Add(temp);
+                    
+                    if (GetController().user.Code > 0)
+                    {
+                        if (GetController().user.Code == Convert.ToInt16(temp.Content))
+                            CB_UserCode.SelectedItem = $"{temp.Content}";
+                    }
                 }
 
             }
+
+            MessageBox.Show(GetController().user.Code.ToString());
         }
 
         private void EV_UserName(object sender, RoutedEventArgs e)
@@ -149,10 +166,20 @@ namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_New.View
         private void EV_CB_Changes(object sender, RoutedEventArgs e)
         {
             ComboBoxItem temp1 = (ComboBoxItem)CB_UserType.SelectedItem;
-            GetController().SetUserType(Convert.ToInt32(temp1.Name.Replace("userType", "")));
+            if (temp1 != null)
+            {
+                MessageBox.Show("previo usertype" + temp1.Name.Replace("userType", ""));
+                GetController().SetUserType(Convert.ToInt32(temp1.Name.Replace("userType", "")));
+                MessageBox.Show(GetController().userType.Name);
+            }
 
             ComboBoxItem temp2 = (ComboBoxItem)CB_UserCode.SelectedItem;
-            GetController().SetUserCode(Convert.ToInt32(temp2.Name.Replace("userCode", "")));
+            if (temp2 != null)
+            {
+                MessageBox.Show("previo usercode" + temp2.Name.Replace("userCode", ""));
+                GetController().SetUserCode(Convert.ToInt32(temp2.Name.Replace("userCode", "")));
+                MessageBox.Show(GetController().user.Code.ToString());
+            }
         }
 
         private Files.Nodes.Users.UserItem.UserItem_New.Controller.CT_USR_Item_New GetController()

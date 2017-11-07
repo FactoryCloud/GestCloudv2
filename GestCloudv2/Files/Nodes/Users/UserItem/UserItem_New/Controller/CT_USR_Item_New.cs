@@ -59,6 +59,21 @@ namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_New.Controller
             TestMinimalInformation();
         }
 
+        public override void EV_ActivateSaveButton(bool verificated)
+        {
+            if(verificated)
+            {
+                Information["entityValid"] = 1;
+            }
+
+            else
+            {
+                Information["entityValid"] = 0;
+            }
+
+            TestMinimalInformation();
+        }
+
         public void CleanUsername()
         {
             user.Username = "";
@@ -83,10 +98,9 @@ namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_New.Controller
 
         private void TestMinimalInformation()
         {
-            if(user.Username.Length > 0 && userType != null && user.Code > 0)
+            if(user.Username.Length > 0 && userType != null && user.Code > 0 && userType != null && Information["entityValid"] == 1)
             {
                 Information["minimalInformation"] = 1;
-                
             }
 
             else
@@ -131,6 +145,23 @@ namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_New.Controller
             CT_Menu();
         }
 
+        override public void MD_EntityNew()
+        {
+            Information["entityLoaded"] = 2;
+            MD_Change(3);
+        }
+
+        override public void MD_EntityLoad()
+        {
+            UserItem_New.View.FW_USR_Item_New_Entity floatWindow = new UserItem_New.View.FW_USR_Item_New_Entity();
+            floatWindow.Show();
+        }
+
+        public override void MD_EntityLoaded()
+        {
+            MD_Change(4);
+        }
+
         public void CT_Menu()
         {
             Information["controller"] = 0;
@@ -139,6 +170,12 @@ namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_New.Controller
 
         override public void UpdateComponents()
         {
+            if (Information["entityLoaded"] == 1 && Information["mode"] == 2)
+                Information["mode"] = 4;
+
+            if(Information["entityLoaded"] == 2 && Information["mode"] == 2)
+                Information["mode"] = 3;
+
             switch (Information["mode"])
             {
                 case 0:
@@ -155,15 +192,21 @@ namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_New.Controller
                 case 2:
                     NV_Page = new Files.Nodes.Users.UserItem.UserItem_New.View.NV_USR_Item_New();
                     TS_Page = new Files.Nodes.Users.UserItem.UserItem_New.View.TS_USR_Item_New(Information["minimalInformation"]); ;
-                    MC_Page = new Files.Nodes.Users.UserItem.UserItem_New.View.MC_USR_Item_New_Entity(); ;
+                    MC_Page = new Files.Nodes.Users.UserItem.UserItem_New.View.MC_USR_Item_New_Entity_Select(); ;
                     ChangeComponents();
                     break;
 
                 case 3:
+                    NV_Page = new Files.Nodes.Users.UserItem.UserItem_New.View.NV_USR_Item_New();
+                    TS_Page = new Files.Nodes.Users.UserItem.UserItem_New.View.TS_USR_Item_New(Information["minimalInformation"]); ;
+                    MC_Page = new Files.Nodes.Users.UserItem.UserItem_New.View.MC_USR_Item_New_Entity_New(); ;
                     ChangeComponents();
                     break;
 
                 case 4:
+                    NV_Page = new Files.Nodes.Users.UserItem.UserItem_New.View.NV_USR_Item_New();
+                    TS_Page = new Files.Nodes.Users.UserItem.UserItem_New.View.TS_USR_Item_New(Information["minimalInformation"]); ;
+                    MC_Page = new Files.Nodes.Users.UserItem.UserItem_New.View.MC_USR_Item_New_Entity_Loaded(); ;
                     ChangeComponents();
                     break;
             }

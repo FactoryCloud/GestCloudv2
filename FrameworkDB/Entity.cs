@@ -23,16 +23,22 @@ namespace FrameworkDB.V1
         public string address { get; set; }
         public string contact { get; set; }*/
 
+        [ForeignKey("FK_Entity_EntityTypeID_EntityTypes")]
+        public int? EntityTypeID { get; set; }
+        public virtual EntityType entityType { get; set; }
+
         [ForeignKey("FK_Entity_CountryID_Countries")]
         public int? CountryID { get; set; }
-        public virtual Country countries { get; set; }
+        public virtual Country country { get; set; }
 
         [ForeignKey("FK_Entity_CityID_Cities")]
         public int? CityID { get; set; }
-        public virtual City cities { get; set; }
+        public virtual City city { get; set; }
 
-        public virtual List<User> users { get; set; }
-        public virtual List<Client> clients { get; set; }
+        public virtual Client client { get; set; }
+
+        public virtual User user { get; set; }
+
         public virtual List<Provider> providers { get; set; }
         public virtual List<Agents> agents { get; set; }
         //public virtual List<Employee> employeers { get; set; }

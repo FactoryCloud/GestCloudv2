@@ -23,12 +23,11 @@ namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_New.View
     /// <summary>
     /// Interaction logic for NewUser_MainPage.xaml
     /// </summary>
-    public partial class MC_USR_Item_New_Entity : Files.Nodes.Entities.View.MC_Entity_New
+    public partial class MC_USR_Item_New_Entity_New : Files.Nodes.Entities.View.MC_Entity_New
     {
 
-        public MC_USR_Item_New_Entity()
+        public MC_USR_Item_New_Entity_New()
         {
-
         }
 
         override public Main.Controller.CT_Common GetController()

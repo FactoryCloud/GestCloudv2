@@ -25,6 +25,11 @@ namespace GestCloudv2.Files.Nodes.Entities.View
         {
             InitializeComponent();
             this.Loaded += new RoutedEventHandler(EV_Start);
+
+            TB_Entity_Name.Text = GetController().entity.Name;
+            TB_Entity_SubName.Text = GetController().entity.Subname;
+            TB_Entity_Phone.Text = GetController().entity.Phone1;
+            TB_Entity_NIF.Text = GetController().entity.NIF;
         }
 
         private void EV_Start(object sender, RoutedEventArgs e)
@@ -37,15 +42,16 @@ namespace GestCloudv2.Files.Nodes.Entities.View
 
         public void EV_Keys(object sender, RoutedEventArgs e)
         {
+            GetController().entity = new Entity
+            {
+                Name = TB_Entity_Name.Text.ToString(),
+                Subname = TB_Entity_SubName.Text.ToString(),
+                Phone1 = TB_Entity_Phone.Text.ToString(),
+                NIF = TB_Entity_NIF.Text.ToString()
+            };
+
             if (TB_Entity_Name.Text.Length <= 30 && TB_Entity_SubName.Text.Length <= 30 && TB_Entity_Phone.Text.Length <= 20 && TB_Entity_NIF.Text.Length <= 50 && TB_Entity_Name.Text.Length > 0 && TB_Entity_SubName.Text.Length > 0 && TB_Entity_Phone.Text.Length > 0 && TB_Entity_NIF.Text.Length > 0)
             {
-                GetController().entity = new Entity
-                {
-                    Name = TB_Entity_Name.Text.ToString(),
-                    Subname = TB_Entity_SubName.Text.ToString(),
-                    Phone1 = TB_Entity_Phone.Text.ToString(),
-                    NIF = TB_Entity_NIF.Text.ToString()
-                };
                 GetController().EV_ActivateSaveButton(true);
             }
             else

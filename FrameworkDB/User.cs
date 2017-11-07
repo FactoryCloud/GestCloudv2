@@ -33,7 +33,7 @@ namespace FrameworkDB.V1
         public int? UserTypeID { get; set; }
         public virtual UserType userType { get; set; }
 
-        [ForeignKey("FK_Users_EntityID_Entities")]
+        [ForeignKey("FK_Users_EntityID_Entity")]
         public int? EntityID { get; set; }
         public virtual Entity entity { get; set; }
 

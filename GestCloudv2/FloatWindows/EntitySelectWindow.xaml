@@ -1,0 +1,48 @@
+﻿<Window x:Class="GestCloudv2.FloatWindows.EntitySelectWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GestCloudv2.FloatWindows"
+        mc:Ignorable="d"
+        Title="EntitySelectWindow" Height="600" Width="900">
+    <Grid Margin="15">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="4*"/>
+            </Grid.ColumnDefinitions>
+            <Label FontSize="12" VerticalAlignment="Center" HorizontalAlignment="Center">Nombre</Label>
+            <TextBox Name="TB_ProductName" Grid.Column="1" Grid.ColumnSpan="3" VerticalAlignment="Center" Margin="5"></TextBox>
+        </Grid>
+        <Grid Grid.Column="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <Label FontSize="12" VerticalAlignment="Center" HorizontalAlignment="Center">Tipo Persona</Label>
+            <ComboBox Name="CB_EntityType" Grid.Column="1" VerticalAlignment="Center" Margin="10,0,20,0"></ComboBox>
+        </Grid>
+        <DataGrid Name="DG_Entities" Grid.ColumnSpan="3" Grid.Row="1" Margin="20"
+                  IsReadOnly="True" SelectionMode="Single" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserReorderColumns="False"
+                  HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" ColumnWidth="*"></DataGrid>
+        <Grid Grid.Row="2" Margin="20" Grid.ColumnSpan="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Button Name="BT_SelectEntity" FontSize="10" Margin="0,0,20,0" Click="EV_SelectEntity" IsEnabled="False">Seleccionar</Button>
+            <Button Name="BT_CancelEntity" FontSize="10" Grid.Column="1" Margin="20,0,0,0" Click="EV_CancelEntity">Cancelar</Button>
+        </Grid>
+    </Grid>
+</Window>

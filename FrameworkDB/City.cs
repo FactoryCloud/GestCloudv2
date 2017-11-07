@@ -20,6 +20,8 @@ namespace FrameworkDB.V1
 
         [ForeignKey("FK_City_CountryID_Countries")]
         public int? CountryID { get; set; }
-        public virtual Country countries { get; set; }
+        public virtual Country country { get; set; }
+
+        public virtual List<Entity> entities { get; set; }
     }
 }

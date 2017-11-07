@@ -185,8 +185,8 @@
     <Compile Include="Files\Nodes\Clients\ClientMenu\View\TS_Client.xaml.cs">
       <DependentUpon>TS_Client.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Files\Nodes\Entities\View\MC_Entity_Modify.xaml.cs">
-      <DependentUpon>MC_Entity_Modify.xaml</DependentUpon>
+    <Compile Include="Files\Nodes\Entities\View\MC_Entity_Loaded.xaml.cs">
+      <DependentUpon>MC_Entity_Loaded.xaml</DependentUpon>
     </Compile>
     <Compile Include="Files\Nodes\Entities\View\MC_Entity_New.xaml.cs">
       <DependentUpon>MC_Entity_New.xaml</DependentUpon>
@@ -220,7 +220,10 @@
     <Compile Include="Files\Nodes\External\Cards\CardList\CardList_ToolSide.xaml.cs">
       <DependentUpon>CardList_ToolSide.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Files\Nodes\Users\UserItem\UserItem_New\View\MC_USR_Item_New_Entity.cs" />
+    <Compile Include="Files\Nodes\Users\UserItem\UserItem_New\View\FW_USR_Item_New_Entity.cs" />
+    <Compile Include="Files\Nodes\Users\UserItem\UserItem_New\View\MC_USR_Item_New_Entity_Loaded.cs" />
+    <Compile Include="Files\Nodes\Users\UserItem\UserItem_New\View\MC_USR_Item_New_Entity_Select.cs" />
+    <Compile Include="Files\Nodes\Users\UserItem\UserItem_New\View\MC_USR_Item_New_Entity_New.cs" />
     <Compile Include="Files\Nodes\Users\UserItem\UserItem_New\View\MC_USR_Item_New_User.xaml.cs">
       <DependentUpon>MC_USR_Item_New_User.xaml</DependentUpon>
     </Compile>
@@ -230,6 +233,9 @@
     </Compile>
     <Compile Include="Files\View\NV_Files_Main.xaml.cs">
       <DependentUpon>NV_Files_Main.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FloatWindows\EntitySelectWindow.xaml.cs">
+      <DependentUpon>EntitySelectWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="FloatWindows\ProductSelectWindow.xaml.cs">
       <DependentUpon>ProductSelectWindow.xaml</DependentUpon>
@@ -341,7 +347,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Files\Nodes\Entities\View\MC_Entity_Modify.xaml">
+    <Page Include="Files\Nodes\Entities\View\MC_Entity_Loaded.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -394,6 +400,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Files\View\NV_Files_Main.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="FloatWindows\EntitySelectWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -20,5 +20,7 @@ namespace FrameworkDB.V1
         public string Iso { get; set; }
         [StringLength(1)]
         public string Tip { get; set; }
+
+        public virtual List<Entity> entities { get; set; }
     }
 }

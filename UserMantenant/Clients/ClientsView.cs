@@ -30,7 +30,7 @@ namespace FrameworkView.V1
 
         public void UpdateTable()
         {
-            List<Client> clients = db.Clients.OrderBy(u => u.ClientID).Include(c => c.entity).ToList();
+            List<Client> clients = db.Clients.Include(c => c.entity).ToList();
 
             dt.Clear();
             foreach (var item in clients) 

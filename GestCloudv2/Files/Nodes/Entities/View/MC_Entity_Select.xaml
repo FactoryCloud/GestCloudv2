@@ -5,22 +5,22 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:GestCloudv2.Files.Nodes.Entities.View"
       mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="300"
+      d:DesignHeight="500" d:DesignWidth="500"
       Title="MC_Entity_Select">
 
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.5*"/>
-            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="0.8*"/>
             <ColumnDefinition Width="0.5*"/>
-            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="0.8*"/>
             <ColumnDefinition Width="0.5*"/>
         </Grid.ColumnDefinitions>
-        <Button Name="BT_EntityNew" Grid.Column="1" VerticalAlignment="Center">
-            <TextBlock TextAlignment="Center">Nueva<LineBreak/>Persona</TextBlock>
+        <Button Name="BT_EntityNew" Grid.Column="1" Padding="10" VerticalAlignment="Center" Click="EV_EntityNew">
+            <TextBlock FontSize="18" TextAlignment="Center">Nuevo<LineBreak/>Contacto</TextBlock>
         </Button>
-        <Button Name="BT_EntityExamine" Grid.Column="3" VerticalAlignment="Center">
-            <TextBlock TextAlignment="Center">Seleccionar<LineBreak/>Persona</TextBlock>
+        <Button Name="BT_EntityExamine" Grid.Column="3" Padding="10" VerticalAlignment="Center" Click="EV_EntityLoad">
+            <TextBlock FontSize="18" TextAlignment="Center">Seleccionar<LineBreak/>Contacto</TextBlock>
         </Button>
     </Grid>
 </Page>

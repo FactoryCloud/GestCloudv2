@@ -36,14 +36,39 @@ namespace GestCloudv2.Main.Controller
             db = new GestCloudDB();
             entity = new Entity();
 
+            entity.Name = "";
+
             Information = new Dictionary<string, int>();
             Information.Add("mode", 1);
             Information.Add("oldmode", 1);
             Information.Add("controller", 0);
             Information.Add("oldcontroller", 0);
             Information.Add("fieldEmpty", 0);
+            Information.Add("entityValid", 0);
+            Information.Add("entityLoaded", 0);
 
             this.Loaded += new RoutedEventHandler(EV_Start);
+        }
+
+        public void SetEntity(int num)
+        {
+            entity = db.Entities.Where(e => e.EntityID == num).First();
+            Information["entityLoaded"] = 1;
+        }
+
+        virtual public void MD_EntityNew()
+        {
+
+        }
+
+        virtual public void MD_EntityLoad()
+        {
+
+        }
+
+        virtual public void MD_EntityLoaded()
+        {
+
         }
 
         public void MD_Change(int i)
@@ -74,6 +99,11 @@ namespace GestCloudv2.Main.Controller
         virtual public void EV_ActivateSaveButton(bool verificated)
         {
             
+        }
+
+        virtual public void EV_EntityChange()
+        {
+
         }
 
         public void EV_UpdateIfNotEmpty(bool empty)

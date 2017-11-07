@@ -16,29 +16,22 @@ using System.Windows.Shapes;
 namespace GestCloudv2.Files.Nodes.Entities.View
 {
     /// <summary>
-    /// Interaction logic for MC_Entity_Select.xaml
+    /// Interaction logic for MC_Entity_Loaded.xaml
     /// </summary>
-    public partial class MC_Entity_Select : Page
+    public partial class MC_Entity_Loaded : Page
     {
-        public MC_Entity_Select()
-        {
+        public MC_Entity_Loaded()
+        { 
             InitializeComponent();
             this.Loaded += new RoutedEventHandler(EV_Start);
         }
 
         private void EV_Start(object sender, RoutedEventArgs e)
         {
-
-        }
-
-        private void EV_EntityNew(object sender, RoutedEventArgs e)
-        {
-            GetController().MD_EntityNew();
-        }
-
-        private void EV_EntityLoad(object sender, RoutedEventArgs e)
-        {
-            GetController().MD_EntityLoad();
+            TB_Entity_Name.Text = GetController().entity.Name;
+            TB_Entity_SubName.Text = GetController().entity.Subname;
+            TB_Entity_Phone.Text = GetController().entity.Phone1;
+            TB_Entity_NIF.Text = GetController().entity.NIF;
         }
 
         virtual public Main.Controller.CT_Common GetController()

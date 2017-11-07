@@ -46,6 +46,8 @@ namespace FrameworkDB.V1
         public DbSet<SaleDelivery> SaleDeliveries { get; set; }
         public DbSet<SaleInvoice> SaleInvoices { get; set; }
 
+        public DbSet<EntityType> EntityTypes { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             //optionsBuilder.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=GestCloud;Integrated Security=True");
@@ -180,11 +182,33 @@ namespace FrameworkDB.V1
                 .HasForeignKey(a => a.UserTypeID)
                 .HasConstraintName("FK_Users_UserTypeID_UserTypes");
 
-            modelBuilder.Entity<User>()
-                .HasOne(a => a.entity)
-                .WithMany(b => b.users)
-                .HasForeignKey(a => a.EntityID)
-                .HasConstraintName("FK_Users_EntityID_Entities");
+            modelBuilder.Entity<Entity>()
+                .HasOne(a => a.client)
+                .WithOne(b => b.entity)
+                .HasForeignKey<Client>(c => c.EntityID);
+
+            modelBuilder.Entity<Entity>()
+                .HasOne(a => a.user)
+                .WithOne(b => b.entity)
+                .HasForeignKey<User>(c => c.EntityID);
+
+            modelBuilder.Entity<Entity>()
+                .HasOne(a => a.entityType)
+                .WithMany(b => b.entities)
+                .HasForeignKey(a => a.EntityTypeID)
+                .HasConstraintName("FK_Entity_EntityTypeID_EntityTypes");
+
+            modelBuilder.Entity<Entity>()
+                .HasOne(a => a.country)
+                .WithMany(b => b.entities)
+                .HasForeignKey(a => a.CountryID)
+                .HasConstraintName("FK_Entity_CountryID_Countries");
+
+            modelBuilder.Entity<Entity>()
+                .HasOne(a => a.city)
+                .WithMany(b => b.entities)
+                .HasForeignKey(a => a.CityID)
+                .HasConstraintName("FK_Entity_CityID_Cities");
         }
 
         public void UpdateFromMKM()
