@@ -134,6 +134,22 @@ namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_New.Controller
 
         public void SaveNewUser()
         {
+            if (Information["entityLoaded"] == 2)
+            {
+                if (db.Entities.ToList().Count > 0)
+                {
+                    entity.Cod = db.Entities.OrderBy(u => u.Cod).Last().Cod + 1;
+                }
+                else
+                {
+                    entity.Cod = 1;
+                }
+
+                db.Entities.Add(entity);
+            }
+
+            user.entity = entity;
+
             user.userType = userType;
             user.ActivationCode = user.Code.ToString() + GetUniqueKey(5).ToString();
             user.Enabled = 1;
