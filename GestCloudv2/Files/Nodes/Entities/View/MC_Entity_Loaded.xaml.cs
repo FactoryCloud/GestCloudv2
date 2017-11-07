@@ -32,6 +32,8 @@ namespace GestCloudv2.Files.Nodes.Entities.View
             TB_Entity_SubName.Text = GetController().entity.Subname;
             TB_Entity_Phone.Text = GetController().entity.Phone1;
             TB_Entity_NIF.Text = GetController().entity.NIF;
+
+            GetController().EV_ActivateSaveButton(true);
         }
 
         virtual public Main.Controller.CT_Common GetController()

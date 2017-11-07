@@ -25,8 +25,6 @@ namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_New.View
         {
             InitializeComponent();
 
-            MessageBox.Show(GetController().user.Code.ToString());
-
             this.Loaded += new RoutedEventHandler(EV_Start);
 
             CB_UserCode.SelectionChanged += new SelectionChangedEventHandler(EV_CB_Changes);
@@ -54,6 +52,18 @@ namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_New.View
                 }
             }
 
+            if (GetController().userType != null)
+            {
+                foreach (ComboBoxItem item in CB_UserType.Items)
+                {
+                    if (item.Content.ToString() == $"{GetController().userType.Name}")
+                    {
+                        CB_UserType.SelectedValue = item;
+                        break;
+                    }
+                }
+            }
+
             List<User> users = GetController().GetUsers();
             List<int> nums = new List<int>();
             foreach (var user in users)
@@ -69,17 +79,17 @@ namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_New.View
                     temp.Content = $"{i}";
                     temp.Name = $"userCode{i}";
                     CB_UserCode.Items.Add(temp);
-                    
-                    if (GetController().user.Code > 0)
-                    {
-                        if (GetController().user.Code == Convert.ToInt16(temp.Content))
-                            CB_UserCode.SelectedItem = $"{temp.Content}";
-                    }
                 }
-
             }
 
-            MessageBox.Show(GetController().user.Code.ToString());
+            foreach (ComboBoxItem item in CB_UserCode.Items)
+            {
+                if (item.Content.ToString() == $"{GetController().user.Code}")
+                {
+                    CB_UserCode.SelectedValue = item;
+                    break;
+                }
+            }
         }
 
         private void EV_UserName(object sender, RoutedEventArgs e)
@@ -168,17 +178,13 @@ namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_New.View
             ComboBoxItem temp1 = (ComboBoxItem)CB_UserType.SelectedItem;
             if (temp1 != null)
             {
-                MessageBox.Show("previo usertype" + temp1.Name.Replace("userType", ""));
                 GetController().SetUserType(Convert.ToInt32(temp1.Name.Replace("userType", "")));
-                MessageBox.Show(GetController().userType.Name);
             }
 
             ComboBoxItem temp2 = (ComboBoxItem)CB_UserCode.SelectedItem;
             if (temp2 != null)
             {
-                MessageBox.Show("previo usercode" + temp2.Name.Replace("userCode", ""));
                 GetController().SetUserCode(Convert.ToInt32(temp2.Name.Replace("userCode", "")));
-                MessageBox.Show(GetController().user.Code.ToString());
             }
         }
 
