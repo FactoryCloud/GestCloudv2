@@ -29,6 +29,7 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_New.Controller
         {
             entity = new Entity();
             client = new Client();
+            Information.Add("minimalInformation", 0);
         }
 
         override public void EV_Start(object sender, RoutedEventArgs e)
@@ -67,6 +68,22 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_New.Controller
         {
             Information["controller"] = 0;
             ChangeController();
+        }
+
+        private void TestMinimalInformation()
+        {
+            if (entity.Name.Length > 0 && userType != null && user.Code > 0 && userType != null && Information["entityValid"] == 1)
+            {
+                Information["minimalInformation"] = 1;
+            }
+
+            else
+            {
+                Information["minimalInformation"] = 0;
+            }
+
+            TS_Page = new Files.Nodes.Users.UserItem.UserItem_New.View.TS_USR_Item_New(Information["minimalInformation"]);
+            LeftSide.Content = TS_Page;
         }
 
         private void UpdateComponents()

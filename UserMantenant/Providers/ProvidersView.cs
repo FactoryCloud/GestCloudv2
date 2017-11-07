@@ -30,12 +30,12 @@ namespace FrameworkView.V1
 
         public void UpdateTable()
         {
-            List<Provider> providers = db.Providers.OrderBy(u => u.ProvidersID).Include(c => c.entity).ToList();
+            List<Provider> providers = db.Providers.OrderBy(u => u.ProviderID).Include(c => c.entity).ToList();
 
             dt.Clear();
             foreach (var item in providers) 
             {
-                dt.Rows.Add(item.Cod, item.entity.Name,item.entity.Subname,item.entity.Phone1);
+                dt.Rows.Add(item.ProviderID, item.entity.Name,item.entity.Subname,item.entity.Phone1);
             }
         }
 

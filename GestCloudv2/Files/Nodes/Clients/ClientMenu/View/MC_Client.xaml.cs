@@ -49,15 +49,13 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientMenu.View
 
         private void ClientSelected_Event(object sender, RoutedEventArgs e)
         {
-            int client = DG_Clients.SelectedIndex;
-            if (client >= 0)
+            int num = DG_Clients.SelectedIndex;
+            if (num >= 0)
             {
-                DataGridRow row = (DataGridRow)DG_Clients.ItemContainerGenerator.ContainerFromIndex(client);
+                DataGridRow row = (DataGridRow)DG_Clients.ItemContainerGenerator.ContainerFromIndex(num);
                 DataRowView dr = row.Item as DataRowView;
+                MessageBox.Show($"{Int32.Parse(dr.Row.ItemArray[0].ToString())}");
                 GetController().SetClient(Int32.Parse(dr.Row.ItemArray[0].ToString()));
-                //MessageBox.Show(dr.Row.ItemArray[0].ToString());
-                //clients.ClientID = Int32.Parse(dr.Row.ItemArray[0].ToString());
-                //clients.EntityID = Int32.Parse(dr.Row.ItemArray[0].ToString());
             }
         }
 

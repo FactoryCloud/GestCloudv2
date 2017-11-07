@@ -199,7 +199,7 @@ namespace FrameworkDB.V1
 
             modelBuilder.Entity<Entity>()
                 .HasOne(a => a.entityType)
-                .WithMany(b => b.)
+                .WithMany(b => b.entities)
                 .HasForeignKey(a => a.EntityTypeID)
                 .HasConstraintName("FK_Entity_EntityTypeID_EntityTypes");
 

@@ -28,7 +28,7 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientMenu.Controller
 
         public void SetClient(int num)
         {
-            client = db.Clients.Where(c => c.ClientID== num).Include(e => e.entity).First();
+            client = db.Clients.Where(c => c.ClientID == num).Include(d => d.entity).First();
             TS_Page = new ClientMenu.View.TS_Client();
             LeftSide.Content = TS_Page;
         }

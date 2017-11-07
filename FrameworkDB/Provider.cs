@@ -11,11 +11,11 @@ namespace FrameworkDB.V1
     public class Provider
     {
         [Key]
-        public int ProvidersID { get; set; }
+        public int ProviderID { get; set; }
 
         public int Cod { get; set; }
 
-        public int? EntityID { get; set; }
+        public int EntityID { get; set; }
         public virtual Entity entity { get; set; }
 
         //public virtual List<Entity> entities { get; set; }

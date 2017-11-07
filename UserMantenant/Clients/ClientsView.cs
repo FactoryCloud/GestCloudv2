@@ -35,7 +35,7 @@ namespace FrameworkView.V1
             dt.Clear();
             foreach (var item in clients) 
             {
-                dt.Rows.Add(item.Cod, item.entity.Name,item.entity.Subname,item.entity.Phone1);
+                dt.Rows.Add(item.ClientID, item.entity.Name,item.entity.Subname,item.entity.Phone1);
             }
         }
 

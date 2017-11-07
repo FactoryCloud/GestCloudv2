@@ -62,7 +62,7 @@ namespace GestCloudv2.Files.Nodes.Providers.ProviderMenu.View
             {
                 DataGridRow row = (DataGridRow)DG_Providers.ItemContainerGenerator.ContainerFromIndex(num);
                 DataRowView dr = row.Item as DataRowView;
-                MessageBox.Show(dr.Row.ItemArray[0].ToString());
+                MessageBox.Show($"{Int32.Parse(dr.Row.ItemArray[0].ToString())}");
                 GetController().SetProvider(Int32.Parse(dr.Row.ItemArray[0].ToString()));
             }
         }

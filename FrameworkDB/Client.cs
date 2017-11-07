@@ -15,7 +15,7 @@ namespace FrameworkDB.V1
 
         public int Cod { get; set; }
 
-        public int? EntityID { get; set; }
+        public int EntityID { get; set; }
         public virtual Entity entity { get; set; }
     }
 }
