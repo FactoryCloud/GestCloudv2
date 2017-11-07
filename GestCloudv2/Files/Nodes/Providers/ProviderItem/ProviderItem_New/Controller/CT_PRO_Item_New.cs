@@ -38,9 +38,26 @@ namespace GestCloudv2.Files.Nodes.Providers.ProviderItem.ProviderItem_New.Contro
 
         public void SaveNewProvider()
         {
-            provider.Cod = db.Providers.OrderBy(c => c.Cod).Last().Cod + 1 ;
+            if (db.Providers.ToList().Count > 0)
+            {
+                provider.Cod = db.Providers.OrderBy(c => c.Cod).Last().Cod + 1;
+            }
+            else
+            {
+                provider.Cod = 1;
+            }
+
+            if (db.Entities.ToList().Count > 0)
+            {
+                entity.Cod = db.Entities.OrderBy(u => u.Cod).Last().Cod + 1;
+            }
+            else
+            {
+                entity.Cod = 1;
+            }
+
             provider.entity = entity;
-            entity.Cod = db.Entities.OrderBy(u => u.Cod).Last().Cod + 1;
+
             db.Entities.Add(entity);
             db.Providers.Add(provider);
             db.SaveChanges();

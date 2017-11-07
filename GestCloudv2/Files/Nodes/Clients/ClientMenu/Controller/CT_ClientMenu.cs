@@ -6,11 +6,14 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using FrameworkView.V1;
+using FrameworkDB.V1;
+using Microsoft.EntityFrameworkCore;
 
 namespace GestCloudv2.Files.Nodes.Clients.ClientMenu.Controller
 {
     public partial class CT_ClientMenu : Main.Controller.CT_Common
     {
+        public Client client;
         public ClientsView clientView;
 
         public CT_ClientMenu()
@@ -22,6 +25,14 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientMenu.Controller
             clientView = new ClientsView();
             UpdateComponents();
         }
+
+        public void SetClient(int num)
+        {
+            client = db.Clients.Where(c => c.ClientID== num).Include(e => e.entity).First();
+            TS_Page = new ClientMenu.View.TS_Client();
+            LeftSide.Content = TS_Page;
+        }
+
 
         public void CT_Main()
         {

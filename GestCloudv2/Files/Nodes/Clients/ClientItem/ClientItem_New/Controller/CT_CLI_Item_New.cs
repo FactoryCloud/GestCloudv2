@@ -38,10 +38,25 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_New.Controller
 
         public void SaveNewClient()
         {
+            if (db.Clients.ToList().Count > 0)
+            {
+                client.Cod = db.Entities.OrderBy(u => u.Cod).Last().Cod + 1;
+            }
+            else
+            {
+                client.Cod = 1;
+            }
 
-            client.Cod = db.Clients.OrderBy(c => c.Cod).Last().Cod + 1;
+            if (db.Entities.ToList().Count > 0)
+            {
+                entity.Cod = db.Entities.OrderBy(u => u.Cod).Last().Cod + 1;
+            }
+            else
+            {
+                entity.Cod = 1;
+            }
+
             client.entity = entity;
-            entity.Cod = db.Entities.OrderBy(u => u.Cod).Last().Cod + 1;
             db.Entities.Add(entity);
             db.Clients.Add(client);
             db.SaveChanges();

@@ -54,11 +54,18 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientMenu.View
             {
                 DataGridRow row = (DataGridRow)DG_Clients.ItemContainerGenerator.ContainerFromIndex(client);
                 DataRowView dr = row.Item as DataRowView;
-               //MessageBox.Show(dr.Row.ItemArray[0].ToString());
-                clients.ClientID = Int32.Parse(dr.Row.ItemArray[0].ToString());
-                clients.EntityID = Int32.Parse(dr.Row.ItemArray[0].ToString());
-                //movement.product = db.Products.First(p => p.ProductID == Int32.Parse(dr.Row.ItemArray[0].ToString()));
+                GetController().SetClient(Int32.Parse(dr.Row.ItemArray[0].ToString()));
+                //MessageBox.Show(dr.Row.ItemArray[0].ToString());
+                //clients.ClientID = Int32.Parse(dr.Row.ItemArray[0].ToString());
+                //clients.EntityID = Int32.Parse(dr.Row.ItemArray[0].ToString());
             }
+        }
+
+        private ClientMenu.Controller.CT_ClientMenu GetController()
+        {
+            Window mainWindow = Application.Current.MainWindow;
+            var a = (Main.View.MainWindow)mainWindow;
+            return (ClientMenu.Controller.CT_ClientMenu)a.MainFrame.Content;
         }
 
     }

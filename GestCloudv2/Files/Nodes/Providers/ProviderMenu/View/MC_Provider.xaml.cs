@@ -32,7 +32,7 @@ namespace GestCloudv2.Files.Nodes.Providers.ProviderMenu.View
             providerView = new ProvidersView();
             providers = new Provider();
             InitializeComponent();
-            DG_Providers.MouseLeftButtonUp += new MouseButtonEventHandler(ProviderSelected_Event);
+            DG_Providers.MouseLeftButtonUp += new MouseButtonEventHandler(SelectedProviderUpdate);
             //DG_Clients.MouseDoubleClick += new MouseButtonEventHandler(ProviderInfo_Event);
             this.Loaded += new RoutedEventHandler(UpdateTable);
         }
@@ -48,32 +48,21 @@ namespace GestCloudv2.Files.Nodes.Providers.ProviderMenu.View
             UpdateData();
         }
 
-        private void ProviderSelected_Event(object sender, RoutedEventArgs e)
-        {
-            int provider = DG_Providers.SelectedIndex;
-            if (provider >= 0)
-            {
-                DataGridRow row = (DataGridRow)DG_Providers.ItemContainerGenerator.ContainerFromIndex(provider);
-                DataRowView dr = row.Item as DataRowView;
-                //MessageBox.Show(dr.Row.ItemArray[0].ToString());
-                providers.ProvidersID = Int32.Parse(dr.Row.ItemArray[0].ToString());
-                providers.EntityID = Int32.Parse(dr.Row.ItemArray[0].ToString());
-            }
-        }
 
         private void ProviderInfo_Event(object sender, MouseButtonEventArgs e)
         {
-            SelectedProviderUpdate();
+            //SelectedProviderUpdate();
             ProviderInfoLoad();
         }
 
-        public void SelectedProviderUpdate()
+        public void SelectedProviderUpdate(object sender, RoutedEventArgs e)
         {
-            int provider = DG_Providers.SelectedIndex;
-            if (provider >= 0)
+            int num = DG_Providers.SelectedIndex;
+            if (num >= 0)
             {
-                DataGridRow row = (DataGridRow)DG_Providers.ItemContainerGenerator.ContainerFromIndex(provider);
+                DataGridRow row = (DataGridRow)DG_Providers.ItemContainerGenerator.ContainerFromIndex(num);
                 DataRowView dr = row.Item as DataRowView;
+                MessageBox.Show(dr.Row.ItemArray[0].ToString());
                 GetController().SetProvider(Int32.Parse(dr.Row.ItemArray[0].ToString()));
             }
         }

@@ -40,7 +40,8 @@ namespace GestCloudv2.Files.Nodes.Providers.ProviderMenu.Controller
 
         public void SetProvider(int num)
         {
-            provider = db.Providers.Where(c => c.ProvidersID == num).Include(e => e.entity).First();
+            
+            provider = db.Providers.Where(c => c.EntityID == num).Include(e => e.entity).First();
             TS_Page = new ProviderMenu.View.TS_Provider();
             LeftSide.Content = TS_Page;
         }
