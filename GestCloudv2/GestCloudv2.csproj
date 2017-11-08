@@ -145,6 +145,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Files\Controller\CT_Files.cs" />
+    <Compile Include="Files\Nodes\Entities\View\MC_Entity_Load_Select.xaml.cs">
+      <DependentUpon>MC_Entity_Load_Select.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Files\Nodes\Providers\ProviderItem\ProviderItem_New\Controller\CT_PRO_Item_New.cs">
       <Generator>MSBuild:Compile</Generator>
     </Compile>
@@ -219,6 +222,20 @@
     </Compile>
     <Compile Include="Files\Nodes\External\Cards\CardList\CardList_ToolSide.xaml.cs">
       <DependentUpon>CardList_ToolSide.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Nodes\Users\UserItem\UserItem_Load\Controller\CT_USR_Item_Load.cs">
+      <Generator>MSBuild:Compile</Generator>
+    </Compile>
+    <Compile Include="Files\Nodes\Users\UserItem\UserItem_Load\View\FW_USR_Item_Load_Entity.cs" />
+    <Compile Include="Files\Nodes\Users\UserItem\UserItem_Load\View\MC_USR_Item_Load_User.xaml.cs">
+      <DependentUpon>MC_USR_Item_Load_User.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Nodes\Users\UserItem\UserItem_Load\View\MC_USR_Item_Load_Entity_Select.cs" />
+    <Compile Include="Files\Nodes\Users\UserItem\UserItem_Load\View\NV_USR_Item_Load.xaml.cs">
+      <DependentUpon>NV_USR_Item_Load.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Nodes\Users\UserItem\UserItem_Load\View\TS_USR_Item_Load.xaml.cs">
+      <DependentUpon>TS_USR_Item_Load.xaml</DependentUpon>
     </Compile>
     <Compile Include="Files\Nodes\Users\UserItem\UserItem_New\View\FW_USR_Item_New_Entity.cs" />
     <Compile Include="Files\Nodes\Users\UserItem\UserItem_New\View\MC_USR_Item_New_Entity_Loaded.cs" />
@@ -307,6 +324,10 @@
     <Compile Include="Files\Nodes\Users\UserMenu\View\TS_USR_Menu.xaml.cs">
       <DependentUpon>TS_USR_Menu.xaml</DependentUpon>
     </Compile>
+    <Page Include="Files\Nodes\Entities\View\MC_Entity_Load_Select.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Files\Nodes\Providers\ProviderItem\ProviderItem_New\View\NV_PRO_Item_New.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -390,6 +411,18 @@
     <Page Include="Files\Nodes\External\Cards\CardList\CardList_ToolSide.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Files\Nodes\Users\UserItem\UserItem_Load\View\MC_USR_Item_Load_User.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Files\Nodes\Users\UserItem\UserItem_Load\View\NV_USR_Item_Load.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Files\Nodes\Users\UserItem\UserItem_Load\View\TS_USR_Item_Load.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Files\Nodes\Users\UserItem\UserItem_New\View\MC_USR_Item_New_User.xaml">
       <SubType>Designer</SubType>

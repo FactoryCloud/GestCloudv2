@@ -24,7 +24,7 @@ namespace GestCloudv2.Files.Nodes.Users.UserMenu.Controller
     public partial class CT_UserMenu : Main.Controller.CT_Common
     {
         public UsersView UsersView;
-        public User User;
+        public User user;
 
         public CT_UserMenu()
         {
@@ -38,22 +38,26 @@ namespace GestCloudv2.Files.Nodes.Users.UserMenu.Controller
 
         public void SetUser(int num)
         {
-            User = db.Users.Where(c => c.UserID == num).Include(c => c.UserPermissions).First();
+            user = db.Users.Where(c => c.UserID == num).Include(c => c.UserPermissions).Include(c => c.userType).First();
             TS_Page = new Files.Nodes.Users.UserMenu.View.TS_USR_Menu();
             LeftSide.Content = TS_Page;
-        }
-
-        public void MD_Change(int i)
-        {
-            Information["oldmode"] = Information["mode"];
-            Information["mode"] = i;
-
-            UpdateComponents();
         }
 
         public void CT_UserNew()
         {
             Information["controller"] = 1;
+            ChangeController();
+        }
+
+        public void CT_UserLoad()
+        {
+            Information["controller"] = 2;
+            ChangeController();
+        }
+
+        public void CT_UserLoadEditable()
+        {
+            Information["controller"] = 3;
             ChangeController();
         }
 
@@ -63,7 +67,7 @@ namespace GestCloudv2.Files.Nodes.Users.UserMenu.Controller
             ChangeController();
         }
 
-        private void UpdateComponents()
+        override public void UpdateComponents()
         {
             switch(Information["mode"])
             {
@@ -104,6 +108,16 @@ namespace GestCloudv2.Files.Nodes.Users.UserMenu.Controller
                 case 1:
                     Main.View.MainWindow b = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
                     b.MainFrame.Content = new Files.Nodes.Users.UserItem.UserItem_New.Controller.CT_USR_Item_New();
+                    break;
+
+                case 2:
+                    Main.View.MainWindow c = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
+                    c.MainFrame.Content = new Files.Nodes.Users.UserItem.UserItem_Load.Controller.CT_USR_Item_Load(user, 0);
+                    break;
+
+                case 3:
+                    Main.View.MainWindow d = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
+                    d.MainFrame.Content = new Files.Nodes.Users.UserItem.UserItem_Load.Controller.CT_USR_Item_Load(user, 1);
                     break;
             }
         }

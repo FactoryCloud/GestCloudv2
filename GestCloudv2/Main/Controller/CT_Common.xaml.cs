@@ -71,6 +71,11 @@ namespace GestCloudv2.Main.Controller
 
         }
 
+        virtual public void MD_EntityEdit()
+        {
+
+        }
+
         public void MD_Change(int i)
         {
             Information["oldmode"] = Information["mode"];

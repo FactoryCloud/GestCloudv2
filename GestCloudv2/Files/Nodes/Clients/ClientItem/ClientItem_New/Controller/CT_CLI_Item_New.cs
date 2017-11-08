@@ -72,7 +72,7 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_New.Controller
 
         private void TestMinimalInformation()
         {
-            if (entity.Name.Length > 0 && userType != null && user.Code > 0 && userType != null && Information["entityValid"] == 1)
+            /*if (entity.Name.Length > 0 && userType != null && user.Code > 0 && userType != null && Information["entityValid"] == 1)
             {
                 Information["minimalInformation"] = 1;
             }
@@ -83,7 +83,7 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_New.Controller
             }
 
             TS_Page = new Files.Nodes.Users.UserItem.UserItem_New.View.TS_USR_Item_New(Information["minimalInformation"]);
-            LeftSide.Content = TS_Page;
+            LeftSide.Content = TS_Page;*/
         }
 
         private void UpdateComponents()
