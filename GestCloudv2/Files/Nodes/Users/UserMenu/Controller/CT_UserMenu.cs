@@ -38,7 +38,7 @@ namespace GestCloudv2.Files.Nodes.Users.UserMenu.Controller
 
         public void SetUser(int num)
         {
-            user = db.Users.Where(c => c.UserID == num).Include(c => c.UserPermissions).Include(c => c.userType).First();
+            user = db.Users.Where(c => c.UserID == num).Include(c => c.UserPermissions).Include(c => c.userType).Include(c=> c.entity).First();
             TS_Page = new Files.Nodes.Users.UserMenu.View.TS_USR_Menu();
             LeftSide.Content = TS_Page;
         }

@@ -42,13 +42,24 @@ namespace GestCloudv2.Files.Nodes.Entities.View
 
         public void EV_Keys(object sender, RoutedEventArgs e)
         {
-            GetController().entity = new Entity
+            if (GetController().entity == null)
             {
-                Name = TB_Entity_Name.Text.ToString(),
-                Subname = TB_Entity_SubName.Text.ToString(),
-                Phone1 = TB_Entity_Phone.Text.ToString(),
-                NIF = TB_Entity_NIF.Text.ToString()
-            };
+                GetController().entity = new Entity
+                {
+                    Name = TB_Entity_Name.Text.ToString(),
+                    Subname = TB_Entity_SubName.Text.ToString(),
+                    Phone1 = TB_Entity_Phone.Text.ToString(),
+                    NIF = TB_Entity_NIF.Text.ToString()
+                };
+            }
+
+            else
+            {
+                GetController().entity.Name = TB_Entity_Name.Text.ToString();
+                GetController().entity.Subname = TB_Entity_SubName.Text.ToString();
+                GetController().entity.Phone1 = TB_Entity_Phone.Text.ToString();
+                GetController().entity.NIF = TB_Entity_NIF.Text.ToString();
+            }
 
             if (TB_Entity_Name.Text.Length <= 30 && TB_Entity_SubName.Text.Length <= 30 && TB_Entity_Phone.Text.Length <= 20 && TB_Entity_NIF.Text.Length <= 50 && TB_Entity_Name.Text.Length > 0 && TB_Entity_SubName.Text.Length > 0 && TB_Entity_Phone.Text.Length > 0 && TB_Entity_NIF.Text.Length > 0)
             {

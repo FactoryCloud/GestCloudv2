@@ -33,10 +33,15 @@ namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_Load.Controller
             Information.Add("minimalInformation", 0);
 
             this.user = user;
+
+            Information["entityValid"] = 1;
         }
 
         override public void EV_Start(object sender, RoutedEventArgs e)
         {
+            entity = db.Entities.Where(u => u.EntityID == user.EntityID).First();
+            MessageBox.Show($"{entity.EntityID}");
+
             UpdateComponents();
         }
 
@@ -58,7 +63,7 @@ namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_Load.Controller
 
         public void SetUserType(int num)
         {
-            user.userType = db.UserTypes.Where(c => c.UserTypeID == num).Include(c => c.UserPermissions).First();
+            user.UserTypeID = db.UserTypes.Where(c => c.UserTypeID == num).Include(c => c.UserPermissions).First().UserTypeID;
             TestMinimalInformation();
         }
 
@@ -88,7 +93,7 @@ namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_Load.Controller
             List<User> users = db.Users.ToList();
             foreach (var item in users)
             {
-                if ((item.Username.Contains(username) && user.Username != username) || username.Length == 0)
+                if ((item.Username == username && user.Username != username) || username.Length == 0)
                 {
                     CleanUsername();
                     return true;
@@ -111,8 +116,11 @@ namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_Load.Controller
                 Information["minimalInformation"] = 0;
             }
 
-            TS_Page = new View.TS_USR_Item_Load(Information["minimalInformation"]);
-            LeftSide.Content = TS_Page;
+            if (Information["editable"] != 0)
+            {
+                TS_Page = new View.TS_USR_Item_Load_Editable(Information["minimalInformation"]);
+                LeftSide.Content = TS_Page;
+            }
         }
 
         public static string GetUniqueKey(int maxSize)
@@ -139,20 +147,16 @@ namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_Load.Controller
         {
             if (Information["entityLoaded"] == 2)
             {
-                if (db.Entities.ToList().Count > 0)
-                {
-                    entity.Cod = db.Entities.OrderBy(u => u.Cod).Last().Cod + 1;
-                }
-                else
-                {
-                    entity.Cod = 1;
-                }
-
-                db.Entities.Add(entity);
+                db.Entities.Update(entity);
             }
+            
+            User user1 = db.Users.Where(u => u.UserID == user.UserID).First();
+            user1.Username = user.Username;
+            user1.UserTypeID = user.UserTypeID;
+            user1.Code = user.Code;
+            user1.EntityID = entity.EntityID;
 
-            user.entity = entity;
-            db.Users.Add(user);
+            db.Users.Update(user1);
             db.SaveChanges();
             MessageBox.Show("Datos guardados correctamente");
 
@@ -168,7 +172,7 @@ namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_Load.Controller
 
         override public void MD_EntityLoad()
         {
-            View.FW_USR_Item_Load_Entity floatWindow = new View.FW_USR_Item_Load_Entity();
+            View.FW_USR_Item_Load_Entity floatWindow = new View.FW_USR_Item_Load_Entity(4);
             floatWindow.Show();
         }
 
@@ -199,7 +203,10 @@ namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_Load.Controller
 
                 case 1:
                     NV_Page = new View.NV_USR_Item_Load();
-                    TS_Page = new View.TS_USR_Item_Load(Information["minimalInformation"]);
+                    if(Information["editable"] == 0)
+                        TS_Page = new View.TS_USR_Item_Load(Information["minimalInformation"]);
+                    else
+                        TS_Page = new View.TS_USR_Item_Load_Editable(Information["minimalInformation"]);
                     MC_Page = new View.MC_USR_Item_Load_User();
                     ChangeComponents();
                     break;
@@ -215,25 +222,31 @@ namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_Load.Controller
                     else
                     {
                         NV_Page = new View.NV_USR_Item_Load();
-                        TS_Page = new View.TS_USR_Item_Load(Information["minimalInformation"]);
+                        TS_Page = new View.TS_USR_Item_Load_Editable(Information["minimalInformation"]);
                         MC_Page = new View.MC_USR_Item_Load_Entity_Select();
                     }
                     ChangeComponents();
                     break;
 
-                /*case 3:
-                    NV_Page = new Files.Nodes.Users.UserItem.UserItem_New.View.NV_USR_Item_New();
-                    TS_Page = new Files.Nodes.Users.UserItem.UserItem_New.View.TS_USR_Item_New(Information["minimalInformation"]); ;
-                    MC_Page = new Files.Nodes.Users.UserItem.UserItem_New.View.MC_USR_Item_New_Entity_New(); ;
+                case 3:
+                    NV_Page = new View.NV_USR_Item_Load();
+                    if (Information["editable"] == 0)
+                        TS_Page = new View.TS_USR_Item_Load(Information["minimalInformation"]);
+                    else
+                        TS_Page = new View.TS_USR_Item_Load_Editable(Information["minimalInformation"]);
+                    MC_Page = new View.MC_USR_Item_Load_Entity_Edit();
                     ChangeComponents();
                     break;
 
                 case 4:
-                    NV_Page = new Files.Nodes.Users.UserItem.UserItem_New.View.NV_USR_Item_New();
-                    TS_Page = new Files.Nodes.Users.UserItem.UserItem_New.View.TS_USR_Item_New(Information["minimalInformation"]); ;
-                    MC_Page = new Files.Nodes.Users.UserItem.UserItem_New.View.MC_USR_Item_New_Entity_Loaded(); ;
+                    NV_Page = new View.NV_USR_Item_Load();
+                    if (Information["editable"] == 0)
+                        TS_Page = new View.TS_USR_Item_Load(Information["minimalInformation"]);
+                    else
+                        TS_Page = new View.TS_USR_Item_Load_Editable(Information["minimalInformation"]);
+                    MC_Page = new View.MC_USR_Item_Load_Entity_Loaded();
                     ChangeComponents();
-                    break;*/
+                    break;
             }
         }
 

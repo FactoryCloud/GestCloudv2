@@ -85,7 +85,7 @@ namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_New.Controller
             List<User> users = db.Users.ToList();
             foreach (var item in users)
             {
-                if (item.Username.Contains(username) || username.Length == 0)
+                if (item.Username == username || username.Length == 0)
                 {
                     CleanUsername();
                     return true;
@@ -169,7 +169,7 @@ namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_New.Controller
 
         override public void MD_EntityLoad()
         {
-            UserItem_New.View.FW_USR_Item_New_Entity floatWindow = new UserItem_New.View.FW_USR_Item_New_Entity();
+            View.FW_USR_Item_New_Entity floatWindow = new View.FW_USR_Item_New_Entity(4);
             floatWindow.Show();
         }
 

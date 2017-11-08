@@ -16,13 +16,18 @@ using System.Windows.Shapes;
 namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_Load.View
 {
     /// <summary>
-    /// Interaction logic for TS_USR_Item_Load.xaml
+    /// Interaction logic for TS_USR_Item_Load_Editable.xaml
     /// </summary>
-    public partial class TS_USR_Item_Load : Page
+    public partial class TS_USR_Item_Load_Editable : Page
     {
-        public TS_USR_Item_Load(int num)
+        public TS_USR_Item_Load_Editable(int num)
         {
             InitializeComponent();
+
+            if(num >= 1)
+            {
+                BT_UserSave.IsEnabled = true;
+            }
         }
 
         private void EV_UserSave(object sender, RoutedEventArgs e)

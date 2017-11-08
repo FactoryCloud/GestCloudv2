@@ -25,7 +25,7 @@ namespace GestCloudv2.Main.Controller
         protected Page TS_Page;
         protected Page MC_Page;
         public Entity entity;
-        public Client client;
+        //public Client client;
 
         protected GestCloudDB db;
 
@@ -35,7 +35,7 @@ namespace GestCloudv2.Main.Controller
         {
             InitializeComponent();
             db = new GestCloudDB();
-            client = new Client();
+            //client = new Client();
             entity = new Entity();
 
             entity.Name = "";

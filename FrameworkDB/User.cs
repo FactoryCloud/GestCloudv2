@@ -13,27 +13,24 @@ namespace FrameworkDB.V1
         [Key]
         public int UserID { get; set; }
 
-        public int Code { get; set; }
+        public int? Code { get; set; }
 
-        [Required]
         [StringLength(20)]
         public string Username { get; set; }
 
-        [Required]
         [StringLength(20)]
         public string Password { get; set; }
 
         [StringLength(10)]
         public string ActivationCode { get; set; }
 
-        [Required]
-        public int Enabled { get; set; }
+        public int? Enabled { get; set; }
 
-        [ForeignKey("FK_Users_UserTypeID_UserTypes")]
+        //[ForeignKey("FK_Users_UserTypeID_UserTypes")]
         public int? UserTypeID { get; set; }
         public virtual UserType userType { get; set; }
 
-        [ForeignKey("FK_Users_EntityID_Entity")]
+        //[ForeignKey("FK_Users_EntityID_Entity")]
         public int? EntityID { get; set; }
         public virtual Entity entity { get; set; }
 

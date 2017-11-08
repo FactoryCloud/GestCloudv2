@@ -26,16 +26,19 @@ namespace GestCloudv2.FloatWindows
     /// </summary>
     public partial class EntitySelectWindow : Window
     {
-        int entity;
-        EntitiesView entitiesView;
-
-        string type { get; set; }
+        public int entity;
+        public EntitiesView entitiesView;
 
         public EntitySelectWindow()
         {
+
+        }
+
+        public EntitySelectWindow(int option)
+        {
             InitializeComponent();
 
-            entitiesView = new EntitiesView();
+            entitiesView = new EntitiesView(option);
 
             DG_Entities.MouseLeftButtonUp += new MouseButtonEventHandler(EV_SelectedChange);
             DG_Entities.MouseDoubleClick += new MouseButtonEventHandler(EV_SelectEntity);
@@ -59,12 +62,12 @@ namespace GestCloudv2.FloatWindows
             UpdateData();
         }
 
-        private void EV_Close(object sender, EventArgs e)
+        public void EV_Close(object sender, EventArgs e)
         {
             //GetController().RestartNewMovement();
         }
 
-        private void EV_SelectedChange(object sender, RoutedEventArgs e)
+        protected void EV_SelectedChange(object sender, RoutedEventArgs e)
         {
             int num = DG_Entities.SelectedIndex;
             if (num >= 0)
@@ -76,7 +79,7 @@ namespace GestCloudv2.FloatWindows
             }
         }
 
-        private void EV_SelectEntity(object sender, RoutedEventArgs e)
+        protected void EV_SelectEntity(object sender, RoutedEventArgs e)
         {
             GetController().SetEntity(entity);
             GetController().MD_EntityLoaded();
@@ -84,12 +87,12 @@ namespace GestCloudv2.FloatWindows
             this.Close();
         }
 
-        private void EV_CancelEntity(object sender, RoutedEventArgs e)
+        protected void EV_CancelEntity(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
 
-        private void EV_Search(object sender, RoutedEventArgs e)
+        protected void EV_Search(object sender, RoutedEventArgs e)
         {
         }
 

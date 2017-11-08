@@ -70,8 +70,6 @@ namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_Load.View
 
             else
             {
-
-
                 List<UserType> userTypes = GetController().GetUserTypes();
                 foreach (var userType in userTypes)
                 {
@@ -104,7 +102,7 @@ namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_Load.View
                 foreach (var user in users)
                 {
                     if(user.UserID != GetController().user.UserID)
-                        nums.Add(user.Code);
+                        nums.Add(Convert.ToInt16(user.Code));
                 }
 
                 for (int i = 1; i <= 20; i++)

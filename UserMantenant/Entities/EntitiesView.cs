@@ -15,10 +15,11 @@ namespace FrameworkView.V1
     {
         List<Entity> entities { get; set; }
         GestCloudDB db;
+        int option;
 
         private DataTable dt;
 
-        public EntitiesView()
+        public EntitiesView(int opt)
         {
             db = new GestCloudDB();
             dt = new DataTable();
@@ -26,6 +27,8 @@ namespace FrameworkView.V1
             dt.Columns.Add("Nombre", typeof(string));
             dt.Columns.Add("Subnombre", typeof(string));
             dt.Columns.Add("NIF", typeof(string));
+
+            option = opt;
         }
 
         public List<EntityType> GetEntityTypes()
@@ -35,7 +38,23 @@ namespace FrameworkView.V1
 
         public void UpdateTable()
         {
-            entities = db.Entities.OrderBy(e => e.Subname).OrderBy(e => e.Name).Include(e=> e.entityType).ToList();
+            switch(option)
+            {
+                case 0:
+                    entities = db.Entities.OrderBy(e => e.Subname).OrderBy(e => e.Name).Include(e => e.entityType).ToList();
+                    break;
+
+                case 4:
+                    List<Entity> userEntities = new List<Entity>();
+                    List<User> users = db.Users.Where(u => u.EntityID != null).Include(u => u.entity).ToList();
+                    foreach(User user in users)
+                    {
+                        userEntities.Add(user.entity);
+                    }
+                    entities = db.Entities.OrderBy(e => e.Subname).OrderBy(e => e.Name).Include(e => e.entityType).ToList();
+                    entities = entities.Except(userEntities).ToList();
+                    break;
+            }
 
             dt.Clear();
             foreach (Entity ent in entities)

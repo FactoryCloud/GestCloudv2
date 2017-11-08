@@ -62,6 +62,9 @@ namespace FrameworkDB.V1
             modelBuilder.Entity<Product>()
                 .HasKey(m => m.ProductID);
 
+            modelBuilder.Entity<User>()
+                .HasKey(u => u.UserID);
+
             modelBuilder.Entity<MTGCard>()
                 .HasOne(a => a.expansion)
                 .WithMany(b => b.MTGCards)

@@ -68,7 +68,7 @@ namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_New.View
             List<int> nums = new List<int>();
             foreach (var user in users)
             {
-                nums.Add(user.Code);
+                nums.Add(Convert.ToInt16(user.Code));
             }
 
             for (int i = 1; i <= 20; i++)
