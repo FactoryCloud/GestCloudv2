@@ -71,7 +71,7 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientMenu.Controller
 
                 case 1:
                     Main.View.MainWindow b = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
-                    b.MainFrame.Content = new ClientItem.ClientItem_New.Controller.CT_CLI_Item_New();
+                    b.MainFrame.Content = new ClientItem.ClientItem_New.Controller.CT_CLI_Item_New(1);
                     break;
             }
         }

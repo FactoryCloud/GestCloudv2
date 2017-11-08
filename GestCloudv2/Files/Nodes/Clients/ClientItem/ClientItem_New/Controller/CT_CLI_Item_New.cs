@@ -26,10 +26,11 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_New.Controller
         public Client client;
         public int lastClientCod;
 
-        public CT_CLI_Item_New()
+        public CT_CLI_Item_New(int editable)
         {
             entity = new Entity();
             client = new Client();
+            Information.Add("editable", editable);
             Information.Add("minimalInformation", 0);
         }
 
@@ -69,6 +70,23 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_New.Controller
         {
             Information["controller"] = 0;
             ChangeController();
+        }
+
+        override public void MD_EntityLoad()
+        {
+            View.FW_CLI_Item_Load_Entity floatWindow = new View.FW_CLI_Item_Load_Entity(4);
+            floatWindow.Show();
+        }
+
+        override public void MD_EntityNew()
+        {
+            Information["entityLoaded"] = 2;
+            MD_Change(5);
+        }
+
+        public override void MD_EntityLoaded()
+        {
+            MD_Change(4);
         }
 
         public override void EV_ActivateSaveButton(bool verificated)
@@ -133,16 +151,15 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_New.Controller
 
         override public void UpdateComponents()
         {
+            if (Information["entityLoaded"] == 1 && Information["mode"] == 2)
+                Information["mode"] = 4;
+
+            if (Information["entityLoaded"] == 2 && Information["mode"] == 2)
+                Information["mode"] = 3;
+
             switch (Information["mode"])
             {
                 case 0:
-                    ChangeComponents();
-                    break;
-
-                case 2:
-                    NV_Page = new ClientItem.ClientItem_New.View.NV_CLI_Item_New();
-                    TS_Page = new ClientItem.ClientItem_New.View.TS_CLI_Item_New(Information["minimalInformation"]);
-                    MC_Page = new ClientItem.ClientItem_New.View.MC_CLI_Item_New() ;
                     ChangeComponents();
                     break;
 
@@ -153,11 +170,44 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_New.Controller
                     ChangeComponents();
                     break;
 
+                case 2:
+                    NV_Page = new ClientItem.ClientItem_New.View.NV_CLI_Item_New();
+                    TS_Page = new ClientItem.ClientItem_New.View.TS_CLI_Item_New(Information["minimalInformation"]);
+                    MC_Page = new ClientItem.ClientItem_New.View.MC_CLI_Item_New() ;
+                    ChangeComponents();
+                    break;
+
                 case 3:
+                    if (Information["editable"] == 0)
+                    {
+                        Information["mode"] = 4;
+                        UpdateComponents();
+                        break;
+                    }
+
+                    else
+                    {
+                        NV_Page = new View.NV_CLI_Item_New();
+                        TS_Page = new View.TS_CLI_Item_New(Information["minimalInformation"]);
+                        MC_Page = new View.MC_CLI_Item_Load_Entity_Select();
+                    }
                     ChangeComponents();
                     break;
 
                 case 4:
+                    NV_Page = new View.NV_CLI_Item_New();
+                    if (Information["editable"] == 0)
+                        TS_Page = new View.TS_CLI_Item_New(Information["minimalInformation"]);
+                    else
+                        TS_Page = new View.TS_CLI_Item_New(Information["minimalInformation"]);
+                    MC_Page = new View.MC_CLI_Item_Load_Entity_Loaded();
+                    ChangeComponents();
+                    break;
+
+                case 5:
+                    NV_Page = new ClientItem_New.View.NV_CLI_Item_New();
+                    TS_Page = new ClientItem_New.View.TS_CLI_Item_New(Information["minimalInformation"]); ;
+                    MC_Page = new ClientItem_New.View.MC_CLI_Item_New_Entity_New();
                     ChangeComponents();
                     break;
             }

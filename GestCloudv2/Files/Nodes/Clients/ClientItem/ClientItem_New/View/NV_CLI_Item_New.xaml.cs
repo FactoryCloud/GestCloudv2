@@ -34,7 +34,12 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_New.View
 
         private void EV_MD_Entity(object sender, RoutedEventArgs e)
         {
+            GetController().MD_Change(3);
+        }
 
+        private void EV_MD_Client(object sender, RoutedEventArgs e)
+        {
+            
         }
 
         private ClientItem_New.Controller.CT_CLI_Item_New GetController()
