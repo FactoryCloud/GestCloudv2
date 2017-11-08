@@ -43,6 +43,7 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientMenu.Controller
         public void CT_ClientNew()
         {
             Information["controller"] = 1;
+            Information["mode"] = 2;
             ChangeController();
         }
 

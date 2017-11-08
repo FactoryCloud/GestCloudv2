@@ -20,9 +20,13 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_New.View
     /// </summary>
     public partial class TS_CLI_Item_New : Page
     {
-        public TS_CLI_Item_New()
+        public TS_CLI_Item_New(int num)
         {
             InitializeComponent();
+            if (num >= 1)
+            {
+                BT_ClientSave.IsEnabled = true;
+            }
         }
 
         private void EV_UserSave(object sender, RoutedEventArgs e)
@@ -32,7 +36,7 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_New.View
             GetController().CT_Menu();
         }
 
-        public void EnableButtonSaveUser(bool enable)
+        /*public void EnableButtonSaveUser(bool enable)
         {
             if (enable)
             {
@@ -42,7 +46,7 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_New.View
             {
                 BT_ClientSave.IsEnabled = false;
             }
-        }
+        }*/
 
         private ClientItem_New.Controller.CT_CLI_Item_New GetController()
         {

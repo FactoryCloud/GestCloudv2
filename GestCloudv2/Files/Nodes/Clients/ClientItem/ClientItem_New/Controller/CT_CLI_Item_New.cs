@@ -24,6 +24,7 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_New.Controller
     public partial class CT_CLI_Item_New : Main.Controller.CT_Common
     {
         public Client client;
+        public int lastClientCod;
 
         public CT_CLI_Item_New()
         {
@@ -41,7 +42,7 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_New.Controller
         {
             if (db.Clients.ToList().Count > 0)
             {
-                client.Cod = db.Entities.OrderBy(u => u.Cod).Last().Cod + 1;
+                client.Cod = db.Clients.OrderBy(u => u.Cod).Last().Cod + 1;
             }
             else
             {
@@ -70,9 +71,53 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_New.Controller
             ChangeController();
         }
 
+        public override void EV_ActivateSaveButton(bool verificated)
+        {
+            if (verificated)
+            {
+                Information["entityValid"] = 1;
+            }
+
+            else
+            {
+                Information["entityValid"] = 0;
+            }
+
+            TestMinimalInformation();
+        }
+
+        public Boolean ClientControlExist(int clientCod)
+        {
+            List<Client> clients = db.Clients.ToList();
+            foreach (var item in clients)
+            {
+                if (item.Cod == clientCod)
+                {
+                    client.Cod = 0;
+                    return true;
+                }
+            }
+            client.Cod = clientCod;
+            TestMinimalInformation();
+            return false;
+        }
+
+        public int LastClientCod()
+        {
+            if (db.Clients.ToList().Count > 0)
+            {
+                lastClientCod = db.Clients.OrderBy(u => u.Cod).Last().Cod + 1;
+                return lastClientCod;
+            }
+            else
+            {
+                return lastClientCod = 1;
+            }
+        }
+
         private void TestMinimalInformation()
         {
-            /*if (entity.Name.Length > 0 && userType != null && user.Code > 0 && userType != null && Information["entityValid"] == 1)
+            if (client.Cod > 0  && Information["entityValid"] == 1)
             {
                 Information["minimalInformation"] = 1;
             }
@@ -82,11 +127,11 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_New.Controller
                 Information["minimalInformation"] = 0;
             }
 
-            TS_Page = new Files.Nodes.Users.UserItem.UserItem_New.View.TS_USR_Item_New(Information["minimalInformation"]);
-            LeftSide.Content = TS_Page;*/
+            TS_Page = new View.TS_CLI_Item_New(Information["minimalInformation"]);
+            LeftSide.Content = TS_Page;
         }
 
-        private void UpdateComponents()
+        override public void UpdateComponents()
         {
             switch (Information["mode"])
             {
@@ -94,14 +139,17 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_New.Controller
                     ChangeComponents();
                     break;
 
-                case 1:
+                case 2:
                     NV_Page = new ClientItem.ClientItem_New.View.NV_CLI_Item_New();
-                    TS_Page = new ClientItem.ClientItem_New.View.TS_CLI_Item_New();
+                    TS_Page = new ClientItem.ClientItem_New.View.TS_CLI_Item_New(Information["minimalInformation"]);
                     MC_Page = new ClientItem.ClientItem_New.View.MC_CLI_Item_New() ;
                     ChangeComponents();
                     break;
 
-                case 2:
+                case 1:
+                    NV_Page = new ClientItem.ClientItem_New.View.NV_CLI_Item_New();
+                    TS_Page = new ClientItem.ClientItem_New.View.TS_CLI_Item_New(Information["minimalInformation"]);
+                    MC_Page = new ClientItem.ClientItem_New.View.MC_CLI_Item_New_Client();
                     ChangeComponents();
                     break;
 
@@ -134,10 +182,10 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_New.Controller
             }
         }
 
-        override public void EV_ActivateSaveButton(bool verificated)
+        /*override public void EV_ActivateSaveButton(bool verificated)
         {
             var a = (ClientItem_New.View.TS_CLI_Item_New)LeftSide.Content;
             a.EnableButtonSaveUser(verificated);
-        }
+        }*/
     }
 }
