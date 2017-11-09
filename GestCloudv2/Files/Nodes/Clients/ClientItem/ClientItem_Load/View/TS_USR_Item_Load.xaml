@@ -1,12 +1,12 @@
-﻿<Page x:Class="GestCloudv2.Files.Nodes.Clients.ClientMenu.View.TS_Client"
+﻿<Page x:Class="GestCloudv2.Files.Nodes.Users.UserItem.UserItem_Load.View.TS_USR_Item_Load"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:GestCloudv2.Files.Nodes.Clients.ClientMenu.View"
+      xmlns:local="clr-namespace:GestCloudv2.Files.Nodes.Users.UserItem.UserItem_Load.View"
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
-      Title="TS_Client">
+      Title="TS_USR_Item_Load">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -16,8 +16,6 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <Button Name="BT_NewClient" Grid.Column="1" Grid.Row="0" Margin="20" IsEnabled="True" Click="EV_CT_ClientNew">Nuevo cliente</Button>
-        <Button Name="BT_ClientLoad" IsEnabled="False" Grid.Column="1" Grid.Row="1" Margin="20" Click="EV_CT_ClientLoad">Ver cliente</Button>
-        <Button Name ="BT_ClientLoadEditable" IsEnabled="False" Grid.Column="1" Grid.Row="2" Margin="20" Click="EV_CT_ClientLoadEditable">Editar cliente</Button>
+        <!--<Button Name="BT_UserSave" Grid.Column="1" Grid.Row="0" Margin="20" Click="EV_UserSave" IsEnabled="False">Guardar Usuario</Button>-->
     </Grid>
 </Page>
