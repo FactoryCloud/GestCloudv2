@@ -13,28 +13,33 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace GestCloudv2.Files.Nodes.Stores.StoreMenu.View
+namespace GestCloudv2.Files.Nodes.Stores.StoreItem.StoreItem_New.View
 {
     /// <summary>
-    /// Interaction logic for TS_STR_Menu.xaml
+    /// Interaction logic for TS_CPN_Item_New.xaml
     /// </summary>
-    public partial class TS_STR_Menu : Page
+    public partial class TS_STR_Item_New : Page
     {
-        public TS_STR_Menu()
+        public TS_STR_Item_New(int num)
         {
             InitializeComponent();
+
+            if(num >= 1)
+            {
+                BT_StoreSave.IsEnabled = true;
+            }
         }
 
-        private void EV_StoreNew(object sender, RoutedEventArgs e)
+        private void EV_CompanySave(object sender, RoutedEventArgs e)
         {
-            GetController().CT_StoreNew();
+            GetController().SaveNewStore();
         }
 
-        private Files.Nodes.Stores.StoreMenu.Controller.CT_StoreMenu GetController()
+        private Controller.CT_STR_Item_New GetController()
         {
             Window mainWindow = Application.Current.MainWindow;
             var a = (Main.View.MainWindow)mainWindow;
-            return (Files.Nodes.Stores.StoreMenu.Controller.CT_StoreMenu)a.MainFrame.Content;
+            return (Controller.CT_STR_Item_New)a.MainFrame.Content;
         }
     }
 }

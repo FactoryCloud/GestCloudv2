@@ -43,13 +43,19 @@ namespace GestCloudv2.Files.Nodes.Stores.StoreMenu.Controller
             UpdateComponents();
         }
 
+        public void CT_StoreNew()
+        {
+            Information["controller"] = 1;
+            ChangeController();
+        }
+
         public void CT_Main()
         {
             Information["controller"] = 0;
             ChangeController();
         }
 
-        private void UpdateComponents()
+        public override void UpdateComponents()
         {
             switch(Information["mode"])
             {
@@ -88,8 +94,8 @@ namespace GestCloudv2.Files.Nodes.Stores.StoreMenu.Controller
                     break;
 
                 case 1:
-                    /*MainWindow b = (MainWindow)System.Windows.Application.Current.MainWindow;
-                    b.MainFrame.Content = new Main.Controller.MainController();*/
+                    Main.View.MainWindow b = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
+                    b.MainFrame.Content = new StoreItem.StoreItem_New.Controller.CT_STR_Item_New();
                     break;
             }
         }

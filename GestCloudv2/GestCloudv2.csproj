@@ -218,6 +218,21 @@
     <Compile Include="Files\Nodes\Entities\View\MC_Entity_Select.xaml.cs">
       <DependentUpon>MC_Entity_Select.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Files\Nodes\Stores\StoreItem\StoreItem_New\Controller\CT_STR_Item_New.cs">
+      <Generator>MSBuild:Compile</Generator>
+    </Compile>
+    <Compile Include="Files\Nodes\Stores\StoreItem\StoreItem_New\View\MC_STR_Item_New_Store.xaml.cs">
+      <DependentUpon>MC_STR_Item_New_Store.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Nodes\Stores\StoreItem\StoreItem_New\View\MC_STR_Item_New_Store_Companies.xaml.cs">
+      <DependentUpon>MC_STR_Item_New_Store_Companies.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Nodes\Stores\StoreItem\StoreItem_New\View\NV_STR_Item_New.xaml.cs">
+      <DependentUpon>NV_STR_Item_New.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Nodes\Stores\StoreItem\StoreItem_New\View\TS_STR_Item_New.xaml.cs">
+      <DependentUpon>TS_STR_Item_New.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Files\Nodes\Stores\StoreMenu\Controller\CT_StoreMenu.cs" />
     <Compile Include="Files\Nodes\Stores\StoreMenu\View\MC_STR_Menu.xaml.cs">
       <DependentUpon>MC_STR_Menu.xaml</DependentUpon>
@@ -424,6 +439,22 @@
     <Page Include="Files\Nodes\Entities\View\MC_Entity_Select.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Files\Nodes\Stores\StoreItem\StoreItem_New\View\MC_STR_Item_New_Store.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Files\Nodes\Stores\StoreItem\StoreItem_New\View\MC_STR_Item_New_Store_Companies.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Files\Nodes\Stores\StoreItem\StoreItem_New\View\NV_STR_Item_New.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Files\Nodes\Stores\StoreItem\StoreItem_New\View\TS_STR_Item_New.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Files\Nodes\Stores\StoreMenu\View\MC_STR_Menu.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -655,8 +686,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Files\Nodes\Stores\StoreItem\Controller\" />
-    <Folder Include="Files\Nodes\Stores\StoreItem\View\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
