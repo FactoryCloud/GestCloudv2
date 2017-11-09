@@ -20,28 +20,18 @@ namespace GestCloudv2.Files.Nodes.Providers.ProviderItem.ProviderItem_New.View
     /// </summary>
     public partial class TS_PRO_Item_New : Page
     {
-        public TS_PRO_Item_New()
+        public TS_PRO_Item_New(int num)
         {
             InitializeComponent();
+            if (num >= 1)
+            {
+                BT_ProviderSave.IsEnabled = true;
+            }
         }
 
         private void EV_ProviderSave(object sender, RoutedEventArgs e)
         {
             GetController().SaveNewProvider();
-            GetController().Information["fieldEmpty"] = 0;
-            GetController().CT_Menu();
-        }
-
-        public void EnableButtonSaveUser(bool enable)
-        {
-            if (enable)
-            {
-                BT_ProviderSave.IsEnabled = true;
-            }
-            else
-            {
-                BT_ProviderSave.IsEnabled = false;
-            }
         }
 
         private ProviderItem_New.Controller.CT_PRO_Item_New GetController()

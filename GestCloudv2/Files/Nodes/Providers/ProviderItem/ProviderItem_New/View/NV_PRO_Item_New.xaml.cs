@@ -18,7 +18,7 @@ using FrameworkDB.V1;
 namespace GestCloudv2.Files.Nodes.Providers.ProviderItem.ProviderItem_New.View
 {
     /// <summary>
-    /// Interaction logic for NV_PRO_Item_New.xaml
+    /// Interaction logic for NV_USR_Item_New.xaml
     /// </summary>
     public partial class NV_PRO_Item_New : Page
     {
@@ -27,9 +27,19 @@ namespace GestCloudv2.Files.Nodes.Providers.ProviderItem.ProviderItem_New.View
             InitializeComponent();
         }
 
-        private void EV_PT_Menu(object sender, RoutedEventArgs e)
+        private void EV_CT_Menu(object sender, RoutedEventArgs e)
         {
             GetController().CT_Menu();
+        }
+
+        private void EV_MD_Provider(object sender, RoutedEventArgs e)
+        {
+            GetController().MD_Change(1);
+        }
+
+        private void EV_MD_Entity(object sender, RoutedEventArgs e)
+        {
+            GetController().MD_Change(2);
         }
 
         private ProviderItem_New.Controller.CT_PRO_Item_New GetController()

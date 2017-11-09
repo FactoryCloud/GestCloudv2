@@ -36,18 +36,6 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_New.View
             //GetController().CT_Menu();
         }
 
-        /*public void EnableButtonSaveUser(bool enable)
-        {
-            if (enable)
-            {
-                BT_ClientSave.IsEnabled = true;
-            }
-            else
-            {
-                BT_ClientSave.IsEnabled = false;
-            }
-        }*/
-
         private ClientItem_New.Controller.CT_CLI_Item_New GetController()
         {
             Window mainWindow = Application.Current.MainWindow;
