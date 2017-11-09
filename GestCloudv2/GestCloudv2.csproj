@@ -151,6 +151,23 @@
     <Compile Include="Files\Nodes\Clients\ClientItem\ClientItem_New\View\MC_CLI_Item_New_Client.xaml.cs">
       <DependentUpon>MC_CLI_Item_New_Client.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Files\Nodes\Clients\ClientItem\ClientItem_Load\Controller\CT_CLI_Item_Load.cs" />
+    <Compile Include="Files\Nodes\Clients\ClientItem\ClientItem_Load\View\FW_CLI_Item_Load_Entity.cs" />
+    <Compile Include="Files\Nodes\Clients\ClientItem\ClientItem_Load\View\MC_CLI_Item_Load_Entity_Edit.cs" />
+    <Compile Include="Files\Nodes\Clients\ClientItem\ClientItem_Load\View\MC_CLI_Item_Load_Entity_Loaded.cs" />
+    <Compile Include="Files\Nodes\Clients\ClientItem\ClientItem_Load\View\MC_CLI_Item_Load_Entity_Select.cs" />
+    <Compile Include="Files\Nodes\Clients\ClientItem\ClientItem_Load\View\MC_CLI_Item_Load_Client.xaml.cs">
+      <DependentUpon>MC_CLI_Item_Load_Client.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Nodes\Clients\ClientItem\ClientItem_Load\View\NV_CLI_Item_Load.xaml.cs">
+      <DependentUpon>NV_CLI_Item_Load.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Nodes\Clients\ClientItem\ClientItem_Load\View\TS_CLI_Item_Load.xaml.cs">
+      <DependentUpon>TS_CLI_Item_Load.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Nodes\Clients\ClientItem\ClientItem_Load\View\TS_CLI_Item_Load_Editable.xaml.cs">
+      <DependentUpon>TS_CLI_Item_Load_Editable.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Files\Nodes\Companies\CompanyItem\CompanyItem_New\Controller\CT_CPN_Item_New.cs">
       <Generator>MSBuild:Compile</Generator>
     </Compile>
@@ -367,6 +384,22 @@
     <Page Include="Files\Nodes\Clients\ClientItem\ClientItem_New\View\MC_CLI_Item_New_Client.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Files\Nodes\Clients\ClientItem\ClientItem_Load\View\MC_CLI_Item_Load_Client.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Files\Nodes\Clients\ClientItem\ClientItem_Load\View\NV_CLI_Item_Load.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Files\Nodes\Clients\ClientItem\ClientItem_Load\View\TS_CLI_Item_Load.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Files\Nodes\Clients\ClientItem\ClientItem_Load\View\TS_CLI_Item_Load_Editable.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Files\Nodes\Companies\CompanyItem\CompanyItem_New\View\MC_CPN_Item_New_Company_Stores.xaml">
       <Generator>MSBuild:Compile</Generator>

@@ -47,6 +47,18 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientMenu.Controller
             ChangeController();
         }
 
+        public void CT_ClientLoad()
+        {
+            Information["controller"] = 2;
+            ChangeController();
+        }
+
+        public void CT_ClientLoadEditable()
+        {
+            Information["controller"] = 3;
+            ChangeController();
+        }
+
         private void UpdateComponents()
         {
             switch (Information["mode"])
@@ -72,6 +84,15 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientMenu.Controller
                 case 1:
                     Main.View.MainWindow b = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
                     b.MainFrame.Content = new ClientItem.ClientItem_New.Controller.CT_CLI_Item_New();
+                    break;
+                case 2:
+                    Main.View.MainWindow c = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
+                    c.MainFrame.Content = new Files.Nodes.Clients.ClientItem.ClientItem_Load.Controller.CT_CLI_Item_Load(client, 0);
+                    break;
+
+                case 3:
+                    Main.View.MainWindow d = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
+                    d.MainFrame.Content = new Files.Nodes.Clients.ClientItem.ClientItem_Load.Controller.CT_CLI_Item_Load(client, 1);
                     break;
             }
         }

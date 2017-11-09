@@ -23,11 +23,31 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientMenu.View
         public TS_Client()
         {
             InitializeComponent();
+            this.Loaded += new RoutedEventHandler(EV_Start);
+        }
+
+        private void EV_Start(object sender, RoutedEventArgs e)
+        {
+            if (GetController().client != null)
+            {
+                BT_ClientLoad.IsEnabled = true;
+                BT_ClientLoadEditable.IsEnabled = true;
+            }
         }
 
         private void EV_CT_ClientNew(object sender, RoutedEventArgs e)
         {
             GetController().CT_ClientNew();
+        }
+
+        private void EV_CT_ClientLoad(object sender, RoutedEventArgs e)
+        {
+            GetController().CT_ClientLoad();
+        }
+
+        private void EV_CT_ClientLoadEditable(object sender, RoutedEventArgs e)
+        {
+            GetController().CT_ClientLoadEditable();
         }
 
         private ClientMenu.Controller.CT_ClientMenu GetController()
