@@ -151,6 +151,21 @@
     <Compile Include="Files\Nodes\Clients\ClientItem\ClientItem_New\View\MC_CLI_Item_New_Client.xaml.cs">
       <DependentUpon>MC_CLI_Item_New_Client.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Files\Nodes\Companies\CompanyItem\CompanyItem_New\Controller\CT_CPN_Item_New.cs">
+      <Generator>MSBuild:Compile</Generator>
+    </Compile>
+    <Compile Include="Files\Nodes\Companies\CompanyItem\CompanyItem_New\View\MC_CPN_Item_New_Company_Stores.xaml.cs">
+      <DependentUpon>MC_CPN_Item_New_Company_Stores.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Nodes\Companies\CompanyItem\CompanyItem_New\View\MC_CPN_Item_New_Company.xaml.cs">
+      <DependentUpon>MC_CPN_Item_New_Company.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Nodes\Companies\CompanyItem\CompanyItem_New\View\NV_CPN_Item_New.xaml.cs">
+      <DependentUpon>NV_CPN_Item_New.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Nodes\Companies\CompanyItem\CompanyItem_New\View\TS_CPN_Item_New.xaml.cs">
+      <DependentUpon>TS_CPN_Item_New.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Files\Nodes\Entities\View\MC_Entity_Load_Select.xaml.cs">
       <DependentUpon>MC_Entity_Load_Select.xaml</DependentUpon>
     </Compile>
@@ -337,6 +352,22 @@
     <Page Include="Files\Nodes\Clients\ClientItem\ClientItem_New\View\MC_CLI_Item_New_Client.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Files\Nodes\Companies\CompanyItem\CompanyItem_New\View\MC_CPN_Item_New_Company_Stores.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Files\Nodes\Companies\CompanyItem\CompanyItem_New\View\MC_CPN_Item_New_Company.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Files\Nodes\Companies\CompanyItem\CompanyItem_New\View\NV_CPN_Item_New.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Files\Nodes\Companies\CompanyItem\CompanyItem_New\View\TS_CPN_Item_New.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Files\Nodes\Entities\View\MC_Entity_Load_Select.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -624,8 +655,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Files\Nodes\Companies\CompanyItem\Controller\" />
-    <Folder Include="Files\Nodes\Companies\CompanyItem\View\" />
     <Folder Include="Files\Nodes\Stores\StoreItem\Controller\" />
     <Folder Include="Files\Nodes\Stores\StoreItem\View\" />
     <Folder Include="Models\" />

@@ -9,6 +9,7 @@ namespace FrameworkDB.V1
     public class Store
     {
         public int StoreID { get; set; }
+        public int? Code { get; set; }
         public string Name { get; set; }
 
         public virtual List<CompanyStore> CompaniesStores { get; set; }

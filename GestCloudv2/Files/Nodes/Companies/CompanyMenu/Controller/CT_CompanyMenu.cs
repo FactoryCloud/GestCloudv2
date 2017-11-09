@@ -34,8 +34,8 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyMenu.Controller
         public void SetCompany(int num)
         {
             Company = db.Companies.Where(c => c.CompanyID == num).Include(c => c.CompaniesStores).First();
-            //TS_Page = new WorkingBoard.View.TS_WB_ToDo();
-            //LeftSide.Content = TS_Page;
+            TS_Page = new View.TS_CPN_Menu();
+            LeftSide.Content = TS_Page;
         }
 
         override public void EV_Start (object sender, RoutedEventArgs e)
@@ -43,12 +43,10 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyMenu.Controller
             UpdateComponents();
         }
 
-        public void MD_Change(int i)
+        public void CT_CompanyNew()
         {
-            Information["oldmode"] = Information["mode"];
-            Information["mode"] = i;
-
-            UpdateComponents();
+            Information["controller"] = 1;
+            ChangeController();
         }
 
         public void CT_Main()
@@ -57,7 +55,7 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyMenu.Controller
             ChangeController();
         }
 
-        private void UpdateComponents()
+        public override void UpdateComponents()
         {
             switch(Information["mode"])
             {
@@ -66,9 +64,9 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyMenu.Controller
                     break;
 
                 case 1:
-                    NV_Page = new Files.Nodes.Companies.CompanyMenu.View.NV_CPN_Menu();
-                    TS_Page = new Files.Nodes.Companies.CompanyMenu.View.TS_CPN_Menu(); ;
-                    MC_Page = new Files.Nodes.Companies.CompanyMenu.View.MC_CPN_Menu(); ;
+                    NV_Page = new View.NV_CPN_Menu();
+                    TS_Page = new View.TS_CPN_Menu(); ;
+                    MC_Page = new View.MC_CPN_Menu(); ;
                     ChangeComponents();
                     break;
 
@@ -96,8 +94,8 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyMenu.Controller
                     break;
 
                 case 1:
-                    /*MainWindow b = (MainWindow)System.Windows.Application.Current.MainWindow;
-                    b.MainFrame.Content = new Main.Controller.MainController();*/
+                    Main.View.MainWindow b = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
+                    b.MainFrame.Content = new Files.Nodes.Companies.CompanyItem.CompanyItem_New.Controller.CT_CPN_Item_New();
                     break;
             }
         }

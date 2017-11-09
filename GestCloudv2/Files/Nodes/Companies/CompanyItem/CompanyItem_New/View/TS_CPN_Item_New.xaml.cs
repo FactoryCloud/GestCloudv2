@@ -13,28 +13,33 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace GestCloudv2.Files.Nodes.Companies.CompanyMenu.View
+namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.View
 {
     /// <summary>
-    /// Interaction logic for TS_CPN_Menu.xaml
+    /// Interaction logic for TS_CPN_Item_New.xaml
     /// </summary>
-    public partial class TS_CPN_Menu : Page
+    public partial class TS_CPN_Item_New : Page
     {
-        public TS_CPN_Menu()
+        public TS_CPN_Item_New(int num)
         {
             InitializeComponent();
+
+            if(num >= 1)
+            {
+                BT_CompanySave.IsEnabled = true;
+            }
         }
 
-        private void EV_CT_CompanyNew(object sender, RoutedEventArgs e)
+        private void EV_CompanySave(object sender, RoutedEventArgs e)
         {
-            GetController().CT_CompanyNew();
+            GetController().SaveNewCompany();
         }
 
-        private Controller.CT_CompanyMenu GetController()
+        private Controller.CT_CPN_Item_New GetController()
         {
             Window mainWindow = Application.Current.MainWindow;
             var a = (Main.View.MainWindow)mainWindow;
-            return (Controller.CT_CompanyMenu)a.MainFrame.Content;
+            return (Controller.CT_CPN_Item_New)a.MainFrame.Content;
         }
     }
 }
