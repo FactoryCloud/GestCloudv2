@@ -32,8 +32,8 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_New.View
         private void EV_UserSave(object sender, RoutedEventArgs e)
         {
             GetController().SaveNewClient();
-            GetController().Information["fieldEmpty"] = 0;
-            GetController().CT_Menu();
+            //GetController().Information["fieldEmpty"] = 0;
+            //GetController().CT_Menu();
         }
 
         /*public void EnableButtonSaveUser(bool enable)

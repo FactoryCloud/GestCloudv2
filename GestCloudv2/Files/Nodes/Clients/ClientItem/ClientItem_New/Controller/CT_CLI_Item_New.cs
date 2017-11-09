@@ -26,11 +26,10 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_New.Controller
         public Client client;
         public int lastClientCod;
 
-        public CT_CLI_Item_New(int editable)
+        public CT_CLI_Item_New()
         {
             entity = new Entity();
             client = new Client();
-            Information.Add("editable", editable);
             Information.Add("minimalInformation", 0);
         }
 
@@ -64,6 +63,8 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_New.Controller
             db.Clients.Add(client);
             db.SaveChanges();
             MessageBox.Show("Datos guardados correctamente");
+            Information["fieldEmpty"] = 0;
+            CT_Menu();
         }
 
         public void CT_Menu()
@@ -81,7 +82,7 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_New.Controller
         override public void MD_EntityNew()
         {
             Information["entityLoaded"] = 2;
-            MD_Change(5);
+            MD_Change(3);
         }
 
         public override void MD_EntityLoaded()
@@ -125,17 +126,20 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_New.Controller
             if (db.Clients.ToList().Count > 0)
             {
                 lastClientCod = db.Clients.OrderBy(u => u.Cod).Last().Cod + 1;
+                client.Cod = lastClientCod;
                 return lastClientCod;
             }
             else
             {
+                client.Cod = 1;
                 return lastClientCod = 1;
+
             }
         }
 
-        private void TestMinimalInformation()
+        public void TestMinimalInformation()
         {
-            if (client.Cod > 0  && Information["entityValid"] == 1)
+            if (client.Cod > 0 && Information["entityValid"] == 1)
             {
                 Information["minimalInformation"] = 1;
             }
@@ -149,7 +153,7 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_New.Controller
             LeftSide.Content = TS_Page;
         }
 
-        override public void UpdateComponents()
+        /*override public void UpdateComponents()
         {
             if (Information["entityLoaded"] == 1 && Information["mode"] == 2)
                 Information["mode"] = 4;
@@ -208,6 +212,67 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_New.Controller
                     NV_Page = new ClientItem_New.View.NV_CLI_Item_New();
                     TS_Page = new ClientItem_New.View.TS_CLI_Item_New(Information["minimalInformation"]); ;
                     MC_Page = new ClientItem_New.View.MC_CLI_Item_New_Entity_New();
+                    ChangeComponents();
+                    break;
+
+                case 6:
+                    NV_Page = new View.NV_CLI_Item_New();
+                    if (Information["editable"] == 0)
+                        TS_Page = new View.TS_CLI_Item_New(Information["minimalInformation"]);
+                    else
+                        TS_Page = new View.TS_CLI_Item_New(Information["minimalInformation"]);
+                    MC_Page = new View.MC_CLI_Item_New_Client();
+                    ChangeComponents();
+                    break;
+
+                case 7:
+                    NV_Page = new ClientItem_New.View.NV_CLI_Item_New();
+                    TS_Page = new ClientItem_New.View.TS_CLI_Item_New(Information["minimalInformation"]);
+                    MC_Page = new ClientItem_New.View.MC_CLI_Item_Load_Entity_Loaded(); ;
+                    ChangeComponents();
+                    break;
+            }
+        }*/
+
+        override public void UpdateComponents()
+        {
+            if (Information["entityLoaded"] == 1 && Information["mode"] == 2)
+                Information["mode"] = 4;
+
+            if (Information["entityLoaded"] == 2 && Information["mode"] == 2)
+                Information["mode"] = 3;
+
+            switch (Information["mode"])
+            {
+                case 0:
+                    ChangeComponents();
+                    break;
+
+                case 1:
+                    NV_Page = new ClientItem_New.View.NV_CLI_Item_New();
+                    TS_Page = new ClientItem_New.View.TS_CLI_Item_New(Information["minimalInformation"]);
+                    MC_Page = new ClientItem_New.View.MC_CLI_Item_New_Client();
+                    ChangeComponents();
+                    break;
+
+                case 2:
+                    NV_Page = new ClientItem_New.View.NV_CLI_Item_New();
+                    TS_Page = new ClientItem_New.View.TS_CLI_Item_New(Information["minimalInformation"]);
+                    MC_Page = new ClientItem_New.View.MC_CLI_Item_Load_Entity_Select();
+                    ChangeComponents();
+                    break;
+
+                case 3:
+                    NV_Page = new ClientItem_New.View.NV_CLI_Item_New();
+                    TS_Page = new ClientItem_New.View.TS_CLI_Item_New(Information["minimalInformation"]);
+                    MC_Page = new ClientItem_New.View.MC_CLI_Item_New_Entity_New();
+                    ChangeComponents();
+                    break;
+
+                case 4:
+                    NV_Page = new ClientItem_New.View.NV_CLI_Item_New();
+                    TS_Page = new ClientItem_New.View.TS_CLI_Item_New(Information["minimalInformation"]);
+                    MC_Page = new ClientItem_New.View.MC_CLI_Item_Load_Entity_Loaded();
                     ChangeComponents();
                     break;
             }

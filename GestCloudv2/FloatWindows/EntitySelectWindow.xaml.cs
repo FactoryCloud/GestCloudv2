@@ -18,6 +18,7 @@ using System.Collections;
 using System.ComponentModel;
 using System.Windows.Threading;
 using System.Windows.Controls.Primitives;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace GestCloudv2.FloatWindows
 {
@@ -49,9 +50,9 @@ namespace GestCloudv2.FloatWindows
 
         public void EV_Start(object sender, RoutedEventArgs e)
         {
-            List<EntityType> entityTypes = entitiesView.GetEntityTypes();
+            List<FrameworkDB.V1.EntityType> entityTypes = entitiesView.GetEntityTypes();
 
-            foreach (EntityType ent in entityTypes)
+            foreach (FrameworkDB.V1.EntityType ent in entityTypes)
             {
                 ComboBoxItem temp = new ComboBoxItem();
                 temp.Content = $"{ent.Name}";
