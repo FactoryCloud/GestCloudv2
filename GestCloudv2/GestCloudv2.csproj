@@ -186,6 +186,23 @@
     <Compile Include="Files\Nodes\Entities\View\MC_Entity_Load_Select.xaml.cs">
       <DependentUpon>MC_Entity_Load_Select.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Files\Nodes\Providers\ProviderItem\ProviderItem_Load\Controller\CT_PRO_Item_Load.cs" />
+    <Compile Include="Files\Nodes\Providers\ProviderItem\ProviderItem_Load\View\FW_PRO_Item_Load_Entity.cs" />
+    <Compile Include="Files\Nodes\Providers\ProviderItem\ProviderItem_Load\View\MC_PRO_Item_Load_Provider.xaml.cs">
+      <DependentUpon>MC_PRO_Item_Load_Provider.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Nodes\Providers\ProviderItem\ProviderItem_Load\View\MC_PRO_Item_Load_Entity_Edit.cs" />
+    <Compile Include="Files\Nodes\Providers\ProviderItem\ProviderItem_Load\View\MC_PRO_Item_Load_Entity_Loaded.cs" />
+    <Compile Include="Files\Nodes\Providers\ProviderItem\ProviderItem_Load\View\MC_PRO_Item_Load_Entity_Select.cs" />
+    <Compile Include="Files\Nodes\Providers\ProviderItem\ProviderItem_Load\View\NV_PRO_Item_Load.xaml.cs">
+      <DependentUpon>NV_PRO_Item_Load.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Nodes\Providers\ProviderItem\ProviderItem_Load\View\TS_PRO_Item_Load.xaml.cs">
+      <DependentUpon>TS_PRO_Item_Load.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Nodes\Providers\ProviderItem\ProviderItem_Load\View\TS_PRO_Item_Load_Editable.xaml.cs">
+      <DependentUpon>TS_PRO_Item_Load_Editable.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Files\Nodes\Providers\ProviderItem\ProviderItem_New\Controller\CT_PRO_Item_New.cs">
       <Generator>MSBuild:Compile</Generator>
     </Compile>
@@ -418,6 +435,22 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Files\Nodes\Entities\View\MC_Entity_Load_Select.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Files\Nodes\Providers\ProviderItem\ProviderItem_Load\View\MC_PRO_Item_Load_Provider.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Files\Nodes\Providers\ProviderItem\ProviderItem_Load\View\NV_PRO_Item_Load.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Files\Nodes\Providers\ProviderItem\ProviderItem_Load\View\TS_PRO_Item_Load.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Files\Nodes\Providers\ProviderItem\ProviderItem_Load\View\TS_PRO_Item_Load_Editable.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -22,9 +22,15 @@ namespace GestCloudv2.Files.Nodes.Providers.ProviderMenu.Controller
 
         override public void EV_Start(object sender, RoutedEventArgs e)
         {
-
             providersView = new ProvidersView();
             UpdateComponents();
+        }
+
+        public void SetProvider(int num)
+        {
+            provider = db.Providers.Where(c => c.ProviderID == num).Include(d => d.entity).First();
+            TS_Page = new ProviderMenu.View.TS_Provider();
+            LeftSide.Content = TS_Page;
         }
 
         public void CT_Main()
@@ -39,11 +45,16 @@ namespace GestCloudv2.Files.Nodes.Providers.ProviderMenu.Controller
             ChangeController();
         }
 
-        public void SetProvider(int num)
+        public void CT_ProviderLoad()
         {
-            provider = db.Providers.Where(c => c.ProviderID == num).Include(e => e.entity).First();
-            TS_Page = new ProviderMenu.View.TS_Provider();
-            LeftSide.Content = TS_Page;
+            Information["controller"] = 2;
+            ChangeController();
+        }
+
+        public void CT_ProviderLoadEditable()
+        {
+            Information["controller"] = 3;
+            ChangeController();
         }
 
         private void UpdateComponents()
@@ -71,6 +82,16 @@ namespace GestCloudv2.Files.Nodes.Providers.ProviderMenu.Controller
                 case 1:
                     Main.View.MainWindow b = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
                     b.MainFrame.Content = new ProviderItem.ProviderItem_New.Controller.CT_PRO_Item_New();
+                    break;
+
+                case 2:
+                    Main.View.MainWindow c = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
+                    c.MainFrame.Content = new Files.Nodes.Providers.ProviderItem.ProviderItem_Load.Controller.CT_PRO_Item_Load(provider, 0);
+                    break;
+
+                case 3:
+                    Main.View.MainWindow d = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
+                    d.MainFrame.Content = new Files.Nodes.Providers.ProviderItem.ProviderItem_Load.Controller.CT_PRO_Item_Load(provider, 1);
                     break;
             }
         }
