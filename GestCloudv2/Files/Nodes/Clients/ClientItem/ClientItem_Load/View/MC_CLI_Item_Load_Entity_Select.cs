@@ -18,14 +18,15 @@ using Microsoft.SqlServer;
 using System.Data;
 using System.Collections;
 
-namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_Load.View
+namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_Load.View
 {
     /// <summary>
-    /// Interaction logic for MC_USR_Item_Load_Entity_Loaded.xaml
+    /// Interaction logic for MC_USR_Item_Load_Entity_Select.xaml
     /// </summary>
-    public partial class MC_USR_Item_Load_Entity_Loaded : Files.Nodes.Entities.View.MC_Entity_Loaded
+    public partial class MC_CLI_Item_Load_Entity_Select : Files.Nodes.Entities.View.MC_Entity_Load_Select
     {
-        public MC_USR_Item_Load_Entity_Loaded()
+
+        public MC_CLI_Item_Load_Entity_Select()
         {
 
         }
@@ -34,7 +35,7 @@ namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_Load.View
         {
             Window mainWindow = Application.Current.MainWindow;
             var a = (Main.View.MainWindow)mainWindow;
-            return (UserItem_Load.Controller.CT_USR_Item_Load)a.MainFrame.Content;
+            return (Controller.CT_CLI_Item_Load)a.MainFrame.Content;
         }
     }
 }

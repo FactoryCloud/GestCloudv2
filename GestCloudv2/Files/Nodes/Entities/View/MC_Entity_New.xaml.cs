@@ -61,7 +61,7 @@ namespace GestCloudv2.Files.Nodes.Entities.View
                 GetController().entity.NIF = TB_Entity_NIF.Text.ToString();
             }
 
-            if (TB_Entity_Name.Text.Length <= 30 && TB_Entity_SubName.Text.Length <= 30 && TB_Entity_Phone.Text.Length <= 20 && TB_Entity_NIF.Text.Length <= 50 && TB_Entity_Name.Text.Length > 0 && TB_Entity_SubName.Text.Length > 0 && TB_Entity_Phone.Text.Length > 0 && TB_Entity_NIF.Text.Length > 0)
+            if (TB_Entity_Name.Text.Length <= 30 && TB_Entity_SubName.Text.Length <= 30 && TB_Entity_Phone.Text.Length <= 20 && TB_Entity_NIF.Text.Length <= 10 && TB_Entity_Name.Text.Length > 0 && TB_Entity_SubName.Text.Length > 0 && TB_Entity_Phone.Text.Length > 0 && TB_Entity_NIF.Text.Length > 0)
             {
                 GetController().EV_ActivateSaveButton(true);
             }

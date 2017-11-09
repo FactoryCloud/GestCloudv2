@@ -13,28 +13,33 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_Load.View
+namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_Load.View
 {
     /// <summary>
-    /// Interaction logic for TS_USR_Item_Load.xaml
+    /// Interaction logic for TS_USR_Item_Load_Editable.xaml
     /// </summary>
-    public partial class TS_USR_Item_Load : Page
+    public partial class TS_CLI_Item_Load_Editable : Page
     {
-        public TS_USR_Item_Load(int num)
+        public TS_CLI_Item_Load_Editable(int num)
         {
             InitializeComponent();
+
+            if(num >= 1)
+            {
+                BT_ClientSave.IsEnabled = true;
+            }
         }
 
-        private void EV_UserSave(object sender, RoutedEventArgs e)
+        private void EV_ClientSave(object sender, RoutedEventArgs e)
         {
-            GetController().SaveNewUser();
+            GetController().SaveNewClient();
         }
 
-        private Controller.CT_USR_Item_Load GetController()
+        private Controller.CT_CLI_Item_Load GetController()
         {
             Window mainWindow = Application.Current.MainWindow;
             var a = (Main.View.MainWindow)mainWindow;
-            return (Controller.CT_USR_Item_Load)a.MainFrame.Content;
+            return (Controller.CT_CLI_Item_Load)a.MainFrame.Content;
         }
     }
 }

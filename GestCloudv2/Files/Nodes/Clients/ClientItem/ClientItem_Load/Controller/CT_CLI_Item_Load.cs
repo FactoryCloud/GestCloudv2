@@ -17,10 +17,10 @@ using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
 using FrameworkView.V1;
 
-namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_Load
+namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_Load.Controller
 {
     /// <summary>
-    /// Interaction logic for CT_USR_Item_Load.xaml
+    /// Interaction logic for CT_CLI_Item_Load.xaml
     /// </summary>
     public partial class CT_CLI_Item_Load : Main.Controller.CT_Common
     {
@@ -31,24 +31,24 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_Load
             Information.Add("editable", editable);
             Information.Add("old_editable", 0);
             Information.Add("minimalInformation", 0);
-
+            this.client = client;
             Information["entityValid"] = 1;
         }
 
         override public void EV_Start(object sender, RoutedEventArgs e)
         {
+            //MessageBox.Show($"{entity.EntityID}");
             entity = db.Entities.Where(u => u.EntityID == client.EntityID).First();
-            MessageBox.Show($"{entity.EntityID}");
 
             UpdateComponents();
         }
 
-        public List<Client> GetClient()
+        public List<Client> GetClients()
         {
             return db.Clients.OrderBy(u => u.Cod).ToList();
         }
 
-        public void SetClientCode(int num)
+        public void SetClientCod(int num)
         {
             client.Cod = num;
             TestMinimalInformation();
@@ -69,29 +69,29 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_Load
             TestMinimalInformation();
         }
 
-        public void CleanClientcod()
+        public void CleanCod()
         {
             client.Cod = 0;
             TestMinimalInformation();
         }
 
-        public Boolean ClientControlExist(int clientCod)
+        public Boolean UserControlExist(int cod)
         {
             List<Client> clients = db.Clients.ToList();
             foreach (var item in clients)
             {
-                if (item.Cod == clientCod)
+                if ((item.Cod == cod && client.Cod != cod)|| cod == 0)
                 {
-                    client.Cod = 0;
+                    CleanCod();
                     return true;
                 }
             }
-            client.Cod = clientCod;
+            client.Cod = cod;
             TestMinimalInformation();
             return false;
         }
 
-        public void TestMinimalInformation()
+        private void TestMinimalInformation()
         {
             if (client.Cod > 0 && Information["entityValid"] == 1)
             {
@@ -102,36 +102,28 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_Load
             {
                 Information["minimalInformation"] = 0;
             }
-
-            TS_Page = new View.TS_CLI_Item_Load_Editable(Information["minimalInformation"]);
-            LeftSide.Content = TS_Page;
+            if (Information["editable"] != 0)
+            {
+                TS_Page = new View.TS_CLI_Item_Load_Editable(Information["minimalInformation"]);
+                LeftSide.Content = TS_Page;
+            }
         }
 
         public void SaveNewClient()
         {
-            if (db.Clients.ToList().Count > 0)
+            if (Information["entityLoaded"] == 2)
             {
-                client.Cod = db.Clients.OrderBy(u => u.Cod).Last().Cod + 1;
+                db.Entities.Update(entity);
             }
-            else
-            {
-                client.Cod = 1;
-            }
+            
+            Client client1 = db.Clients.Where(u => u.ClientID == client.ClientID).First();
+            client1.Cod= client.Cod;
+            client1.EntityID = entity.EntityID;
 
-            if (db.Entities.ToList().Count > 0)
-            {
-                entity.Cod = db.Entities.OrderBy(u => u.Cod).Last().Cod + 1;
-            }
-            else
-            {
-                entity.Cod = 1;
-            }
-
-            client.entity = entity;
-            db.Entities.Add(entity);
-            db.Clients.Add(client);
+            db.Clients.Update(client1);
             db.SaveChanges();
             MessageBox.Show("Datos guardados correctamente");
+
             Information["fieldEmpty"] = 0;
             CT_Menu();
         }
@@ -179,7 +171,7 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_Load
                         TS_Page = new View.TS_CLI_Item_Load(Information["minimalInformation"]);
                     else
                         TS_Page = new View.TS_CLI_Item_Load_Editable(Information["minimalInformation"]);
-                    MC_Page = new View.MC_CLI_Item_Load_User();
+                    MC_Page = new View.MC_CLI_Item_Load_Client();
                     ChangeComponents();
                     break;
 
@@ -236,7 +228,7 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_Load
                         }
                     }
                     Main.View.MainWindow a = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
-                    a.MainFrame.Content = new Files.Nodes.Users.UserMenu.Controller.CT_UserMenu();
+                    a.MainFrame.Content = new Files.Nodes.Clients.ClientMenu.Controller.CT_ClientMenu();
                     break;
 
                 case 1:

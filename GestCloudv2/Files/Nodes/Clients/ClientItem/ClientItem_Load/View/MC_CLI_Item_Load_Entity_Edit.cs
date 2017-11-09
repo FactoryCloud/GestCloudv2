@@ -18,24 +18,23 @@ using Microsoft.SqlServer;
 using System.Data;
 using System.Collections;
 
-namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_Load.View
+namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_Load.View
 {
     /// <summary>
-    /// Interaction logic for MC_USR_Item_Load_Entity_Select.xaml
+    /// Interaction logic for MC_USR_Item_Load_Entity_Edit.xaml
     /// </summary>
-    public partial class MC_USR_Item_Load_Entity_Select : Files.Nodes.Entities.View.MC_Entity_Load_Select
+    public partial class MC_CLI_Item_Load_Entity_Edit : Files.Nodes.Entities.View.MC_Entity_New
     {
 
-        public MC_USR_Item_Load_Entity_Select()
+        public MC_CLI_Item_Load_Entity_Edit()
         {
-
         }
 
         override public Main.Controller.CT_Common GetController()
         {
             Window mainWindow = Application.Current.MainWindow;
             var a = (Main.View.MainWindow)mainWindow;
-            return (Controller.CT_USR_Item_Load)a.MainFrame.Content;
+            return (ClientItem_Load.Controller.CT_CLI_Item_Load)a.MainFrame.Content;
         }
     }
 }

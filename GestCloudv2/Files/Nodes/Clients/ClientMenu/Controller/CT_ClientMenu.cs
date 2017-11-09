@@ -87,12 +87,12 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientMenu.Controller
                     break;
                 case 2:
                     Main.View.MainWindow c = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
-                    c.MainFrame.Content = new Files.Nodes.Users.UserItem.UserItem_Load.Controller.CT_USR_Item_Load(user, 0);
+                    c.MainFrame.Content = new Files.Nodes.Clients.ClientItem.ClientItem_Load.Controller.CT_CLI_Item_Load(client, 0);
                     break;
 
                 case 3:
                     Main.View.MainWindow d = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
-                    d.MainFrame.Content = new Files.Nodes.Users.UserItem.UserItem_Load.Controller.CT_USR_Item_Load(user, 1);
+                    d.MainFrame.Content = new Files.Nodes.Clients.ClientItem.ClientItem_Load.Controller.CT_CLI_Item_Load(client, 1);
                     break;
             }
         }

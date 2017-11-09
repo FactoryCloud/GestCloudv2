@@ -17,33 +17,24 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.SqlServer;
 using System.Data;
 using System.Collections;
-using FrameworkView.V1;
 
-namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_Load.View
+namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_Load.View
 {
     /// <summary>
-    /// Interaction logic for FW_USR_Item_New_Entity.xaml
+    /// Interaction logic for MC_USR_Item_Load_Entity_Loaded.xaml
     /// </summary>
-    public partial class FW_USR_Item_Load_Entity : FloatWindows.EntitySelectWindow
+    public partial class MC_CLI_Item_Load_Entity_Loaded : Files.Nodes.Entities.View.MC_Entity_Loaded
     {
-        public FW_USR_Item_Load_Entity(int opt)
+        public MC_CLI_Item_Load_Entity_Loaded()
         {
-            InitializeComponent();
 
-            entitiesView = new EntitiesView(opt);
-
-            DG_Entities.MouseLeftButtonUp += new MouseButtonEventHandler(EV_SelectedChange);
-            DG_Entities.MouseDoubleClick += new MouseButtonEventHandler(EV_SelectEntity);
-
-            this.Loaded += new RoutedEventHandler(EV_Start);
-            this.Closed += new EventHandler(EV_Close);
         }
 
         override public Main.Controller.CT_Common GetController()
         {
             Window mainWindow = Application.Current.MainWindow;
             var a = (Main.View.MainWindow)mainWindow;
-            return (UserItem_Load.Controller.CT_USR_Item_Load)a.MainFrame.Content;
+            return (ClientItem_Load.Controller.CT_CLI_Item_Load)a.MainFrame.Content;
         }
     }
 }
