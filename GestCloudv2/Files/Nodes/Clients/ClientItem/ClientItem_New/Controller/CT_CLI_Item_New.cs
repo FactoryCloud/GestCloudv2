@@ -40,29 +40,25 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_New.Controller
 
         public void SaveNewClient()
         {
-            if (db.Clients.ToList().Count > 0)
+            if (Information["entityLoaded"] == 2)
             {
-                client.Cod = db.Clients.OrderBy(u => u.Cod).Last().Cod + 1;
-            }
-            else
-            {
-                client.Cod = 1;
-            }
+                if (db.Clients.ToList().Count > 0)
+                {
+                    entity.Cod = db.Entities.OrderBy(u => u.Cod).Last().Cod + 1;
+                }
+                else
+                {
+                    entity.Cod = 1;
+                }
 
-            if (db.Entities.ToList().Count > 0)
-            {
-                entity.Cod = db.Entities.OrderBy(u => u.Cod).Last().Cod + 1;
-            }
-            else
-            {
-                entity.Cod = 1;
+                db.Entities.Add(entity);
             }
 
             client.entity = entity;
-            db.Entities.Add(entity);
             db.Clients.Add(client);
             db.SaveChanges();
             MessageBox.Show("Datos guardados correctamente");
+
             Information["fieldEmpty"] = 0;
             CT_Menu();
         }

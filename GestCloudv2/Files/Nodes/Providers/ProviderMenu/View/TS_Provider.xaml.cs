@@ -23,11 +23,31 @@ namespace GestCloudv2.Files.Nodes.Providers.ProviderMenu.View
         public TS_Provider()
         {
             InitializeComponent();
+            this.Loaded += new RoutedEventHandler(EV_Start);
+        }
+
+        private void EV_Start(object sender, RoutedEventArgs e)
+        {
+            if (GetController().provider != null)
+            {
+                BT_ProviderLoad.IsEnabled = true;
+                BT_ProviderLoadEditable.IsEnabled = true;
+            }
         }
 
         private void EV_CT_ProviderNew(object sender, RoutedEventArgs e)
         {
             GetController().CT_ProviderNew();
+        }
+
+        private void EV_CT_ProviderLoad(object sender, RoutedEventArgs e)
+        {
+            GetController().CT_ProviderLoad();
+        }
+
+        private void EV_CT_ProviderLoadEditable(object sender, RoutedEventArgs e)
+        {
+            GetController().CT_ProviderLoadEditable();
         }
 
         private ProviderMenu.Controller.CT_ProviderMenu GetController()

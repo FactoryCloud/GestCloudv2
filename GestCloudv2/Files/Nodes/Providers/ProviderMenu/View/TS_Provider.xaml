@@ -17,8 +17,8 @@
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <Button Name="BT_NewProvider" Grid.Column="1" Grid.Row="0" Margin="20" IsEnabled="True" Click="EV_CT_ProviderNew">Nuevo proveedor</Button>
-        <Button Name="BT_ModifyProvider" Grid.Column="1" Grid.Row="1" Margin="20" IsEnabled="False">Modificar proveedor</Button>
-        <Button Name="BT_DeleteProvider" Grid.Column="1" Grid.Row="2" Margin="20" IsEnabled="False">Eliminar proveedor</Button>
+        <Button Name="BT_ProviderLoad" Grid.Column="1" Grid.Row="1" Margin="20" IsEnabled="False" Click="EV_CT_ProviderLoad">Ver proveedor</Button>
+        <Button Name="BT_ProviderLoadEditable" Grid.Column="1" Grid.Row="2" Margin="20" IsEnabled="False" Click="EV_CT_ProviderLoadEditable">Editar proveedor</Button>
 
 
     </Grid>

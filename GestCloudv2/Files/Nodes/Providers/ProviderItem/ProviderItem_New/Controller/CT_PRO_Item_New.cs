@@ -24,11 +24,13 @@ namespace GestCloudv2.Files.Nodes.Providers.ProviderItem.ProviderItem_New.Contro
     public partial class CT_PRO_Item_New : Main.Controller.CT_Common
     {
         public Provider provider;
+        public int lastProviderCod;
 
         public CT_PRO_Item_New()
         {
             entity = new Entity();
             provider = new Provider();
+            Information.Add("minimalInformation", 0);
         }
 
         override public void EV_Start(object sender, RoutedEventArgs e)
@@ -38,30 +40,27 @@ namespace GestCloudv2.Files.Nodes.Providers.ProviderItem.ProviderItem_New.Contro
 
         public void SaveNewProvider()
         {
-            if (db.Providers.ToList().Count > 0)
+            if (Information["entityLoaded"] == 2)
             {
-                provider.Cod = db.Providers.OrderBy(c => c.Cod).Last().Cod + 1;
-            }
-            else
-            {
-                provider.Cod = 1;
-            }
+                if (db.Providers.ToList().Count > 0)
+                {
+                    entity.Cod = db.Entities.OrderBy(u => u.Cod).Last().Cod + 1;
+                }
+                else
+                {
+                    entity.Cod = 1;
+                }
 
-            if (db.Entities.ToList().Count > 0)
-            {
-                entity.Cod = db.Entities.OrderBy(u => u.Cod).Last().Cod + 1;
-            }
-            else
-            {
-                entity.Cod = 1;
+                db.Entities.Add(entity);
             }
 
             provider.entity = entity;
-
-            db.Entities.Add(entity);
             db.Providers.Add(provider);
             db.SaveChanges();
             MessageBox.Show("Datos guardados correctamente");
+
+            Information["fieldEmpty"] = 0;
+            CT_Menu();
         }
 
         public void CT_Menu()
@@ -70,8 +69,94 @@ namespace GestCloudv2.Files.Nodes.Providers.ProviderItem.ProviderItem_New.Contro
             ChangeController();
         }
 
-        private void UpdateComponents()
+        override public void MD_EntityLoad()
         {
+            View.FW_PRO_Item_Load_Entity floatWindow = new View.FW_PRO_Item_Load_Entity(4);
+            floatWindow.Show();
+        }
+
+        override public void MD_EntityNew()
+        {
+            Information["entityLoaded"] = 2;
+            MD_Change(3);
+        }
+
+        public override void MD_EntityLoaded()
+        {
+            MD_Change(4);
+        }
+
+        public override void EV_ActivateSaveButton(bool verificated)
+        {
+            if (verificated)
+            {
+                Information["entityValid"] = 1;
+            }
+
+            else
+            {
+                Information["entityValid"] = 0;
+            }
+
+            TestMinimalInformation();
+        }
+
+        public Boolean ProviderControlExist(int providerCod)
+        {
+            List<Provider> providers = db.Providers.ToList();
+            foreach (var item in providers)
+            {
+                if (item.Cod == providerCod)
+                {
+                    provider.Cod = 0;
+                    return true;
+                }
+            }
+            provider.Cod = providerCod;
+            TestMinimalInformation();
+            return false;
+        }
+
+        public int LastProviderCod()
+        {
+            if (db.Providers.ToList().Count > 0)
+            {
+                lastProviderCod = db.Providers.OrderBy(u => u.Cod).Last().Cod + 1;
+                provider.Cod = lastProviderCod;
+                return lastProviderCod;
+            }
+            else
+            {
+                provider.Cod = 1;
+                return lastProviderCod = 1;
+
+            }
+        }
+
+        public void TestMinimalInformation()
+        {
+            if (provider.Cod > 0 && Information["entityValid"] == 1)
+            {
+                Information["minimalInformation"] = 1;
+            }
+
+            else
+            {
+                Information["minimalInformation"] = 0;
+            }
+
+            TS_Page = new View.TS_PRO_Item_New(Information["minimalInformation"]);
+            LeftSide.Content = TS_Page;
+        }
+
+        override public void UpdateComponents()
+        {
+            if (Information["entityLoaded"] == 1 && Information["mode"] == 2)
+                Information["mode"] = 4;
+
+            if (Information["entityLoaded"] == 2 && Information["mode"] == 2)
+                Information["mode"] = 3;
+
             switch (Information["mode"])
             {
                 case 0:
@@ -79,21 +164,30 @@ namespace GestCloudv2.Files.Nodes.Providers.ProviderItem.ProviderItem_New.Contro
                     break;
 
                 case 1:
-                    NV_Page = new ProviderItem.ProviderItem_New.View.NV_PRO_Item_New();
-                    TS_Page = new ProviderItem.ProviderItem_New.View.TS_PRO_Item_New();
-                    MC_Page = new ProviderItem.ProviderItem_New.View.MC_PRO_Item_New() ;
+                    NV_Page = new ProviderItem_New.View.NV_PRO_Item_New();
+                    TS_Page = new ProviderItem_New.View.TS_PRO_Item_New(Information["minimalInformation"]);
+                    MC_Page = new ProviderItem_New.View.MC_PRO_Item_New_Provider();
                     ChangeComponents();
                     break;
 
                 case 2:
+                    NV_Page = new ProviderItem_New.View.NV_PRO_Item_New();
+                    TS_Page = new ProviderItem_New.View.TS_PRO_Item_New(Information["minimalInformation"]);
+                    MC_Page = new ProviderItem_New.View.MC_PRO_Item_Load_Entity_Select();
                     ChangeComponents();
                     break;
 
                 case 3:
+                    NV_Page = new ProviderItem_New.View.NV_PRO_Item_New();
+                    TS_Page = new ProviderItem_New.View.TS_PRO_Item_New(Information["minimalInformation"]);
+                    MC_Page = new ProviderItem_New.View.MC_PRO_Item_New_Entity_New();
                     ChangeComponents();
                     break;
 
                 case 4:
+                    NV_Page = new ProviderItem_New.View.NV_PRO_Item_New();
+                    TS_Page = new ProviderItem_New.View.TS_PRO_Item_New(Information["minimalInformation"]);
+                    MC_Page = new ProviderItem_New.View.MC_PRO_Item_Load_Entity_Loaded();
                     ChangeComponents();
                     break;
             }
@@ -116,12 +210,6 @@ namespace GestCloudv2.Files.Nodes.Providers.ProviderItem.ProviderItem_New.Contro
                     a.MainFrame.Content = new ProviderMenu.Controller.CT_ProviderMenu();
                     break;
             }
-        }
-
-        override public void EV_ActivateSaveButton(bool verificated)
-        {
-            var a = (ProviderItem_New.View.TS_PRO_Item_New)LeftSide.Content;
-            a.EnableButtonSaveUser(verificated);
         }
     }
 }

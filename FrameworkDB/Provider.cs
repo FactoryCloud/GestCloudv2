@@ -10,7 +10,7 @@ namespace FrameworkDB.V1
 {
     public class Provider
     {
-        [Key]
+        
         public int ProviderID { get; set; }
 
         public int Cod { get; set; }

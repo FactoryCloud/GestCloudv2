@@ -13,32 +13,28 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace GestCloudv2.Files.Nodes.Providers.ProviderItem.ProviderItem_New.View
+namespace GestCloudv2.Files.Nodes.Providers.ProviderItem.ProviderItem_Load.View
 {
     /// <summary>
-    /// Interaction logic for TS_PRO_Item_New.xaml
+    /// Interaction logic for TS_USR_Item_Load.xaml
     /// </summary>
-    public partial class TS_PRO_Item_New : Page
+    public partial class TS_PRO_Item_Load : Page
     {
-        public TS_PRO_Item_New(int num)
+        public TS_PRO_Item_Load(int num)
         {
             InitializeComponent();
-            if (num >= 1)
-            {
-                BT_ProviderSave.IsEnabled = true;
-            }
         }
 
-        private void EV_ProviderSave(object sender, RoutedEventArgs e)
+        private void EV_ClientSave(object sender, RoutedEventArgs e)
         {
             GetController().SaveNewProvider();
         }
 
-        private ProviderItem_New.Controller.CT_PRO_Item_New GetController()
+        private Controller.CT_PRO_Item_Load GetController()
         {
             Window mainWindow = Application.Current.MainWindow;
             var a = (Main.View.MainWindow)mainWindow;
-            return (ProviderItem_New.Controller.CT_PRO_Item_New)a.MainFrame.Content;
+            return (Controller.CT_PRO_Item_Load)a.MainFrame.Content;
         }
     }
 }
