@@ -38,9 +38,10 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyMenu.View
 
         private void EV_FileOpen(object sender, MouseButtonEventArgs e)
         {
-            if (GetController().Company != null)
+            if (GetController().company != null)
             {
-                // Función al seleccionar empresa
+                DG_Companies.MouseLeftButtonUp -= EV_FileSelected;
+                GetController().EV_CT_CompanyLoad();
             }
         }
 
@@ -61,11 +62,11 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyMenu.View
             DG_Companies.ItemsSource = GetController().CompaniesView.GetTable();
         }
 
-        private Files.Nodes.Companies.CompanyMenu.Controller.CT_CompanyMenu GetController()
+        private Controller.CT_CompanyMenu GetController()
         {
             Window mainWindow = Application.Current.MainWindow;
             var a = (Main.View.MainWindow)mainWindow;
-            return (Files.Nodes.Companies.CompanyMenu.Controller.CT_CompanyMenu)a.MainFrame.Content;
+            return (Controller.CT_CompanyMenu)a.MainFrame.Content;
         }
     }
 }

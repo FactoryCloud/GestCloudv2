@@ -24,7 +24,7 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyMenu.Controller
     public partial class CT_CompanyMenu : Main.Controller.CT_Common
     {
         public CompaniesView CompaniesView;
-        public Company Company;
+        public Company company;
 
         public CT_CompanyMenu()
         {
@@ -33,7 +33,7 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyMenu.Controller
 
         public void SetCompany(int num)
         {
-            Company = db.Companies.Where(c => c.CompanyID == num).Include(c => c.CompaniesStores).First();
+            company = db.Companies.Where(c => c.CompanyID == num).Include(c => c.CompaniesStores).First();
             TS_Page = new View.TS_CPN_Menu();
             LeftSide.Content = TS_Page;
         }
@@ -46,6 +46,18 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyMenu.Controller
         public void CT_CompanyNew()
         {
             Information["controller"] = 1;
+            ChangeController();
+        }
+
+        public void EV_CT_CompanyLoad()
+        {
+            Information["controller"] = 2;
+            ChangeController();
+        }
+
+        public void EV_CT_CompanyLoadEditable()
+        {
+            Information["controller"] = 3;
             ChangeController();
         }
 
@@ -96,6 +108,16 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyMenu.Controller
                 case 1:
                     Main.View.MainWindow b = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
                     b.MainFrame.Content = new Files.Nodes.Companies.CompanyItem.CompanyItem_New.Controller.CT_CPN_Item_New();
+                    break;
+
+                case 2:
+                    Main.View.MainWindow c = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
+                    c.MainFrame.Content = new Files.Nodes.Companies.CompanyItem.CompanyItem_Load.Controller.CT_CPN_Item_Load(company, 0);
+                    break;
+
+                case 3:
+                    Main.View.MainWindow d = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
+                    d.MainFrame.Content = new Files.Nodes.Companies.CompanyItem.CompanyItem_Load.Controller.CT_CPN_Item_Load(company, 1);
                     break;
             }
         }

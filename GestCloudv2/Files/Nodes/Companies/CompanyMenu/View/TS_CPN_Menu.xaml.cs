@@ -23,11 +23,27 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyMenu.View
         public TS_CPN_Menu()
         {
             InitializeComponent();
+
+            if(GetController().company != null)
+            {
+                BT_CompanyLoad.IsEnabled = true;
+                BT_CompanyLoadEdit.IsEnabled = true;
+            }
         }
 
         private void EV_CT_CompanyNew(object sender, RoutedEventArgs e)
         {
             GetController().CT_CompanyNew();
+        }
+
+        private void EV_CT_CompanyLoad(object sender, RoutedEventArgs e)
+        {
+            GetController().EV_CT_CompanyLoad();
+        }
+
+        private void EV_CT_CompanyLoadEditable(object sender, RoutedEventArgs e)
+        {
+            GetController().EV_CT_CompanyLoadEditable();
         }
 
         private Controller.CT_CompanyMenu GetController()
