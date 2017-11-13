@@ -1,5 +1,4 @@
-﻿using FrameworkView.V1;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,52 +13,49 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using FrameworkDB.V1;
+using Microsoft.EntityFrameworkCore;
 
-namespace GestCloudv2.Main.Controller
+namespace GestCloudv2.Stocks.Controller
 {
     /// <summary>
-    /// Interaction logic for CT_Main.xaml
+    /// Interaction logic for CT_Stocks.xaml
     /// </summary>
-    public partial class CT_Main : Main.Controller.CT_Common
+    public partial class CT_Stocks : Main.Controller.CT_Common
     {
-        public CT_Main()
+        public CT_Stocks()
         {
-            InitializeComponent();
-
             this.Loaded += new RoutedEventHandler(EV_Start);
         }
 
-        public override void EV_Start(object sender, RoutedEventArgs e)
+        override public void EV_Start (object sender, RoutedEventArgs e)
         {
             UpdateComponents();
         }
 
-        public void CT_MainBack()
+        public void CT_StockAdjusts()
+        {
+            Information["controller"] = 3;
+            ChangeController();
+        }
+
+        public void CT_Main()
         {
             Information["controller"] = 0;
             ChangeController();
         }
 
-        public void CT_Files()
-        {
-            Information["controller"] = 1;
-            ChangeController();
-        }
-
-        public void CT_Stocks()
-        {
-            Information["controller"] = 4;
-            ChangeController();
-        }
-
-        public override void UpdateComponents ()
+        public override void UpdateComponents()
         {
             switch(Information["mode"])
             {
+                case 0:
+                    ChangeComponents();
+                    break;
+
                 case 1:
-                    NV_Page = new View.NV_Main();
+                    NV_Page = new View.NV_Stocks_Main();
+                    TS_Page = null;
                     MC_Page = null;
-                    TS_Page = new View.TS_Main();
                     ChangeComponents();
                     break;
             }
@@ -74,14 +70,9 @@ namespace GestCloudv2.Main.Controller
                     a.MainFrame.Content = new Main.Controller.CT_Main();
                     break;
 
-                case 1:
-                    Main.View.MainWindow b = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
-                    b.MainFrame.Content = new Files.Controller.CT_Files();
-                    break;
-
-                case 4:
-                    Main.View.MainWindow e = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
-                    e.MainFrame.Content = new Stocks.Controller.CT_Stocks();
+                case 3:
+                    Main.View.MainWindow d = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
+                    d.MainFrame.Content = new Nodes.StockAdjusts.StockAdjustMenu.Controller.CT_StockAdjustMenu();
                     break;
             }
         }

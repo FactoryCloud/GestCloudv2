@@ -1,0 +1,33 @@
+﻿<Page x:Class="GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustMenu.View.TS_STA_Menu"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustMenu.View"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300"
+      Title="TS_STA_Menu">
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Button Grid.Column="0" Grid.Row="0" Margin="10" Click="EV_MD_StockAdjustNew">
+            <TextBlock TextAlignment="Center">Nuevo ajuste<LineBreak/>de Stock</TextBlock>
+        </Button>
+        <Button Grid.Column="1" Grid.Row="0" IsEnabled="false" Margin="10">
+            <TextBlock TextAlignment="Center">Examinar ajuste<LineBreak/>de Stock</TextBlock>
+        </Button>
+        <Button Grid.Column="0" Grid.Row="1" IsEnabled="false" Margin="10">
+            <TextBlock TextAlignment="Center">Editar ajuste<LineBreak/>de Stock</TextBlock>
+        </Button>
+    </Grid>
+</Page>

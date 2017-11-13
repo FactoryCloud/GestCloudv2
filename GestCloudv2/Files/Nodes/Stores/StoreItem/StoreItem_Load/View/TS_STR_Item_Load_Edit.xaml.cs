@@ -13,28 +13,33 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace GestCloudv2.StockList
+namespace GestCloudv2.Files.Nodes.Stores.StoreItem.StoreItem_Load.View
 {
     /// <summary>
-    /// Interaction logic for Stock_ToolSide.xaml
+    /// Interaction logic for TS_STR_Item_Load_Edit.xaml
     /// </summary>
-    public partial class StockList_ToolSide : Page
+    public partial class TS_STR_Item_Load_Edit : Page
     {
-        public StockList_ToolSide()
+        public TS_STR_Item_Load_Edit(int num)
         {
             InitializeComponent();
+
+            if(num >= 1)
+            {
+                BT_StoreSave.IsEnabled = true;
+            }
         }
 
-        private void AddStockMovement_Event(object sender, RoutedEventArgs e)
+        private void EV_CompanySave(object sender, RoutedEventArgs e)
         {
-            //GetController().StartAddStock();
+            GetController().SaveNewStore();
         }
 
-        private Main.Controller.CT_Main GetController()
+        private Controller.CT_STR_Item_Load GetController()
         {
             Window mainWindow = Application.Current.MainWindow;
             var a = (Main.View.MainWindow)mainWindow;
-            return (Main.Controller.CT_Main)a.MainFrame.Content;
+            return (Controller.CT_STR_Item_Load)a.MainFrame.Content;
         }
     }
 }

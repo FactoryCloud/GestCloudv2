@@ -28,8 +28,8 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_Load.View
             this.Loaded += new RoutedEventHandler(EV_Start);
 
             CB_CompanyCode.SelectionChanged += new SelectionChangedEventHandler(EV_CB_Changes);
-            TB_CompanyName.KeyUp += new KeyEventHandler(EV_UserName);
-            TB_CompanyName.Loaded += new RoutedEventHandler(EV_UserName);
+            TB_CompanyName.KeyUp += new KeyEventHandler(EV_CompanyName);
+            TB_CompanyName.Loaded += new RoutedEventHandler(EV_CompanyName);
         }
 
         private void EV_Start(object sender, RoutedEventArgs e)
@@ -42,16 +42,16 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_Load.View
 
                 Thickness margin = new Thickness(20);
 
-                TextBox TB_UserCode = new TextBox();
-                TB_UserCode.Name = "TB_CompanyCode";
-                TB_UserCode.Text = $"{GetController().company.Code}";
-                TB_UserCode.VerticalAlignment = VerticalAlignment.Center;
-                TB_UserCode.TextAlignment = TextAlignment.Center;
-                TB_UserCode.Margin = margin;
-                Grid.SetColumn(TB_UserCode, 2);
-                Grid.SetRow(TB_UserCode, 2);
+                TextBox TB_CompanyCode = new TextBox();
+                TB_CompanyCode.Name = "TB_CompanyCode";
+                TB_CompanyCode.Text = $"{GetController().company.Code}";
+                TB_CompanyCode.VerticalAlignment = VerticalAlignment.Center;
+                TB_CompanyCode.TextAlignment = TextAlignment.Center;
+                TB_CompanyCode.Margin = margin;
+                Grid.SetColumn(TB_CompanyCode, 2);
+                Grid.SetRow(TB_CompanyCode, 2);
 
-                GR_Main.Children.Add(TB_UserCode);
+                GR_Main.Children.Add(TB_CompanyCode);
 
                 CB_CompanyCode.Visibility = Visibility.Hidden;
             }
@@ -88,7 +88,7 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_Load.View
             }
         }
 
-        private void EV_UserName(object sender, RoutedEventArgs e)
+        private void EV_CompanyName(object sender, RoutedEventArgs e)
         {
             if(TB_CompanyName.Text.Length == 0)
             {

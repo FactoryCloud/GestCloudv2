@@ -14,21 +14,21 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace GestCloudv2.Files.Nodes.Stores.StoreMenu.View
+namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustMenu.View
 {
     /// <summary>
-    /// Interaction logic for MC_STR_Menu.xaml
+    /// Interaction logic for MC_STA_Menu.xaml
     /// </summary>
-    public partial class MC_STR_Menu : Page
+    public partial class MC_STA_Menu : Page
     {
-        public MC_STR_Menu()
+        public MC_STA_Menu()
         {
             InitializeComponent();
 
             this.Loaded += new RoutedEventHandler(EV_Start);
 
-            DG_Stores.MouseLeftButtonUp += new MouseButtonEventHandler(EV_FileSelected);
-            DG_Stores.MouseDoubleClick += new MouseButtonEventHandler(EV_FileOpen);
+            DG_StockAdjusts.MouseLeftButtonUp += new MouseButtonEventHandler(EV_FileSelected);
+            DG_StockAdjusts.MouseDoubleClick += new MouseButtonEventHandler(EV_FileOpen);
         }
 
         private void EV_Start(object sender, RoutedEventArgs e)
@@ -38,35 +38,35 @@ namespace GestCloudv2.Files.Nodes.Stores.StoreMenu.View
 
         private void EV_FileOpen(object sender, MouseButtonEventArgs e)
         {
-            if (GetController().store != null)
+            if (GetController().stockAdjust != null)
             {
-                DG_Stores.MouseLeftButtonUp -= EV_FileSelected;
-                GetController().EV_CT_StoreLoad();
+                DG_StockAdjusts.MouseLeftButtonUp -= EV_FileSelected;
+                GetController().EV_CT_StockAdjustLoad();
             }
         }
 
         private void EV_FileSelected(object sender, MouseButtonEventArgs e)
         {
-            int num = DG_Stores.SelectedIndex;
+            int num = DG_StockAdjusts.SelectedIndex;
             if (num >= 0)
             {
-                DataGridRow row = (DataGridRow)DG_Stores.ItemContainerGenerator.ContainerFromIndex(num);
+                DataGridRow row = (DataGridRow)DG_StockAdjusts.ItemContainerGenerator.ContainerFromIndex(num);
                 DataRowView dr = row.Item as DataRowView;
-                GetController().SetCompany(Int32.Parse(dr.Row.ItemArray[0].ToString()));
+                GetController().SetStockAdjust(Int32.Parse(dr.Row.ItemArray[0].ToString()));
             }
         }
 
         private void UpdateData()
         {
-            DG_Stores.ItemsSource = null;
-            DG_Stores.ItemsSource = GetController().StoresView.GetTable();
+            DG_StockAdjusts.ItemsSource = null;
+            DG_StockAdjusts.ItemsSource = GetController().stocksAdjustsView.GetTable();
         }
 
-        private Files.Nodes.Stores.StoreMenu.Controller.CT_StoreMenu GetController()
+        private Controller.CT_StockAdjustMenu GetController()
         {
             Window mainWindow = Application.Current.MainWindow;
             var a = (Main.View.MainWindow)mainWindow;
-            return (Files.Nodes.Stores.StoreMenu.Controller.CT_StoreMenu)a.MainFrame.Content;
+            return (Controller.CT_StockAdjustMenu)a.MainFrame.Content;
         }
     }
 }

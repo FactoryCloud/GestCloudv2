@@ -14,20 +14,20 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using FrameworkDB.V1;
 
-namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_Load.View
+namespace GestCloudv2.Files.Nodes.Stores.StoreItem.StoreItem_Load.View
 {
     /// <summary>
-    /// Interaction logic for MC_CPN_Item_Load_Company_Stores.xaml
+    /// Interaction logic for MC_CPN_Item_Load_Company.xaml
     /// </summary>
-    public partial class MC_CPN_Item_Load_Company_Stores : Page
+    public partial class MC_STR_Item_Load_Store_Companies : Page
     {
-        public MC_CPN_Item_Load_Company_Stores()
+        public MC_STR_Item_Load_Store_Companies()
         {
             InitializeComponent();
 
             this.Loaded += new RoutedEventHandler(EV_Start);
 
-            if(GetController().Information["editable"] == 0)
+            if (GetController().Information["editable"] == 0)
             {
                 BT_SelectAll.Visibility = Visibility.Hidden;
                 BT_SelectNone.Visibility = Visibility.Hidden;
@@ -36,7 +36,7 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_Load.View
 
         private void EV_Start(object sender, RoutedEventArgs e)
         {
-            foreach(Store store in GetController().GetStores())
+            foreach(Company company in GetController().GetCompanies())
             {
                 Grid grid = new Grid();
                 ColumnDefinition column1 = new ColumnDefinition();
@@ -52,22 +52,22 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_Load.View
                 grid.MinHeight = 100;
 
                 Label label = new Label();
-                label.Content = $"{store.Code} - {store.Name}";
+                label.Content = $"{company.Code} - {company.Name}";
                 label.VerticalContentAlignment = VerticalAlignment.Center;
                 Grid.SetColumn(label, 0);
 
                 CheckBox checkbox = new CheckBox();
-                checkbox.Tag = $"store{store.StoreID}";
+                checkbox.Tag = $"company{company.CompanyID}";
                 checkbox.Margin = new Thickness(10);
                 checkbox.VerticalAlignment = VerticalAlignment.Center;
                 if (GetController().Information["editable"] == 0)
                     checkbox.IsEnabled = false;
 
-                if (GetController().stores.Contains(store))
+                if (GetController().companies.Contains(company))
                     checkbox.IsChecked = true;
 
-                checkbox.Checked += new RoutedEventHandler(EV_StoresChange);
-                checkbox.Unchecked += new RoutedEventHandler(EV_StoresChange);
+                checkbox.Checked += new RoutedEventHandler(EV_CompaniesChange);
+                checkbox.Unchecked += new RoutedEventHandler(EV_CompaniesChange);
 
                 Grid.SetColumn(checkbox, 2);
 
@@ -78,9 +78,9 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_Load.View
             }
         }
 
-        private void EV_StoresChange(object sender, RoutedEventArgs e)
+        private void EV_CompaniesChange(object sender, RoutedEventArgs e)
         {
-            GetController().UpdateStore(Convert.ToInt32((sender as CheckBox).Tag.ToString().Replace("store", "")));
+            GetController().UpdateCompanies(Convert.ToInt32((sender as CheckBox).Tag.ToString().Replace("company", "")));
         }
 
         private void EV_MD_StoresAll(object sender, RoutedEventArgs e)
@@ -93,11 +93,11 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_Load.View
             GetController().MD_StoresChange(0);
         }
 
-        private Controller.CT_CPN_Item_Load GetController()
+        private Controller.CT_STR_Item_Load GetController()
         {
             Window mainWindow = Application.Current.MainWindow;
             var a = (Main.View.MainWindow)mainWindow;
-            return (Controller.CT_CPN_Item_Load)a.MainFrame.Content;
+            return (Controller.CT_STR_Item_Load)a.MainFrame.Content;
         }
     }
 }

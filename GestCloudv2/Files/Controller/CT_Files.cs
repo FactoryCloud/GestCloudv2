@@ -76,7 +76,7 @@ namespace GestCloudv2.Files.Controller
             ChangeController();
         }
 
-        private void UpdateComponents()
+        public override void UpdateComponents()
         {
             switch(Information["mode"])
             {

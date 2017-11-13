@@ -23,5 +23,11 @@
         <Button Margin="10" Click="EV_StoreNew">
             <TextBlock TextAlignment="Center">Nuevo<LineBreak/>Almacén</TextBlock>
         </Button>
+        <Button Name="BT_StoreLoad" IsEnabled="false" Margin="10" Grid.Column="1" Click="EV_CT_StoreLoad">
+            <TextBlock TextAlignment="Center">Examinar<LineBreak/>Almacén</TextBlock>
+        </Button>
+        <Button Name="BT_StoreLoadEdit" IsEnabled="False" Margin="10" Grid.Row="1" Click="EV_CT_StoreLoadEditable">
+            <TextBlock TextAlignment="Center">Editar<LineBreak/>Almacén</TextBlock>
+        </Button>
     </Grid>
 </Page>

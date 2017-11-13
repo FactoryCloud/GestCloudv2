@@ -42,6 +42,11 @@ namespace GestCloudv2.Main.View
             GetController().CT_Files();
         }
 
+        private void EV_NV_Stocks(object sender, RoutedEventArgs e)
+        {
+            GetController().CT_Stocks();
+        }
+
         private void EV_Exit(object sender, RoutedEventArgs e)
         {
             Application.Current.MainWindow.Close();

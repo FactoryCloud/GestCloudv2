@@ -23,11 +23,27 @@ namespace GestCloudv2.Files.Nodes.Stores.StoreMenu.View
         public TS_STR_Menu()
         {
             InitializeComponent();
+
+            if (GetController().store != null)
+            {
+                BT_StoreLoad.IsEnabled = true;
+                BT_StoreLoadEdit.IsEnabled = true;
+            }
         }
 
         private void EV_StoreNew(object sender, RoutedEventArgs e)
         {
             GetController().CT_StoreNew();
+        }
+
+        private void EV_CT_StoreLoad(object sender, RoutedEventArgs e)
+        {
+            GetController().EV_CT_StoreLoad();
+        }
+
+        private void EV_CT_StoreLoadEditable(object sender, RoutedEventArgs e)
+        {
+            GetController().EV_CT_StoreLoadEditable();
         }
 
         private Files.Nodes.Stores.StoreMenu.Controller.CT_StoreMenu GetController()

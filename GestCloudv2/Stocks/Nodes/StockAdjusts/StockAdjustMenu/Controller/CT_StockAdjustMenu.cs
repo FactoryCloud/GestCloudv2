@@ -16,25 +16,25 @@ using FrameworkDB.V1;
 using FrameworkView.V1;
 using Microsoft.EntityFrameworkCore;
 
-namespace GestCloudv2.Files.Nodes.Stores.StoreMenu.Controller
+namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustMenu.Controller
 {
     /// <summary>
-    /// Interaction logic for CT_StoreMenu.xaml
+    /// Interaction logic for CT_StockAdjustMenu.xaml
     /// </summary>
-    public partial class CT_StoreMenu : Main.Controller.CT_Common
+    public partial class CT_StockAdjustMenu : Main.Controller.CT_Common
     {
-        public StoresView StoresView;
-        public Store store;
+        public StockAdjustsView stocksAdjustsView;
+        public StockAdjust stockAdjust;
 
-        public CT_StoreMenu()
+        public CT_StockAdjustMenu()
         {
-            StoresView = new StoresView();
+            stocksAdjustsView = new StockAdjustsView();
         }
 
-        public void SetCompany(int num)
+        public void SetStockAdjust(int num)
         {
-            store = db.Stores.Where(c => c.StoreID == num).Include(c => c.CompaniesStores).First();
-            TS_Page = new View.TS_STR_Menu();
+            stockAdjust = db.StockAdjusts.Where(c => c.StockAdjustID == num).Include(c => c.company).First();
+            TS_Page = new View.TS_STA_Menu();
             LeftSide.Content = TS_Page;
         }
 
@@ -43,19 +43,19 @@ namespace GestCloudv2.Files.Nodes.Stores.StoreMenu.Controller
             UpdateComponents();
         }
 
-        public void CT_StoreNew()
+        public void CT_StockAdjustNew()
         {
             Information["controller"] = 1;
             ChangeController();
         }
 
-        public void EV_CT_StoreLoad()
+        public void EV_CT_StockAdjustLoad()
         {
             Information["controller"] = 2;
             ChangeController();
         }
 
-        public void EV_CT_StoreLoadEditable()
+        public void EV_CT_StockAdjustLoadEditable()
         {
             Information["controller"] = 3;
             ChangeController();
@@ -76,9 +76,9 @@ namespace GestCloudv2.Files.Nodes.Stores.StoreMenu.Controller
                     break;
 
                 case 1:
-                    NV_Page = new Files.Nodes.Stores.StoreMenu.View.NV_STR_Menu();
-                    TS_Page = new Files.Nodes.Stores.StoreMenu.View.TS_STR_Menu(); ;
-                    MC_Page = new Files.Nodes.Stores.StoreMenu.View.MC_STR_Menu(); ;
+                    NV_Page = new View.NV_STA_Menu();
+                    TS_Page = new View.TS_STA_Menu();
+                    MC_Page = new View.MC_STA_Menu();
                     ChangeComponents();
                     break;
 
@@ -102,23 +102,23 @@ namespace GestCloudv2.Files.Nodes.Stores.StoreMenu.Controller
             {
                 case 0:
                     Main.View.MainWindow a = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
-                    a.MainFrame.Content = new Files.Controller.CT_Files();
+                    a.MainFrame.Content = new Stocks.Controller.CT_Stocks();
                     break;
 
-                case 1:
+                /*case 1:
                     Main.View.MainWindow b = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
-                    b.MainFrame.Content = new StoreItem.StoreItem_New.Controller.CT_STR_Item_New();
+                    b.MainFrame.Content = new Files.Nodes.Companies.CompanyItem.CompanyItem_New.Controller.CT_CPN_Item_New();
                     break;
 
                 case 2:
                     Main.View.MainWindow c = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
-                    c.MainFrame.Content = new StoreItem.StoreItem_Load.Controller.CT_STR_Item_Load(store, 0);
+                    c.MainFrame.Content = new Files.Nodes.Companies.CompanyItem.CompanyItem_Load.Controller.CT_CPN_Item_Load(company, 0);
                     break;
 
                 case 3:
                     Main.View.MainWindow d = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
-                    d.MainFrame.Content = new StoreItem.StoreItem_Load.Controller.CT_STR_Item_Load(store, 1);
-                    break;
+                    d.MainFrame.Content = new Files.Nodes.Companies.CompanyItem.CompanyItem_Load.Controller.CT_CPN_Item_Load(company, 1);
+                    break;*/
             }
         }
     }
