@@ -31,12 +31,12 @@ namespace GestCloudv2.StockItem.AddStock.MainAddStock
             floatWindow.Show();
         }
 
-        private void EV_EditMovement(object sender, RoutedEventArgs e)
+        /*private void EV_EditMovement(object sender, RoutedEventArgs e)
         {
             FloatWindows.ProductSelectWindow floatWindow = new FloatWindows.ProductSelectWindow(
                 GetController().movementsView.movements[0], "AddStock_EditMovement");
             floatWindow.Show();
-        }
+        }*/
 
         private StockItem.AddStock.AddStock_Controller GetController()
         {

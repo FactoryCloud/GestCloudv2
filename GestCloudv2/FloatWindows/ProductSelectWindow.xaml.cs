@@ -26,68 +26,34 @@ namespace GestCloudv2.FloatWindows
     /// </summary>
     public partial class ProductSelectWindow : Window
     {
-        ProductsView productsView;
-        Movement movement;
-        GestCloudDB db;
+
+        public Movement movement;
+        public ProductsView productsView;
         string type { get; set; }
 
         public ProductSelectWindow()
         {
-            InitializeComponent();
-
-            movement = new Movement();
-            type = null;
-
-            this.Loaded += new RoutedEventHandler(StartEvent);
-            //this.Closed += new EventHandler(EV_Close);
-            CB_ProductType.SelectionChanged += new SelectionChangedEventHandler(SearchEvent);
-            CB_Expansion.SelectionChanged += new SelectionChangedEventHandler(SearchEvent);
-            TB_ProductName.KeyUp += new KeyEventHandler(SearchEvent);
-            TX_Quantity.KeyUp += new KeyEventHandler(EV_QuantityChange);
-            DG_Products.MouseLeftButtonUp += new MouseButtonEventHandler(ProductSelected_Event);
-
-            productsView = new ProductsView();
-            //UpdateData();
         }
 
-        public ProductSelectWindow(Movement mov, string type)
+        public ProductSelectWindow(int option)
         {
             InitializeComponent();
-            productsView = new ProductsView();
 
-            if (!type.Contains("AddStock_EditMovement"))
-            {
-                db = new GestCloudDB();
+            this.Loaded += new RoutedEventHandler(EV_Start);
 
-                MTGCard card = db.MTGCards.First(c => mov.product.ExternalID == c.ProductID);
-                productsView.SetExpansion((int)card.ExpansionID);
-                movement = new Movement();
-            }
-
-            else
-            {
-                movement = mov;
-            }
-            
-            this.type = type;
-
-            this.Loaded += new RoutedEventHandler(StartEvent_Edit);
-            
-            CB_ProductType.SelectionChanged += new SelectionChangedEventHandler(SearchEvent);
-            CB_Expansion.SelectionChanged += new SelectionChangedEventHandler(SearchEvent);
-            TB_ProductName.KeyUp += new KeyEventHandler(SearchEvent);
+            CB_ProductType.SelectionChanged += new SelectionChangedEventHandler(EV_Search);
+            CB_Expansion.SelectionChanged += new SelectionChangedEventHandler(EV_Search);
+            TB_ProductName.KeyUp += new KeyEventHandler(EV_Search);
             TX_Quantity.KeyUp += new KeyEventHandler(EV_QuantityChange);
-            DG_Products.MouseLeftButtonUp += new MouseButtonEventHandler(ProductSelected_Event);
+            DG_Products.MouseLeftButtonUp += new MouseButtonEventHandler(EV_ProductsSelect);
 
-            //UpdateData();
+            productsView = new ProductsView(option);
+            //condition = new FrameworkDB.V1.Condition();
+            UpdateData();
         }
 
-        private void StartEvent(object sender, RoutedEventArgs e)
+        protected void EV_Start(object sender, RoutedEventArgs e)
         {
-            db = new GestCloudDB();
-            movement.documentType = db.DocumentTypes.First(d => d.Name == "Stock" && d.Input == 1);
-            movement.DocumentTypeID = movement.documentType.DocumentTypeID;
-
             List<Expansion> expansions = productsView.GetExpansions();
             List<ProductType> productTypes = productsView.GetProductTypes();
             List<FrameworkDB.V1.Condition> conditions = productsView.GetConditions();
@@ -112,117 +78,20 @@ namespace GestCloudv2.FloatWindows
             {
                 ComboBoxItem temp = new ComboBoxItem();
                 temp.Content = $"{ct.Name}";
-                temp.Name = $"conditions{ct.ConditionID}";
+                temp.Name = $"productType{ct.ConditionID}";
                 CB_states.Items.Add(temp);
             }
 
-            CB_ProductType.SelectedIndex = 0;
-            UpdateData();
-        }
-
-        private void StartEvent_Edit(object sender, EventArgs e)
-        {
-            MTGCard card = new MTGCard();
-            db = new GestCloudDB();
-            if (type.Contains("AddStock_EditMovement"))
+            foreach (ComboBoxItem cmbItem in CB_ProductType.Items)
             {
-                DG_Products.ItemContainerGenerator.StatusChanged += ItemContainerGeneratorOnStatusChanged;
-                card = db.MTGCards.First(c => movement.product.ExternalID == c.ProductID);
-            }
-
-            List<Expansion> expansions = productsView.GetExpansions();
-            List<ProductType> productTypes = productsView.GetProductTypes();
-            List<FrameworkDB.V1.Condition> conditions = productsView.GetConditions();
-
-            int count = 0;
-            foreach (Expansion exp in expansions)
-            {
-                ComboBoxItem temp = new ComboBoxItem();
-                temp.Content = $"{exp.EnName} ({exp.Abbreviation})";
-                temp.Name = $"expansion{exp.Id}";
-                CB_Expansion.Items.Add(temp);
-                if (type.Contains("AddStock_EditMovement"))
+                if (Convert.ToInt32(cmbItem.Name.Replace("productType", "")) == 1)
                 {
-                    if (card.ExpansionID == exp.Id)
-                    {
-                        CB_Expansion.SelectedIndex = count;
-                    }
-                }
-                count++;
-            }
-
-            foreach (ProductType pt in productTypes)
-            {
-                ComboBoxItem temp = new ComboBoxItem();
-                temp.Content = $"{pt.Name}";
-                temp.Name = $"productType{pt.ProductTypeID}";
-                CB_ProductType.Items.Add(temp);
-            }
-
-            foreach (FrameworkDB.V1.Condition ct in conditions)
-            {
-                ComboBoxItem temp = new ComboBoxItem();
-                temp.Content = $"{ct.Name}";
-                temp.Name = $"conditions{ct.ConditionID}";
-                CB_states.Items.Add(temp);
-            }
-
-            CB_ProductType.SelectedIndex = 0;
-            UpdateData();
-        }
-
-        private void EV_Close(object sender, EventArgs e)
-        {
-            GetController().RestartNewMovement();
-        }
-
-        private void ItemContainerGeneratorOnStatusChanged(object sender, EventArgs eventArgs)
-        {
-            
-            var dataGrid = DG_Products;
-            /*if (dataGrid == null)
-            {
-                MessageBox.Show("DG cargado");
-                return;
-            }*/
-            if (dataGrid.ItemContainerGenerator.Status == GeneratorStatus.ContainersGenerated)
-            {
-                
-                for (int i = 0; i < DG_Products.Items.Count; i++)
-                {
-                    DataGridRow row = (DataGridRow)DG_Products.ItemContainerGenerator.ContainerFromIndex(i);
-                    if(row != null)
-                    {
-                        DataRowView dr = row.Item as DataRowView;
-                        if (Int32.Parse(dr.Row.ItemArray[0].ToString()) == movement.ProductID)
-                        {
-                            DG_Products.SelectedIndex = i;
-                            return;
-                        }
-                    }
+                    CB_ProductType.SelectedValue = cmbItem;
                 }
             }
         }
 
-        /*private void EV_PreSelectedProduct(object sender, EventArgs e)
-        {
-            //MessageBox.Show($"{DG_Products.Items.Count}");
-            Dispatcher.Invoke(new Action(() => { }), DispatcherPriority.ContextIdle, null);
-            for (int i = 0; i < DG_Products.Items.Count; i++)
-            {
-                DataGridRow row = (DataGridRow)DG_Products.ItemContainerGenerator.ContainerFromIndex(i);
-                DataRowView dr = row.Item as DataRowView;
-                //MessageBox.Show($"posicion {i}, valor {Int32.Parse(dr.Row.ItemArray[0].ToString())}");
-                if (Int32.Parse(dr.Row.ItemArray[0].ToString()) == movement.ProductID)
-                {
-                    //MessageBox.Show($"posicion {i}, valor {Int32.Parse(dr.Row.ItemArray[0].ToString())}");
-                    DG_Products.SelectedIndex = i;
-                    return;
-                }
-            }
-        }*/
-
-        private void ProductSelected_Event(object sender, RoutedEventArgs e)
+        public void EV_ProductsSelect(object sender, RoutedEventArgs e)
         {
             int product = DG_Products.SelectedIndex;
             if (product >= 0)
@@ -230,12 +99,10 @@ namespace GestCloudv2.FloatWindows
                 DataGridRow row = (DataGridRow)DG_Products.ItemContainerGenerator.ContainerFromIndex(product);
                 DataRowView dr = row.Item as DataRowView;
                 MessageBox.Show(dr.Row.ItemArray[0].ToString());
-                movement.product = db.Products.First(p => p.ProductID == Int32.Parse(dr.Row.ItemArray[0].ToString()));
-                movement.ProductID = Int32.Parse(dr.Row.ItemArray[0].ToString());
             }
         }
 
-        private void EV_QuantityChange(object sender, RoutedEventArgs e)
+        protected void EV_QuantityChange(object sender, RoutedEventArgs e)
         {
             if (System.Text.RegularExpressions.Regex.IsMatch(TX_Quantity.Text, "[^0-9]"))
             {
@@ -263,22 +130,11 @@ namespace GestCloudv2.FloatWindows
             }
         }
 
-        private void EV_SaveMovement(object sender, RoutedEventArgs e)
+        protected void EV_SaveMovement(object sender, RoutedEventArgs e)
         {
-            GetController().AddNewMovement(movement);
-            if( type == null )
-            {
-                this.Closed += new EventHandler(EV_Close);
-            }
-
-            else if (!type.Contains("AddStock_EditMovement"))
-            {
-                this.Closed += new EventHandler(EV_Close);
-            }
-            this.Close();
         }
 
-        private void SearchEvent(object sender, RoutedEventArgs e)
+        protected void EV_Search(object sender, RoutedEventArgs e)
         {
             ComboBoxItem temp1 = (ComboBoxItem)CB_ProductType.SelectedItem;
             ComboBoxItem temp2 = (ComboBoxItem)CB_Expansion.SelectedItem;
@@ -293,7 +149,7 @@ namespace GestCloudv2.FloatWindows
                 productsView.SetExpansion(Convert.ToInt32(temp2.Name.Replace("expansion", "")));
             }
 
-            if(TB_ProductName.Text.Length >= 3)
+            if (TB_ProductName.Text.Length >= 4)
             {
                 productsView.ProductName = TB_ProductName.Text;
             }
@@ -303,7 +159,7 @@ namespace GestCloudv2.FloatWindows
                 productsView.ProductName = null;
             }
 
-            productsView.UpdateFilteredTable();
+            UpdateData();
         }
 
         public void UpdateData()
@@ -312,11 +168,9 @@ namespace GestCloudv2.FloatWindows
             DG_Products.ItemsSource = productsView.GetTable();
         }
 
-        private StockItem.AddStock.AddStock_Controller GetController()
+        virtual public Main.Controller.CT_Common GetController()
         {
-            Window mainWindow = Application.Current.MainWindow;
-            var a = (Main.View.MainWindow)mainWindow;
-            return (StockItem.AddStock.AddStock_Controller)a.MainFrame.Content;
+            return new Main.Controller.CT_Common();
         }
     }
 }

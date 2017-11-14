@@ -17,7 +17,7 @@
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <Button Grid.Column="1" Grid.Row="0" Margin="10" Click="Event_NewLine">Añadir línea</Button>
-        <Button Name="BT_EditMovement" Grid.Column="1" Grid.Row="1" Margin="10" Click="EV_EditMovement">Editar línea</Button>
+        <Button Name="BT_EditMovement" Grid.Column="1" Grid.Row="1" Margin="10">Editar línea</Button>
         <Button IsEnabled="False" Grid.Column="1" Grid.Row="2" Margin="10">Eliminar línea</Button>
         <Button IsEnabled="False" Grid.Column="1" Grid.Row="4" Margin="10">Guardar Ajuste de Stock</Button>
     </Grid>

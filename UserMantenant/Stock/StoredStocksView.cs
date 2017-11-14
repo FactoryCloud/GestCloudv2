@@ -21,6 +21,7 @@ namespace FrameworkView.V1
         public ProductType productType;
         public Expansion expansion;
         public Store store;
+        public Product products;
         private DataTable dt;
 
         public StoredStocksView(int option)
@@ -62,6 +63,12 @@ namespace FrameworkView.V1
         {
             List<Expansion> expansions = db.Expansions.OrderByDescending(ex => ex.ReleaseDate).ToList();
             return expansions;
+        }
+
+        public List<Product> GetProducts()
+        {
+            List<Product> products = db.Products.OrderByDescending(ex => ex.ProductID).ToList();
+            return products;
         }
 
         public List<ProductType> GetProductTypes()

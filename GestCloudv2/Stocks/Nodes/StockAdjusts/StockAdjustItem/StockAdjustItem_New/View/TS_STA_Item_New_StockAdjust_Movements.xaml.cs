@@ -35,6 +35,11 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
             GetController().MD_StoredStock_Reduce();
         }
 
+        private void EV_StoredStock_Increase(object sender, RoutedEventArgs e)
+        {
+            GetController().MD_StoredStock_Increase();
+        }
+
         private void EV_StockAdjustSave(object sender, RoutedEventArgs e)
         {
             GetController().SaveNewStockAdjust();
