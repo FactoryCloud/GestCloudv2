@@ -13,7 +13,7 @@ namespace FrameworkView.V1
 {
     public class StockAdjustsView
     {
-        List<Company> companies { get; set; }
+        List<StockAdjust> stockAdjusts { get; set; }
         GestCloudDB db;
 
         private DataTable dt;
@@ -23,17 +23,17 @@ namespace FrameworkView.V1
             db = new GestCloudDB();
             dt = new DataTable();
             dt.Columns.Add("ID", typeof(int));
-            dt.Columns.Add("Nombre", typeof(string));
+            dt.Columns.Add("Fecha", typeof(string));
         }
 
         public void UpdateTable()
         {
-            companies = db.Companies.ToList();
+            stockAdjusts = db.StockAdjusts.ToList();
 
             dt.Clear();
-            foreach(Company comp in companies)
+            foreach(StockAdjust stockAdjust in stockAdjusts)
             {
-                dt.Rows.Add(comp.CompanyID, comp.Name);
+                dt.Rows.Add(stockAdjust.StockAdjustID, $"{String.Format("{0:dd/MM/yyyy}", stockAdjust.Date)}" );
             }
         }
 

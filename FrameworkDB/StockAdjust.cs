@@ -12,8 +12,9 @@ namespace FrameworkDB.V1
     {
         public int StockAdjustID { get; set; }
 
+        public string Code { get; set; }
         public DateTime? Date { get; set; }
-        public int? input { get; set; }
+        public int? Input { get; set; }
 
         [ForeignKey("FK_StockAdjusts_CompanyID_Companies")]
         public int? CompanyID { get; set; }

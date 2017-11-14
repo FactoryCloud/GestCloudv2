@@ -13,28 +13,33 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustMenu.View
+namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_New.View
 {
     /// <summary>
-    /// Interaction logic for TS_STA_Menu.xaml
+    /// Interaction logic for TS_STA_Item_New_StockAdjust.xaml
     /// </summary>
-    public partial class TS_STA_Menu : Page
+    public partial class TS_STA_Item_New_StockAdjust : Page
     {
-        public TS_STA_Menu()
+        public TS_STA_Item_New_StockAdjust(int num)
         {
             InitializeComponent();
+
+            if (num >= 1)
+            {
+                BT_StockAdjustSave.IsEnabled = true;
+            }
         }
 
-        private void EV_MD_StockAdjustNew(object sender, RoutedEventArgs e)
+        private void EV_CompanySave(object sender, RoutedEventArgs e)
         {
-            GetController().EV_CT_StockAdjustNew();
+            GetController().SaveNewStockAdjust();
         }
 
-        private Controller.CT_StockAdjustMenu GetController()
+        private Controller.CT_STA_Item_New GetController()
         {
             Window mainWindow = Application.Current.MainWindow;
             var a = (Main.View.MainWindow)mainWindow;
-            return (Controller.CT_StockAdjustMenu)a.MainFrame.Content;
+            return (Controller.CT_STA_Item_New)a.MainFrame.Content;
         }
     }
 }

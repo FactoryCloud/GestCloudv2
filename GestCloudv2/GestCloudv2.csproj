@@ -371,6 +371,9 @@
     <Compile Include="FloatWindows\EntitySelectWindow.xaml.cs">
       <DependentUpon>EntitySelectWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="FloatWindows\StoredStockSelectWindow.xaml.cs">
+      <DependentUpon>StoredStockSelectWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="FloatWindows\ProductSelectWindow.xaml.cs">
       <DependentUpon>ProductSelectWindow.xaml</DependentUpon>
     </Compile>
@@ -399,6 +402,25 @@
     </Compile>
     <Compile Include="Stocks\Nodes\StockAdjusts\StockAdjustItem\AddStock\MainAddStock\AddStock_ToolSide.xaml.cs">
       <DependentUpon>AddStock_ToolSide.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Stocks\Nodes\StockAdjusts\StockAdjustItem\StockAdjustItem_New\Controller\CT_STA_Item_New.cs">
+      <Generator>MSBuild:Compile</Generator>
+    </Compile>
+    <Compile Include="Stocks\Nodes\StockAdjusts\StockAdjustItem\StockAdjustItem_New\View\FW_STA_Item_New_ReduceStock.cs" />
+    <Compile Include="Stocks\Nodes\StockAdjusts\StockAdjustItem\StockAdjustItem_New\View\MC_STA_Item_New_StockAdjust.xaml.cs">
+      <DependentUpon>MC_STA_Item_New_StockAdjust.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Stocks\Nodes\StockAdjusts\StockAdjustItem\StockAdjustItem_New\View\MC_STA_Item_New_StockAdjust_Movements.xaml.cs">
+      <DependentUpon>MC_STA_Item_New_StockAdjust_Movements.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Stocks\Nodes\StockAdjusts\StockAdjustItem\StockAdjustItem_New\View\NV_STA_Item_New_StockAdjust.xaml.cs">
+      <DependentUpon>NV_STA_Item_New_StockAdjust.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Stocks\Nodes\StockAdjusts\StockAdjustItem\StockAdjustItem_New\View\TS_STA_Item_New_StockAdjust.xaml.cs">
+      <DependentUpon>TS_STA_Item_New_StockAdjust.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Stocks\Nodes\StockAdjusts\StockAdjustItem\StockAdjustItem_New\View\TS_STA_Item_New_StockAdjust_Movements.xaml.cs">
+      <DependentUpon>TS_STA_Item_New_StockAdjust_Movements.xaml</DependentUpon>
     </Compile>
     <Compile Include="Stocks\Nodes\StockAdjusts\StockAdjustMenu\Controller\CT_StockAdjustMenu.cs" />
     <Compile Include="Stocks\Nodes\StockAdjusts\StockAdjustMenu\View\MC_STA_Menu.xaml.cs">
@@ -687,6 +709,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="FloatWindows\StoredStockSelectWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="FloatWindows\ProductSelectWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -718,6 +744,26 @@
     <Page Include="Stocks\Nodes\StockAdjusts\StockAdjustItem\AddStock\MainAddStock\AddStock_ToolSide.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Stocks\Nodes\StockAdjusts\StockAdjustItem\StockAdjustItem_New\View\MC_STA_Item_New_StockAdjust.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Stocks\Nodes\StockAdjusts\StockAdjustItem\StockAdjustItem_New\View\MC_STA_Item_New_StockAdjust_Movements.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Stocks\Nodes\StockAdjusts\StockAdjustItem\StockAdjustItem_New\View\NV_STA_Item_New_StockAdjust.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Stocks\Nodes\StockAdjusts\StockAdjustItem\StockAdjustItem_New\View\TS_STA_Item_New_StockAdjust.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Stocks\Nodes\StockAdjusts\StockAdjustItem\StockAdjustItem_New\View\TS_STA_Item_New_StockAdjust_Movements.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Stocks\Nodes\StockAdjusts\StockAdjustMenu\View\MC_STA_Menu.xaml">
       <Generator>MSBuild:Compile</Generator>

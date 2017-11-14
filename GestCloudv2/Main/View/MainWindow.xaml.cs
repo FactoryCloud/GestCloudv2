@@ -24,10 +24,9 @@ namespace GestCloudv2.Main.View
     public partial class MainWindow : Window
     {
         GestCloudDB db;
-        //UserList_ToolSide toolSide;
-        //UserList_MainContent mainContent;
         public Dictionary<string, string> Information;
-        public User user;
+        public User selectedUser;
+        public Company selectedCompany;
         public List<UserPermission> UserPermissions;
 
         public MainWindow(User user)
@@ -39,62 +38,15 @@ namespace GestCloudv2.Main.View
 
             UserPermissions = new List<UserPermission>();
             Information = new Dictionary<string, string>();
-            this.user = user;
+            this.selectedUser = user;
 
             UserPermissions = db.UserPermissions.Where(u => u.user == user)
                 .Include(u => u.user).Include(u => u.userType).Include(u => u.permissionType).ToList();
 
+            selectedCompany = db.Companies.First();
+
             MainFrame.Content = new Main.Controller.CT_Main();
         }
-
-        /*public void ChangeContent(Page mainPage, Page navigationPage, Page toolPage)
-        {
-            MainContent.Content = mainPage;
-            TopSide.Content = navigationPage;
-            LeftSide.Content = toolPage;
-        }
-
-        public void changeLeftSide(Page page)
-        {
-            LeftSide.Content = page;
-        }
-
-        public void changeMainContent(Page page)
-        {
-            MainContent.Content = page;
-        }
-
-        public void changeTopSide(Page page)
-        {
-            TopSide.Content = page;
-        }
-
-        private void NewUserEvent(object sender, RoutedEventArgs e)
-        {
-            NewUserWindow newUserWindow = new NewUserWindow();
-            newUserWindow.Show();
-            this.Close();
-        }
-
-        private void EditUserEvent(object sender, RoutedEventArgs e)
-        {
-            //ModifyUserWindow modifyUserWindow = new ModifyUserWindow();
-            //modifyUserWindow.Show();
-            this.Close();
-        }
-
-        private void DeleteUserEvent(object sender, RoutedEventArgs e)
-        {
-            DeleteUserWindow deleteUserWindows = new DeleteUserWindow();
-            deleteUserWindows.Show();
-            this.Close();
-        }
-
-        private void LoginUserEvent(object sender, RoutedEventArgs e)
-        {
-            LoginUserWindow loginUserWindow = new LoginUserWindow();
-            loginUserWindow.Show();
-        }*/
 
         protected override void OnClosing(CancelEventArgs e)
         {

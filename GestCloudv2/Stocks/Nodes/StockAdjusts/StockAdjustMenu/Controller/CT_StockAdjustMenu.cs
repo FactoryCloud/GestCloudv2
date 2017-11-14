@@ -43,7 +43,7 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustMenu.Controller
             UpdateComponents();
         }
 
-        public void CT_StockAdjustNew()
+        public void EV_CT_StockAdjustNew()
         {
             Information["controller"] = 1;
             ChangeController();
@@ -105,12 +105,12 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustMenu.Controller
                     a.MainFrame.Content = new Stocks.Controller.CT_Stocks();
                     break;
 
-                /*case 1:
+                case 1:
                     Main.View.MainWindow b = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
-                    b.MainFrame.Content = new Files.Nodes.Companies.CompanyItem.CompanyItem_New.Controller.CT_CPN_Item_New();
+                    b.MainFrame.Content = new Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_New.Controller.CT_STA_Item_New();
                     break;
 
-                case 2:
+                /*case 2:
                     Main.View.MainWindow c = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
                     c.MainFrame.Content = new Files.Nodes.Companies.CompanyItem.CompanyItem_Load.Controller.CT_CPN_Item_Load(company, 0);
                     break;

@@ -103,7 +103,8 @@
     <Compile Include="Providers\ProviderView.cs" />
     <Compile Include="Clients\ClientsView.cs" />
     <Compile Include="Clients\ClientView.cs" />
-    <Compile Include="Stock\StocksAdjustsView.cs" />
+    <Compile Include="Stock\StoredStocksView.cs" />
+    <Compile Include="Stock\StockAdjustsView.cs" />
     <Compile Include="Stores\StoresView.cs" />
     <Compile Include="Companies\CompaniesView.cs" />
     <Compile Include="Movements\MovementsView.cs" />
