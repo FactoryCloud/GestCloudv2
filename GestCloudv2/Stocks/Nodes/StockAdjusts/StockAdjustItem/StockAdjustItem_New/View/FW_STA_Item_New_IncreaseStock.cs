@@ -11,23 +11,21 @@ using System.Windows.Input;
 
 namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_New.View
 {
-    public partial class FW_STA_Item_New_IncreaseStock : FloatWindows.StoredStockSelectWindow
+    public partial class FW_STA_Item_New_IncreaseStock : FloatWindows.ProductSelectWindow
     {
-        public FW_STA_Item_New_IncreaseStock( int option)
+        public FW_STA_Item_New_IncreaseStock(int option)
         {
             InitializeComponent();
 
             this.Loaded += new RoutedEventHandler(EV_Start);
 
-            //this.Closed += new EventHandler(EV_Close);
             CB_ProductType.SelectionChanged += new SelectionChangedEventHandler(EV_Search);
             CB_Expansion.SelectionChanged += new SelectionChangedEventHandler(EV_Search);
-            CB_Stores.SelectionChanged += new SelectionChangedEventHandler(EV_Search);
             TB_ProductName.KeyUp += new KeyEventHandler(EV_Search);
             TX_Quantity.KeyUp += new KeyEventHandler(EV_QuantityChange);
-            DG_StoredStocks.MouseLeftButtonUp += new MouseButtonEventHandler(EV_StoredStockSelect);
+            DG_Products.MouseLeftButtonUp += new MouseButtonEventHandler(EV_ProductsSelect);
 
-            storedStocksView = new StoredStocksView(option);
+            productsView = new ProductsView(1);
             movement = new Movement();
             UpdateData();
         }

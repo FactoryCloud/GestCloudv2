@@ -17,18 +17,20 @@ namespace FrameworkView.V1
         public string ProductName { get; set; }
         public GestCloudDB db;
 
+        int option;
         public ProductType productType;
         public Expansion expansion;
         private DataTable dt;
 
-        public ProductsView()
+        public ProductsView(int option)
         {
             db = new GestCloudDB();
-
             dt = new DataTable();
             productType = new ProductType();
-            //productType = db.ProductTypes.First(p => p.Name == "MTGCard");
             expansion = new Expansion();
+
+            this.option = option;
+
             dt.Columns.Add("ID", typeof(int));
             dt.Columns.Add("Nombre", typeof(string));
             dt.Columns.Add("Tipo Producto", typeof(string));
@@ -65,46 +67,13 @@ namespace FrameworkView.V1
 
         public void UpdateTable()
         {
-            MessageBox.Show("prueba");
-            List<Product> products = db.Products.Include(p=> p.productType).OrderBy(u => u.Name).ToList();
-            db.UpdatePricesMKM(products);
-
-            products = db.Products.Include(p => p.productType).OrderBy(u => u.Name).ToList();
-            dt.Clear();
-            foreach (Product item in products)
-            {
-                dt.Rows.Add(item.ProductID, item.Name, item.productType.Name, item.Price);
-            }
-        }
-
-        public void UpdateFilteredTable()
-        {
             List<Product> products = new List<Product>();
-            /*if (productType.ProductTypeID > 0)
-            {
-                switch (productType.ProductTypeID)
-                {
-                    case 1:
-                        List<MTGCard> cards = db.MTGCards.Where(u => CardFilterExpansion(u)).OrderBy(u => u.EnName).ToList();
-                        //MessageBox.Show($"{cards.Count}");
-
-                        foreach (MTGCard item in cards.Take(300))
-                        {
-                            Product temp = db.Products.First(p => p.ExternalID == item.ProductID);
-                            products.Add(temp);
-                        }
-                        break;
-                }
-                db.UpdatePricesMKM(products);
-            }*/
-
             if (productType.ProductTypeID > 0)
             {
                 switch(productType.ProductTypeID)
                 {
                     case 1:
                         List<MTGCard> cards = db.MTGCards.Where(u => CardFilterExpansion(u)).OrderBy(u => u.EnName).ToList();
-                        //MessageBox.Show($"{cards.Count}");
 
                         foreach (MTGCard item in cards)
                         {
@@ -115,8 +84,8 @@ namespace FrameworkView.V1
                 }
 
                 products.OrderBy(p => p.Name);
-
                 dt.Clear();
+                
                 foreach (Product item in products)
                 {
                     dt.Rows.Add(item.ProductID, item.Name, item.productType.Name, item.Price);
@@ -149,13 +118,7 @@ namespace FrameworkView.V1
 
         public IEnumerable GetTable()
         {
-            //UpdateTable();
-            return dt.DefaultView;
-        }
-
-        public IEnumerable GetTableFiltered()
-        {
-            UpdateFilteredTable();
+            UpdateTable();
             return dt.DefaultView;
         }
     }

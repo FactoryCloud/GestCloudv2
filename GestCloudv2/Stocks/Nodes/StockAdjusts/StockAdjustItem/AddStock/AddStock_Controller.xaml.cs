@@ -57,12 +57,12 @@ namespace GestCloudv2.StockItem.AddStock
             MainContent.Content = MainContentStock;
         }
 
-        public void RestartNewMovement()
+        /*public void RestartNewMovement()
         {
             FloatWindows.ProductSelectWindow floatWindow = new FloatWindows.ProductSelectWindow(
                 movementsView.movements.Last(), "AddStock_NewMovement");
             floatWindow.Show();
-        }
+        }*/
 
         private void UpdateComponents()
         {
