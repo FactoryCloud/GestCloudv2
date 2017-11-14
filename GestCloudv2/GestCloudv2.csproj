@@ -406,6 +406,7 @@
     <Compile Include="Stocks\Nodes\StockAdjusts\StockAdjustItem\StockAdjustItem_New\Controller\CT_STA_Item_New.cs">
       <Generator>MSBuild:Compile</Generator>
     </Compile>
+    <Compile Include="Stocks\Nodes\StockAdjusts\StockAdjustItem\StockAdjustItem_New\View\FW_STA_Item_New_IncreaseStock.cs" />
     <Compile Include="Stocks\Nodes\StockAdjusts\StockAdjustItem\StockAdjustItem_New\View\FW_STA_Item_New_ReduceStock.cs" />
     <Compile Include="Stocks\Nodes\StockAdjusts\StockAdjustItem\StockAdjustItem_New\View\MC_STA_Item_New_StockAdjust.xaml.cs">
       <DependentUpon>MC_STA_Item_New_StockAdjust.xaml</DependentUpon>

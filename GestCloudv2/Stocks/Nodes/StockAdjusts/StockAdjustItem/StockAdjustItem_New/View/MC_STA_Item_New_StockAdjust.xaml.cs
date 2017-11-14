@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using FrameworkDB.V1;
+using FrameworkView.V1;
 
 namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_New.View
 {
@@ -36,6 +37,15 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
 
         private void EV_Start(object sender, RoutedEventArgs e)
         {
+            TB_StockAdjustCode.Text = GetController().LastMovementCod().ToString();
+            List<Store> stores = GetController().GetStores();
+            foreach (Store st in stores)
+            {
+                ComboBoxItem temp = new ComboBoxItem();
+                temp.Content = $"{st.Code} - {st.Name}";
+                temp.Name = $"store{st.StoreID}";
+                CB_Stores.Items.Add(temp);
+            }
         }
 
         private void EV_StockAdjustCode(object sender, RoutedEventArgs e)

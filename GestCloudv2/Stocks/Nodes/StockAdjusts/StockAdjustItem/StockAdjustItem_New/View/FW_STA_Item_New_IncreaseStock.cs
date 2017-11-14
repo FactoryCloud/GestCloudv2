@@ -11,9 +11,9 @@ using System.Windows.Input;
 
 namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_New.View
 {
-    public partial class FW_STA_Item_New_ReduceStock : FloatWindows.StoredStockSelectWindow
+    public partial class FW_STA_Item_New_IncreaseStock : FloatWindows.StoredStockSelectWindow
     {
-        public FW_STA_Item_New_ReduceStock(int option)
+        public FW_STA_Item_New_IncreaseStock( int option)
         {
             InitializeComponent();
 

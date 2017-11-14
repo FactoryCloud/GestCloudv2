@@ -25,11 +25,14 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
     {
         public StockAdjust stockAdjust;
         public List<Movement> movements;
+        public int lastMovementCod;
+        public Movement movement;
 
         public CT_STA_Item_New()
         {
             movements = new List<Movement>();
             stockAdjust = new StockAdjust();
+            movement = new Movement();
             Information.Add("minimalInformation", 0);
         }
 
@@ -54,9 +57,31 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
             TestMinimalInformation();
         }
 
+        public int LastMovementCod()
+        {
+            if (db.Movements.ToList().Count > 0)
+            {
+                lastMovementCod = db.Movements.OrderBy(u => u.MovementID).Last().MovementID + 1;
+                movement.MovementID = lastMovementCod;
+                return lastMovementCod;
+            }
+            else
+            {
+                movement.MovementID = 1;
+                return lastMovementCod = 1;
+
+            }
+        }
+
         public void MD_StoredStock_Reduce()
         {
-            View.FW_STA_Item_New_Reduce floatWindow = new View.FW_STA_Item_New_Reduce(1);
+            View.FW_STA_Item_New_ReduceStock floatWindow = new View.FW_STA_Item_New_ReduceStock(1);
+            floatWindow.Show();
+        }
+
+        public void MD_StoredStock_Increase()
+        {
+            View.FW_STA_Item_New_IncreaseStock floatWindow = new View.FW_STA_Item_New_IncreaseStock(1);
             floatWindow.Show();
         }
 
