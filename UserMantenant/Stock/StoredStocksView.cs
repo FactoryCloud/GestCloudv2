@@ -36,6 +36,10 @@ namespace FrameworkView.V1
             dt.Columns.Add("ID", typeof(int));
             dt.Columns.Add("Nombre", typeof(string));
             dt.Columns.Add("Tipo Producto", typeof(string));
+            dt.Columns.Add("Condición", typeof(string));
+            dt.Columns.Add("Firmado", typeof(string));
+            dt.Columns.Add("Foil", typeof(string));
+            dt.Columns.Add("Almacén", typeof(string));
             dt.Columns.Add("Cantidad", typeof(decimal));
         }
 
@@ -76,14 +80,41 @@ namespace FrameworkView.V1
         {
             DocumentType documentTypeIn = db.DocumentTypes.Where(d => d.Name.Contains("StockAdjust") && d.Input == 1).First();
             DocumentType documentTypeOut = db.DocumentTypes.Where(d => d.Name.Contains("StockAdjust") && d.Input == 0).First();
-            movements = db.Movements.Where(m => m.DocumentTypeID == documentTypeIn.DocumentTypeID || m.DocumentTypeID == documentTypeOut.DocumentTypeID).Include(m => m.product).Include(m => m.product.productType).OrderBy(u => u.product.Name).ToList();
+            movements = db.Movements.Where(m => m.DocumentTypeID == documentTypeIn.DocumentTypeID || m.DocumentTypeID == documentTypeOut.DocumentTypeID).Include(m => m.product).Include(m => m.product.productType).Include(m => m.condition).Include(m => m.store).Include(m => m.documentType).OrderBy(u => u.product.Name).ToList();
 
             MessageBox.Show($"{movements.Count}");
 
+            List<Movement> movementsDeleted = new List<Movement>();
             dt.Clear();
             foreach (Movement item in movements)
             {
-                dt.Rows.Add(item.MovementID, item.product.Name, item.product.productType.Name, item.Quantity);
+                if (!movementsDeleted.Contains(item))
+                {
+                    if (item.documentType.Input == 0)
+                        item.Quantity = item.Quantity * -1;
+                    foreach (Movement item2 in movements)
+                    {
+                        if (item.ProductID == item2.ProductID && item.ConditionID == item2.ConditionID && item.IsSigned == item2.IsSigned &&
+                            item.IsFoil == item2.IsFoil && item.StoreID == item2.StoreID && item.MovementID != item2.MovementID)
+                        {
+                            if (item2.documentType.Input == 0)
+                                item2.Quantity = item2.Quantity * -1;
+
+                            item.Quantity = item.Quantity + item2.Quantity;
+                            movementsDeleted.Add(item2);
+                        }
+                    }
+                }
+            }
+            foreach(Movement item in movementsDeleted)
+            {
+                movements.Remove(item);
+            }
+
+            foreach (Movement item in movements)
+            {
+                dt.Rows.Add(item.MovementID, item.product.Name, item.product.productType.Name,
+                    item.condition.Name, item.IsSigned, item.IsFoil, $"{item.store.Code}", item.Quantity);
             }
         }
 

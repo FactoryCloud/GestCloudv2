@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GestCloudv2.FloatWindows"
         mc:Ignorable="d"
-        Title="ProductSelectWindow" Height="600" Width="900">
+        Title="StoredStockSelectWindow" Height="600" Width="900">
     <Grid Margin="15">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
