@@ -14,6 +14,7 @@ namespace FrameworkView.V1
     public class StoredStocksView
     {
         List<Movement> movements { get; set; }
+        List<Movement> movementsOld;
         public string ProductName { get; set; }
         public GestCloudDB db;
 
@@ -24,12 +25,13 @@ namespace FrameworkView.V1
         public Product products;
         private DataTable dt;
 
-        public StoredStocksView(int option)
+        public StoredStocksView(int option, List<Movement> movements)
         {
             db = new GestCloudDB();
             store = new Store();
             productType = new ProductType();
             expansion = new Expansion();
+            movementsOld = movements;
 
             this.option = option;
 
@@ -41,7 +43,24 @@ namespace FrameworkView.V1
             dt.Columns.Add("Firmado", typeof(string));
             dt.Columns.Add("Foil", typeof(string));
             dt.Columns.Add("Almacén", typeof(string));
-            dt.Columns.Add("Cantidad", typeof(decimal));
+            dt.Columns.Add("Cantidad", typeof(int));
+
+            switch(option)
+            {
+                case 1:
+                    List<Movement> movementsDeleted = new List<Movement>();
+                    foreach (Movement mov in movementsOld)
+                    {
+                        if (mov.store == null)
+                            movementsDeleted.Add(mov);
+                    }
+
+                    foreach (Movement item in movementsDeleted)
+                    {
+                        movementsOld.Remove(item);
+                    }
+                    break;
+            }
         }
 
         public void SetExpansion(int num)
@@ -71,6 +90,11 @@ namespace FrameworkView.V1
             return products;
         }
 
+        public Product GetProduct(int num)
+        {
+            return db.Products.Where(p => p.ProductID == num).First();
+        }
+
         public List<ProductType> GetProductTypes()
         {
             List<ProductType> productTypes = db.ProductTypes.OrderByDescending(ex => ex.Name).ToList();
@@ -83,29 +107,79 @@ namespace FrameworkView.V1
             return stores;
         }
 
+        public Store GetStore(int num)
+        {
+            return db.Stores.Where(p => p.Code == num).First();
+        }
+
+        public Movement GetMovement(int num)
+        {
+            Movement temp = db.Movements.Where(m => m.MovementID == num).Include(m => m.product)
+                .Include(m => m.condition).First();
+
+            Movement mov = new Movement();
+            mov.product = temp.product;
+            mov.IsFoil = temp.IsFoil;
+            mov.IsAltered = temp.IsAltered;
+            mov.IsPlayset = temp.IsPlayset;
+            mov.IsSigned = temp.IsSigned;
+            mov.store = temp.store;
+            mov.condition = temp.condition;
+
+            return mov;
+        }
+
+        public Movement UpdateMovement(Movement movement)
+        {
+            int input;
+            if(movement.Quantity>0)
+            {
+                input = 1;
+            }
+
+            else
+            {
+                input = 0;
+            }
+
+            switch (option)
+            {
+                case 1:
+                    movement.documentType = db.DocumentTypes.Where(d => d.Name == "StockAdjust" 
+                    && d.Input == input).First();
+                    break;
+            }
+
+            return movement;
+        }
+
         public void UpdateTable()
         {
             DocumentType documentTypeIn = db.DocumentTypes.Where(d => d.Name.Contains("StockAdjust") && d.Input == 1).First();
             DocumentType documentTypeOut = db.DocumentTypes.Where(d => d.Name.Contains("StockAdjust") && d.Input == 0).First();
             movements = db.Movements.Where(m => m.DocumentTypeID == documentTypeIn.DocumentTypeID || m.DocumentTypeID == documentTypeOut.DocumentTypeID).Include(m => m.product).Include(m => m.product.productType).Include(m => m.condition).Include(m => m.store).Include(m => m.documentType).OrderBy(u => u.product.Name).ToList();
 
-            MessageBox.Show($"{movements.Count}");
+            foreach(Movement item in movementsOld)
+            {
+                movements.Add(item);
+            }
 
             List<Movement> movementsDeleted = new List<Movement>();
             dt.Clear();
             foreach (Movement item in movements)
             {
-                if (!movementsDeleted.Contains(item))
+                if (!movementsDeleted.Contains(item) && !movementsOld.Contains(item))
                 {
-                    if (item.documentType.Input == 0)
-                        item.Quantity = item.Quantity * -1;
+                    if (item.documentType.Input == 0 && item.Quantity > 0)
+                        item.Quantity = Decimal.Multiply((decimal)item.Quantity,-1);
+
                     foreach (Movement item2 in movements)
                     {
-                        if (item.ProductID == item2.ProductID && item.ConditionID == item2.ConditionID && item.IsSigned == item2.IsSigned &&
-                            item.IsFoil == item2.IsFoil && item.StoreID == item2.StoreID && item.MovementID != item2.MovementID)
+                        if (item.product.ProductID == item2.product.ProductID && item.condition.ConditionID == item2.condition.ConditionID && item.IsSigned == item2.IsSigned &&
+                            item.IsFoil == item2.IsFoil && item.store.StoreID == item2.store.StoreID && (item.MovementID != item2.MovementID || movementsOld.Contains(item2)))
                         {
-                            if (item2.documentType.Input == 0)
-                                item2.Quantity = item2.Quantity * -1;
+                            if (item2.documentType.Input == 0 && item2.Quantity > 0)
+                                item2.Quantity = Decimal.Multiply((decimal)item2.Quantity, -1);
 
                             item.Quantity = item.Quantity + item2.Quantity;
                             movementsDeleted.Add(item2);
@@ -113,6 +187,7 @@ namespace FrameworkView.V1
                     }
                 }
             }
+
             foreach(Movement item in movementsDeleted)
             {
                 movements.Remove(item);

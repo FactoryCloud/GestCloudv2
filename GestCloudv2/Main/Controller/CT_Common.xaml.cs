@@ -58,6 +58,11 @@ namespace GestCloudv2.Main.Controller
             Information["entityLoaded"] = 1;
         }
 
+        public virtual void EV_MovementAdd(Movement movement)
+        {
+
+        }
+
         virtual public void MD_EntityNew()
         {
 

@@ -52,7 +52,7 @@ namespace GestCloudv2.StockItem.AddStock
 
         public void AddNewMovement (Movement mov)
         {
-            movementsView.AddMovement(mov);
+            movementsView.MovementAdd(mov);
             MainContentStock = new MainAddStock.AddStock_MainContent();
             MainContent.Content = MainContentStock;
         }

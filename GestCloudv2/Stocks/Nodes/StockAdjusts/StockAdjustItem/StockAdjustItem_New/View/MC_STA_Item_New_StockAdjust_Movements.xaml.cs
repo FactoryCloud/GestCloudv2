@@ -30,6 +30,13 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
 
         private void EV_Start(object sender, RoutedEventArgs e)
         {
+            UpdateData();
+        }
+
+        public void UpdateData()
+        {
+            DG_Movements.ItemsSource = null;
+            DG_Movements.ItemsSource = GetController().movementsView.GetTable();
         }
 
         private Controller.CT_STA_Item_New GetController()

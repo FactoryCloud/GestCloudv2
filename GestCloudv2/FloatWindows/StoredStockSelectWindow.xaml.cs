@@ -35,7 +35,7 @@ namespace GestCloudv2.FloatWindows
 
         }
 
-        public StoredStockSelectWindow(int option)
+        public StoredStockSelectWindow(int option, List<Movement> movements)
         {
             InitializeComponent();
 
@@ -46,10 +46,11 @@ namespace GestCloudv2.FloatWindows
             CB_Expansion.SelectionChanged += new SelectionChangedEventHandler(EV_Search);
             CB_Stores.SelectionChanged += new SelectionChangedEventHandler(EV_Search);
             TB_ProductName.KeyUp += new KeyEventHandler(EV_Search);
-            TX_Quantity.KeyUp += new KeyEventHandler(EV_QuantityChange);
+            TB_Quantity.KeyUp += new KeyEventHandler(EV_QuantityChange);
             DG_StoredStocks.MouseLeftButtonUp += new MouseButtonEventHandler(EV_StoredStockSelect);
 
-            storedStocksView = new StoredStocksView(option);
+            storedStocksView = new StoredStocksView(option, movements);
+            movement = new Movement();
             UpdateData();
         }
 
@@ -82,9 +83,6 @@ namespace GestCloudv2.FloatWindows
                 temp.Name = $"store{st.StoreID}";
                 CB_Stores.Items.Add(temp);
             }
-
-            //CB_ProductType.SelectedIndex = 0;
-            //UpdateData();
         }
 
         /*private void ItemContainerGeneratorOnStatusChanged(object sender, EventArgs eventArgs)
@@ -118,15 +116,16 @@ namespace GestCloudv2.FloatWindows
             {
                 DataGridRow row = (DataGridRow)DG_StoredStocks.ItemContainerGenerator.ContainerFromIndex(product);
                 DataRowView dr = row.Item as DataRowView;
-                MessageBox.Show(dr.Row.ItemArray[0].ToString());
-                //movement.product = db.Products.First(p => p.ProductID == Int32.Parse(dr.Row.ItemArray[0].ToString()));
-                //movement.ProductID = Int32.Parse(dr.Row.ItemArray[0].ToString());
+                movement = storedStocksView.GetMovement(Int32.Parse(dr.Row.ItemArray[0].ToString()));
+                movement.Quantity = Int32.Parse(dr.Row.ItemArray[7].ToString());
+                TB_Quantity.Text = Int32.Parse(dr.Row.ItemArray[7].ToString()).ToString();
             }
+            TB_Quantity.IsEnabled = true;
         }
 
         protected void EV_QuantityChange(object sender, RoutedEventArgs e)
         {
-            if (System.Text.RegularExpressions.Regex.IsMatch(TX_Quantity.Text, "[^0-9]"))
+            if (System.Text.RegularExpressions.Regex.IsMatch(TB_Quantity.Text, "[^0-9]"))
             {
                 if (SP_Quantity.Children.Count == 1)
                 {
@@ -135,7 +134,7 @@ namespace GestCloudv2.FloatWindows
                     message.Text = "Solo se permiten números";
                     SP_Quantity.Children.Add(message);
                 }
-                TX_Quantity.Text = TX_Quantity.Text.Remove(TX_Quantity.Text.Length - 1);
+                TB_Quantity.Text = TB_Quantity.Text.Remove(TB_Quantity.Text.Length - 1);
             }
 
             else
@@ -146,9 +145,18 @@ namespace GestCloudv2.FloatWindows
                 }
             }
 
-            if (decimal.TryParse(TX_Quantity.Text, out decimal d))
+            /*if (decimal.TryParse(TB_Quantity.Text, out decimal d))
             {
-                movement.Quantity = decimal.Parse(TX_Quantity.Text);
+                movement.Quantity = decimal.Parse(TB_Quantity.Text);
+            }*/
+
+            if (TB_Quantity.Text.Length > 0)
+            {
+                if ((int)movement.Quantity != Int32.Parse(TB_Quantity.Text))
+                    BT_SaveMovement.IsEnabled = true;
+
+                else
+                    BT_SaveMovement.IsEnabled = false;
             }
         }
 
@@ -165,6 +173,10 @@ namespace GestCloudv2.FloatWindows
                 this.Closed += new EventHandler(EV_Close);
             }
             this.Close();*/
+            movement.Quantity = (decimal)(Decimal.Parse(TB_Quantity.Text) - movement.Quantity);
+            movement = storedStocksView.UpdateMovement(movement);
+            GetController().EV_MovementAdd(movement);
+            this.Close();
         }
 
         protected void EV_Search(object sender, RoutedEventArgs e)

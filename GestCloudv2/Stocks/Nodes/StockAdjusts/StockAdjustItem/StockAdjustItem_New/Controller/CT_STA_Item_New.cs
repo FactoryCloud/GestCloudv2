@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using FrameworkDB.V1;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
+using FrameworkView.V1;
 
 namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_New.Controller
 {
@@ -24,15 +25,15 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
     public partial class CT_STA_Item_New : Main.Controller.CT_Common
     {
         public StockAdjust stockAdjust;
-        public List<Movement> movements;
         public int lastMovementCod;
         public Movement movement;
+        public MovementsView movementsView;
 
         public CT_STA_Item_New()
         {
-            movements = new List<Movement>();
             stockAdjust = new StockAdjust();
             movement = new Movement();
+            movementsView = new MovementsView();
             Information.Add("minimalInformation", 0);
         }
 
@@ -57,7 +58,7 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
             TestMinimalInformation();
         }
 
-        public int LastMovementCod()
+        /*public int LastMovementCod()
         {
             if (db.Movements.ToList().Count > 0)
             {
@@ -71,11 +72,11 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
                 return lastMovementCod = 1;
 
             }
-        }
+        }*/
 
         public void MD_StoredStock_Reduce()
         {
-            View.FW_STA_Item_New_ReduceStock floatWindow = new View.FW_STA_Item_New_ReduceStock(1);
+            View.FW_STA_Item_New_ReduceStock floatWindow = new View.FW_STA_Item_New_ReduceStock(1, movementsView.movements);
             floatWindow.Show();
         }
 
@@ -83,6 +84,14 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
         {
             View.FW_STA_Item_New_IncreaseStock floatWindow = new View.FW_STA_Item_New_IncreaseStock(1);
             floatWindow.Show();
+        }
+
+        public override void EV_MovementAdd(Movement movement)
+        {
+            movement.MovementID = movementsView.MovementNextID();
+            movementsView.MovementAdd(movement);
+            MC_Page = new View.MC_STA_Item_New_StockAdjust_Movements();
+            MainContent.Content = MC_Page;
         }
 
         public override void EV_ActivateSaveButton(bool verificated)
@@ -127,7 +136,7 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
             db.StockAdjusts.Add(stockAdjust);
             db.SaveChanges();
 
-            foreach (Movement movement in movements)
+            foreach (Movement movement in movementsView.movements)
             {
                 movement.documentType = db.DocumentTypes.Where(c => c.Name == "StockAdjust").First();
                 movement.DocumentID = stockAdjust.StockAdjustID;
