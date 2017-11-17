@@ -28,6 +28,7 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
         public int lastStockAdjustsCod;
         public Movement movement;
         public MovementsView movementsView;
+        public Store store;
 
         public CT_STA_Item_New()
         {
@@ -50,6 +51,12 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
         public List<Store> GetStores()
         {
             return db.Stores.ToList();
+        }
+
+        public void SetStore(int num)
+        {
+            store = db.Stores.Where(s => s.StoreID == num).First();
+            TestMinimalInformation();
         }
 
         public void SetAdjustDate(DateTime date)

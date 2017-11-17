@@ -52,7 +52,17 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
         {
         }
 
-        public void EV_DateChange(object sender, SelectionChangedEventArgs e)
+        protected void EV_StoreSelect(object sender, RoutedEventArgs e)
+        {
+            ComboBoxItem temp1 = (ComboBoxItem)CB_Stores.SelectedItem;
+
+            if (CB_Stores.SelectedIndex >= 0)
+            {
+                GetController().SetStore(Convert.ToInt32(temp1.Name.Replace("store", "")));
+            }
+        }
+
+            public void EV_DateChange(object sender, SelectionChangedEventArgs e)
         {
             var picker = sender as DatePicker;
 
@@ -60,12 +70,12 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
             if (date == null)
             {
                 this.Title = "Sin fecha";
-                GetController().stockAdjust.Date = null;
+                GetController().SetAdjustDate(null);
             }
             else
             {
                 this.Title = date.Value.ToShortDateString();
-                GetController().stockAdjust.Date = date.Value;
+                GetController().SetAdjustDate(date.Value);
             }
         }
 
