@@ -24,7 +24,7 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
         {
             InitializeComponent();
 
-            if(num >= 1)
+            if(GetController().movementsView.movements.Count > 0)
             {
                 BT_StockAdjustSave.IsEnabled = true;
             }

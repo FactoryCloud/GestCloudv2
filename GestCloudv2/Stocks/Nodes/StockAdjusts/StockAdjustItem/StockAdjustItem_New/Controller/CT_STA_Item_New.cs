@@ -71,12 +71,12 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
             if (db.StockAdjusts.ToList().Count > 0)
             {
                 lastStockAdjustsCod = db.StockAdjusts.OrderBy(u => u.StockAdjustID).Last().StockAdjustID + 1;
-                stockAdjust.StockAdjustID = lastStockAdjustsCod;
+                stockAdjust.Code = lastStockAdjustsCod.ToString();
                 return lastStockAdjustsCod;
             }
             else
             {
-                stockAdjust.StockAdjustID = 1;
+                stockAdjust.Code = $"1";
                 return lastStockAdjustsCod = 1;
 
             }
@@ -98,8 +98,7 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
         {
             movement.MovementID = movementsView.MovementNextID();
             movementsView.MovementAdd(movement);
-            MC_Page = new View.MC_STA_Item_New_StockAdjust_Movements();
-            MainContent.Content = MC_Page;
+            UpdateComponents();
         }
 
         public override void EV_ActivateSaveButton(bool verificated)
@@ -147,11 +146,18 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
             foreach (Movement movement in movementsView.movements)
             {
                 movement.MovementID = 0;
+                movement.ConditionID = movement.condition.ConditionID;
+                movement.condition = null;
+                movement.ProductID = movement.product.ProductID;
+                movement.product = null;
+
                 if (movement.store == null)
-                    movement.documentType = db.DocumentTypes.Where(c => c.Name == "StockAdjust" && c.Input == 1).First(); 
+                    movement.DocumentTypeID = db.DocumentTypes.Where(c => c.Name == "StockAdjust" && c.Input == 1).First().DocumentTypeID; 
 
                 else
                 {
+                    movement.DocumentTypeID = movement.documentType.DocumentTypeID;
+                    movement.documentType = null;
                     if (movement.Quantity < 0)
                         movement.Quantity = movement.Quantity * -1;
                 }
