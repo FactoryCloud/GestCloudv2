@@ -20,6 +20,7 @@ namespace FrameworkView.V1
 
         int option;
         public Movement movement;
+        private List<Movement> original;
         public ProductType productType;
         public Expansion expansion;
         public Store store;
@@ -32,7 +33,8 @@ namespace FrameworkView.V1
             store = new Store();
             productType = new ProductType();
             expansion = new Expansion();
-            movementsOld = movements;
+            original = movements;
+            movementsOld = new List<Movement>();
             movement = new Movement();
 
             this.option = option;
@@ -50,16 +52,10 @@ namespace FrameworkView.V1
             switch(option)
             {
                 case 1:
-                    List<Movement> movementsDeleted = new List<Movement>();
-                    foreach (Movement mov in movementsOld)
+                    foreach (Movement mov in original)
                     {
-                        if (mov.store == null)
-                            movementsDeleted.Add(mov);
-                    }
-
-                    foreach (Movement item in movementsDeleted)
-                    {
-                        movementsOld.Remove(item);
+                        if (mov.store != null)
+                            movementsOld.Add(mov);
                     }
                     break;
             }

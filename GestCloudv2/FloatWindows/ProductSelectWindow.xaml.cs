@@ -29,7 +29,6 @@ namespace GestCloudv2.FloatWindows
 
         public Movement movement;
         public ProductsView productsView;
-        public StoredStocksView storedStocksView;
         string type { get; set; }
 
         public ProductSelectWindow()
@@ -49,10 +48,8 @@ namespace GestCloudv2.FloatWindows
             TB_Quantity.KeyUp += new KeyEventHandler(EV_QuantityChange);
             DG_Products.MouseLeftButtonUp += new MouseButtonEventHandler(EV_ProductsSelect);
 
-            storedStocksView = new StoredStocksView(option, movements);
             productsView = new ProductsView(option);
             movement = new Movement();
-            //condition = new FrameworkDB.V1.Condition();
             UpdateData();
         }
 
@@ -159,7 +156,7 @@ namespace GestCloudv2.FloatWindows
         {
             ComboBoxItem temp1 = (ComboBoxItem)CB_ProductType.SelectedItem;
             ComboBoxItem temp2 = (ComboBoxItem)CB_Expansion.SelectedItem;
-            TB_ProductName.Text = "";
+
             if (CB_ProductType.SelectedIndex >= 0)
             {
                 productsView.SetProductType(Convert.ToInt32(temp1.Name.Replace("productType", "")));
@@ -175,12 +172,8 @@ namespace GestCloudv2.FloatWindows
                 productsView.ProductName = TB_ProductName.Text;
             }
 
-            else
-            {
-                productsView.ProductName = null;
-            }
-
-            UpdateData();
+            if(TB_ProductName.Text.Length >= 4 || CB_Expansion.SelectedIndex >= 0)
+                UpdateData();
         }
 
         public void UpdateData()

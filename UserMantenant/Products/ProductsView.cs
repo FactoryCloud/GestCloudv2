@@ -28,6 +28,7 @@ namespace FrameworkView.V1
             dt = new DataTable();
             productType = new ProductType();
             expansion = new Expansion();
+            ProductName = "";
 
             this.option = option;
 
@@ -84,12 +85,15 @@ namespace FrameworkView.V1
                 switch(productType.ProductTypeID)
                 {
                     case 1:
-                        List<MTGCard> cards = db.MTGCards.Where(u => CardFilterExpansion(u)).OrderBy(u => u.EnName).ToList();
-
-                        foreach (MTGCard item in cards)
+                        List<MTGCard> cards = CardFilter();
+                        if (cards != null)
                         {
-                            Product temp = db.Products.First(p => p.ExternalID == item.ProductID);
-                            products.Add(temp);
+                            //products = db.Products.Where(pr => pr.ExternalID in cards)
+                            foreach (MTGCard item in cards)
+                            {
+                                Product temp = db.Products.First(p => p.ExternalID == item.ProductID);
+                                products.Add(temp);
+                            }
                         }
                         break;
                 }
@@ -104,27 +108,30 @@ namespace FrameworkView.V1
             }
         }
 
-        private Boolean CardFilterExpansion(MTGCard card)
+        private List<MTGCard> CardFilter()
         {
-            if(ProductName != null && expansion.ExpansionID > 0)
+            if (ProductName.Length == 0 && expansion == null)
             {
-                return card.ExpansionID == expansion.Id && card.EnName.ToLower().Contains(ProductName.ToLower());
+                return null;
             }
 
-            else if (ProductName != null)
-            {               
-                return card.EnName.ToLower().Contains(ProductName.ToLower());
+            else if (ProductName.Length > 0 && expansion == null)
+            {
+                return db.MTGCards.Where(c => c.EnName.ToLower().Contains(ProductName.ToLower())).ToList();
             }
 
-            else if(ProductName == null && expansion.ExpansionID>0)
+            else if (ProductName.Length > 0 && expansion.ExpansionID > 0)
             {
-                return card.ExpansionID == expansion.Id;
+                return db.MTGCards.Where(c => c.ExpansionID == expansion.Id && c.EnName.ToLower().Contains(ProductName.ToLower())).ToList();
+            }
+
+            else if (ProductName.Length == 0 && expansion.ExpansionID > 0)
+            {
+                return db.MTGCards.Where(c => c.ExpansionID == expansion.Id).ToList();
             }
 
             else
-            {
-                return false;
-            }
+                return null;
         }
 
         public IEnumerable GetTable()
