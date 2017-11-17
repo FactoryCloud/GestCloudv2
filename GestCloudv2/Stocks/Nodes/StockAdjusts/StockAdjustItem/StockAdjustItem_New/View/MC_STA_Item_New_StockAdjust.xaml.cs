@@ -37,7 +37,7 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
 
         private void EV_Start(object sender, RoutedEventArgs e)
         {
-            //TB_StockAdjustCode.Text = GetController().LastMovementCod().ToString();
+            TB_StockAdjustCode.Text = GetController().LastStockAdjustCod().ToString();
             List<Store> stores = GetController().GetStores();
             foreach (Store st in stores)
             {

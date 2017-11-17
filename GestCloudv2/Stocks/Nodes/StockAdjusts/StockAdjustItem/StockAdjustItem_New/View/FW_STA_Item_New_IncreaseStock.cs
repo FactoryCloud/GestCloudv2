@@ -22,7 +22,7 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
             CB_ProductType.SelectionChanged += new SelectionChangedEventHandler(EV_Search);
             CB_Expansion.SelectionChanged += new SelectionChangedEventHandler(EV_Search);
             TB_ProductName.KeyUp += new KeyEventHandler(EV_Search);
-            TX_Quantity.KeyUp += new KeyEventHandler(EV_QuantityChange);
+            TB_Quantity.KeyUp += new KeyEventHandler(EV_QuantityChange);
             DG_Products.MouseLeftButtonUp += new MouseButtonEventHandler(EV_ProductsSelect);
 
             productsView = new ProductsView(1);

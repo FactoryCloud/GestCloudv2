@@ -25,7 +25,7 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
     public partial class CT_STA_Item_New : Main.Controller.CT_Common
     {
         public StockAdjust stockAdjust;
-        public int lastMovementCod;
+        public int lastStockAdjustsCod;
         public Movement movement;
         public MovementsView movementsView;
 
@@ -58,21 +58,21 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
             TestMinimalInformation();
         }
 
-        /*public int LastMovementCod()
+        public int LastStockAdjustCod()
         {
-            if (db.Movements.ToList().Count > 0)
+            if (db.StockAdjusts.ToList().Count > 0)
             {
-                lastMovementCod = db.Movements.OrderBy(u => u.MovementID).Last().MovementID + 1;
-                movement.MovementID = lastMovementCod;
-                return lastMovementCod;
+                lastStockAdjustsCod = db.StockAdjusts.OrderBy(u => u.StockAdjustID).Last().StockAdjustID + 1;
+                stockAdjust.StockAdjustID = lastStockAdjustsCod;
+                return lastStockAdjustsCod;
             }
             else
             {
-                movement.MovementID = 1;
-                return lastMovementCod = 1;
+                stockAdjust.StockAdjustID = 1;
+                return lastStockAdjustsCod = 1;
 
             }
-        }*/
+        }
 
         public void MD_StoredStock_Reduce()
         {
