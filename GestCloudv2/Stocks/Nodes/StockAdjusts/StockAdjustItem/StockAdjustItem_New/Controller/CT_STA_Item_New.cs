@@ -71,7 +71,7 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
             if (db.StockAdjusts.ToList().Count > 0)
             {
                 lastStockAdjustsCod = db.StockAdjusts.OrderBy(u => u.StockAdjustID).Last().StockAdjustID + 1;
-                stockAdjust.StockAdjustID = lastStockAdjustsCod;
+                stockAdjust.StockAdjustID = lastStockAdjustsCod + 1;
                 return lastStockAdjustsCod;
             }
             else
