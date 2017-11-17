@@ -70,7 +70,7 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
             if (date == null)
             {
                 this.Title = "Sin fecha";
-                GetController().SetAdjustDate(null);
+                GetController().stockAdjust.Date = null;
             }
             else
             {
