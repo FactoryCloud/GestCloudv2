@@ -140,9 +140,7 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
             {
                 movement.MovementID = 0;
                 if (movement.store == null)
-                {
                     movement.documentType = db.DocumentTypes.Where(c => c.Name == "StockAdjust" && c.Input == 1).First(); 
-                }
 
                 else
                 {
