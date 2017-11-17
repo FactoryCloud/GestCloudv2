@@ -39,7 +39,7 @@ namespace FrameworkView.V1
             dt.Clear();
             foreach (Movement item in movements)
             {
-                if (!movementsDeleted.Contains(item))
+                if (!movementsDeleted.Contains(item) && item.documentType != null)
                 {
                     if (item.documentType.Input == 0 && item.Quantity > 0)
                         item.Quantity = Decimal.Multiply((decimal)item.Quantity, -1);
@@ -82,8 +82,13 @@ namespace FrameworkView.V1
             dt.Clear();
             foreach (Movement item in movements)
             {
-                dt.Rows.Add(item.MovementID, item.product.Name, item.product.productType.Name,
-                    item.condition.Name, item.IsSigned, item.IsFoil, $"{item.store.Code}", item.Quantity);
+                if (item.store != null)
+                    dt.Rows.Add(item.MovementID, item.product.Name, item.product.productType.Name,
+                       item.condition.Name, item.IsSigned, item.IsFoil, $"{item.store.Code}", item.Quantity);
+                else
+                    dt.Rows.Add(item.MovementID, item.product.Name, item.product.productType.Name,
+                           item.condition.Name, item.IsSigned, item.IsFoil,"" , item.Quantity);
+
             }
         }
 

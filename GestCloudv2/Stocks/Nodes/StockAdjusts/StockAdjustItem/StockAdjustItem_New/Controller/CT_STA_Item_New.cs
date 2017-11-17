@@ -58,6 +58,7 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
             TestMinimalInformation();
         }
 
+
         public int LastStockAdjustCod()
         {
             if (db.StockAdjusts.ToList().Count > 0)
@@ -82,7 +83,7 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
 
         public void MD_StoredStock_Increase()
         {
-            View.FW_STA_Item_New_IncreaseStock floatWindow = new View.FW_STA_Item_New_IncreaseStock(1);
+            View.FW_STA_Item_New_IncreaseStock floatWindow = new View.FW_STA_Item_New_IncreaseStock(1, movementsView.movements);
             floatWindow.Show();
         }
 

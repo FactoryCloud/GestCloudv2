@@ -13,21 +13,9 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
 {
     public partial class FW_STA_Item_New_IncreaseStock : FloatWindows.ProductSelectWindow
     {
-        public FW_STA_Item_New_IncreaseStock(int option)
+        public FW_STA_Item_New_IncreaseStock(int option, List<Movement> movements) : base(option, movements)
         {
-            InitializeComponent();
-
-            this.Loaded += new RoutedEventHandler(EV_Start);
-
-            CB_ProductType.SelectionChanged += new SelectionChangedEventHandler(EV_Search);
-            CB_Expansion.SelectionChanged += new SelectionChangedEventHandler(EV_Search);
-            TB_ProductName.KeyUp += new KeyEventHandler(EV_Search);
-            TB_Quantity.KeyUp += new KeyEventHandler(EV_QuantityChange);
-            DG_Products.MouseLeftButtonUp += new MouseButtonEventHandler(EV_ProductsSelect);
-
-            productsView = new ProductsView(1);
-            movement = new Movement();
-            UpdateData();
+            
         }
 
         override public Main.Controller.CT_Common GetController()

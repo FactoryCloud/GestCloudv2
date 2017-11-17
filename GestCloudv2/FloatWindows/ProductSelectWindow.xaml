@@ -70,7 +70,7 @@
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
                 <Label FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center">Condición</Label>
-                <ComboBox FontSize="12" Grid.Row="1" VerticalAlignment="Center" Margin="20" Name="CB_states">
+                <ComboBox FontSize="12" Grid.Row="1" VerticalAlignment="Center" Margin="20" Name="CB_Condition">
                     
                 </ComboBox>
             </Grid>
