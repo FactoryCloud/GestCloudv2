@@ -29,6 +29,7 @@ namespace GestCloudv2.FloatWindows
 
         public Movement movement;
         public ProductsView productsView;
+        public StoredStocksView storedStocksView;
         string type { get; set; }
 
         public ProductSelectWindow()
@@ -44,10 +45,11 @@ namespace GestCloudv2.FloatWindows
             CB_ProductType.SelectionChanged += new SelectionChangedEventHandler(EV_Search);
             CB_Expansion.SelectionChanged += new SelectionChangedEventHandler(EV_Search);
             TB_ProductName.KeyUp += new KeyEventHandler(EV_Search);
-            TX_Quantity.KeyUp += new KeyEventHandler(EV_QuantityChange);
+            TB_Quantity.KeyUp += new KeyEventHandler(EV_QuantityChange);
             DG_Products.MouseLeftButtonUp += new MouseButtonEventHandler(EV_ProductsSelect);
 
             productsView = new ProductsView(option);
+            movement = new Movement();
             //condition = new FrameworkDB.V1.Condition();
             UpdateData();
         }
@@ -104,7 +106,7 @@ namespace GestCloudv2.FloatWindows
 
         protected void EV_QuantityChange(object sender, RoutedEventArgs e)
         {
-            if (System.Text.RegularExpressions.Regex.IsMatch(TX_Quantity.Text, "[^0-9]"))
+            if (System.Text.RegularExpressions.Regex.IsMatch(TB_Quantity.Text, "[^0-9]"))
             {
                 if (SP_Quantity.Children.Count == 1)
                 {
@@ -113,7 +115,7 @@ namespace GestCloudv2.FloatWindows
                     message.Text = "Solo se permiten números";
                     SP_Quantity.Children.Add(message);
                 }
-                TX_Quantity.Text = TX_Quantity.Text.Remove(TX_Quantity.Text.Length - 1);
+                TB_Quantity.Text = TB_Quantity.Text.Remove(TB_Quantity.Text.Length - 1);
             }
 
             else
@@ -124,14 +126,18 @@ namespace GestCloudv2.FloatWindows
                 }
             }
 
-            if (decimal.TryParse(TX_Quantity.Text, out decimal d))
+            if (decimal.TryParse(TB_Quantity.Text, out decimal d))
             {
-                movement.Quantity = decimal.Parse(TX_Quantity.Text);
+                movement.Quantity = decimal.Parse(TB_Quantity.Text);
             }
         }
 
         protected void EV_SaveMovement(object sender, RoutedEventArgs e)
         {
+            movement.Quantity = (decimal)(Decimal.Parse(TB_Quantity.Text) - movement.Quantity);
+            movement = storedStocksView.UpdateMovement(movement);
+            GetController().EV_MovementAdd(movement);
+            this.Close();
         }
 
         protected void EV_Search(object sender, RoutedEventArgs e)

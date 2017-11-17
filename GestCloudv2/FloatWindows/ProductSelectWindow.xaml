@@ -61,7 +61,7 @@
                 </Grid.RowDefinitions>
                 <Label FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center">Cantidad</Label>
                 <StackPanel Name="SP_Quantity" Grid.Row="1" VerticalAlignment="Center">
-                <TextBox Name="TX_Quantity" FontSize="12" VerticalAlignment="Center" Margin="20,0,20,0" ></TextBox>
+                <TextBox Name="TB_Quantity" FontSize="12" VerticalAlignment="Center" Margin="20,0,20,0" ></TextBox>
                 </StackPanel>
             </Grid>
             <Grid Margin="5" Grid.Column="1">
@@ -69,7 +69,7 @@
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
-                <Label FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center">Estado</Label>
+                <Label FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center">Condición</Label>
                 <ComboBox FontSize="12" Grid.Row="1" VerticalAlignment="Center" Margin="20" Name="CB_states">
                     
                 </ComboBox>
