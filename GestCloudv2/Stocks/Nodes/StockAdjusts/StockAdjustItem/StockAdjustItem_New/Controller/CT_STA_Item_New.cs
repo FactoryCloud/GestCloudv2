@@ -26,14 +26,13 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
     {
         public StockAdjust stockAdjust;
         public int lastStockAdjustsCod;
-        public Movement movement;
+        public Movement movementSelected;
         public MovementsView movementsView;
         public Store store;
 
         public CT_STA_Item_New()
         {
             stockAdjust = new StockAdjust();
-            movement = new Movement();
             movementsView = new MovementsView();
             Information.Add("minimalInformation", 0);
         }
@@ -53,10 +52,27 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
             return db.Stores.ToList();
         }
 
+        public void SetMovementSelected(int num)
+        {
+            movementSelected = movementsView.movements.Where(u => u.MovementID == num).First();
+            if (Information["mode"] == 1)
+                TS_Page = new View.TS_STA_Item_New_StockAdjust(Information["minimalInformation"]);
+
+            if (Information["mode"] == 2)
+                TS_Page = new View.TS_STA_Item_New_StockAdjust_Movements(Information["minimalInformation"]);
+
+            LeftSide.Content = TS_Page;
+        }
+
         public void SetStore(int num)
         {
             store = db.Stores.Where(s => s.StoreID == num).First();
             TestMinimalInformation();
+        }
+
+        public void EV_ProductsSelect(object sender, RoutedEventArgs e)
+        {
+
         }
 
         public void SetAdjustDate(DateTime date)
@@ -95,7 +111,7 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
         }
 
         public override void EV_MovementAdd(Movement movement)
-        {
+        { 
             movement.MovementID = movementsView.MovementNextID();
             movementsView.MovementAdd(movement);
             UpdateComponents();

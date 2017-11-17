@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using FrameworkDB.V1;
+using System.Data;
 
 namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_New.View
 {
@@ -26,11 +27,24 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
             InitializeComponent();
 
             this.Loaded += new RoutedEventHandler(EV_Start);
+            DG_Movements.MouseLeftButtonUp += new MouseButtonEventHandler(EV_MovementsSelect);
         }
 
         private void EV_Start(object sender, RoutedEventArgs e)
         {
             UpdateData();
+        }
+
+        public void EV_MovementsSelect(object sender, RoutedEventArgs e)
+        {
+            int movement = DG_Movements.SelectedIndex;
+
+            if (movement >= 0)
+            {
+                DataGridRow row = (DataGridRow)DG_Movements.ItemContainerGenerator.ContainerFromIndex(movement);
+                DataRowView dr = row.Item as DataRowView;
+                GetController().SetMovementSelected(Int32.Parse(dr.Row.ItemArray[0].ToString()));
+            }
         }
 
         public void UpdateData()
