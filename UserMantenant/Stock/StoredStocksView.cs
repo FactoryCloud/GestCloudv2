@@ -19,6 +19,7 @@ namespace FrameworkView.V1
         public GestCloudDB db;
 
         int option;
+        public Movement movement;
         public ProductType productType;
         public Expansion expansion;
         public Store store;
@@ -32,6 +33,7 @@ namespace FrameworkView.V1
             productType = new ProductType();
             expansion = new Expansion();
             movementsOld = movements;
+            movement = new Movement();
 
             this.option = option;
 
@@ -127,6 +129,12 @@ namespace FrameworkView.V1
             mov.condition = temp.condition;
 
             return mov;
+        }
+
+        public Movement AddMovement(Movement movement)
+        {
+            movement.documentType = db.DocumentTypes.Where(d => d.Name == "StockAdjust").First();
+            return movement;
         }
 
         public Movement UpdateMovement(Movement movement)

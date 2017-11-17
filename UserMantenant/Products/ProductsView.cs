@@ -59,6 +59,17 @@ namespace FrameworkView.V1
             return productTypes;
         }
 
+        public FrameworkDB.V1.Condition GetCondition(int num)
+        {
+            return db.Conditions.Where(ex => ex.ConditionID == num).First();
+        }
+
+        public Product GetProduct(int num)
+        {
+            Product product = db.Products.Where(ex => ex.ProductID == num).Include(pt => pt.productType).First();
+            return product;
+        }
+
         public List<FrameworkDB.V1.Condition> GetConditions()
         {
             List<FrameworkDB.V1.Condition> conditions = db.Conditions.OrderBy(ex => ex.ConditionID).ToList();

@@ -36,7 +36,7 @@ namespace GestCloudv2.FloatWindows
         {
         }
 
-        public ProductSelectWindow(int option)
+        public ProductSelectWindow(int option, List<Movement> movements)
         {
             InitializeComponent();
 
@@ -44,10 +44,12 @@ namespace GestCloudv2.FloatWindows
 
             CB_ProductType.SelectionChanged += new SelectionChangedEventHandler(EV_Search);
             CB_Expansion.SelectionChanged += new SelectionChangedEventHandler(EV_Search);
+            CB_Condition.SelectionChanged += new SelectionChangedEventHandler(EV_ConditionSelect);
             TB_ProductName.KeyUp += new KeyEventHandler(EV_Search);
             TB_Quantity.KeyUp += new KeyEventHandler(EV_QuantityChange);
             DG_Products.MouseLeftButtonUp += new MouseButtonEventHandler(EV_ProductsSelect);
 
+            storedStocksView = new StoredStocksView(option, movements);
             productsView = new ProductsView(option);
             movement = new Movement();
             //condition = new FrameworkDB.V1.Condition();
@@ -80,8 +82,8 @@ namespace GestCloudv2.FloatWindows
             {
                 ComboBoxItem temp = new ComboBoxItem();
                 temp.Content = $"{ct.Name}";
-                temp.Name = $"productType{ct.ConditionID}";
-                CB_states.Items.Add(temp);
+                temp.Name = $"condition{ct.ConditionID}";
+                CB_Condition.Items.Add(temp);
             }
 
             foreach (ComboBoxItem cmbItem in CB_ProductType.Items)
@@ -91,16 +93,30 @@ namespace GestCloudv2.FloatWindows
                     CB_ProductType.SelectedValue = cmbItem;
                 }
             }
+            CB_Condition.SelectedIndex = 0;
+        }
+
+        public void EV_ConditionSelect(object sender, RoutedEventArgs e)
+        {
+            ComboBoxItem temp1 = (ComboBoxItem)CB_Condition.SelectedItem;
+
+            if (CB_Condition.SelectedIndex >= 0)
+            {
+                movement.condition = productsView.GetCondition(Convert.ToInt32(temp1.Name.Replace("condition", "")));
+            }
         }
 
         public void EV_ProductsSelect(object sender, RoutedEventArgs e)
         {
             int product = DG_Products.SelectedIndex;
+
             if (product >= 0)
             {
                 DataGridRow row = (DataGridRow)DG_Products.ItemContainerGenerator.ContainerFromIndex(product);
                 DataRowView dr = row.Item as DataRowView;
-                MessageBox.Show(dr.Row.ItemArray[0].ToString());
+                movement.product = productsView.GetProduct(Int32.Parse(dr.Row.ItemArray[0].ToString()));
+                TB_ProductName.Text = movement.product.Name; 
+                //MessageBox.Show(dr.Row.ItemArray[0].ToString());
             }
         }
 
@@ -134,8 +150,7 @@ namespace GestCloudv2.FloatWindows
 
         protected void EV_SaveMovement(object sender, RoutedEventArgs e)
         {
-            movement.Quantity = (decimal)(Decimal.Parse(TB_Quantity.Text) - movement.Quantity);
-            movement = storedStocksView.UpdateMovement(movement);
+            movement.Quantity = Decimal.Parse(TB_Quantity.Text);
             GetController().EV_MovementAdd(movement);
             this.Close();
         }
@@ -144,7 +159,7 @@ namespace GestCloudv2.FloatWindows
         {
             ComboBoxItem temp1 = (ComboBoxItem)CB_ProductType.SelectedItem;
             ComboBoxItem temp2 = (ComboBoxItem)CB_Expansion.SelectedItem;
-
+            TB_ProductName.Text = "";
             if (CB_ProductType.SelectedIndex >= 0)
             {
                 productsView.SetProductType(Convert.ToInt32(temp1.Name.Replace("productType", "")));
