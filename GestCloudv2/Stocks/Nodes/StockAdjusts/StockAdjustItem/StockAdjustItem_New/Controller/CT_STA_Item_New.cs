@@ -138,7 +138,18 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
 
             foreach (Movement movement in movementsView.movements)
             {
-                movement.documentType = db.DocumentTypes.Where(c => c.Name == "StockAdjust").First();
+                movement.MovementID = 0;
+                if (movement.store == null)
+                {
+                    movement.documentType = db.DocumentTypes.Where(c => c.Name == "StockAdjust" && c.Input == 1).First(); 
+                }
+
+                else
+                {
+                    if (movement.Quantity < 0)
+                        movement.Quantity = movement.Quantity * -1;
+                }
+
                 movement.DocumentID = stockAdjust.StockAdjustID;
                 db.Movements.Add(movement);
             }
