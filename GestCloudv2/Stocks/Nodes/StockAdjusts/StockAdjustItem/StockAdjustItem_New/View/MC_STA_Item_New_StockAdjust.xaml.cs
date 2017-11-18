@@ -22,21 +22,24 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
     /// </summary>
     public partial class MC_STA_Item_New_StockAdjust : Page
     {
+
         public MC_STA_Item_New_StockAdjust()
         {
+
             InitializeComponent();
-
             this.Loaded += new RoutedEventHandler(EV_Start);
-
             TB_StockAdjustReference.KeyUp += new KeyEventHandler(EV_StockAdjustCode);
             TB_StockAdjustReference.Loaded += new RoutedEventHandler(EV_StockAdjustCode);
             TB_StockAdjustCode.KeyUp += new KeyEventHandler(EV_StockAdjustCode);
             TB_StockAdjustCode.Loaded += new RoutedEventHandler(EV_StockAdjustCode);
+            DP_Date.KeyDown += new KeyEventHandler(EV_Cancel);
+            DP_Date.KeyUp += new KeyEventHandler(EV_Cancel);
 
         }
 
         private void EV_Start(object sender, RoutedEventArgs e)
         {
+            DP_Date.SelectedDate = DateTime.Now;
             TB_StockAdjustCode.Text = GetController().LastStockAdjustCod().ToString();
             List<Store> stores = GetController().GetStores();
             foreach (Store st in stores)
@@ -46,6 +49,13 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
                 temp.Name = $"store{st.StoreID}";
                 CB_Stores.Items.Add(temp);
             }
+            CB_Stores.SelectedIndex = 0;
+        }
+
+        private void EV_Cancel(object sender, KeyEventArgs e)
+        {
+                e.Handled = true;
+                MessageBox.Show("SI");
         }
 
         private void EV_StockAdjustCode(object sender, RoutedEventArgs e)
@@ -84,6 +94,11 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
             Window mainWindow = Application.Current.MainWindow;
             var a = (Main.View.MainWindow)mainWindow;
             return (Controller.CT_STA_Item_New)a.MainFrame.Content;
+        }
+
+        private void DP_Date_IsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+
         }
     }
 }

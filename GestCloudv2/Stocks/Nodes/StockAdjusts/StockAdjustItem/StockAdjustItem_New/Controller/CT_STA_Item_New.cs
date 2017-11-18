@@ -49,7 +49,13 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
 
         public List<Store> GetStores()
         {
-            return db.Stores.ToList();
+            List<Store> stores = new List<Store>();
+            List<CompanyStore> companyStores = db.CompaniesStores.Where(c => c.CompanyID == ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID).Include(z => z.store).ToList();
+            foreach (CompanyStore e in companyStores)
+            {
+                stores.Add(e.store);
+            }
+            return stores;
         }
 
         public void SetMovementSelected(int num)
