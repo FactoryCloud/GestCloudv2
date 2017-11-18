@@ -154,6 +154,8 @@ namespace GestCloudv2.FloatWindows
 
         protected void EV_Search(object sender, RoutedEventArgs e)
         {
+            productsView.ProductName = TB_ProductName.Text;
+
             ComboBoxItem temp1 = (ComboBoxItem)CB_ProductType.SelectedItem;
             ComboBoxItem temp2 = (ComboBoxItem)CB_Expansion.SelectedItem;
 
@@ -165,11 +167,6 @@ namespace GestCloudv2.FloatWindows
             if (CB_Expansion.SelectedIndex >= 0)
             {
                 productsView.SetExpansion(Convert.ToInt32(temp2.Name.Replace("expansion", "")));
-            }
-
-            if (TB_ProductName.Text.Length >= 4)
-            {
-                productsView.ProductName = TB_ProductName.Text;
             }
 
             if(TB_ProductName.Text.Length >= 4 || CB_Expansion.SelectedIndex >= 0)

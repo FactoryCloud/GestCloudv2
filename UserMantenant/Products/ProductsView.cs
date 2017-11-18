@@ -27,7 +27,6 @@ namespace FrameworkView.V1
             db = new GestCloudDB();
             dt = new DataTable();
             productType = new ProductType();
-            expansion = new Expansion();
             ProductName = "";
 
             this.option = option;
@@ -85,16 +84,26 @@ namespace FrameworkView.V1
                 switch(productType.ProductTypeID)
                 {
                     case 1:
-                        List<MTGCard> cards = CardFilter();
-                        if (cards != null)
+                        if (expansion != null)
+                            products = db.Products.Where(pr => pr.Name.ToLower()
+                                .Contains($"({expansion.Abbreviation.ToLower()})") &&
+                                pr.Name.ToLower().Contains(ProductName.ToLower())).ToList();
+
+                        else
+                            products = db.Products.Where(pr => 
+                                pr.Name.ToLower().Contains(ProductName.ToLower())).ToList();
+                        /*else
                         {
-                            //products = db.Products.Where(pr => pr.ExternalID in cards)
-                            foreach (MTGCard item in cards)
+                            List<MTGCard> cards = CardFilter();
+                            if (cards != null)
                             {
-                                Product temp = db.Products.First(p => p.ExternalID == item.ProductID);
-                                products.Add(temp);
+                                foreach (MTGCard item in cards)
+                                {
+                                    Product temp = db.Products.First(p => p.ExternalID == item.ProductID);
+                                    products.Add(temp);
+                                }
                             }
-                        }
+                        }*/
                         break;
                 }
 
