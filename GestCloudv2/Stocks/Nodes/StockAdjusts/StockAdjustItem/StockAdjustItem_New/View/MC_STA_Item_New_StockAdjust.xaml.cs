@@ -62,7 +62,7 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
             }
         }
 
-            public void EV_DateChange(object sender, SelectionChangedEventArgs e)
+        public void EV_DateChange(object sender, SelectionChangedEventArgs e)
         {
             var picker = sender as DatePicker;
 

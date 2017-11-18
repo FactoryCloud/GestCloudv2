@@ -114,6 +114,7 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
         { 
             movement.MovementID = movementsView.MovementNextID();
             movementsView.MovementAdd(movement);
+            movementSelected = null;
             UpdateComponents();
         }
 
