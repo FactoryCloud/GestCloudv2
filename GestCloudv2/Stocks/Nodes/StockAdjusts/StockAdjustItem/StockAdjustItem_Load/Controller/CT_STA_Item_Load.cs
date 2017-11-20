@@ -29,12 +29,15 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
         public Movement movementSelected;
         public MovementsView movementsView;
         public Store store;
+        public Dictionary<string, int> InformationLoad;
 
-        public CT_STA_Item_Load()
+        public CT_STA_Item_Load(StockAdjust stockAdjust, int editable)
         {
-            stockAdjust = new StockAdjust();
+            this.stockAdjust = stockAdjust;
             movementsView = new MovementsView();
+            InformationLoad = new Dictionary<string, int>();
             Information.Add("minimalInformation", 0);
+            InformationLoad.Add("editable",editable);
         }
 
         override public void EV_Start(object sender, RoutedEventArgs e)
