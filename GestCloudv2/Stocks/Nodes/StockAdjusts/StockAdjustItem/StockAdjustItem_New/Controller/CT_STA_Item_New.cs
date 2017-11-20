@@ -84,7 +84,7 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
 
         public void EV_ProductsSelect(object sender, RoutedEventArgs e)
         {
-
+            
         }
 
         public void SetAdjustDate(DateTime date)
@@ -120,6 +120,13 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
         {
             View.FW_STA_Item_New_IncreaseStock floatWindow = new View.FW_STA_Item_New_IncreaseStock(1, movementsView.movements);
             floatWindow.Show();
+        }
+
+        public void MD_StoredStock_Remove()
+        {
+            movementsView.MovementDelete(movementSelected.MovementID);
+            movementSelected = null;
+            UpdateComponents();
         }
 
         public override void EV_MovementAdd(Movement movement)

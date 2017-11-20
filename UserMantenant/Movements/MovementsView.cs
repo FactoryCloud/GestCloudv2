@@ -65,6 +65,12 @@ namespace FrameworkView.V1
             } 
         }
 
+        public void MovementDelete (int num)
+        {
+            Movement movement = movements.Where(m => m.MovementID == num).First();
+            movements.Remove(movement);
+        }
+
         public int MovementNextID()
         {
             if (movements.Count > 0)
