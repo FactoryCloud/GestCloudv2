@@ -23,11 +23,26 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustMenu.View
         public TS_STA_Menu()
         {
             InitializeComponent();
+            if (GetController().stockAdjust != null)
+            {
+                BT_StockAdjustLoad.IsEnabled = true;
+                BT_StockAdjustLoadEditable.IsEnabled = true;
+            }
         }
 
         private void EV_MD_StockAdjustNew(object sender, RoutedEventArgs e)
         {
             GetController().EV_CT_StockAdjustNew();
+        }
+
+        private void EV_MD_StockAdjustLoad(object sender, RoutedEventArgs e)
+        {
+            GetController().EV_CT_StockAdjustLoad();
+        }
+
+        private void EV_MD_StockAdjustLoadEditable(object sender, RoutedEventArgs e)
+        {
+            GetController().EV_CT_StockAdjustLoadEditable();
         }
 
         private Controller.CT_StockAdjustMenu GetController()

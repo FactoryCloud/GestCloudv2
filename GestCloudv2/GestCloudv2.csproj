@@ -403,6 +403,26 @@
     <Compile Include="Stocks\Nodes\StockAdjusts\StockAdjustItem\AddStock\MainAddStock\AddStock_ToolSide.xaml.cs">
       <DependentUpon>AddStock_ToolSide.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Stocks\Nodes\StockAdjusts\StockAdjustItem\StockAdjustItem_Load\Controller\CT_STA_Item_Load.cs">
+      <Generator>MSBuild:Compile</Generator>
+    </Compile>
+    <Compile Include="Stocks\Nodes\StockAdjusts\StockAdjustItem\StockAdjustItem_Load\View\FW_STA_Item_Load_IncreaseStock.cs" />
+    <Compile Include="Stocks\Nodes\StockAdjusts\StockAdjustItem\StockAdjustItem_Load\View\FW_STA_Item_Load_ReduceStock.cs" />
+    <Compile Include="Stocks\Nodes\StockAdjusts\StockAdjustItem\StockAdjustItem_Load\View\MC_STA_Item_Load_StockAdjust.xaml.cs">
+      <DependentUpon>MC_STA_Item_Load_StockAdjust.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Stocks\Nodes\StockAdjusts\StockAdjustItem\StockAdjustItem_Load\View\MC_STA_Item_Load_StockAdjust_Movements.xaml.cs">
+      <DependentUpon>MC_STA_Item_Load_StockAdjust_Movements.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Stocks\Nodes\StockAdjusts\StockAdjustItem\StockAdjustItem_Load\View\NV_STA_Item_Load_StockAdjust.xaml.cs">
+      <DependentUpon>NV_STA_Item_Load_StockAdjust.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Stocks\Nodes\StockAdjusts\StockAdjustItem\StockAdjustItem_Load\View\TS_STA_Item_Load_StockAdjust.xaml.cs">
+      <DependentUpon>TS_STA_Item_Load_StockAdjust.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Stocks\Nodes\StockAdjusts\StockAdjustItem\StockAdjustItem_Load\View\TS_STA_Item_Load_StockAdjust_Movements.xaml.cs">
+      <DependentUpon>TS_STA_Item_Load_StockAdjust_Movements.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Stocks\Nodes\StockAdjusts\StockAdjustItem\StockAdjustItem_New\Controller\CT_STA_Item_New.cs">
       <Generator>MSBuild:Compile</Generator>
     </Compile>
@@ -745,6 +765,26 @@
     <Page Include="Stocks\Nodes\StockAdjusts\StockAdjustItem\AddStock\MainAddStock\AddStock_ToolSide.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Stocks\Nodes\StockAdjusts\StockAdjustItem\StockAdjustItem_Load\View\MC_STA_Item_Load_StockAdjust.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Stocks\Nodes\StockAdjusts\StockAdjustItem\StockAdjustItem_Load\View\MC_STA_Item_Load_StockAdjust_Movements.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Stocks\Nodes\StockAdjusts\StockAdjustItem\StockAdjustItem_Load\View\NV_STA_Item_Load_StockAdjust.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Stocks\Nodes\StockAdjusts\StockAdjustItem\StockAdjustItem_Load\View\TS_STA_Item_Load_StockAdjust.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Stocks\Nodes\StockAdjusts\StockAdjustItem\StockAdjustItem_Load\View\TS_STA_Item_Load_StockAdjust_Movements.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Stocks\Nodes\StockAdjusts\StockAdjustItem\StockAdjustItem_New\View\MC_STA_Item_New_StockAdjust.xaml">
       <Generator>MSBuild:Compile</Generator>

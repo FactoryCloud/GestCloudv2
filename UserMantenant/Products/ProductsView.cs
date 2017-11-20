@@ -20,6 +20,13 @@ namespace FrameworkView.V1
         int option;
         public ProductType productType;
         public Expansion expansion;
+        public bool Altered;
+        public bool Signed;
+        public bool Foil;
+        public bool Playset;
+        public decimal Quantity;
+        public decimal PurchasePrice;
+        public decimal SalePrice;
         private DataTable dt;
 
         public ProductsView(int option)
@@ -74,6 +81,17 @@ namespace FrameworkView.V1
         {
             List<FrameworkDB.V1.Condition> conditions = db.Conditions.OrderBy(ex => ex.ConditionID).ToList();
             return conditions;
+        }
+
+        public Movement UpdateMovement(Movement movement)
+        {
+            movement.Quantity = Quantity;
+            movement.IsAltered = Convert.ToInt16(Altered);
+            movement.IsFoil = Convert.ToInt16(Foil);
+            movement.IsPlayset = Convert.ToInt16(Playset);
+            movement.IsSigned = Convert.ToInt16(Signed);
+            movement.Base = Convert.ToDecimal(PurchasePrice);
+            return movement;
         }
 
         public void UpdateTable()

@@ -110,12 +110,12 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustMenu.Controller
                     b.MainFrame.Content = new Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_New.Controller.CT_STA_Item_New();
                     break;
 
-                /*case 2:
+             /*case 2:
                     Main.View.MainWindow c = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
                     c.MainFrame.Content = new Files.Nodes.Companies.CompanyItem.CompanyItem_Load.Controller.CT_CPN_Item_Load(company, 0);
                     break;
 
-                case 3:
+               case 3:
                     Main.View.MainWindow d = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
                     d.MainFrame.Content = new Files.Nodes.Companies.CompanyItem.CompanyItem_Load.Controller.CT_CPN_Item_Load(company, 1);
                     break;*/

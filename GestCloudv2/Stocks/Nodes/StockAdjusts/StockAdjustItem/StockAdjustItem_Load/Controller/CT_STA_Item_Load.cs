@@ -17,12 +17,12 @@ using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
 using FrameworkView.V1;
 
-namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_New.Controller
+namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_Load.Controller
 {
     /// <summary>
     /// Interaction logic for CT_STA_Item_New.xaml
     /// </summary>
-    public partial class CT_STA_Item_New : Main.Controller.CT_Common
+    public partial class CT_STA_Item_Load : Main.Controller.CT_Common
     {
         public StockAdjust stockAdjust;
         public int lastStockAdjustsCod;
@@ -30,7 +30,7 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
         public MovementsView movementsView;
         public Store store;
 
-        public CT_STA_Item_New()
+        public CT_STA_Item_Load()
         {
             stockAdjust = new StockAdjust();
             movementsView = new MovementsView();
@@ -68,10 +68,10 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
         {
             movementSelected = movementsView.movements.Where(u => u.MovementID == num).First();
             if (Information["mode"] == 1)
-                TS_Page = new View.TS_STA_Item_New_StockAdjust(Information["minimalInformation"]);
+                TS_Page = new View.TS_STA_Item_Load_StockAdjust(Information["minimalInformation"]);
 
             if (Information["mode"] == 2)
-                TS_Page = new View.TS_STA_Item_New_StockAdjust_Movements(Information["minimalInformation"]);
+                TS_Page = new View.TS_STA_Item_Load_StockAdjust_Movements(Information["minimalInformation"]);
 
             LeftSide.Content = TS_Page;
         }
@@ -112,13 +112,13 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
 
         public void MD_StoredStock_Reduce()
         {
-            View.FW_STA_Item_New_ReduceStock floatWindow = new View.FW_STA_Item_New_ReduceStock(1, movementsView.movements);
+            View.FW_STA_Item_Load_ReduceStock floatWindow = new View.FW_STA_Item_Load_ReduceStock(1, movementsView.movements);
             floatWindow.Show();
         }
 
         public void MD_StoredStock_Increase()
         {
-            View.FW_STA_Item_New_IncreaseStock floatWindow = new View.FW_STA_Item_New_IncreaseStock(1, movementsView.movements);
+            View.FW_STA_Item_Load_IncreaseStock floatWindow = new View.FW_STA_Item_Load_IncreaseStock(1, movementsView.movements);
             floatWindow.Show();
         }
 
@@ -175,10 +175,10 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
             }
 
             if (Information["mode"] == 1)
-                TS_Page = new View.TS_STA_Item_New_StockAdjust(Information["minimalInformation"]);
+                TS_Page = new View.TS_STA_Item_Load_StockAdjust(Information["minimalInformation"]);
 
             if (Information["mode"] == 2)
-                TS_Page = new View.TS_STA_Item_New_StockAdjust_Movements(Information["minimalInformation"]);
+                TS_Page = new View.TS_STA_Item_Load_StockAdjust_Movements(Information["minimalInformation"]);
 
             LeftSide.Content = TS_Page;
         }
@@ -237,16 +237,16 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
                     break;
 
                 case 1:
-                    NV_Page = new View.NV_STA_Item_New_StockAdjust();
-                    TS_Page = new View.TS_STA_Item_New_StockAdjust(Information["minimalInformation"]);
-                    MC_Page = new View.MC_STA_Item_New_StockAdjust();
+                    NV_Page = new View.NV_STA_Item_Load_StockAdjust();
+                    TS_Page = new View.TS_STA_Item_Load_StockAdjust(Information["minimalInformation"]);
+                    MC_Page = new View.MC_STA_Item_Load_StockAdjust();
                     ChangeComponents();
                     break;
 
                 case 2:
-                    NV_Page = new View.NV_STA_Item_New_StockAdjust();
-                    TS_Page = new View.TS_STA_Item_New_StockAdjust_Movements(Information["minimalInformation"]);
-                    MC_Page = new View.MC_STA_Item_New_StockAdjust_Movements();
+                    NV_Page = new View.NV_STA_Item_Load_StockAdjust();
+                    TS_Page = new View.TS_STA_Item_Load_StockAdjust_Movements(Information["minimalInformation"]);
+                    MC_Page = new View.MC_STA_Item_Load_StockAdjust_Movements();
                     ChangeComponents();
                     break;
             }

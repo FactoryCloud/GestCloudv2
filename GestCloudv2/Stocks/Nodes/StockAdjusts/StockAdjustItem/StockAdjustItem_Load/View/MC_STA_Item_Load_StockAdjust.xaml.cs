@@ -15,15 +15,15 @@ using System.Windows.Shapes;
 using FrameworkDB.V1;
 using FrameworkView.V1;
 
-namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_New.View
+namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_Load.View
 {
     /// <summary>
     /// Interaction logic for MC_STA_Item_New_StockAdjust.xaml
     /// </summary>
-    public partial class MC_STA_Item_New_StockAdjust : Page
+    public partial class MC_STA_Item_Load_StockAdjust : Page
     {
 
-        public MC_STA_Item_New_StockAdjust()
+        public MC_STA_Item_Load_StockAdjust()
         {
 
             InitializeComponent();
@@ -171,11 +171,11 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
             }
         }
 
-        private Controller.CT_STA_Item_New GetController()
+        private Controller.CT_STA_Item_Load GetController()
         {
             Window mainWindow = Application.Current.MainWindow;
             var a = (Main.View.MainWindow)mainWindow;
-            return (Controller.CT_STA_Item_New)a.MainFrame.Content;
+            return (Controller.CT_STA_Item_Load)a.MainFrame.Content;
         }
 
         private void DP_Date_IsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)

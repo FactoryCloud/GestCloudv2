@@ -41,11 +41,20 @@ namespace GestCloudv2.FloatWindows
 
             this.Loaded += new RoutedEventHandler(EV_Start);
 
+            CH_IsAltered.Unchecked += new RoutedEventHandler(EV_CheckChange);
+            CH_IsFoil.Unchecked += new RoutedEventHandler(EV_CheckChange);
+            CH_IsPlayset.Unchecked += new RoutedEventHandler(EV_CheckChange);
+            CH_IsSigned.Unchecked += new RoutedEventHandler(EV_CheckChange);
+            CH_IsAltered.Checked += new RoutedEventHandler(EV_CheckChange);
+            CH_IsFoil.Checked += new RoutedEventHandler(EV_CheckChange);
+            CH_IsPlayset.Checked += new RoutedEventHandler(EV_CheckChange);
+            CH_IsSigned.Checked += new RoutedEventHandler(EV_CheckChange);
             CB_ProductType.SelectionChanged += new SelectionChangedEventHandler(EV_Search);
             CB_Expansion.SelectionChanged += new SelectionChangedEventHandler(EV_Search);
             CB_Condition.SelectionChanged += new SelectionChangedEventHandler(EV_ConditionSelect);
             TB_ProductName.KeyUp += new KeyEventHandler(EV_Search);
             TB_Quantity.KeyUp += new KeyEventHandler(EV_QuantityChange);
+            TB_PurchasePrice.KeyUp += new KeyEventHandler(EV_PurchaseChange);
             DG_Products.MouseLeftButtonUp += new MouseButtonEventHandler(EV_ProductsSelect);
 
             productsView = new ProductsView(option);
@@ -91,6 +100,15 @@ namespace GestCloudv2.FloatWindows
                 }
             }
             CB_Condition.SelectedIndex = 0;
+        }
+
+        public void EV_CheckChange(object sender, RoutedEventArgs e)
+        {
+            productsView.Altered = Convert.ToBoolean(CH_IsAltered.IsChecked);
+            productsView.Signed = Convert.ToBoolean(CH_IsSigned.IsChecked);
+            productsView.Playset = Convert.ToBoolean(CH_IsPlayset.IsChecked);
+            productsView.Foil = Convert.ToBoolean(CH_IsFoil.IsChecked);
+
         }
 
         public void EV_ConditionSelect(object sender, RoutedEventArgs e)
@@ -141,13 +159,41 @@ namespace GestCloudv2.FloatWindows
 
             if (decimal.TryParse(TB_Quantity.Text, out decimal d))
             {
-                movement.Quantity = decimal.Parse(TB_Quantity.Text);
+                productsView.Quantity = decimal.Parse(TB_Quantity.Text);
+            }
+        }
+
+        protected void EV_PurchaseChange(object sender, RoutedEventArgs e)
+        {
+            if (System.Text.RegularExpressions.Regex.IsMatch(TB_Quantity.Text, "[^0-9]"))
+            {
+                if (SP_PurchasePrice.Children.Count == 1)
+                {
+                    TextBlock message = new TextBlock();
+                    message.TextWrapping = TextWrapping.WrapWithOverflow;
+                    message.Text = "Solo se permiten números";
+                    SP_PurchasePrice.Children.Add(message);
+                }
+                TB_PurchasePrice.Text = TB_PurchasePrice.Text.Remove(TB_PurchasePrice.Text.Length - 1);
+            }
+
+            else
+            {
+                if (SP_PurchasePrice.Children.Count == 2)
+                {
+                    SP_PurchasePrice.Children.RemoveAt(SP_PurchasePrice.Children.Count - 1);
+                }
+            }
+
+            if (decimal.TryParse(TB_PurchasePrice.Text, out decimal d))
+            {
+                productsView.PurchasePrice = decimal.Parse(TB_PurchasePrice.Text);
             }
         }
 
         protected void EV_SaveMovement(object sender, RoutedEventArgs e)
         {
-            movement.Quantity = Decimal.Parse(TB_Quantity.Text);
+            movement = productsView.UpdateMovement(movement);
             GetController().EV_MovementAdd(movement);
             this.Close();
         }

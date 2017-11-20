@@ -53,6 +53,7 @@
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
             <Grid Margin="5">
                 <Grid.RowDefinitions>
@@ -70,11 +71,68 @@
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
                 <Label FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center">Condición</Label>
-                <ComboBox FontSize="12" Grid.Row="1" VerticalAlignment="Center" Margin="20" Name="CB_Condition">
-                    
-                </ComboBox>
+                <ComboBox FontSize="12" Grid.Row="1" VerticalAlignment="Center" Margin="20" Name="CB_Condition"></ComboBox>
             </Grid>
-            
+            <Grid Margin="5" Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Label FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center">Foil</Label>
+                <StackPanel Name="SP_IsFoil" Grid.Row="1" VerticalAlignment="Center">
+                    <CheckBox Name="CH_IsFoil" FontSize="12" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20,0,20,0" ></CheckBox>
+                </StackPanel>
+            </Grid>
+            <Grid Margin="5" Grid.Row="1" Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Label FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center">Playset</Label>
+                <StackPanel Name="SP_IsPlayset" Grid.Row="1" VerticalAlignment="Center">
+                    <CheckBox Name="CH_IsPlayset" FontSize="12" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20,0,20,0" ></CheckBox>
+                </StackPanel>
+            </Grid>
+            <Grid Margin="5" Grid.Row="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Label FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center">Alterada</Label>
+                <StackPanel Name="SP_IsAltered" Grid.Row="1" VerticalAlignment="Center">
+                    <CheckBox Name="CH_IsAltered" FontSize="12" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20,0,20,0" ></CheckBox>
+                </StackPanel>
+            </Grid>
+            <Grid Margin="5" Grid.Row="2" Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Label FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center">Firmada</Label>
+                <StackPanel Name="SP_IsSigned" Grid.Row="1" VerticalAlignment="Center">
+                    <CheckBox Name="CH_IsSigned" FontSize="12" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20,0,20,0" ></CheckBox>
+                </StackPanel>
+            </Grid>
+            <Grid Margin="5" Grid.Row="3">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Label FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center">Costo</Label>
+                <StackPanel Name="SP_PurchasePrice" Grid.Row="1" VerticalAlignment="Center">
+                    <TextBox Name="TB_PurchasePrice" FontSize="12" VerticalAlignment="Center" Margin="20,0,20,0" ></TextBox>
+                </StackPanel>
+            </Grid>
+            <Grid Margin="5" Grid.Row="3" Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Label FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center">Precio de venta</Label>
+                <StackPanel Name="SP_SalePrice" Grid.Row="1" VerticalAlignment="Center">
+                    <TextBox Name="TB_SalePrice" FontSize="12" VerticalAlignment="Center" Margin="20,0,20,0" ></TextBox>
+                </StackPanel>
+            </Grid>
         </Grid>
         <Button Name="BT_SaveMovement" FontSize="10" Grid.Row="2" Margin="15" Click="EV_SaveMovement">Guardar línea</Button>
         <Button FontSize="10" Grid.Row="2" Grid.Column="1" Margin="15">Descartar línea</Button>

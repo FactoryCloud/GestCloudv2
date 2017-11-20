@@ -149,87 +149,6 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_New.Controller
             LeftSide.Content = TS_Page;
         }
 
-        /*override public void UpdateComponents()
-        {
-            if (Information["entityLoaded"] == 1 && Information["mode"] == 2)
-                Information["mode"] = 4;
-
-            if (Information["entityLoaded"] == 2 && Information["mode"] == 2)
-                Information["mode"] = 3;
-
-            switch (Information["mode"])
-            {
-                case 0:
-                    ChangeComponents();
-                    break;
-
-                case 1:
-                    NV_Page = new ClientItem.ClientItem_New.View.NV_CLI_Item_New();
-                    TS_Page = new ClientItem.ClientItem_New.View.TS_CLI_Item_New(Information["minimalInformation"]);
-                    MC_Page = new ClientItem.ClientItem_New.View.MC_CLI_Item_New_Client();
-                    ChangeComponents();
-                    break;
-
-                case 2:
-                    NV_Page = new ClientItem.ClientItem_New.View.NV_CLI_Item_New();
-                    TS_Page = new ClientItem.ClientItem_New.View.TS_CLI_Item_New(Information["minimalInformation"]);
-                    MC_Page = new ClientItem.ClientItem_New.View.MC_CLI_Item_New() ;
-                    ChangeComponents();
-                    break;
-
-                case 3:
-                    if (Information["editable"] == 0)
-                    {
-                        Information["mode"] = 4;
-                        UpdateComponents();
-                        break;
-                    }
-
-                    else
-                    {
-                        NV_Page = new View.NV_CLI_Item_New();
-                        TS_Page = new View.TS_CLI_Item_New(Information["minimalInformation"]);
-                        MC_Page = new View.MC_CLI_Item_Load_Entity_Select();
-                    }
-                    ChangeComponents();
-                    break;
-
-                case 4:
-                    NV_Page = new View.NV_CLI_Item_New();
-                    if (Information["editable"] == 0)
-                        TS_Page = new View.TS_CLI_Item_New(Information["minimalInformation"]);
-                    else
-                        TS_Page = new View.TS_CLI_Item_New(Information["minimalInformation"]);
-                    MC_Page = new View.MC_CLI_Item_Load_Entity_Loaded();
-                    ChangeComponents();
-                    break;
-
-                case 5:
-                    NV_Page = new ClientItem_New.View.NV_CLI_Item_New();
-                    TS_Page = new ClientItem_New.View.TS_CLI_Item_New(Information["minimalInformation"]); ;
-                    MC_Page = new ClientItem_New.View.MC_CLI_Item_New_Entity_New();
-                    ChangeComponents();
-                    break;
-
-                case 6:
-                    NV_Page = new View.NV_CLI_Item_New();
-                    if (Information["editable"] == 0)
-                        TS_Page = new View.TS_CLI_Item_New(Information["minimalInformation"]);
-                    else
-                        TS_Page = new View.TS_CLI_Item_New(Information["minimalInformation"]);
-                    MC_Page = new View.MC_CLI_Item_New_Client();
-                    ChangeComponents();
-                    break;
-
-                case 7:
-                    NV_Page = new ClientItem_New.View.NV_CLI_Item_New();
-                    TS_Page = new ClientItem_New.View.TS_CLI_Item_New(Information["minimalInformation"]);
-                    MC_Page = new ClientItem_New.View.MC_CLI_Item_Load_Entity_Loaded(); ;
-                    ChangeComponents();
-                    break;
-            }
-        }*/
-
         override public void UpdateComponents()
         {
             if (Information["entityLoaded"] == 1 && Information["mode"] == 2)
@@ -292,11 +211,5 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_New.Controller
                     break;
             }
         }
-
-        /*override public void EV_ActivateSaveButton(bool verificated)
-        {
-            var a = (ClientItem_New.View.TS_CLI_Item_New)LeftSide.Content;
-            a.EnableButtonSaveUser(verificated);
-        }*/
     }
 }

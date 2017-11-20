@@ -23,10 +23,10 @@
         <Button Grid.Column="0" Grid.Row="0" Margin="10" Click="EV_MD_StockAdjustNew">
             <TextBlock TextAlignment="Center">Nuevo ajuste<LineBreak/>de Stock</TextBlock>
         </Button>
-        <Button Grid.Column="1" Grid.Row="0" IsEnabled="false" Margin="10">
+        <Button Grid.Column="1" Grid.Row="0" IsEnabled="false" Margin="10" Name="BT_StockAdjustLoad" Click="EV_MD_StockAdjustLoad">
             <TextBlock TextAlignment="Center">Examinar ajuste<LineBreak/>de Stock</TextBlock>
         </Button>
-        <Button Grid.Column="0" Grid.Row="1" IsEnabled="false" Margin="10">
+        <Button Grid.Column="0" Grid.Row="1" IsEnabled="false" Margin="10" Name="BT_StockAdjustLoadEditable" Click="EV_MD_StockAdjustLoadEditable">
             <TextBlock TextAlignment="Center">Editar ajuste<LineBreak/>de Stock</TextBlock>
         </Button>
     </Grid>
