@@ -15,14 +15,14 @@ using System.Windows.Shapes;
 using GestCloudv2;
 using FrameworkDB.V1;
 
-namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_New.View
+namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_Load.View
 {
     /// <summary>
     /// Interaction logic for NV_STA_Item_New_StockAdjust.xaml
     /// </summary>
-    public partial class NV_STA_Item_New_StockAdjust : Page
+    public partial class NV_STA_Item_Load_StockAdjust : Page
     {
-        public NV_STA_Item_New_StockAdjust()
+        public NV_STA_Item_Load_StockAdjust()
         {
             InitializeComponent();
         }
@@ -42,11 +42,11 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
             GetController().CT_Menu();
         }
 
-        private Controller.CT_STA_Item_New GetController()
+        private Controller.CT_STA_Item_Load GetController()
         {
             Window mainWindow = Application.Current.MainWindow;
             var a = (Main.View.MainWindow)mainWindow;
-            return (Controller.CT_STA_Item_New)a.MainFrame.Content;
+            return (Controller.CT_STA_Item_Load)a.MainFrame.Content;
         }
     }
 }
