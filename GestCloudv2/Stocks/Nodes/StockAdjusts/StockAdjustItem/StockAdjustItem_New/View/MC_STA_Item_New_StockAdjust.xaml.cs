@@ -32,6 +32,7 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
             TB_StockAdjustReference.Loaded += new RoutedEventHandler(EV_StockAdjustCode);
             TB_StockAdjustCode.KeyUp += new KeyEventHandler(EV_StockAdjustCode);
             TB_StockAdjustCode.Loaded += new RoutedEventHandler(EV_StockAdjustCode);
+            CB_Stores.SelectionChanged += new SelectionChangedEventHandler(EV_StoreSelect);
             DP_Date.KeyDown += new KeyEventHandler(EV_Cancel);
             DP_Date.KeyUp += new KeyEventHandler(EV_Cancel);
 
@@ -55,7 +56,7 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
         private void EV_Cancel(object sender, KeyEventArgs e)
         {
                 e.Handled = true;
-                MessageBox.Show("SI");
+                //MessageBox.Show("SI");
         }
 
         private void EV_StockAdjustCode(object sender, RoutedEventArgs e)
