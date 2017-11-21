@@ -29,19 +29,35 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
         public Movement movementSelected;
         public MovementsView movementsView;
         public Store store;
-        public Dictionary<string, int> InformationLoad;
+        public List<StockAdjust> stocksAdjust;
+        public List<Movement> movement;
 
         public CT_STA_Item_Load(StockAdjust stockAdjust, int editable)
         {
             this.stockAdjust = stockAdjust;
             movementsView = new MovementsView();
-            InformationLoad = new Dictionary<string, int>();
             Information.Add("minimalInformation", 0);
-            InformationLoad.Add("editable",editable);
+            Information.Add("editable",editable);
+            Information.Add("old_editable", 0);
+
+            Information["entityValid"] = 1;
+            Information["editable"] = editable;
+
+            List<DocumentType> documentTypes = db.DocumentTypes.Where(i => i.Name.Contains("StockAdjust")).ToList();
+
+            store = db.Movements.Where(u => u.DocumentID == stockAdjust.StockAdjustID && (documentTypes[0].DocumentTypeID == u.DocumentTypeID || documentTypes[1].DocumentTypeID == u.DocumentTypeID)).Include(u => u.store).First().store;
+
         }
 
         override public void EV_Start(object sender, RoutedEventArgs e)
         {
+            List<DocumentType> documentTypes = db.DocumentTypes.Where(i => i.Name.Contains("StockAdjust")).ToList();
+            List<Movement> movements = db.Movements.Where(u => u.DocumentID == stockAdjust.StockAdjustID && (documentTypes[0].DocumentTypeID == u.DocumentTypeID || documentTypes[1].DocumentTypeID == u.DocumentTypeID)).Include(u => u.store)
+                .Include(i => i.product).Include(z => z.condition).Include(i => i.product.productType).ToList();
+            foreach (Movement item in movements)
+            {
+                movementsView.MovementAdd(item);
+            }
             UpdateComponents();
         }
 
@@ -241,14 +257,20 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
 
                 case 1:
                     NV_Page = new View.NV_STA_Item_Load_StockAdjust();
-                    TS_Page = new View.TS_STA_Item_Load_StockAdjust(Information["minimalInformation"]);
+                    if (Information["editable"] == 0)
+                        TS_Page = new View.TS_STA_Item_Load_StockAdjust(Information["minimalInformation"]);
+                    else
+                        TS_Page = new View.TS_STA_Item_Load_StockAdjust_Movements(Information["minimalInformation"]);
                     MC_Page = new View.MC_STA_Item_Load_StockAdjust();
                     ChangeComponents();
                     break;
 
                 case 2:
                     NV_Page = new View.NV_STA_Item_Load_StockAdjust();
-                    TS_Page = new View.TS_STA_Item_Load_StockAdjust_Movements(Information["minimalInformation"]);
+                    if (Information["editable"] == 0)
+                        TS_Page = new View.TS_STA_Item_Load_StockAdjust(Information["minimalInformation"]);
+                    else
+                        TS_Page = new View.TS_STA_Item_Load_StockAdjust_Movements(Information["minimalInformation"]);
                     MC_Page = new View.MC_STA_Item_Load_StockAdjust_Movements();
                     ChangeComponents();
                     break;
