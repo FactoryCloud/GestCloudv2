@@ -260,7 +260,7 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
                     if (Information["editable"] == 0)
                         TS_Page = new View.TS_STA_Item_Load_StockAdjust(Information["minimalInformation"]);
                     else
-                        TS_Page = new View.TS_STA_Item_Load_StockAdjust_Movements(Information["minimalInformation"]);
+                        TS_Page = new View.TS_STA_Item_Load_StockAdjust(Information["minimalInformation"]);
                     MC_Page = new View.MC_STA_Item_Load_StockAdjust();
                     ChangeComponents();
                     break;

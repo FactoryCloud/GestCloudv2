@@ -28,6 +28,7 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
             {
                 BT_StockAdjustSave.IsEnabled = true;
             }
+            BT_StockAdjustSave.Visibility = Visibility.Hidden;
         }
 
         private void EV_CompanySave(object sender, RoutedEventArgs e)

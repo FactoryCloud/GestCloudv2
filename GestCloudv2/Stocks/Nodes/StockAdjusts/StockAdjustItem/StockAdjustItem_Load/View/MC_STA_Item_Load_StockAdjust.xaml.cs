@@ -83,15 +83,12 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
                         nums.Add(Convert.ToInt16(stors.Code));
                 }
 
-                for (int i = 1; i <= 20; i++)
+                foreach (Store st in stores)
                 {
-                    if (!nums.Contains(i))
-                    {
-                        ComboBoxItem temp = new ComboBoxItem();
-                        temp.Content = $"{i}";
-                        temp.Name = $"storeCode{i}";
-                        CB_Stores.Items.Add(temp);
-                    }
+                    ComboBoxItem temp = new ComboBoxItem();
+                    temp.Content = $"{st.Code} - {st.Name}";
+                    temp.Name = $"store{st.StoreID}";
+                    CB_Stores.Items.Add(temp);
                 }
 
                 foreach (ComboBoxItem item in CB_Stores.Items)
