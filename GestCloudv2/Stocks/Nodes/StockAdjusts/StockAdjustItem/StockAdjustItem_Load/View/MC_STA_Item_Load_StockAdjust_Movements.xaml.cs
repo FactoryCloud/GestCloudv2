@@ -27,7 +27,7 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
             InitializeComponent();
 
             this.Loaded += new RoutedEventHandler(EV_Start);
-            DG_Movements.MouseLeftButtonUp += new MouseButtonEventHandler(EV_MovementsSelect);
+            //DG_Movements.MouseLeftButtonUp += new MouseButtonEventHandler(EV_MovementsSelect);
         }
 
         private void EV_Start(object sender, RoutedEventArgs e)

@@ -8,7 +8,7 @@
       d:DesignHeight="300" d:DesignWidth="300"
       Title="MC_STA_Item_Load_StockAdjust">
 
-    <Grid>
+    <Grid Name="GR_Main">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
@@ -33,9 +33,9 @@
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
-            <TextBox Name="TB_StockAdjustReference" VerticalAlignment="Center" Margin="10,0,0,0"></TextBox>
+            <TextBox Name="TB_StockAdjustReference" VerticalAlignment="Center" Margin="10,0,0,0" IsReadOnly="True"></TextBox>
             <StackPanel Name="SP_StockAdjustCode" Grid.Column="2" Grid.Row="1" VerticalAlignment="Center">
-            <TextBox Name="TB_StockAdjustCode" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,10,0"></TextBox>
+            <TextBox Name="TB_StockAdjustCode" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,10,0" IsReadOnly="True"></TextBox>
             </StackPanel>
         </Grid>
         

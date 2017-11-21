@@ -20,7 +20,7 @@
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
-        <Button Name="BT_StockAdjustSave" Grid.Column="1" Grid.Row="4" Margin="20" Click="EV_CompanySave" IsEnabled="False">
+        <Button Name="BT_StockAdjustSave" Grid.Column="1" Grid.Row="4" Margin="20" Click="EV_CompanySave" IsEnabled="False" Visibility="Visible">
             <TextBlock TextAlignment="Center">Guardar Ajuste<LineBreak/>de Stock</TextBlock>
         </Button>
     </Grid>
