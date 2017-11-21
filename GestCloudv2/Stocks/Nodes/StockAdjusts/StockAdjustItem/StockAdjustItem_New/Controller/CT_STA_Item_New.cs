@@ -129,6 +129,12 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
             UpdateComponents();
         }
 
+        public void MD_StoredStock_Edit()
+        {
+            View.FW_STA_Item_New_IncreaseStock floatWindow = new View.FW_STA_Item_New_IncreaseStock(1, movementsView.movements, movementSelected.MovementID);
+            floatWindow.Show();
+        }
+
         public override void EV_MovementAdd(Movement movement)
         {
             //MessageBox.Show(movement.Base.ToString());

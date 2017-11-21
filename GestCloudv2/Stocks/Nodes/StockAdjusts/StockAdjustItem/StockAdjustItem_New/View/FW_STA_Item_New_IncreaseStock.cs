@@ -18,6 +18,11 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
             
         }
 
+        public FW_STA_Item_New_IncreaseStock(int option, List<Movement> movements, int mov) : base(option, movements, mov)
+        {
+
+        }
+
         override public Main.Controller.CT_Common GetController()
         {
             Window mainWindow = Application.Current.MainWindow;

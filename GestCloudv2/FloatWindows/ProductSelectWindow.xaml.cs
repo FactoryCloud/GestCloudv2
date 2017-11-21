@@ -18,6 +18,7 @@ using System.Collections;
 using System.ComponentModel;
 using System.Windows.Threading;
 using System.Windows.Controls.Primitives;
+using Microsoft.EntityFrameworkCore;
 
 namespace GestCloudv2.FloatWindows
 {
@@ -28,7 +29,9 @@ namespace GestCloudv2.FloatWindows
     {
 
         public Movement movement;
+        private List<Movement> movements;
         public ProductsView productsView;
+        public int movementSelected;
         string type { get; set; }
 
         public ProductSelectWindow()
@@ -59,6 +62,36 @@ namespace GestCloudv2.FloatWindows
 
             productsView = new ProductsView(option);
             movement = new Movement();
+            movementSelected = 0;
+            UpdateData();
+        }
+
+        public ProductSelectWindow(int option, List<Movement> movements, int mov)
+        {
+            InitializeComponent();
+
+            this.Loaded += new RoutedEventHandler(EV_Start);
+
+            CH_IsAltered.Unchecked += new RoutedEventHandler(EV_CheckChange);
+            CH_IsFoil.Unchecked += new RoutedEventHandler(EV_CheckChange);
+            CH_IsPlayset.Unchecked += new RoutedEventHandler(EV_CheckChange);
+            CH_IsSigned.Unchecked += new RoutedEventHandler(EV_CheckChange);
+            CH_IsAltered.Checked += new RoutedEventHandler(EV_CheckChange);
+            CH_IsFoil.Checked += new RoutedEventHandler(EV_CheckChange);
+            CH_IsPlayset.Checked += new RoutedEventHandler(EV_CheckChange);
+            CH_IsSigned.Checked += new RoutedEventHandler(EV_CheckChange);
+            CB_ProductType.SelectionChanged += new SelectionChangedEventHandler(EV_Search);
+            CB_Expansion.SelectionChanged += new SelectionChangedEventHandler(EV_Search);
+            CB_Condition.SelectionChanged += new SelectionChangedEventHandler(EV_ConditionSelect);
+            TB_ProductName.KeyUp += new KeyEventHandler(EV_Search);
+            TB_Quantity.KeyUp += new KeyEventHandler(EV_QuantityChange);
+            TB_PurchasePrice.KeyUp += new KeyEventHandler(EV_PurchaseChange);
+            DG_Products.MouseLeftButtonUp += new MouseButtonEventHandler(EV_ProductsSelect);
+
+            productsView = new ProductsView(option);
+            movement = new Movement();
+            movementSelected = mov;
+            this.movements = movements;
             UpdateData();
         }
 
@@ -92,6 +125,55 @@ namespace GestCloudv2.FloatWindows
                 CB_Condition.Items.Add(temp);
             }
 
+            if(movementSelected > 0)
+            {
+                Movement mov = movements.Where(m => m.MovementID == movementSelected).First();
+                TB_ProductName.Text = mov.product.Name;
+                TB_Quantity.Text = mov.Quantity.ToString();
+                TB_PurchasePrice.Text = mov.Base.ToString();
+                productsView.product = mov.product;
+
+                if (mov.IsAltered == 1)
+                    CH_IsAltered.IsChecked = true;
+
+                if (mov.IsFoil == 1)
+                    CH_IsFoil.IsChecked = true;
+
+                if (mov.IsPlayset == 1)
+                    CH_IsPlayset.IsChecked = true;
+
+                if (mov.IsSigned == 1)
+                    CH_IsSigned.IsChecked = true;
+
+                int productType = Convert.ToInt32(movements.Where(m => m.MovementID == movementSelected).First().product.ProductTypeID);
+                foreach (ComboBoxItem cmbItem in CB_ProductType.Items)
+                {
+                    if (Convert.ToInt32(cmbItem.Name.Replace("productType", "")) == productType)
+                    {
+                        CB_ProductType.SelectedValue = cmbItem;
+                    }
+                }
+
+                int expansion = productsView.GetExpansion(Convert.ToInt32(movements.Where(m => m.MovementID == movementSelected).First().product.ExternalID)).Id;
+                foreach (ComboBoxItem cmbItem in CB_Expansion.Items)
+                {
+                    if (Convert.ToInt32(cmbItem.Name.Replace("expansion", "")) == expansion)
+                    {
+                        CB_Expansion.SelectedValue = cmbItem;
+                    }
+                }
+
+                int condition = Convert.ToInt32(movements.Where(m => m.MovementID == movementSelected).First().condition.ConditionID);
+                foreach (ComboBoxItem cmbItem in CB_Condition.Items)
+                {
+                    if (Convert.ToInt32(cmbItem.Name.Replace("condition", "")) == condition)
+                    {
+                        MessageBox.Show($"{cmbItem.Name}");
+                        CB_Condition.SelectedValue = cmbItem;
+                    }
+                }
+            }
+
             foreach (ComboBoxItem cmbItem in CB_ProductType.Items)
             {
                 if (Convert.ToInt32(cmbItem.Name.Replace("productType", "")) == 1)
@@ -117,7 +199,7 @@ namespace GestCloudv2.FloatWindows
 
             if (CB_Condition.SelectedIndex >= 0)
             {
-                movement.condition = productsView.GetCondition(Convert.ToInt32(temp1.Name.Replace("condition", "")));
+                productsView.condition = productsView.GetCondition(Convert.ToInt32(temp1.Name.Replace("condition", "")));
             }
         }
 
@@ -129,8 +211,8 @@ namespace GestCloudv2.FloatWindows
             {
                 DataGridRow row = (DataGridRow)DG_Products.ItemContainerGenerator.ContainerFromIndex(product);
                 DataRowView dr = row.Item as DataRowView;
-                movement.product = productsView.GetProduct(Int32.Parse(dr.Row.ItemArray[0].ToString()));
-                TB_ProductName.Text = movement.product.Name; 
+                productsView.product = productsView.GetProduct(Int32.Parse(dr.Row.ItemArray[0].ToString()));
+                TB_ProductName.Text = productsView.product.Name; 
                 //MessageBox.Show(dr.Row.ItemArray[0].ToString());
             }
         }
@@ -193,8 +275,18 @@ namespace GestCloudv2.FloatWindows
 
         protected void EV_SaveMovement(object sender, RoutedEventArgs e)
         {
-            movement = productsView.UpdateMovement(movement);
-            GetController().EV_MovementAdd(movement);
+            if (movementSelected > 0)
+            {
+                productsView.UpdateMovement(movements.Where(m => m.MovementID == movementSelected).First());
+                GetController().UpdateComponents();
+            }
+
+            else
+            {
+                movement = productsView.UpdateMovement(movement);
+                GetController().EV_MovementAdd(movement);
+            }
+
             this.Close();
         }
 

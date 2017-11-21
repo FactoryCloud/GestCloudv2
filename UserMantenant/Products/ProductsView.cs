@@ -18,6 +18,8 @@ namespace FrameworkView.V1
         public GestCloudDB db;
 
         int option;
+        public Product product;
+        public FrameworkDB.V1.Condition condition;
         public ProductType productType;
         public Expansion expansion;
         public bool Altered;
@@ -60,6 +62,11 @@ namespace FrameworkView.V1
             return expansions;
         }
 
+        public Expansion GetExpansion(int num)
+        {
+            return db.MTGCards.Where(c => c.ProductID == num).First().expansion;
+        }
+
         public List<ProductType> GetProductTypes()
         {
             List<ProductType> productTypes = db.ProductTypes.OrderByDescending(ex => ex.Name).ToList();
@@ -85,12 +92,15 @@ namespace FrameworkView.V1
 
         public Movement UpdateMovement(Movement movement)
         {
-            movement.Quantity = Quantity;
+            movement.product = product;
+            movement.condition = condition;
+            movement.Quantity = Convert.ToDecimal(Quantity);
             movement.IsAltered = Convert.ToInt16(Altered);
             movement.IsFoil = Convert.ToInt16(Foil);
             movement.IsPlayset = Convert.ToInt16(Playset);
             movement.IsSigned = Convert.ToInt16(Signed);
             movement.Base = Convert.ToDecimal(PurchasePrice);
+
             return movement;
         }
 
