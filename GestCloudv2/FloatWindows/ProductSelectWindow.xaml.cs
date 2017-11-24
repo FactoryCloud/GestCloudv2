@@ -58,6 +58,7 @@ namespace GestCloudv2.FloatWindows
             TB_ProductName.KeyUp += new KeyEventHandler(EV_Search);
             TB_Quantity.KeyUp += new KeyEventHandler(EV_QuantityChange);
             TB_PurchasePrice.KeyUp += new KeyEventHandler(EV_PurchaseChange);
+            TB_SalePrice.KeyUp += new KeyEventHandler(EV_SalePriceChange);
             DG_Products.MouseLeftButtonUp += new MouseButtonEventHandler(EV_ProductsSelect);
 
             productsView = new ProductsView(option);
@@ -86,6 +87,7 @@ namespace GestCloudv2.FloatWindows
             TB_ProductName.KeyUp += new KeyEventHandler(EV_Search);
             TB_Quantity.KeyUp += new KeyEventHandler(EV_QuantityChange);
             TB_PurchasePrice.KeyUp += new KeyEventHandler(EV_PurchaseChange);
+            TB_SalePrice.KeyUp += new KeyEventHandler(EV_SalePriceChange);
             DG_Products.MouseLeftButtonUp += new MouseButtonEventHandler(EV_ProductsSelect);
 
             productsView = new ProductsView(option);
@@ -270,6 +272,34 @@ namespace GestCloudv2.FloatWindows
             if (decimal.TryParse(TB_PurchasePrice.Text, out decimal d))
             {
                 productsView.PurchasePrice = decimal.Parse(TB_PurchasePrice.Text);
+            }
+        }
+
+        protected void EV_SalePriceChange(object sender, RoutedEventArgs e)
+        {
+            if (System.Text.RegularExpressions.Regex.IsMatch(TB_Quantity.Text, "[^0-9]"))
+            {
+                if (SP_SalePrice.Children.Count == 1)
+                {
+                    TextBlock message = new TextBlock();
+                    message.TextWrapping = TextWrapping.WrapWithOverflow;
+                    message.Text = "Solo se permiten números";
+                    SP_SalePrice.Children.Add(message);
+                }
+                TB_SalePrice.Text = TB_SalePrice.Text.Remove(TB_SalePrice.Text.Length - 1);
+            }
+
+            else
+            {
+                if (SP_SalePrice.Children.Count == 2)
+                {
+                    SP_SalePrice.Children.RemoveAt(SP_SalePrice.Children.Count - 1);
+                }
+            }
+
+            if (decimal.TryParse(TB_SalePrice.Text, out decimal d))
+            {
+                productsView.SalePrice = decimal.Parse(TB_SalePrice.Text);
             }
         }
 

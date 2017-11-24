@@ -19,6 +19,10 @@ namespace FrameworkDB.V1
         [Column(TypeName = "money")]
         public decimal? Base { get; set; }
 
+        public decimal? PurchasePrice { get; set; }
+
+        public decimal? SalePrice { get; set; }
+
         public decimal? Tax { get; set; }
 
         public int? IsFoil { get; set; }
