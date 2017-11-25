@@ -75,11 +75,29 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
 
             else
             {
+                DP_Date.SelectedDate = Convert.ToDateTime(GetController().stockAdjust.Date);
                 List<Store> stores = GetController().GetStores();
+                //CB_Stores.SelectedIndex = Convert.ToInt16(GetController().store.Code);
                 List<int> nums = new List<int>();
-                foreach (var stors in stores)
+
+                Thickness margin = new Thickness(20);
+
+                TextBox TB_StoreCode = new TextBox();
+                TB_StoreCode.Name = "TB_StoreCode";
+                TB_StoreCode.Text = $"{GetController().store.Code}";
+                TB_StoreCode.VerticalAlignment = VerticalAlignment.Center;
+                TB_StoreCode.TextAlignment = TextAlignment.Center;
+                TB_StoreCode.Margin = margin;
+                Grid.SetColumn(TB_StoreCode, 2);
+                Grid.SetRow(TB_StoreCode, 3);
+
+                GR_Main.Children.Add(TB_StoreCode);
+
+                CB_Stores.Visibility = Visibility.Hidden;
+
+                /*foreach (var stors in stores)
                 {
-                    if (stors.Code != GetController().store.Code)
+                    if (stors.StoreID != GetController().store.StoreID)
                         nums.Add(Convert.ToInt16(stors.Code));
                 }
 
@@ -98,7 +116,7 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
                         CB_Stores.SelectedValue = item;
                         break;
                     }
-                }
+                }*/
             }
         }
 
@@ -116,7 +134,7 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
         {
             ComboBoxItem temp1 = (ComboBoxItem)CB_Stores.SelectedItem;
 
-            if (CB_Stores.SelectedIndex >= 0)
+            if (temp1 != null)
             {
                 GetController().SetStore(Convert.ToInt32(temp1.Name.Replace("store", "")));
             }

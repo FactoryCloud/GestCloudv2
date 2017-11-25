@@ -54,6 +54,11 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
             GetController().SaveNewStockAdjust();
         }
 
+        private void EV_StockAdjustEdit(object sender, RoutedEventArgs e)
+        {
+
+        }
+
         private Controller.CT_STA_Item_Load GetController()
         {
             Window mainWindow = Application.Current.MainWindow;

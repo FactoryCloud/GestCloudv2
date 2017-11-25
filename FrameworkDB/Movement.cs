@@ -43,7 +43,7 @@ namespace FrameworkDB.V1
         public virtual Condition condition { get; set; }
 
         [ForeignKey("FK_Movements_StoreID_Stores")]
-        public int? StoreID { get; set; }
+        public int StoreID { get; set; }
         public virtual Store store { get; set; }
     }
 }
