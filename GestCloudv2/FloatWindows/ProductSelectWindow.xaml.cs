@@ -127,13 +127,15 @@ namespace GestCloudv2.FloatWindows
                 CB_Condition.Items.Add(temp);
             }
 
-            if(movementSelected > 0)
+            if (movementSelected > 0)
             {
                 Movement mov = movements.Where(m => m.MovementID == movementSelected).First();
                 TB_ProductName.Text = mov.product.Name;
                 TB_Quantity.Text = mov.Quantity.ToString();
                 TB_PurchasePrice.Text = mov.Base.ToString();
                 productsView.product = mov.product;
+                productsView.Quantity = Convert.ToDecimal(mov.Quantity);
+                productsView.PurchasePrice = Convert.ToDecimal(mov.Base);
 
                 if (mov.IsAltered == 1)
                     CH_IsAltered.IsChecked = true;
@@ -170,20 +172,22 @@ namespace GestCloudv2.FloatWindows
                 {
                     if (Convert.ToInt32(cmbItem.Name.Replace("condition", "")) == condition)
                     {
-                        MessageBox.Show($"{cmbItem.Name}");
                         CB_Condition.SelectedValue = cmbItem;
                     }
                 }
             }
 
-            foreach (ComboBoxItem cmbItem in CB_ProductType.Items)
+            else
             {
-                if (Convert.ToInt32(cmbItem.Name.Replace("productType", "")) == 1)
+                foreach (ComboBoxItem cmbItem in CB_ProductType.Items)
                 {
-                    CB_ProductType.SelectedValue = cmbItem;
+                    if (Convert.ToInt32(cmbItem.Name.Replace("productType", "")) == 1)
+                    {
+                        CB_ProductType.SelectedValue = cmbItem;
+                    }
                 }
+                CB_Condition.SelectedIndex = 0;
             }
-            CB_Condition.SelectedIndex = 0;
         }
 
         public void EV_CheckChange(object sender, RoutedEventArgs e)
@@ -192,7 +196,6 @@ namespace GestCloudv2.FloatWindows
             productsView.Signed = Convert.ToBoolean(CH_IsSigned.IsChecked);
             productsView.Playset = Convert.ToBoolean(CH_IsPlayset.IsChecked);
             productsView.Foil = Convert.ToBoolean(CH_IsFoil.IsChecked);
-
         }
 
         public void EV_ConditionSelect(object sender, RoutedEventArgs e)
@@ -214,8 +217,7 @@ namespace GestCloudv2.FloatWindows
                 DataGridRow row = (DataGridRow)DG_Products.ItemContainerGenerator.ContainerFromIndex(product);
                 DataRowView dr = row.Item as DataRowView;
                 productsView.product = productsView.GetProduct(Int32.Parse(dr.Row.ItemArray[0].ToString()));
-                TB_ProductName.Text = productsView.product.Name; 
-                //MessageBox.Show(dr.Row.ItemArray[0].ToString());
+                TB_ProductName.Text = productsView.product.Name;
             }
         }
 

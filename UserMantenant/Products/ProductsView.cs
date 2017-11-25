@@ -58,8 +58,7 @@ namespace FrameworkView.V1
 
         public List<Expansion> GetExpansions()
         {
-            List<Expansion> expansions = db.Expansions.OrderByDescending(ex => ex.ReleaseDate).ToList();
-            return expansions;
+            return db.Expansions.OrderByDescending(ex => ex.ReleaseDate).ToList();
         }
 
         public Expansion GetExpansion(int num)
@@ -69,8 +68,7 @@ namespace FrameworkView.V1
 
         public List<ProductType> GetProductTypes()
         {
-            List<ProductType> productTypes = db.ProductTypes.OrderByDescending(ex => ex.Name).ToList();
-            return productTypes;
+            return db.ProductTypes.OrderByDescending(ex => ex.Name).ToList();
         }
 
         public FrameworkDB.V1.Condition GetCondition(int num)
@@ -80,14 +78,12 @@ namespace FrameworkView.V1
 
         public Product GetProduct(int num)
         {
-            Product product = db.Products.Where(ex => ex.ProductID == num).Include(pt => pt.productType).First();
-            return product;
+            return db.Products.Where(ex => ex.ProductID == num).Include(pt => pt.productType).First();
         }
 
         public List<FrameworkDB.V1.Condition> GetConditions()
         {
-            List<FrameworkDB.V1.Condition> conditions = db.Conditions.OrderBy(ex => ex.ConditionID).ToList();
-            return conditions;
+            return db.Conditions.OrderBy(ex => ex.ConditionID).ToList();
         }
 
         public Movement UpdateMovement(Movement movement)
