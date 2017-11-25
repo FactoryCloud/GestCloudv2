@@ -95,7 +95,8 @@ namespace FrameworkView.V1
             movement.IsFoil = Convert.ToInt16(Foil);
             movement.IsPlayset = Convert.ToInt16(Playset);
             movement.IsSigned = Convert.ToInt16(Signed);
-            movement.Base = Convert.ToDecimal(PurchasePrice);
+            movement.PurchasePrice = Convert.ToDecimal(PurchasePrice);
+            movement.SalePrice = Convert.ToDecimal(SalePrice);
 
             return movement;
         }
