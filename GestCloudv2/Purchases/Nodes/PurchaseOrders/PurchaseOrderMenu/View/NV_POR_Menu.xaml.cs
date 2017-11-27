@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace GestCloudv2.Purchases.Nodes.PurchaseAdjust.PurchaseMenu.View
+namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderMenu.View
 { 
     /// <summary>
     /// Interaction logic for NV_STA_Menu.xaml
     /// </summary>
-    public partial class NV_PUR_Menu : Page
+    public partial class NV_POR_Menu : Page
     {
-        public NV_PUR_Menu()
+        public NV_POR_Menu()
         {
             InitializeComponent();
         }
@@ -30,11 +30,11 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseAdjust.PurchaseMenu.View
             GetController().CT_Main();
         }
 
-        private Controller.CT_PurchaseAdjustMenu GetController()
+        private Controller.CT_PurchaseOrderMenu GetController()
         {
             Window mainWindow = Application.Current.MainWindow;
             var a = (Main.View.MainWindow)mainWindow;
-            return (Controller.CT_PurchaseAdjustMenu)a.MainFrame.Content;
+            return (Controller.CT_PurchaseOrderMenu)a.MainFrame.Content;
         }
     }
 }

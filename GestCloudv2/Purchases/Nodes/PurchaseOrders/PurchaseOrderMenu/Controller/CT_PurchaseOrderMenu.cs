@@ -7,14 +7,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace GestCloudv2.Purchases.Nodes.PurchaseAdjust.PurchaseMenu.Controller
+namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderMenu.Controller
 {
-    public partial class CT_PurchaseAdjustMenu : Main.Controller.CT_Common
+    public partial class CT_PurchaseOrderMenu : Main.Controller.CT_Common
     {
         //public StockAdjustsView stocksAdjustsView;
         //public StockAdjust stockAdjust;
 
-        public CT_PurchaseAdjustMenu()
+        public CT_PurchaseOrderMenu()
         {
            //stocksAdjustsView = new StockAdjustsView();
         }
@@ -64,9 +64,9 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseAdjust.PurchaseMenu.Controller
                     break;
 
                 case 1:
-                    NV_Page = new View.NV_PUR_Menu();
-                    TS_Page = new View.TS_PUR_Menu();
-                    MC_Page = new View.MC_PUR_Menu();
+                    NV_Page = new View.NV_POR_Menu();
+                    TS_Page = new View.TS_POR_Menu();
+                    MC_Page = new View.MC_POR_Menu();
                     ChangeComponents();
                     break;
 

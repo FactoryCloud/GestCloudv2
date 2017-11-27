@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace GestCloudv2.Purchases.Nodes.PurchaseAdjust.PurchaseMenu.View
+namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderMenu.View
 {
     /// <summary>
     /// Interaction logic for TS_PUR_Menu.xaml
     /// </summary>
-    public partial class TS_PUR_Menu : Page
+    public partial class TS_POR_Menu : Page
     {
-        public TS_PUR_Menu()
+        public TS_POR_Menu()
         {
             InitializeComponent();
             /*if (GetController().stockAdjust != null)

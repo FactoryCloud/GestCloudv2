@@ -1,11 +1,11 @@
-﻿<Page x:Class="GestCloudv2.Sales.Nodes.SaleAdjust.SaleMenu.View.NV_SAL_Menu"
+﻿<Page x:Class="GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderMenu.View.NV_SOR_Menu"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       mc:Ignorable="d" 
       d:DesignHeight="200" d:DesignWidth="1500"
-      Title="NV_SAL_Menu">
+      Title="NV_SOR_Menu">
 
     <Grid>
         <Grid.ColumnDefinitions>

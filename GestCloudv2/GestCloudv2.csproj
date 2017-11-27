@@ -278,15 +278,15 @@
       <DependentUpon>MC_Entity_Select.xaml</DependentUpon>
     </Compile>
     <Compile Include="Sales\Controller\CT_Sales.cs" />
-    <Compile Include="Sales\Nodes\SaleAdjust\SaleMenu\Controller\CT_SaleAdjustMenu.cs" />
-    <Compile Include="Sales\Nodes\SaleAdjust\SaleMenu\View\MC_SAL_Menu.xaml.cs">
-      <DependentUpon>MC_SAL_Menu.xaml</DependentUpon>
+    <Compile Include="Sales\Nodes\SaleOrders\SaleOrderMenu\Controller\CT_SaleOrderMenu.cs" />
+    <Compile Include="Sales\Nodes\SaleOrders\SaleOrderMenu\View\MC_SOR_Menu.xaml.cs">
+      <DependentUpon>MC_SOR_Menu.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Sales\Nodes\SaleAdjust\SaleMenu\View\NV_SAL_Menu.xaml.cs">
-      <DependentUpon>NV_SAL_Menu.xaml</DependentUpon>
+    <Compile Include="Sales\Nodes\SaleOrders\SaleOrderMenu\View\NV_SOR_Menu.xaml.cs">
+      <DependentUpon>NV_SOR_Menu.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Sales\Nodes\SaleAdjust\SaleMenu\View\TS_SAL_Menu.xaml.cs">
-      <DependentUpon>TS_SAL_Menu.xaml</DependentUpon>
+    <Compile Include="Sales\Nodes\SaleOrders\SaleOrderMenu\View\TS_SOR_Menu.xaml.cs">
+      <DependentUpon>TS_SOR_Menu.xaml</DependentUpon>
     </Compile>
     <Compile Include="Sales\View\NV_Sale_Main.xaml.cs">
       <DependentUpon>NV_Sale_Main.xaml</DependentUpon>
@@ -658,15 +658,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Sales\Nodes\SaleAdjust\SaleMenu\View\MC_SAL_Menu.xaml">
+    <Page Include="Sales\Nodes\SaleOrders\SaleOrderMenu\View\MC_SOR_Menu.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Sales\Nodes\SaleAdjust\SaleMenu\View\NV_SAL_Menu.xaml">
+    <Page Include="Sales\Nodes\SaleOrders\SaleOrderMenu\View\NV_SOR_Menu.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Sales\Nodes\SaleAdjust\SaleMenu\View\TS_SAL_Menu.xaml">
+    <Page Include="Sales\Nodes\SaleOrders\SaleOrderMenu\View\TS_SOR_Menu.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1021,11 +1021,10 @@
     <Folder Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_Load\View\" />
     <Folder Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_New\Controller\" />
     <Folder Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_New\View\" />
-    <Folder Include="Sales\Nodes\SaleAdjust\SaleItem\AddSale\" />
-    <Folder Include="Sales\Nodes\SaleAdjust\SaleItem\SaleItem_Load\Controller\" />
-    <Folder Include="Sales\Nodes\SaleAdjust\SaleItem\SaleItem_Load\View\" />
-    <Folder Include="Sales\Nodes\SaleAdjust\SaleItem\SaleItem_New\Controller\" />
-    <Folder Include="Sales\Nodes\SaleAdjust\SaleItem\SaleItem_New\View\" />
+    <Folder Include="Sales\Nodes\SaleOrders\SaleOrderItem\SaleOrderItem_Load\Controller\" />
+    <Folder Include="Sales\Nodes\SaleOrders\SaleOrderItem\SaleOrderItem_Load\View\" />
+    <Folder Include="Sales\Nodes\SaleOrders\SaleOrderItem\SaleOrderItem_New\Controller\" />
+    <Folder Include="Sales\Nodes\SaleOrders\SaleOrderItem\SaleOrderItem_New\View\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

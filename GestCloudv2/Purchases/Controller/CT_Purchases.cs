@@ -59,7 +59,7 @@ namespace GestCloudv2.Purchases.Controller
 
                 case 3:
                     Main.View.MainWindow d = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
-                    d.MainFrame.Content = new Nodes.PurchaseAdjust.PurchaseMenu.Controller.CT_PurchaseAdjustMenu();
+                    d.MainFrame.Content = new Nodes.PurchaseOrders.PurchaseOrderMenu.Controller.CT_PurchaseOrderMenu();
                     break;
             }
         }

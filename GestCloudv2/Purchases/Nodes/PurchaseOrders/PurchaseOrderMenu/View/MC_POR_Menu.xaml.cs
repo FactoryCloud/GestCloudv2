@@ -14,14 +14,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace GestCloudv2.Purchases.Nodes.PurchaseAdjust.PurchaseMenu.View
+namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderMenu.View
 {
     /// <summary>
     /// Interaction logic for MC_PUR_Menu.xaml
     /// </summary>
-    public partial class MC_PUR_Menu : Page
+    public partial class MC_POR_Menu : Page
     {
-        public MC_PUR_Menu()
+        public MC_POR_Menu()
         {
             InitializeComponent();
 

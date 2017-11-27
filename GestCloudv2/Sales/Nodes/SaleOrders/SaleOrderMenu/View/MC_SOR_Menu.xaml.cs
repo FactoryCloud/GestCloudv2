@@ -14,14 +14,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace GestCloudv2.Sales.Nodes.SaleAdjust.SaleMenu.View
+namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderMenu.View
 {
     /// <summary>
     /// Interaction logic for MC_SAL_Menu.xaml
     /// </summary>
-    public partial class MC_SAL_Menu : Page
+    public partial class MC_SOR_Menu : Page
     {
-        public MC_SAL_Menu()
+        public MC_SOR_Menu()
         {
             InitializeComponent();
 

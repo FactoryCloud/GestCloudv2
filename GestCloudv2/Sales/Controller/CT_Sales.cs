@@ -59,7 +59,7 @@ namespace GestCloudv2.Sales.Controller
 
                 case 3:
                     Main.View.MainWindow d = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
-                    d.MainFrame.Content = new Nodes.SaleAdjust.SaleMenu.Controller.CT_SaleAdjustMenu();
+                    d.MainFrame.Content = new Nodes.SaleOrders.SaleOrderMenu.Controller.CT_SaleOrderMenu();
                     break;
             }
         }

@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace GestCloudv2.Sales.Nodes.SaleAdjust.SaleMenu.View
+namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderMenu.View
 { 
     /// <summary>
     /// Interaction logic for NV_SAL_Menu.xaml
     /// </summary>
-    public partial class NV_SAL_Menu : Page
+    public partial class NV_SOR_Menu : Page
     {
-        public NV_SAL_Menu()
+        public NV_SOR_Menu()
         {
             InitializeComponent();
         }
@@ -30,11 +30,11 @@ namespace GestCloudv2.Sales.Nodes.SaleAdjust.SaleMenu.View
             GetController().CT_Main();
         }
 
-        private Controller.CT_SaleAdjustMenu GetController()
+        private Controller.CT_SaleOrderMenu GetController()
         {
             Window mainWindow = Application.Current.MainWindow;
             var a = (Main.View.MainWindow)mainWindow;
-            return (Controller.CT_SaleAdjustMenu)a.MainFrame.Content;
+            return (Controller.CT_SaleOrderMenu)a.MainFrame.Content;
         }
     }
 }
