@@ -292,18 +292,18 @@
       <DependentUpon>NV_Sale_Main.xaml</DependentUpon>
     </Compile>
     <Compile Include="Purchases\Controller\CT_Purchases.cs" />
-    <Compile Include="Purchases\Nodes\PurchaseAdjust\PurchaseMenu\Controller\CT_PurchaseAdjustMenu.cs" />
-    <Compile Include="Purchases\Nodes\PurchaseAdjust\PurchaseMenu\View\MC_PUR_Menu.xaml.cs">
-      <DependentUpon>MC_PUR_Menu.xaml</DependentUpon>
+    <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderMenu\Controller\CT_PurchaseOrderMenu.cs" />
+    <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderMenu\View\MC_POR_Menu.xaml.cs">
+      <DependentUpon>MC_POR_Menu.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Purchases\Nodes\PurchaseAdjust\PurchaseMenu\View\NV_PUR_Menu.xaml.cs">
-      <DependentUpon>NV_PUR_Menu.xaml</DependentUpon>
+    <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderMenu\View\NV_POR_Menu.xaml.cs">
+      <DependentUpon>NV_POR_Menu.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Purchases\Nodes\PurchaseAdjust\PurchaseMenu\View\TS_PUR_Menu.xaml.cs">
-      <DependentUpon>TS_PUR_Menu.xaml</DependentUpon>
+    <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderMenu\View\TS_POR_Menu.xaml.cs">
+      <DependentUpon>TS_POR_Menu.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Purchases\View\NV_Purchase_Main.xaml.cs">
-      <DependentUpon>NV_Purchase_Main.xaml</DependentUpon>
+    <Compile Include="Purchases\View\NV_Purchases_Main.xaml.cs">
+      <DependentUpon>NV_Purchases_Main.xaml</DependentUpon>
     </Compile>
     <Compile Include="Files\Nodes\Stores\StoreItem\StoreItem_Load\Controller\CT_STR_Item_Load.cs">
       <Generator>MSBuild:Compile</Generator>
@@ -674,19 +674,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Purchases\Nodes\PurchaseAdjust\PurchaseMenu\View\MC_PUR_Menu.xaml">
+    <Page Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderMenu\View\MC_POR_Menu.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Purchases\Nodes\PurchaseAdjust\PurchaseMenu\View\NV_PUR_Menu.xaml">
+    <Page Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderMenu\View\NV_POR_Menu.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Purchases\Nodes\PurchaseAdjust\PurchaseMenu\View\TS_PUR_Menu.xaml">
+    <Page Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderMenu\View\TS_POR_Menu.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Purchases\View\NV_Purchase_Main.xaml">
+    <Page Include="Purchases\View\NV_Purchases_Main.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1017,11 +1017,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
-    <Folder Include="Purchases\Nodes\PurchaseAdjust\PurchaseItem\AddPurchase\" />
-    <Folder Include="Purchases\Nodes\PurchaseAdjust\PurchaseItem\PurchaseItem_Load\Controller\" />
-    <Folder Include="Purchases\Nodes\PurchaseAdjust\PurchaseItem\PurchaseItem_Load\View\" />
-    <Folder Include="Purchases\Nodes\PurchaseAdjust\PurchaseItem\PurchaseItem_New\Controller\" />
-    <Folder Include="Purchases\Nodes\PurchaseAdjust\PurchaseItem\PurchaseItem_New\View\" />
+    <Folder Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_Load\Controller\" />
+    <Folder Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_Load\View\" />
+    <Folder Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_New\Controller\" />
+    <Folder Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_New\View\" />
     <Folder Include="Sales\Nodes\SaleAdjust\SaleItem\AddSale\" />
     <Folder Include="Sales\Nodes\SaleAdjust\SaleItem\SaleItem_Load\Controller\" />
     <Folder Include="Sales\Nodes\SaleAdjust\SaleItem\SaleItem_Load\View\" />
