@@ -52,6 +52,18 @@ namespace GestCloudv2.Main.Controller
             ChangeController();
         }
 
+        public void CT_Purchases()
+        {
+            Information["controller"] = 5;
+            ChangeController();
+        }
+
+        public void CT_Sales()
+        {
+            Information["controller"] = 6;
+            ChangeController();
+        }
+
         public override void UpdateComponents ()
         {
             switch(Information["mode"])
@@ -82,6 +94,16 @@ namespace GestCloudv2.Main.Controller
                 case 4:
                     Main.View.MainWindow e = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
                     e.MainFrame.Content = new Stocks.Controller.CT_Stocks();
+                    break;
+
+                case 5:
+                    Main.View.MainWindow f = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
+                    f.MainFrame.Content = new Purchases.Controller.CT_Purchases();
+                    break;
+
+                case 6:
+                    Main.View.MainWindow g = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
+                    g.MainFrame.Content = new Sales.Controller.CT_Sales();
                     break;
             }
         }

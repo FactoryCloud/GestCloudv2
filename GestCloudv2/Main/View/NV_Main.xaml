@@ -22,8 +22,8 @@
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <Button Name="NV_Files" Grid.Column="0"  Margin="20" Click="EV_NV_Files">Fichas</Button>
-        <Button IsEnabled="False" Name="NV_Purchases" Grid.Column="1" Margin="20">Compras</Button>
-        <Button IsEnabled="False" Name="NV_Sales" Grid.Column="2" Margin="20">Ventas</Button>
+        <Button Name="NV_Purchases" Grid.Column="1" Margin="20" Click="EV_NV_Purchases">Compras</Button>
+        <Button  Name="NV_Sales" Grid.Column="2" Margin="20" Click="EV_NV_Sales">Ventas</Button>
         <Button Name="NV_Stock" Grid.Column="3" Margin="20" Click="EV_NV_Stocks">Stocks</Button>
         <Button IsEnabled="False" Name="NV_Reports" Grid.Column="4" Margin="20">Configuración</Button>
         <Button IsEnabled="False" Grid.Column="0" Grid.Row="1" Margin="20"></Button>

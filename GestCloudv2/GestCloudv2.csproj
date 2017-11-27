@@ -277,6 +277,34 @@
     <Compile Include="Files\Nodes\Entities\View\MC_Entity_Select.xaml.cs">
       <DependentUpon>MC_Entity_Select.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Sales\Controller\CT_Sales.cs" />
+    <Compile Include="Sales\Nodes\SaleAdjust\SaleMenu\Controller\CT_SaleAdjustMenu.cs" />
+    <Compile Include="Sales\Nodes\SaleAdjust\SaleMenu\View\MC_SAL_Menu.xaml.cs">
+      <DependentUpon>MC_SAL_Menu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Sales\Nodes\SaleAdjust\SaleMenu\View\NV_SAL_Menu.xaml.cs">
+      <DependentUpon>NV_SAL_Menu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Sales\Nodes\SaleAdjust\SaleMenu\View\TS_SAL_Menu.xaml.cs">
+      <DependentUpon>TS_SAL_Menu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Sales\View\NV_Sale_Main.xaml.cs">
+      <DependentUpon>NV_Sale_Main.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Purchases\Controller\CT_Purchases.cs" />
+    <Compile Include="Purchases\Nodes\PurchaseAdjust\PurchaseMenu\Controller\CT_PurchaseAdjustMenu.cs" />
+    <Compile Include="Purchases\Nodes\PurchaseAdjust\PurchaseMenu\View\MC_PUR_Menu.xaml.cs">
+      <DependentUpon>MC_PUR_Menu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Purchases\Nodes\PurchaseAdjust\PurchaseMenu\View\NV_PUR_Menu.xaml.cs">
+      <DependentUpon>NV_PUR_Menu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Purchases\Nodes\PurchaseAdjust\PurchaseMenu\View\TS_PUR_Menu.xaml.cs">
+      <DependentUpon>TS_PUR_Menu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Purchases\View\NV_Purchase_Main.xaml.cs">
+      <DependentUpon>NV_Purchase_Main.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Files\Nodes\Stores\StoreItem\StoreItem_Load\Controller\CT_STR_Item_Load.cs">
       <Generator>MSBuild:Compile</Generator>
     </Compile>
@@ -630,6 +658,38 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Sales\Nodes\SaleAdjust\SaleMenu\View\MC_SAL_Menu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Sales\Nodes\SaleAdjust\SaleMenu\View\NV_SAL_Menu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Sales\Nodes\SaleAdjust\SaleMenu\View\TS_SAL_Menu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Sales\View\NV_Sale_Main.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Purchases\Nodes\PurchaseAdjust\PurchaseMenu\View\MC_PUR_Menu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Purchases\Nodes\PurchaseAdjust\PurchaseMenu\View\NV_PUR_Menu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Purchases\Nodes\PurchaseAdjust\PurchaseMenu\View\TS_PUR_Menu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Purchases\View\NV_Purchase_Main.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Files\Nodes\Stores\StoreItem\StoreItem_Load\View\MC_STR_Item_Load_Store.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -957,6 +1017,16 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
+    <Folder Include="Purchases\Nodes\PurchaseAdjust\PurchaseItem\AddPurchase\" />
+    <Folder Include="Purchases\Nodes\PurchaseAdjust\PurchaseItem\PurchaseItem_Load\Controller\" />
+    <Folder Include="Purchases\Nodes\PurchaseAdjust\PurchaseItem\PurchaseItem_Load\View\" />
+    <Folder Include="Purchases\Nodes\PurchaseAdjust\PurchaseItem\PurchaseItem_New\Controller\" />
+    <Folder Include="Purchases\Nodes\PurchaseAdjust\PurchaseItem\PurchaseItem_New\View\" />
+    <Folder Include="Sales\Nodes\SaleAdjust\SaleItem\AddSale\" />
+    <Folder Include="Sales\Nodes\SaleAdjust\SaleItem\SaleItem_Load\Controller\" />
+    <Folder Include="Sales\Nodes\SaleAdjust\SaleItem\SaleItem_Load\View\" />
+    <Folder Include="Sales\Nodes\SaleAdjust\SaleItem\SaleItem_New\Controller\" />
+    <Folder Include="Sales\Nodes\SaleAdjust\SaleItem\SaleItem_New\View\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -47,6 +47,16 @@ namespace GestCloudv2.Main.View
             GetController().CT_Stocks();
         }
 
+        private void EV_NV_Purchases(object sender, RoutedEventArgs e)
+        {
+            GetController().CT_Purchases();
+        }
+
+        private void EV_NV_Sales(object sender, RoutedEventArgs e)
+        {
+            GetController().CT_Sales();
+        }
+
         private void EV_Exit(object sender, RoutedEventArgs e)
         {
             Application.Current.MainWindow.Close();
@@ -58,5 +68,7 @@ namespace GestCloudv2.Main.View
             var a = (Main.View.MainWindow)mainWindow;
             return (Main.Controller.CT_Main)a.MainFrame.Content;
         }
+
+
     }
 }
