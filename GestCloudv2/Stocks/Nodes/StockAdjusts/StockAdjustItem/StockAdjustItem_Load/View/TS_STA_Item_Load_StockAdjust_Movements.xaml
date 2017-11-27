@@ -26,10 +26,10 @@
         <Button Name="BT_StoredStockReduceNew" Grid.Column="1" Margin="20" Click="EV_StoredStock_Reduce">
             <TextBlock TextAlignment="Center">Modificar<LineBreak/>Stock</TextBlock>
         </Button>
-        <Button Name="BT_MovementEdit" Grid.Row="1" Margin="20" IsEnabled="False" Click="EV_StockAdjustEdit">
+        <Button Name="BT_MovementEdit" Grid.Row="1" Margin="20" IsEnabled="False" Click="EV_StoredStock_Edit">
             <TextBlock TextAlignment="Center">Editar<LineBreak/>Línea</TextBlock>
         </Button>
-        <Button Name="BT_MovementDelete" Grid.Column="1" Grid.Row="1" Margin="20" IsEnabled="False">
+        <Button Name="BT_MovementDelete" Grid.Column="1" Grid.Row="1" Margin="20" IsEnabled="False" Click="EV_StoredStock_Remove">
             <TextBlock TextAlignment="Center">Eliminar<LineBreak/>Línea</TextBlock>
         </Button>
         <Button Name="BT_StockAdjustSave" Grid.Column="1" Grid.Row="4" Margin="20" Click="EV_StockAdjustSave" IsEnabled="False">

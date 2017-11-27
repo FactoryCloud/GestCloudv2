@@ -132,7 +132,8 @@ namespace GestCloudv2.FloatWindows
                 Movement mov = movements.Where(m => m.MovementID == movementSelected).First();
                 TB_ProductName.Text = mov.product.Name;
                 TB_Quantity.Text = mov.Quantity.ToString();
-                TB_PurchasePrice.Text = mov.Base.ToString();
+                TB_PurchasePrice.Text = mov.PurchasePrice.ToString();
+                TB_SalePrice.Text = mov.SalePrice.ToString();
                 productsView.product = mov.product;
                 productsView.Quantity = Convert.ToDecimal(mov.Quantity);
                 productsView.PurchasePrice = Convert.ToDecimal(mov.Base);

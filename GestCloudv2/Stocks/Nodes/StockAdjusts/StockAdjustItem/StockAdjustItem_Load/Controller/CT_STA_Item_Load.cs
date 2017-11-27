@@ -30,7 +30,8 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
         public MovementsView movementsView;
         public Store store;
         public List<StockAdjust> stocksAdjust;
-        public List<Movement> movement;
+        public List<Movement> movements;
+        public int MovementLastID;
 
         public CT_STA_Item_Load(StockAdjust stockAdjust, int editable)
         {
@@ -46,14 +47,17 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
             List<DocumentType> documentTypes = db.DocumentTypes.Where(i => i.Name.Contains("StockAdjust")).ToList();
 
             store = db.Movements.Where(u => u.DocumentID == stockAdjust.StockAdjustID && (documentTypes[0].DocumentTypeID == u.DocumentTypeID || documentTypes[1].DocumentTypeID == u.DocumentTypeID)).Include(u => u.store).First().store;
-
+            
         }
 
         override public void EV_Start(object sender, RoutedEventArgs e)
         {
             List<DocumentType> documentTypes = db.DocumentTypes.Where(i => i.Name.Contains("StockAdjust")).ToList();
-            List<Movement> movements = db.Movements.Where(u => u.DocumentID == stockAdjust.StockAdjustID && (documentTypes[0].DocumentTypeID == u.DocumentTypeID || documentTypes[1].DocumentTypeID == u.DocumentTypeID)).Include(u => u.store)
+            movements = db.Movements.Where(u => u.DocumentID == stockAdjust.StockAdjustID && (documentTypes[0].DocumentTypeID == u.DocumentTypeID || documentTypes[1].DocumentTypeID == u.DocumentTypeID)).Include(u => u.store)
                 .Include(i => i.product).Include(z => z.condition).Include(i => i.product.productType).ToList();
+
+            MovementLastID = movements.OrderBy(m => m.MovementID).Last().MovementID;
+
             foreach (Movement item in movements)
             {
                 movementsView.MovementAdd(item);
@@ -125,7 +129,6 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
             {
                 stockAdjust.Code = $"1";
                 return lastStockAdjustsCod = 1;
-
             }
         }
 
@@ -141,10 +144,23 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
             floatWindow.Show();
         }
 
+        public void MD_StoredStock_Remove()
+        {
+            movementsView.MovementDelete(movementSelected.MovementID);
+            movementSelected = null;
+            UpdateComponents();
+        }
+
+        public void MD_StoredStock_Edit()
+        {
+            View.FW_STA_Item_Load_IncreaseStock floatWindow = new View.FW_STA_Item_Load_IncreaseStock(1, movementsView.movements, movementSelected.MovementID);
+            floatWindow.Show();
+        }
+
         public override void EV_MovementAdd(Movement movement)
         {
             //MessageBox.Show(movement.Base.ToString());
-            movement.MovementID = movementsView.MovementNextID();
+            movement.MovementID = movementsView.MovementNextID(MovementLastID);
             movementsView.MovementAdd(movement);
             movementSelected = null;
             UpdateComponents();
@@ -204,34 +220,58 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
 
         public void SaveNewStockAdjust()
         {
-            stockAdjust.CompanyID = ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID;
+            /*stockAdjust.CompanyID = ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID;
             db.StockAdjusts.Add(stockAdjust);
-            db.SaveChanges();
+            db.SaveChanges();*/
 
             foreach (Movement movement in movementsView.movements)
             {
-                movement.MovementID = 0;
-                movement.ConditionID = movement.condition.ConditionID;
-                movement.condition = null;
-                movement.ProductID = movement.product.ProductID;
-                movement.product = null;
-
-                if (movement.store == null)
+                if (!movements.Contains(movement))
                 {
-                    movement.DocumentTypeID = db.DocumentTypes.Where(c => c.Name == "StockAdjust" && c.Input == 1).First().DocumentTypeID;
-                    movement.StoreID = store.StoreID;
+                    movement.MovementID = 0;
+                    movement.ConditionID = movement.condition.ConditionID;
+                    movement.condition = null;
+                    movement.ProductID = movement.product.ProductID;
+                    movement.product = null;
+
+                    if (movement.store == null)
+                    {
+                        movement.DocumentTypeID = db.DocumentTypes.Where(c => c.Name == "StockAdjust" && c.Input == 1).First().DocumentTypeID;
+                        movement.StoreID = store.StoreID;
+                    }
+
+                    else
+                    {
+                        movement.DocumentTypeID = movement.documentType.DocumentTypeID;
+                        movement.documentType = null;
+                        if (movement.Quantity < 0)
+                            movement.Quantity = movement.Quantity * -1;
+                    }
+
+                    movement.DocumentID = stockAdjust.StockAdjustID;
+                    db.Movements.Add(movement);
                 }
 
                 else
                 {
-                    movement.DocumentTypeID = movement.documentType.DocumentTypeID;
-                    movement.documentType = null;
-                    if (movement.Quantity < 0)
-                        movement.Quantity = movement.Quantity * -1;
-                }
+                    Movement temp = db.Movements.Where(m => m.MovementID == movement.MovementID).First();
+                    temp.ConditionID = movement.condition.ConditionID;
+                    temp.ProductID = movement.product.ProductID;
+                    temp.Quantity = movement.Quantity;
+                    temp.PurchasePrice = movement.PurchasePrice;
+                    temp.SalePrice = movement.SalePrice;
+                    temp.IsAltered = movement.IsAltered;
+                    temp.IsFoil = movement.IsFoil;
+                    temp.IsPlayset = movement.IsPlayset;
+                    temp.IsSigned = movement.IsSigned;
+                    db.Movements.Update(temp);
+                }   
+            }
 
-                movement.DocumentID = stockAdjust.StockAdjustID;
-                db.Movements.Add(movement);
+            foreach (Movement mov in movements)
+            {
+                if (!movementsView.movements.Contains(mov))
+                    db.Movements.Remove(mov);
             }
 
             db.SaveChanges();

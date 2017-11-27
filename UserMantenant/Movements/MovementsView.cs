@@ -83,6 +83,21 @@ namespace FrameworkView.V1
                 return 1;
         }
 
+        public int MovementNextID(int LastMovementID)
+        {
+            if (movements.Count > 0)
+            {
+                if (movements.OrderBy(m => m.MovementID).Last().MovementID > LastMovementID)
+                    return movements.Last().MovementID + 1;
+
+                else
+                    return LastMovementID + 1;
+            }
+
+            else
+                return LastMovementID + 1;
+        }
+
         public void UpdateTable()
         {
             dt.Clear();
