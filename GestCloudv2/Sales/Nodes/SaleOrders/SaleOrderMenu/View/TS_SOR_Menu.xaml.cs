@@ -30,6 +30,11 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderMenu.View
             }*/
         }
 
+        private void EV_MD_New_SaleOrder(object sender, RoutedEventArgs e)
+        {
+            GetController().EV_CT_OrderSaleNew();
+        }
+
         /*private void EV_MD_StockAdjustNew(object sender, RoutedEventArgs e)
         {
             GetController().EV_CT_StockAdjustNew();
@@ -43,13 +48,13 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderMenu.View
         private void EV_MD_StockAdjustLoadEditable(object sender, RoutedEventArgs e)
         {
             GetController().EV_CT_StockAdjustLoadEditable();
-        }
+        }*/
 
-        private Controller.CT_StockAdjustMenu GetController()
+        private Controller.CT_SaleOrderMenu GetController()
         {
             Window mainWindow = Application.Current.MainWindow;
             var a = (Main.View.MainWindow)mainWindow;
-            return (Controller.CT_StockAdjustMenu)a.MainFrame.Content;
-        }*/
+            return (Controller.CT_SaleOrderMenu)a.MainFrame.Content;
+        }
     }
 }
