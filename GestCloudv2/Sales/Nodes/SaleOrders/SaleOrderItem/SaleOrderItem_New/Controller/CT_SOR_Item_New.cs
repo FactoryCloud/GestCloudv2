@@ -23,6 +23,7 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_New.Con
 
         public CT_SOR_Item_New()
         {
+            saleOrder = new SaleOrder();
             clients = new Client();
             stockAdjust = new StockAdjust();
             movementsView = new MovementsView();
@@ -51,9 +52,9 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_New.Con
             return stores;
         }
 
-        public void CleanStockCode()
+        public void CleanSaleOrderCode()
         {
-            stockAdjust.Code = "";
+            saleOrder.Code = "";
             TestMinimalInformation();
         }
 
@@ -87,18 +88,19 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_New.Con
         }
 
 
-        public int LastPurchaseOrderCod()
+        public int LastSaleOrderCod()
         {
             if (db.SaleOrders.ToList().Count > 0)
             {
                 lastSaleOrderCod = db.SaleOrders.OrderBy(u => u.SaleOrderID).Last().SaleOrderID+ 1;
-                saleOrder. = lastSaleOrderCod;
+                saleOrder.Code = lastSaleOrderCod.ToString();
                 return lastSaleOrderCod;
             }
             else
             {
-                saleOrder.Cod = 1;
-                return lastSaleOrderCod = 1;
+                saleOrder.Code = $"1";
+                lastSaleOrderCod = 1;
+                return lastSaleOrderCod;
 
             }
         }
@@ -143,18 +145,18 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_New.Con
             UpdateComponents();
         }
 
-        public Boolean StockAdjustExist(string stocksAdjust)
+        public Boolean SaleOrderExist(string saleOrders)
         {
-            List<StockAdjust> stocks = db.StockAdjusts.ToList();
-            foreach (var item in stocks)
+            List<SaleOrder> orders = db.SaleOrders.ToList();
+            foreach (var item in orders)
             {
-                if (item.Code.Contains(stocksAdjust) || stocksAdjust.Length == 0)
+                if (item.Code.Contains(saleOrders) || saleOrders.Length == 0)
                 {
-                    CleanStockCode();
+                    CleanSaleOrderCode();
                     return true;
                 }
             }
-            stockAdjust.Code = stocksAdjust;
+            saleOrder.Code = saleOrders;
             TestMinimalInformation();
             return false;
         }

@@ -28,10 +28,10 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_New.Vie
 
             InitializeComponent();
             this.Loaded += new RoutedEventHandler(EV_Start);
-            TB_StockAdjustReference.KeyUp += new KeyEventHandler(EV_StockAdjustCode);
-            TB_StockAdjustReference.Loaded += new RoutedEventHandler(EV_StockAdjustCode);
-            TB_StockAdjustCode.KeyUp += new KeyEventHandler(EV_StockCode);
-            TB_StockAdjustCode.Loaded += new RoutedEventHandler(EV_StockCode);
+            //TB_StockAdjustReference.KeyUp += new KeyEventHandler(EV_StockAdjustCode);
+            //TB_StockAdjustReference.Loaded += new RoutedEventHandler(EV_StockAdjustCode);
+            TB_SaleOrderCode.KeyUp += new KeyEventHandler(EV_SaleOrderCode);
+            TB_SaleOrderCode.Loaded += new RoutedEventHandler(EV_SaleOrderCode);
             CB_Stores.SelectionChanged += new SelectionChangedEventHandler(EV_StoreSelect);
             DP_Date.KeyDown += new KeyEventHandler(EV_Cancel);
             DP_Date.KeyUp += new KeyEventHandler(EV_Cancel);
@@ -41,7 +41,7 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_New.Vie
         private void EV_Start(object sender, RoutedEventArgs e)
         {
             DP_Date.SelectedDate = DateTime.Now;
-            //TB_StockAdjustCode.Text = GetController().LastClientCod().ToString();
+            TB_SaleOrderCode.Text = GetController().LastSaleOrderCod().ToString();
             List<Store> stores = GetController().GetStores();
             foreach (Store st in stores)
             {
@@ -53,82 +53,82 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_New.Vie
             CB_Stores.SelectedIndex = 0;
         }
 
-        private void EV_StockCode(object sender, RoutedEventArgs e)
+        private void EV_SaleOrderCode(object sender, RoutedEventArgs e)
         {
-            if (TB_StockAdjustCode.Text.Length == 0)
+            if (TB_SaleOrderCode.Text.Length == 0)
             {
-                if (SP_StockAdjustCode.Children.Count == 1)
+                if (SP_SaleOrderCode.Children.Count == 1)
                 {
                     TextBlock message = new TextBlock();
                     message.TextWrapping = TextWrapping.WrapWithOverflow;
                     message.Text = "Este campo no puede estar vacio";
                     message.HorizontalAlignment = HorizontalAlignment.Center;
-                    SP_StockAdjustCode.Children.Add(message);
+                    SP_SaleOrderCode.Children.Add(message);
                 }
 
-                else if (SP_StockAdjustCode.Children.Count == 2)
+                else if (SP_SaleOrderCode.Children.Count == 2)
                 {
-                    SP_StockAdjustCode.Children.RemoveAt(SP_StockAdjustCode.Children.Count - 1);
+                    SP_SaleOrderCode.Children.RemoveAt(SP_SaleOrderCode.Children.Count - 1);
                     TextBlock message = new TextBlock();
                     message.TextWrapping = TextWrapping.WrapWithOverflow;
                     message.Text = "Este campo no puede estar vacio";
                     message.HorizontalAlignment = HorizontalAlignment.Center;
-                    SP_StockAdjustCode.Children.Add(message);
+                    SP_SaleOrderCode.Children.Add(message);
                 }
-                GetController().CleanStockCode();
-                TB_StockAdjustCode.Text = "";
+                GetController().CleanSaleOrderCode();
+                TB_SaleOrderCode.Text = "";
             }
-            else if (TB_StockAdjustCode.Text.Any(x => Char.IsWhiteSpace(x)))
+            else if (TB_SaleOrderCode.Text.Any(x => Char.IsWhiteSpace(x)))
             {
-                if (SP_StockAdjustCode.Children.Count == 1)
+                if (SP_SaleOrderCode.Children.Count == 1)
                 {
                     TextBlock message = new TextBlock();
                     message.TextWrapping = TextWrapping.WrapWithOverflow;
                     message.Text = "Este campo no puede contener espacios";
                     message.HorizontalAlignment = HorizontalAlignment.Center;
-                    SP_StockAdjustCode.Children.Add(message);
+                    SP_SaleOrderCode.Children.Add(message);
                 }
 
-                else if (SP_StockAdjustCode.Children.Count == 2)
+                else if (SP_SaleOrderCode.Children.Count == 2)
                 {
-                    SP_StockAdjustCode.Children.RemoveAt(SP_StockAdjustCode.Children.Count - 1);
+                    SP_SaleOrderCode.Children.RemoveAt(SP_SaleOrderCode.Children.Count - 1);
                     TextBlock message = new TextBlock();
                     message.TextWrapping = TextWrapping.WrapWithOverflow;
                     message.Text = "Este campo no puede contener espacios";
                     message.HorizontalAlignment = HorizontalAlignment.Center;
-                    SP_StockAdjustCode.Children.Add(message);
+                    SP_SaleOrderCode.Children.Add(message);
                 }
-                GetController().CleanStockCode();
+                GetController().CleanSaleOrderCode();
             }
 
-             else if (GetController().StockAdjustExist(TB_StockAdjustCode.Text))
+             else if (GetController().SaleOrderExist(TB_SaleOrderCode.Text))
              {
-                 if (SP_StockAdjustCode.Children.Count == 1)
+                 if (SP_SaleOrderCode.Children.Count == 1)
                  {
                      TextBlock message = new TextBlock();
                      message.TextWrapping = TextWrapping.WrapWithOverflow;
                      message.Text = "Este código ya existe";
                      message.HorizontalAlignment = HorizontalAlignment.Center;
-                     SP_StockAdjustCode.Children.Add(message);
+                    SP_SaleOrderCode.Children.Add(message);
                  }
 
-                 else if (SP_StockAdjustCode.Children.Count == 2)
+                 else if (SP_SaleOrderCode.Children.Count == 2)
                  {
-                     SP_StockAdjustCode.Children.RemoveAt(SP_StockAdjustCode.Children.Count - 1);
+                    SP_SaleOrderCode.Children.RemoveAt(SP_SaleOrderCode.Children.Count - 1);
                      TextBlock message = new TextBlock();
                      message.TextWrapping = TextWrapping.WrapWithOverflow;
                      message.Text = "Este código ya existe";
                      message.HorizontalAlignment = HorizontalAlignment.Center;
-                     SP_StockAdjustCode.Children.Add(message);
+                    SP_SaleOrderCode.Children.Add(message);
                  }
                  GetController().EV_UpdateIfNotEmpty(true);
              }
 
              else
              {
-                 if (SP_StockAdjustCode.Children.Count == 2)
+                 if (SP_SaleOrderCode.Children.Count == 2)
                  {
-                     SP_StockAdjustCode.Children.RemoveAt(SP_StockAdjustCode.Children.Count - 1);
+                    SP_SaleOrderCode.Children.RemoveAt(SP_SaleOrderCode.Children.Count - 1);
                  }
                  GetController().EV_UpdateIfNotEmpty(true);
              }
