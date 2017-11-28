@@ -23,9 +23,14 @@ namespace FrameworkView.V1
             dt = new DataTable();
             ProviderSearch = new Provider();
             dt.Columns.Add("Codigo", typeof(int));
-            dt.Columns.Add("Nombre Comerical", typeof(string));
+            dt.Columns.Add("Nombre Comercial", typeof(string));
             dt.Columns.Add("Subnombre", typeof(string));
             dt.Columns.Add("Número", typeof(string));
+        }
+
+        public Provider GetProvider (int num)
+        {
+            return db.Providers.Where(p => p.ProviderID == num).First();
         }
 
         public void UpdateTable()
