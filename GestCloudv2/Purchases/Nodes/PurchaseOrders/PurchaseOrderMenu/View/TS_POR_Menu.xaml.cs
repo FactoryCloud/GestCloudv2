@@ -30,6 +30,11 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderMenu.View
             }*/
         }
 
+        private void EV_MD_New_PurchaseOrder(object sender, RoutedEventArgs e)
+        {
+            GetController().EV_CT_OrderPurchaseNew();
+        }
+
         /*private void EV_MD_StockAdjustNew(object sender, RoutedEventArgs e)
         {
             GetController().EV_CT_StockAdjustNew();
@@ -43,13 +48,13 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderMenu.View
         private void EV_MD_StockAdjustLoadEditable(object sender, RoutedEventArgs e)
         {
             GetController().EV_CT_StockAdjustLoadEditable();
-        }
+        }*/
 
-        private Controller.CT_StockAdjustMenu GetController()
+        private Controller.CT_PurchaseOrderMenu GetController()
         {
             Window mainWindow = Application.Current.MainWindow;
             var a = (Main.View.MainWindow)mainWindow;
-            return (Controller.CT_StockAdjustMenu)a.MainFrame.Content;
-        }*/
+            return (Controller.CT_PurchaseOrderMenu)a.MainFrame.Content;
+        }
     }
 }

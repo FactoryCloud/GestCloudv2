@@ -277,6 +277,7 @@
     <Compile Include="Files\Nodes\Entities\View\MC_Entity_Select.xaml.cs">
       <DependentUpon>MC_Entity_Select.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_New\Controller\CT_POR_Item_New.cs" />
     <Compile Include="Sales\Controller\CT_Sales.cs" />
     <Compile Include="Sales\Nodes\SaleOrders\SaleOrderMenu\Controller\CT_SaleOrderMenu.cs" />
     <Compile Include="Sales\Nodes\SaleOrders\SaleOrderMenu\View\MC_SOR_Menu.xaml.cs">
@@ -1019,7 +1020,6 @@
     <Folder Include="Models\" />
     <Folder Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_Load\Controller\" />
     <Folder Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_Load\View\" />
-    <Folder Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_New\Controller\" />
     <Folder Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_New\View\" />
     <Folder Include="Sales\Nodes\SaleOrders\SaleOrderItem\SaleOrderItem_Load\Controller\" />
     <Folder Include="Sales\Nodes\SaleOrders\SaleOrderItem\SaleOrderItem_Load\View\" />
