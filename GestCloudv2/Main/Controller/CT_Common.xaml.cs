@@ -63,6 +63,11 @@ namespace GestCloudv2.Main.Controller
 
         }
 
+        public virtual void EV_SetProvider(Provider provider)
+        {
+
+        }
+
         virtual public void MD_EntityNew()
         {
 

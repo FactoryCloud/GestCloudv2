@@ -307,6 +307,9 @@
     <Compile Include="Files\Nodes\Entities\View\MC_Entity_Select.xaml.cs">
       <DependentUpon>MC_Entity_Select.xaml</DependentUpon>
     </Compile>
+    <Compile Include="FloatWindows\ProviderSelectWindow.xaml.cs">
+      <DependentUpon>ProviderSelectWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="FloatWindows\StoredArticleSelectWindow.xaml.cs">
       <DependentUpon>StoredArticleSelectWindow.xaml</DependentUpon>
     </Compile>
@@ -314,7 +317,7 @@
       <DependentUpon>ClientSelectWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_New\Controller\CT_POR_Item_New.cs" />
-    <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_New\View\FW_POR_Item_New_SelectClient.cs" />
+    <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_New\View\FW_POR_Item_New_SelectProvider.cs" />
     <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_New\View\MC_POR_Item_New_PurchaseOrder.xaml.cs">
       <DependentUpon>MC_POR_Item_New_PurchaseOrder.xaml</DependentUpon>
     </Compile>
@@ -727,6 +730,10 @@
     <Page Include="Files\Nodes\Entities\View\MC_Entity_Select.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FloatWindows\ProviderSelectWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="FloatWindows\StoredArticleSelectWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

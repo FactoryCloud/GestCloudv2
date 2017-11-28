@@ -12,21 +12,18 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
 {
     public partial class CT_POR_Item_New : Main.Controller.CT_Common
     {
-        public StockAdjust stockAdjust;
-        public int lastClientCod;
+        public PurchaseOrder purchaseOrder;
+        public int lastPurchaseOrderCode;
         public Movement movementSelected;
         public MovementsView movementsView;
         public Store store;
-        public ClientsView clientsView;
-        public Client clients;
-        //public PurchaseOrder purchaseOrder;
+        public Provider provider;
 
         public CT_POR_Item_New()
         {
-            clients = new Client();
-            stockAdjust = new StockAdjust();
+            provider = new Provider();
+            purchaseOrder = new PurchaseOrder();
             movementsView = new MovementsView();
-            clientsView = new ClientsView();
             Information.Add("minimalInformation", 0);
         }
 
@@ -53,7 +50,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
 
         public void CleanStockCode()
         {
-            stockAdjust.Code = "";
+            purchaseOrder.Code = "";
             TestMinimalInformation();
         }
 
@@ -87,7 +84,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
         }
 
 
-        public int LastPurchaseOrderCod()
+        public int LastClientCod()
         {
             if (db.Clients.ToList().Count > 0)
             {
@@ -105,7 +102,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
 
         public void MD_ClientSelect()
         {
-            View.FW_POR_Item_New_SelectClient floatWindow = new View.FW_POR_Item_New_SelectClient(1, clientsView.clients);
+            View.FW_POR_Item_New_SelectProvider floatWindow = new View.FW_POR_Item_New_SelectProvider();
             floatWindow.Show();
         }
 

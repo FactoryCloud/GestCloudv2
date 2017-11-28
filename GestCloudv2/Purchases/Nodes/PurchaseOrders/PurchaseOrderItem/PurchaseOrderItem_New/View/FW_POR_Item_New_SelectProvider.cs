@@ -11,17 +11,12 @@ using System.Windows.Input;
 
 namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseOrderItem_New.View
 {
-    public partial class FW_POR_Item_New_SelectClient : FloatWindows.ClientSelectWindow
+    public partial class FW_POR_Item_New_SelectProvider : FloatWindows.ProviderSelectWindow
     {
-        public FW_POR_Item_New_SelectClient(int option, List<Client> clients) : base(option, clients)
+        public FW_POR_Item_New_SelectProvider() : base()
         {
             
         }
-
-        /*public FW_POR_Item_New_SelectClient(int option, List<Client> clients, int mov) : base(option, clients, mov)
-        {
-
-        }*/
 
         override public Main.Controller.CT_Common GetController()
         {
