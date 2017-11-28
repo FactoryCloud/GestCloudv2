@@ -15,15 +15,15 @@ using System.Windows.Shapes;
 using FrameworkDB.V1;
 using FrameworkView.V1;
 
-namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseOrderItem_New.View
+namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_New.View
 {
     /// <summary>
     /// Interaction logic for MC_POR_Item_New_PurchaseOrder.xaml
     /// </summary>
-    public partial class MC_POR_Item_New_PurchaseOrder : Page
+    public partial class MC_SOR_Item_New_SaleOrder : Page
     {
 
-        public MC_POR_Item_New_PurchaseOrder()
+        public MC_SOR_Item_New_SaleOrder()
         {
 
             InitializeComponent();
@@ -181,11 +181,11 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
             GetController().MD_ClientSelect();
         }
 
-        private Controller.CT_POR_Item_New GetController()
+        private Controller.CT_SOR_Item_New GetController()
         {
             Window mainWindow = Application.Current.MainWindow;
             var a = (Main.View.MainWindow)mainWindow;
-            return (Controller.CT_POR_Item_New)a.MainFrame.Content;
+            return (Controller.CT_SOR_Item_New)a.MainFrame.Content;
         }
     }
 }

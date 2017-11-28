@@ -8,20 +8,20 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseOrderItem_New.Controller
+namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_New.Controller
 {
-    public partial class CT_POR_Item_New : Main.Controller.CT_Common
+    public partial class CT_SOR_Item_New : Main.Controller.CT_Common
     {
         public StockAdjust stockAdjust;
-        public int lastClientCod;
+        public int lastSaleOrderCod;
         public Movement movementSelected;
         public MovementsView movementsView;
         public Store store;
         public ClientsView clientsView;
         public Client clients;
-        //public PurchaseOrder purchaseOrder;
+        public SaleOrder saleOrder;
 
-        public CT_POR_Item_New()
+        public CT_SOR_Item_New()
         {
             clients = new Client();
             stockAdjust = new StockAdjust();
@@ -61,10 +61,10 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
         {
             movementSelected = movementsView.movements.Where(u => u.MovementID == num).First();
             if (Information["mode"] == 1)
-                TS_Page = new View.TS_POR_Item_New_PurchaseOrder(Information["minimalInformation"]);
+                TS_Page = new View.TS_SOR_Item_New_SaleOrder(Information["minimalInformation"]);
 
             if (Information["mode"] == 2)
-                TS_Page = new View.TS_POR_Item_New_PurchaseOrder_Movements(Information["minimalInformation"]);
+                TS_Page = new View.TS_SOR_Item_New_SaleOrder_Movements(Information["minimalInformation"]);
 
             LeftSide.Content = TS_Page;
         }
@@ -89,23 +89,23 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
 
         public int LastPurchaseOrderCod()
         {
-            if (db.Clients.ToList().Count > 0)
+            if (db.SaleOrders.ToList().Count > 0)
             {
-                lastClientCod = db.Clients.OrderBy(u => u.ClientID).Last().ClientID+ 1;
-                clients.Cod = lastClientCod;
-                return lastClientCod;
+                lastSaleOrderCod = db.SaleOrders.OrderBy(u => u.SaleOrderID).Last().SaleOrderID+ 1;
+                saleOrder. = lastSaleOrderCod;
+                return lastSaleOrderCod;
             }
             else
             {
-                clients.Cod = 1;
-                return lastClientCod= 1;
+                saleOrder.Cod = 1;
+                return lastSaleOrderCod = 1;
 
             }
         }
 
         public void MD_ClientSelect()
         {
-            View.FW_POR_Item_New_SelectClient floatWindow = new View.FW_POR_Item_New_SelectClient(1, clientsView.clients);
+            View.FW_SOR_Item_New_SelectClient floatWindow = new View.FW_SOR_Item_New_SelectClient(1, clientsView.clients);
             floatWindow.Show();
         }
 
@@ -187,10 +187,10 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
             }
 
             if (Information["mode"] == 1)
-                TS_Page = new View.TS_POR_Item_New_PurchaseOrder(Information["minimalInformation"]);
+                TS_Page = new View.TS_SOR_Item_New_SaleOrder(Information["minimalInformation"]);
 
             if (Information["mode"] == 2)
-                TS_Page = new View.TS_POR_Item_New_PurchaseOrder_Movements(Information["minimalInformation"]);
+                TS_Page = new View.TS_SOR_Item_New_SaleOrder_Movements(Information["minimalInformation"]);
 
             LeftSide.Content = TS_Page;
         }
@@ -249,16 +249,16 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
                     break;
 
                 case 1:
-                    NV_Page = new View.NV_POR_Item_New_PurchaseOrder();
-                    TS_Page = new View.TS_POR_Item_New_PurchaseOrder(Information["minimalInformation"]);
-                    MC_Page = new View.MC_POR_Item_New_PurchaseOrder();
+                    NV_Page = new View.NV_SOR_Item_New_SaleOrder();
+                    TS_Page = new View.TS_SOR_Item_New_SaleOrder(Information["minimalInformation"]);
+                    MC_Page = new View.MC_SOR_Item_New_SaleOrder();
                     ChangeComponents();
                     break;
 
                 case 2:
-                    NV_Page = new View.NV_POR_Item_New_PurchaseOrder();
-                    TS_Page = new View.TS_POR_Item_New_PurchaseOrder_Movements(Information["minimalInformation"]);
-                    MC_Page = new View.MC_POR_Item_New_PurchaseOrder_Movements();
+                    NV_Page = new View.NV_SOR_Item_New_SaleOrder();
+                    TS_Page = new View.TS_SOR_Item_New_SaleOrder_Movements(Information["minimalInformation"]);
+                    MC_Page = new View.MC_SOR_Item_New_SaleOrder_Movements();
                     ChangeComponents();
                     break;
             }
@@ -278,7 +278,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
                         }
                     }
                     Main.View.MainWindow a = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
-                    a.MainFrame.Content = new Purchases.Nodes.PurchaseOrders.PurchaseOrderMenu.Controller.CT_PurchaseOrderMenu();
+                    a.MainFrame.Content = new Sales.Nodes.SaleOrders.SaleOrderMenu.Controller.CT_SaleOrderMenu();
                     break;
 
                 case 1:

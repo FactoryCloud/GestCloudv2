@@ -31,13 +31,13 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderMenu.Controller
             UpdateComponents();
         }
 
-        /*public void EV_CT_StockAdjustNew()
+        public void EV_CT_OrderSaleNew()
         {
             Information["controller"] = 1;
             ChangeController();
         }
 
-        public void EV_CT_StockAdjustLoad()
+        /*public void EV_CT_StockAdjustLoad()
         {
             Information["controller"] = 2;
             ChangeController();
@@ -93,12 +93,12 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderMenu.Controller
                     a.MainFrame.Content = new Sales.Controller.CT_Sales();
                     break;
 
-            /*    case 1:
+                case 1:
                     Main.View.MainWindow b = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
-                    b.MainFrame.Content = new Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_New.Controller.CT_STA_Item_New();
+                    b.MainFrame.Content = new SaleOrderItem.SaleOrderItem_New.Controller.CT_SOR_Item_New();
                     break;
 
-                case 2:
+            /*    case 2:
                     Main.View.MainWindow c = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
                     c.MainFrame.Content = new Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_Load.Controller.CT_STA_Item_Load(stockAdjust, 0);
                     break;
