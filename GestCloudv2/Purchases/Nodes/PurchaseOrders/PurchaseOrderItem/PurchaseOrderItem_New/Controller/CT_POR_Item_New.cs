@@ -48,7 +48,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
             return stores;
         }
 
-        public void CleanStockCode()
+        public void CleanOrderCode()
         {
             purchaseOrder.Code = "";
             TestMinimalInformation();
@@ -57,13 +57,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
         public void SetMovementSelected(int num)
         {
             movementSelected = movementsView.movements.Where(u => u.MovementID == num).First();
-            if (Information["mode"] == 1)
-                TS_Page = new View.TS_POR_Item_New_PurchaseOrder(Information["minimalInformation"]);
-
-            if (Information["mode"] == 2)
-                TS_Page = new View.TS_POR_Item_New_PurchaseOrder_Movements(Information["minimalInformation"]);
-
-            LeftSide.Content = TS_Page;
+            UpdateComponents();
         }
 
         public void SetStore(int num)
@@ -77,27 +71,26 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
 
         }
 
-        public void SetAdjustDate(DateTime date)
+        public void SetOrderDate(DateTime date)
         {
-            stockAdjust.Date = date;
+            purchaseOrder.Date = date;
             TestMinimalInformation();
         }
 
 
-        public int LastClientCod()
+        public string GetLastOrderCode()
         {
-            if (db.Clients.ToList().Count > 0)
+            if (db.PurchaseOrders.ToList().Count > 0)
             {
-                lastClientCod = db.Clients.OrderBy(u => u.ClientID).Last().ClientID+ 1;
-                clients.Cod = lastClientCod;
-                return lastClientCod;
+                lastPurchaseOrderCode = db.PurchaseOrders.OrderBy(u => u.PurchaseOrderID).Last().PurchaseOrderID + 1;
             }
             else
             {
-                clients.Cod = 1;
-                return lastClientCod= 1;
-
+                lastPurchaseOrderCode = 1;
             }
+
+            purchaseOrder.Code = lastPurchaseOrderCode.ToString();
+            return lastPurchaseOrderCode.ToString();
         }
 
         public void MD_ClientSelect()
@@ -125,33 +118,31 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
             UpdateComponents();
         }
 
-       /* public void MD_StoredStock_Edit()
+        public override void EV_SetProvider(Provider provider)
         {
-            View.FW_POR_Item_New_IncreaseStock floatWindow = new View.FW_POR_Item_New_IncreaseStock(1, movementsView.movements, movementSelected.MovementID);
-            floatWindow.Show();
-        }*/
+            provider = db.Providers.Where(p => p.ProviderID == provider.ProviderID).First();
+        }
 
         public override void EV_MovementAdd(Movement movement)
         {
-            //MessageBox.Show(movement.Base.ToString());
             movement.MovementID = movementsView.MovementNextID();
             movementsView.MovementAdd(movement);
             movementSelected = null;
             UpdateComponents();
         }
 
-        public Boolean StockAdjustExist(string stocksAdjust)
+        public Boolean PurchaseOrderExist(string test)
         {
-            List<StockAdjust> stocks = db.StockAdjusts.ToList();
-            foreach (var item in stocks)
+            List<PurchaseOrder> purchaseOrders = db.PurchaseOrders.ToList();
+            foreach (var item in purchaseOrders)
             {
-                if (item.Code.Contains(stocksAdjust) || stocksAdjust.Length == 0)
+                if (item.Code.Contains(test) || test.Length == 0)
                 {
-                    CleanStockCode();
+                    CleanOrderCode();
                     return true;
                 }
             }
-            stockAdjust.Code = stocksAdjust;
+            purchaseOrder.Code = test;
             TestMinimalInformation();
             return false;
         }
@@ -173,7 +164,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
 
         private void TestMinimalInformation()
         {
-            if (stockAdjust.Date != null && Information["entityValid"] == 1)
+            if (purchaseOrder.Date != null && Information["entityValid"] == 1)
             {
                 Information["minimalInformation"] = 1;
             }
@@ -182,6 +173,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
             {
                 Information["minimalInformation"] = 0;
             }
+
 
             if (Information["mode"] == 1)
                 TS_Page = new View.TS_POR_Item_New_PurchaseOrder(Information["minimalInformation"]);
@@ -194,8 +186,8 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
 
         public void SaveNewStockAdjust()
         {
-            stockAdjust.CompanyID = ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID;
-            db.StockAdjusts.Add(stockAdjust);
+            purchaseOrder.CompanyID = ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID;
+            db.PurchaseOrders.Add(purchaseOrder);
             db.SaveChanges();
 
             foreach (Movement movement in movementsView.movements)
@@ -205,22 +197,10 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
                 movement.condition = null;
                 movement.ProductID = movement.product.ProductID;
                 movement.product = null;
+                movement.DocumentTypeID = db.DocumentTypes.Where(c => c.Name == "PurchaseOrder" && c.Input == 1).First().DocumentTypeID;
+                movement.StoreID = store.StoreID;
 
-                if (movement.store == null)
-                {
-                    movement.DocumentTypeID = db.DocumentTypes.Where(c => c.Name == "StockAdjust" && c.Input == 1).First().DocumentTypeID;
-                    movement.StoreID = store.StoreID;
-                }
-
-                else
-                {
-                    movement.DocumentTypeID = movement.documentType.DocumentTypeID;
-                    movement.documentType = null;
-                    if (movement.Quantity < 0)
-                        movement.Quantity = movement.Quantity * -1;
-                }
-
-                movement.DocumentID = stockAdjust.StockAdjustID;
+                movement.DocumentID = purchaseOrder.PurchaseOrderID;
                 db.Movements.Add(movement);
             }
 

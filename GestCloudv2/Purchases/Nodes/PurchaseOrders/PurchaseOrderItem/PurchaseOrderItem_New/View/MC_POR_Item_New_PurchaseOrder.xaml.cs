@@ -28,10 +28,10 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
 
             InitializeComponent();
             this.Loaded += new RoutedEventHandler(EV_Start);
-            TB_StockAdjustReference.KeyUp += new KeyEventHandler(EV_StockAdjustCode);
-            TB_StockAdjustReference.Loaded += new RoutedEventHandler(EV_StockAdjustCode);
-            TB_StockAdjustCode.KeyUp += new KeyEventHandler(EV_StockCode);
-            TB_StockAdjustCode.Loaded += new RoutedEventHandler(EV_StockCode);
+            TB_StockAdjustReference.KeyUp += new KeyEventHandler(EV_OrderReference);
+            TB_StockAdjustReference.Loaded += new RoutedEventHandler(EV_OrderReference);
+            TB_StockAdjustCode.KeyUp += new KeyEventHandler(EV_OrderCode);
+            TB_StockAdjustCode.Loaded += new RoutedEventHandler(EV_OrderCode);
             CB_Stores.SelectionChanged += new SelectionChangedEventHandler(EV_StoreSelect);
             DP_Date.KeyDown += new KeyEventHandler(EV_Cancel);
             DP_Date.KeyUp += new KeyEventHandler(EV_Cancel);
@@ -41,7 +41,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
         private void EV_Start(object sender, RoutedEventArgs e)
         {
             DP_Date.SelectedDate = DateTime.Now;
-            //TB_StockAdjustCode.Text = GetController().LastClientCod().ToString();
+            TB_StockAdjustCode.Text = GetController().GetLastOrderCode();
             List<Store> stores = GetController().GetStores();
             foreach (Store st in stores)
             {
@@ -53,7 +53,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
             CB_Stores.SelectedIndex = 0;
         }
 
-        private void EV_StockCode(object sender, RoutedEventArgs e)
+        private void EV_OrderCode(object sender, RoutedEventArgs e)
         {
             if (TB_StockAdjustCode.Text.Length == 0)
             {
@@ -75,7 +75,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
                     message.HorizontalAlignment = HorizontalAlignment.Center;
                     SP_StockAdjustCode.Children.Add(message);
                 }
-                GetController().CleanStockCode();
+                GetController().CleanOrderCode();
                 TB_StockAdjustCode.Text = "";
             }
             else if (TB_StockAdjustCode.Text.Any(x => Char.IsWhiteSpace(x)))
@@ -98,10 +98,10 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
                     message.HorizontalAlignment = HorizontalAlignment.Center;
                     SP_StockAdjustCode.Children.Add(message);
                 }
-                GetController().CleanStockCode();
+                GetController().CleanOrderCode();
             }
 
-             else if (GetController().StockAdjustExist(TB_StockAdjustCode.Text))
+             else if (GetController().PurchaseOrderExist(TB_StockAdjustCode.Text))
              {
                  if (SP_StockAdjustCode.Children.Count == 1)
                  {
@@ -140,7 +140,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
                 //MessageBox.Show("SI");
         }
 
-        private void EV_StockAdjustCode(object sender, RoutedEventArgs e)
+        private void EV_OrderReference(object sender, RoutedEventArgs e)
         {
         }
 
@@ -162,12 +162,12 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
             if (date == null)
             {
                 this.Title = "Sin fecha";
-                GetController().stockAdjust.Date = null;
+                GetController().purchaseOrder.Date = null;
             }
             else
             {
                 this.Title = date.Value.ToShortDateString();
-                GetController().SetAdjustDate(date.Value);
+                GetController().SetOrderDate(date.Value);
             }
         }
 
