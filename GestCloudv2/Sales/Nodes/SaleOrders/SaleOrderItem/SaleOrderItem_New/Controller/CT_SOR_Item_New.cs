@@ -100,7 +100,7 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_New.Con
             {
                 saleOrder.Code = $"1";
                 lastSaleOrderCod = 1;
-                 return lastSaleOrderCod;
+                return lastSaleOrderCod;
 
             }
         }
