@@ -277,6 +277,21 @@
     <Compile Include="Files\Nodes\Entities\View\MC_Entity_Select.xaml.cs">
       <DependentUpon>MC_Entity_Select.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_New\View\MC_POR_Item_New_PurchaseOrder.xaml.cs">
+      <DependentUpon>MC_POR_Item_New_PurchaseOrder.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_New\View\MC_POR_Item_New_PurchaseOrder_Movements.xaml.cs">
+      <DependentUpon>MC_POR_Item_New_PurchaseOrder_Movements.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_New\View\NV_POR_Item_New_PurchaseOrder.xaml.cs">
+      <DependentUpon>NV_POR_Item_New_PurchaseOrder.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_New\View\TS_POR_Item_New_PurchaseOrder.xaml.cs">
+      <DependentUpon>TS_POR_Item_New_PurchaseOrder.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_New\View\TS_POR_Item_New_PurchaseOrder_Movements.xaml.cs">
+      <DependentUpon>TS_POR_Item_New_PurchaseOrder_Movements.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Sales\Controller\CT_Sales.cs" />
     <Compile Include="Sales\Nodes\SaleOrders\SaleOrderMenu\Controller\CT_SaleOrderMenu.cs" />
     <Compile Include="Sales\Nodes\SaleOrders\SaleOrderMenu\View\MC_SOR_Menu.xaml.cs">
@@ -658,6 +673,26 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_New\View\MC_POR_Item_New_PurchaseOrder.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_New\View\MC_POR_Item_New_PurchaseOrder_Movements.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_New\View\NV_POR_Item_New_PurchaseOrder.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_New\View\TS_POR_Item_New_PurchaseOrder.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_New\View\TS_POR_Item_New_PurchaseOrder_Movements.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Sales\Nodes\SaleOrders\SaleOrderMenu\View\MC_SOR_Menu.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1020,7 +1055,6 @@
     <Folder Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_Load\Controller\" />
     <Folder Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_Load\View\" />
     <Folder Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_New\Controller\" />
-    <Folder Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_New\View\" />
     <Folder Include="Sales\Nodes\SaleOrders\SaleOrderItem\SaleOrderItem_Load\Controller\" />
     <Folder Include="Sales\Nodes\SaleOrders\SaleOrderItem\SaleOrderItem_Load\View\" />
     <Folder Include="Sales\Nodes\SaleOrders\SaleOrderItem\SaleOrderItem_New\Controller\" />
