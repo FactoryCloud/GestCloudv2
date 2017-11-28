@@ -41,7 +41,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
         private void EV_Start(object sender, RoutedEventArgs e)
         {
             DP_Date.SelectedDate = DateTime.Now;
-            TB_StockAdjustCode.Text = GetController().LastStockAdjustCod().ToString();
+            TB_StockAdjustCode.Text = GetController().LastClientCod().ToString();
             List<Store> stores = GetController().GetStores();
             foreach (Store st in stores)
             {
@@ -171,16 +171,21 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
             }
         }
 
+        private void DP_Date_IsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+
+        }
+
+        private void EV_ClientSelect(object sender, RoutedEventArgs e)
+        {
+            GetController().MD_ClientSelect();
+        }
+
         private Controller.CT_POR_Item_New GetController()
         {
             Window mainWindow = Application.Current.MainWindow;
             var a = (Main.View.MainWindow)mainWindow;
             return (Controller.CT_POR_Item_New)a.MainFrame.Content;
-        }
-
-        private void DP_Date_IsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-
         }
     }
 }

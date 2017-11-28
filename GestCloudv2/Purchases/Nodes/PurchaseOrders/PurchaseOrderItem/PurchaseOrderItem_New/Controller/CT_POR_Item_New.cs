@@ -13,15 +13,19 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
     public partial class CT_POR_Item_New : Main.Controller.CT_Common
     {
         public StockAdjust stockAdjust;
-        public int lastStockAdjustsCod;
+        public int lastClientCod;
         public Movement movementSelected;
         public MovementsView movementsView;
         public Store store;
+        public ClientsView clientsView;
+        public Client clients;
 
         public CT_POR_Item_New()
         {
+            clients = new Client();
             stockAdjust = new StockAdjust();
             movementsView = new MovementsView();
+            clientsView = new ClientsView();
             Information.Add("minimalInformation", 0);
         }
 
@@ -82,20 +86,26 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
         }
 
 
-        public int LastStockAdjustCod()
+        public int LastClientCod()
         {
-            if (db.StockAdjusts.ToList().Count > 0)
+            if (db.Clients.ToList().Count > 0)
             {
-                lastStockAdjustsCod = db.StockAdjusts.OrderBy(u => u.StockAdjustID).Last().StockAdjustID + 1;
-                stockAdjust.Code = lastStockAdjustsCod.ToString();
-                return lastStockAdjustsCod;
+                lastClientCod = db.Clients.OrderBy(u => u.ClientID).Last().ClientID+ 1;
+                clients.Cod = lastClientCod;
+                return lastClientCod;
             }
             else
             {
-                stockAdjust.Code = $"1";
-                return lastStockAdjustsCod = 1;
+                clients.Cod = 1;
+                return lastClientCod= 1;
 
             }
+        }
+
+        public void MD_ClientSelect()
+        {
+            View.FW_POR_Item_New_SelectClient floatWindow = new View.FW_POR_Item_New_SelectClient(1, clientsView.clients);
+            floatWindow.Show();
         }
 
         /*public void MD_StoredStock_Reduce()
@@ -267,7 +277,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
                         }
                     }
                     Main.View.MainWindow a = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
-                    a.MainFrame.Content = new Stocks.Nodes.StockAdjusts.StockAdjustMenu.Controller.CT_StockAdjustMenu();
+                    a.MainFrame.Content = new Purchases.Nodes.PurchaseOrders.PurchaseOrderMenu.Controller.CT_PurchaseOrderMenu();
                     break;
 
                 case 1:

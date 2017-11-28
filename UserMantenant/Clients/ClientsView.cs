@@ -16,9 +16,11 @@ namespace FrameworkView.V1
         private DataTable dt;
         public Client clientSearch;
         public Client SelectedClient;
+        public List<Client> clients;
 
         public ClientsView()
         {
+            clients = new List<Client>();
             db = new GestCloudDB();
             dt = new DataTable();
             clientSearch = new Client();
