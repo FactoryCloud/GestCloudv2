@@ -24,7 +24,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
         {
             InitializeComponent();
 
-            if(GetController().movementSelected != null)
+            /*if(GetController().movementSelected != null)
             {
                 BT_MovementDelete.IsEnabled = true;
                 if (GetController().movementSelected.documentType == null)
@@ -36,10 +36,10 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
             if (GetController().movementsView.movements.Count > 0)
             {
                 BT_StockAdjustSave.IsEnabled = true;
-            }
+            }*/
         }
 
-        private void EV_StoredStock_Reduce(object sender, RoutedEventArgs e)
+        /*private void EV_StoredStock_Reduce(object sender, RoutedEventArgs e)
         {
             GetController().MD_StoredStock_Reduce();
         }
@@ -52,7 +52,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
         private void EV_StoredStock_Edit(object sender, RoutedEventArgs e)
         {
             GetController().MD_StoredStock_Edit();
-        }
+        }*/
 
         private void EV_StoredStock_Remove(object sender, RoutedEventArgs e)
         {
@@ -64,11 +64,11 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
             GetController().SaveNewStockAdjust();
         }
 
-        private Controller.CT_STA_Item_New GetController()
+        private Controller.CT_POR_Item_New GetController()
         {
             Window mainWindow = Application.Current.MainWindow;
             var a = (Main.View.MainWindow)mainWindow;
-            return (Controller.CT_STA_Item_New)a.MainFrame.Content;
+            return (Controller.CT_POR_Item_New)a.MainFrame.Content;
         }
     }
 }

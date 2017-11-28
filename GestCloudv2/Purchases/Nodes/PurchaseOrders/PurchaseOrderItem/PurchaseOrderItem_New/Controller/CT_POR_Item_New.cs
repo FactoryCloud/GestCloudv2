@@ -56,10 +56,10 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
         {
             movementSelected = movementsView.movements.Where(u => u.MovementID == num).First();
             if (Information["mode"] == 1)
-                TS_Page = new View.TS_POR_Item_New_OrderPurchase(Information["minimalInformation"]);
+                TS_Page = new View.TS_POR_Item_New_PurchaseOrder(Information["minimalInformation"]);
 
             if (Information["mode"] == 2)
-                TS_Page = new View.TS_POR_Item_New_OrderPurchase_Movements(Information["minimalInformation"]);
+                TS_Page = new View.TS_POR_Item_New_PurchaseOrder_Movements(Information["minimalInformation"]);
 
             LeftSide.Content = TS_Page;
         }
@@ -98,7 +98,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
             }
         }
 
-        public void MD_StoredStock_Reduce()
+        /*public void MD_StoredStock_Reduce()
         {
             View.FW_POR_Item_New_ReduceStock floatWindow = new View.FW_POR_Item_New_ReduceStock(1, movementsView.movements);
             floatWindow.Show();
@@ -108,7 +108,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
         {
             View.FW_POR_Item_New_IncreaseStock floatWindow = new View.FW_POR_Item_New_IncreaseStock(1, movementsView.movements);
             floatWindow.Show();
-        }
+        }*/
 
         public void MD_StoredStock_Remove()
         {
@@ -117,11 +117,11 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
             UpdateComponents();
         }
 
-        public void MD_StoredStock_Edit()
+       /* public void MD_StoredStock_Edit()
         {
             View.FW_POR_Item_New_IncreaseStock floatWindow = new View.FW_POR_Item_New_IncreaseStock(1, movementsView.movements, movementSelected.MovementID);
             floatWindow.Show();
-        }
+        }*/
 
         public override void EV_MovementAdd(Movement movement)
         {
@@ -176,10 +176,10 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
             }
 
             if (Information["mode"] == 1)
-                TS_Page = new View.TS_POR_Item_New_OrderPurchase(Information["minimalInformation"]);
+                TS_Page = new View.TS_POR_Item_New_PurchaseOrder(Information["minimalInformation"]);
 
             if (Information["mode"] == 2)
-                TS_Page = new View.TS_POR_Item_New_OrderPurchase_Movements(Information["minimalInformation"]);
+                TS_Page = new View.TS_POR_Item_New_PurchaseOrder_Movements(Information["minimalInformation"]);
 
             LeftSide.Content = TS_Page;
         }
@@ -238,16 +238,16 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
                     break;
 
                 case 1:
-                    NV_Page = new View.NV_POR_Item_New_OrderPurchase();
-                    TS_Page = new View.TS_POR_Item_New_OrderPurchase(Information["minimalInformation"]);
-                    MC_Page = new View.MC_POR_Item_New_OrderPurchase();
+                    NV_Page = new View.NV_POR_Item_New_PurchaseOrder();
+                    TS_Page = new View.TS_POR_Item_New_PurchaseOrder(Information["minimalInformation"]);
+                    MC_Page = new View.MC_POR_Item_New_PurchaseOrder();
                     ChangeComponents();
                     break;
 
                 case 2:
-                    NV_Page = new View.NV_POR_Item_New_OrderPurchase();
-                    TS_Page = new View.TS_POR_Item_New_OrderPurchase_Movements(Information["minimalInformation"]);
-                    MC_Page = new View.MC_POR_Item_New_OrderPurchase_Movements();
+                    NV_Page = new View.NV_POR_Item_New_PurchaseOrder();
+                    TS_Page = new View.TS_POR_Item_New_PurchaseOrder_Movements(Information["minimalInformation"]);
+                    MC_Page = new View.MC_POR_Item_New_PurchaseOrder_Movements();
                     ChangeComponents();
                     break;
             }

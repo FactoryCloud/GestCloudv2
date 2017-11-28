@@ -42,11 +42,11 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
             GetController().CT_Menu();
         }
 
-        private Controller.CT_STA_Item_New GetController()
+        private Controller.CT_POR_Item_New GetController()
         {
             Window mainWindow = Application.Current.MainWindow;
             var a = (Main.View.MainWindow)mainWindow;
-            return (Controller.CT_STA_Item_New)a.MainFrame.Content;
+            return (Controller.CT_POR_Item_New)a.MainFrame.Content;
         }
     }
 }
