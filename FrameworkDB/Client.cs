@@ -17,5 +17,9 @@ namespace FrameworkDB.V1
 
         public int EntityID { get; set; }
         public virtual Entity entity { get; set; }
+
+        public virtual List<SaleDelivery> SaleDeliveries { get; set; }
+        public virtual List<SaleInvoice> SaleInvoices { get; set; }
+        public virtual List<SaleOrder> SaleOrders { get; set; }
     }
 }

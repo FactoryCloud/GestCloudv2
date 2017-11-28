@@ -46,6 +46,9 @@ namespace FrameworkDB.V1
         public DbSet<SaleDelivery> SaleDeliveries { get; set; }
         public DbSet<SaleInvoice> SaleInvoices { get; set; }
 
+        public DbSet<PurchaseOrder> PurchaseOrders { get; set; }
+        public DbSet<SaleOrder> SaleOrders { get; set; }
+
         public DbSet<EntityType> EntityTypes { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -167,6 +170,12 @@ namespace FrameworkDB.V1
                 .HasForeignKey(a => a.CompanyID)
                 .HasConstraintName("FK_PurchaseInvoices_CompanyID_Companies");
 
+            modelBuilder.Entity<PurchaseOrder>()
+                .HasOne(a => a.company)
+                .WithMany(b => b.PurchaseOrders)
+                .HasForeignKey(a => a.CompanyID)
+                .HasConstraintName("FK_PurchaseOrders_CompanyID_Companies");
+
             modelBuilder.Entity<SaleDelivery>()
                 .HasOne(a => a.company)
                 .WithMany(b => b.SaleDeliveries)
@@ -178,6 +187,24 @@ namespace FrameworkDB.V1
                 .WithMany(b => b.SaleInvoices)
                 .HasForeignKey(a => a.CompanyID)
                 .HasConstraintName("FK_SaleInvoices_CompanyID_Companies");
+
+            modelBuilder.Entity<SaleOrder>()
+                .HasOne(a => a.company)
+                .WithMany(b => b.SaleOrders)
+                .HasForeignKey(a => a.CompanyID)
+                .HasConstraintName("FK_SaleOrders_CompanyID_Companies");
+
+            modelBuilder.Entity<PurchaseOrder>()
+                .HasOne(a => a.provider)
+                .WithMany(b => b.PurchaseOrders)
+                .HasForeignKey(a => a.ProviderID)
+                .HasConstraintName("FK_PurchaseOrders_ProviderID_Providers");
+
+            modelBuilder.Entity<SaleOrder>()
+                .HasOne(a => a.client)
+                .WithMany(b => b.SaleOrders)
+                .HasForeignKey(a => a.ClientID)
+                .HasConstraintName("FK_SaleOrders_ClientID_Clients");
 
             modelBuilder.Entity<User>()
                 .HasOne(a => a.userType)

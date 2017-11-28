@@ -107,6 +107,7 @@
     <Compile Include="Country.cs" />
     <Compile Include="EntityType.cs" />
     <Compile Include="Provider.cs" />
+    <Compile Include="PurchaseOrder.cs" />
     <Compile Include="PurchaseDelivery.cs" />
     <Compile Include="SaleDelivery.cs" />
     <Compile Include="DocumentType.cs" />
@@ -114,6 +115,7 @@
     <Compile Include="Expansion.cs" />
     <Compile Include="GestCloudDB.cs" />
     <Compile Include="PurchaseInvoice.cs" />
+    <Compile Include="SaleOrder.cs" />
     <Compile Include="SaleInvoice.cs" />
     <Compile Include="MkmApiManager.cs" />
     <Compile Include="Movement.cs" />
