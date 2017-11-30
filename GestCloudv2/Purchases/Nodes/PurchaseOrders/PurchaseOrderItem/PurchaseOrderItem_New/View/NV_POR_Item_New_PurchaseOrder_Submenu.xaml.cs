@@ -26,56 +26,74 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
         {
             InitializeComponent();
 
-            switch(GetController().Information["submenu"])
+            ColumnDefinition column1 = new ColumnDefinition();
+            ColumnDefinition column2 = new ColumnDefinition();
+            ColumnDefinition column3 = new ColumnDefinition();
+            ColumnDefinition column4 = new ColumnDefinition();
+            ColumnDefinition column5 = new ColumnDefinition();
+            ColumnDefinition column6 = new ColumnDefinition();
+            column1.Width = new GridLength(1, GridUnitType.Star);
+            column2.Width = new GridLength(1, GridUnitType.Star);
+            column3.Width = new GridLength(1, GridUnitType.Star);
+            column4.Width = new GridLength(1, GridUnitType.Star);
+            column5.Width = new GridLength(1, GridUnitType.Star);
+            column6.Width = new GridLength(1, GridUnitType.Star);
+
+            Grid grid = new Grid();
+            grid.ColumnDefinitions.Add(column1);
+            grid.ColumnDefinitions.Add(column2);
+            grid.ColumnDefinitions.Add(column3);
+            grid.ColumnDefinitions.Add(column4);
+            grid.ColumnDefinitions.Add(column5);
+            grid.ColumnDefinitions.Add(column6);
+            Grid.SetRow(grid, 1);
+
+            Button button1 = new Button
             {
-                case 1:
+                VerticalContentAlignment = VerticalAlignment.Center,
+                Margin = new Thickness(20)
+            };
+            Grid.SetColumn(button1, 0);
 
-                    Grid grid = new Grid();
-                    ColumnDefinition column1 = new ColumnDefinition();
-                    ColumnDefinition column2 = new ColumnDefinition();
-                    ColumnDefinition column3 = new ColumnDefinition();
-                    ColumnDefinition column4 = new ColumnDefinition();
-                    ColumnDefinition column5 = new ColumnDefinition();
-                    ColumnDefinition column6 = new ColumnDefinition();
-                    column1.Width = new GridLength(1, GridUnitType.Star);
-                    column2.Width = new GridLength(1, GridUnitType.Star);
-                    column3.Width = new GridLength(1, GridUnitType.Star);
-                    column4.Width = new GridLength(1, GridUnitType.Star);
-                    column5.Width = new GridLength(1, GridUnitType.Star);
-                    column6.Width = new GridLength(1, GridUnitType.Star);
-                    grid.ColumnDefinitions.Add(column1);
-                    grid.ColumnDefinitions.Add(column2);
-                    grid.ColumnDefinitions.Add(column3);
-                    grid.ColumnDefinitions.Add(column4);
-                    grid.ColumnDefinitions.Add(column5);
-                    grid.ColumnDefinitions.Add(column6);
-                    Grid.SetRow(grid, 1);
+            Button button2 = new Button
+            {
+                VerticalContentAlignment = VerticalAlignment.Center,
+                Margin = new Thickness(20)
+            };
+            Grid.SetColumn(button2, 1);
 
-                    Button button1 = new Button();
-                    button1.VerticalContentAlignment = VerticalAlignment.Center;
-                    button1.Content = "Datos Básicos";
-                    button1.Margin = new Thickness(20);
-                    Grid.SetColumn(button1, 0);
+            Button button6 = new Button
+            {
+                VerticalContentAlignment = VerticalAlignment.Center,
+                Margin = new Thickness(20),
+                IsEnabled = false
+            };
+            Grid.SetColumn(button6, 5);
 
-                    Button button2 = new Button();
-                    button2.VerticalContentAlignment = VerticalAlignment.Center;
-                    button2.Content = "Compras Recientes";
-                    button2.Margin = new Thickness(20);
-                    Grid.SetColumn(button2, 1);
+            if (GetController().Information["submode"] == 3)
+            {
+                button1.Content = "Datos Básicos";
+                button2.Content = "Stock Disponible";
+                button6.Content = "Almacén";
 
-                    Button button3 = new Button();
-                    button3.VerticalContentAlignment = VerticalAlignment.Center;
-                    button3.Content = "Proveedor";
-                    button3.Margin = new Thickness(20);
-                    Grid.SetColumn(button3, 5);
+                grid.Children.Add(button1);
+                grid.Children.Add(button2);
+                grid.Children.Add(button6);
 
-                    grid.Children.Add(button1);
-                    grid.Children.Add(button2);
-                    grid.Children.Add(button3);
+                GR_Submenu.Children.Add(grid);
+            }
 
-                    GR_Submenu.Children.Add(grid);
+            else if (GetController().Information["submode"] == 4)
+            {
+                button1.Content = "Datos Básicos";
+                button2.Content = "Compras Recientes";
+                button6.Content = "Proveedor";
 
-                    break;
+                grid.Children.Add(button1);
+                grid.Children.Add(button2);
+                grid.Children.Add(button6);
+
+                GR_Submenu.Children.Add(grid);
             }
         }
 

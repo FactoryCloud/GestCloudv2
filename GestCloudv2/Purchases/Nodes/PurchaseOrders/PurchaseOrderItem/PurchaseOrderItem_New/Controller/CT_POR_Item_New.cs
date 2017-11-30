@@ -31,7 +31,6 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
 
         override public void EV_Start(object sender, RoutedEventArgs e)
         {
-            Information["submenu"] = 1;
             UpdateComponents();
         }
 
@@ -96,6 +95,26 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
             return lastPurchaseOrderCode.ToString();
         }
 
+        public void EV_UpdateSubMenu(int num)
+        {
+            if (num == 0)
+            {
+                Information["submenu"] = 0;
+
+                NV_Page = new View.NV_POR_Item_New_PurchaseOrder();
+            }
+
+            else
+            {
+                Information["submenu"] = 1;
+                Information["submode"] = num;
+
+                NV_Page = new View.NV_POR_Item_New_PurchaseOrder_Submenu();
+            }
+
+            TopSide.Content = NV_Page;
+        }
+
         public void MD_ProviderSelect()
         {
             View.FW_POR_Item_New_SelectProvider floatWindow = new View.FW_POR_Item_New_SelectProvider();
@@ -126,6 +145,8 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
             provider = db.Providers.Where(p => p.ProviderID == num).Include(e => e.entity).First();
             MC_Page = new View.MC_POR_Item_New_PurchaseOrder();
             MainContent.Content = MC_Page;
+
+            EV_UpdateSubMenu(4);
         }
 
         public override void EV_MovementAdd(Movement movement)

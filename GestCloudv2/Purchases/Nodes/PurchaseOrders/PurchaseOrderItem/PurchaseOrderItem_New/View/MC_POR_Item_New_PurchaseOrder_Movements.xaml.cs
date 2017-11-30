@@ -32,6 +32,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
 
         private void EV_Start(object sender, RoutedEventArgs e)
         {
+            GetController().EV_UpdateSubMenu(0);
             UpdateData();
         }
 

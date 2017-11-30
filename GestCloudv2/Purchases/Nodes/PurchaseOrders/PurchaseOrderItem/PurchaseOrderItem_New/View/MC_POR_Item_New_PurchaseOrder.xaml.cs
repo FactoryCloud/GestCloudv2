@@ -36,6 +36,11 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
             DP_Date.KeyDown += new KeyEventHandler(EV_Cancel);
             DP_Date.KeyUp += new KeyEventHandler(EV_Cancel);
 
+            GR_Provider.MouseEnter += new MouseEventHandler(EV_MouseChange);
+            GR_Provider.MouseLeave += new MouseEventHandler(EV_MouseChange);
+
+            GR_Store.MouseEnter += new MouseEventHandler(EV_MouseChange);
+            GR_Store.MouseLeave += new MouseEventHandler(EV_MouseChange);
         }
 
         private void EV_Start(object sender, RoutedEventArgs e)
@@ -57,6 +62,29 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
             {
                 TB_ProviderName.Text = GetController().provider.entity.Name;
                 TB_ProviderCode.Text = GetController().provider.ProviderID.ToString();
+            }
+        }
+
+        private void EV_MouseChange(object sender, RoutedEventArgs e)
+        {
+            if (GetController().provider.ProviderID > 0)
+            {
+                if (GR_Provider.IsMouseOver)
+                {
+                    GetController().EV_UpdateSubMenu(4);
+                    GR_Provider.Background = new SolidColorBrush(Colors.Red);
+                    GR_Store.Background = new SolidColorBrush(Colors.Transparent);
+                }
+            }
+
+            if (GetController().store.StoreID > 0)
+            {
+                if (GR_Store.IsMouseOver)
+                {
+                    GetController().EV_UpdateSubMenu(3);
+                    GR_Store.Background = new SolidColorBrush(Colors.Red);
+                    GR_Provider.Background = new SolidColorBrush(Colors.Transparent);
+                }
             }
         }
 
