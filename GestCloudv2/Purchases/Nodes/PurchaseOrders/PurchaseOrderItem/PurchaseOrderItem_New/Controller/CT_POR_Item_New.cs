@@ -93,7 +93,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
             return lastPurchaseOrderCode.ToString();
         }
 
-        public void MD_ClientSelect()
+        public void MD_ProviderSelect()
         {
             View.FW_POR_Item_New_SelectProvider floatWindow = new View.FW_POR_Item_New_SelectProvider();
             floatWindow.Show();
@@ -118,9 +118,11 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
             UpdateComponents();
         }
 
-        public override void EV_SetProvider(Provider provider)
+        public override void EV_SetProvider(int num)
         {
-            provider = db.Providers.Where(p => p.ProviderID == provider.ProviderID).First();
+            provider = db.Providers.Where(p => p.ProviderID == num).Include(e => e.entity).First();
+            MC_Page = new View.MC_POR_Item_New_PurchaseOrder();
+            MainContent.Content = MC_Page;
         }
 
         public override void EV_MovementAdd(Movement movement)

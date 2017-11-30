@@ -14,14 +14,15 @@ namespace FrameworkView.V1
     {
         private GestCloudDB db;
         private DataTable dt;
-        public Provider ProviderSearch;
-        public Provider SelectedProvider;
+        //public Provider ProviderSearch;
+        //public Provider SelectedProvider;
+        public Provider provider;
 
         public ProvidersView()
         {
             db = new GestCloudDB();
             dt = new DataTable();
-            ProviderSearch = new Provider();
+            //ProviderSearch = new Provider();
             dt.Columns.Add("Codigo", typeof(int));
             dt.Columns.Add("Nombre Comercial", typeof(string));
             dt.Columns.Add("Subnombre", typeof(string));
@@ -30,7 +31,7 @@ namespace FrameworkView.V1
 
         public Provider GetProvider (int num)
         {
-            return db.Providers.Where(p => p.ProviderID == num).First();
+            return db.Providers.Where(p => p.ProviderID == num).Include(e => e.entity).First();
         }
 
         public void UpdateTable()

@@ -18,10 +18,10 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_New.Vie
             
         }
 
-        /*public FW_POR_Item_New_SelectClient(int option, List<Client> clients, int mov) : base(option, clients, mov)
+        public FW_SOR_Item_New_SelectClient(int option, List<Client> clients, int cli) : base(option, clients, cli)
         {
 
-        }*/
+        }
 
         override public Main.Controller.CT_Common GetController()
         {

@@ -65,7 +65,7 @@
             </Grid>
             
         </Grid>
-        <Button Name="BT_SelectClient" IsEnabled="False" FontSize="10" Grid.Row="2" Margin="15">Seleccionar cliente</Button>
+        <Button Name="BT_SelectClient" IsEnabled="False" FontSize="10" Grid.Row="2" Margin="15" Click="EV_SelectClient">Seleccionar cliente</Button>
         <Button FontSize="10" Grid.Row="2" Grid.Column="1" Margin="15">Volver</Button>
     </Grid>
 </Window>

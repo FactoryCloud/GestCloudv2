@@ -14,8 +14,9 @@ namespace FrameworkView.V1
     {
         private GestCloudDB db;
         private DataTable dt;
-        public Client clientSearch;
-        public Client SelectedClient;
+        public Client client;
+        //public Client clientSearch;
+        //public Client SelectedClient;
         public List<Client> clients;
 
         public ClientsView()
@@ -23,7 +24,7 @@ namespace FrameworkView.V1
             clients = new List<Client>();
             db = new GestCloudDB();
             dt = new DataTable();
-            clientSearch = new Client();
+            //clientSearch = new Client();
             dt.Columns.Add("Codigo", typeof(int));
             dt.Columns.Add("Nombre Comerical", typeof(string));
             dt.Columns.Add("Subnombre", typeof(string));
@@ -39,6 +40,11 @@ namespace FrameworkView.V1
             {
                 dt.Rows.Add(item.ClientID, item.entity.Name,item.entity.Subname,item.entity.Phone1);
             }
+        }
+
+        public Client GetClient(int num)
+        {
+            return db.Clients.Where(ex => ex.ClientID == num).Include(pt => pt.entity ).First();
         }
 
         public IEnumerable GetTable()

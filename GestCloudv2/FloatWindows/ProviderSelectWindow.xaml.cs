@@ -28,6 +28,7 @@ namespace GestCloudv2.FloatWindows
     {
         public ProvidersView providersView;
         public Provider provider;
+        public int providerSelected;
 
         public ProviderSelectWindow()
         {
@@ -37,7 +38,7 @@ namespace GestCloudv2.FloatWindows
 
             //this.Closed += new EventHandler(EV_Close);
             DG_ProvidersView.MouseLeftButtonUp += new MouseButtonEventHandler(EV_ProviderViewSelect);
-
+            providerSelected = 0;
             providersView = new ProvidersView();
         }
 
@@ -53,7 +54,10 @@ namespace GestCloudv2.FloatWindows
             {
                 DataGridRow row = (DataGridRow)DG_ProvidersView.ItemContainerGenerator.ContainerFromIndex(num);
                 DataRowView dr = row.Item as DataRowView;
-                provider = providersView.GetProvider(Int32.Parse(dr.Row.ItemArray[0].ToString()));
+                providersView.provider = providersView.GetProvider(Int32.Parse(dr.Row.ItemArray[0].ToString()));
+                TB_ProviderName.Text = providersView.provider.entity.Name;
+                BT_SelectProvider.IsEnabled = true;
+
             }
         }
 
@@ -64,7 +68,7 @@ namespace GestCloudv2.FloatWindows
 
         protected void EV_SetProvider(object sender, RoutedEventArgs e)
         {
-            GetController().EV_SetProvider(provider);
+            GetController().EV_SetProvider(providersView.provider.ProviderID);
 
             this.Close();
         }

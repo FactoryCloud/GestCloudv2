@@ -28,11 +28,12 @@ namespace GestCloudv2.FloatWindows
     {
         public ClientsView clientView;
         public Client client;
+        //public List<Client> clients;
+        public int clientSelected;
 
         public ClientSelectWindow()
         {
-
-        }
+        } 
 
         public ClientSelectWindow(int option, List<Client> clients)
         {
@@ -42,11 +43,24 @@ namespace GestCloudv2.FloatWindows
 
             //this.Closed += new EventHandler(EV_Close);
             DG_ClientsView.MouseLeftButtonUp += new MouseButtonEventHandler(EV_ClientsViewSelect);
-
+            clientSelected = 0;
             clientView = new ClientsView();
-            
+
         }
 
+        public ClientSelectWindow(int option, List<Client> clients, int cli)
+        {
+            InitializeComponent();
+
+            this.Loaded += new RoutedEventHandler(EV_Start);
+
+            //this.Closed += new EventHandler(EV_Close);
+            DG_ClientsView.MouseLeftButtonUp += new MouseButtonEventHandler(EV_ClientsViewSelect);
+            clientSelected = cli;
+            clientView = new ClientsView();
+            //this.clients = clients;
+            
+        }
         protected void EV_Start(object sender, RoutedEventArgs e)
         {
           UpdateData(); 
@@ -54,13 +68,21 @@ namespace GestCloudv2.FloatWindows
 
         public void EV_ClientsViewSelect(object sender, RoutedEventArgs e)
         {
-            /*int client = DG_ClientsView.SelectedIndex;
+            int client = DG_ClientsView.SelectedIndex;
             if (client >= 0)
             {
                 DataGridRow row = (DataGridRow)DG_ClientsView.ItemContainerGenerator.ContainerFromIndex(client);
                 DataRowView dr = row.Item as DataRowView;
-                client = clientView.GetClient(Int32.Parse(dr.Row.ItemArray[0].ToString()));
-            }*/
+                clientView.client = clientView.GetClient(Int32.Parse(dr.Row.ItemArray[0].ToString()));
+                TB_ClientName.Text = clientView.client.entity.Name;
+                BT_SelectClient.IsEnabled = true;
+            }
+        }
+
+        private void EV_SelectClient(object sender, RoutedEventArgs e)
+        {
+            GetController().EV_SetClient(clientView.client.ClientID);
+            this.Close();
         }
 
         protected void EV_Search(object sender, RoutedEventArgs e)

@@ -23,7 +23,7 @@
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
             <Label FontSize="12" VerticalAlignment="Center" HorizontalAlignment="Center">Búsqueda</Label>
-            <TextBox Name="TB_ProductName" Grid.Column="1" VerticalAlignment="Center" Margin="5"></TextBox>
+            <TextBox Name="TB_ProviderName" Grid.Column="1" VerticalAlignment="Center" Margin="5"></TextBox>
         </Grid>
         <Grid Grid.Column="1">
             <Grid.ColumnDefinitions>
@@ -80,7 +80,7 @@
             </Grid>
             
         </Grid>
-        <Button Name="BT_SaveProvider" IsEnabled="False" FontSize="10" Grid.Row="2" Margin="15">Seleccionar Proveedor</Button>
+        <Button Name="BT_SelectProvider" IsEnabled="False" FontSize="10" Grid.Row="2" Margin="15" Click="EV_SetProvider">Seleccionar Proveedor</Button>
         <Button Name="BT_DiscardProvider" FontSize="10" Grid.Row="2" Grid.Column="1" Margin="15">Descartar</Button>
     </Grid>
 </Window>
