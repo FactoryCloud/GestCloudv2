@@ -63,7 +63,12 @@ namespace GestCloudv2.Main.Controller
 
         }
 
-        public virtual void EV_SetProvider(Provider provider)
+        public virtual void EV_SetProvider(int provider)
+        {
+
+        }
+
+        public virtual void EV_SetClient(int client)
         {
 
         }

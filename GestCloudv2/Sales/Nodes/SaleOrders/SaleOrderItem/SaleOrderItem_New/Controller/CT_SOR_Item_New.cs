@@ -18,13 +18,13 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_New.Con
         public MovementsView movementsView;
         public Store store;
         public ClientsView clientsView;
-        public Client clients;
         public SaleOrder saleOrder;
+        public Client client;
 
         public CT_SOR_Item_New()
         {
             saleOrder = new SaleOrder();
-            clients = new Client();
+            client = new Client();
             stockAdjust = new StockAdjust();
             movementsView = new MovementsView();
             clientsView = new ClientsView();
@@ -70,6 +70,7 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_New.Con
             LeftSide.Content = TS_Page;
         }
 
+
         public void SetStore(int num)
         {
             store = db.Stores.Where(s => s.StoreID == num).First();
@@ -111,17 +112,12 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_New.Con
             floatWindow.Show();
         }
 
-        /*public void MD_StoredStock_Reduce()
+        public override void EV_SetClient(int num)
         {
-            View.FW_POR_Item_New_ReduceStock floatWindow = new View.FW_POR_Item_New_ReduceStock(1, movementsView.movements);
-            floatWindow.Show();
+            client = db.Clients.Where(p => p.ClientID == num).Include(e => e.entity).First();
+            MC_Page = new View.MC_SOR_Item_New_SaleOrder();
+            MainContent.Content = MC_Page;
         }
-
-        public void MD_StoredStock_Increase()
-        {
-            View.FW_POR_Item_New_IncreaseStock floatWindow = new View.FW_POR_Item_New_IncreaseStock(1, movementsView.movements);
-            floatWindow.Show();
-        }*/
 
         public void MD_StoredStock_Remove()
         {

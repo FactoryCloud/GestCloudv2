@@ -47,7 +47,14 @@
             </Grid.ColumnDefinitions>
             <Button Name="TB_ClientReference"  Margin="10,0,0,0"  VerticalAlignment="Center" Click="EV_ClientSelect">Seleccionar</Button>
             <StackPanel Name="SP_ClientCode" Grid.Column="2" Grid.Row="1" VerticalAlignment="Center">
-            <TextBox Name="TB_ClientCode" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,10,0"></TextBox>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox Name="TB_ClientCode"  VerticalAlignment="Center"></TextBox>
+                    <TextBox Name="TB_ClientName" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,10,0"></TextBox>
+                </Grid>
             </StackPanel>
         </Grid>
 

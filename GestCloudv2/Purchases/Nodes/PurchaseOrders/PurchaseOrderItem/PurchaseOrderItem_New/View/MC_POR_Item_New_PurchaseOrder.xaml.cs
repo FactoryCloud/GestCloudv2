@@ -28,8 +28,8 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
 
             InitializeComponent();
             this.Loaded += new RoutedEventHandler(EV_Start);
-            TB_StockAdjustReference.KeyUp += new KeyEventHandler(EV_OrderReference);
-            TB_StockAdjustReference.Loaded += new RoutedEventHandler(EV_OrderReference);
+            //TB_StockAdjustReference.KeyUp += new KeyEventHandler(EV_OrderReference);
+            //TB_StockAdjustReference.Loaded += new RoutedEventHandler(EV_OrderReference);
             TB_StockAdjustCode.KeyUp += new KeyEventHandler(EV_OrderCode);
             TB_StockAdjustCode.Loaded += new RoutedEventHandler(EV_OrderCode);
             CB_Stores.SelectionChanged += new SelectionChangedEventHandler(EV_StoreSelect);
@@ -50,7 +50,14 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
                 temp.Name = $"store{st.StoreID}";
                 CB_Stores.Items.Add(temp);
             }
+
             CB_Stores.SelectedIndex = 0;
+
+            if (GetController().provider.entity != null)
+            {
+                TB_ProviderName.Text = GetController().provider.entity.Name;
+                TB_ProviderCode.Text = GetController().provider.ProviderID.ToString();
+            }
         }
 
         private void EV_OrderCode(object sender, RoutedEventArgs e)
@@ -176,9 +183,9 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
 
         }
 
-        private void EV_ClientSelect(object sender, RoutedEventArgs e)
+        private void EV_ProviderSelect(object sender, RoutedEventArgs e)
         {
-            GetController().MD_ClientSelect();
+            GetController().MD_ProviderSelect();
         }
 
         private Controller.CT_POR_Item_New GetController()

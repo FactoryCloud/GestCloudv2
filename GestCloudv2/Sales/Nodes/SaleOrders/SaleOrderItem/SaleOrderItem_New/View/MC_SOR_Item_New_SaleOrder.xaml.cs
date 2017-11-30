@@ -50,7 +50,15 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_New.Vie
                 temp.Name = $"store{st.StoreID}";
                 CB_Stores.Items.Add(temp);
             }
+
             CB_Stores.SelectedIndex = 0;
+
+            if (GetController().client.entity  != null)
+            {
+                TB_ClientName.Text = GetController().client.entity.Name;
+                TB_ClientCode.Text = GetController().client.ClientID.ToString();
+            }
+            
         }
 
         private void EV_SaleOrderCode(object sender, RoutedEventArgs e)
