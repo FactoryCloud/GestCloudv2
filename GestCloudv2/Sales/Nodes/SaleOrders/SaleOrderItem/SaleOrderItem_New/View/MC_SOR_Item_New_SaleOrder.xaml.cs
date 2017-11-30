@@ -170,7 +170,7 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_New.Vie
             if (date == null)
             {
                 this.Title = "Sin fecha";
-                GetController().stockAdjust.Date = null;
+                GetController().saleOrder.Date = null;
             }
             else
             {

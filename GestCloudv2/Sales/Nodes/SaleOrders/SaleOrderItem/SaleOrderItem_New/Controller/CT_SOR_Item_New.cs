@@ -12,7 +12,7 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_New.Con
 {
     public partial class CT_SOR_Item_New : Main.Controller.CT_Common
     {
-        public StockAdjust stockAdjust;
+        //public StockAdjust stockAdjust;
         public int lastSaleOrderCod;
         public Movement movementSelected;
         public MovementsView movementsView;
@@ -25,7 +25,7 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_New.Con
         {
             saleOrder = new SaleOrder();
             client = new Client();
-            stockAdjust = new StockAdjust();
+          //  stockAdjust = new StockAdjust();
             movementsView = new MovementsView();
             clientsView = new ClientsView();
             Information.Add("minimalInformation", 0);
@@ -84,7 +84,7 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_New.Con
 
         public void SetAdjustDate(DateTime date)
         {
-            stockAdjust.Date = date;
+            saleOrder.Date = date;
             TestMinimalInformation();
         }
 
@@ -119,14 +119,20 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_New.Con
             MainContent.Content = MC_Page;
         }
 
-        public void MD_StoredStock_Remove()
+        public void MD_StoredStock_Increase()
+        {
+            View.FW_SOR_Item_New_IncreaseStock floatWindow = new View.FW_SOR_Item_New_IncreaseStock(1, movementsView.movements);
+            floatWindow.Show();
+        }
+
+        /* public void MD_StoredStock_Remove()
         {
             movementsView.MovementDelete(movementSelected.MovementID);
             movementSelected = null;
             UpdateComponents();
         }
 
-       /* public void MD_StoredStock_Edit()
+       public void MD_StoredStock_Edit()
         {
             View.FW_POR_Item_New_IncreaseStock floatWindow = new View.FW_POR_Item_New_IncreaseStock(1, movementsView.movements, movementSelected.MovementID);
             floatWindow.Show();
@@ -134,7 +140,6 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_New.Con
 
         public override void EV_MovementAdd(Movement movement)
         {
-            //MessageBox.Show(movement.Base.ToString());
             movement.MovementID = movementsView.MovementNextID();
             movementsView.MovementAdd(movement);
             movementSelected = null;
@@ -174,7 +179,7 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_New.Con
 
         private void TestMinimalInformation()
         {
-            if (stockAdjust.Date != null && Information["entityValid"] == 1)
+            if (saleOrder.Date != null && Information["entityValid"] == 1)
             {
                 Information["minimalInformation"] = 1;
             }
@@ -195,8 +200,9 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_New.Con
 
         public void SaveNewStockAdjust()
         {
-            stockAdjust.CompanyID = ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID;
-            db.StockAdjusts.Add(stockAdjust);
+            saleOrder.CompanyID = ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID;
+            saleOrder.ClientID = client.ClientID;
+            db.SaleOrders.Add(saleOrder);
             db.SaveChanges();
 
             foreach (Movement movement in movementsView.movements)
@@ -209,7 +215,7 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_New.Con
 
                 if (movement.store == null)
                 {
-                    movement.DocumentTypeID = db.DocumentTypes.Where(c => c.Name == "StockAdjust" && c.Input == 1).First().DocumentTypeID;
+                    movement.DocumentTypeID = db.DocumentTypes.Where(c => c.Name == "Order" && c.Input == 1).First().DocumentTypeID;
                     movement.StoreID = store.StoreID;
                 }
 
@@ -221,7 +227,7 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_New.Con
                         movement.Quantity = movement.Quantity * -1;
                 }
 
-                movement.DocumentID = stockAdjust.StockAdjustID;
+                movement.DocumentID = saleOrder.SaleOrderID;
                 db.Movements.Add(movement);
             }
 

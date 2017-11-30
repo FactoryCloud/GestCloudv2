@@ -339,6 +339,7 @@
     <Compile Include="Sales\Controller\CT_Sales.cs" />
     <Compile Include="Sales\Nodes\SaleOrders\SaleOrderItem\SaleOrderItem_New\Controller\CT_SOR_Item_New.cs" />
     <Compile Include="Sales\Nodes\SaleOrders\SaleOrderItem\SaleOrderItem_New\View\FW_SOR_Item_New_SelectClient.cs" />
+    <Compile Include="Sales\Nodes\SaleOrders\SaleOrderItem\SaleOrderItem_New\View\FW_SOR_Item_New_IncreaseStock.cs" />
     <Compile Include="Sales\Nodes\SaleOrders\SaleOrderItem\SaleOrderItem_New\View\MC_SOR_Item_New_SaleOrder.xaml.cs">
       <DependentUpon>MC_SOR_Item_New_SaleOrder.xaml</DependentUpon>
     </Compile>
@@ -351,8 +352,8 @@
     <Compile Include="Sales\Nodes\SaleOrders\SaleOrderItem\SaleOrderItem_New\View\TS_SOR_Item_New_SaleOrder.xaml.cs">
       <DependentUpon>TS_SOR_Item_New_SaleOrder.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Sales\Nodes\SaleOrders\SaleOrderItem\SaleOrderItem_New\View\TS_POR_Item_New_SaleOrder_Movements.xaml.cs">
-      <DependentUpon>TS_POR_Item_New_SaleOrder_Movements.xaml</DependentUpon>
+    <Compile Include="Sales\Nodes\SaleOrders\SaleOrderItem\SaleOrderItem_New\View\TS_SOR_Item_New_SaleOrder_Movements.xaml.cs">
+      <DependentUpon>TS_SOR_Item_New_SaleOrder_Movements.xaml</DependentUpon>
     </Compile>
     <Compile Include="Sales\Nodes\SaleOrders\SaleOrderMenu\Controller\CT_SaleOrderMenu.cs" />
     <Compile Include="Sales\Nodes\SaleOrders\SaleOrderMenu\View\MC_SOR_Menu.xaml.cs">
@@ -786,7 +787,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Sales\Nodes\SaleOrders\SaleOrderItem\SaleOrderItem_New\View\TS_POR_Item_New_SaleOrder_Movements.xaml">
+    <Page Include="Sales\Nodes\SaleOrders\SaleOrderItem\SaleOrderItem_New\View\TS_SOR_Item_New_SaleOrder_Movements.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -144,18 +144,18 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
             UpdateComponents();
         }
 
-        public Boolean StockAdjustExist(string stocksAdjust)
+        public Boolean StockAdjustExist(string name)
         {
             List<StockAdjust> stocks = db.StockAdjusts.ToList();
             foreach (var item in stocks)
             {
-                if (item.Code.Contains(stocksAdjust) || stocksAdjust.Length == 0)
+                if (item.Code.Contains(name) || name.Length == 0)
                 {
                     CleanStockCode();
                     return true;
                 }
             }
-            stockAdjust.Code = stocksAdjust;
+            stockAdjust.Code = name;
             TestMinimalInformation();
             return false;
         }
