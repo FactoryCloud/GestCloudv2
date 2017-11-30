@@ -324,6 +324,9 @@
     <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_New\View\MC_POR_Item_New_PurchaseOrder_Movements.xaml.cs">
       <DependentUpon>MC_POR_Item_New_PurchaseOrder_Movements.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_New\View\NV_POR_Item_New_PurchaseOrder_Submenu.xaml.cs">
+      <DependentUpon>NV_POR_Item_New_PurchaseOrder_Submenu.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_New\View\NV_POR_Item_New_PurchaseOrder.xaml.cs">
       <DependentUpon>NV_POR_Item_New_PurchaseOrder.xaml</DependentUpon>
     </Compile>
@@ -749,6 +752,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_New\View\MC_POR_Item_New_PurchaseOrder_Movements.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_New\View\NV_POR_Item_New_PurchaseOrder_Submenu.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

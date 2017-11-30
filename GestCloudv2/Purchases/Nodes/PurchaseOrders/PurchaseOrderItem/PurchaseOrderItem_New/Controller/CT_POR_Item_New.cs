@@ -25,10 +25,13 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
             purchaseOrder = new PurchaseOrder();
             movementsView = new MovementsView();
             Information.Add("minimalInformation", 0);
+            Information.Add("submenu", 0);
+            Information.Add("submode", 0);
         }
 
         override public void EV_Start(object sender, RoutedEventArgs e)
         {
+            Information["submenu"] = 1;
             UpdateComponents();
         }
 
@@ -228,14 +231,20 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
                     break;
 
                 case 1:
-                    NV_Page = new View.NV_POR_Item_New_PurchaseOrder();
+                    if(Information["submenu"] == 0)
+                        NV_Page = new View.NV_POR_Item_New_PurchaseOrder();
+                    else
+                        NV_Page = new View.NV_POR_Item_New_PurchaseOrder_Submenu();
                     TS_Page = new View.TS_POR_Item_New_PurchaseOrder(Information["minimalInformation"]);
                     MC_Page = new View.MC_POR_Item_New_PurchaseOrder();
                     ChangeComponents();
                     break;
 
                 case 2:
-                    NV_Page = new View.NV_POR_Item_New_PurchaseOrder();
+                    if (Information["submenu"] == 0)
+                        NV_Page = new View.NV_POR_Item_New_PurchaseOrder();
+                    else
+                        NV_Page = new View.NV_POR_Item_New_PurchaseOrder_Submenu();
                     TS_Page = new View.TS_POR_Item_New_PurchaseOrder_Movements(Information["minimalInformation"]);
                     MC_Page = new View.MC_POR_Item_New_PurchaseOrder_Movements();
                     ChangeComponents();
