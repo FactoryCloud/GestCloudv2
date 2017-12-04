@@ -38,7 +38,7 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderMenu.View
 
         private void EV_FileOpen(object sender, MouseButtonEventArgs e)
         {
-            if (GetController().stockAdjust != null)
+            if (GetController().saleOrder != null)
             {
                 DG_SaleAdjusts.MouseLeftButtonUp -= EV_FileSelected;
                 GetController().EV_CT_SaleOrderLoad();

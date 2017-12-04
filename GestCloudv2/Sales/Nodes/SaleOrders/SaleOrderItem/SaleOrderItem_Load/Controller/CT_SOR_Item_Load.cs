@@ -47,14 +47,14 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_Load.Co
 
             List<DocumentType> documentTypes = db.DocumentTypes.Where(i => i.Name.Contains("Order")).ToList();
 
-            store = db.Movements.Where(u => u.DocumentID == saleOrder.SaleOrderID&& (documentTypes[0].DocumentTypeID == u.DocumentTypeID)).Include(u => u.store).First().store;
+            store = db.Movements.Where(u => u.DocumentID == saleOrder.SaleOrderID&& (documentTypes[0].DocumentTypeID == u.DocumentTypeID || documentTypes[1].DocumentTypeID == u.DocumentTypeID)).Include(u => u.store).First().store;
             
         }
 
         override public void EV_Start(object sender, RoutedEventArgs e)
         {
             List<DocumentType> documentTypes = db.DocumentTypes.Where(i => i.Name.Contains("Order")).ToList();
-            movements = db.Movements.Where(u => u.DocumentID == saleOrder.SaleOrderID && (documentTypes[0].DocumentTypeID == u.DocumentTypeID)).Include(u => u.store)
+            movements = db.Movements.Where(u => u.DocumentID == saleOrder.SaleOrderID && (documentTypes[0].DocumentTypeID == u.DocumentTypeID || documentTypes[1].DocumentTypeID == u.DocumentTypeID)).Include(u => u.store)
                 .Include(i => i.product).Include(z => z.condition).Include(i => i.product.productType).ToList();
 
             MovementLastID = movements.OrderBy(m => m.MovementID).Last().MovementID;
