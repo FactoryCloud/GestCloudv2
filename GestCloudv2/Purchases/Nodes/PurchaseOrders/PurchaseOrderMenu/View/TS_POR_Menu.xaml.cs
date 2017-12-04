@@ -23,11 +23,11 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderMenu.View
         public TS_POR_Menu()
         {
             InitializeComponent();
-            /*if (GetController().stockAdjust != null)
+            if (GetController().purchaseOrder != null)
             {
-                BT_StockAdjustLoad.IsEnabled = true;
-                BT_StockAdjustLoadEditable.IsEnabled = true;
-            }*/
+                BT_PurchaseAdjustLoad.IsEnabled = true;
+                //BT_StockAdjustLoadEditable.IsEnabled = true;
+            }
         }
 
         private void EV_MD_New_PurchaseOrder(object sender, RoutedEventArgs e)

@@ -1,5 +1,6 @@
 ﻿using FrameworkDB.V1;
 using FrameworkView.V1;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,20 +12,21 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderMenu.Controlle
 {
     public partial class CT_PurchaseOrderMenu : Main.Controller.CT_Common
     {
-        //public StockAdjustsView stocksAdjustsView;
-        //public StockAdjust stockAdjust;
+        public PurchaseOrdersView purchaseOrdersView;
+        public PurchaseOrder purchaseOrder;
+        public StockAdjust stockAdjust;
 
         public CT_PurchaseOrderMenu()
         {
-           //stocksAdjustsView = new StockAdjustsView();
+            purchaseOrdersView = new PurchaseOrdersView();
         }
 
-        /*public void SetStockAdjust(int num)
+        public void SetPurchaseOrder(int num)
         {
-            stockAdjust = db.StockAdjusts.Where(c => c.StockAdjustID == num).Include(c => c.company).First();
-            TS_Page = new View.TS_STA_Menu();
+            purchaseOrder = db.PurchaseOrders.Where(c => c.PurchaseOrderID== num).Include(c => c.company).First();
+            TS_Page = new View.TS_POR_Menu();
             LeftSide.Content = TS_Page;
-        }*/
+        }
 
         override public void EV_Start(object sender, RoutedEventArgs e)
         {
@@ -37,13 +39,13 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderMenu.Controlle
             ChangeController();
         }
 
-        /*public void EV_CT_StockAdjustLoad()
+        public void EV_CT_StockAdjustLoad()
         {
             Information["controller"] = 2;
             ChangeController();
         }
 
-        public void EV_CT_StockAdjustLoadEditable()
+        /*public void EV_CT_StockAdjustLoadEditable()
         {
             Information["controller"] = 3;
             ChangeController();
