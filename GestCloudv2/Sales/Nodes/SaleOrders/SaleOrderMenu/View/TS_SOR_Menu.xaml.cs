@@ -23,16 +23,22 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderMenu.View
         public TS_SOR_Menu()
         {
             InitializeComponent();
-            /*if (GetController().stockAdjust != null)
+            if (GetController().saleOrder != null)
             {
-                BT_StockAdjustLoad.IsEnabled = true;
-                BT_StockAdjustLoadEditable.IsEnabled = true;
-            }*/
+                BT_SaleAdjustLoad.IsEnabled = true;
+                //BT_StockAdjustLoadEditable.IsEnabled = true;
+            }
         }
 
         private void EV_MD_New_SaleOrder(object sender, RoutedEventArgs e)
         {
             GetController().EV_CT_OrderSaleNew();
+        }
+
+
+        private void EV_MD_SaleOrderLoad(object sender, RoutedEventArgs e)
+        {
+            GetController().EV_CT_SaleOrderLoad();
         }
 
         /*private void EV_MD_StockAdjustNew(object sender, RoutedEventArgs e)

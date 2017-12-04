@@ -1,14 +1,14 @@
-﻿<Page x:Class="GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderMenu.View.TS_SOR_Menu"
+﻿<Page x:Class="GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_Load.View.TS_SOR_Item_Load_SaleOrder"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderMenu.View"
+      xmlns:local="clr-namespace:GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_Load.View"
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
-      Title="TS_SOR_Menu">
+      Title="TS_SOR_Item_Load_SaleOrder">
 
-    <Grid Margin="20">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
@@ -20,14 +20,8 @@
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
-        <Button Grid.Column="0" Grid.Row="0" Margin="10" Click="EV_MD_New_SaleOrder" >
-            <TextBlock TextAlignment="Center">Nuevo pedido</TextBlock>
-        </Button>
-        <Button Grid.Column="1" Grid.Row="0" IsEnabled="false" Margin="10" Name="BT_SaleAdjustLoad" Click="EV_MD_SaleOrderLoad">
-            <TextBlock TextAlignment="Center">Examinar pedido</TextBlock>
-        </Button>
-        <Button Grid.Column="0" Grid.Row="1" IsEnabled="false" Margin="10" Name="BT_SaleAdjustLoadEditable">
-            <TextBlock TextAlignment="Center">Editar pedido</TextBlock>
+        <Button Name="BT_StockAdjustSave" Grid.Column="1" Grid.Row="4" Margin="20" Click="EV_CompanySave" IsEnabled="False" Visibility="Visible">
+            <TextBlock TextAlignment="Center">Guardar Ajuste<LineBreak/>de Stock</TextBlock>
         </Button>
     </Grid>
 </Page>

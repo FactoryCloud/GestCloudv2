@@ -27,46 +27,46 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderMenu.View
 
             this.Loaded += new RoutedEventHandler(EV_Start);
 
-            ///DG_StockAdjusts.MouseLeftButtonUp += new MouseButtonEventHandler(EV_FileSelected);
-            //DG_StockAdjusts.MouseDoubleClick += new MouseButtonEventHandler(EV_FileOpen);
+            DG_SaleAdjusts.MouseLeftButtonUp += new MouseButtonEventHandler(EV_FileSelected);
+            DG_SaleAdjusts.MouseDoubleClick += new MouseButtonEventHandler(EV_FileOpen);
         }
 
         private void EV_Start(object sender, RoutedEventArgs e)
         {
-            //UpdateData();
+            UpdateData();
         }
 
-        /*private void EV_FileOpen(object sender, MouseButtonEventArgs e)
+        private void EV_FileOpen(object sender, MouseButtonEventArgs e)
         {
             if (GetController().stockAdjust != null)
             {
-                DG_StockAdjusts.MouseLeftButtonUp -= EV_FileSelected;
-                GetController().EV_CT_StockAdjustLoad();
+                DG_SaleAdjusts.MouseLeftButtonUp -= EV_FileSelected;
+                GetController().EV_CT_SaleOrderLoad();
             }
         }
 
         private void EV_FileSelected(object sender, MouseButtonEventArgs e)
         {
-            int num = DG_StockAdjusts.SelectedIndex;
+            int num = DG_SaleAdjusts.SelectedIndex;
             if (num >= 0)
             {
-                DataGridRow row = (DataGridRow)DG_StockAdjusts.ItemContainerGenerator.ContainerFromIndex(num);
+                DataGridRow row = (DataGridRow)DG_SaleAdjusts.ItemContainerGenerator.ContainerFromIndex(num);
                 DataRowView dr = row.Item as DataRowView;
-                GetController().SetStockAdjust(Int32.Parse(dr.Row.ItemArray[0].ToString()));
+                GetController().SetSaleOrder(Int32.Parse(dr.Row.ItemArray[0].ToString()));
             }
         }
 
         private void UpdateData()
         {
-            DG_StockAdjusts.ItemsSource = null;
-            DG_StockAdjusts.ItemsSource = GetController().stocksAdjustsView.GetTable();
+            DG_SaleAdjusts.ItemsSource = null;
+            DG_SaleAdjusts.ItemsSource = GetController().saleOrdersView.GetTable();
         }
 
-        private Controller.CT_StockAdjustMenu GetController()
+        private Controller.CT_SaleOrderMenu GetController()
         {
             Window mainWindow = Application.Current.MainWindow;
             var a = (Main.View.MainWindow)mainWindow;
-            return (Controller.CT_StockAdjustMenu)a.MainFrame.Content;
-        }*/
+            return (Controller.CT_SaleOrderMenu)a.MainFrame.Content;
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using FrameworkDB.V1;
 using FrameworkView.V1;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,20 +12,21 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderMenu.Controller
 {
     public partial class CT_SaleOrderMenu : Main.Controller.CT_Common
     {
-        //public StockAdjustsView stocksAdjustsView;
-        //public StockAdjust stockAdjust;
+        public SaleOrdersView saleOrdersView;
+        public SaleOrder saleOrder;
+        public StockAdjust stockAdjust;
 
         public CT_SaleOrderMenu()
         {
-           //stocksAdjustsView = new StockAdjustsView();
+           saleOrdersView = new SaleOrdersView();
         }
 
-        /*public void SetStockAdjust(int num)
+        public void SetSaleOrder(int num)
         {
-            stockAdjust = db.StockAdjusts.Where(c => c.StockAdjustID == num).Include(c => c.company).First();
-            TS_Page = new View.TS_STA_Menu();
+            saleOrder = db.SaleOrders.Where(c => c.SaleOrderID == num).Include(c => c.company).First();
+            TS_Page = new View.TS_SOR_Menu();
             LeftSide.Content = TS_Page;
-        }*/
+        }
 
         override public void EV_Start(object sender, RoutedEventArgs e)
         {
@@ -37,13 +39,13 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderMenu.Controller
             ChangeController();
         }
 
-        /*public void EV_CT_StockAdjustLoad()
+        public void EV_CT_SaleOrderLoad()
         {
             Information["controller"] = 2;
             ChangeController();
         }
 
-        public void EV_CT_StockAdjustLoadEditable()
+        /*public void EV_CT_StockAdjustLoadEditable()
         {
             Information["controller"] = 3;
             ChangeController();
@@ -98,12 +100,12 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderMenu.Controller
                     b.MainFrame.Content = new SaleOrderItem.SaleOrderItem_New.Controller.CT_SOR_Item_New();
                     break;
 
-            /*    case 2:
+                case 2:
                     Main.View.MainWindow c = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
-                    c.MainFrame.Content = new Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_Load.Controller.CT_STA_Item_Load(stockAdjust, 0);
+                    c.MainFrame.Content = new Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_Load.Controller.CT_SOR_Item_Load(saleOrder, 0);
                     break;
 
-                case 3:
+            /*    case 3:
                     Main.View.MainWindow d = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
                     d.MainFrame.Content = new Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_Load.Controller.CT_STA_Item_Load(stockAdjust, 1);
                     break;
