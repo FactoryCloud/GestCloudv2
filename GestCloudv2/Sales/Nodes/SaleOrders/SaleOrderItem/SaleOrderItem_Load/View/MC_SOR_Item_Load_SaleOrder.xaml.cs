@@ -36,11 +36,13 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_Load.Vi
 
         private void EV_Start(object sender, RoutedEventArgs e)
         {
-            TB_StockAdjustCode.Text = GetController().saleOrder.Code.Trim();
+            TB_SaleOrderCode.Text = GetController().saleOrder.Code.Trim();
+            TB_ClientCode.Text = GetController().saleOrder.ClientID.ToString();
+            TB_ClientName.Text = GetController().saleOrder.client.entity.Name;
 
             if (GetController().Information["editable"] == 0)
             {
-                TB_StockAdjustCode.IsReadOnly = true;
+                TB_SaleOrderCode.IsReadOnly = true;
 
                 Thickness margin = new Thickness(20);
 
@@ -51,7 +53,7 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_Load.Vi
                 TB_StoreCode.TextAlignment = TextAlignment.Center;
                 TB_StoreCode.Margin = margin;
                 Grid.SetColumn(TB_StoreCode, 2);
-                Grid.SetRow(TB_StoreCode, 3);
+                Grid.SetRow(TB_StoreCode, 4);
 
                 GR_Main.Children.Add(TB_StoreCode);
 
@@ -59,7 +61,7 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_Load.Vi
 
                 TextBox TB_DateStockAdjust = new TextBox();
                 TB_DateStockAdjust.Name = "TB_DateStockAdjust";
-                TB_DateStockAdjust.Text = $"{GetController().saleOrder.Date}";
+                TB_DateStockAdjust.Text = $"{String.Format("{0:dd/MM/yyyy}",GetController().saleOrder.Date)}";
                 TB_DateStockAdjust.VerticalAlignment = VerticalAlignment.Center;
                 TB_DateStockAdjust.TextAlignment = TextAlignment.Center;
                 TB_DateStockAdjust.Margin = margin;
@@ -89,7 +91,7 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_Load.Vi
                 TB_StoreCode.TextAlignment = TextAlignment.Center;
                 TB_StoreCode.Margin = margin;
                 Grid.SetColumn(TB_StoreCode, 2);
-                Grid.SetRow(TB_StoreCode, 3);
+                Grid.SetRow(TB_StoreCode, 4);
 
                 GR_Main.Children.Add(TB_StoreCode);
 

@@ -29,6 +29,7 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_Load.Co
         public SaleOrder saleOrder;
         public Movement movementSelected;
         public MovementsView movementsView;
+        public ClientsView clientsView;
         public Store store;
         public List<StockAdjust> stocksAdjust;
         public List<Movement> movements;
@@ -36,7 +37,8 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_Load.Co
 
         public CT_SOR_Item_Load(SaleOrder saleOrder, int editable)
         {
-            this.saleOrder = saleOrder;
+            this.saleOrder = db.SaleOrders.Where(c => c.SaleOrderID == saleOrder.SaleOrderID).Include(e => e.client).Include(i => i.client.entity).First();
+            clientsView = new ClientsView();
             movementsView = new MovementsView();
             Information.Add("minimalInformation", 0);
             Information.Add("editable",editable);
@@ -48,7 +50,8 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_Load.Co
             List<DocumentType> documentTypes = db.DocumentTypes.Where(i => i.Name.Contains("Order")).ToList();
 
             store = db.Movements.Where(u => u.DocumentID == saleOrder.SaleOrderID&& (documentTypes[0].DocumentTypeID == u.DocumentTypeID || documentTypes[1].DocumentTypeID == u.DocumentTypeID)).Include(u => u.store).First().store;
-            
+
+            //entity = db.Entities.Where(u => u.EntityID == saleOrder.client.EntityID).First();
         }
 
         override public void EV_Start(object sender, RoutedEventArgs e)
@@ -70,6 +73,12 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_Load.Co
         {
             return db.Companies.ToList();
         }
+
+        /*public List<Client> GetClient()
+        {
+            List<Client> client = new List<Client>;
+
+        }*/
 
         public List<Store> GetStores()
         {

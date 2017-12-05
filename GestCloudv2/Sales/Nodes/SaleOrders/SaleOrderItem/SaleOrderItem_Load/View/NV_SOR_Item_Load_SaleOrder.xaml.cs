@@ -27,7 +27,7 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_Load.Vi
             InitializeComponent();
         }
 
-        private void EV_MD_StockAdjust(object sender, RoutedEventArgs e)
+        private void EV_MD_SaleOrder(object sender, RoutedEventArgs e)
         {
             GetController().MD_Change(1);
         }

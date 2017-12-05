@@ -18,6 +18,7 @@ namespace FrameworkView.V1
         //public Client clientSearch;
         //public Client SelectedClient;
         public List<Client> clients;
+        public string name;
 
         public ClientsView()
         {
@@ -46,6 +47,7 @@ namespace FrameworkView.V1
         {
             return db.Clients.Where(ex => ex.ClientID == num).Include(pt => pt.entity ).First();
         }
+
 
         public IEnumerable GetTable()
         {

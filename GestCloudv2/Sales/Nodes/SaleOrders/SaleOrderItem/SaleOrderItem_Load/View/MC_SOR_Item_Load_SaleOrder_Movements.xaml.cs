@@ -38,6 +38,7 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_Load.Vi
         public void EV_MovementsSelect(object sender, RoutedEventArgs e)
         {
             int movement = DG_Movements.SelectedIndex;
+            GetController().Information["mode"] = 1;
 
             if (movement >= 0)
             {
