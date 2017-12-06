@@ -27,8 +27,6 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
             purchaseOrder = new PurchaseOrder();
             movementsView = new MovementsView();
             Information.Add("minimalInformation", 0);
-            Information.Add("submenu", 0);
-            Information.Add("submode", 0);
         }
 
         override public void EV_Start(object sender, RoutedEventArgs e)
