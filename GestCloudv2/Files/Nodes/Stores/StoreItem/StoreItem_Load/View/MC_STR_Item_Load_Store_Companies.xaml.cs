@@ -21,22 +21,24 @@ namespace GestCloudv2.Files.Nodes.Stores.StoreItem.StoreItem_Load.View
     /// </summary>
     public partial class MC_STR_Item_Load_Store_Companies : Page
     {
-        public MC_STR_Item_Load_Store_Companies()
+        int external;
+        public MC_STR_Item_Load_Store_Companies(int external)
         {
             InitializeComponent();
+            this.external = external;
 
-            this.Loaded += new RoutedEventHandler(EV_Start);
+            this.Loaded += new RoutedEventHandler(EV_Start);  
+        }
 
+        private void EV_Start(object sender, RoutedEventArgs e)
+        {
             if (GetController().Information["editable"] == 0)
             {
                 BT_SelectAll.Visibility = Visibility.Hidden;
                 BT_SelectNone.Visibility = Visibility.Hidden;
             }
-        }
 
-        private void EV_Start(object sender, RoutedEventArgs e)
-        {
-            foreach(Company company in GetController().GetCompanies())
+            foreach (Company company in GetController().GetCompanies())
             {
                 Grid grid = new Grid();
                 ColumnDefinition column1 = new ColumnDefinition();
@@ -95,9 +97,19 @@ namespace GestCloudv2.Files.Nodes.Stores.StoreItem.StoreItem_Load.View
 
         private Controller.CT_STR_Item_Load GetController()
         {
-            Window mainWindow = Application.Current.MainWindow;
-            var a = (Main.View.MainWindow)mainWindow;
-            return (Controller.CT_STR_Item_Load)a.MainFrame.Content;
+            if (external == 0)
+            {
+                Window mainWindow = Application.Current.MainWindow;
+                var a = (Main.View.MainWindow)mainWindow;
+                return (Controller.CT_STR_Item_Load)a.MainFrame.Content;
+            }
+
+            else
+            {
+                Window mainWindow = Application.Current.MainWindow;
+                var a = ((Main.Controller.CT_Common)((Main.View.MainWindow)mainWindow).MainFrame.Content);
+                return (Controller.CT_STR_Item_Load)a.CT_Submenu.Subcontroller;
+            }
         }
     }
 }

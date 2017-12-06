@@ -32,6 +32,25 @@ namespace GestCloudv2.Files.Nodes.Stores.StoreItem.StoreItem_Load.Controller
             Information.Add("editable", editable);
             Information.Add("old_editable", 0);
             Information.Add("minimalInformation", 0);
+            Information.Add("external", 0);
+            Information["entityValid"] = 1;
+
+            foreach (CompanyStore compsto in db.CompaniesStores.Where(c => c.StoreID == store.StoreID).Include(c => c.company))
+            {
+                companies.Add(compsto.company);
+            }
+
+            Information["editable"] = editable;
+            this.store = store;
+        }
+
+        public CT_STR_Item_Load(Store store, int editable, int external):base(external)
+        {
+            companies = new List<Company>();
+            Information.Add("editable", editable);
+            Information.Add("old_editable", 0);
+            Information.Add("minimalInformation", 0);
+            Information.Add("external", 1);
             Information["entityValid"] = 1;
 
             foreach (CompanyStore compsto in db.CompaniesStores.Where(c => c.StoreID == store.StoreID).Include(c => c.company))
@@ -183,7 +202,7 @@ namespace GestCloudv2.Files.Nodes.Stores.StoreItem.StoreItem_Load.Controller
             else
                 companies = db.Companies.ToList();
 
-            MC_Page = new View.MC_STR_Item_Load_Store_Companies();
+            MC_Page = new View.MC_STR_Item_Load_Store_Companies(Information["external"]);
             MainContent.Content = MC_Page;
         }
 
@@ -207,7 +226,7 @@ namespace GestCloudv2.Files.Nodes.Stores.StoreItem.StoreItem_Load.Controller
                         TS_Page = new View.TS_STR_Item_Load(Information["minimalInformation"]);
                     else
                         TS_Page = new View.TS_STR_Item_Load_Edit(Information["minimalInformation"]);
-                    MC_Page = new View.MC_STR_Item_Load_Store();
+                    MC_Page = new View.MC_STR_Item_Load_Store(Information["external"]);
                     ChangeComponents();
                     break;
 
@@ -217,7 +236,7 @@ namespace GestCloudv2.Files.Nodes.Stores.StoreItem.StoreItem_Load.Controller
                         TS_Page = new View.TS_STR_Item_Load(Information["minimalInformation"]);
                     else
                         TS_Page = new View.TS_STR_Item_Load_Edit(Information["minimalInformation"]);
-                    MC_Page = new View.MC_STR_Item_Load_Store_Companies();
+                    MC_Page = new View.MC_STR_Item_Load_Store_Companies(Information["external"]);
                     ChangeComponents();
                     break;
             }

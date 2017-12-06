@@ -23,39 +23,63 @@
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="0.5*"/>
         </Grid.ColumnDefinitions>
-        <Label Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center">Fecha</Label>
-        <DatePicker Grid.Row="1" Grid.Column="2" Name="DP_Date" VerticalAlignment="Center" HorizontalAlignment="Center" SelectedDateChanged="EV_DateChange"/>
-        <Label Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center">Código</Label>
-        <Label Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center">Almacén</Label>
-        <ComboBox FontSize="12" Grid.Column="2" Grid.Row="3" VerticalAlignment="Center" Margin="20" Name="CB_Stores"></ComboBox>
-        <Label Grid.Column="1" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Center">Cliente</Label>
 
-        <Grid Grid.Column="2" Grid.Row="2">
+        <Grid Name="GR_Date" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
-            <TextBox Name="TB_StockAdjustReference" VerticalAlignment="Center" Margin="10,0,0,0"></TextBox>
-            <StackPanel Name="SP_SaleOrderCode" Grid.Column="2" Grid.Row="1" VerticalAlignment="Center">
-            <TextBox Name="TB_SaleOrderCode" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,10,0"></TextBox>
-            </StackPanel>
+            <Label VerticalAlignment="Center" HorizontalAlignment="Center">Fecha</Label>
+            <DatePicker Grid.Column="1" Name="DP_Date" VerticalAlignment="Center" Margin="10,0,10,0" SelectedDateChanged="EV_DateChange"/>
         </Grid>
-        <Grid Grid.Column="2" Grid.Row="4">
+
+        <Grid Name="GR_Code" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="4*"/>
+            </Grid.ColumnDefinitions>
+            <Label VerticalAlignment="Center" HorizontalAlignment="Center">Código</Label>
+            <Grid Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                <TextBox Name="TB_SaleOrderReference" VerticalAlignment="Center" Margin="10,0,0,0"></TextBox>
+                <StackPanel Name="SP_SaleOrderCode" Grid.Column="2" Grid.Row="1" VerticalAlignment="Center">
+                    <TextBox Name="TB_SaleOrderCode" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,10,0"></TextBox>
+                </StackPanel>
+            </Grid>
+        </Grid>
+
+        <Grid Name="GR_Store" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="3" Background="Transparent" Tag="4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
-            <Button Name="TB_ClientReference"  Margin="10,0,0,0"  VerticalAlignment="Center" Click="EV_ClientSelect">Seleccionar</Button>
-            <StackPanel Name="SP_ClientCode" Grid.Column="2" Grid.Row="1" VerticalAlignment="Center">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="3*"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBox Name="TB_ClientCode"  VerticalAlignment="Center"></TextBox>
-                    <TextBox Name="TB_ClientName" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,10,0"></TextBox>
-                </Grid>
-            </StackPanel>
+            <Label VerticalAlignment="Center" HorizontalAlignment="Center">Almacén</Label>
+            <ComboBox FontSize="12" Grid.Column="2" Grid.Row="3" VerticalAlignment="Center" Margin="10,0,10,0" Name="CB_Stores"></ComboBox>
+        </Grid>
+
+        <Grid Name="GR_Client" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="4" Background="Transparent" Tag="6">
+            <Grid Grid.Column="2" Grid.Row="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                <Label VerticalAlignment="Center" HorizontalAlignment="Center">Cliente</Label>
+                <Button Name="TB_ClientReference" Grid.Column="1"  Margin="10,0,0,0" VerticalAlignment="Center" Click="EV_ClientSelect">Seleccionar</Button>
+                <StackPanel Name="SP_ClientCode" Grid.Column="2" Grid.Row="1" VerticalAlignment="Center">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="3*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox Name="TB_ClientCode"  VerticalAlignment="Center"></TextBox>
+                        <TextBox Name="TB_ClientName" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,10,0"></TextBox>
+                    </Grid>
+                </StackPanel>
+            </Grid>
         </Grid>
 
     </Grid>

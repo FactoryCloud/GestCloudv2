@@ -25,8 +25,6 @@ namespace GestCloudv2.Main.Controller
         public CT_Main()
         {
             InitializeComponent();
-
-            this.Loaded += new RoutedEventHandler(EV_Start);
         }
 
         public override void EV_Start(object sender, RoutedEventArgs e)

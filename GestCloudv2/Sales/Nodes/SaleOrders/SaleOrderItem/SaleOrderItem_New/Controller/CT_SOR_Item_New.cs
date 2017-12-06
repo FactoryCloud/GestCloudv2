@@ -12,7 +12,6 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_New.Con
 {
     public partial class CT_SOR_Item_New : Main.Controller.CT_Common
     {
-        //public StockAdjust stockAdjust;
         public int lastSaleOrderCod;
         public Movement movementSelected;
         public MovementsView movementsView;
@@ -25,7 +24,6 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_New.Con
         {
             saleOrder = new SaleOrder();
             client = new Client();
-          //  stockAdjust = new StockAdjust();
             movementsView = new MovementsView();
             clientsView = new ClientsView();
             Information.Add("minimalInformation", 0);
@@ -34,6 +32,23 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_New.Con
         override public void EV_Start(object sender, RoutedEventArgs e)
         {
             UpdateComponents();
+        }
+
+        public void SetSubmenu(int option)
+        {
+            switch (option)
+            {
+                case 4:
+                    CT_Submenu = new Model.CT_Submenu(store, option);
+                    break;
+
+                case 6:
+                    CT_Submenu = new Model.CT_Submenu(client, option);
+                    break;
+            }
+
+            NV_Page = new View.NV_SOR_Item_New_SaleOrder();
+            TopSide.Content = NV_Page;
         }
 
         public List<Company> GetCompanies()
@@ -88,6 +103,29 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_New.Con
             TestMinimalInformation();
         }
 
+        public void EV_UpdateSubMenu(int num)
+        {
+            if (num == 0)
+            {
+                Information["submenu"] = 0;
+                Information["submode"] = 0;
+                CT_Submenu = null;
+            }
+
+            else
+            {
+                Information["submenu"] = 1;
+                Information["submode"] = num;
+                SetSubmenu(num);
+            }
+        }
+
+        public void MD_Submenu(int option)
+        {
+            Information["externalActivated"] = 1;
+            CT_Submenu.Subcontroller.MD_Change(option);
+            FR_Subcontent.Content = CT_Submenu.Subcontroller;
+        }
 
         public int LastSaleOrderCod()
         {
@@ -102,7 +140,6 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_New.Con
                 saleOrder.Code = $"1";
                 lastSaleOrderCod = 1;
                 return lastSaleOrderCod;
-
             }
         }
 
@@ -115,6 +152,7 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_New.Con
         public override void EV_SetClient(int num)
         {
             client = db.Clients.Where(p => p.ClientID == num).Include(e => e.entity).First();
+            EV_UpdateSubMenu(6);
             MC_Page = new View.MC_SOR_Item_New_SaleOrder();
             MainContent.Content = MC_Page;
         }

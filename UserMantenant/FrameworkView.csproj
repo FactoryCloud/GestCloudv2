@@ -105,6 +105,8 @@
   <ItemGroup>
     <Compile Include="Cards\CardsView.cs" />
     <Compile Include="Entities\EntitiesView.cs" />
+    <Compile Include="Menus\SubmenuItem.cs" />
+    <Compile Include="Menus\SubmenuItems.cs" />
     <Compile Include="Providers\ProvidersView.cs" />
     <Compile Include="Providers\ProviderView.cs" />
     <Compile Include="Clients\ClientsView.cs" />

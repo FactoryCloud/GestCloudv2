@@ -316,6 +316,10 @@
     <Compile Include="FloatWindows\ClientSelectWindow.xaml.cs">
       <DependentUpon>ClientSelectWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Main\Controller\CT_Common_Subcontent.xaml.cs">
+      <DependentUpon>CT_Common_Subcontent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\CT_Submenu.cs" />
     <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_Load\Controller\CT_POR_Item_Load.cs">
       <Generator>MSBuild:Compile</Generator>
     </Compile>
@@ -787,6 +791,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Main\Controller\CT_Common_Subcontent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_Load\View\MC_POR_Item_Load_PurchaseOrder.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1228,8 +1236,6 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -35,6 +35,15 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_Load.Controller
             Information["entityValid"] = 1;
         }
 
+        public CT_CLI_Item_Load(Client client, int editable, int external):base(external)
+        {
+            Information.Add("editable", editable);
+            Information.Add("old_editable", 0);
+            Information.Add("minimalInformation", 0);
+            this.client = client;
+            Information["entityValid"] = 1;
+        }
+
         override public void EV_Start(object sender, RoutedEventArgs e)
         {
             //MessageBox.Show($"{entity.EntityID}");
