@@ -51,13 +51,12 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_Load.Co
 
             store = db.Movements.Where(u => u.DocumentID == saleOrder.SaleOrderID&& (documentTypes[0].DocumentTypeID == u.DocumentTypeID || documentTypes[1].DocumentTypeID == u.DocumentTypeID)).Include(u => u.store).First().store;
 
-            //entity = db.Entities.Where(u => u.EntityID == saleOrder.client.EntityID).First();
         }
 
         override public void EV_Start(object sender, RoutedEventArgs e)
         {
-            List<DocumentType> documentTypes = db.DocumentTypes.Where(i => i.Name.Contains("Order")).ToList();
-            movements = db.Movements.Where(u => u.DocumentID == saleOrder.SaleOrderID && (documentTypes[0].DocumentTypeID == u.DocumentTypeID || documentTypes[1].DocumentTypeID == u.DocumentTypeID)).Include(u => u.store)
+            DocumentType documentType = db.DocumentTypes.Where(i => i.Name.Contains("Order") && i.Input == 0).First();
+            movements = db.Movements.Where(u => u.DocumentID == saleOrder.SaleOrderID&& (documentType.DocumentTypeID == u.DocumentTypeID)).Include(u => u.store)
                 .Include(i => i.product).Include(z => z.condition).Include(i => i.product.productType).ToList();
 
             MovementLastID = movements.OrderBy(m => m.MovementID).Last().MovementID;
@@ -74,12 +73,6 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_Load.Co
             return db.Companies.ToList();
         }
 
-        /*public List<Client> GetClient()
-        {
-            List<Client> client = new List<Client>;
-
-        }*/
-
         public List<Store> GetStores()
         {
             List<Store> stores = new List<Store>();
@@ -93,20 +86,23 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_Load.Co
 
         public void CleanStockCode()
         {
-            stockAdjust.Code = "";
+            saleOrder.Code = "";
             TestMinimalInformation();
         }
 
         public void SetMovementSelected(int num)
         {
             movementSelected = movementsView.movements.Where(u => u.MovementID == num).First();
-            if (Information["mode"] == 1)
-                TS_Page = new View.TS_SOR_Item_Load_SaleOrder(Information["minimalInformation"]);
+            if (Information["editable"] == 1)
+            {
+                if (Information["mode"] == 1)
+                    TS_Page = new View.TS_SOR_Item_Load_SaleOrder(Information["minimalInformation"]);
 
-            if (Information["mode"] == 2)
-                TS_Page = new View.TS_SOR_Item_Load_SaleOrder_Movements(Information["minimalInformation"]);
+                if (Information["mode"] == 2)
+                    TS_Page = new View.TS_SOR_Item_Load_SaleOrder_Movements(Information["minimalInformation"]);
 
-            LeftSide.Content = TS_Page;
+                LeftSide.Content = TS_Page;
+            }
         }
 
         public void SetStore(int num)
@@ -122,7 +118,7 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_Load.Co
 
         public void SetAdjustDate(DateTime date)
         {
-            stockAdjust.Date = date;
+            saleOrder.Date = date;
             TestMinimalInformation();
         }
 
@@ -209,7 +205,7 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_Load.Co
 
         private void TestMinimalInformation()
         {
-            if(stockAdjust.Date != null && Information["entityValid"] == 1)
+            if(saleOrder.Date != null && Information["entityValid"] == 1)
             {
                 Information["minimalInformation"] = 1;
             }
@@ -246,7 +242,7 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_Load.Co
 
                     if (movement.store == null)
                     {
-                        movement.DocumentTypeID = db.DocumentTypes.Where(c => c.Name == "StockAdjust" && c.Input == 1).First().DocumentTypeID;
+                        movement.DocumentTypeID = db.DocumentTypes.Where(c => c.Name == "Order" && c.Input == 0).First().DocumentTypeID;
                         movement.StoreID = store.StoreID;
                     }
 
@@ -254,11 +250,9 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_Load.Co
                     {
                         movement.DocumentTypeID = movement.documentType.DocumentTypeID;
                         movement.documentType = null;
-                        if (movement.Quantity < 0)
-                            movement.Quantity = movement.Quantity * -1;
                     }
 
-                    movement.DocumentID = stockAdjust.StockAdjustID;
+                    movement.DocumentID = saleOrder.SaleOrderID;
                     db.Movements.Add(movement);
                 }
 

@@ -25,8 +25,8 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderMenu.View
             InitializeComponent();
             if (GetController().saleOrder != null)
             {
-                BT_SaleAdjustLoad.IsEnabled = true;
-                //BT_StockAdjustLoadEditable.IsEnabled = true;
+                BT_SaleOrderLoad.IsEnabled = true;
+                BT_SaleOrderLoadEditable.IsEnabled = true;
             }
         }
 
@@ -41,20 +41,10 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderMenu.View
             GetController().EV_CT_SaleOrderLoad();
         }
 
-        /*private void EV_MD_StockAdjustNew(object sender, RoutedEventArgs e)
+        private void EV_MD_SaleOrderLoadEditable(object sender, RoutedEventArgs e)
         {
-            GetController().EV_CT_StockAdjustNew();
+            GetController().EV_CT_SaleOrderLoadEditable();
         }
-
-        private void EV_MD_StockAdjustLoad(object sender, RoutedEventArgs e)
-        {
-            GetController().EV_CT_StockAdjustLoad();
-        }
-
-        private void EV_MD_StockAdjustLoadEditable(object sender, RoutedEventArgs e)
-        {
-            GetController().EV_CT_StockAdjustLoadEditable();
-        }*/
 
         private Controller.CT_SaleOrderMenu GetController()
         {

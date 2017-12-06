@@ -29,6 +29,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
         public PurchaseOrder purchaseOrder;
         public Movement movementSelected;
         public MovementsView movementsView;
+        public ProvidersView providersView;
         public Store store;
         public List<StockAdjust> stocksAdjust;
         public List<Movement> movements;
@@ -36,7 +37,8 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
 
         public CT_POR_Item_Load(PurchaseOrder purchaseOrder, int editable)
         {
-            this.purchaseOrder = purchaseOrder;
+            this.purchaseOrder = db.PurchaseOrders.Where(c => c.PurchaseOrderID == purchaseOrder.PurchaseOrderID).Include(e => e.provider).Include(i => i.provider.entity).First();
+            providersView = new ProvidersView();
             movementsView = new MovementsView();
             Information.Add("minimalInformation", 0);
             Information.Add("editable",editable);
@@ -48,13 +50,13 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
             List<DocumentType> documentTypes = db.DocumentTypes.Where(i => i.Name.Contains("Order")).ToList();
 
             store = db.Movements.Where(u => u.DocumentID == purchaseOrder.PurchaseOrderID && (documentTypes[0].DocumentTypeID == u.DocumentTypeID || documentTypes[1].DocumentTypeID == u.DocumentTypeID)).Include(u => u.store).First().store;
-            
+
         }
 
         override public void EV_Start(object sender, RoutedEventArgs e)
         {
-            List<DocumentType> documentTypes = db.DocumentTypes.Where(i => i.Name.Contains("Order")).ToList();
-            movements = db.Movements.Where(u => u.DocumentID == purchaseOrder.PurchaseOrderID && (documentTypes[0].DocumentTypeID == u.DocumentTypeID || documentTypes[1].DocumentTypeID == u.DocumentTypeID)).Include(u => u.store)
+            DocumentType documentType = db.DocumentTypes.Where(i => i.Name.Contains("Order") && i.Input == 1).First();
+            movements = db.Movements.Where(u => u.DocumentID == purchaseOrder.PurchaseOrderID && (documentType.DocumentTypeID == u.DocumentTypeID)).Include(u => u.store)
                 .Include(i => i.product).Include(z => z.condition).Include(i => i.product.productType).ToList();
 
             MovementLastID = movements.OrderBy(m => m.MovementID).Last().MovementID;
@@ -84,20 +86,23 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
 
         public void CleanStockCode()
         {
-            stockAdjust.Code = "";
+            purchaseOrder.Code = "";
             TestMinimalInformation();
         }
 
         public void SetMovementSelected(int num)
         {
             movementSelected = movementsView.movements.Where(u => u.MovementID == num).First();
-            if (Information["mode"] == 1)
-                TS_Page = new View.TS_POR_Item_Load_PurchaseOrder(Information["minimalInformation"]);
+            if (Information["editable"] == 1)
+            {
+                if (Information["mode"] == 1)
+                    TS_Page = new View.TS_POR_Item_Load_PurchaseOrder(Information["minimalInformation"]);
 
-            if (Information["mode"] == 2)
-                TS_Page = new View.TS_POR_Item_Load_PurchaseOrder_Movements(Information["minimalInformation"]);
+                if (Information["mode"] == 2)
+                    TS_Page = new View.TS_POR_Item_Load_PurchaseOrder_Movements(Information["minimalInformation"]);
 
-            LeftSide.Content = TS_Page;
+                LeftSide.Content = TS_Page;
+            }
         }
 
         public void SetStore(int num)
@@ -113,7 +118,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
 
         public void SetAdjustDate(DateTime date)
         {
-            stockAdjust.Date = date;
+            purchaseOrder.Date = date;
             TestMinimalInformation();
         }
 
@@ -200,7 +205,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
 
         private void TestMinimalInformation()
         {
-            if(stockAdjust.Date != null && Information["entityValid"] == 1)
+            if(purchaseOrder.Date != null && Information["entityValid"] == 1)
             {
                 Information["minimalInformation"] = 1;
             }
@@ -245,11 +250,9 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
                     {
                         movement.DocumentTypeID = movement.documentType.DocumentTypeID;
                         movement.documentType = null;
-                        if (movement.Quantity < 0)
-                            movement.Quantity = movement.Quantity * -1;
                     }
 
-                    movement.DocumentID = stockAdjust.StockAdjustID;
+                    movement.DocumentID = purchaseOrder.PurchaseOrderID;
                     db.Movements.Add(movement);
                 }
 
@@ -266,7 +269,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
                     temp.IsPlayset = movement.IsPlayset;
                     temp.IsSigned = movement.IsSigned;
                     db.Movements.Update(temp);
-                }   
+                }
             }
 
             foreach (Movement mov in movements)

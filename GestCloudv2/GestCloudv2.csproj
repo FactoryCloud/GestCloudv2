@@ -342,6 +342,7 @@
     </Compile>
     <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_New\Controller\CT_POR_Item_New.cs" />
     <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_New\View\FW_POR_Item_New_SelectProvider.cs" />
+    <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_New\View\FW_POR_Item_New_IncreaseStock.cs" />
     <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_New\View\MC_POR_Item_New_PurchaseOrder.xaml.cs">
       <DependentUpon>MC_POR_Item_New_PurchaseOrder.xaml</DependentUpon>
     </Compile>

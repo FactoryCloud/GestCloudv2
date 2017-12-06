@@ -39,25 +39,10 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_New.Vie
             }
         }
 
-         /*private void EV_StoredStock_Reduce(object sender, RoutedEventArgs e)
-        {
-            GetController().MD_StoredStock_Reduce();
-        }*/
-
        private void EV_StoredStock_Increase(object sender, RoutedEventArgs e)
         {
             GetController().MD_StoredStock_Increase();
         }
-
-        /*private void EV_StoredStock_Edit(object sender, RoutedEventArgs e)
-        {
-            GetController().MD_StoredStock_Edit();
-        }
-
-        private void EV_StoredStock_Remove(object sender, RoutedEventArgs e)
-        {
-            GetController().MD_StoredStock_Remove();
-        }*/
 
         private void EV_StockAdjustSave(object sender, RoutedEventArgs e)
         {

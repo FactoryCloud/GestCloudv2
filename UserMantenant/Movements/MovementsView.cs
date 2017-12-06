@@ -41,7 +41,8 @@ namespace FrameworkView.V1
             {
                 if (!movementsDeleted.Contains(item) && item.documentType != null)
                 {
-                    if (item.documentType.Input == 0 && item.Quantity > 0)
+                    //if (item.documentType.Input == 0 && item.Quantity > 0)
+                    if (item.documentType.Input == 0 && item.Quantity < 0) 
                         item.Quantity = Decimal.Multiply((decimal)item.Quantity, -1);
 
                     foreach (Movement item2 in movements)

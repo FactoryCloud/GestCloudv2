@@ -26,7 +26,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderMenu.View
             if (GetController().purchaseOrder != null)
             {
                 BT_PurchaseAdjustLoad.IsEnabled = true;
-                //BT_StockAdjustLoadEditable.IsEnabled = true;
+                BT_PurchaseAdjustLoadEditable.IsEnabled = true;
             }
         }
 
@@ -35,20 +35,15 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderMenu.View
             GetController().EV_CT_OrderPurchaseNew();
         }
 
-        /*private void EV_MD_StockAdjustNew(object sender, RoutedEventArgs e)
-        {
-            GetController().EV_CT_StockAdjustNew();
-        }
-
-        private void EV_MD_StockAdjustLoad(object sender, RoutedEventArgs e)
+        private void EV_MD_PurchaseOrderLoad(object sender, RoutedEventArgs e)
         {
             GetController().EV_CT_StockAdjustLoad();
         }
 
-        private void EV_MD_StockAdjustLoadEditable(object sender, RoutedEventArgs e)
+        private void EV_MD_PurchaseOrderLoadEditable(object sender, RoutedEventArgs e)
         {
-            GetController().EV_CT_StockAdjustLoadEditable();
-        }*/
+            GetController().EV_CT_PurchaseOrderLoadEditable();
+        }
 
         private Controller.CT_PurchaseOrderMenu GetController()
         {
