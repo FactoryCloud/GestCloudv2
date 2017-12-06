@@ -21,19 +21,16 @@
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
         <Button Name="BT_MovementIncreaseNew" Margin="20" Click="EV_StoredStock_Increase">
-            <TextBlock TextAlignment="Center">Nuevo<LineBreak/>Stock</TextBlock>
+            <TextBlock TextAlignment="Center">Nuevo<LineBreak/>pedido</TextBlock>
         </Button>
-        <Button Name="BT_StoredStockReduceNew" Grid.Column="1" Margin="20" Click="EV_StoredStock_Reduce">
-            <TextBlock TextAlignment="Center">Modificar<LineBreak/>Stock</TextBlock>
-        </Button>
-        <Button Name="BT_MovementEdit" Grid.Row="1" Margin="20" IsEnabled="False" Click="EV_StoredStock_Edit">
+        <Button Name="BT_MovementEdit" Grid.Column="1" Margin="20" IsEnabled="False" Click="EV_StoredStock_Edit">
             <TextBlock TextAlignment="Center">Editar<LineBreak/>Línea</TextBlock>
         </Button>
-        <Button Name="BT_MovementDelete" Grid.Column="1" Grid.Row="1" Margin="20" IsEnabled="False" Click="EV_StoredStock_Remove">
+        <Button Name="BT_MovementDelete" Grid.Row="1" Margin="20" IsEnabled="False" Click="EV_StoredStock_Remove">
             <TextBlock TextAlignment="Center">Eliminar<LineBreak/>Línea</TextBlock>
         </Button>
         <Button Name="BT_StockAdjustSave" Grid.Column="1" Grid.Row="4" Margin="20" Click="EV_StockAdjustSave" IsEnabled="False">
-            <TextBlock TextAlignment="Center">Guardar Ajuste<LineBreak/>de Stock</TextBlock>
+            <TextBlock TextAlignment="Center">Guardar pedido</TextBlock>
         </Button>
     </Grid>
 </Page>

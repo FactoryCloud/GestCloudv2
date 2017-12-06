@@ -24,7 +24,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
         {
             InitializeComponent();
 
-            if(GetController().movementSelected != null)
+            if (GetController().movementSelected != null)
             {
                 BT_MovementDelete.IsEnabled = true;
                 if (GetController().movementSelected.documentType == null)

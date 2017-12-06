@@ -45,11 +45,11 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderMenu.Controlle
             ChangeController();
         }
 
-        /*public void EV_CT_StockAdjustLoadEditable()
+        public void EV_CT_PurchaseOrderLoadEditable()
         {
             Information["controller"] = 3;
             ChangeController();
-        }*/
+        }
 
         public void CT_Main()
         {
@@ -100,16 +100,16 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderMenu.Controlle
                     b.MainFrame.Content = new PurchaseOrderItem.PurchaseOrderItem_New.Controller.CT_POR_Item_New();
                     break;
 
-            /*    case 2:
+                case 2:
                     Main.View.MainWindow c = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
-                    c.MainFrame.Content = new Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_Load.Controller.CT_STA_Item_Load(stockAdjust, 0);
+                    c.MainFrame.Content = new PurchaseOrderItem.PurchaseOrderItem_Load.Controller.CT_POR_Item_Load(purchaseOrder,0);
                     break;
 
                 case 3:
                     Main.View.MainWindow d = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
-                    d.MainFrame.Content = new Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_Load.Controller.CT_STA_Item_Load(stockAdjust, 1);
+                    d.MainFrame.Content = new PurchaseOrderItem.PurchaseOrderItem_Load.Controller.CT_POR_Item_Load(purchaseOrder, 1);
                     break;
-            */
+            
             }
 
         }

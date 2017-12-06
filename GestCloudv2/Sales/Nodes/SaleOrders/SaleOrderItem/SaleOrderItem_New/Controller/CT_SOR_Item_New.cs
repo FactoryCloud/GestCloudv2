@@ -215,7 +215,7 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_New.Con
 
                 if (movement.store == null)
                 {
-                    movement.DocumentTypeID = db.DocumentTypes.Where(c => c.Name == "Order" && c.Input == 1).First().DocumentTypeID;
+                    movement.DocumentTypeID = db.DocumentTypes.Where(c => c.Name == "Order" && c.Input == 0).First().DocumentTypeID;
                     movement.StoreID = store.StoreID;
                 }
 

@@ -125,13 +125,13 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
         {
             View.FW_POR_Item_New_ReduceStock floatWindow = new View.FW_POR_Item_New_ReduceStock(1, movementsView.movements);
             floatWindow.Show();
-        }
+        }*/
 
         public void MD_StoredStock_Increase()
         {
             View.FW_POR_Item_New_IncreaseStock floatWindow = new View.FW_POR_Item_New_IncreaseStock(1, movementsView.movements);
             floatWindow.Show();
-        }*/
+        }
 
         public void MD_StoredStock_Remove()
         {
@@ -213,6 +213,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
         public void SaveNewStockAdjust()
         {
             purchaseOrder.CompanyID = ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID;
+            purchaseOrder.ProviderID = provider.ProviderID;
             db.PurchaseOrders.Add(purchaseOrder);
             db.SaveChanges();
 
@@ -223,8 +224,20 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
                 movement.condition = null;
                 movement.ProductID = movement.product.ProductID;
                 movement.product = null;
-                movement.DocumentTypeID = db.DocumentTypes.Where(c => c.Name == "PurchaseOrder" && c.Input == 1).First().DocumentTypeID;
-                movement.StoreID = store.StoreID;
+
+                if (movement.store == null)
+                {
+                    movement.DocumentTypeID = db.DocumentTypes.Where(c => c.Name == "Order" && c.Input == 1).First().DocumentTypeID;
+                    movement.StoreID = store.StoreID;
+                }
+
+                else
+                {
+                    movement.DocumentTypeID = movement.documentType.DocumentTypeID;
+                    movement.documentType = null;
+                    if (movement.Quantity < 0)
+                        movement.Quantity = movement.Quantity * -1;
+                }
 
                 movement.DocumentID = purchaseOrder.PurchaseOrderID;
                 db.Movements.Add(movement);

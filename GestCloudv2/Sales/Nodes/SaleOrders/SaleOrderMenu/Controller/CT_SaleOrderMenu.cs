@@ -45,11 +45,11 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderMenu.Controller
             ChangeController();
         }
 
-        /*public void EV_CT_StockAdjustLoadEditable()
+        public void EV_CT_SaleOrderLoadEditable()
         {
             Information["controller"] = 3;
             ChangeController();
-        }*/
+        }
 
         public void CT_Main()
         {
@@ -105,11 +105,11 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderMenu.Controller
                     c.MainFrame.Content = new Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_Load.Controller.CT_SOR_Item_Load(saleOrder, 0);
                     break;
 
-            /*    case 3:
+                case 3:
                     Main.View.MainWindow d = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
-                    d.MainFrame.Content = new Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_Load.Controller.CT_STA_Item_Load(stockAdjust, 1);
+                    d.MainFrame.Content = new Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_Load.Controller.CT_SOR_Item_Load(saleOrder, 1);
                     break;
-            */
+            
             }
 
         }

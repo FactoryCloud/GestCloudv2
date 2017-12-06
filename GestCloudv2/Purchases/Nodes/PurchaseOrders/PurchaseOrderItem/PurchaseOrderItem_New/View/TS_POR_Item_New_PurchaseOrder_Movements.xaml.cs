@@ -24,7 +24,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
         {
             InitializeComponent();
 
-            /*if(GetController().movementSelected != null)
+            if(GetController().movementSelected != null)
             {
                 BT_MovementDelete.IsEnabled = true;
                 if (GetController().movementSelected.documentType == null)
@@ -36,27 +36,12 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
             if (GetController().movementsView.movements.Count > 0)
             {
                 BT_StockAdjustSave.IsEnabled = true;
-            }*/
-        }
-
-        /*private void EV_StoredStock_Reduce(object sender, RoutedEventArgs e)
-        {
-            GetController().MD_StoredStock_Reduce();
+            }
         }
 
         private void EV_StoredStock_Increase(object sender, RoutedEventArgs e)
         {
             GetController().MD_StoredStock_Increase();
-        }
-
-        private void EV_StoredStock_Edit(object sender, RoutedEventArgs e)
-        {
-            GetController().MD_StoredStock_Edit();
-        }*/
-
-        private void EV_StoredStock_Remove(object sender, RoutedEventArgs e)
-        {
-            GetController().MD_StoredStock_Remove();
         }
 
         private void EV_StockAdjustSave(object sender, RoutedEventArgs e)
