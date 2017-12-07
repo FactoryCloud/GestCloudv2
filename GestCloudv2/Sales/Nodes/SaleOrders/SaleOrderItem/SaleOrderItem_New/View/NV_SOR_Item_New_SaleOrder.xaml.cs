@@ -75,6 +75,17 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_New.Vie
                     temp.Click += new RoutedEventHandler(EV_MD_Submenu);
                     GR_Submenu.Children.Add(temp);
                 }
+
+                Button subtitle = new Button
+                {
+                    VerticalContentAlignment = VerticalAlignment.Center,
+                    Margin = new Thickness(20)
+                };
+                Grid.SetColumn(subtitle, 5);
+                subtitle.Content = GetController().CT_Submenu.Name;
+                subtitle.IsEnabled = false;
+                GR_Submenu.Children.Add(subtitle);
+
                 GR_Navigation.Children.Add(GR_Submenu);
             }
         }

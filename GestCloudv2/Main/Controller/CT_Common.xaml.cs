@@ -130,6 +130,14 @@ namespace GestCloudv2.Main.Controller
             Information["oldmode"] = Information["mode"];
             Information["mode"] = i;
 
+            if (Information["submenu"] == 1)
+            {
+                Information["submenu"] = 0;
+                Information["submode"] = 0;
+                TopSide.Content = NV_Page;
+            }
+                
+
             if (Information["externalActivated"] == 1)
                 EV_SubcontentClear(i);
 

@@ -19,8 +19,6 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
         public Store store;
         public Provider provider;
 
-        public Model.CT_Submenu CT_Submenu;
-
         public CT_POR_Item_New()
         {
             provider = new Provider();

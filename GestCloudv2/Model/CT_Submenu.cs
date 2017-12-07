@@ -14,6 +14,7 @@ namespace GestCloudv2.Model
         public List<SubmenuItem> items;
         public int buttons;
         public CT_Common Subcontroller;
+        public string Name;
 
         public CT_Submenu(object Component, int option)
         {
@@ -23,12 +24,14 @@ namespace GestCloudv2.Model
                     Subcontroller = new Files.Nodes.Stores.StoreItem.StoreItem_Load.Controller.CT_STR_Item_Load((Store)Component, 0, 1);
                     items = new SubmenuItems().GetSubmenuItems(option);
                     buttons = items.Count;
+                    Name = "Almacén";
                     break;
 
                 case 6:
                     Subcontroller = new Files.Nodes.Clients.ClientItem.ClientItem_Load.Controller.CT_CLI_Item_Load((Client)Component, 0, 1);
                     items = new SubmenuItems().GetSubmenuItems(option);
                     buttons = items.Count;
+                    Name = "Cliente";
                     break;
             }
         }
