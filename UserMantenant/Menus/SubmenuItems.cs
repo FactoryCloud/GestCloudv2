@@ -45,6 +45,23 @@ namespace FrameworkView.V1
                             Option = 2
                         }
                     };
+
+                case 7:
+                    return new List<SubmenuItem>
+                    {
+                        new SubmenuItem
+                        {
+                            Name = "BT_Provider",
+                            Content = "Datos Proveedor",
+                            Option = 1
+                        },
+                        new SubmenuItem
+                        {
+                            Name = "BT_Entity",
+                            Content = "Datos Personales",
+                            Option = 2
+                        }
+                    };
             }
 
             return null;

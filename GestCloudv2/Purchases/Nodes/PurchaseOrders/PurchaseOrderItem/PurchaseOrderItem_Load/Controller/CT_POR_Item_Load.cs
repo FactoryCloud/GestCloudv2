@@ -68,6 +68,23 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
             UpdateComponents();
         }
 
+        public override void SetSubmenu(int option)
+        {
+            switch (option)
+            {
+                case 4:
+                    CT_Submenu = new Model.CT_Submenu(store, option);
+                    break;
+
+                case 7:
+                    CT_Submenu = new Model.CT_Submenu(purchaseOrder.provider, option);
+                    break;
+            }
+
+            NV_Page = new View.NV_POR_Item_Load_PurchaseOrder();
+            TopSide.Content = NV_Page;
+        }
+
         public List<Company> GetCompanies()
         {
             return db.Companies.ToList();

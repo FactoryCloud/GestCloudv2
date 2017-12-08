@@ -25,16 +25,27 @@ namespace GestCloudv2.Files.Nodes.Providers.ProviderItem.ProviderItem_Load.View
     /// </summary>
     public partial class MC_PRO_Item_Load_Entity_Loaded : Files.Nodes.Entities.View.MC_Entity_Loaded
     {
-        public MC_PRO_Item_Load_Entity_Loaded()
+        int external;
+        public MC_PRO_Item_Load_Entity_Loaded(int external)
         {
-
+            this.external = external;
         }
 
         override public Main.Controller.CT_Common GetController()
         {
-            Window mainWindow = Application.Current.MainWindow;
-            var a = (Main.View.MainWindow)mainWindow;
-            return (ProviderItem_Load.Controller.CT_PRO_Item_Load)a.MainFrame.Content;
+            if (external == 0)
+            {
+                Window mainWindow = Application.Current.MainWindow;
+                var a = (Main.View.MainWindow)mainWindow;
+                return (Controller.CT_PRO_Item_Load)a.MainFrame.Content;
+            }
+
+            else
+            {
+                Window mainWindow = Application.Current.MainWindow;
+                var a = ((Main.Controller.CT_Common)((Main.View.MainWindow)mainWindow).MainFrame.Content);
+                return (Controller.CT_PRO_Item_Load)a.CT_Submenu.Subcontroller;
+            }
         }
     }
 }

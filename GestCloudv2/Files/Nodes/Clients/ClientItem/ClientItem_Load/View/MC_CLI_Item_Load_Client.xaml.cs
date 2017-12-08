@@ -21,9 +21,13 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_Load.View
     /// </summary>
     public partial class MC_CLI_Item_Load_Client : Page
     {
-        public MC_CLI_Item_Load_Client()
+        int external;
+
+        public MC_CLI_Item_Load_Client(int external)
         {
             InitializeComponent();
+
+            this.external = external;
 
             this.Loaded += new RoutedEventHandler(EV_Start);
             TB_ClientCod.KeyUp += new KeyEventHandler(EV_ClientCod);
@@ -126,9 +130,19 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_Load.View
 
         private Controller.CT_CLI_Item_Load GetController()
         {
-            Window mainWindow = Application.Current.MainWindow;
-            var a = (Main.View.MainWindow)mainWindow;
-            return (Controller.CT_CLI_Item_Load)a.MainFrame.Content;
+            if (external == 0)
+            {
+                Window mainWindow = Application.Current.MainWindow;
+                var a = (Main.View.MainWindow)mainWindow;
+                return (Controller.CT_CLI_Item_Load)a.MainFrame.Content;
+            }
+
+            else
+            {
+                Window mainWindow = Application.Current.MainWindow;
+                var a = ((Main.Controller.CT_Common)((Main.View.MainWindow)mainWindow).MainFrame.Content);
+                return (Controller.CT_CLI_Item_Load)a.CT_Submenu.Subcontroller;
+            }
         }
     }
 }

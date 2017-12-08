@@ -20,9 +20,11 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_Load.View
     /// </summary>
     public partial class TS_CLI_Item_Load : Page
     {
-        public TS_CLI_Item_Load(int num)
+        int external;
+        public TS_CLI_Item_Load(int num, int external)
         {
             InitializeComponent();
+            this.external = external;
         }
 
         private void EV_ClientSave(object sender, RoutedEventArgs e)
@@ -32,9 +34,19 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_Load.View
 
         private Controller.CT_CLI_Item_Load GetController()
         {
-            Window mainWindow = Application.Current.MainWindow;
-            var a = (Main.View.MainWindow)mainWindow;
-            return (Controller.CT_CLI_Item_Load)a.MainFrame.Content;
+            if (external == 0)
+            {
+                Window mainWindow = Application.Current.MainWindow;
+                var a = (Main.View.MainWindow)mainWindow;
+                return (Controller.CT_CLI_Item_Load)a.MainFrame.Content;
+            }
+
+            else
+            {
+                Window mainWindow = Application.Current.MainWindow;
+                var a = ((Main.Controller.CT_Common)((Main.View.MainWindow)mainWindow).MainFrame.Content);
+                return (Controller.CT_CLI_Item_Load)a.CT_Submenu.Subcontroller;
+            }
         }
     }
 }

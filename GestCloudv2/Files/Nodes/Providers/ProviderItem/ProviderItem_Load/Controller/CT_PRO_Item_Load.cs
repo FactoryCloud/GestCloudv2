@@ -31,6 +31,17 @@ namespace GestCloudv2.Files.Nodes.Providers.ProviderItem.ProviderItem_Load.Contr
             Information.Add("editable", editable);
             Information.Add("old_editable", 0);
             Information.Add("minimalInformation", 0);
+            Information.Add("external", 0);
+            this.provider = provider;
+            Information["entityValid"] = 1;
+        }
+
+        public CT_PRO_Item_Load(Provider provider, int editable, int external) : base(external)
+        {
+            Information.Add("editable", editable);
+            Information.Add("old_editable", 0);
+            Information.Add("minimalInformation", 0);
+            Information.Add("external", 1);
             this.provider = provider;
             Information["entityValid"] = 1;
         }
@@ -104,7 +115,7 @@ namespace GestCloudv2.Files.Nodes.Providers.ProviderItem.ProviderItem_Load.Contr
             }
             if (Information["editable"] != 0)
             {
-                TS_Page = new View.TS_PRO_Item_Load_Editable(Information["minimalInformation"]);
+                TS_Page = new View.TS_PRO_Item_Load_Editable(Information["minimalInformation"], Information["external"]);
                 LeftSide.Content = TS_Page;
             }
         }
@@ -166,12 +177,12 @@ namespace GestCloudv2.Files.Nodes.Providers.ProviderItem.ProviderItem_Load.Contr
                     break;
 
                 case 1:
-                    NV_Page = new View.NV_PRO_Item_Load();
+                    NV_Page = new View.NV_PRO_Item_Load(Information["external"]);
                     if(Information["editable"] == 0)
-                        TS_Page = new View.TS_PRO_Item_Load(Information["minimalInformation"]);
+                        TS_Page = new View.TS_PRO_Item_Load(Information["minimalInformation"], Information["external"]);
                     else
-                        TS_Page = new View.TS_PRO_Item_Load_Editable(Information["minimalInformation"]);
-                    MC_Page = new View.MC_PRO_Item_Load_Provider();
+                        TS_Page = new View.TS_PRO_Item_Load_Editable(Information["minimalInformation"], Information["external"]);
+                    MC_Page = new View.MC_PRO_Item_Load_Provider(Information["external"]);
                     ChangeComponents();
                     break;
 
@@ -185,30 +196,30 @@ namespace GestCloudv2.Files.Nodes.Providers.ProviderItem.ProviderItem_Load.Contr
 
                     else
                     {
-                        NV_Page = new View.NV_PRO_Item_Load();
-                        TS_Page = new View.TS_PRO_Item_Load_Editable(Information["minimalInformation"]);
+                        NV_Page = new View.NV_PRO_Item_Load(Information["external"]);
+                        TS_Page = new View.TS_PRO_Item_Load_Editable(Information["minimalInformation"], Information["external"]);
                         MC_Page = new View.MC_PRO_Item_Load_Entity_Select();
                     }
                     ChangeComponents();
                     break;
 
                 case 3:
-                    NV_Page = new View.NV_PRO_Item_Load();
+                    NV_Page = new View.NV_PRO_Item_Load(Information["external"]);
                     if (Information["editable"] == 0)
-                        TS_Page = new View.TS_PRO_Item_Load(Information["minimalInformation"]);
+                        TS_Page = new View.TS_PRO_Item_Load(Information["minimalInformation"], Information["external"]);
                     else
-                        TS_Page = new View.TS_PRO_Item_Load_Editable(Information["minimalInformation"]);
+                        TS_Page = new View.TS_PRO_Item_Load_Editable(Information["minimalInformation"], Information["external"]);
                     MC_Page = new View.MC_PRO_Item_Load_Entity_Edit();
                     ChangeComponents();
                     break;
 
                 case 4:
-                    NV_Page = new View.NV_PRO_Item_Load();
+                    NV_Page = new View.NV_PRO_Item_Load(Information["external"]);
                     if (Information["editable"] == 0)
-                        TS_Page = new View.TS_PRO_Item_Load(Information["minimalInformation"]);
+                        TS_Page = new View.TS_PRO_Item_Load(Information["minimalInformation"], Information["external"]);
                     else
-                        TS_Page = new View.TS_PRO_Item_Load_Editable(Information["minimalInformation"]);
-                    MC_Page = new View.MC_PRO_Item_Load_Entity_Loaded();
+                        TS_Page = new View.TS_PRO_Item_Load_Editable(Information["minimalInformation"], Information["external"]);
+                    MC_Page = new View.MC_PRO_Item_Load_Entity_Loaded(Information["external"]);
                     ChangeComponents();
                     break;
             }

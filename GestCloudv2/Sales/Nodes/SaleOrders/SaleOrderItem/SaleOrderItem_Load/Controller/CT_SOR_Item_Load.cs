@@ -68,6 +68,23 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_Load.Co
             UpdateComponents();
         }
 
+        public override void SetSubmenu(int option)
+        {
+            switch (option)
+            {
+                case 4:
+                    CT_Submenu = new Model.CT_Submenu(store, option);
+                    break;
+
+                case 6:
+                    CT_Submenu = new Model.CT_Submenu(saleOrder.client, option);
+                    break;
+            }
+
+            NV_Page = new View.NV_SOR_Item_Load_SaleOrder();
+            TopSide.Content = NV_Page;
+        }
+
         public List<Company> GetCompanies()
         {
             return db.Companies.ToList();

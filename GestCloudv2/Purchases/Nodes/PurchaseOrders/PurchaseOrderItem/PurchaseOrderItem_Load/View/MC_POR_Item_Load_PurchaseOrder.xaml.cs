@@ -32,6 +32,16 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
             DP_Date.KeyDown += new KeyEventHandler(EV_Cancel);
             DP_Date.KeyUp += new KeyEventHandler(EV_Cancel);
 
+            GR_Provider.MouseEnter += new MouseEventHandler(EV_MouseChange);
+            GR_Provider.MouseLeave += new MouseEventHandler(EV_MouseChange);
+            GR_Provider.MouseLeftButtonUp += new MouseButtonEventHandler(EV_MouseClick);
+
+            GR_Store.MouseEnter += new MouseEventHandler(EV_MouseChange);
+            GR_Store.MouseLeave += new MouseEventHandler(EV_MouseChange);
+            GR_Store.MouseLeftButtonUp += new MouseButtonEventHandler(EV_MouseClick);
+
+            SetSelected();
+
         }
 
         private void EV_Start(object sender, RoutedEventArgs e)
@@ -53,9 +63,9 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
                 TB_StoreCode.TextAlignment = TextAlignment.Center;
                 TB_StoreCode.Margin = margin;
                 Grid.SetColumn(TB_StoreCode, 2);
-                Grid.SetRow(TB_StoreCode, 4);
+                Grid.SetRow(TB_StoreCode, 3);
 
-                GR_Main.Children.Add(TB_StoreCode);
+                GR_Store.Children.Add(TB_StoreCode);
 
                 CB_Stores.Visibility = Visibility.Hidden;
 
@@ -68,7 +78,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
                 Grid.SetColumn(TB_DateStockAdjust, 2);
                 Grid.SetRow(TB_DateStockAdjust, 1);
 
-                GR_Main.Children.Add(TB_DateStockAdjust);
+                GR_Date.Children.Add(TB_DateStockAdjust);
 
                 DP_Date.Visibility = Visibility.Hidden;
 
@@ -91,35 +101,75 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
                 TB_StoreCode.TextAlignment = TextAlignment.Center;
                 TB_StoreCode.Margin = margin;
                 Grid.SetColumn(TB_StoreCode, 2);
-                Grid.SetRow(TB_StoreCode, 4);
+                Grid.SetRow(TB_StoreCode, 3);
 
-                GR_Main.Children.Add(TB_StoreCode);
+                GR_Store.Children.Add(TB_StoreCode);
 
                 CB_Stores.Visibility = Visibility.Hidden;
-
-                /*foreach (var stors in stores)
-                {
-                    if (stors.StoreID != GetController().store.StoreID)
-                        nums.Add(Convert.ToInt16(stors.Code));
-                }
-
-                foreach (Store st in stores)
-                {
-                    ComboBoxItem temp = new ComboBoxItem();
-                    temp.Content = $"{st.Code} - {st.Name}";
-                    temp.Name = $"store{st.StoreID}";
-                    CB_Stores.Items.Add(temp);
-                }
-
-                foreach (ComboBoxItem item in CB_Stores.Items)
-                {
-                    if (item.Content.ToString() == $"{GetController().store.Code}")
-                    {
-                        CB_Stores.SelectedValue = item;
-                        break;
-                    }
-                }*/
             }
+        }
+
+        private void SetTransparentAll()
+        {
+            GR_Store.Background = new SolidColorBrush(Colors.Transparent);
+            GR_Provider.Background = new SolidColorBrush(Colors.Transparent);
+        }
+
+        private void SetSelected()
+        {
+            switch (GetController().Information["submode"])
+            {
+                case 4:
+                    GR_Store.Background = new SolidColorBrush(Colors.Green);
+                    break;
+
+                case 7:
+                    GR_Provider.Background = new SolidColorBrush(Colors.Green);
+                    break;
+            }
+        }
+
+        private void EV_MouseChange(object sender, RoutedEventArgs e)
+        {
+            SetTransparentAll();
+            if (GetController().purchaseOrder.provider.ProviderID > 0)
+            {
+                if (GR_Provider.IsMouseOver)
+                {
+                    GR_Provider.Background = new SolidColorBrush(Colors.Red);
+                }
+            }
+
+            if (GetController().store.StoreID > 0)
+            {
+                if (GR_Store.IsMouseOver)
+                {
+                    GR_Store.Background = new SolidColorBrush(Colors.Red);
+                }
+            }
+            SetSelected();
+        }
+
+        private void EV_MouseClick(object sender, RoutedEventArgs e)
+        {
+
+            if (GetController().purchaseOrder.provider.ProviderID > 0)
+            {
+                if (GR_Provider.IsMouseOver)
+                {
+                    GetController().EV_UpdateSubMenu(7);
+                }
+            }
+
+            if (GetController().store.StoreID > 0)
+            {
+                if (GR_Store.IsMouseOver)
+                {
+                    GetController().EV_UpdateSubMenu(4);
+                }
+            }
+            SetTransparentAll();
+            SetSelected();
         }
 
         private void EV_Cancel(object sender, KeyEventArgs e)

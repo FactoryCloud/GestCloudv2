@@ -33,6 +33,13 @@ namespace GestCloudv2.Model
                     buttons = items.Count;
                     Name = "Cliente";
                     break;
+
+                case 7:
+                    Subcontroller = new Files.Nodes.Providers.ProviderItem.ProviderItem_Load.Controller.CT_PRO_Item_Load((Provider)Component, 0, 1);
+                    items = new SubmenuItems().GetSubmenuItems(option);
+                    buttons = items.Count;
+                    Name = "Proveedor";
+                    break;
             }
         }
     }

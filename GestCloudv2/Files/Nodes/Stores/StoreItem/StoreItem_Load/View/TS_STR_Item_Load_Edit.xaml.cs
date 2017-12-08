@@ -20,9 +20,12 @@ namespace GestCloudv2.Files.Nodes.Stores.StoreItem.StoreItem_Load.View
     /// </summary>
     public partial class TS_STR_Item_Load_Edit : Page
     {
-        public TS_STR_Item_Load_Edit(int num)
+        int external;
+        public TS_STR_Item_Load_Edit(int num, int external)
         {
             InitializeComponent();
+
+            this.external = external;
 
             if(num >= 1)
             {
@@ -37,9 +40,19 @@ namespace GestCloudv2.Files.Nodes.Stores.StoreItem.StoreItem_Load.View
 
         private Controller.CT_STR_Item_Load GetController()
         {
-            Window mainWindow = Application.Current.MainWindow;
-            var a = (Main.View.MainWindow)mainWindow;
-            return (Controller.CT_STR_Item_Load)a.MainFrame.Content;
+            if (external == 0)
+            {
+                Window mainWindow = Application.Current.MainWindow;
+                var a = (Main.View.MainWindow)mainWindow;
+                return (Controller.CT_STR_Item_Load)a.MainFrame.Content;
+            }
+
+            else
+            {
+                Window mainWindow = Application.Current.MainWindow;
+                var a = ((Main.Controller.CT_Common)((Main.View.MainWindow)mainWindow).MainFrame.Content);
+                return (Controller.CT_STR_Item_Load)a.CT_Submenu.Subcontroller;
+            }
         }
     }
 }

@@ -36,6 +36,11 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
             DP_Date.KeyDown += new KeyEventHandler(EV_Cancel);
             DP_Date.KeyUp += new KeyEventHandler(EV_Cancel);
 
+            GR_Store.MouseEnter += new MouseEventHandler(EV_MouseChange);
+            GR_Store.MouseLeave += new MouseEventHandler(EV_MouseChange);
+            GR_Store.MouseLeftButtonUp += new MouseButtonEventHandler(EV_MouseClick);
+
+            SetSelected();
         }
 
         private void EV_Start(object sender, RoutedEventArgs e)
@@ -51,6 +56,48 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
                 CB_Stores.Items.Add(temp);
             }
             CB_Stores.SelectedIndex = 0;
+        }
+
+        private void SetTransparentAll()
+        {
+            GR_Store.Background = new SolidColorBrush(Colors.Transparent);
+        }
+
+        private void SetSelected()
+        {
+            switch (GetController().Information["submode"])
+            {
+                case 4:
+                    GR_Store.Background = new SolidColorBrush(Colors.Green);
+                    break;
+            }
+        }
+
+        private void EV_MouseChange(object sender, RoutedEventArgs e)
+        {
+            SetTransparentAll();
+
+            if (GetController().store.StoreID > 0)
+            {
+                if (GR_Store.IsMouseOver)
+                {
+                    GR_Store.Background = new SolidColorBrush(Colors.Red);
+                }
+            }
+            SetSelected();
+        }
+
+        private void EV_MouseClick(object sender, RoutedEventArgs e)
+        {
+            if (GetController().store.StoreID > 0)
+            {
+                if (GR_Store.IsMouseOver)
+                {
+                    GetController().EV_UpdateSubMenu(4);
+                }
+            }
+            SetTransparentAll();
+            SetSelected();
         }
 
         private void EV_StockCode(object sender, RoutedEventArgs e)

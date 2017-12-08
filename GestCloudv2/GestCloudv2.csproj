@@ -349,9 +349,6 @@
     <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_New\View\MC_POR_Item_New_PurchaseOrder_Movements.xaml.cs">
       <DependentUpon>MC_POR_Item_New_PurchaseOrder_Movements.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_New\View\NV_POR_Item_New_PurchaseOrder_Submenu.xaml.cs">
-      <DependentUpon>NV_POR_Item_New_PurchaseOrder_Submenu.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_New\View\NV_POR_Item_New_PurchaseOrder.xaml.cs">
       <DependentUpon>NV_POR_Item_New_PurchaseOrder.xaml</DependentUpon>
     </Compile>
@@ -541,18 +538,6 @@
       <DependentUpon>TS_Main.xaml</DependentUpon>
     </Compile>
     <Compile Include="Stocks\Controller\CT_Stocks.cs" />
-    <Compile Include="Stocks\Nodes\StockAdjusts\StockAdjustItem\AddStock\AddStock_Controller.xaml.cs">
-      <DependentUpon>AddStock_Controller.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Stocks\Nodes\StockAdjusts\StockAdjustItem\AddStock\MainAddStock\AddStock_MainContent.xaml.cs">
-      <DependentUpon>AddStock_MainContent.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Stocks\Nodes\StockAdjusts\StockAdjustItem\AddStock\MainAddStock\AddStock_Navigation.xaml.cs">
-      <DependentUpon>AddStock_Navigation.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Stocks\Nodes\StockAdjusts\StockAdjustItem\AddStock\MainAddStock\AddStock_ToolSide.xaml.cs">
-      <DependentUpon>AddStock_ToolSide.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Stocks\Nodes\StockAdjusts\StockAdjustItem\StockAdjustItem_Load\Controller\CT_STA_Item_Load.cs">
       <Generator>MSBuild:Compile</Generator>
     </Compile>
@@ -824,10 +809,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_New\View\NV_POR_Item_New_PurchaseOrder_Submenu.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_New\View\NV_POR_Item_New_PurchaseOrder.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1031,22 +1012,6 @@
     <Page Include="Main\View\TS_Main.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Stocks\Nodes\StockAdjusts\StockAdjustItem\AddStock\AddStock_Controller.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Stocks\Nodes\StockAdjusts\StockAdjustItem\AddStock\MainAddStock\AddStock_MainContent.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Stocks\Nodes\StockAdjusts\StockAdjustItem\AddStock\MainAddStock\AddStock_Navigation.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Stocks\Nodes\StockAdjusts\StockAdjustItem\AddStock\MainAddStock\AddStock_ToolSide.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Stocks\Nodes\StockAdjusts\StockAdjustItem\StockAdjustItem_Load\View\MC_STA_Item_Load_StockAdjust.xaml">
       <Generator>MSBuild:Compile</Generator>

@@ -42,6 +42,19 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
             UpdateComponents();
         }
 
+        public override void SetSubmenu(int option)
+        {
+            switch (option)
+            {
+                case 4:
+                    CT_Submenu = new Model.CT_Submenu(store, option);
+                    break;
+            }
+
+            NV_Page = new View.NV_STA_Item_New_StockAdjust();
+            TopSide.Content = NV_Page;
+        }
+
         public List<Company> GetCompanies()
         {
             return db.Companies.ToList();

@@ -90,7 +90,36 @@ namespace GestCloudv2.Main.Controller
             Information["entityLoaded"] = 1;
         }
 
+        public void EV_UpdateSubMenu(int num)
+        {
+            if (num == 0)
+            {
+                Information["submenu"] = 0;
+                Information["submode"] = 0;
+                CT_Submenu = null;
+            }
+
+            else
+            {
+                Information["submenu"] = 1;
+                Information["submode"] = num;
+                SetSubmenu(num);
+            }
+        }
+
+        public void MD_Submenu(int option)
+        {
+            Information["externalActivated"] = 1;
+            CT_Submenu.Subcontroller.MD_Change(option);
+            FR_Subcontent.Content = CT_Submenu.Subcontroller;
+        }
+
         public virtual void EV_MovementAdd(Movement movement)
+        {
+
+        }
+
+        public virtual void SetSubmenu(int num)
         {
 
         }

@@ -153,9 +153,9 @@ namespace GestCloudv2.Files.Nodes.Stores.StoreItem.StoreItem_Load.Controller
             }
 
             if (Information["editable"] == 0)
-                TS_Page = new View.TS_STR_Item_Load(Information["minimalInformation"]);
+                TS_Page = new View.TS_STR_Item_Load(Information["minimalInformation"], Information["external"]);
             else
-                TS_Page = new View.TS_STR_Item_Load_Edit(Information["minimalInformation"]);
+                TS_Page = new View.TS_STR_Item_Load_Edit(Information["minimalInformation"], Information["external"]);
             LeftSide.Content = TS_Page;
         }
 
@@ -223,9 +223,9 @@ namespace GestCloudv2.Files.Nodes.Stores.StoreItem.StoreItem_Load.Controller
                 case 1:
                     NV_Page = new View.NV_STR_Item_Load();
                     if (Information["editable"] == 0)
-                        TS_Page = new View.TS_STR_Item_Load(Information["minimalInformation"]);
+                        TS_Page = new View.TS_STR_Item_Load(Information["minimalInformation"], Information["external"]);
                     else
-                        TS_Page = new View.TS_STR_Item_Load_Edit(Information["minimalInformation"]);
+                        TS_Page = new View.TS_STR_Item_Load_Edit(Information["minimalInformation"], Information["external"]);
                     MC_Page = new View.MC_STR_Item_Load_Store(Information["external"]);
                     ChangeComponents();
                     break;
@@ -233,9 +233,9 @@ namespace GestCloudv2.Files.Nodes.Stores.StoreItem.StoreItem_Load.Controller
                 case 2:
                     NV_Page = new View.NV_STR_Item_Load();
                     if (Information["editable"] == 0)
-                        TS_Page = new View.TS_STR_Item_Load(Information["minimalInformation"]);
+                        TS_Page = new View.TS_STR_Item_Load(Information["minimalInformation"], Information["external"]);
                     else
-                        TS_Page = new View.TS_STR_Item_Load_Edit(Information["minimalInformation"]);
+                        TS_Page = new View.TS_STR_Item_Load_Edit(Information["minimalInformation"], Information["external"]);
                     MC_Page = new View.MC_STR_Item_Load_Store_Companies(Information["external"]);
                     ChangeComponents();
                     break;

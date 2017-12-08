@@ -32,6 +32,15 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_Load.Vi
             DP_Date.KeyDown += new KeyEventHandler(EV_Cancel);
             DP_Date.KeyUp += new KeyEventHandler(EV_Cancel);
 
+            GR_Client.MouseEnter += new MouseEventHandler(EV_MouseChange);
+            GR_Client.MouseLeave += new MouseEventHandler(EV_MouseChange);
+            GR_Client.MouseLeftButtonUp += new MouseButtonEventHandler(EV_MouseClick);
+
+            GR_Store.MouseEnter += new MouseEventHandler(EV_MouseChange);
+            GR_Store.MouseLeave += new MouseEventHandler(EV_MouseChange);
+            GR_Store.MouseLeftButtonUp += new MouseButtonEventHandler(EV_MouseClick);
+
+            SetSelected();
         }
 
         private void EV_Start(object sender, RoutedEventArgs e)
@@ -44,7 +53,7 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_Load.Vi
             {
                 TB_SaleOrderCode.IsReadOnly = true;
 
-                Thickness margin = new Thickness(20);
+                Thickness margin = new Thickness(10,0,10,0);
 
                 TextBox TB_StoreCode = new TextBox();
                 TB_StoreCode.Name = "TB_StoreCode";
@@ -53,22 +62,22 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_Load.Vi
                 TB_StoreCode.TextAlignment = TextAlignment.Center;
                 TB_StoreCode.Margin = margin;
                 Grid.SetColumn(TB_StoreCode, 2);
-                Grid.SetRow(TB_StoreCode, 4);
+                Grid.SetRow(TB_StoreCode, 3);
 
-                GR_Main.Children.Add(TB_StoreCode);
+                GR_Store.Children.Add(TB_StoreCode);
 
                 CB_Stores.Visibility = Visibility.Hidden;
 
-                TextBox TB_DateStockAdjust = new TextBox();
-                TB_DateStockAdjust.Name = "TB_DateStockAdjust";
-                TB_DateStockAdjust.Text = $"{String.Format("{0:dd/MM/yyyy}",GetController().saleOrder.Date)}";
-                TB_DateStockAdjust.VerticalAlignment = VerticalAlignment.Center;
-                TB_DateStockAdjust.TextAlignment = TextAlignment.Center;
-                TB_DateStockAdjust.Margin = margin;
-                Grid.SetColumn(TB_DateStockAdjust, 2);
-                Grid.SetRow(TB_DateStockAdjust, 1);
+                TextBox TB_Date = new TextBox();
+                TB_Date.Name = "TB_DateStockAdjust";
+                TB_Date.Text = $"{String.Format("{0:dd/MM/yyyy}",GetController().saleOrder.Date)}";
+                TB_Date.VerticalAlignment = VerticalAlignment.Center;
+                TB_Date.TextAlignment = TextAlignment.Center;
+                TB_Date.Margin = margin;
+                Grid.SetColumn(TB_Date, 2);
+                Grid.SetRow(TB_Date, 1);
 
-                GR_Main.Children.Add(TB_DateStockAdjust);
+                GR_Date.Children.Add(TB_Date);
 
                 DP_Date.Visibility = Visibility.Hidden;
 
@@ -78,11 +87,8 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_Load.Vi
             else
             {
                 DP_Date.SelectedDate = Convert.ToDateTime(GetController().saleOrder.Date);
-                List<Store> stores = GetController().GetStores();
-                //CB_Stores.SelectedIndex = Convert.ToInt16(GetController().store.Code);
-                List<int> nums = new List<int>();
 
-                Thickness margin = new Thickness(20);
+                Thickness margin = new Thickness(10,0,10,0);
 
                 TextBox TB_StoreCode = new TextBox();
                 TB_StoreCode.Name = "TB_StoreCode";
@@ -91,35 +97,75 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_Load.Vi
                 TB_StoreCode.TextAlignment = TextAlignment.Center;
                 TB_StoreCode.Margin = margin;
                 Grid.SetColumn(TB_StoreCode, 2);
-                Grid.SetRow(TB_StoreCode, 4);
+                Grid.SetRow(TB_StoreCode, 3);
 
-                GR_Main.Children.Add(TB_StoreCode);
+                GR_Store.Children.Add(TB_StoreCode);
 
                 CB_Stores.Visibility = Visibility.Hidden;
-
-                /*foreach (var stors in stores)
-                {
-                    if (stors.StoreID != GetController().store.StoreID)
-                        nums.Add(Convert.ToInt16(stors.Code));
-                }
-
-                foreach (Store st in stores)
-                {
-                    ComboBoxItem temp = new ComboBoxItem();
-                    temp.Content = $"{st.Code} - {st.Name}";
-                    temp.Name = $"store{st.StoreID}";
-                    CB_Stores.Items.Add(temp);
-                }
-
-                foreach (ComboBoxItem item in CB_Stores.Items)
-                {
-                    if (item.Content.ToString() == $"{GetController().store.Code}")
-                    {
-                        CB_Stores.SelectedValue = item;
-                        break;
-                    }
-                }*/
             }
+        }
+
+        private void SetTransparentAll()
+        {
+            GR_Store.Background = new SolidColorBrush(Colors.Transparent);
+            GR_Client.Background = new SolidColorBrush(Colors.Transparent);
+        }
+
+        private void SetSelected()
+        {
+            switch (GetController().Information["submode"])
+            {
+                case 4:
+                    GR_Store.Background = new SolidColorBrush(Colors.Green);
+                    break;
+
+                case 6:
+                    GR_Client.Background = new SolidColorBrush(Colors.Green);
+                    break;
+            }
+        }
+
+        private void EV_MouseChange(object sender, RoutedEventArgs e)
+        {
+            SetTransparentAll();
+            if (GetController().saleOrder.client.ClientID > 0)
+            {
+                if (GR_Client.IsMouseOver)
+                {
+                    GR_Client.Background = new SolidColorBrush(Colors.Red);
+                }
+            }
+
+            if (GetController().store.StoreID > 0)
+            {
+                if (GR_Store.IsMouseOver)
+                {
+                    GR_Store.Background = new SolidColorBrush(Colors.Red);
+                }
+            }
+            SetSelected();
+        }
+
+        private void EV_MouseClick(object sender, RoutedEventArgs e)
+        {
+
+            if (GetController().saleOrder.client.ClientID > 0)
+            {
+                if (GR_Client.IsMouseOver)
+                {
+                    GetController().EV_UpdateSubMenu(6);
+                }
+            }
+
+            if (GetController().store.StoreID > 0)
+            {
+                if (GR_Store.IsMouseOver)
+                {
+                    GetController().EV_UpdateSubMenu(4);
+                }
+            }
+            SetTransparentAll();
+            SetSelected();
         }
 
         private void EV_Cancel(object sender, KeyEventArgs e)

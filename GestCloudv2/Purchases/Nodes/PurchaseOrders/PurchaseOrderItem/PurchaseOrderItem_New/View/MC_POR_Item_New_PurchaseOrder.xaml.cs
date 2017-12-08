@@ -38,9 +38,13 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
 
             GR_Provider.MouseEnter += new MouseEventHandler(EV_MouseChange);
             GR_Provider.MouseLeave += new MouseEventHandler(EV_MouseChange);
+            GR_Provider.MouseLeftButtonUp += new MouseButtonEventHandler(EV_MouseClick);
 
             GR_Store.MouseEnter += new MouseEventHandler(EV_MouseChange);
             GR_Store.MouseLeave += new MouseEventHandler(EV_MouseChange);
+            GR_Store.MouseLeftButtonUp += new MouseButtonEventHandler(EV_MouseClick);
+
+            SetSelected();
         }
 
         private void EV_Start(object sender, RoutedEventArgs e)
@@ -65,15 +69,34 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
             }
         }
 
+        private void SetTransparentAll()
+        {
+            GR_Store.Background = new SolidColorBrush(Colors.Transparent);
+            GR_Provider.Background = new SolidColorBrush(Colors.Transparent);
+        }
+
+        private void SetSelected()
+        {
+            switch (GetController().Information["submode"])
+            {
+                case 4:
+                    GR_Store.Background = new SolidColorBrush(Colors.Green);
+                    break;
+
+                case 7:
+                    GR_Provider.Background = new SolidColorBrush(Colors.Green);
+                    break;
+            }
+        }
+
         private void EV_MouseChange(object sender, RoutedEventArgs e)
         {
+            SetTransparentAll();
             if (GetController().provider.ProviderID > 0)
             {
                 if (GR_Provider.IsMouseOver)
                 {
-                    GetController().EV_UpdateSubMenu(4);
                     GR_Provider.Background = new SolidColorBrush(Colors.Red);
-                    GR_Store.Background = new SolidColorBrush(Colors.Transparent);
                 }
             }
 
@@ -81,11 +104,32 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
             {
                 if (GR_Store.IsMouseOver)
                 {
-                    GetController().EV_UpdateSubMenu(3);
                     GR_Store.Background = new SolidColorBrush(Colors.Red);
-                    GR_Provider.Background = new SolidColorBrush(Colors.Transparent);
                 }
             }
+            SetSelected();
+        }
+
+        private void EV_MouseClick(object sender, RoutedEventArgs e)
+        {
+
+            if (GetController().provider.ProviderID > 0)
+            {
+                if (GR_Provider.IsMouseOver)
+                {
+                    GetController().EV_UpdateSubMenu(7);
+                }
+            }
+
+            if (GetController().store.StoreID > 0)
+            {
+                if (GR_Store.IsMouseOver)
+                {
+                    GetController().EV_UpdateSubMenu(4);
+                }
+            }
+            SetTransparentAll();
+            SetSelected();
         }
 
         private void EV_OrderCode(object sender, RoutedEventArgs e)

@@ -22,9 +22,12 @@ namespace GestCloudv2.Files.Nodes.Providers.ProviderItem.ProviderItem_Load.View
     /// </summary>
     public partial class NV_PRO_Item_Load : Page
     {
-        public NV_PRO_Item_Load()
+        int external;
+        public NV_PRO_Item_Load(int external)
         {
             InitializeComponent();
+
+            this.external = external;
         }
 
         private void EV_MD_Provider(object sender, RoutedEventArgs e)
@@ -44,9 +47,19 @@ namespace GestCloudv2.Files.Nodes.Providers.ProviderItem.ProviderItem_Load.View
 
         private Controller.CT_PRO_Item_Load GetController()
         {
-            Window mainWindow = Application.Current.MainWindow;
-            var a = (Main.View.MainWindow)mainWindow;
-            return (Controller.CT_PRO_Item_Load)a.MainFrame.Content;
+            if (external == 0)
+            {
+                Window mainWindow = Application.Current.MainWindow;
+                var a = (Main.View.MainWindow)mainWindow;
+                return (Controller.CT_PRO_Item_Load)a.MainFrame.Content;
+            }
+
+            else
+            {
+                Window mainWindow = Application.Current.MainWindow;
+                var a = ((Main.Controller.CT_Common)((Main.View.MainWindow)mainWindow).MainFrame.Content);
+                return (Controller.CT_PRO_Item_Load)a.CT_Submenu.Subcontroller;
+            }
         }
     }
 }
