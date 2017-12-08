@@ -25,9 +25,11 @@ namespace GestCloudv2.Files.Nodes.Providers.ProviderItem.ProviderItem_Load.Contr
     public partial class CT_PRO_Item_Load : Main.Controller.CT_Common
     {
         public Provider provider;
+        public SubmenuItems submenuItems;
 
         public CT_PRO_Item_Load(Provider provider, int editable)
         {
+            submenuItems = new SubmenuItems();
             Information.Add("editable", editable);
             Information.Add("old_editable", 0);
             Information.Add("minimalInformation", 0);
@@ -38,6 +40,7 @@ namespace GestCloudv2.Files.Nodes.Providers.ProviderItem.ProviderItem_Load.Contr
 
         public CT_PRO_Item_Load(Provider provider, int editable, int external) : base(external)
         {
+            submenuItems = new SubmenuItems();
             Information.Add("editable", editable);
             Information.Add("old_editable", 0);
             Information.Add("minimalInformation", 0);

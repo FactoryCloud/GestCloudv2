@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using FrameworkDB.V1;
+using FrameworkView.V1;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
 
@@ -25,9 +26,11 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_New.Controller
     {
         public Client client;
         public int lastClientCod;
+        public SubmenuItems submenuItems;
 
         public CT_CLI_Item_New()
         {
+            submenuItems = new SubmenuItems();
             entity = new Entity();
             client = new Client();
             Information.Add("minimalInformation", 0);

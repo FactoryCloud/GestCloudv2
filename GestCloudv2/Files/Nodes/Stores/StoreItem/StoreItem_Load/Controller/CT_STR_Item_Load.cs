@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using FrameworkDB.V1;
+using FrameworkView.V1;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
 
@@ -25,9 +26,11 @@ namespace GestCloudv2.Files.Nodes.Stores.StoreItem.StoreItem_Load.Controller
     {
         public Store store;
         public List<Company> companies;
+        public SubmenuItems submenuItems;
 
         public CT_STR_Item_Load(Store store, int editable)
         {
+            submenuItems = new SubmenuItems();
             companies = new List<Company>();
             Information.Add("editable", editable);
             Information.Add("old_editable", 0);
@@ -46,6 +49,7 @@ namespace GestCloudv2.Files.Nodes.Stores.StoreItem.StoreItem_Load.Controller
 
         public CT_STR_Item_Load(Store store, int editable, int external):base(external)
         {
+            submenuItems = new SubmenuItems();
             companies = new List<Company>();
             Information.Add("editable", editable);
             Information.Add("old_editable", 0);

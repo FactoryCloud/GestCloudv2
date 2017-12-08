@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using FrameworkDB.V1;
+using FrameworkView.V1;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
 
@@ -25,9 +26,11 @@ namespace GestCloudv2.Files.Nodes.Stores.StoreItem.StoreItem_New.Controller
     {
         public Store store;
         public List<Company> companies;
+        public SubmenuItems submenuItems;
 
         public CT_STR_Item_New()
         {
+            submenuItems = new SubmenuItems();
             companies = new List<Company>();
             store = new Store();
             Information.Add("minimalInformation", 0);

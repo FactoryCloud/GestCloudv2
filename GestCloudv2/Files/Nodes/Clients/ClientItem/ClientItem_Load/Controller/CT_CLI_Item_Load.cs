@@ -25,9 +25,11 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_Load.Controller
     public partial class CT_CLI_Item_Load : Main.Controller.CT_Common
     {
         public Client client;
+        public SubmenuItems submenuItems;
 
         public CT_CLI_Item_Load(Client client, int editable)
         {
+            submenuItems = new SubmenuItems();
             Information.Add("editable", editable);
             Information.Add("old_editable", 0);
             Information.Add("minimalInformation", 0);
@@ -38,6 +40,7 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_Load.Controller
 
         public CT_CLI_Item_Load(Client client, int editable, int external):base(external)
         {
+            submenuItems = new SubmenuItems();
             Information.Add("editable", editable);
             Information.Add("old_editable", 0);
             Information.Add("minimalInformation", 0);

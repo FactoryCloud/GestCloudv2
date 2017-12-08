@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using GestCloudv2;
 using FrameworkDB.V1;
+using FrameworkView.V1;
 
 namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_Load.View
 {
@@ -29,6 +30,36 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_Load.View
             InitializeComponent();
 
             this.external = external;
+            foreach (SubmenuItem item in GetController().submenuItems.GetSubmenuItems(6))
+            {
+                Button temp = new Button
+                {
+                    VerticalContentAlignment = VerticalAlignment.Center,
+                    Margin = new Thickness(20)
+                };
+                Grid.SetColumn(temp, item.Option - 1);
+
+                temp.Content = item.Content;
+                temp.Name = item.Name;
+                temp.Tag = item.Option;
+                temp.Click += new RoutedEventHandler(EV_MD_Submenu);
+                GR_Navigation.Children.Add(temp);
+            }
+
+            Button subtitle = new Button
+            {
+                VerticalContentAlignment = VerticalAlignment.Center,
+                Margin = new Thickness(20)
+            };
+            Grid.SetColumn(subtitle, 5);
+            subtitle.Content = "Volver";
+            subtitle.Click += new RoutedEventHandler(EV_CT_Menu);
+            GR_Navigation.Children.Add(subtitle);
+        }
+
+        private void EV_MD_Submenu(object sender, RoutedEventArgs e)
+        {
+            GetController().MD_Change(Convert.ToInt16(((Button)sender).Tag));
         }
 
         private void EV_MD_Client(object sender, RoutedEventArgs e)

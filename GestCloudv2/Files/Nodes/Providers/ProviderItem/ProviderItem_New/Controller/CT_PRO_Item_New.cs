@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using FrameworkDB.V1;
+using FrameworkView.V1;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
 
@@ -25,9 +26,11 @@ namespace GestCloudv2.Files.Nodes.Providers.ProviderItem.ProviderItem_New.Contro
     {
         public Provider provider;
         public int lastProviderCod;
+        public SubmenuItems submenuItems;
 
         public CT_PRO_Item_New()
         {
+            submenuItems = new SubmenuItems();
             entity = new Entity();
             provider = new Provider();
             Information.Add("minimalInformation", 0);

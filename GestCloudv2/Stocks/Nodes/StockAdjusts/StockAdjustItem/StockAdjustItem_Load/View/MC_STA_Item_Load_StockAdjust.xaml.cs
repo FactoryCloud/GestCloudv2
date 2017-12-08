@@ -82,8 +82,6 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
             {
                 DP_Date.SelectedDate = Convert.ToDateTime(GetController().stockAdjust.Date);
                 List<Store> stores = GetController().GetStores();
-                //CB_Stores.SelectedIndex = Convert.ToInt16(GetController().store.Code);
-                List<int> nums = new List<int>();
 
                 Thickness margin = new Thickness(20);
 
