@@ -225,7 +225,7 @@ namespace GestCloudv2.Files.Nodes.Stores.StoreItem.StoreItem_Load.Controller
                     break;
 
                 case 1:
-                    NV_Page = new View.NV_STR_Item_Load();
+                    NV_Page = new View.NV_STR_Item_Load(Information["external"]);
                     if (Information["editable"] == 0)
                         TS_Page = new View.TS_STR_Item_Load(Information["minimalInformation"], Information["external"]);
                     else
@@ -235,7 +235,7 @@ namespace GestCloudv2.Files.Nodes.Stores.StoreItem.StoreItem_Load.Controller
                     break;
 
                 case 2:
-                    NV_Page = new View.NV_STR_Item_Load();
+                    NV_Page = new View.NV_STR_Item_Load(Information["external"]);
                     if (Information["editable"] == 0)
                         TS_Page = new View.TS_STR_Item_Load(Information["minimalInformation"], Information["external"]);
                     else
