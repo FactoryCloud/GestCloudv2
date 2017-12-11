@@ -24,8 +24,10 @@ namespace GestCloudv2.Main.Controller
         protected Page NV_Page;
         protected Page TS_Page;
         protected Page MC_Page;
+        protected Page SC_Page;
         protected Frame LeftSide;
         protected Frame MainContent;
+        protected Frame RightContent;
         public Entity entity;
         public Model.CT_Submenu CT_Submenu;
 
@@ -188,6 +190,7 @@ namespace GestCloudv2.Main.Controller
         {
             LeftSide = ((CT_Common_Subcontent)FR_Subcontent.Content).LeftSide;
             MainContent = ((CT_Common_Subcontent)FR_Subcontent.Content).MainContent;
+            RightContent = ((CT_Common_Subcontent)FR_Subcontent.Content).RightSide;
             FR_Subcontent.LoadCompleted -= EV_SubcontentLoaded;
             MD_Change(Information["mode"]);
         }
@@ -197,6 +200,7 @@ namespace GestCloudv2.Main.Controller
             TopSide.Content = NV_Page;
             ((CT_Common_Subcontent)FR_Subcontent.Content).LeftSide.Content = TS_Page;
             ((CT_Common_Subcontent)FR_Subcontent.Content).MainContent.Content = MC_Page;
+            ((CT_Common_Subcontent)FR_Subcontent.Content).RightSide.Content = SC_Page;
         }
 
         virtual public void UpdateComponents()
@@ -220,6 +224,7 @@ namespace GestCloudv2.Main.Controller
         {
             LeftSide = ((CT_Common_Subcontent)FR_Subcontent.Content).LeftSide;
             MainContent = ((CT_Common_Subcontent)FR_Subcontent.Content).MainContent;
+            RightContent = ((CT_Common_Subcontent)FR_Subcontent.Content).RightSide;
             EV_Start(sender, e);
         }
 

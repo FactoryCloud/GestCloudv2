@@ -319,6 +319,9 @@
     <Compile Include="Main\Controller\CT_Common_Subcontent.xaml.cs">
       <DependentUpon>CT_Common_Subcontent.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Main\View\SC_Common.xaml.cs">
+      <DependentUpon>SC_Common.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Model\CT_Submenu.cs" />
     <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_Load\Controller\CT_POR_Item_Load.cs">
       <Generator>MSBuild:Compile</Generator>
@@ -380,6 +383,7 @@
       <DependentUpon>TS_SOR_Item_Load_SaleOrder_Movements.xaml</DependentUpon>
     </Compile>
     <Compile Include="Sales\Nodes\SaleOrders\SaleOrderItem\SaleOrderItem_New\Controller\CT_SOR_Item_New.cs" />
+    <Compile Include="Sales\Nodes\SaleOrders\SaleOrderItem\SaleOrderItem_New\View\SC_SOR_Item_New_IncreaseStock.cs" />
     <Compile Include="Sales\Nodes\SaleOrders\SaleOrderItem\SaleOrderItem_New\View\FW_SOR_Item_New_SelectClient.cs" />
     <Compile Include="Sales\Nodes\SaleOrders\SaleOrderItem\SaleOrderItem_New\View\FW_SOR_Item_New_IncreaseStock.cs" />
     <Compile Include="Sales\Nodes\SaleOrders\SaleOrderItem\SaleOrderItem_New\View\MC_SOR_Item_New_SaleOrder.xaml.cs">
@@ -778,6 +782,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Main\Controller\CT_Common_Subcontent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Main\View\SC_Common.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

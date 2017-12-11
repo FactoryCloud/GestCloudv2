@@ -270,6 +270,7 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_New.Con
                     NV_Page = new View.NV_SOR_Item_New_SaleOrder();
                     TS_Page = new View.TS_SOR_Item_New_SaleOrder(Information["minimalInformation"]);
                     MC_Page = new View.MC_SOR_Item_New_SaleOrder();
+                    SC_Page = new View.SC_SOR_Item_New_SaleOrder();
                     ChangeComponents();
                     break;
 
@@ -277,6 +278,7 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_New.Con
                     NV_Page = new View.NV_SOR_Item_New_SaleOrder();
                     TS_Page = new View.TS_SOR_Item_New_SaleOrder_Movements(Information["minimalInformation"]);
                     MC_Page = new View.MC_SOR_Item_New_SaleOrder_Movements();
+                    SC_Page = new View.SC_SOR_Item_New_SaleOrder();
                     ChangeComponents();
                     break;
             }
