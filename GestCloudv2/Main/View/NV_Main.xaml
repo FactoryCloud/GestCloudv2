@@ -21,6 +21,15 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
+        <ToggleButton IsChecked="{Binding ElementName=pup, Path=IsOpen}" Content="Open Popup" Margin="10" />
+        <Popup Placement="RelativePoint" AllowsTransparency="True" PopupAnimation="Fade" x:Name="pup" VerticalOffset="-0">
+            <StackPanel>
+                <TextBlock Name="McTextBlock" Background="Black" Foreground="White" >
+                    This is popup text
+                </TextBlock>
+                <Button Content="This is button on a Pupup" />
+            </StackPanel>
+        </Popup>
         <Button Name="NV_Files" Grid.Column="0"  Margin="20" Click="EV_NV_Files">Fichas</Button>
         <Button Name="NV_Purchases" Grid.Column="1" Margin="20" Click="EV_NV_Purchases">Compras</Button>
         <Button  Name="NV_Sales" Grid.Column="2" Margin="20" Click="EV_NV_Sales">Ventas</Button>
