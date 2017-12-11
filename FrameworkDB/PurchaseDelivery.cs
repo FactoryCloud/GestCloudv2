@@ -12,10 +12,15 @@ namespace FrameworkDB.V1
     {
         public int PurchaseDeliveryID { get; set; }
 
+        public string Code { get; set; }
         public DateTime? Date { get; set; }
 
         [ForeignKey("FK_PurchaseDeliveries_CompanyID_Companies")]
         public int? CompanyID { get; set; }
         public virtual Company company { get; set; }
+
+        [ForeignKey("FK_PurchaseDelivery_ProviderID_Providers")]
+        public int? ProviderID { get; set; }
+        public virtual Provider provider { get; set; }
     }
 }

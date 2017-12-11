@@ -111,6 +111,7 @@
     <Compile Include="Providers\ProviderView.cs" />
     <Compile Include="Clients\ClientsView.cs" />
     <Compile Include="Clients\ClientView.cs" />
+    <Compile Include="PurchaseDeliveries\PurchaseDeliveriesView.cs" />
     <Compile Include="PurchaseOrder\PurchaseOrdersView.cs" />
     <Compile Include="SaleOrder\SaleOrdersView.cs" />
     <Compile Include="Stock\StoredStocksView.cs" />
