@@ -319,10 +319,59 @@
     <Compile Include="Main\Controller\CT_Common_Subcontent.xaml.cs">
       <DependentUpon>CT_Common_Subcontent.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Main\View\SC_Common.xaml.cs">
-      <DependentUpon>SC_Common.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Model\CT_Submenu.cs" />
+    <Compile Include="PurchasesDelivery\Controller\CT_PurchasesDelivery.cs" />
+    <Compile Include="PurchasesDelivery\Nodes\PurchaseDeliveries\PurchaseDeliveryItem\PurchaseDeliveryItem_Load\Controller\CT_PDE_Item_Load.cs">
+      <Generator>MSBuild:Compile</Generator>
+    </Compile>
+    <Compile Include="PurchasesDelivery\Nodes\PurchaseDeliveries\PurchaseDeliveryItem\PurchaseDeliveryItem_Load\View\FW_PDE_Item_Load_IncreaseStock.cs" />
+    <Compile Include="PurchasesDelivery\Nodes\PurchaseDeliveries\PurchaseDeliveryItem\PurchaseDeliveryItem_Load\View\FW_PDE_Item_Load_ReduceStock.cs" />
+    <Compile Include="PurchasesDelivery\Nodes\PurchaseDeliveries\PurchaseDeliveryItem\PurchaseDeliveryItem_Load\View\MC_PDE_Item_Load_PurchaseDelivery.xaml.cs">
+      <DependentUpon>MC_PDE_Item_Load_PurchaseDelivery.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PurchasesDelivery\Nodes\PurchaseDeliveries\PurchaseDeliveryItem\PurchaseDeliveryItem_Load\View\MC_PDE_Item_Load_PurchaseDelivery_Movements.xaml.cs">
+      <DependentUpon>MC_PDE_Item_Load_PurchaseDelivery_Movements.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PurchasesDelivery\Nodes\PurchaseDeliveries\PurchaseDeliveryItem\PurchaseDeliveryItem_Load\View\NV_PDE_Item_Load_PurchaseDelivery.xaml.cs">
+      <DependentUpon>NV_PDE_Item_Load_PurchaseDelivery.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PurchasesDelivery\Nodes\PurchaseDeliveries\PurchaseDeliveryItem\PurchaseDeliveryItem_Load\View\TS_PDE_Item_Load_PurchaseDelivery.xaml.cs">
+      <DependentUpon>TS_PDE_Item_Load_PurchaseDelivery.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PurchasesDelivery\Nodes\PurchaseDeliveries\PurchaseDeliveryItem\PurchaseDeliveryItem_Load\View\TS_PDE_Item_Load_PurchaseDelivery_Movements.xaml.cs">
+      <DependentUpon>TS_PDE_Item_Load_PurchaseDelivery_Movements.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PurchasesDelivery\Nodes\PurchaseDeliveries\PurchaseDeliveryItem\PurchaseDeliveryItem_New\Controller\CT_PDE_Item_New.cs" />
+    <Compile Include="PurchasesDelivery\Nodes\PurchaseDeliveries\PurchaseDeliveryItem\PurchaseDeliveryItem_New\View\FW_PDE_Item_New_IncreaseStock.cs" />
+    <Compile Include="PurchasesDelivery\Nodes\PurchaseDeliveries\PurchaseDeliveryItem\PurchaseDeliveryItem_New\View\FW_PDE_Item_New_SelectProvider.cs" />
+    <Compile Include="PurchasesDelivery\Nodes\PurchaseDeliveries\PurchaseDeliveryItem\PurchaseDeliveryItem_New\View\MC_PDE_Item_New_PurchaseDelivery.xaml.cs">
+      <DependentUpon>MC_PDE_Item_New_PurchaseDelivery.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PurchasesDelivery\Nodes\PurchaseDeliveries\PurchaseDeliveryItem\PurchaseDeliveryItem_New\View\MC_PDE_Item_New_PurchaseDelivery_Movements.xaml.cs">
+      <DependentUpon>MC_PDE_Item_New_PurchaseDelivery_Movements.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PurchasesDelivery\Nodes\PurchaseDeliveries\PurchaseDeliveryItem\PurchaseDeliveryItem_New\View\NV_PDE_Item_New_PurchaseDelivery.xaml.cs">
+      <DependentUpon>NV_PDE_Item_New_PurchaseDelivery.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PurchasesDelivery\Nodes\PurchaseDeliveries\PurchaseDeliveryItem\PurchaseDeliveryItem_New\View\TS_PDE_Item_New_PurchaseDelivery.xaml.cs">
+      <DependentUpon>TS_PDE_Item_New_PurchaseDelivery.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PurchasesDelivery\Nodes\PurchaseDeliveries\PurchaseDeliveryItem\PurchaseDeliveryItem_New\View\TS_PDE_Item_New_PurchaseDelivery_Movements.xaml.cs">
+      <DependentUpon>TS_PDE_Item_New_PurchaseDelivery_Movements.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PurchasesDelivery\Nodes\PurchaseDeliveries\PurchaseDeliveryMenu\Controller\CT_PurchaseDeliveryMenu.cs" />
+    <Compile Include="PurchasesDelivery\Nodes\PurchaseDeliveries\PurchaseDeliveryMenu\View\MC_POR_Menu.xaml.cs">
+      <DependentUpon>MC_POR_Menu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PurchasesDelivery\Nodes\PurchaseDeliveries\PurchaseDeliveryMenu\View\NV_POR_Menu.xaml.cs">
+      <DependentUpon>NV_POR_Menu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PurchasesDelivery\Nodes\PurchaseDeliveries\PurchaseDeliveryMenu\View\TS_POR_Menu.xaml.cs">
+      <DependentUpon>TS_POR_Menu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PurchasesDelivery\View\NV_Purchases_Main.xaml.cs">
+      <DependentUpon>NV_Purchases_Main.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_Load\Controller\CT_POR_Item_Load.cs">
       <Generator>MSBuild:Compile</Generator>
     </Compile>
@@ -785,8 +834,58 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Main\View\SC_Common.xaml">
+    <Page Include="PurchasesDelivery\Nodes\PurchaseDeliveries\PurchaseDeliveryItem\PurchaseDeliveryItem_Load\View\MC_PDE_Item_Load_PurchaseDelivery.xaml">
+      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PurchasesDelivery\Nodes\PurchaseDeliveries\PurchaseDeliveryItem\PurchaseDeliveryItem_Load\View\MC_PDE_Item_Load_PurchaseDelivery_Movements.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PurchasesDelivery\Nodes\PurchaseDeliveries\PurchaseDeliveryItem\PurchaseDeliveryItem_Load\View\NV_PDE_Item_Load_PurchaseDelivery.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PurchasesDelivery\Nodes\PurchaseDeliveries\PurchaseDeliveryItem\PurchaseDeliveryItem_Load\View\TS_PDE_Item_Load_PurchaseDelivery.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PurchasesDelivery\Nodes\PurchaseDeliveries\PurchaseDeliveryItem\PurchaseDeliveryItem_Load\View\TS_PDE_Item_Load_PurchaseDelivery_Movements.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PurchasesDelivery\Nodes\PurchaseDeliveries\PurchaseDeliveryItem\PurchaseDeliveryItem_New\View\MC_PDE_Item_New_PurchaseDelivery.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PurchasesDelivery\Nodes\PurchaseDeliveries\PurchaseDeliveryItem\PurchaseDeliveryItem_New\View\MC_PDE_Item_New_PurchaseDelivery_Movements.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PurchasesDelivery\Nodes\PurchaseDeliveries\PurchaseDeliveryItem\PurchaseDeliveryItem_New\View\NV_PDE_Item_New_PurchaseDelivery.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PurchasesDelivery\Nodes\PurchaseDeliveries\PurchaseDeliveryItem\PurchaseDeliveryItem_New\View\TS_PDE_Item_New_PurchaseDelivery.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PurchasesDelivery\Nodes\PurchaseDeliveries\PurchaseDeliveryItem\PurchaseDeliveryItem_New\View\TS_PDE_Item_New_PurchaseDelivery_Movements.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PurchasesDelivery\Nodes\PurchaseDeliveries\PurchaseDeliveryMenu\View\MC_POR_Menu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PurchasesDelivery\Nodes\PurchaseDeliveries\PurchaseDeliveryMenu\View\NV_POR_Menu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PurchasesDelivery\Nodes\PurchaseDeliveries\PurchaseDeliveryMenu\View\TS_POR_Menu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PurchasesDelivery\View\NV_Purchases_Main.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_Load\View\MC_POR_Item_Load_PurchaseOrder.xaml">
