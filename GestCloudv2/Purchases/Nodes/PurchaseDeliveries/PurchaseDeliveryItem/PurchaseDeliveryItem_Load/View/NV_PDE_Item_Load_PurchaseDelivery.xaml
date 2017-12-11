@@ -1,0 +1,24 @@
+﻿<Page x:Class="GestCloudv2.Purchases.Nodes.PurchaseDeliveries.PurchaseDeliveryItem.PurchaseDeliveryItem_Load.View.NV_PDE_Item_Load_PurchaseDelivery"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:GestCloudv2.Purchases.Nodes.PurchaseDeliveries.PurchaseDeliveryItem.PurchaseDeliveryItem_Load.View"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300"
+      Title="NV_PDE_Item_Load_PurchaseDelivery">
+
+    <Grid Name="GR_Navigation">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Button Grid.Column="0" Margin="20" Click="EV_MD_PurchaseDelivery">Datos Cabecera</Button>
+        <Button Grid.Column="1" Margin="20" Click="EV_MD_Movements">Movimientos</Button>
+        <Button Grid.Column="7" Margin="20" Click="EV_CT_Menu">Volver</Button>
+    </Grid>
+</Page>

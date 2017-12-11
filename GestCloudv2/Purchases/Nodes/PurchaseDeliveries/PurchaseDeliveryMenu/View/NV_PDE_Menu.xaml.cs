@@ -13,27 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace GestCloudv2.Purchases.View
-{
+namespace GestCloudv2.Purchases.Nodes.PurchaseDeliveries.PurchaseDeliveryMenu.View
+{ 
     /// <summary>
-    /// Interaction logic for NV_Stocks_Main.xaml
+    /// Interaction logic for NV_STA_Menu.xaml
     /// </summary>
-    public partial class NV_Purchase_Main : Page
+    public partial class NV_PDE_Menu : Page
     {
-        public NV_Purchase_Main()
+        public NV_PDE_Menu()
         {
             InitializeComponent();
-        }
-
-        private void EV_Invoice(object sender, RoutedEventArgs e)
-        {
-            GetController().CT_PurchaseAdjusts();
-        }
-
-
-        private void EV_Delivery(object sender, RoutedEventArgs e)
-        {
-            GetController().CT_PurchaseDeliveryAdjusts();
         }
 
         private void EV_CT_Back(object sender, RoutedEventArgs e)
@@ -41,11 +30,11 @@ namespace GestCloudv2.Purchases.View
             GetController().CT_Main();
         }
 
-        private Controller.CT_Purchases GetController()
+        private Controller.CT_PurchaseDeliveryMenu GetController()
         {
             Window mainWindow = Application.Current.MainWindow;
             var a = (Main.View.MainWindow)mainWindow;
-            return (Controller.CT_Purchases)a.MainFrame.Content;
+            return (Controller.CT_PurchaseDeliveryMenu)a.MainFrame.Content;
         }
     }
 }

@@ -25,6 +25,12 @@ namespace GestCloudv2.Purchases.Controller
             ChangeController();
         }
 
+        public void CT_PurchaseDeliveryAdjusts()
+        {
+            Information["controller"] = 4;
+            ChangeController();
+        }
+
         public void CT_Main()
         {
             Information["controller"] = 0;
@@ -60,6 +66,11 @@ namespace GestCloudv2.Purchases.Controller
                 case 3:
                     Main.View.MainWindow d = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
                     d.MainFrame.Content = new Nodes.PurchaseOrders.PurchaseOrderMenu.Controller.CT_PurchaseOrderMenu();
+                    break;
+
+                case 4:
+                    Main.View.MainWindow e = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
+                    e.MainFrame.Content = new Nodes.PurchaseDeliveries.PurchaseDeliveryMenu.Controller.CT_PurchaseDeliveryMenu();
                     break;
             }
         }

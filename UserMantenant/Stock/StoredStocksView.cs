@@ -159,8 +159,8 @@ namespace FrameworkView.V1
 
         public void UpdateTable()
         {
-            DocumentType documentTypeIn = db.DocumentTypes.Where(d => d.Name.Contains("StockAdjust") && d.Input == 1).First();
-            DocumentType documentTypeOut = db.DocumentTypes.Where(d => d.Name.Contains("StockAdjust") && d.Input == 0).First();
+            DocumentType documentTypeIn = db.DocumentTypes.Where(d => !d.Name.Contains("Order") && d.Input == 1).First();
+            DocumentType documentTypeOut = db.DocumentTypes.Where(d => !d.Name.Contains("Order") && d.Input == 0).First();
             movements = db.Movements.Where(m => m.DocumentTypeID == documentTypeIn.DocumentTypeID || m.DocumentTypeID == documentTypeOut.DocumentTypeID).Include(m => m.product).Include(m => m.product.productType).Include(m => m.condition).Include(m => m.store).Include(m => m.documentType).OrderBy(u => u.product.Name).ToList();
 
             foreach(Movement item in movementsOld)
