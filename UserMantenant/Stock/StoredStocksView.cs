@@ -160,7 +160,7 @@ namespace FrameworkView.V1
 
         public void UpdateTable()
         {
-            List<DocumentType> validDocumenTypes = db.DocumentTypes.Where(d => !d.Name.Contains("Order") && d.Input == 1).ToList();
+            List<DocumentType> validDocumenTypes = db.DocumentTypes.Where(d => !d.Name.Contains("Order")).ToList();
 
             foreach(DocumentType doc in validDocumenTypes)
             {
