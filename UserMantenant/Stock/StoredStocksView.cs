@@ -36,6 +36,7 @@ namespace FrameworkView.V1
             original = movements;
             movementsOld = new List<Movement>();
             movement = new Movement();
+            this.movements = new List<Movement>();
 
             this.option = option;
 
@@ -159,10 +160,16 @@ namespace FrameworkView.V1
 
         public void UpdateTable()
         {
-            DocumentType documentTypeIn = db.DocumentTypes.Where(d => !d.Name.Contains("Order") && d.Input == 1).First();
+            List<DocumentType> validDocumenTypes = db.DocumentTypes.Where(d => !d.Name.Contains("Order") && d.Input == 1).ToList();
+
+            foreach(DocumentType doc in validDocumenTypes)
+            {
+                movements.AddRange(db.Movements.Where(m => m.DocumentTypeID == doc.DocumentTypeID).Include(m => m.product).Include(m => m.product.productType).Include(m => m.condition).Include(m => m.store).Include(m => m.documentType).OrderBy(u => u.product.Name));
+            }
+            /*DocumentType documentTypeIn = db.DocumentTypes.Where(d => !d.Name.Contains("Order") && d.Input == 1).First();
             DocumentType documentTypeOut = db.DocumentTypes.Where(d => !d.Name.Contains("Order") && d.Input == 0).First();
             movements = db.Movements.Where(m => m.DocumentTypeID == documentTypeIn.DocumentTypeID || m.DocumentTypeID == documentTypeOut.DocumentTypeID).Include(m => m.product).Include(m => m.product.productType).Include(m => m.condition).Include(m => m.store).Include(m => m.documentType).OrderBy(u => u.product.Name).ToList();
-
+            */
             foreach(Movement item in movementsOld)
             {
                 movements.Add(item);
