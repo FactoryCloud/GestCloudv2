@@ -51,6 +51,13 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderMenu.Controller
             ChangeController();
         }
 
+        public override void EV_UpdateShortcutDocuments(int option)
+        {
+            base.EV_UpdateShortcutDocuments(option);
+            SC_Page = new View.SC_SOR_Menu();
+            RightSide.Content = SC_Page;
+        }
+
         public void CT_Main()
         {
             Information["controller"] = 0;
@@ -69,6 +76,7 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderMenu.Controller
                     NV_Page = new View.NV_SOR_Menu();
                     TS_Page = new View.TS_SOR_Menu();
                     MC_Page = new View.MC_SOR_Menu();
+                    SC_Page = new View.SC_SOR_Menu();
                     ChangeComponents();
                     break;
 

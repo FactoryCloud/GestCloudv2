@@ -26,8 +26,9 @@ namespace GestCloudv2.Main.View
         GestCloudDB db;
         public Dictionary<string, string> Information;
         public User selectedUser;
+        public List<Shortcuts.ShortcutDocument> shortcutDocuments;
         public Company selectedCompany;
-        public List<UserPermission> UserPermissions;
+        public List<UserPermission> userPermissions;
 
         public MainWindow(User user)
         {
@@ -36,11 +37,12 @@ namespace GestCloudv2.Main.View
             Application.Current.MainWindow = this;
             db = new GestCloudDB();
 
-            UserPermissions = new List<UserPermission>();
+            shortcutDocuments = new List<Shortcuts.ShortcutDocument>();
+            userPermissions = new List<UserPermission>();
             Information = new Dictionary<string, string>();
             this.selectedUser = user;
 
-            UserPermissions = db.UserPermissions.Where(u => u.user == user)
+            userPermissions = db.UserPermissions.Where(u => u.user == user)
                 .Include(u => u.user).Include(u => u.userType).Include(u => u.permissionType).ToList();
 
             selectedCompany = db.Companies.First();

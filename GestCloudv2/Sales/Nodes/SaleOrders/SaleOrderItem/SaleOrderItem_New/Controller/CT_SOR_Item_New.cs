@@ -119,6 +119,13 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_New.Con
             }
         }
 
+        public override void EV_UpdateShortcutDocuments(int option)
+        {
+            base.EV_UpdateShortcutDocuments(option);
+            SC_Page = new View.SC_SOR_Item_New_SaleOrder();
+            RightSide.Content = SC_Page;
+        }
+
         public void MD_ClientSelect()
         {
             View.FW_SOR_Item_New_SelectClient floatWindow = new View.FW_SOR_Item_New_SelectClient(1, clientsView.clients);

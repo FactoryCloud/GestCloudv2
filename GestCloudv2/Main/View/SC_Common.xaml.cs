@@ -23,6 +23,53 @@ namespace GestCloudv2.Main.View
         public SC_Common()
         {
             InitializeComponent();
+
+            int num = 0;
+            foreach(Shortcuts.ShortcutDocument doc in ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).shortcutDocuments)
+            {
+                StackPanel panel = new StackPanel();
+                Label label1 = new Label();
+                label1.Content = doc.Name;
+                panel.Children.Add(label1);
+
+                Button close = new Button();
+                close.Content = "Eliminar Vínculo";
+                close.Tag = doc.Id;
+                close.Click += new RoutedEventHandler(EV_ShortcutDocumentsUpdate);
+                panel.Children.Add(close);
+
+                StackPanel mainPanel = new StackPanel();
+                mainPanel.Background = new SolidColorBrush(Colors.Gray);
+                mainPanel.Tag = doc.Id;
+                mainPanel.MouseDown += new MouseButtonEventHandler (EV_ShortcutDocument);
+                Grid.SetRow(mainPanel, num);
+                mainPanel.Children.Add(panel);
+                GR_ShortcutDocuments.Children.Add(mainPanel);
+                num++;
+            }
+
+        }
+
+        public virtual void CT_DocumentMinimize(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void EV_ShortcutDocumentsUpdate(object sender, RoutedEventArgs e)
+        {
+            GetController().EV_UpdateShortcutDocuments(Convert.ToInt16(((Button)sender).Tag));
+        }
+
+        private void EV_ShortcutDocument(object sender, RoutedEventArgs e)
+        {
+            GetController().CT_ShortcutDocumentActivate(Convert.ToInt16(((StackPanel)sender).Tag));
+        }
+
+        public virtual Controller.CT_Common GetController()
+        {
+            Window mainWindow = Application.Current.MainWindow;
+            var a = (Main.View.MainWindow)mainWindow;
+            return (Main.Controller.CT_Common)a.MainFrame.Content;
         }
     }
 }

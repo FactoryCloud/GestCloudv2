@@ -27,7 +27,7 @@ namespace GestCloudv2.Main.Controller
         protected Page SC_Page;
         protected Frame LeftSide;
         protected Frame MainContent;
-        protected Frame RightContent;
+        protected Frame RightSide;
         public Entity entity;
         public Model.CT_Submenu CT_Submenu;
 
@@ -109,11 +109,30 @@ namespace GestCloudv2.Main.Controller
             }
         }
 
+        public virtual void EV_UpdateShortcutDocuments(int option)
+        {
+            ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).shortcutDocuments.Remove(((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).shortcutDocuments.Where(sd => sd.Id == option).First());
+        }
+
         public void MD_Submenu(int option)
         {
             Information["externalActivated"] = 1;
             CT_Submenu.Subcontroller.MD_Change(option);
             FR_Subcontent.Content = CT_Submenu.Subcontroller;
+        }
+
+        public void CT_MainWindow()
+        {
+            Main.View.MainWindow f = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
+            f.MainFrame.Content = new Main.Controller.CT_Main();
+        }
+
+        public void CT_ShortcutDocumentActivate(int option)
+        {
+            Shortcuts.ShortcutDocument doc = ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).shortcutDocuments.Where(d => d.Id == option).First();
+            ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).shortcutDocuments.Remove(((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).shortcutDocuments.Where(sd => sd.Id == option).First());
+            Main.View.MainWindow f = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
+            f.MainFrame.Content = doc.Controller;
         }
 
         public virtual void EV_MovementAdd(Movement movement)
@@ -190,7 +209,7 @@ namespace GestCloudv2.Main.Controller
         {
             LeftSide = ((CT_Common_Subcontent)FR_Subcontent.Content).LeftSide;
             MainContent = ((CT_Common_Subcontent)FR_Subcontent.Content).MainContent;
-            RightContent = ((CT_Common_Subcontent)FR_Subcontent.Content).RightSide;
+            RightSide = ((CT_Common_Subcontent)FR_Subcontent.Content).RightSide;
             FR_Subcontent.LoadCompleted -= EV_SubcontentLoaded;
             MD_Change(Information["mode"]);
         }
@@ -224,7 +243,7 @@ namespace GestCloudv2.Main.Controller
         {
             LeftSide = ((CT_Common_Subcontent)FR_Subcontent.Content).LeftSide;
             MainContent = ((CT_Common_Subcontent)FR_Subcontent.Content).MainContent;
-            RightContent = ((CT_Common_Subcontent)FR_Subcontent.Content).RightSide;
+            RightSide = ((CT_Common_Subcontent)FR_Subcontent.Content).RightSide;
             EV_Start(sender, e);
         }
 

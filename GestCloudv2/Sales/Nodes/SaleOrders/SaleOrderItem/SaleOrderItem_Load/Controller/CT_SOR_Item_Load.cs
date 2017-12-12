@@ -133,6 +133,13 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_Load.Co
 
         }
 
+        public override void EV_UpdateShortcutDocuments(int option)
+        {
+            base.EV_UpdateShortcutDocuments(option);
+            SC_Page = new View.SC_SOR_Item_Load_SaleOrder();
+            RightSide.Content = SC_Page;
+        }
+
         public void SetAdjustDate(DateTime date)
         {
             saleOrder.Date = date;
@@ -323,6 +330,7 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_Load.Co
                     else
                         TS_Page = new View.TS_SOR_Item_Load_SaleOrder(Information["minimalInformation"]);
                     MC_Page = new View.MC_SOR_Item_Load_SaleOrder();
+                    SC_Page = new View.SC_SOR_Item_Load_SaleOrder();
                     ChangeComponents();
                     break;
 
@@ -333,6 +341,7 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_Load.Co
                     else
                         TS_Page = new View.TS_SOR_Item_Load_SaleOrder_Movements(Information["minimalInformation"]);
                     MC_Page = new View.MC_SOR_Item_Load_SaleOrder_Movements();
+                    SC_Page = new View.SC_SOR_Item_Load_SaleOrder();
                     ChangeComponents();
                     break;
             }

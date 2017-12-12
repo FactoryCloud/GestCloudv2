@@ -19,6 +19,13 @@ namespace GestCloudv2.Sales.Controller
             UpdateComponents();
         }
 
+        public override void EV_UpdateShortcutDocuments(int option)
+        {
+            base.EV_UpdateShortcutDocuments(option);
+            SC_Page = new View.SC_Sale_Main();
+            RightSide.Content = SC_Page;
+        }
+
         public void CT_SalesAdjusts()
         {
             Information["controller"] = 3;
@@ -43,6 +50,7 @@ namespace GestCloudv2.Sales.Controller
                     NV_Page = new View.NV_Sale_Main();
                     TS_Page = null;
                     MC_Page = null;
+                    SC_Page = new View.SC_Sale_Main();
                     ChangeComponents();
                     break;
             }

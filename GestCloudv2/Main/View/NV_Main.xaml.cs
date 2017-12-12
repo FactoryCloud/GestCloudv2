@@ -26,7 +26,7 @@ namespace GestCloudv2.Main.View
         {
             InitializeComponent();
             var a = (Main.View.MainWindow)Application.Current.MainWindow;
-            List<UserPermission> UserPermissions = a.UserPermissions;
+            List<UserPermission> UserPermissions = a.userPermissions;
 
             foreach(UserPermission u in UserPermissions)
             {

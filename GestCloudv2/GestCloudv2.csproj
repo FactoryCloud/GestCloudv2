@@ -322,6 +322,7 @@
     <Compile Include="Main\View\SC_Common.xaml.cs">
       <DependentUpon>SC_Common.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Main\View\SC_Main.cs" />
     <Compile Include="Model\CT_Submenu.cs" />
     <Compile Include="Purchases\Nodes\PurchaseDeliveries\PurchaseDeliveryItem\PurchaseDeliveryItem_Load\Controller\CT_PDE_Item_Load.cs" />
     <Compile Include="Purchases\Nodes\PurchaseDeliveries\PurchaseDeliveryItem\PurchaseDeliveryItem_Load\View\FW_PDE_Item_Load_IncreaseStock.cs" />
@@ -422,6 +423,7 @@
     <Compile Include="Sales\Nodes\SaleOrders\SaleOrderItem\SaleOrderItem_Load\View\NV_SOR_Item_Load_SaleOrder.xaml.cs">
       <DependentUpon>NV_SOR_Item_Load_SaleOrder.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Sales\Nodes\SaleOrders\SaleOrderItem\SaleOrderItem_Load\View\SC_SOR_Item_Load_SaleOrder.cs" />
     <Compile Include="Sales\Nodes\SaleOrders\SaleOrderItem\SaleOrderItem_Load\View\TS_SOR_Item_Load_SaleOrder.xaml.cs">
       <DependentUpon>TS_SOR_Item_Load_SaleOrder.xaml</DependentUpon>
     </Compile>
@@ -429,7 +431,7 @@
       <DependentUpon>TS_SOR_Item_Load_SaleOrder_Movements.xaml</DependentUpon>
     </Compile>
     <Compile Include="Sales\Nodes\SaleOrders\SaleOrderItem\SaleOrderItem_New\Controller\CT_SOR_Item_New.cs" />
-    <Compile Include="Sales\Nodes\SaleOrders\SaleOrderItem\SaleOrderItem_New\View\SC_SOR_Item_New_IncreaseStock.cs" />
+    <Compile Include="Sales\Nodes\SaleOrders\SaleOrderItem\SaleOrderItem_New\View\SC_SOR_Item_New_SaleOrder.cs" />
     <Compile Include="Sales\Nodes\SaleOrders\SaleOrderItem\SaleOrderItem_New\View\FW_SOR_Item_New_SelectClient.cs" />
     <Compile Include="Sales\Nodes\SaleOrders\SaleOrderItem\SaleOrderItem_New\View\FW_SOR_Item_New_IncreaseStock.cs" />
     <Compile Include="Sales\Nodes\SaleOrders\SaleOrderItem\SaleOrderItem_New\View\MC_SOR_Item_New_SaleOrder.xaml.cs">
@@ -454,6 +456,7 @@
     <Compile Include="Sales\Nodes\SaleOrders\SaleOrderMenu\View\NV_SOR_Menu.xaml.cs">
       <DependentUpon>NV_SOR_Menu.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Sales\Nodes\SaleOrders\SaleOrderMenu\View\SC_SOR_Menu.cs" />
     <Compile Include="Sales\Nodes\SaleOrders\SaleOrderMenu\View\TS_SOR_Menu.xaml.cs">
       <DependentUpon>TS_SOR_Menu.xaml</DependentUpon>
     </Compile>
@@ -587,6 +590,8 @@
     <Compile Include="Main\View\TS_Main.xaml.cs">
       <DependentUpon>TS_Main.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Sales\View\SC_Sale_Main.cs" />
+    <Compile Include="Shortcuts\ShortcutDocument.cs" />
     <Compile Include="Stocks\Controller\CT_Stocks.cs" />
     <Compile Include="Stocks\Nodes\StockAdjusts\StockAdjustItem\StockAdjustItem_Load\Controller\CT_STA_Item_Load.cs">
       <Generator>MSBuild:Compile</Generator>

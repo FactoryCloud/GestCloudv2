@@ -32,6 +32,13 @@ namespace GestCloudv2.Main.Controller
             UpdateComponents();
         }
 
+        public override void EV_UpdateShortcutDocuments(int option)
+        {
+            base.EV_UpdateShortcutDocuments(option);
+            SC_Page = new View.SC_Main();
+            RightSide.Content = SC_Page;
+        }
+
         public void CT_MainBack()
         {
             Information["controller"] = 0;
@@ -70,6 +77,7 @@ namespace GestCloudv2.Main.Controller
                     NV_Page = new View.NV_Main();
                     MC_Page = null;
                     TS_Page = new View.TS_Main();
+                    SC_Page = new View.SC_Main();
                     ChangeComponents();
                     break;
             }
