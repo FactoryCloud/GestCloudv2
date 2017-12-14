@@ -17,6 +17,10 @@ namespace FrameworkDB.V1
         [StringLength(50)]
         public string Name { get; set; }
 
+        [ForeignKey("FK_ProductTypes_TaxTypeID_TaxTypes")]
+        public int? TaxID { get; set; }
+        public virtual Tax tax { get; set; }
+
         public virtual List<Product> Products { get; set; }
     }
 }
