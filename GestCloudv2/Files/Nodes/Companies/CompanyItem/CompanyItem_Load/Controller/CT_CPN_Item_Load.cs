@@ -220,6 +220,16 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_Load.Control
                     MC_Page = new View.MC_CPN_Item_Load_Company_Stores();
                     ChangeComponents();
                     break;
+
+                case 3:
+                    NV_Page = new View.NV_CPN_Item_Load();
+                    if (Information["editable"] == 0)
+                        TS_Page = new View.TS_CPN_Item_Load(Information["minimalInformation"]);
+                    else
+                        TS_Page = new View.TS_CPN_Item_Load_Edit(Information["minimalInformation"]);
+                    MC_Page = new View.MC_CPN_Item_Load_Company_Stores();
+                    ChangeComponents();
+                    break;
             }
         }
 

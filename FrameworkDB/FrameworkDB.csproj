@@ -98,6 +98,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccessType.cs" />
+    <Compile Include="TaxType.cs" />
+    <Compile Include="Tax.cs" />
     <Compile Include="Agents.cs" />
     <Compile Include="City.cs" />
     <Compile Include="Client.cs" />

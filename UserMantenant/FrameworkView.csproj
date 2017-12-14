@@ -116,6 +116,7 @@
     <Compile Include="SaleOrder\SaleOrdersView.cs" />
     <Compile Include="Stock\StoredStocksView.cs" />
     <Compile Include="Stock\StockAdjustsView.cs" />
+    <Compile Include="Taxes\TaxesView.cs" />
     <Compile Include="Stores\StoresView.cs" />
     <Compile Include="Companies\CompaniesView.cs" />
     <Compile Include="Movements\MovementsView.cs" />
