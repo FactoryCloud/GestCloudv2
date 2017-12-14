@@ -67,7 +67,7 @@ namespace GestCloudv2.Main.Login
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             GestCloudDB db = new GestCloudDB();
-            List<User> users = db.Users.ToList();
+            List<User> users = db.Users.Include(u => u.entity).ToList();
             string advice = "Los datos son incorrectos";
 
             if (mode == 0)
