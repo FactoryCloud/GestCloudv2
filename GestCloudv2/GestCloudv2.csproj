@@ -595,6 +595,7 @@
     </Compile>
     <Compile Include="Sales\View\SC_Sale_Main.cs" />
     <Compile Include="Shortcuts\ShortcutDocument.cs" />
+    <Compile Include="Shortcuts\ShortcutFile.cs" />
     <Compile Include="Stocks\Controller\CT_Stocks.cs" />
     <Compile Include="Stocks\Nodes\StockAdjusts\StockAdjustItem\StockAdjustItem_Load\Controller\CT_STA_Item_Load.cs">
       <Generator>MSBuild:Compile</Generator>

@@ -48,6 +48,14 @@ namespace GestCloudv2.Main.View
             selectedCompany = db.Companies.First();
 
             MainFrame.Content = new Main.Controller.CT_Main();
+
+            this.Loaded += new RoutedEventHandler(EV_Start);
+        }
+
+        public void EV_Start(object sender, RoutedEventArgs e)
+        {
+            LB_Company.Content = $"Empresa: {selectedCompany.Code} - {selectedCompany.Name}";
+            LB_User.Content = $"Usuario: {selectedUser.Code} - {selectedUser.entity.Name}, {selectedUser.entity.Subname}";
         }
 
         protected override void OnClosing(CancelEventArgs e)
