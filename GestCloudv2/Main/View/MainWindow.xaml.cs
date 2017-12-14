@@ -41,11 +41,11 @@ namespace GestCloudv2.Main.View
             userPermissions = new List<UserPermission>();
             Information = new Dictionary<string, string>();
             this.selectedUser = user;
-
             userPermissions = db.UserPermissions.Where(u => u.user == user)
                 .Include(u => u.user).Include(u => u.userType).Include(u => u.permissionType).ToList();
-
             selectedCompany = db.Companies.First();
+
+            GR_Company.MouseLeftButtonDown += new MouseButtonEventHandler(EV_CompanyMouseClick);
 
             MainFrame.Content = new Main.Controller.CT_Main();
 
@@ -56,6 +56,38 @@ namespace GestCloudv2.Main.View
         {
             LB_Company.Content = $"Empresa: {selectedCompany.Code} - {selectedCompany.Name}";
             LB_User.Content = $"Usuario: {selectedUser.Code} - {selectedUser.entity.Name}, {selectedUser.entity.Subname}";
+
+            List<Company> companies = db.Companies.OrderBy(u => u.Code).ToList();
+            foreach(Company c in companies)
+            {
+                Button button = new Button();
+                StackPanel panel = new StackPanel();
+                Label label = new Label();
+                label.Content = $"{c.Code} - {c.Name}";
+                panel.Children.Add(label);
+                button.Content = panel;
+                button.Width = BT_Company.ActualWidth;
+
+                SP_Company.Children.Add(button);
+            }
+
+            List<User> users = db.Users.OrderBy(u => u.Code).ToList();
+            foreach (User u in users)
+            {
+                Button button = new Button();
+                StackPanel panel = new StackPanel();
+                Label label = new Label();
+                label.Content = $"{u.Code} - {u.Username}";
+                panel.Children.Add(label);
+                button.Content = panel;
+                button.Width = BT_User.ActualWidth;
+
+                SP_User.Children.Add(button);
+            }
+        }
+
+        private void EV_CompanyMouseClick(object sender, RoutedEventArgs e)
+        {
         }
 
         protected override void OnClosing(CancelEventArgs e)
