@@ -187,6 +187,13 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.Controll
                     MC_Page = new View.MC_CPN_Item_New_Company_Stores();
                     ChangeComponents();
                     break;
+
+                case 3:
+                    NV_Page = new View.NV_CPN_Item_New();
+                    TS_Page = new View.TS_CPN_Item_New(Information["minimalInformation"]);
+                    MC_Page = new View.MC_CPN_Item_New_Company_Stores();
+                    ChangeComponents();
+                    break;
             }
         }
 

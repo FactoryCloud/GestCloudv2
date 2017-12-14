@@ -37,6 +37,7 @@ namespace FrameworkDB.V1
         public DbSet<City> Cities { get; set; }
         public DbSet<Country> Countries { get; set; }
 
+        public DbSet<FiscalYear> FiscalYears { get; set; }
         public DbSet<Tax> Taxes { get; set; }
         public DbSet<TaxType> TaxTypes { get; set; }
         public DbSet<Company> Companies { get; set; }
@@ -276,6 +277,12 @@ namespace FrameworkDB.V1
                .WithMany(b => b.TaxTypes)
                .HasForeignKey(a => a.CompanyID)
                .HasConstraintName("FK_TaxTypes_CompanyID_Companies");
+
+            modelBuilder.Entity<FiscalYear>()
+               .HasOne(a => a.company)
+               .WithMany(b => b.FiscalYears)
+               .HasForeignKey(a => a.CompanyID)
+               .HasConstraintName("FK_FiscalYears_CompanyID_Companies");
         }
 
         public void UpdateFromMKM()
