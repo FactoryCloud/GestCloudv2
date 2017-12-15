@@ -63,12 +63,6 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.Controll
             TestMinimalInformation();
         }
 
-        public void SetStartMonth(int startMonth)
-        {
-           // fiscalYear.StartDate = code;
-           // TestMinimalInformation();
-        }
-
         public void UpdateStore(int num)
         {
             if(stores.Contains(db.Stores.Where(s => s.StoreID == num).First()))
