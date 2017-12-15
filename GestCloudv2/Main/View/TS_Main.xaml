@@ -16,8 +16,5 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <Button Name="BT_CompanyChange" Grid.Column="1" Grid.Row="0" Margin="20" Click="EV_CompanyChange" IsEnabled="False">
-            <TextBlock TextAlignment="Center">Cambiar<LineBreak/>Empresa</TextBlock>
-        </Button>
     </Grid>
 </Page>

@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.EntityFrameworkCore;
 using FrameworkDB.V1;
+using System.Windows.Controls.Primitives;
 
 namespace GestCloudv2.Main.View
 {
@@ -45,7 +46,7 @@ namespace GestCloudv2.Main.View
                 .Include(u => u.user).Include(u => u.userType).Include(u => u.permissionType).ToList();
             selectedCompany = db.Companies.First();
 
-            GR_Company.MouseLeftButtonDown += new MouseButtonEventHandler(EV_CompanyMouseClick);
+            GR_Main.PreviewMouseDown += new MouseButtonEventHandler(EV_PopupHide);
 
             MainFrame.Content = new Main.Controller.CT_Main();
 
@@ -54,11 +55,47 @@ namespace GestCloudv2.Main.View
 
         public void EV_Start(object sender, RoutedEventArgs e)
         {
+            InitializingCompany();
+            InitializingUser();                 
+        }
+
+        private void EV_SetCompany(object sender, RoutedEventArgs e)
+        {
+            BT_Company.IsChecked = false;
+            selectedCompany = db.Companies.Where(c => c.CompanyID == (Convert.ToInt16(((Button)sender).Tag))).First();
+            InitializingCompany();
+        }
+
+        private void EV_SetUser(object sender, RoutedEventArgs e)
+        {
+            BT_User.IsChecked = false;
+            selectedUser = db.Users.Where(c => c.UserID == (Convert.ToInt16(((Button)sender).Tag))).Include(u => u.entity).First();
+            InitializingUser();
+        }
+
+        private void EV_PopupHide(object sender, RoutedEventArgs e)
+        {
+            if(!BT_Company.IsMouseOver && !SP_Company.IsMouseOver)
+            {
+                if (PU_Company.IsOpen)
+                    BT_Company.IsChecked = false;
+            }
+
+            if (!BT_User.IsMouseOver && !SP_User.IsMouseOver)
+            {
+                if (PU_User.IsOpen)
+                    BT_User.IsChecked = false;
+            }
+        }
+
+        public void InitializingCompany()
+        {
             LB_Company.Content = $"Empresa: {selectedCompany.Code} - {selectedCompany.Name}";
-            LB_User.Content = $"Usuario: {selectedUser.Code} - {selectedUser.entity.Name}, {selectedUser.entity.Subname}";
+
+            SP_Company.Children.Clear();
 
             List<Company> companies = db.Companies.OrderBy(u => u.Code).ToList();
-            foreach(Company c in companies)
+            foreach (Company c in companies)
             {
                 if (c.CompanyID != selectedCompany.CompanyID)
                 {
@@ -69,10 +106,19 @@ namespace GestCloudv2.Main.View
                     panel.Children.Add(label);
                     button.Content = panel;
                     button.Width = BT_Company.ActualWidth;
+                    button.Tag = c.CompanyID;
+                    button.Click += new RoutedEventHandler(EV_SetCompany);
 
                     SP_Company.Children.Add(button);
                 }
             }
+        }
+
+        public void InitializingUser()
+        {
+            LB_User.Content = $"Usuario: {selectedUser.Code} - {selectedUser.entity.Name}, {selectedUser.entity.Subname}";
+
+            SP_User.Children.Clear();
 
             List<User> users = db.Users.OrderBy(u => u.Code).ToList();
             foreach (User u in users)
@@ -86,14 +132,12 @@ namespace GestCloudv2.Main.View
                     panel.Children.Add(label);
                     button.Content = panel;
                     button.Width = BT_User.ActualWidth;
+                    button.Tag = u.UserID;
+                    button.Click += new RoutedEventHandler(EV_SetUser);
 
                     SP_User.Children.Add(button);
                 }
             }
-        }
-
-        private void EV_CompanyMouseClick(object sender, RoutedEventArgs e)
-        {
         }
 
         protected override void OnClosing(CancelEventArgs e)

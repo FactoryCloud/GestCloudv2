@@ -23,8 +23,6 @@ namespace FrameworkDB.V1
 
         public decimal? SalePrice { get; set; }
 
-        public decimal? Tax { get; set; }
-
         public int? IsFoil { get; set; }
         public int? IsSigned { get; set; }
         public int? IsAltered { get; set; }
