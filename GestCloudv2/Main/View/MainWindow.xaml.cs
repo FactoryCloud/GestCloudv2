@@ -60,29 +60,35 @@ namespace GestCloudv2.Main.View
             List<Company> companies = db.Companies.OrderBy(u => u.Code).ToList();
             foreach(Company c in companies)
             {
-                Button button = new Button();
-                StackPanel panel = new StackPanel();
-                Label label = new Label();
-                label.Content = $"{c.Code} - {c.Name}";
-                panel.Children.Add(label);
-                button.Content = panel;
-                button.Width = BT_Company.ActualWidth;
+                if (c.CompanyID != selectedCompany.CompanyID)
+                {
+                    Button button = new Button();
+                    StackPanel panel = new StackPanel();
+                    Label label = new Label();
+                    label.Content = $"{c.Code} - {c.Name}";
+                    panel.Children.Add(label);
+                    button.Content = panel;
+                    button.Width = BT_Company.ActualWidth;
 
-                SP_Company.Children.Add(button);
+                    SP_Company.Children.Add(button);
+                }
             }
 
             List<User> users = db.Users.OrderBy(u => u.Code).ToList();
             foreach (User u in users)
             {
-                Button button = new Button();
-                StackPanel panel = new StackPanel();
-                Label label = new Label();
-                label.Content = $"{u.Code} - {u.Username}";
-                panel.Children.Add(label);
-                button.Content = panel;
-                button.Width = BT_User.ActualWidth;
+                if (u.UserID != selectedUser.UserID)
+                {
+                    Button button = new Button();
+                    StackPanel panel = new StackPanel();
+                    Label label = new Label();
+                    label.Content = $"{u.Code} - {u.Username}";
+                    panel.Children.Add(label);
+                    button.Content = panel;
+                    button.Width = BT_User.ActualWidth;
 
-                SP_User.Children.Add(button);
+                    SP_User.Children.Add(button);
+                }
             }
         }
 
