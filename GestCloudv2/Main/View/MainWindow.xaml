@@ -22,19 +22,35 @@
             <Grid Name="GR_NavigationLabel">
                 <Label Name="LB_Navigation"></Label>
             </Grid>
-            
+
             <Border Grid.Column="1" BorderBrush="Black" BorderThickness="2,2,0,2">
-                <Grid  Name="GR_Company">
-                    <Label Name="LB_Company" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
+                <Grid  Name="GR_Company" Background="Transparent">
+                    <ToggleButton Name="BT_Company">
+                        <Grid>
+                            <Label Name="LB_Company" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Grid>
+                    </ToggleButton>
                 </Grid>
             </Border>
 
+            <Popup Name="PU_Company" IsOpen="{Binding IsChecked, ElementName=BT_Company}" Placement="Top" PlacementTarget="{Binding ElementName=GR_Company}">
+                <StackPanel Name="SP_Company"></StackPanel>
+            </Popup>
+
             <Border Grid.Column="2" BorderBrush="Black" BorderThickness="2,2,0,2">
-                <Grid Grid.Column="2" Name="GR_User" VerticalAlignment="Center" HorizontalAlignment="Center">
-                <Label Name="LB_User"></Label>
-            </Grid>
+                <Grid Grid.Column="2" Name="GR_User">
+                    <ToggleButton Name="BT_User">
+                        <Grid>
+                            <Label Name="LB_User" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Grid>
+                    </ToggleButton>
+                </Grid>
             </Border>
 
+            <Popup Name="PU_User" IsOpen="{Binding IsChecked, ElementName=BT_User}" Placement="Top" PlacementTarget="{Binding ElementName=GR_User}">
+                <StackPanel Name="SP_User"></StackPanel>
+            </Popup>
+            
             <Border Grid.Column="3" BorderBrush="Black" BorderThickness="2">
                 <Grid Grid.Column="3" Name="GR_FiscalYear" VerticalAlignment="Center" HorizontalAlignment="Center">
                 <Label Name="LB_FiscalYear"></Label>
