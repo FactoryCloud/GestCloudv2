@@ -37,8 +37,9 @@
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
-            <Label Grid.ColumnSpan="2" HorizontalAlignment="Center">Fecha inicio de periodo</Label>
-            <DatePicker Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" Name="TB_StartFiscalYear" VerticalAlignment="Center"></DatePicker>
+                <Label HorizontalAlignment="Center" Grid.ColumnSpan="2">Fecha inicio de periodo</Label>
+                <ComboBox Name="CB_StartDayFiscalYear" Grid.Row="1" VerticalAlignment="Center" Margin="20,0,20,0"></ComboBox>
+                <ComboBox Name="CB_StartMonthFiscalYear" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="20,0,20,0"></ComboBox>
             </Grid>
         </StackPanel>
         <StackPanel Name="SP_EndFiscalYear" Grid.Column="2" Grid.Row="3">
@@ -51,8 +52,9 @@
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
-                <Label Grid.ColumnSpan="2" HorizontalAlignment="Center">Fecha fin de periodo</Label>
-                <DatePicker Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" Name="TB_EndFiscalYear" VerticalAlignment="Center"></DatePicker>
+                <Label HorizontalAlignment="Center" Grid.ColumnSpan="2">Fecha fin de periodo</Label>
+                <ComboBox Name="CB_EndDayFiscalYear" Grid.Row="1" VerticalAlignment="Center" Margin="20,0,20,0"></ComboBox>
+                <ComboBox Name="CB_EndMonthFiscalYear" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="20,0,20,0"></ComboBox>
             </Grid>
         </StackPanel>
         <ComboBox Name="CB_CompanyCode" Grid.Column="2" Grid.Row="2" VerticalAlignment="Center" Margin="20"></ComboBox>
