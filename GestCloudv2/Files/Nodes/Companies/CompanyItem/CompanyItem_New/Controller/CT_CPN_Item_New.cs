@@ -24,12 +24,14 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.Controll
     public partial class CT_CPN_Item_New : Main.Controller.CT_Common
     {
         public Company company;
+        public FiscalYear fiscalYear;
         public List<Store> stores;
 
         public CT_CPN_Item_New()
         {
             stores = new List<Store>();
             company = new Company();
+            fiscalYear = new FiscalYear();
             Information.Add("minimalInformation", 0);
             Information["entityValid"] = 1;
         }
@@ -59,6 +61,12 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.Controll
         {
             company.Code = code;
             TestMinimalInformation();
+        }
+
+        public void SetStartMonth(int startMonth)
+        {
+           // fiscalYear.StartDate = code;
+           // TestMinimalInformation();
         }
 
         public void UpdateStore(int num)
