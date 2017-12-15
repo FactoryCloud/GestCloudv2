@@ -29,10 +29,10 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.View
             this.Loaded += new RoutedEventHandler(EV_Start);
 
             CB_CompanyCode.SelectionChanged += new SelectionChangedEventHandler(EV_CB_Changes);
-            /*CB_StartDayFiscalYear.SelectionChanged += new SelectionChangedEventHandler(EV_CB_StartDayChanges);
+            //CB_StartDayFiscalYear.SelectionChanged += new SelectionChangedEventHandler(EV_CB_StartDayChanges);
             CB_StartMonthFiscalYear.SelectionChanged += new SelectionChangedEventHandler(EV_CB_StartMonthChanges);
-            CB_EndDayFiscalYear.SelectionChanged += new SelectionChangedEventHandler(EV_CB_EndDayChanges);
-            CB_EndMonthFiscalYear.SelectionChanged += new SelectionChangedEventHandler(EV_CB_EndMonthChanges);*/
+            //CB_EndDayFiscalYear.SelectionChanged += new SelectionChangedEventHandler(EV_CB_EndDayChanges);
+            CB_EndMonthFiscalYear.SelectionChanged += new SelectionChangedEventHandler(EV_CB_EndMonthChanges);
             TB_CompanyName.KeyUp += new KeyEventHandler(EV_UserName);
             TB_CompanyName.Loaded += new RoutedEventHandler(EV_UserName);
         }
@@ -116,9 +116,9 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.View
                 }
             }
 
-            CB_StartDayFiscalYear.SelectedIndex = 0;
+            //CB_StartDayFiscalYear.SelectedIndex = 0;
             CB_StartMonthFiscalYear.SelectedIndex = 0;
-            CB_EndDayFiscalYear.SelectedIndex = 30;
+            //CB_EndDayFiscalYear.SelectedIndex = 30;
             CB_EndMonthFiscalYear.SelectedIndex = 11;
         }
 
@@ -189,13 +189,111 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.View
             }
         }
 
-        /*private void EV_CB_StartMonthChanges(object sender, RoutedEventArgs e)
+        private void EV_CB_StartMonthChanges(object sender, RoutedEventArgs e)
         {
+            CB_StartDayFiscalYear.Items.Clear();
+            List<int> startdayFP = new List<int>();
             ComboBoxItem temp3 = (ComboBoxItem)CB_StartMonthFiscalYear.SelectedItem;
-            MessageBox.Show($"{((ComboBoxItem)CB_StartMonthFiscalYear.SelectedItem).Name.Replace("startMonthFP","")}");
+            //MessageBox.Show($"{((ComboBoxItem)CB_StartMonthFiscalYear.SelectedItem).Name.Replace("startMonthFP", "")}");
+            switch (Convert.ToInt32(temp3.Name.Replace("startMonthFP", "")))
+            {
+                case int n when (n == 1 || n == 3 || n == 5 || n == 7 || n == 8 || n == 10 || n == 12):
+                    for (int i = 1; i <= 31; i++)
+                    {
+                        if (!startdayFP.Contains(i))
+                        {
+                            ComboBoxItem temp = new ComboBoxItem();
+                            temp.Content = $"{i}";
+                            temp.Name = $"startDayFP{i}";
+                            CB_StartDayFiscalYear.Items.Add(temp);
+                        }
+                    }
+                    CB_StartDayFiscalYear.SelectedIndex = 0;
+                    break;
+
+                case int n when (n == 4 || n == 6 || n == 9 || n == 11):
+                    for (int i = 1; i <= 30; i++)
+                    {
+                        if (!startdayFP.Contains(i))
+                        {
+                            ComboBoxItem temp = new ComboBoxItem();
+                            temp.Content = $"{i}";
+                            temp.Name = $"startDayFP{i}";
+                            CB_StartDayFiscalYear.Items.Add(temp);
+                        }
+                    }
+                    CB_StartDayFiscalYear.SelectedIndex = 0;
+                    break;
+
+                case 2:
+                    for (int i = 1; i <= 28; i++)
+                    {
+                        if (!startdayFP.Contains(i))
+                        {
+                            ComboBoxItem temp = new ComboBoxItem();
+                            temp.Content = $"{i}";
+                            temp.Name = $"startDayFP{i}";
+                            CB_StartDayFiscalYear.Items.Add(temp);
+                        }
+                    }
+                    CB_StartDayFiscalYear.SelectedIndex = 0;
+                    break;
+            }
         }
 
-        private void EV_CB_StartDayChanges(object sender, RoutedEventArgs e)
+        private void EV_CB_EndMonthChanges(object sender, RoutedEventArgs e)
+        {
+            CB_EndDayFiscalYear.Items.Clear();
+            List<int> enddayFP = new List<int>();
+            ComboBoxItem temp4 = (ComboBoxItem)CB_EndMonthFiscalYear.SelectedItem;
+            //MessageBox.Show($"{temp4.Name.Replace("endMonthFP", "")}");
+            switch (Convert.ToInt32(temp4.Name.Replace("endMonthFP", "")))
+            {
+                case int n when (n== 1 || n== 3 || n == 5 || n == 7 || n == 8 || n == 10 || n == 12):
+                    for (int i = 1; i <= 31; i++)
+                    {
+                        if (!enddayFP.Contains(i))
+                        {
+                            ComboBoxItem temp = new ComboBoxItem();
+                            temp.Content = $"{i}";
+                            temp.Name = $"endDayFP{i}";
+                            CB_EndDayFiscalYear.Items.Add(temp);
+                        }
+                    }
+                    CB_EndDayFiscalYear.SelectedIndex = 30;
+                    break;
+
+                case int n when (n == 4 || n == 6 || n == 9 || n == 11):
+                    for (int i = 1; i <= 30; i++)
+                    {
+                        if (!enddayFP.Contains(i))
+                        {
+                            ComboBoxItem temp = new ComboBoxItem();
+                            temp.Content = $"{i}";
+                            temp.Name = $"endDayFP{i}";
+                            CB_EndDayFiscalYear.Items.Add(temp);
+                        }
+                    }
+                    CB_EndDayFiscalYear.SelectedIndex = 29;
+                    break;
+
+                case 2:
+                    for (int i = 1; i <= 28; i++)
+                    {
+                        if (!enddayFP.Contains(i))
+                        {
+                            ComboBoxItem temp = new ComboBoxItem();
+                            temp.Content = $"{i}";
+                            temp.Name = $"endDayFP{i}";
+                            CB_EndDayFiscalYear.Items.Add(temp);
+                        }
+                    }
+                    CB_EndDayFiscalYear.SelectedIndex = 27;
+                    break;
+            }
+
+        }
+        /*private void EV_CB_StartDayChanges(object sender, RoutedEventArgs e)
         {
             ComboBoxItem temp4 = (ComboBoxItem)CB_StartDayFiscalYear.SelectedItem;
         }
