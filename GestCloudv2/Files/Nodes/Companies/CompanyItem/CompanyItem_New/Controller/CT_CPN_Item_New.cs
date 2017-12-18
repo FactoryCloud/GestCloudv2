@@ -25,13 +25,81 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.Controll
     {
         public Company company;
         public FiscalYear fiscalYear;
+        public TaxType taxType;
+        public Tax tax;
         public List<Store> stores;
+        public List<Tax> taxes;
+        public List<Tax> equiSurs;
+        public List<Tax> specTaxes;
+        public List<TaxType> taxTypes;
+        public int startDayDate;
+        public int startMonthDate;
+        public int endDayDate;
+        public int endMonthDate;
+
 
         public CT_CPN_Item_New()
         {
             stores = new List<Store>();
+            taxTypes = new List<TaxType>();
+            taxes = new List<Tax>();
+            equiSurs = new List<Tax>();
+            specTaxes = new List<Tax>();
             company = new Company();
+            taxType = new TaxType();
+            tax = new Tax();
             fiscalYear = new FiscalYear();
+
+            taxes.AddRange(new List<Tax>{new Tax
+            {
+                Type = 1,
+                Percentage = 0.00M
+            }, new Tax
+            {
+                Type = 2,
+                Percentage = 4.00M
+            } ,new Tax
+            {
+                Type = 3,
+                Percentage = 10.00M
+            }, new Tax
+            {
+                Type = 4,
+                Percentage = 21.00M
+            }});
+
+            equiSurs.AddRange(new List<Tax>{new Tax
+            {
+                Type = 1,
+                Percentage = 0.00M
+            }, new Tax
+            {
+                Type = 2,
+                Percentage = 0.40M
+            } ,new Tax
+            {
+                Type = 3,
+                Percentage = 1.20M
+            }, new Tax
+            {
+                Type = 4,
+                Percentage = 5.40M
+            }});
+
+            taxTypes.Add(new TaxType
+            {
+                Name = "IVA",
+            });
+
+            taxTypes.Add(new TaxType
+            {
+                Name = "RE",
+            });
+
+            taxTypes.Add(new TaxType
+            {
+                Name = "ST",
+            });
             Information.Add("minimalInformation", 0);
             Information["entityValid"] = 1;
         }
@@ -132,6 +200,7 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.Controll
 
         public void SaveNewCompany()
         {
+            int year = Convert.ToInt16(DateTime.Today.ToString("yyyy"));
             db.Companies.Add(company);
 
             foreach (Store store in stores)
@@ -142,6 +211,63 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.Controll
                     company = company
                 });
             }
+            if (startDayDate == 1 && startMonthDate == 1)
+            {
+                db.FiscalYears.Add(new FiscalYear
+                {
+                    Name = $"{year}",
+                    StartDate = new DateTime(year, startMonthDate, startDayDate),
+                    EndDate = new DateTime(year, endMonthDate, endDayDate),
+                    company = company
+                });
+            }
+            else
+            {
+                db.FiscalYears.Add(new FiscalYear
+                {
+                    Name = $"{year}-{year+1}",
+                    StartDate = new DateTime(year, startMonthDate, startDayDate),
+                    EndDate = new DateTime(year +1, endMonthDate, endDayDate),
+                    company = company
+                });
+            }
+
+            foreach (TaxType taxtype in taxTypes)
+            {
+                taxtype.company = company;
+                taxtype.StartDate = new DateTime(year, startMonthDate, startDayDate);
+                if (startDayDate == 1 && startMonthDate == 1)
+                {
+                    taxtype.EndDate = new DateTime(year, endMonthDate, endDayDate);
+                }
+                else
+                {
+                    taxtype.EndDate = new DateTime(year+1, endMonthDate, endDayDate);
+                }
+            }
+
+            db.TaxTypes.AddRange(taxTypes);
+
+            foreach (Tax tax in taxes)
+            {
+                tax.taxType = taxTypes.Where(t => t.Name.Contains("IVA")).First();
+            }
+
+            db.Taxes.AddRange(taxes);
+
+            foreach (Tax tax in equiSurs)
+            {
+                tax.taxType = taxTypes.Where(t => t.Name.Contains("RE")).First();
+            }
+
+            db.Taxes.AddRange(equiSurs);
+
+            foreach (Tax tax in specTaxes)
+            {
+                tax.taxType = taxTypes.Where(t => t.Name.Contains("ST")).First();
+            }
+
+            db.Taxes.AddRange(specTaxes);
 
             db.SaveChanges();
             MessageBox.Show("Datos guardados correctamente");
@@ -193,7 +319,7 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.Controll
                 case 3:
                     NV_Page = new View.NV_CPN_Item_New();
                     TS_Page = new View.TS_CPN_Item_New(Information["minimalInformation"]);
-                    MC_Page = new View.MC_CPN_Item_New_Company_Stores();
+                    MC_Page = new View.MC_CPN_Item_New_Company_Taxes();
                     ChangeComponents();
                     break;
             }
