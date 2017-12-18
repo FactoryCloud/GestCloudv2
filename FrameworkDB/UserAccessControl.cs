@@ -12,10 +12,9 @@ namespace FrameworkDB.V1
 {
     public class UserAccessControl
     {
-
+        [Key]
         public int UserAccessControlID { get; set; }
 
-        [Key]
         [ForeignKey("UserID")]
         public int UserID { get; set; }
         public virtual User user { get; set; }
@@ -27,7 +26,6 @@ namespace FrameworkDB.V1
         [Required]
         public DateTime DateStartAccess { get; set; }
 
-        [Required]
-        public DateTime DateEndAccess { get; set; }
+        public DateTime? DateEndAccess { get; set; }
     }
 }

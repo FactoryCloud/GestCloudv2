@@ -310,6 +310,9 @@
     <Compile Include="Files\Nodes\Entities\View\MC_Entity_Select.xaml.cs">
       <DependentUpon>MC_Entity_Select.xaml</DependentUpon>
     </Compile>
+    <Compile Include="FloatWindows\PasswordWindow.xaml.cs">
+      <DependentUpon>PasswordWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="FloatWindows\ProviderSelectWindow.xaml.cs">
       <DependentUpon>ProviderSelectWindow.xaml</DependentUpon>
     </Compile>
@@ -827,6 +830,10 @@
     <Page Include="Files\Nodes\Entities\View\MC_Entity_Select.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FloatWindows\PasswordWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="FloatWindows\ProviderSelectWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

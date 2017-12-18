@@ -29,9 +29,10 @@ namespace GestCloudv2.Main.View
         public User selectedUser;
         public List<Shortcuts.ShortcutDocument> shortcutDocuments;
         public Company selectedCompany;
+        public UserAccessControl uac;
         public List<UserPermission> userPermissions;
 
-        public MainWindow(User user)
+        public MainWindow(User user, UserAccessControl uac)
         {
             InitializeComponent();
             this.WindowState = WindowState.Maximized;
@@ -42,6 +43,7 @@ namespace GestCloudv2.Main.View
             userPermissions = new List<UserPermission>();
             Information = new Dictionary<string, string>();
             this.selectedUser = user;
+            this.uac = uac;
             userPermissions = db.UserPermissions.Where(u => u.user == user)
                 .Include(u => u.user).Include(u => u.userType).Include(u => u.permissionType).ToList();
             selectedCompany = db.Companies.First();
@@ -69,8 +71,8 @@ namespace GestCloudv2.Main.View
         private void EV_SetUser(object sender, RoutedEventArgs e)
         {
             BT_User.IsChecked = false;
-            selectedUser = db.Users.Where(c => c.UserID == (Convert.ToInt16(((Button)sender).Tag))).Include(u => u.entity).First();
-            InitializingUser();
+            Window FL_Password = new FloatWindows.PasswordWindow(selectedUser.Username, uac);
+            FL_Password.Show();
         }
 
         private void EV_PopupHide(object sender, RoutedEventArgs e)
@@ -149,6 +151,11 @@ namespace GestCloudv2.Main.View
             }
             else
             {
+                UserAccessControl uact = db.UsersAccessControl.Where(u => u.UserAccessControlID == uac.UserAccessControlID).First();
+                uact.DateEndAccess = DateTime.Now;
+                db.UsersAccessControl.Update(uact);
+                db.SaveChanges();
+
                 Application.Current.Shutdown();
             }
         }

@@ -45,8 +45,9 @@ namespace GestCloudv2
         private void PasswordChange_Event(object sender, RoutedEventArgs e)
         {
             GestCloudDB db = new GestCloudDB();
-            List<User> users = db.Users.Where(u => u.UserID == user.UserID).ToList();
-            if(users[0].Password == NewPasswordText.Password)
+            User userTemp = db.Users.Where(u => u.UserID == user.UserID).First();
+            List<AccessType> accessTypes = db.AccessTypes.Where(a => a.Name == "WindowsApp_Password").ToList();
+            if (userTemp.Password == NewPasswordText.Password)
             {
                 NewPasswordText.Password = "";
                 MessageBox.Show("La contraseña debe ser diferente a la que usaba anteriormente.");
@@ -54,11 +55,21 @@ namespace GestCloudv2
 
             else
             {
-                users[0].Password = NewPasswordText.Password;
-                users[0].ActivationCode = null;
-                db.UpdateRange(users);
+                userTemp.Password = NewPasswordText.Password;
+                userTemp.ActivationCode = null;
+                db.Update(userTemp);
+
+                UserAccessControl accessControl = new UserAccessControl
+                {
+                    user = userTemp,
+                    accessType = accessTypes[0],
+                    DateStartAccess = DateTime.Now,
+                    DateEndAccess = DateTime.Now
+                };
+                db.UsersAccessControl.Add(accessControl);
+
                 db.SaveChanges();
-                Main.View.MainWindow mainWindow = new Main.View.MainWindow(user);
+                Main.View.MainWindow mainWindow = new Main.View.MainWindow(user, accessControl);
                 mainWindow.Show();
                 this.Close();
             }

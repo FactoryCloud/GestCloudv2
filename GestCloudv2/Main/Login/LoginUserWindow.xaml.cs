@@ -96,11 +96,10 @@ namespace GestCloudv2.Main.Login
                                     user = u,
                                     accessType = accessTypes[0],
                                     DateStartAccess = DateTime.Now,
-                                    DateEndAccess = DateTime.Now
                                 };
                                 db.UsersAccessControl.Add(accessControl);
                                 db.SaveChanges();
-                                Main.View.MainWindow mainWindow = new Main.View.MainWindow(u);
+                                Main.View.MainWindow mainWindow = new Main.View.MainWindow(u, accessControl);
                                 mainWindow.Show();
                                 this.Close();
                                 return;

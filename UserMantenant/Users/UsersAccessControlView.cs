@@ -62,7 +62,7 @@ namespace FrameworkView.V1
             dt.Clear();
             foreach (var item in AccessControl)
             {
-                dt.Rows.Add(item.user.Username,  item.DateStartAccess.ToString(format) , item.DateEndAccess.ToString(format));
+                dt.Rows.Add(item.user.Username,  item.DateStartAccess.ToString(format) , ((DateTime)item.DateEndAccess).ToString(format));
             }
         }
     }
