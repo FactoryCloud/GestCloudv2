@@ -27,107 +27,89 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.View
 
             this.Loaded += new RoutedEventHandler(EV_Start);
 
-            CB_CompanyCode.SelectionChanged += new SelectionChangedEventHandler(EV_CB_Changes);
-            TB_CompanyName.KeyUp += new KeyEventHandler(EV_UserName);
-            TB_CompanyName.Loaded += new RoutedEventHandler(EV_UserName);
+            TB_Tax1.KeyUp += new KeyEventHandler(EV_Tax);
+            TB_Tax2.KeyUp += new KeyEventHandler(EV_Tax);
+            TB_Tax3.KeyUp += new KeyEventHandler(EV_Tax);
+            TB_Tax4.KeyUp += new KeyEventHandler(EV_Tax);
+            TB_Tax5.KeyUp += new KeyEventHandler(EV_Tax);
+            TB_EquivalenceSurcharge1.KeyUp += new KeyEventHandler(EV_Tax);
+            TB_EquivalenceSurcharge2.KeyUp += new KeyEventHandler(EV_Tax);
+            TB_EquivalenceSurcharge3.KeyUp += new KeyEventHandler(EV_Tax);
+            TB_EquivalenceSurcharge4.KeyUp += new KeyEventHandler(EV_Tax);
+            TB_EquivalenceSurcharge5.KeyUp += new KeyEventHandler(EV_Tax);
         }
 
         private void EV_Start(object sender, RoutedEventArgs e)
         {
-            TB_CompanyName.Text = GetController().company.Name;
-
-            List<Company> companies = GetController().GetCompanies();
-            List<int> nums = new List<int>();
-            foreach (var comp in companies)
-            {
-                nums.Add(Convert.ToInt16(comp.Code));
-            }
-
-            for (int i = 1; i <= 20; i++)
-            {
-                if(!nums.Contains(i))
-                {
-                    ComboBoxItem temp = new ComboBoxItem();
-                    temp.Content = $"{i}";
-                    temp.Name = $"companyCode{i}";
-                    CB_CompanyCode.Items.Add(temp);
-                }
-            }
-
-            foreach (ComboBoxItem item in CB_CompanyCode.Items)
-            {
-                if (item.Content.ToString() == $"{GetController().company.Code}")
-                {
-                    CB_CompanyCode.SelectedValue = item;
-                    break;
-                }
-            }
+            TB_EquivalenceSurcharge1.Text = $"{GetController().equiSurs.Where(t => t.Type == 1).First().Percentage}";
+            TB_EquivalenceSurcharge2.Text = $"{GetController().equiSurs.Where(t => t.Type == 2).First().Percentage}";
+            TB_EquivalenceSurcharge3.Text = $"{GetController().equiSurs.Where(t => t.Type == 3).First().Percentage}";
+            TB_EquivalenceSurcharge4.Text = $"{GetController().equiSurs.Where(t => t.Type == 4).First().Percentage}";
+            TB_Tax1.Text = $"{GetController().taxes.Where(t => t.Type == 1).First().Percentage}";
+            TB_Tax2.Text = $"{GetController().taxes.Where(t => t.Type == 2).First().Percentage}"; ;
+            TB_Tax3.Text = $"{GetController().taxes.Where(t => t.Type == 3).First().Percentage}"; ;
+            TB_Tax4.Text = $"{GetController().taxes.Where(t => t.Type == 4).First().Percentage}"; ;
         }
 
-        private void EV_UserName(object sender, RoutedEventArgs e)
+        private void EV_Tax(object sender, RoutedEventArgs e)
         {
-            if(TB_CompanyName.Text.Length == 0)
+
+            for (int i = 1;i <=5 ;i++)
             {
-                if (SP_CompanyName.Children.Count == 1)
+                var TB_Tax = (TextBox)this.FindName($"TB_Tax{i}");
+                if (string.IsNullOrEmpty(TB_Tax.Text))
                 {
-                    TextBlock message = new TextBlock();
-                    message.TextWrapping = TextWrapping.WrapWithOverflow;
-                    message.Text = "Este campo no puede estar vacio";
-                    message.HorizontalAlignment = HorizontalAlignment.Center;
-                    SP_CompanyName.Children.Add(message);
+                    if (GetController().taxes.Where(t => t.Type == i).Count() > 0)
+                    {
+                        Tax tmp = GetController().taxes.Where(t => t.Type == i).First();
+                        GetController().taxes.Remove(tmp);
+                    }
+                    else
+                    {
+                        GetController().taxes.Add(
+                        new Tax
+                        {
+                            Type = i,
+                            Percentage = Convert.ToDecimal(TB_Tax.Text)
+                        });
+                    }
                 }
-
-                else if (SP_CompanyName.Children.Count == 2)
+                var TB_RE = (TextBox)this.FindName($"TB_EquivalenceSurcharge{i}");
+                if (string.IsNullOrEmpty(TB_RE.Text))
                 {
-                    SP_CompanyName.Children.RemoveAt(SP_CompanyName.Children.Count - 1);
-                    TextBlock message = new TextBlock();
-                    message.TextWrapping = TextWrapping.WrapWithOverflow;
-                    message.Text = "Este campo no puede estar vacio";
-                    message.HorizontalAlignment = HorizontalAlignment.Center;
-                    SP_CompanyName.Children.Add(message);
+                    if (GetController().equiSurs.Where(t => t.Type == i).Count() > 0)
+                    {
+                        Tax tmp = GetController().equiSurs.Where(t => t.Type == i).First();
+                        GetController().equiSurs.Remove(tmp);
+                    }
+                    else
+                    {
+                        GetController().equiSurs.Add(
+                        new Tax
+                        {
+                            Type = i,
+                            Percentage = Convert.ToDecimal(TB_RE.Text)
+                        });
+                    }
                 }
-                GetController().CleanName();
-            }
-
-            else if (GetController().CompanyControlExist(TB_CompanyName.Text))
-            {
-                if (SP_CompanyName.Children.Count == 1)
+                var TB_ST = (TextBox)this.FindName($"TB_SpecialTax{i}");
+                if (string.IsNullOrEmpty(TB_ST.Text))
                 {
-                    TextBlock message = new TextBlock();
-                    message.TextWrapping = TextWrapping.WrapWithOverflow;
-                    message.Text = "Esta empresa ya existe";
-                    message.HorizontalAlignment = HorizontalAlignment.Center;
-                    SP_CompanyName.Children.Add(message);
+                    if (GetController().specTaxes.Where(t => t.Type == i).Count() > 0)
+                    {
+                        Tax tmp = GetController().specTaxes.Where(t => t.Type == i).First();
+                        GetController().specTaxes.Remove(tmp);
+                    }
+                    else
+                    {
+                        GetController().specTaxes.Add(
+                        new Tax
+                        {
+                            Type = i,
+                            Percentage = Convert.ToDecimal(TB_ST.Text)
+                        });
+                    }
                 }
-
-                else if (SP_CompanyName.Children.Count == 2)
-                {
-                    SP_CompanyName.Children.RemoveAt(SP_CompanyName.Children.Count - 1);
-                    TextBlock message = new TextBlock();
-                    message.TextWrapping = TextWrapping.WrapWithOverflow;
-                    message.Text = "Esta empresa ya existe";
-                    message.HorizontalAlignment = HorizontalAlignment.Center;
-                    SP_CompanyName.Children.Add(message);
-                }
-                GetController().EV_UpdateIfNotEmpty(true);
-            }
-
-            else
-            {
-                if (SP_CompanyName.Children.Count == 2)
-                {
-                    SP_CompanyName.Children.RemoveAt(SP_CompanyName.Children.Count - 1);
-                }
-                GetController().EV_UpdateIfNotEmpty(true);
-            }
-        }
-
-        private void EV_CB_Changes(object sender, RoutedEventArgs e)
-        {
-            ComboBoxItem temp2 = (ComboBoxItem)CB_CompanyCode.SelectedItem;
-            if (temp2 != null)
-            {
-                GetController().SetCompanyCode(Convert.ToInt32(temp2.Name.Replace("companyCode", "")));
             }
         }
 
