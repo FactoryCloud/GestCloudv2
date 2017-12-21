@@ -75,15 +75,15 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.Controll
             }, new Tax
             {
                 Type = 2,
-                Percentage = 0.40M
+                Percentage = 0.50M
             } ,new Tax
             {
                 Type = 3,
-                Percentage = 1.20M
+                Percentage = 1.40M
             }, new Tax
             {
                 Type = 4,
-                Percentage = 5.40M
+                Percentage = 5.20M
             }});
 
             taxTypes.Add(new TaxType
