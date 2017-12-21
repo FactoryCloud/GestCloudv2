@@ -25,6 +25,11 @@ namespace GestCloudv2.Files.View
             InitializeComponent();
         }
 
+        private void EV_CT_ProductTypes(object sender, RoutedEventArgs e)
+        {
+            GetController().CT_ProductTypes();
+        }
+
         private void EV_CT_Stores(object sender, RoutedEventArgs e)
         {
             GetController().CT_Stores();

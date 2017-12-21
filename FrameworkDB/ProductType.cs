@@ -22,5 +22,6 @@ namespace FrameworkDB.V1
         public virtual Tax tax { get; set; }
 
         public virtual List<Product> Products { get; set; }
+        public virtual List<ProductTypeTax> productTypeTaxes { get; set; }
     }
 }

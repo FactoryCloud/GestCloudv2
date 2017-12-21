@@ -22,6 +22,7 @@
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <Button IsEnabled="false" Name="BT_Products" Margin="20">Artículos</Button>
+        <Button IsEnabled="True" Name="BT_ProductTypes" Grid.Column="1" Margin="20" Click="EV_CT_ProductTypes">Tipos de producto</Button>
         <Button IsEnabled="False" Name="BT_Externals" Margin="20" Grid.Column="2">Externos</Button>
         <Button Name="BT_Stores" Margin="20" Grid.Column="3" Click="EV_CT_Stores">Almacenes</Button>
         <Button Name="BT_Companies" Margin="20" Grid.Column="4" Click="EV_CT_Companies">Empresas</Button>

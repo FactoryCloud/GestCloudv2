@@ -37,5 +37,6 @@ namespace FrameworkDB.V1
         public DateTime? DateLaunch { get; set; }
 
         public virtual List<Movement> Movements { get; set; }
+        public virtual List<ProductTax> productTaxes { get; set; }
     }
 }

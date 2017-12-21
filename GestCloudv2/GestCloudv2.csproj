@@ -240,6 +240,49 @@
     <Compile Include="Files\Nodes\Entities\View\MC_Entity_Load_Select.xaml.cs">
       <DependentUpon>MC_Entity_Load_Select.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Files\Nodes\ProductTypes\ProductTypeItem\ProductTypeItem_Load\Controller\CT_PTY_Item_Load.cs">
+      <Generator>MSBuild:Compile</Generator>
+    </Compile>
+    <Compile Include="Files\Nodes\ProductTypes\ProductTypeItem\ProductTypeItem_Load\View\MC_PTY_Item_Load_ProductType.xaml.cs">
+      <DependentUpon>MC_PTY_Item_Load_ProductType.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Nodes\ProductTypes\ProductTypeItem\ProductTypeItem_Load\View\MC_PTY_Item_Load_ProductType_Taxes.xaml.cs">
+      <DependentUpon>MC_PTY_Item_Load_ProductType_Taxes.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Nodes\ProductTypes\ProductTypeItem\ProductTypeItem_Load\View\NV_PTY_Item_Load.xaml.cs">
+      <DependentUpon>NV_PTY_Item_Load.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Nodes\ProductTypes\ProductTypeItem\ProductTypeItem_Load\View\TS_PTY_Item_Load.xaml.cs">
+      <DependentUpon>TS_PTY_Item_Load.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Nodes\ProductTypes\ProductTypeItem\ProductTypeItem_Load\View\TS_PTY_Item_Load_Edit.xaml.cs">
+      <DependentUpon>TS_PTY_Item_Load_Edit.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Nodes\ProductTypes\ProductTypeItem\ProductTypeItem_New\Controller\CT_PTY_Item_New.cs">
+      <Generator>MSBuild:Compile</Generator>
+    </Compile>
+    <Compile Include="Files\Nodes\ProductTypes\ProductTypeItem\ProductTypeItem_New\View\MC_PTY_Item_New_ProductType.xaml.cs">
+      <DependentUpon>MC_PTY_Item_New_ProductType.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Nodes\ProductTypes\ProductTypeItem\ProductTypeItem_New\View\MC_PTY_Item_New_ProductType_Taxes.xaml.cs">
+      <DependentUpon>MC_PTY_Item_New_ProductType_Taxes.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Nodes\ProductTypes\ProductTypeItem\ProductTypeItem_New\View\NV_PTY_Item_New.xaml.cs">
+      <DependentUpon>NV_PTY_Item_New.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Nodes\ProductTypes\ProductTypeItem\ProductTypeItem_New\View\TS_PTY_Item_New.xaml.cs">
+      <DependentUpon>TS_PTY_Item_New.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Nodes\ProductTypes\ProductTypeMenu\Controller\CT_ProductTypeMenu.cs" />
+    <Compile Include="Files\Nodes\ProductTypes\ProductTypeMenu\View\MC_PTY_Menu.xaml.cs">
+      <DependentUpon>MC_PTY_Menu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Nodes\ProductTypes\ProductTypeMenu\View\NV_PTY_Menu.xaml.cs">
+      <DependentUpon>NV_PTY_Menu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Nodes\ProductTypes\ProductTypeMenu\View\TS_PTY_Menu.xaml.cs">
+      <DependentUpon>TS_PTY_Menu.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Files\Nodes\Providers\ProviderItem\ProviderItem_Load\Controller\CT_PRO_Item_Load.cs" />
     <Compile Include="Files\Nodes\Providers\ProviderItem\ProviderItem_Load\View\FW_PRO_Item_Load_Entity.cs" />
     <Compile Include="Files\Nodes\Providers\ProviderItem\ProviderItem_Load\View\MC_PRO_Item_Load_Provider.xaml.cs">
@@ -763,6 +806,54 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Files\Nodes\Entities\View\MC_Entity_Load_Select.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Files\Nodes\ProductTypes\ProductTypeItem\ProductTypeItem_Load\View\MC_PTY_Item_Load_ProductType.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Files\Nodes\ProductTypes\ProductTypeItem\ProductTypeItem_Load\View\MC_PTY_Item_Load_ProductType_Taxes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Files\Nodes\ProductTypes\ProductTypeItem\ProductTypeItem_Load\View\NV_PTY_Item_Load.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Files\Nodes\ProductTypes\ProductTypeItem\ProductTypeItem_Load\View\TS_PTY_Item_Load.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Files\Nodes\ProductTypes\ProductTypeItem\ProductTypeItem_Load\View\TS_PTY_Item_Load_Edit.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Files\Nodes\ProductTypes\ProductTypeItem\ProductTypeItem_New\View\MC_PTY_Item_New_ProductType.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Files\Nodes\ProductTypes\ProductTypeItem\ProductTypeItem_New\View\MC_PTY_Item_New_ProductType_Taxes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Files\Nodes\ProductTypes\ProductTypeItem\ProductTypeItem_New\View\NV_PTY_Item_New.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Files\Nodes\ProductTypes\ProductTypeItem\ProductTypeItem_New\View\TS_PTY_Item_New.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Files\Nodes\ProductTypes\ProductTypeMenu\View\MC_PTY_Menu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Files\Nodes\ProductTypes\ProductTypeMenu\View\NV_PTY_Menu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Files\Nodes\ProductTypes\ProductTypeMenu\View\TS_PTY_Menu.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

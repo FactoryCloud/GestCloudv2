@@ -47,5 +47,7 @@ namespace FrameworkDB.V1
         [ForeignKey("FK_Movements_StoreID_Stores")]
         public int StoreID { get; set; }
         public virtual Store store { get; set; }
+
+        public virtual List<MovementTax> movementTaxes { get; set; }
     }
 }
