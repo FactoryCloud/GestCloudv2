@@ -37,18 +37,59 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.View
             TB_EquivalenceSurcharge3.KeyUp += new KeyEventHandler(EV_Tax);
             TB_EquivalenceSurcharge4.KeyUp += new KeyEventHandler(EV_Tax);
             TB_EquivalenceSurcharge5.KeyUp += new KeyEventHandler(EV_Tax);
+            TB_SpecialTax1.KeyUp += new KeyEventHandler(EV_Tax);
+            TB_SpecialTax2.KeyUp += new KeyEventHandler(EV_Tax);
+            TB_SpecialTax3.KeyUp += new KeyEventHandler(EV_Tax);
+            TB_SpecialTax4.KeyUp += new KeyEventHandler(EV_Tax);
+            TB_SpecialTax5.KeyUp += new KeyEventHandler(EV_Tax);
         }
 
         private void EV_Start(object sender, RoutedEventArgs e)
         {
-            TB_EquivalenceSurcharge1.Text = $"{GetController().equiSurs.Where(t => t.Type == 1).First().Percentage}";
-            TB_EquivalenceSurcharge2.Text = $"{GetController().equiSurs.Where(t => t.Type == 2).First().Percentage}";
-            TB_EquivalenceSurcharge3.Text = $"{GetController().equiSurs.Where(t => t.Type == 3).First().Percentage}";
-            TB_EquivalenceSurcharge4.Text = $"{GetController().equiSurs.Where(t => t.Type == 4).First().Percentage}";
-            TB_Tax1.Text = $"{GetController().taxes.Where(t => t.Type == 1).First().Percentage}";
-            TB_Tax2.Text = $"{GetController().taxes.Where(t => t.Type == 2).First().Percentage}"; ;
-            TB_Tax3.Text = $"{GetController().taxes.Where(t => t.Type == 3).First().Percentage}"; ;
-            TB_Tax4.Text = $"{GetController().taxes.Where(t => t.Type == 4).First().Percentage}"; ;
+            if(GetController().equiSurs.Where(t => t.Type == 1).Count()>0)
+                TB_EquivalenceSurcharge1.Text = $"{GetController().equiSurs.Where(t => t.Type == 1).First().Percentage}";
+
+            if (GetController().equiSurs.Where(t => t.Type == 2).Count() > 0)
+                TB_EquivalenceSurcharge2.Text = $"{GetController().equiSurs.Where(t => t.Type == 2).First().Percentage}";
+
+            if (GetController().equiSurs.Where(t => t.Type == 3).Count() > 0)
+                TB_EquivalenceSurcharge3.Text = $"{GetController().equiSurs.Where(t => t.Type == 3).First().Percentage}";
+
+            if (GetController().equiSurs.Where(t => t.Type == 4).Count() > 0)
+                TB_EquivalenceSurcharge4.Text = $"{GetController().equiSurs.Where(t => t.Type == 4).First().Percentage}";
+
+            if (GetController().equiSurs.Where(t => t.Type == 5).Count() > 0)
+                TB_EquivalenceSurcharge5.Text = $"{GetController().equiSurs.Where(t => t.Type == 5).First().Percentage}";
+
+            if (GetController().specTaxes.Where(t => t.Type == 1).Count() > 0)
+                TB_SpecialTax1.Text = $"{GetController().specTaxes.Where(t => t.Type == 1).First().Percentage}";
+
+            if (GetController().specTaxes.Where(t => t.Type == 2).Count() > 0)
+                TB_SpecialTax2.Text = $"{GetController().specTaxes.Where(t => t.Type == 2).First().Percentage}";
+
+            if (GetController().specTaxes.Where(t => t.Type == 3).Count() > 0)
+                TB_SpecialTax3.Text = $"{GetController().specTaxes.Where(t => t.Type == 3).First().Percentage}";
+
+            if (GetController().specTaxes.Where(t => t.Type == 4).Count() > 0)
+                TB_SpecialTax4.Text = $"{GetController().specTaxes.Where(t => t.Type == 4).First().Percentage}";
+
+            if (GetController().specTaxes.Where(t => t.Type == 5).Count() > 0)
+                TB_SpecialTax5.Text = $"{GetController().specTaxes.Where(t => t.Type == 5).First().Percentage}";
+
+            if (GetController().taxes.Where(t => t.Type == 1).Count() > 0)
+                TB_Tax1.Text = $"{GetController().taxes.Where(t => t.Type == 1).First().Percentage}";
+
+            if (GetController().taxes.Where(t => t.Type == 2).Count() > 0)
+                TB_Tax2.Text = $"{GetController().taxes.Where(t => t.Type == 2).First().Percentage}";
+
+            if (GetController().taxes.Where(t => t.Type == 3).Count() > 0)
+                TB_Tax3.Text = $"{GetController().taxes.Where(t => t.Type == 3).First().Percentage}";
+
+            if (GetController().taxes.Where(t => t.Type == 4).Count() > 0)
+                TB_Tax4.Text = $"{GetController().taxes.Where(t => t.Type == 4).First().Percentage}";
+
+            if (GetController().taxes.Where(t => t.Type == 5).Count() > 0)
+                TB_Tax5.Text = $"{GetController().taxes.Where(t => t.Type == 5).First().Percentage}";
         }
 
         private void EV_Tax(object sender, RoutedEventArgs e)
@@ -64,16 +105,18 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.View
                         Tax tmp = GetController().taxes.Where(t => t.Type == i).First();
                         GetController().taxes.Remove(tmp);
                     }
-                    else
-                    {
-                        GetController().taxes.Add(
-                        new Tax
-                        {
-                            Type = i,
-                            Percentage = Convert.ToDecimal(TB_Tax.Text)
-                        });
-                    }
                 }
+
+                else
+                {
+                    GetController().taxes.Add(
+                    new Tax
+                    {
+                        Type = i,
+                        Percentage = Convert.ToDecimal(TB_Tax.Text)
+                    });
+                }
+
                 var TB_RE = (TextBox)this.FindName($"TB_EquivalenceSurcharge{i}");
                 if (string.IsNullOrEmpty(TB_RE.Text))
                 {
@@ -82,16 +125,18 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.View
                         Tax tmp = GetController().equiSurs.Where(t => t.Type == i).First();
                         GetController().equiSurs.Remove(tmp);
                     }
-                    else
-                    {
-                        GetController().equiSurs.Add(
-                        new Tax
-                        {
-                            Type = i,
-                            Percentage = Convert.ToDecimal(TB_RE.Text)
-                        });
-                    }
                 }
+
+                else
+                {
+                    GetController().equiSurs.Add(
+                    new Tax
+                    {
+                        Type = i,
+                        Percentage = Convert.ToDecimal(TB_RE.Text)
+                    });
+                }
+
                 var TB_ST = (TextBox)this.FindName($"TB_SpecialTax{i}");
                 if (string.IsNullOrEmpty(TB_ST.Text))
                 {
@@ -100,15 +145,16 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.View
                         Tax tmp = GetController().specTaxes.Where(t => t.Type == i).First();
                         GetController().specTaxes.Remove(tmp);
                     }
-                    else
+                }
+
+                else
+                {
+                    GetController().specTaxes.Add(
+                    new Tax
                     {
-                        GetController().specTaxes.Add(
-                        new Tax
-                        {
-                            Type = i,
-                            Percentage = Convert.ToDecimal(TB_ST.Text)
-                        });
-                    }
+                        Type = i,
+                        Percentage = Convert.ToDecimal(TB_ST.Text)
+                    });
                 }
             }
         }
