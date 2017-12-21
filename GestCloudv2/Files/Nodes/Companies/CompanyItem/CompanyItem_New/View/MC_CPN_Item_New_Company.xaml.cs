@@ -29,16 +29,18 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.View
             this.Loaded += new RoutedEventHandler(EV_Start);
 
             CB_CompanyCode.SelectionChanged += new SelectionChangedEventHandler(EV_CB_Changes);
+            CB_CompanyPeriod.SelectionChanged += new SelectionChangedEventHandler(EV_CB_Changes);
             CB_StartDayFiscalYear.SelectionChanged += new SelectionChangedEventHandler(EV_CB_StartDayChanges);
             CB_StartMonthFiscalYear.SelectionChanged += new SelectionChangedEventHandler(EV_CB_StartMonthChanges);
-            CB_EndDayFiscalYear.SelectionChanged += new SelectionChangedEventHandler(EV_CB_EndDayChanges);
-            CB_EndMonthFiscalYear.SelectionChanged += new SelectionChangedEventHandler(EV_CB_EndMonthChanges);
+            //CB_EndDayFiscalYear.SelectionChanged += new SelectionChangedEventHandler(EV_CB_EndDayChanges);
+            //CB_EndMonthFiscalYear.SelectionChanged += new SelectionChangedEventHandler(EV_CB_EndMonthChanges);
             TB_CompanyName.KeyUp += new KeyEventHandler(EV_UserName);
             TB_CompanyName.Loaded += new RoutedEventHandler(EV_UserName);
         }
 
         private void EV_Start(object sender, RoutedEventArgs e)
         {
+            PeriodOptions();
             TB_CompanyName.Text = GetController().company.Name;
             DateTime month = Convert.ToDateTime("01/01/0001");
 
@@ -86,7 +88,7 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.View
                     CB_StartMonthFiscalYear.Items.Add(temp);
                 }
             }
-            month = Convert.ToDateTime("01/01/0001");
+            /*month = Convert.ToDateTime("01/01/0001");
             for (int i = 1; i <= 31; i++)
             {
                 if (!enddayFP.Contains(i))
@@ -105,7 +107,7 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.View
                 temp.Name = $"endMonthFP{i}";
                 month = month.AddMonths(1);
                 CB_EndMonthFiscalYear.Items.Add(temp);
-            }
+            }*/
 
             foreach (ComboBoxItem item in CB_CompanyCode.Items)
             {
@@ -116,7 +118,8 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.View
                 }
             }
             CB_StartMonthFiscalYear.SelectedIndex = 0;
-            CB_EndMonthFiscalYear.SelectedIndex = 11;
+            CB_CompanyPeriod.SelectedIndex = 0;
+            //CB_EndMonthFiscalYear.SelectedIndex = 11;
         }
 
         private void EV_UserName(object sender, RoutedEventArgs e)
@@ -184,6 +187,12 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.View
             {
                 GetController().SetCompanyCode(Convert.ToInt32(temp2.Name.Replace("companyCode", "")));
             }
+
+            ComboBoxItem temp3 = (ComboBoxItem)CB_CompanyPeriod.SelectedItem;
+            if (temp3 != null)
+            {
+                GetController().SetCompanyPeriodOption(Convert.ToInt32(temp3.Name.Replace("periodOption", "")));
+            }
         }
 
         private void EV_CB_StartMonthChanges(object sender, RoutedEventArgs e)
@@ -248,16 +257,16 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.View
             }          
         }
 
-        private void EV_CB_EndDayChanges(object sender, RoutedEventArgs e)
+        /*private void EV_CB_EndDayChanges(object sender, RoutedEventArgs e)
         {
             ComboBoxItem temp2 = (ComboBoxItem)CB_EndDayFiscalYear.SelectedItem;
             if (temp2 != null)
             {
                 GetController().endDayDate = Convert.ToInt32(temp2.Name.Replace("endDayFP", ""));
             }
-        }
+        }*/
 
-        private void EV_CB_EndMonthChanges(object sender, RoutedEventArgs e)
+        /*private void EV_CB_EndMonthChanges(object sender, RoutedEventArgs e)
         {
             CB_EndDayFiscalYear.Items.Clear();
             List<int> enddayFP = new List<int>();
@@ -309,7 +318,7 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.View
             }
             GetController().endMonthDate = Convert.ToInt32(temp4.Name.Replace("endMonthFP", ""));
 
-        }
+        }*/
         /*private void EV_CB_StartDayChanges(object sender, RoutedEventArgs e)
         {
             ComboBoxItem temp4 = (ComboBoxItem)CB_StartDayFiscalYear.SelectedItem;
@@ -324,6 +333,29 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.View
         {
             ComboBoxItem temp6 = (ComboBoxItem)CB_EndDayFiscalYear.SelectedItem;
         }*/
+
+        public void PeriodOptions()
+        {
+            ComboBoxItem anual = new ComboBoxItem();
+            anual.Content = $"Anual";
+            anual.Name = $"periodOption1";
+            CB_CompanyPeriod.Items.Add(anual);
+
+            ComboBoxItem semestral = new ComboBoxItem();
+            semestral.Content = $"Semestral";
+            semestral.Name = $"periodOption2";
+            CB_CompanyPeriod.Items.Add(semestral);
+
+            ComboBoxItem trimestral = new ComboBoxItem();
+            trimestral.Content = $"Trimestral";
+            trimestral.Name = $"periodOption3";
+            CB_CompanyPeriod.Items.Add(trimestral);
+
+            ComboBoxItem monthly = new ComboBoxItem();
+            monthly.Content = $"Mensual";
+            monthly.Name = $"periodOption4";
+            CB_CompanyPeriod.Items.Add(monthly);
+        }
 
         private Controller.CT_CPN_Item_New GetController()
         {

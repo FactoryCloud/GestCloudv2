@@ -207,6 +207,9 @@
     <Compile Include="Files\Nodes\Companies\CompanyItem\CompanyItem_Load\View\MC_CPN_Item_Load_Company_Stores.xaml.cs">
       <DependentUpon>MC_CPN_Item_Load_Company_Stores.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Files\Nodes\Companies\CompanyItem\CompanyItem_Load\View\MC_CPN_Item_Load_Company_Taxes.xaml.cs">
+      <DependentUpon>MC_CPN_Item_Load_Company_Taxes.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Files\Nodes\Companies\CompanyItem\CompanyItem_Load\View\NV_CPN_Item_Load.xaml.cs">
       <DependentUpon>NV_CPN_Item_Load.xaml</DependentUpon>
     </Compile>
@@ -720,6 +723,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Files\Nodes\Companies\CompanyItem\CompanyItem_Load\View\MC_CPN_Item_Load_Company_Stores.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Files\Nodes\Companies\CompanyItem\CompanyItem_Load\View\MC_CPN_Item_Load_Company_Taxes.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

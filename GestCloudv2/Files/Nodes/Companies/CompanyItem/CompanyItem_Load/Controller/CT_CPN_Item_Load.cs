@@ -25,6 +25,15 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_Load.Control
     {
         public Company company;
         public List<Store> stores;
+        public List<FiscalYear> fiscalYears;
+        public List<Tax> taxes;
+        public List<Tax> equiSurs;
+        public List<Tax> specTaxes;
+        public List<TaxType> taxTypes;
+        public int startDayDate;
+        public int startMonthDate;
+        public int endDayDate;
+        public int endMonthDate;
 
         public CT_CPN_Item_Load(Company company, int editable)
         {
@@ -34,7 +43,13 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_Load.Control
             Information.Add("minimalInformation", 0);
             Information["entityValid"] = 1;
 
-            foreach(CompanyStore compsto in db.CompaniesStores.Where(c => c.CompanyID == company.CompanyID).Include(c=> c.store))
+            fiscalYears = db.FiscalYears.Where(f => f.CompanyID == company.CompanyID).ToList();
+            taxTypes = db.TaxTypes.Where(t => t.CompanyID == company.CompanyID).ToList();
+            taxes = db.Taxes.Where(t => (t.taxType.CompanyID == company.CompanyID && t.taxType.Name.Contains("IVA"))).ToList();
+            equiSurs = db.Taxes.Where(t => (t.taxType.CompanyID == company.CompanyID && t.taxType.Name.Contains("RE"))).ToList();
+            specTaxes = db.Taxes.Where(t => (t.taxType.CompanyID == company.CompanyID && t.taxType.Name.Contains("ST"))).ToList();
+
+            foreach (CompanyStore compsto in db.CompaniesStores.Where(c => c.CompanyID == company.CompanyID).Include(c=> c.store))
             {
                 stores.Add(compsto.store);
             }
@@ -227,7 +242,7 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_Load.Control
                         TS_Page = new View.TS_CPN_Item_Load(Information["minimalInformation"]);
                     else
                         TS_Page = new View.TS_CPN_Item_Load_Edit(Information["minimalInformation"]);
-                    MC_Page = new View.MC_CPN_Item_Load_Company_Stores();
+                    MC_Page = new View.MC_CPN_Item_Load_Company_Taxes();
                     ChangeComponents();
                     break;
             }

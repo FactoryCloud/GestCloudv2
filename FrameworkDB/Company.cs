@@ -11,6 +11,7 @@ namespace FrameworkDB.V1
         public int CompanyID { get; set; }
         public int? Code { get; set; }
         public string Name { get; set; }
+        public int PeriodOption { get; set; }
 
         public virtual List<CompanyStore> CompaniesStores { get; set; }
         public virtual List<StockAdjust> StockAdjusts { get; set; }

@@ -35,6 +35,7 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_Load.View
         private void EV_Start(object sender, RoutedEventArgs e)
         {
             TB_CompanyName.Text = GetController().company.Name;
+            PeriodOptions();
 
             if (GetController().Information["editable"] == 0)
             {
@@ -44,6 +45,7 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_Load.View
 
                 TextBox TB_CompanyCode = new TextBox();
                 TB_CompanyCode.Name = "TB_CompanyCode";
+                TB_CompanyCode.IsReadOnly = true;
                 TB_CompanyCode.Text = $"{GetController().company.Code}";
                 TB_CompanyCode.VerticalAlignment = VerticalAlignment.Center;
                 TB_CompanyCode.TextAlignment = TextAlignment.Center;
@@ -54,6 +56,38 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_Load.View
                 GR_Main.Children.Add(TB_CompanyCode);
 
                 CB_CompanyCode.Visibility = Visibility.Hidden;
+
+                TextBox TB_CompanyPeriodOption = new TextBox();
+                TB_CompanyPeriodOption.Name = "TB_CompanyPeriodOption";
+                TB_CompanyPeriodOption.IsReadOnly = true;
+                switch (GetController().company.PeriodOption)
+                {
+                    case 1:
+                        TB_CompanyPeriodOption.Text = $"Anual";
+                        break;
+
+                    case 2:
+                        TB_CompanyPeriodOption.Text = $"Semestral";
+                        break;
+
+                    case 3:
+                        TB_CompanyPeriodOption.Text = $"Trimestral";
+                        break;
+
+                    case 4:
+                        TB_CompanyPeriodOption.Text = $"Mensual";
+                        break;
+                }
+                
+                TB_CompanyPeriodOption.VerticalAlignment = VerticalAlignment.Center;
+                TB_CompanyPeriodOption.TextAlignment = TextAlignment.Center;
+                TB_CompanyPeriodOption.Margin = margin;
+                Grid.SetColumn(TB_CompanyPeriodOption, 2);
+                Grid.SetRow(TB_CompanyPeriodOption, 3);
+
+                GR_Main.Children.Add(TB_CompanyPeriodOption);
+
+                CB_CompanyPeriod.Visibility = Visibility.Hidden;
             }
 
             else
@@ -82,6 +116,15 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_Load.View
                     if (item.Content.ToString() == $"{GetController().company.Code}")
                     {
                         CB_CompanyCode.SelectedValue = item;
+                        break;
+                    }
+                }
+
+                foreach (ComboBoxItem item in CB_CompanyPeriod.Items)
+                {
+                    if (Convert.ToInt16(item.Name.Replace("periodOption", "")) == GetController().company.PeriodOption)
+                    {
+                        CB_CompanyPeriod.SelectedValue = item;
                         break;
                     }
                 }
@@ -153,6 +196,29 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_Load.View
             {
                 GetController().SetCompanyCode(Convert.ToInt32(temp2.Name.Replace("companyCode", "")));
             }
+        }
+
+        public void PeriodOptions()
+        {
+            ComboBoxItem anual = new ComboBoxItem();
+            anual.Content = $"Anual";
+            anual.Name = $"periodOption1";
+            CB_CompanyPeriod.Items.Add(anual);
+
+            ComboBoxItem semestral = new ComboBoxItem();
+            semestral.Content = $"Semestral";
+            semestral.Name = $"periodOption2";
+            CB_CompanyPeriod.Items.Add(semestral);
+
+            ComboBoxItem trimestral = new ComboBoxItem();
+            trimestral.Content = $"Trimestral";
+            trimestral.Name = $"periodOption3";
+            CB_CompanyPeriod.Items.Add(trimestral);
+
+            ComboBoxItem monthly = new ComboBoxItem();
+            monthly.Content = $"Mensual";
+            monthly.Name = $"periodOption4";
+            CB_CompanyPeriod.Items.Add(monthly);
         }
 
         private Controller.CT_CPN_Item_Load GetController()

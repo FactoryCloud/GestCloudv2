@@ -25,8 +25,6 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.Controll
     {
         public Company company;
         public FiscalYear fiscalYear;
-        public TaxType taxType;
-        public Tax tax;
         public List<Store> stores;
         public List<Tax> taxes;
         public List<Tax> equiSurs;
@@ -34,8 +32,6 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.Controll
         public List<TaxType> taxTypes;
         public int startDayDate;
         public int startMonthDate;
-        public int endDayDate;
-        public int endMonthDate;
 
 
         public CT_CPN_Item_New()
@@ -46,8 +42,6 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.Controll
             equiSurs = new List<Tax>();
             specTaxes = new List<Tax>();
             company = new Company();
-            taxType = new TaxType();
-            tax = new Tax();
             fiscalYear = new FiscalYear();
 
             taxes.AddRange(new List<Tax>{new Tax
@@ -131,6 +125,11 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.Controll
             TestMinimalInformation();
         }
 
+        public void SetCompanyPeriodOption(int num)
+        {
+            company.PeriodOption = num;
+        }
+
         public void UpdateStore(int num)
         {
             if(stores.Contains(db.Stores.Where(s => s.StoreID == num).First()))
@@ -201,6 +200,28 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.Controll
         public void SaveNewCompany()
         {
             int year = Convert.ToInt16(DateTime.Today.ToString("yyyy"));
+            DateTime startDate = new DateTime(year, startMonthDate, startDayDate);
+            DateTime endDate = new DateTime();
+
+            switch(company.PeriodOption)
+            {
+                case 1:
+                    endDate = startDate.AddMonths(12).AddDays(-1);
+                    break;
+
+                case 2:
+                    endDate = startDate.AddMonths(6).AddDays(-1);
+                    break;
+
+                case 3:
+                    endDate = startDate.AddMonths(3).AddDays(-1);
+                    break;
+
+                case 4:
+                    endDate = startDate.AddMonths(1).AddDays(-1);
+                    break;
+            }
+
             db.Companies.Add(company);
 
             foreach (Store store in stores)
@@ -216,8 +237,8 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.Controll
                 db.FiscalYears.Add(new FiscalYear
                 {
                     Name = $"{year}",
-                    StartDate = new DateTime(year, startMonthDate, startDayDate),
-                    EndDate = new DateTime(year, endMonthDate, endDayDate),
+                    StartDate = startDate,
+                    EndDate = endDate,
                     company = company
                 });
             }
@@ -226,8 +247,8 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.Controll
                 db.FiscalYears.Add(new FiscalYear
                 {
                     Name = $"{year}-{year+1}",
-                    StartDate = new DateTime(year, startMonthDate, startDayDate),
-                    EndDate = new DateTime(year +1, endMonthDate, endDayDate),
+                    StartDate = startDate,
+                    EndDate = endDate,
                     company = company
                 });
             }
@@ -235,15 +256,8 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.Controll
             foreach (TaxType taxtype in taxTypes)
             {
                 taxtype.company = company;
-                taxtype.StartDate = new DateTime(year, startMonthDate, startDayDate);
-                if (startDayDate == 1 && startMonthDate == 1)
-                {
-                    taxtype.EndDate = new DateTime(year, endMonthDate, endDayDate);
-                }
-                else
-                {
-                    taxtype.EndDate = new DateTime(year+1, endMonthDate, endDayDate);
-                }
+                taxtype.StartDate = startDate;
+                taxtype.EndDate = endDate;
             }
 
             db.TaxTypes.AddRange(taxTypes);

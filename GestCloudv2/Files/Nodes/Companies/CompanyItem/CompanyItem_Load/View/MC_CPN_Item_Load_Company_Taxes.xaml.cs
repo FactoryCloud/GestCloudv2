@@ -14,14 +14,14 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using FrameworkDB.V1;
 
-namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.View
+namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_Load.View
 {
     /// <summary>
     /// Interaction logic for MC_CPN_Item_New_Company.xaml
     /// </summary>
-    public partial class MC_CPN_Item_New_Company_Taxes : Page
+    public partial class MC_CPN_Item_Load_Company_Taxes : Page
     {
-        public MC_CPN_Item_New_Company_Taxes()
+        public MC_CPN_Item_Load_Company_Taxes()
         {
             InitializeComponent();
 
@@ -32,13 +32,11 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.View
             TB_Tax3.KeyUp += new KeyEventHandler(EV_Tax);
             TB_Tax4.KeyUp += new KeyEventHandler(EV_Tax);
             TB_Tax5.KeyUp += new KeyEventHandler(EV_Tax);
-
             TB_EquivalenceSurcharge1.KeyUp += new KeyEventHandler(EV_Tax);
             TB_EquivalenceSurcharge2.KeyUp += new KeyEventHandler(EV_Tax);
             TB_EquivalenceSurcharge3.KeyUp += new KeyEventHandler(EV_Tax);
             TB_EquivalenceSurcharge4.KeyUp += new KeyEventHandler(EV_Tax);
             TB_EquivalenceSurcharge5.KeyUp += new KeyEventHandler(EV_Tax);
-
             TB_SpecialTax1.KeyUp += new KeyEventHandler(EV_Tax);
             TB_SpecialTax2.KeyUp += new KeyEventHandler(EV_Tax);
             TB_SpecialTax3.KeyUp += new KeyEventHandler(EV_Tax);
@@ -179,11 +177,11 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.View
             }
         }
 
-        private Controller.CT_CPN_Item_New GetController()
+        private Controller.CT_CPN_Item_Load GetController()
         {
             Window mainWindow = Application.Current.MainWindow;
             var a = (Main.View.MainWindow)mainWindow;
-            return (Controller.CT_CPN_Item_New)a.MainFrame.Content;
+            return (Controller.CT_CPN_Item_Load)a.MainFrame.Content;
         }
     }
 }
