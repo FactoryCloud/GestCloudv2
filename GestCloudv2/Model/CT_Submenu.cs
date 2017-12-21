@@ -20,6 +20,13 @@ namespace GestCloudv2.Model
         {
             switch (option)
             {
+                case 2:
+                    Subcontroller = new Files.Nodes.ProductTypes.ProductTypeItem.ProductTypeItem_Load.Controller.CT_PTY_Item_Load((ProductType)Component, 0, 1);
+                    items = new SubmenuItems().GetSubmenuItems(option);
+                    buttons = items.Count;
+                    Name = "Tipo de producto";
+                    break;
+
                 case 4:
                     Subcontroller = new Files.Nodes.Stores.StoreItem.StoreItem_Load.Controller.CT_STR_Item_Load((Store)Component, 0, 1);
                     items = new SubmenuItems().GetSubmenuItems(option);

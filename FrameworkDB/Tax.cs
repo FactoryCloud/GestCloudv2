@@ -23,5 +23,8 @@ namespace FrameworkDB.V1
         public virtual List<Movement> movements { get; set; }
         public virtual List<ProductType> productTypes { get; set; }
         public virtual List<Product> products { get; set; }
+        public virtual List<ProductTypeTax> productTypeTaxes { get; set; }
+        public virtual List<ProductTax> productsTaxes { get; set; }
+        public virtual List<MovementTax> movementTaxes { get; set; }
     }
 }
