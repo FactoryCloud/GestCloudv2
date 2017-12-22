@@ -44,9 +44,9 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_Load.Control
             fiscalYears = db.FiscalYears.Where(f => f.CompanyID == company.CompanyID).ToList();
             taxTypes = db.TaxTypes.Where(t => t.CompanyID == company.CompanyID).OrderByDescending(t => t.EndDate).ToList();
 
-            taxes = db.Taxes.Where(t => (t.taxType.CompanyID == company.CompanyID && t.taxType.Name.Contains("IVA"))).ToList();
-            equiSurs = db.Taxes.Where(t => (t.taxType.CompanyID == company.CompanyID && t.taxType.Name.Contains("RE"))).ToList();
-            specTaxes = db.Taxes.Where(t => (t.taxType.CompanyID == company.CompanyID && t.taxType.Name.Contains("ST"))).ToList();
+            taxes = new List<Tax>();
+            equiSurs = new List<Tax>();
+            specTaxes = new List<Tax>();
 
             foreach (CompanyStore compsto in db.CompaniesStores.Where(c => c.CompanyID == company.CompanyID).Include(c=> c.store))
             {
@@ -110,6 +110,27 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_Load.Control
         public void SetCompanyPeriodOption(int num)
         {
             company.PeriodOption = num;
+        }
+
+        public void AddTaxes(Tax tax, int num)
+        {
+            TaxType tt = db.TaxTypes.Where(t => t.TaxTypeID == num).First();
+            tax.TaxTypeID = db.TaxTypes.Where(t => t.CompanyID == company.CompanyID && t.Name.Contains("IVA") && t.StartDate == tt.StartDate && t.EndDate == tt.EndDate).First().TaxTypeID;
+            taxes.Add(tax);
+        }
+
+        public void AddEquiSurs(Tax tax, int num)
+        {
+            TaxType tt = db.TaxTypes.Where(t => t.TaxTypeID == num).First();
+            tax.TaxTypeID = db.TaxTypes.Where(t => t.CompanyID == company.CompanyID && t.Name.Contains("RE") && t.StartDate == tt.StartDate && t.EndDate == tt.EndDate).First().TaxTypeID;
+            taxes.Add(tax);
+        }
+
+        public void AddSpecTaxes(Tax tax, int num)
+        {
+            TaxType tt = db.TaxTypes.Where(t => t.TaxTypeID == num).First();
+            tax.TaxTypeID = db.TaxTypes.Where(t => t.CompanyID == company.CompanyID && t.Name.Contains("ST") && t.StartDate == tt.StartDate && t.EndDate == tt.EndDate).First().TaxTypeID;
+            taxes.Add(tax);
         }
 
         public void UpdateStore(int num)
@@ -187,6 +208,7 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_Load.Control
             Company company1 = db.Companies.Where(c => c.CompanyID == company.CompanyID).First();
             company1.Code = company.Code;
             company1.Name = company.Name;
+            company1.PeriodOption = company.PeriodOption;
             db.Companies.Update(company1);
 
             List<CompanyStore> companyStores = db.CompaniesStores.Where(c => c.CompanyID == company.CompanyID).Include(c => c.store).ToList();
@@ -209,6 +231,10 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_Load.Control
                     });
                 }
             }
+
+            db.Taxes.AddRange(taxes);
+            db.Taxes.AddRange(equiSurs);
+            db.Taxes.AddRange(specTaxes);
 
             db.SaveChanges();
             MessageBox.Show("Datos guardados correctamente");

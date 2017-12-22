@@ -131,12 +131,12 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_Load.View
 
                     else
                     {
-                        GetController().taxes.Add(
+                        GetController().AddTaxes(
                         new Tax
                         {
                             Type = i,
                             Percentage = Convert.ToDecimal(TB_Tax.Text.Replace(".", ",")) + 0.00M
-                        });
+                        }, Convert.ToInt16(((ComboBoxItem)CB_TaxPeriods.SelectedItem).Name.Replace("period", "")));
                     }
                 }
 
@@ -171,12 +171,12 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_Load.View
 
                     else
                     {
-                        GetController().equiSurs.Add(
+                        GetController().AddEquiSurs(
                         new Tax
                         {
                             Type = i,
                             Percentage = Convert.ToDecimal(TB_RE.Text.Replace(".", ",")) + 0.00M
-                        });
+                        }, Convert.ToInt16(((ComboBoxItem)CB_TaxPeriods.SelectedItem).Name.Replace("period", "")));
                     }
                 }
 
@@ -211,12 +211,12 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_Load.View
 
                     else
                     {
-                        GetController().specTaxes.Add(
+                        GetController().AddSpecTaxes(
                         new Tax
                         {
                             Type = i,
                             Percentage = Convert.ToDecimal(TB_ST.Text.Replace(".", ",")) + 0.00M
-                        });
+                        }, Convert.ToInt16(((ComboBoxItem)CB_TaxPeriods.SelectedItem).Name.Replace("period", "")));
                     }
                 }
             }
@@ -236,7 +236,43 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_Load.View
 
         public void EV_UpdateTaxes()
         {
-            //Recargos de equivalencia
+            for (int i = 1; i <= 5; i++)
+            {
+                // Tasas de IVA
+                var TB_Tax = (TextBox)this.FindName($"TB_Tax{i}");
+
+                if (taxes.Where(t => t.Type == i).Count() > 0)
+                {
+                    TB_Tax.Text = $"{taxes.Where(t => t.Type == i).First().Percentage}";
+                    TB_Tax.IsReadOnly = true;
+                }
+                else
+                    TB_Tax.Text = "";
+
+                // Tasas de Equivalencia
+                var TB_RE = (TextBox)this.FindName($"TB_EquivalenceSurcharge{i}");
+
+                if (equiSurs.Where(t => t.Type == i).Count() > 0)
+                {
+                    TB_RE.Text = $"{equiSurs.Where(t => t.Type == i).First().Percentage}";
+                    TB_RE.IsReadOnly = true;
+                }
+                else
+                    TB_RE.Text = "";
+
+                // Tasas especiales
+                var TB_ST = (TextBox)this.FindName($"TB_SpecialTax{i}");
+
+                if (specTaxes.Where(t => t.Type == i).Count() > 0)
+                {
+                    TB_ST.Text = $"{specTaxes.Where(t => t.Type == i).First().Percentage}";
+                    TB_ST.IsReadOnly = true;
+                }
+                else
+                    TB_ST.Text = "";
+            }
+
+            /*//Recargos de equivalencia
             if (equiSurs.Where(t => t.Type == 1).Count() > 0)
                 TB_EquivalenceSurcharge1.Text = $"{equiSurs.Where(t => t.Type == 1).First().Percentage}";
             else
@@ -314,7 +350,7 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_Load.View
             if (taxes.Where(t => t.Type == 5).Count() > 0)
                 TB_Tax5.Text = $"{taxes.Where(t => t.Type == 5).First().Percentage}";
             else
-                TB_Tax5.Text = "";
+                TB_Tax5.Text = "";*/
         }
 
         private Controller.CT_CPN_Item_Load GetController()
