@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -19,8 +20,16 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.View
     /// <summary>
     /// Interaction logic for MC_CPN_Item_New_Company.xaml
     /// </summary>
+
     public partial class MC_CPN_Item_New_Company_Taxes : Page
     {
+        public static string ReplaceLastOccurrence(string Source, string Find, string Replace)
+        {
+            int Place = Source.LastIndexOf(Find);
+            string result = Source.Remove(Place, Find.Length).Insert(Place, Replace);
+            return result;
+        }
+
         public MC_CPN_Item_New_Company_Taxes()
         {
             InitializeComponent();
@@ -100,6 +109,21 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.View
             for (int i = 1;i <=5 ;i++)
             {
                 var TB_Tax = (TextBox)this.FindName($"TB_Tax{i}");
+
+                if (Regex.Matches(TB_Tax.Text, "[a-zA-Z.]").Count > 0)
+                {
+                    TB_Tax.Text = Regex.Replace(TB_Tax.Text, "[.]", ",");
+                    TB_Tax.Text = Regex.Replace(TB_Tax.Text, "[^0-9,]", "");
+                    TB_Tax.SelectionStart = TB_Tax.Text.Length;
+                }
+
+                if (Regex.Matches(TB_Tax.Text, "[.,]").Count > 1)
+                {
+                    TB_Tax.Text = ReplaceLastOccurrence(TB_Tax.Text, ",", "");
+                    TB_Tax.SelectionStart = TB_Tax.Text.Length;
+                }
+
+                
                 if (string.IsNullOrEmpty(TB_Tax.Text))
                 {
                     if (GetController().taxes.Where(t => t.Type == i).Count() > 0)
@@ -126,6 +150,20 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.View
                 }
 
                 var TB_RE = (TextBox)this.FindName($"TB_EquivalenceSurcharge{i}");
+
+                if (Regex.Matches(TB_RE.Text, "[a-zA-Z.]").Count > 0)
+                {
+                    TB_RE.Text = Regex.Replace(TB_RE.Text, "[.]", ",");
+                    TB_RE.Text = Regex.Replace(TB_RE.Text, "[^0-9,]", "");
+                    TB_RE.SelectionStart = TB_RE.Text.Length;
+                }
+
+                if (Regex.Matches(TB_RE.Text, "[.,]").Count > 1)
+                {
+                    TB_RE.Text = ReplaceLastOccurrence(TB_RE.Text, ",", "");
+                    TB_RE.SelectionStart = TB_RE.Text.Length;
+                }
+
                 if (string.IsNullOrEmpty(TB_RE.Text))
                 {
                     if (GetController().equiSurs.Where(t => t.Type == i).Count() > 0)
@@ -152,6 +190,20 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.View
                 }
 
                 var TB_ST = (TextBox)this.FindName($"TB_SpecialTax{i}");
+
+                if (Regex.Matches(TB_ST.Text, "[a-zA-Z.]").Count > 0)
+                {
+                    TB_ST.Text = Regex.Replace(TB_ST.Text, "[.]", ",");
+                    TB_ST.Text = Regex.Replace(TB_ST.Text, "[^0-9,]", "");
+                    TB_ST.SelectionStart = TB_ST.Text.Length;
+                }
+
+                if (Regex.Matches(TB_ST.Text, "[.,]").Count > 1)
+                {
+                    TB_ST.Text = ReplaceLastOccurrence(TB_ST.Text, ",", "");
+                    TB_ST.SelectionStart = TB_ST.Text.Length;
+                }
+
                 if (string.IsNullOrEmpty(TB_ST.Text))
                 {
                     if (GetController().specTaxes.Where(t => t.Type == i).Count() > 0)
