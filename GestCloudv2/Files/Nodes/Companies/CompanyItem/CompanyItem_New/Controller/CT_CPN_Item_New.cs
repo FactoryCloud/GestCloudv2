@@ -43,6 +43,8 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.Controll
             specTaxes = new List<Tax>();
             company = new Company();
             fiscalYear = new FiscalYear();
+            startDayDate = 1;
+            startMonthDate = 1;
 
             taxes.AddRange(new List<Tax>{new Tax
             {

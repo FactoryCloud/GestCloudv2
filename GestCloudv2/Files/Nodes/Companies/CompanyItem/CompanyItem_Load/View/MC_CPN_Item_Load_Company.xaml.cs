@@ -28,14 +28,99 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_Load.View
             this.Loaded += new RoutedEventHandler(EV_Start);
 
             CB_CompanyCode.SelectionChanged += new SelectionChangedEventHandler(EV_CB_Changes);
+            CB_CompanyPeriod.SelectionChanged += new SelectionChangedEventHandler(EV_CB_Changes);
+            CB_StartDayFiscalYear.SelectionChanged += new SelectionChangedEventHandler(EV_CB_StartDayChanges);
+            CB_StartMonthFiscalYear.SelectionChanged += new SelectionChangedEventHandler(EV_CB_StartMonthChanges);
+
             TB_CompanyName.KeyUp += new KeyEventHandler(EV_CompanyName);
             TB_CompanyName.Loaded += new RoutedEventHandler(EV_CompanyName);
         }
 
         private void EV_Start(object sender, RoutedEventArgs e)
         {
+            DateTime month = Convert.ToDateTime("01/01/0001");
+            List<int> startdayFP = new List<int>();
+            List<int> startmonthFP = new List<int>();
+
             TB_CompanyName.Text = GetController().company.Name;
             PeriodOptions();
+
+            for (int i = 1; i <= 31; i++)
+            {
+                if (!startdayFP.Contains(i))
+                {
+                    ComboBoxItem temp = new ComboBoxItem();
+                    temp.Content = $"{i}";
+                    temp.Name = $"startDayFP{i}";
+                    CB_StartDayFiscalYear.Items.Add(temp);
+                }
+            }
+
+            for (int i = 1; i <= 12; i++)
+            {
+                if (!startmonthFP.Contains(i))
+                {
+                    ComboBoxItem temp = new ComboBoxItem();
+                    temp.Content = $"{System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(month.ToString("MMMM").ToLower())}";
+                    temp.Name = $"startMonthFP{i}";
+                    month = month.AddMonths(1);
+                    CB_StartMonthFiscalYear.Items.Add(temp);
+                }
+            }
+
+            foreach (ComboBoxItem item in CB_CompanyPeriod.Items)
+            {
+                if (Convert.ToInt16(item.Name.Replace("periodOption", "")) == GetController().company.PeriodOption)
+                {
+                    CB_CompanyPeriod.SelectedValue = item;
+                    break;
+                }
+            }
+
+            foreach (ComboBoxItem item in CB_StartMonthFiscalYear.Items)
+            {
+                if (Convert.ToInt16(item.Name.Replace("startMonthFP", "")) == Convert.ToInt16(GetController().fiscalYears.Last().StartDate.ToString("MM")))
+                {
+                    CB_StartMonthFiscalYear.SelectedValue = item;
+                    break;
+                }
+            }
+
+            foreach (ComboBoxItem item in CB_StartDayFiscalYear.Items)
+            {
+                if (Convert.ToInt16(item.Name.Replace("startDayFP", "")) == Convert.ToInt16(GetController().fiscalYears.Last().StartDate.ToString("dd")))
+                {
+                    CB_StartDayFiscalYear.SelectedValue = item;
+                    break;
+                }
+            }
+
+            Thickness margin1 = new Thickness(20, 0, 0, 0);
+            TextBox TB_CompanyStartDay = new TextBox();
+            TB_CompanyStartDay.Name = "TB_CompanyStartDay";
+            TB_CompanyStartDay.IsReadOnly = true;
+            TB_CompanyStartDay.Text = $"{((ComboBoxItem)CB_StartDayFiscalYear.SelectedItem).Content}";
+            TB_CompanyStartDay.VerticalAlignment = VerticalAlignment.Center;
+            TB_CompanyStartDay.TextAlignment = TextAlignment.Center;
+            TB_CompanyStartDay.Margin = margin1;
+
+            GR_Date.Children.Add(TB_CompanyStartDay);
+
+            CB_StartDayFiscalYear.Visibility = Visibility.Hidden;
+
+            Thickness margin2 = new Thickness(0, 0, 20, 0);
+            TextBox TB_CompanyStartMonth = new TextBox();
+            TB_CompanyStartMonth.Name = "TB_CompanyStartMonth";
+            TB_CompanyStartMonth.IsReadOnly = true;
+            TB_CompanyStartMonth.Text = $"{((ComboBoxItem)CB_StartMonthFiscalYear.SelectedItem).Content}";
+            TB_CompanyStartMonth.VerticalAlignment = VerticalAlignment.Center;
+            TB_CompanyStartMonth.TextAlignment = TextAlignment.Center;
+            TB_CompanyStartMonth.Margin = margin2;
+            Grid.SetColumn(TB_CompanyStartMonth, 1);
+
+            GR_Date.Children.Add(TB_CompanyStartMonth);
+
+            CB_StartMonthFiscalYear.Visibility = Visibility.Hidden;
 
             if (GetController().Information["editable"] == 0)
             {
@@ -60,25 +145,7 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_Load.View
                 TextBox TB_CompanyPeriodOption = new TextBox();
                 TB_CompanyPeriodOption.Name = "TB_CompanyPeriodOption";
                 TB_CompanyPeriodOption.IsReadOnly = true;
-                switch (GetController().company.PeriodOption)
-                {
-                    case 1:
-                        TB_CompanyPeriodOption.Text = $"Anual";
-                        break;
-
-                    case 2:
-                        TB_CompanyPeriodOption.Text = $"Semestral";
-                        break;
-
-                    case 3:
-                        TB_CompanyPeriodOption.Text = $"Trimestral";
-                        break;
-
-                    case 4:
-                        TB_CompanyPeriodOption.Text = $"Mensual";
-                        break;
-                }
-                
+                TB_CompanyPeriodOption.Text = $"{((ComboBoxItem)CB_CompanyPeriod.SelectedItem).Content}";
                 TB_CompanyPeriodOption.VerticalAlignment = VerticalAlignment.Center;
                 TB_CompanyPeriodOption.TextAlignment = TextAlignment.Center;
                 TB_CompanyPeriodOption.Margin = margin;
@@ -87,7 +154,7 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_Load.View
 
                 GR_Main.Children.Add(TB_CompanyPeriodOption);
 
-                CB_CompanyPeriod.Visibility = Visibility.Hidden;
+                CB_CompanyPeriod.Visibility = Visibility.Hidden; 
             }
 
             else
@@ -120,14 +187,7 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_Load.View
                     }
                 }
 
-                foreach (ComboBoxItem item in CB_CompanyPeriod.Items)
-                {
-                    if (Convert.ToInt16(item.Name.Replace("periodOption", "")) == GetController().company.PeriodOption)
-                    {
-                        CB_CompanyPeriod.SelectedValue = item;
-                        break;
-                    }
-                }
+                
             }
         }
 
@@ -195,6 +255,114 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_Load.View
             if (temp2 != null)
             {
                 GetController().SetCompanyCode(Convert.ToInt32(temp2.Name.Replace("companyCode", "")));
+            }
+
+            ComboBoxItem temp3 = (ComboBoxItem)CB_CompanyPeriod.SelectedItem;
+            if (temp3 != null)
+            {
+                GetController().SetCompanyPeriodOption(Convert.ToInt32(temp3.Name.Replace("periodOption", "")));
+            }
+        }
+
+        private void EV_CB_StartMonthChanges(object sender, RoutedEventArgs e)
+        {
+            CB_StartDayFiscalYear.Items.Clear();
+            List<int> startdayFP = new List<int>();
+            ComboBoxItem temp3 = (ComboBoxItem)CB_StartMonthFiscalYear.SelectedItem;
+            //MessageBox.Show($"{((ComboBoxItem)CB_StartMonthFiscalYear.SelectedItem).Name.Replace("startMonthFP", "")}");
+            switch (Convert.ToInt32(temp3.Name.Replace("startMonthFP", "")))
+            {
+                case int n when (n == 1 || n == 3 || n == 5 || n == 7 || n == 8 || n == 10 || n == 12):
+                    for (int i = 1; i <= 31; i++)
+                    {
+                        if (!startdayFP.Contains(i))
+                        {
+                            ComboBoxItem temp = new ComboBoxItem();
+                            temp.Content = $"{i}";
+                            temp.Name = $"startDayFP{i}";
+                            CB_StartDayFiscalYear.Items.Add(temp);
+                        }
+                    }
+
+                    foreach (ComboBoxItem item in CB_StartDayFiscalYear.Items)
+                    {
+                        if (Convert.ToInt16(item.Name.Replace("startDayFP", "")) == Convert.ToInt16(GetController().fiscalYears.Last().StartDate.ToString("dd")))
+                        {
+                            CB_StartDayFiscalYear.SelectedValue = item;
+                            break;
+                        }
+                    }
+                    break;
+
+                case int n when (n == 4 || n == 6 || n == 9 || n == 11):
+                    for (int i = 1; i <= 30; i++)
+                    {
+                        if (!startdayFP.Contains(i))
+                        {
+                            ComboBoxItem temp = new ComboBoxItem();
+                            temp.Content = $"{i}";
+                            temp.Name = $"startDayFP{i}";
+                            CB_StartDayFiscalYear.Items.Add(temp);
+                        }
+                    }
+                    if (GetController().startDayDate == 31)
+                        CB_StartDayFiscalYear.SelectedIndex = 29;
+
+                    else
+                    {
+                        foreach (ComboBoxItem item in CB_StartDayFiscalYear.Items)
+                        {
+                            if (Convert.ToInt16(item.Name.Replace("startDayFP", "")) == Convert.ToInt16(GetController().fiscalYears.Last().StartDate.ToString("dd")))
+                            {
+                                CB_StartDayFiscalYear.SelectedValue = item;
+                                break;
+                            }
+                        }
+                    }
+                    break;
+
+                case 2:
+                    for (int i = 1; i <= 28; i++)
+                    {
+                        if (!startdayFP.Contains(i))
+                        {
+                            ComboBoxItem temp = new ComboBoxItem();
+                            temp.Content = $"{i}";
+                            temp.Name = $"startDayFP{i}";
+                            CB_StartDayFiscalYear.Items.Add(temp);
+                        }
+                    }
+                    if (GetController().startDayDate > 28)
+                        CB_StartDayFiscalYear.SelectedIndex = 27;
+
+                    else
+                    {
+                        foreach (ComboBoxItem item in CB_StartDayFiscalYear.Items)
+                        {
+                            if (Convert.ToInt16(item.Name.Replace("startDayFP", "")) == Convert.ToInt16(GetController().fiscalYears.Last().StartDate.ToString("dd")))
+                            {
+                                CB_StartDayFiscalYear.SelectedValue = item;
+                                break;
+                            }
+                        }
+                    }
+                    break;
+            }
+            GetController().startMonthDate = Convert.ToInt32(temp3.Name.Replace("startMonthFP", ""));
+        }
+
+        private void EV_CB_StartDayChanges(object sender, RoutedEventArgs e)
+        {
+            ComboBoxItem temp1 = (ComboBoxItem)CB_StartDayFiscalYear.SelectedItem;
+            if (temp1 != null)
+            {
+                GetController().startDayDate = Convert.ToInt32(temp1.Name.Replace("startDayFP", ""));
+            }
+
+            ComboBoxItem temp3 = (ComboBoxItem)CB_CompanyPeriod.SelectedItem;
+            if (temp3 != null)
+            {
+                GetController().SetCompanyPeriodOption(Convert.ToInt32(temp3.Name.Replace("periodOption", "")));
             }
         }
 
