@@ -12,11 +12,11 @@ namespace FrameworkDB.V1
     {
         public int MovementTaxID { get; set; }
 
-        [ForeignKey("FK_MovementTaxes_MovementID_Movements")]
+        [ForeignKey("FK_MovementsTaxes_MovementID_Movements")]
         public int? MovementID { get; set; }
         public virtual Movement movement { get; set; }
 
-        [ForeignKey("FK_MovementTaxes_TaxID_Taxes")]
+        [ForeignKey("FK_MovementsTaxes_TaxID_Taxes")]
         public int? TaxID { get; set; }
         public virtual Tax tax { get; set; }
     }

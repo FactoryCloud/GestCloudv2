@@ -48,6 +48,6 @@ namespace FrameworkDB.V1
         public int StoreID { get; set; }
         public virtual Store store { get; set; }
 
-        public virtual List<MovementTax> movementTaxes { get; set; }
+        public virtual List<MovementTax> movementsTaxes { get; set; }
     }
 }

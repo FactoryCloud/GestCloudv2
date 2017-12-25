@@ -12,12 +12,12 @@ namespace FrameworkDB.V1
     {
         public int ProductTypeTaxID { get; set; }
 
-        [ForeignKey("FK_ProductTypeTaxes_ProductTypeID_ProductTypes")]
+        [ForeignKey("FK_ProductTypesTaxes_ProductTypeID_ProductTypes")]
         public int? ProductTypeID { get; set; }
         public virtual ProductType productType { get; set; }
 
-        [ForeignKey("FK_ProductTypeTaxes_TaxID_Taxes")]
+        [ForeignKey("FK_ProductTypesTaxes_TaxID_Taxes")]
         public int? TaxID { get; set; }
-        public virtual Tax taxes { get; set; }
+        public virtual Tax tax { get; set; }
     }
 }
