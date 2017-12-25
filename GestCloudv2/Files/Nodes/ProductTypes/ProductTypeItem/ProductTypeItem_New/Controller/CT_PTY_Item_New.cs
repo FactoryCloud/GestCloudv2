@@ -24,15 +24,14 @@ namespace GestCloudv2.Files.Nodes.ProductTypes.ProductTypeItem.ProductTypeItem_N
     /// </summary>
     public partial class CT_PTY_Item_New : Main.Controller.CT_Common
     {
-        public Store store;
-        public List<Company> companies;
+        public int lastProductType;
+        public ProductType productType;
         public SubmenuItems submenuItems;
 
         public CT_PTY_Item_New()
         {
             submenuItems = new SubmenuItems();
-            companies = new List<Company>();
-            store = new Store();
+            productType = new ProductType();
             Information.Add("minimalInformation", 0);
             Information["entityValid"] = 1;
         }
@@ -42,39 +41,15 @@ namespace GestCloudv2.Files.Nodes.ProductTypes.ProductTypeItem.ProductTypeItem_N
             UpdateComponents();
         }
 
-        public List<Company> GetCompanies()
+        public void SetProductTypeName(string name)
         {
-            return db.Companies.ToList();
-        }
-
-        public List<Store> GetStores()
-        {
-            return db.Stores.ToList();
-        }
-
-        public void SetStoreName(string name)
-        {
-            store.Name = name;
+            productType.Name = name;
             TestMinimalInformation();
         }
 
-        public void SetStoreCode(int code)
+        public void SetProductTypeCode(int code)
         {
-            store.Code = code;
-            TestMinimalInformation();
-        }
-
-        public void UpdateCompanies(int num)
-        {
-            if(companies.Contains(db.Companies.Where(s => s.CompanyID == num).First()))
-            {
-                companies.Remove(db.Companies.Where(c => c.CompanyID == num).Include(c => c.CompaniesStores).First());
-            }
-
-            else
-            {
-                companies.Add(db.Companies.Where(c => c.CompanyID == num).Include(c => c.CompaniesStores).First());
-            }
+            productType.Code = code;
             TestMinimalInformation();
         }
 
@@ -95,29 +70,13 @@ namespace GestCloudv2.Files.Nodes.ProductTypes.ProductTypeItem.ProductTypeItem_N
 
         public void CleanName()
         {
-            store.Name = "";
+            productType.Name = "";
             TestMinimalInformation();
-        }
-
-        public Boolean CompanyControlExist(string name)
-        {
-            List<Company> companies = db.Companies.ToList();
-            foreach (var item in companies)
-            {
-                if (item.Name.ToLower() == name.ToLower() || name.Length == 0)
-                {
-                    CleanName();
-                    return true;
-                }
-            }
-            store.Name = name;
-            TestMinimalInformation();
-            return false;
         }
 
         private void TestMinimalInformation()
         {
-            if(store.Name.Length > 0 && store.Code > 0 && Information["entityValid"] == 1)
+            if(productType.Name.Length > 0 && productType.Code > 0 && Information["entityValid"] == 1)
             {
                 Information["minimalInformation"] = 1;
             }
@@ -131,19 +90,9 @@ namespace GestCloudv2.Files.Nodes.ProductTypes.ProductTypeItem.ProductTypeItem_N
             LeftSide.Content = TS_Page;
         }
 
-        public void SaveNewStore()
+        public void SaveNewProductType()
         {
-            db.Stores.Add(store);
-
-            foreach (Company company in companies)
-            {
-                db.CompaniesStores.Add(new CompanyStore
-                {
-                    store = store,
-                    company = company
-                });
-            }
-
+            db.ProductTypes.Add(productType);
             db.SaveChanges();
             MessageBox.Show("Datos guardados correctamente");
 
@@ -151,16 +100,20 @@ namespace GestCloudv2.Files.Nodes.ProductTypes.ProductTypeItem.ProductTypeItem_N
             CT_Menu();
         }
 
-        public void MD_StoresChange(int num)
+        public int LastProductType()
         {
-            if (num == 0)
-                companies = new List<Company>();
-
+            if (db.ProductTypes.ToList().Count > 0)
+            {
+                lastProductType = db.ProductTypes.OrderBy(u => u.Code).Last().Code + 1;
+                productType.Code = lastProductType;
+                return lastProductType;
+            }
             else
-                companies = db.Companies.ToList();
+            {
+                productType.Code = 1;
+                return lastProductType = 1;
 
-            MC_Page = new View.MC_PTY_Item_New_ProductType_Taxes();
-            MainContent.Content = MC_Page;
+            }
         }
 
         public void CT_Menu()

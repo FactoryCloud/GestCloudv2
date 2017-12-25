@@ -30,7 +30,7 @@ namespace GestCloudv2.Files.Nodes.ProductTypes.ProductTypeItem.ProductTypeItem_N
 
         private void EV_Start(object sender, RoutedEventArgs e)
         {
-            foreach(Company company in GetController().GetCompanies())
+            /*foreach(Company company in GetController().get())
             {
                 Grid grid = new Grid();
                 ColumnDefinition column1 = new ColumnDefinition();
@@ -67,22 +67,22 @@ namespace GestCloudv2.Files.Nodes.ProductTypes.ProductTypeItem.ProductTypeItem_N
                 grid.Children.Add(checkbox);
 
                 SP_CompanyName.Children.Add(grid);
-            }
+            }*/
         }
 
         private void EV_CompaniesChange(object sender, RoutedEventArgs e)
         {
-            GetController().UpdateCompanies(Convert.ToInt32((sender as CheckBox).Tag.ToString().Replace("company", "")));
+            //GetController().UpdateCompanies(Convert.ToInt32((sender as CheckBox).Tag.ToString().Replace("company", "")));
         }
 
         private void EV_MD_StoresAll(object sender, RoutedEventArgs e)
         {
-            GetController().MD_StoresChange(1);
+            //GetController().MD_StoresChange(1);
         }
 
         private void EV_MD_StoresNone(object sender, RoutedEventArgs e)
         {
-            GetController().MD_StoresChange(0);
+            //GetController().MD_StoresChange(0);
         }
 
         private Controller.CT_PTY_Item_New GetController()

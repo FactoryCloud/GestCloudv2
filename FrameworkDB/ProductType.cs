@@ -13,6 +13,8 @@ namespace FrameworkDB.V1
         [Key]
         public int ProductTypeID { get; set; }
 
+        public int Code { get; set; }
+
         [Required]
         [StringLength(50)]
         public string Name { get; set; }

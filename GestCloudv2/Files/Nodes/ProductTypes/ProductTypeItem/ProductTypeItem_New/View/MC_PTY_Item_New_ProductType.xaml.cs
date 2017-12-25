@@ -24,6 +24,19 @@ namespace GestCloudv2.Files.Nodes.ProductTypes.ProductTypeItem.ProductTypeItem_N
         public MC_PTY_Item_New_ProductType()
         {
             InitializeComponent();
+            this.Loaded += new RoutedEventHandler(EV_Start);
+        }
+
+        private void EV_Start(object sender, RoutedEventArgs e)
+        {
+            TB_ProductTypeCode.Text = GetController().LastProductType().ToString();
+        }
+
+            private Controller.CT_PTY_Item_New GetController()
+        {
+            Window mainWindow = Application.Current.MainWindow;
+            var a = (Main.View.MainWindow)mainWindow;
+            return (Controller.CT_PTY_Item_New)a.MainFrame.Content;
         }
     }
 }
