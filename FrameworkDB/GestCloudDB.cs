@@ -282,7 +282,7 @@ namespace FrameworkDB.V1
             modelBuilder.Entity<ProductTypeTax>()
                .HasOne(a => a.productType)
                .WithMany(b => b.productTypesTaxes)
-               .HasForeignKey(a => a.productTypeID)
+               .HasForeignKey(a => a.ProductTypeID)
                .HasConstraintName("FK_ProductTypesTaxes_TaxTypeID_TaxTypes");
 
             modelBuilder.Entity<ProductTypeTax>()

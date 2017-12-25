@@ -30,8 +30,7 @@ namespace GestCloudv2.Main.View
 
             foreach(UserPermission u in UserPermissions)
             {
-                +-6
-                    76546if(u.permissionType.Item == "Files" && u.permissionType.Mode == 1)
+                if(u.permissionType.Item == "Files" && u.permissionType.Mode == 1)
                 {
                     //UsersNavigationButton.Visibility = Visibility.Visible;
                 }
