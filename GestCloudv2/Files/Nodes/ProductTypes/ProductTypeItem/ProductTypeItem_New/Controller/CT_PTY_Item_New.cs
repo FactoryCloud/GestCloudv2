@@ -27,6 +27,7 @@ namespace GestCloudv2.Files.Nodes.ProductTypes.ProductTypeItem.ProductTypeItem_N
         public int lastProductType;
         public ProductType productType;
         public SubmenuItems submenuItems;
+        public Tax tax;
 
         public CT_PTY_Item_New()
         {
@@ -45,6 +46,17 @@ namespace GestCloudv2.Files.Nodes.ProductTypes.ProductTypeItem.ProductTypeItem_N
         {
             productType.Name = name;
             TestMinimalInformation();
+        }
+
+        public List<Tax> GetTaxes()
+        {
+            List<Tax> taxes = new List<Tax>();
+            List<TaxType> taxTypes = db.TaxTypes.Where(c => c.CompanyID == ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID).Include(z => z.taxes).ToList();
+            foreach (TaxType t in taxTypes)
+            {
+                taxes.Add(t.taxes.First());
+            }
+            return taxes;
         }
 
         public void SetProductTypeCode(int code)

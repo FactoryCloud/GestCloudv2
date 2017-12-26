@@ -23,15 +23,9 @@ namespace FrameworkView.V1
                         },
                         new SubmenuItem
                         {
-                            Name = "BT_ComercialSales",
-                            Content = "Comercial para ventas",
+                            Name = "BT_Comercial",
+                            Content = "Comercial",
                             Option = 2
-                        },
-                        new SubmenuItem
-                        {
-                            Name = "BT_ComercialPurchases",
-                            Content = "Comercial para compras",
-                            Option = 3
                         }
                     };
 

@@ -15,6 +15,15 @@ namespace FrameworkDB.V1
 
         public int Code { get; set; }
 
+        public decimal? SaleDiscount1 { get; set; }
+        public decimal? SaleDiscount2 { get; set; }
+        public decimal? SalePrice1 { get; set; }
+        public decimal? SalePrice2 { get; set; }
+        public decimal? PurchaseDiscount1 { get; set; }
+        public decimal? PurchaseDiscount2 { get; set; }
+        public decimal? PurchasePrice1 { get; set; }
+        public decimal? PurchasePrice2 { get; set; }
+
         [Required]
         [StringLength(50)]
         public string Name { get; set; }

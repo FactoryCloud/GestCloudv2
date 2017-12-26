@@ -19,5 +19,7 @@ namespace FrameworkDB.V1
         [ForeignKey("FK_ProductsTaxes_TaxID_Taxes")]
         public int? TaxID { get; set; }
         public virtual Tax tax { get; set; }
+
+        public int Input { get; set; }
     }
 }
