@@ -50,12 +50,20 @@
             <Popup Name="PU_User" IsOpen="{Binding IsChecked, ElementName=BT_User}" Placement="Top" PlacementTarget="{Binding ElementName=GR_User}">
                 <StackPanel Name="SP_User"></StackPanel>
             </Popup>
-            
-            <Border Grid.Column="3" BorderBrush="Black" BorderThickness="2">
-                <Grid Grid.Column="3" Name="GR_FiscalYear" VerticalAlignment="Center" HorizontalAlignment="Center">
-                <Label Name="LB_FiscalYear"></Label>
-            </Grid>
+
+            <Border Grid.Column="3" BorderBrush="Black" BorderThickness="2,2,2,2">
+                <Grid Name="GR_FiscalYear">
+                    <ToggleButton Name="BT_FiscalYear">
+                        <Grid>
+                            <Label Name="LB_FiscalYear" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Grid>
+                    </ToggleButton>
+                </Grid>
             </Border>
+
+            <Popup Name="PU_FiscalYear" IsOpen="{Binding IsChecked, ElementName=BT_FiscalYear}" Placement="Top" PlacementTarget="{Binding ElementName=GR_FiscalYear}">
+                <StackPanel Name="SP_FiscalYear"></StackPanel>
+            </Popup>
         </Grid>
         
     </Grid>

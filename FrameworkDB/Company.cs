@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,11 @@ namespace FrameworkDB.V1
         public int? Code { get; set; }
         public string Name { get; set; }
         public int PeriodOption { get; set; }
+
+        [ForeignKey("[FK_Companies_FiscalYearID_FiscalYears]")]
+        public int FiscalYearID { get; set; }
+        public virtual FiscalYear fiscalYear { get; set; }
+        
 
         public virtual List<CompanyStore> CompaniesStores { get; set; }
         public virtual List<StockAdjust> StockAdjusts { get; set; }

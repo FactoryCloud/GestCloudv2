@@ -25,13 +25,13 @@ namespace GestCloudv2.FloatWindows
     /// </summary>
     public partial class PasswordWindow : Window
     {
-        string username;
+        int userID;
         UserAccessControl uac;
 
-        public PasswordWindow(string username, UserAccessControl uac)
+        public PasswordWindow(int userID, UserAccessControl uac)
         {
             InitializeComponent();
-            this.username = username;
+            this.userID = userID;
             this.uac = uac;
             this.WindowStyle = WindowStyle.ToolWindow;
             this.Loaded += new RoutedEventHandler(EV_Start);
@@ -59,53 +59,51 @@ namespace GestCloudv2.FloatWindows
         private void EV_PasswordEnter(object sender, RoutedEventArgs e)
         {
             GestCloudDB db = new GestCloudDB();
-            List<User> users = db.Users.Include(u => u.entity).ToList();
+            User user = db.Users.Where(u => u.UserID == userID).Include(u => u.entity).First();
             string advice = "Los datos son incorrectos";
 
-            List<AccessType> accessTypes = db.AccessTypes.Where(a => a.Name == "WindowsApp_Password").ToList();
+            AccessType accessType = db.AccessTypes.Where(a => a.Name == "WindowsApp_Password").First();
 
-            foreach (User u in users)
+            if (user.Enabled == 0)
             {
-                if (u.Enabled == 0)
-                {
-                    MessageBox.Show("Este usuario esta desactivado");
-                }
+                MessageBox.Show("Este usuario esta desactivado");
+            }
 
-                else
+            else
+            {
+                if (user.Password == TB_Password.Password)
                 {
-                    if (u.Username == username && u.Password == TB_Password.Password)
+                    if (user.ActivationCode != null)
                     {
-                        if (u.ActivationCode != null)
+                        advice = "Este usuario tiene un código de activación, no se puede iniciar sesión mediante la contraseña actual.";
+                    }
+
+                    else
+                    {
+                        UserAccessControl temp = db.UsersAccessControl.Where(uact => uact.UserAccessControlID == uac.UserAccessControlID).First();
+                        temp.DateEndAccess = DateTime.Now;
+                        db.UsersAccessControl.Update(temp);
+                        db.SaveChanges();
+
+                        UserAccessControl temp2 = new UserAccessControl
                         {
-                            advice = "Este usuario tiene un código de activación, no se puede iniciar sesión mediante la contraseña actual.";
-                        }
+                            user = user,
+                            accessType = accessType,
+                            DateStartAccess = DateTime.Now,
+                        };
+                        db.UsersAccessControl.Add(temp2);
+                        db.SaveChanges();
 
-                        else
-                        {
-                            UserAccessControl temp = db.UsersAccessControl.Where(uact => uact.UserAccessControlID == uac.UserAccessControlID).First();
-                            temp.DateEndAccess = DateTime.Now;
-                            db.UsersAccessControl.Update(temp);
-                            db.SaveChanges();
+                        Window mainWindow = Application.Current.MainWindow;
+                        var a = (Main.View.MainWindow)mainWindow;
+                        a.selectedUser = user;
+                        a.uac = temp2;
+                        a.userPermissions = db.UserPermissions.Where(p => p.UserID == user.UserID).ToList();
+                        a.InitializingUser();
 
-                            UserAccessControl temp2 = new UserAccessControl
-                            {
-                                user = u,
-                                accessType = accessTypes[0],
-                                DateStartAccess = DateTime.Now,
-                            };
-                            db.UsersAccessControl.Add(temp2);
-                            db.SaveChanges();
-
-                            Window mainWindow = Application.Current.MainWindow;
-                            var a = (Main.View.MainWindow)mainWindow;
-                            a.selectedUser = u;
-                            a.uac = temp2;
-                            a.userPermissions = db.UserPermissions.Where(p => p.UserID == u.UserID).ToList();
-                            a.InitializingUser();
-
-                            this.Close();
-                            return;
-                        }
+                        MessageBox.Show($"{userID}");
+                        this.Close();
+                        return;
                     }
                 }
             }

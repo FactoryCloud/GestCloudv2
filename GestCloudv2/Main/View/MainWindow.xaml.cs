@@ -71,7 +71,7 @@ namespace GestCloudv2.Main.View
         private void EV_SetUser(object sender, RoutedEventArgs e)
         {
             BT_User.IsChecked = false;
-            Window FL_Password = new FloatWindows.PasswordWindow(selectedUser.Username, uac);
+            Window FL_Password = new FloatWindows.PasswordWindow(Convert.ToInt16(((Button)sender).Tag), uac);
             FL_Password.Show();
         }
 
