@@ -21,5 +21,7 @@ namespace FrameworkDB.V1
 
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
+
+        public virtual List<Company> companies { get; set; }
     }
 }

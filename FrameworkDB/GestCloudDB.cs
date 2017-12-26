@@ -39,9 +39,6 @@ namespace FrameworkDB.V1
 
         public DbSet<FiscalYear> FiscalYears { get; set; }
         public DbSet<Tax> Taxes { get; set; }
-        public DbSet<ProductTax> ProductTaxes { get; set; }
-        public DbSet<ProductTypeTax> ProductTypeTaxes { get; set; }
-        public DbSet<MovementTax> MovementTaxes { get; set; }
         public DbSet<TaxType> TaxTypes { get; set; }
         public DbSet<Company> Companies { get; set; }
         public DbSet<Store> Stores { get; set; }
@@ -283,13 +280,14 @@ namespace FrameworkDB.V1
                .HasOne(a => a.productType)
                .WithMany(b => b.productTypesTaxes)
                .HasForeignKey(a => a.ProductTypeID)
-               .HasConstraintName("FK_ProductTypesTaxes_TaxTypeID_TaxTypes");
+               .HasConstraintName("FK_ProductTypesTaxes_ProductTypeID_ProductTypes");
 
             modelBuilder.Entity<ProductTypeTax>()
                .HasOne(a => a.tax)
                .WithMany(b => b.productTypesTaxes)
                .HasForeignKey(a => a.TaxID)
-               .HasConstraintName("FK_ProductTypesTaxes_ProductTypeID_ProductTypes");
+               .HasConstraintName("FK_ProductTypesTaxes_TaxTypeID_TaxTypes");
+
 
             modelBuilder.Entity<ProductTax>()
                .HasOne(a => a.product)
@@ -326,6 +324,12 @@ namespace FrameworkDB.V1
                .WithMany(b => b.FiscalYears)
                .HasForeignKey(a => a.CompanyID)
                .HasConstraintName("FK_FiscalYears_CompanyID_Companies");
+
+            modelBuilder.Entity<Company>()
+                .HasOne(a => a.fiscalYear)
+                .WithMany(b => b.companies)
+                .HasForeignKey(a => a.FiscalYearID)
+                .HasConstraintName("FK_Companies_FiscalYearID_FiscalYears");
         }
 
         public void UpdateFromMKM()

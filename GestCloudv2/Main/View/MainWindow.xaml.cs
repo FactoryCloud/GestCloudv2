@@ -46,7 +46,7 @@ namespace GestCloudv2.Main.View
             this.uac = uac;
             userPermissions = db.UserPermissions.Where(u => u.user == user)
                 .Include(u => u.user).Include(u => u.userType).Include(u => u.permissionType).ToList();
-            selectedCompany = db.Companies.First();
+            selectedCompany = db.Companies.Include(f => f.fiscalYear).First();
 
             GR_Main.PreviewMouseDown += new MouseButtonEventHandler(EV_PopupHide);
 
