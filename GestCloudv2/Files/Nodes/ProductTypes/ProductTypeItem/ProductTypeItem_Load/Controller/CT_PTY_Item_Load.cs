@@ -26,10 +26,25 @@ namespace GestCloudv2.Files.Nodes.ProductTypes.ProductTypeItem.ProductTypeItem_L
     {
         public ProductType productType;
         public SubmenuItems submenuItems;
+        public TaxType purchaseTaxTypeSelected;
+        public TaxType saleTaxTypeSelected;
+        public List<ProductTypeTax> purchaseProductTypeTaxes;
+        public List<ProductTypeTax> saleProductTypeTaxes;
+        public List<ProductTypeTax> purchaseProductTypeSpecialTaxes;
+        public List<ProductTypeTax> saleProductTypeSpecialTaxes;
 
         public CT_PTY_Item_Load(ProductType productType, int editable)
         {
             submenuItems = new SubmenuItems();
+
+            purchaseTaxTypeSelected = GetTaxTypes().OrderByDescending(t => t.StartDate).First();
+            saleTaxTypeSelected = GetTaxTypes().OrderByDescending(t => t.StartDate).First();
+
+            purchaseProductTypeTaxes = db.ProductTypesTaxes.Where(pt => pt.Input == 1 && pt.ProductTypeID == productType.ProductTypeID && pt.tax.taxType.Name.Contains("IVA")).Include(c => c.tax).Include(d => d.tax.taxType).ToList();
+            saleProductTypeTaxes = db.ProductTypesTaxes.Where(pt => pt.Input == 0 && pt.ProductTypeID == productType.ProductTypeID && pt.tax.taxType.Name.Contains("IVA")).Include(c => c.tax).Include(d => d.tax.taxType).ToList();
+            purchaseProductTypeSpecialTaxes = db.ProductTypesTaxes.Where(pt => pt.Input == 1 && pt.ProductTypeID == productType.ProductTypeID && pt.tax.taxType.Name.Contains("ST")).Include(c => c.tax).Include(d => d.tax.taxType).ToList();
+            saleProductTypeSpecialTaxes = db.ProductTypesTaxes.Where(pt => pt.Input == 0 && pt.ProductTypeID == productType.ProductTypeID && pt.tax.taxType.Name.Contains("ST")).Include(c => c.tax).Include(d => d.tax.taxType).ToList();
+
             Information.Add("editable", editable);
             Information.Add("old_editable", 0);
             Information.Add("minimalInformation", 0);
@@ -63,10 +78,43 @@ namespace GestCloudv2.Files.Nodes.ProductTypes.ProductTypeItem.ProductTypeItem_L
             return db.ProductTypes.ToList();
         }
 
+        public List<TaxType> GetTaxTypes()
+        {
+            return db.TaxTypes.Where(t => t.StartDate >= ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.fiscalYear.StartDate && t.EndDate <= ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.fiscalYear.EndDate
+            && t.company.CompanyID == ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID && t.Name.Contains("IVA")).ToList();
+        }
+
+        public List<Tax> GetTaxes()
+        {
+            return db.Taxes.Where(t => t.TaxTypeID == purchaseTaxTypeSelected.TaxTypeID).ToList();
+        }
+
+        public List<Tax> GetEquiSurs()
+        {
+            TaxType taxType = db.TaxTypes.Where(t => t.StartDate == purchaseTaxTypeSelected.StartDate && t.EndDate == purchaseTaxTypeSelected.EndDate && t.CompanyID == purchaseTaxTypeSelected.CompanyID && t.Name.Contains("RE")).First();
+            return db.Taxes.Where(t => t.TaxTypeID == taxType.TaxTypeID).ToList();
+        }
+
+        public List<Tax> GetSpecTaxes()
+        {
+            TaxType taxType = db.TaxTypes.Where(t => t.StartDate == purchaseTaxTypeSelected.StartDate && t.EndDate == purchaseTaxTypeSelected.EndDate && t.CompanyID == purchaseTaxTypeSelected.CompanyID && t.Name.Contains("ST")).First();
+            return db.Taxes.Where(t => t.TaxTypeID == taxType.TaxTypeID).ToList();
+        }
+
         public void SetProductTypeName(string name)
         {
             productType.Name = name;
             TestMinimalInformation();
+        }
+
+        public void SetPurchaseTaxTypeSelected(int num)
+        {
+            purchaseTaxTypeSelected = db.TaxTypes.Where(t => t.TaxTypeID == num).First();
+        }
+
+        public void SetSaleTaxTypeSelected(int num)
+        {
+            saleTaxTypeSelected = db.TaxTypes.Where(t => t.TaxTypeID == num).First();
         }
 
         public override void EV_ActivateSaveButton(bool verificated)
@@ -90,9 +138,15 @@ namespace GestCloudv2.Files.Nodes.ProductTypes.ProductTypeItem.ProductTypeItem_L
             TestMinimalInformation();
         }
 
+        public void CleanCode()
+        {
+            productType.Code = 0;
+            TestMinimalInformation();
+        }
+
         private void TestMinimalInformation()
         {
-            /*if(productType.Name.Length > 0 && Information["entityValid"] == 1)
+            if(!string.IsNullOrWhiteSpace(productType.Name) && productType.Code > 0 && Information["entityValid"] == 1)
             {
                 Information["minimalInformation"] = 1;
             }
@@ -106,7 +160,23 @@ namespace GestCloudv2.Files.Nodes.ProductTypes.ProductTypeItem.ProductTypeItem_L
                 TS_Page = new View.TS_PTY_Item_Load(Information["minimalInformation"], Information["external"]);
             else
                 TS_Page = new View.TS_PTY_Item_Load_Edit(Information["minimalInformation"], Information["external"]);
-            LeftSide.Content = TS_Page;*/
+            LeftSide.Content = TS_Page;
+        }
+
+        public Boolean ProductTypeControlExist(string name)
+        {
+            List<ProductType> productTypes = db.ProductTypes.ToList();
+            foreach (var item in productTypes)
+            {
+                if ((item.Name.ToLower() == name.ToLower() && productType.Name.ToLower() != name.ToLower()) || name.Length == 0)
+                {
+                    CleanName();
+                    return true;
+                }
+            }
+            productType.Name = name;
+            TestMinimalInformation();
+            return false;
         }
 
         public void SaveNewStore()
@@ -194,7 +264,7 @@ namespace GestCloudv2.Files.Nodes.ProductTypes.ProductTypeItem.ProductTypeItem_L
                         }
                     }
                     Main.View.MainWindow a = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
-                    //a.MainFrame.Content = new StoreMenu.Controller.CT_StoreMenu();
+                    a.MainFrame.Content = new ProductTypeMenu.Controller.CT_ProductTypeMenu();
                     break;
 
                 case 1:

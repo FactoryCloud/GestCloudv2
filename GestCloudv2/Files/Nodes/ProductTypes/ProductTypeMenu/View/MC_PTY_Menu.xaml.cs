@@ -38,7 +38,7 @@ namespace GestCloudv2.Files.Nodes.ProductTypes.ProductTypeMenu.View
 
         private void EV_FileOpen(object sender, MouseButtonEventArgs e)
         {
-            if (GetController().productyType != null)
+            if (GetController().productType != null)
             {
                 DG_ProductTypes.MouseLeftButtonUp -= EV_FileSelected;
                 GetController().EV_CT_ProductTypeLoad();
@@ -52,7 +52,7 @@ namespace GestCloudv2.Files.Nodes.ProductTypes.ProductTypeMenu.View
             {
                 DataGridRow row = (DataGridRow)DG_ProductTypes.ItemContainerGenerator.ContainerFromIndex(num);
                 DataRowView dr = row.Item as DataRowView;
-                //GetController().SetCompany(Int32.Parse(dr.Row.ItemArray[0].ToString()));
+                GetController().SetProductType(Int32.Parse(dr.Row.ItemArray[0].ToString()));
             }
         }
 

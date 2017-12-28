@@ -24,7 +24,7 @@ namespace GestCloudv2.Files.Nodes.ProductTypes.ProductTypeMenu.View
         {
             InitializeComponent();
 
-            if (GetController().productyType != null)
+            if (GetController().productType != null)
             {
                 BT_ProductTypeLoad.IsEnabled = true;
                 BT_ProductTypeLoadEdit.IsEnabled = true;

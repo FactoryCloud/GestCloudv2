@@ -48,7 +48,8 @@
                 <Label VerticalAlignment="Center" HorizontalAlignment=" Center" Grid.Row="3">Descuento 2</Label>
                 <TextBox Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" Name="TB_PurchaseDiscount2" Tag="2" Margin="20,0,20,0"></TextBox>
 
-                <ComboBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="4" VerticalAlignment="Center" Name="CB_PurchaseTaxPeriod" Margin="20,0,20,0"></ComboBox>
+                <Label VerticalAlignment="Center" HorizontalAlignment=" Center" Grid.Row="4">Periodo Fiscal</Label>
+                <ComboBox Grid.Column="1"  Grid.Row="4" VerticalAlignment="Center" Name="CB_PurchaseTaxPeriod" Margin="20,0,20,0"></ComboBox>
                 
                 <Label VerticalAlignment="Center" HorizontalAlignment=" Center" Grid.Row="5">Impuesto</Label>
                 <ComboBox Grid.Column="1" Grid.Row="5" VerticalAlignment="Center" Name="CB_PurchaseTax" Margin="20,0,20,0"></ComboBox>
@@ -85,7 +86,8 @@
                 <Label VerticalAlignment="Center" HorizontalAlignment=" Center" Grid.Row="3">Descuento 2</Label>
                 <TextBox Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" Name="TB_SaleDiscount2" Tag="4" Margin="20,0,20,0"></TextBox>
 
-                <ComboBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="4" VerticalAlignment="Center" Name="CB_SaleTaxPeriod" Margin="20,0,20,0"></ComboBox>
+                <Label VerticalAlignment="Center" HorizontalAlignment=" Center" Grid.Row="4">Periodo Fiscal</Label>
+                <ComboBox Grid.Column="1" Grid.Row="4" VerticalAlignment="Center" Name="CB_SaleTaxPeriod" Margin="20,0,20,0"></ComboBox>
                 
                 <Label VerticalAlignment="Center" HorizontalAlignment=" Center" Grid.Row="5">Impuesto</Label>
                 <ComboBox Grid.Column="1" Grid.Row="5" VerticalAlignment="Center" Name="CB_SaleTax" Margin="20,0,20,0"></ComboBox>

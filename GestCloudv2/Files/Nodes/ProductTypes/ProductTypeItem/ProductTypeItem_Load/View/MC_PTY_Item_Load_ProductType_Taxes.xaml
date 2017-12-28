@@ -8,30 +8,93 @@
       d:DesignHeight="300" d:DesignWidth="300"
       Title="MC_PTY_Item_Load_ProductType_Taxes">
 
-    <Grid>
+    <Grid Name="GR_Main">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="8*"/>
-            <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.5*"/>
             <ColumnDefinition Width="4*"/>
             <ColumnDefinition Width="0.5*"/>
+            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="0.5*"/>
         </Grid.ColumnDefinitions>
-        <StackPanel Name="SP_CompanyName" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center">
-        </StackPanel>
-        <Grid Grid.Column="1" Grid.Row="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-            </Grid.ColumnDefinitions>
-            <Button Name="BT_SelectAll" VerticalAlignment="Center" Grid.Column="1" >Seleccionar Todo</Button>
-            <Button Name="BT_SelectNone" VerticalAlignment="Center" Grid.Column="3" >Eliminar Selección</Button>
-        </Grid>
+        <GroupBox Grid.Row="1" Grid.Column="1" Header="Compras">
+            <Grid Name="GR_Purchase">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <Label VerticalAlignment="Center" HorizontalAlignment="Center">Tarifa 1</Label>
+                <TextBox Grid.Column="1" VerticalAlignment="Center" Name="TB_PurchasePrice1" Tag="1" Margin="20,0,20,0"></TextBox>
+
+                <Label VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1">Tarifa 2</Label>
+                <TextBox Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Name="TB_PurchasePrice2" Tag="2" Margin="20,0,20,0"></TextBox>
+
+                <Label VerticalAlignment="Center" HorizontalAlignment=" Center" Grid.Row="2">Descuento 1</Label>
+                <TextBox Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" Name="TB_PurchaseDiscount1" Tag="1" Margin="20,0,20,0"></TextBox>
+
+                <Label VerticalAlignment="Center" HorizontalAlignment=" Center" Grid.Row="3">Descuento 2</Label>
+                <TextBox Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" Name="TB_PurchaseDiscount2" Tag="2" Margin="20,0,20,0"></TextBox>
+
+                <Label VerticalAlignment="Center" HorizontalAlignment=" Center" Grid.Row="4">Periodo Fiscal</Label>
+                <ComboBox Grid.Column="1" Grid.Row="4" VerticalAlignment="Center" Name="CB_PurchaseTaxPeriod" Margin="20,0,20,0"></ComboBox>
+
+                <Label VerticalAlignment="Center" HorizontalAlignment=" Center" Grid.Row="5">Impuesto</Label>
+                <ComboBox Grid.Column="1" Grid.Row="5" VerticalAlignment="Center" Name="CB_PurchaseTax" Margin="20,0,20,0"></ComboBox>
+
+                <Label VerticalAlignment="Center" HorizontalAlignment=" Center" Grid.Row="6">Impuestos especiales</Label>
+                <ComboBox Grid.Column="1" Grid.Row="6" VerticalAlignment="Center" Name="CB_PurchaseSpecialTax" Margin="20,0,20,0"></ComboBox>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Grid.Row="1" Grid.Column="3" Header="Ventas">
+            <Grid Name="GR_Sale">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <Label VerticalAlignment="Center" HorizontalAlignment="Center">Tarifa 1</Label>
+                <TextBox Grid.Column="1" VerticalAlignment="Center" Name="TB_SalePrice1" Tag="3" Margin="20,0,20,0"></TextBox>
+
+                <Label VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1">Tarifa 2</Label>
+                <TextBox Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Name="TB_SalePrice2" Tag="4" Margin="20,0,20,0"></TextBox>
+
+                <Label VerticalAlignment="Center" HorizontalAlignment=" Center" Grid.Row="2">Descuento 1</Label>
+                <TextBox Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" Name="TB_SaleDiscount1" Tag="3" Margin="20,0,20,0"></TextBox>
+
+                <Label VerticalAlignment="Center" HorizontalAlignment=" Center" Grid.Row="3">Descuento 2</Label>
+                <TextBox Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" Name="TB_SaleDiscount2" Tag="4" Margin="20,0,20,0"></TextBox>
+
+                <Label VerticalAlignment="Center" HorizontalAlignment=" Center" Grid.Row="4">Periodo Fiscal</Label>
+                <ComboBox Grid.Column="1" Grid.Row="4" VerticalAlignment="Center" Name="CB_SaleTaxPeriod" Margin="20,0,20,0"></ComboBox>
+
+                <Label VerticalAlignment="Center" HorizontalAlignment=" Center" Grid.Row="5">Impuesto</Label>
+                <ComboBox Grid.Column="1" Grid.Row="5" VerticalAlignment="Center" Name="CB_SaleTax" Margin="20,0,20,0"></ComboBox>
+
+                <Label VerticalAlignment="Center" HorizontalAlignment=" Center" Grid.Row="6">Impuestos especiales</Label>
+                <ComboBox Grid.Column="1" Grid.Row="6" VerticalAlignment="Center" Name="CB_SaleSpecialTax" Margin="20,0,20,0"></ComboBox>
+            </Grid>
+        </GroupBox>
     </Grid>
 </Page>

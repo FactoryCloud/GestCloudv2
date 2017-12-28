@@ -24,7 +24,7 @@ namespace GestCloudv2.Files.Nodes.ProductTypes.ProductTypeMenu.Controller
     public partial class CT_ProductTypeMenu : Main.Controller.CT_Common
     {
         public ProductTypesView productTypesView;
-        public ProductType productyType;
+        public ProductType productType;
 
         public CT_ProductTypeMenu()
         {
@@ -52,6 +52,13 @@ namespace GestCloudv2.Files.Nodes.ProductTypes.ProductTypeMenu.Controller
         {
             Information["controller"] = 3;
             ChangeController();
+        }
+
+        public void SetProductType(int num)
+        {
+            productType = db.ProductTypes.Where(c => c.ProductTypeID == num).First();
+            TS_Page = new View.TS_PTY_Menu();
+            LeftSide.Content = TS_Page;
         }
 
         public void CT_Main()
@@ -105,12 +112,12 @@ namespace GestCloudv2.Files.Nodes.ProductTypes.ProductTypeMenu.Controller
 
                 case 2:
                     Main.View.MainWindow c = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
-                    c.MainFrame.Content = new ProductTypeItem.ProductTypeItem_Load.Controller.CT_PTY_Item_Load(productyType, 0);
+                    c.MainFrame.Content = new ProductTypeItem.ProductTypeItem_Load.Controller.CT_PTY_Item_Load(productType, 0);
                     break;
 
                 case 3:
                     Main.View.MainWindow d = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
-                    d.MainFrame.Content = new ProductTypeItem.ProductTypeItem_Load.Controller.CT_PTY_Item_Load(productyType, 1);
+                    d.MainFrame.Content = new ProductTypeItem.ProductTypeItem_Load.Controller.CT_PTY_Item_Load(productType, 1);
                     break;
             }
         }
