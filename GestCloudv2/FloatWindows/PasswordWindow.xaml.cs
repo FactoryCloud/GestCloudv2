@@ -94,20 +94,22 @@ namespace GestCloudv2.FloatWindows
                         db.UsersAccessControl.Add(temp2);
                         db.SaveChanges();
 
-                        Window mainWindow = Application.Current.MainWindow;
-                        var a = (Main.View.MainWindow)mainWindow;
-                        a.selectedUser = user;
-                        a.uac = temp2;
-                        a.userPermissions = db.UserPermissions.Where(p => p.UserID == user.UserID).ToList();
-                        a.InitializingUser();
+                        ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).SetUserSelected(user.UserID);
+                        ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).SetUserAccessControl(temp2);
+                        ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).SetDefaultCompany();
+                        GetController().EV_UserSelected();
 
-                        MessageBox.Show($"{userID}");
                         this.Close();
                         return;
                     }
                 }
             }
             MessageBoxResult result = MessageBox.Show(advice);        
+        }
+
+        virtual public Main.Controller.CT_Common GetController()
+        {
+            return new Main.Controller.CT_Common();
         }
     }
 }

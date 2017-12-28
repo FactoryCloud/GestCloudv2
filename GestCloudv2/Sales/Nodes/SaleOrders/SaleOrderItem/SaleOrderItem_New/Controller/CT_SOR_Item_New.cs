@@ -51,11 +51,6 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_New.Con
             TopSide.Content = NV_Page;
         }
 
-        public List<Company> GetCompanies()
-        {
-            return db.Companies.ToList();
-        }
-
         public List<Store> GetStores()
         {
             List<Store> stores = new List<Store>();
@@ -145,19 +140,6 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_New.Con
             View.FW_SOR_Item_New_IncreaseStock floatWindow = new View.FW_SOR_Item_New_IncreaseStock(1, movementsView.movements);
             floatWindow.Show();
         }
-
-        /* public void MD_StoredStock_Remove()
-        {
-            movementsView.MovementDelete(movementSelected.MovementID);
-            movementSelected = null;
-            UpdateComponents();
-        }
-
-       public void MD_StoredStock_Edit()
-        {
-            View.FW_POR_Item_New_IncreaseStock floatWindow = new View.FW_POR_Item_New_IncreaseStock(1, movementsView.movements, movementSelected.MovementID);
-            floatWindow.Show();
-        }*/
 
         public override void EV_MovementAdd(Movement movement)
         {

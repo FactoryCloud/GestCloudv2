@@ -69,6 +69,12 @@ namespace GestCloudv2.Main.Controller
             ChangeController();
         }
 
+        public override void EV_UserSelected()
+        {
+            SB_Page = new View.SB_Main();
+            ChangeComponents();
+        }
+
         public override void UpdateComponents ()
         {
             switch(Information["mode"])
@@ -78,6 +84,7 @@ namespace GestCloudv2.Main.Controller
                     MC_Page = null;
                     TS_Page = new View.TS_Main();
                     SC_Page = new View.SC_Main();
+                    SB_Page = new View.SB_Main();
                     ChangeComponents();
                     break;
             }
