@@ -6,66 +6,8 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="720" Width="1280">
     <Grid Name="GR_Main" Background="Transparent">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="9*"/>
-            <RowDefinition Height="1*"/>
-        </Grid.RowDefinitions>
         <Frame Name="MainFrame" NavigationUIVisibility="Hidden"/>
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="3*"/>
-                <ColumnDefinition Width="3*"/>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="2*"/>
-            </Grid.ColumnDefinitions>
-            <Grid Name="GR_NavigationLabel">
-                <Label Name="LB_Navigation"></Label>
-            </Grid>
-
-            <Border Grid.Column="1" BorderBrush="Black" BorderThickness="2,2,0,2">
-                <Grid  Name="GR_Company" Background="Transparent">
-                    <ToggleButton Name="BT_Company">
-                        <Grid>
-                            <Label Name="LB_Company" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                        </Grid>
-                    </ToggleButton>
-                </Grid>
-            </Border>
-
-            <Popup Name="PU_Company" IsOpen="{Binding IsChecked, ElementName=BT_Company}" Placement="Top" PlacementTarget="{Binding ElementName=GR_Company}">
-                <StackPanel Name="SP_Company"></StackPanel>
-            </Popup>
-
-            <Border Grid.Column="2" BorderBrush="Black" BorderThickness="2,2,0,2">
-                <Grid Grid.Column="2" Name="GR_User">
-                    <ToggleButton Name="BT_User">
-                        <Grid>
-                            <Label Name="LB_User" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                        </Grid>
-                    </ToggleButton>
-                </Grid>
-            </Border>
-
-            <Popup Name="PU_User" IsOpen="{Binding IsChecked, ElementName=BT_User}" Placement="Top" PlacementTarget="{Binding ElementName=GR_User}">
-                <StackPanel Name="SP_User"></StackPanel>
-            </Popup>
-
-            <Border Grid.Column="3" BorderBrush="Black" BorderThickness="2,2,2,2">
-                <Grid Name="GR_FiscalYear">
-                    <ToggleButton Name="BT_FiscalYear">
-                        <Grid>
-                            <Label Name="LB_FiscalYear" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                        </Grid>
-                    </ToggleButton>
-                </Grid>
-            </Border>
-
-            <Popup Name="PU_FiscalYear" IsOpen="{Binding IsChecked, ElementName=BT_FiscalYear}" Placement="Top" PlacementTarget="{Binding ElementName=GR_FiscalYear}">
-                <StackPanel Name="SP_FiscalYear"></StackPanel>
-            </Popup>
-        </Grid>
-        
+        <Frame Name="StateBarFrame" NavigationUIVisibility="Hidden" Grid.Row="1"/>
     </Grid>
     
 </Window>

@@ -26,13 +26,17 @@ namespace FrameworkDB.V1
 
         public int? Enabled { get; set; }
 
-        //[ForeignKey("FK_Users_UserTypeID_UserTypes")]
+        [ForeignKey("FK_Users_UserTypeID_UserTypes")]
         public int? UserTypeID { get; set; }
         public virtual UserType userType { get; set; }
 
-        //[ForeignKey("FK_Users_EntityID_Entity")]
+        [ForeignKey("FK_Users_EntityID_Entities")]
         public int? EntityID { get; set; }
         public virtual Entity entity { get; set; }
+
+        [ForeignKey("FK_Users_CompanyID_Companies")]
+        public int? CompanyID { get; set; }
+        public virtual Company company { get; set; }
 
         public virtual List<UserAccessControl> UsersAccessControl { get; set; }
         public virtual List<UserPermission> UserPermissions { get; set; }

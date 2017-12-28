@@ -371,9 +371,14 @@
     <Compile Include="Main\Controller\CT_Common_Subcontent.xaml.cs">
       <DependentUpon>CT_Common_Subcontent.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Main\View\FW_Main_ClientPassword.cs" />
+    <Compile Include="Main\View\SB_Common.xaml.cs">
+      <DependentUpon>SB_Common.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Main\View\SC_Common.xaml.cs">
       <DependentUpon>SC_Common.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Main\View\SB_Main.cs" />
     <Compile Include="Main\View\SC_Main.cs" />
     <Compile Include="Model\CT_Submenu.cs" />
     <Compile Include="Purchases\Nodes\PurchaseDeliveries\PurchaseDeliveryItem\PurchaseDeliveryItem_Load\Controller\CT_PDE_Item_Load.cs" />
@@ -948,6 +953,10 @@
     <Page Include="Main\Controller\CT_Common_Subcontent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Main\View\SB_Common.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Main\View\SC_Common.xaml">
       <Generator>MSBuild:Compile</Generator>

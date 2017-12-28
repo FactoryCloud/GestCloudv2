@@ -25,6 +25,7 @@ namespace GestCloudv2.Main.Controller
         protected Page TS_Page;
         protected Page MC_Page;
         protected Page SC_Page;
+        protected Page SB_Page;
         protected Frame LeftSide;
         protected Frame MainContent;
         protected Frame RightSide;
@@ -84,6 +85,21 @@ namespace GestCloudv2.Main.Controller
 
             this.Loaded += new RoutedEventHandler(EV_PreStart);
             this.Loaded += new RoutedEventHandler(EV_PreStartNoNavigation);
+        }
+
+        public List<Company> GetCompanies()
+        {
+            return db.Companies.ToList();
+        }
+
+        public List<User> GetUsers()
+        {
+            return db.Users.ToList();
+        }
+
+        public List<FiscalYear> GetFiscalYears()
+        {
+            return db.FiscalYears.ToList();
         }
 
         public void SetEntity(int num)
@@ -175,6 +191,11 @@ namespace GestCloudv2.Main.Controller
 
         }
 
+        public virtual void EV_UserSelected()
+        {
+
+        }
+
         public void MD_Change(int i)
         {
             Information["oldmode"] = Information["mode"];
@@ -217,6 +238,7 @@ namespace GestCloudv2.Main.Controller
         protected void ChangeComponents()
         {
             TopSide.Content = NV_Page;
+            BotSide.Content = SB_Page;
             ((CT_Common_Subcontent)FR_Subcontent.Content).LeftSide.Content = TS_Page;
             ((CT_Common_Subcontent)FR_Subcontent.Content).MainContent.Content = MC_Page;
             ((CT_Common_Subcontent)FR_Subcontent.Content).RightSide.Content = SC_Page;

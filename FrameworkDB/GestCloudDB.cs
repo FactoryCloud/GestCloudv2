@@ -233,9 +233,15 @@ namespace FrameworkDB.V1
 
             modelBuilder.Entity<User>()
                 .HasOne(a => a.userType)
-                .WithMany(b => b.users)
+                .WithMany(b => b.Users)
                 .HasForeignKey(a => a.UserTypeID)
                 .HasConstraintName("FK_Users_UserTypeID_UserTypes");
+
+            modelBuilder.Entity<User>()
+                .HasOne(a => a.company)
+                .WithMany(b => b.Users)
+                .HasForeignKey(a => a.CompanyID)
+                .HasConstraintName("FK_Users_CompanyID_Companies");
 
             modelBuilder.Entity<Entity>()
                 .HasOne(a => a.client)
