@@ -101,6 +101,23 @@ namespace GestCloudv2.Files.Nodes.ProductTypes.ProductTypeItem.ProductTypeItem_L
             return db.Taxes.Where(t => t.TaxTypeID == taxType.TaxTypeID).ToList();
         }
 
+        public List<Tax> GetSaleTaxes()
+        {
+            return db.Taxes.Where(t => t.TaxTypeID == saleTaxTypeSelected.TaxTypeID).ToList();
+        }
+
+        public List<Tax> GetSaleEquiSurs()
+        {
+            TaxType taxType = db.TaxTypes.Where(t => t.StartDate == saleTaxTypeSelected.StartDate && t.EndDate == saleTaxTypeSelected.EndDate && t.CompanyID == saleTaxTypeSelected.CompanyID && t.Name.Contains("RE")).First();
+            return db.Taxes.Where(t => t.TaxTypeID == taxType.TaxTypeID).ToList();
+        }
+
+        public List<Tax> GetSaleSpecTaxes()
+        {
+            TaxType taxType = db.TaxTypes.Where(t => t.StartDate == saleTaxTypeSelected.StartDate && t.EndDate == saleTaxTypeSelected.EndDate && t.CompanyID == saleTaxTypeSelected.CompanyID && t.Name.Contains("ST")).First();
+            return db.Taxes.Where(t => t.TaxTypeID == taxType.TaxTypeID).ToList();
+        }
+
         public void SetProductTypeName(string name)
         {
             productType.Name = name;

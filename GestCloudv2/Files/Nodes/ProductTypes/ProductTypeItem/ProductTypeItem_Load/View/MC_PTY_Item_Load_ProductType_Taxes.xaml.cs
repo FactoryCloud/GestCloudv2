@@ -100,12 +100,12 @@ namespace GestCloudv2.Files.Nodes.ProductTypes.ProductTypeItem.ProductTypeItem_L
                 CB_PurchaseSpecialTax.Visibility = Visibility.Hidden;
 
                 TB_SaleTax.Text = $"{((ComboBoxItem)CB_SaleTax.SelectedItem).Content}";
-                //TB_SaleTax.Visibility = Visibility.Visible;
-                //CB_SaleTax.Visibility = Visibility.Hidden;
+                TB_SaleTax.Visibility = Visibility.Visible;
+                CB_SaleTax.Visibility = Visibility.Hidden;
 
                 TB_SaleSpecialTax.Text = $"{((ComboBoxItem)CB_SaleSpecialTax.SelectedItem).Content}";
-                //TB_SaleSpecialTax.Visibility = Visibility.Visible;
-                //CB_SaleSpecialTax.Visibility = Visibility.Hidden;
+                TB_SaleSpecialTax.Visibility = Visibility.Visible;
+                CB_SaleSpecialTax.Visibility = Visibility.Hidden;
             }
         }
 
@@ -177,9 +177,9 @@ namespace GestCloudv2.Files.Nodes.ProductTypes.ProductTypeItem.ProductTypeItem_L
                 GetController().SetSaleTaxTypeSelected(Convert.ToInt32(temp1.Name.Replace("SaleTaxType", "")));
             }
 
-            List<Tax> taxes = GetController().GetTaxes();
-            List<Tax> equiSurs = GetController().GetEquiSurs();
-            List<Tax> specTaxes = GetController().GetSpecTaxes();
+            List<Tax> taxes = GetController().GetSaleTaxes();
+            List<Tax> equiSurs = GetController().GetSaleEquiSurs();
+            List<Tax> specTaxes = GetController().GetSaleSpecTaxes();
             foreach (Tax tx in taxes)
             {
                 ComboBoxItem temp = new ComboBoxItem();
