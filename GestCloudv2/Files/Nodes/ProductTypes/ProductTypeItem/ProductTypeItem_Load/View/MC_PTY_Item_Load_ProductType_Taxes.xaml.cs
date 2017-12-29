@@ -91,7 +91,21 @@ namespace GestCloudv2.Files.Nodes.ProductTypes.ProductTypeItem.ProductTypeItem_L
                 TB_PurchaseDiscount1.IsReadOnly = true;
                 TB_PurchaseDiscount2.IsReadOnly = true;
 
-                CB_PurchaseTaxPeriod.SelectedItem = GetController().GetProductTypes();
+                TB_PurchaseTax.Text = $"{((ComboBoxItem)CB_PurchaseTax.SelectedItem).Content}";
+                TB_PurchaseTax.Visibility = Visibility.Visible;
+                CB_PurchaseTax.Visibility = Visibility.Hidden;
+
+                TB_PurchaseSpecialTax.Text = $"{((ComboBoxItem)CB_PurchaseSpecialTax.SelectedItem).Content}";
+                TB_PurchaseSpecialTax.Visibility = Visibility.Visible;
+                CB_PurchaseSpecialTax.Visibility = Visibility.Hidden;
+
+                TB_SaleTax.Text = $"{((ComboBoxItem)CB_SaleTax.SelectedItem).Content}";
+                //TB_SaleTax.Visibility = Visibility.Visible;
+                //CB_SaleTax.Visibility = Visibility.Hidden;
+
+                TB_SaleSpecialTax.Text = $"{((ComboBoxItem)CB_SaleSpecialTax.SelectedItem).Content}";
+                //TB_SaleSpecialTax.Visibility = Visibility.Visible;
+                //CB_SaleSpecialTax.Visibility = Visibility.Hidden;
             }
         }
 
@@ -147,6 +161,11 @@ namespace GestCloudv2.Files.Nodes.ProductTypes.ProductTypeItem.ProductTypeItem_L
                     break;
                 }
             }
+            if (GetController().Information["editable"]==0 && (TextBox)this.FindName("TB_PurchaseTax") != null)
+            {
+                EV_NonEditablePurchase();
+            }
+           
         }
 
 
@@ -202,6 +221,30 @@ namespace GestCloudv2.Files.Nodes.ProductTypes.ProductTypeItem.ProductTypeItem_L
                     break;
                 }
             }
+            if (GetController().Information["editable"] == 0 && (TextBox)this.FindName("TB_SaleTax") != null)
+            {
+                //MessageBox.Show("SI");
+                EV_NonEditableSale();
+            }
+
+        }
+
+        private void EV_NonEditablePurchase()
+        {
+            TextBox TB_PurchaseTax = (TextBox)this.FindName($"TB_PurchaseTax");
+            TB_PurchaseTax.Text = $"{((ComboBoxItem)CB_PurchaseTax.SelectedItem).Content}";
+
+            TextBox TB_PurchaseSpecialTax = (TextBox)this.FindName($"TB_PurchaseSpecialTax");
+            TB_PurchaseSpecialTax.Text = $"{((ComboBoxItem)CB_PurchaseSpecialTax.SelectedItem).Content}";
+        }
+
+        private void EV_NonEditableSale()
+        {
+            TextBox TB_SaleTax = (TextBox)this.FindName($"TB_SaleTax");
+            TB_SaleTax.Text = $"{((ComboBoxItem)CB_SaleTax.SelectedItem).Content}";
+
+            TextBox TB_SaleSpecialTax = (TextBox)this.FindName($"TB_SaleSpecialTax");
+            TB_SaleSpecialTax.Text = $"{((ComboBoxItem)CB_SaleSpecialTax.SelectedItem).Content}";
         }
 
         private Controller.CT_PTY_Item_Load GetController()
