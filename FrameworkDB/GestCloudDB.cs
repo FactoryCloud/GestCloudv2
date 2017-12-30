@@ -93,12 +93,6 @@ namespace FrameworkDB.V1
                .HasForeignKey(a => a.TaxID)
                .HasConstraintName("FK_Product_TaxID_Taxes");
 
-            modelBuilder.Entity<ProductType>()
-               .HasOne(a => a.tax)
-               .WithMany(b => b.productTypes)
-               .HasForeignKey(a => a.TaxID)
-               .HasConstraintName("FK_ProductTypes_TaxID_Taxes");
-
             modelBuilder.Entity<UserAccessControl>()
                 .HasKey(a => new { a.UserAccessControlID });
 
