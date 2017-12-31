@@ -33,9 +33,9 @@ namespace GestCloudv2.Files.Nodes.ProductTypes.ProductTypeItem.ProductTypeItem_L
             }
         }
 
-        private void EV_CompanySave(object sender, RoutedEventArgs e)
+        private void EV_ProductTypeSave(object sender, RoutedEventArgs e)
         {
-            GetController().SaveNewStore();
+            GetController().SaveLoadProductType();
         }
 
         private Controller.CT_PTY_Item_Load GetController()

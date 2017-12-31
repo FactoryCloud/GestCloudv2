@@ -40,10 +40,10 @@ namespace GestCloudv2.Files.Nodes.ProductTypes.ProductTypeItem.ProductTypeItem_L
             purchaseTaxTypeSelected = GetTaxTypes().OrderByDescending(t => t.StartDate).First();
             saleTaxTypeSelected = GetTaxTypes().OrderByDescending(t => t.StartDate).First();
 
-            purchaseProductTypeTaxes = db.ProductTypesTaxes.Where(pt => pt.Input == 1 && pt.ProductTypeID == productType.ProductTypeID && pt.tax.taxType.Name.Contains("IVA")).Include(c => c.tax).Include(d => d.tax.taxType).ToList();
-            saleProductTypeTaxes = db.ProductTypesTaxes.Where(pt => pt.Input == 0 && pt.ProductTypeID == productType.ProductTypeID && pt.tax.taxType.Name.Contains("IVA")).Include(c => c.tax).Include(d => d.tax.taxType).ToList();
-            purchaseProductTypeSpecialTaxes = db.ProductTypesTaxes.Where(pt => pt.Input == 1 && pt.ProductTypeID == productType.ProductTypeID && pt.tax.taxType.Name.Contains("ST")).Include(c => c.tax).Include(d => d.tax.taxType).ToList();
-            saleProductTypeSpecialTaxes = db.ProductTypesTaxes.Where(pt => pt.Input == 0 && pt.ProductTypeID == productType.ProductTypeID && pt.tax.taxType.Name.Contains("ST")).Include(c => c.tax).Include(d => d.tax.taxType).ToList();
+            purchaseProductTypeTaxes = db.ProductTypesTaxes.Where(pt => pt.tax.taxType.CompanyID == ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID && pt.Input == 1 && pt.ProductTypeID == productType.ProductTypeID && pt.tax.taxType.Name.Contains("IVA")).Include(c => c.tax).Include(d => d.tax.taxType).ToList();
+            saleProductTypeTaxes = db.ProductTypesTaxes.Where(pt => pt.tax.taxType.CompanyID == ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID && pt.Input == 0 && pt.ProductTypeID == productType.ProductTypeID && pt.tax.taxType.Name.Contains("IVA")).Include(c => c.tax).Include(d => d.tax.taxType).ToList();
+            purchaseProductTypeSpecialTaxes = db.ProductTypesTaxes.Where(pt => pt.tax.taxType.CompanyID == ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID && pt.Input == 1 && pt.ProductTypeID == productType.ProductTypeID && pt.tax.taxType.Name.Contains("ST")).Include(c => c.tax).Include(d => d.tax.taxType).ToList();
+            saleProductTypeSpecialTaxes = db.ProductTypesTaxes.Where(pt => pt.tax.taxType.CompanyID == ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID && pt.Input == 0 && pt.ProductTypeID == productType.ProductTypeID && pt.tax.taxType.Name.Contains("ST")).Include(c => c.tax).Include(d => d.tax.taxType).ToList();
 
             Information.Add("editable", editable);
             Information.Add("old_editable", 0);
@@ -80,7 +80,7 @@ namespace GestCloudv2.Files.Nodes.ProductTypes.ProductTypeItem.ProductTypeItem_L
 
         public List<TaxType> GetTaxTypes()
         {
-            return db.TaxTypes.Where(t => t.StartDate >= ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.fiscalYear.StartDate && t.EndDate <= ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.fiscalYear.EndDate
+            return db.TaxTypes.Where(t => t.StartDate >= ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedFiscalYear.StartDate && t.EndDate <= ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedFiscalYear.EndDate
             && t.company.CompanyID == ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID && t.Name.Contains("IVA")).ToList();
         }
 
@@ -132,6 +132,78 @@ namespace GestCloudv2.Files.Nodes.ProductTypes.ProductTypeItem.ProductTypeItem_L
         public void SetSaleTaxTypeSelected(int num)
         {
             saleTaxTypeSelected = db.TaxTypes.Where(t => t.TaxTypeID == num).First();
+        }
+
+        public void SetPurchaseTax(int num)
+        {
+            Tax tax = db.Taxes.Where(t => t.TaxID == num).First();
+            if (purchaseProductTypeTaxes.Where(p => p.TaxID == num).Count() == 0)
+            {
+                purchaseProductTypeTaxes.Add(new ProductTypeTax
+                {
+                    TaxID = num,
+                    tax = tax,
+                    ProductTypeID = productType.ProductTypeID,
+                    Input = 1
+                });
+
+                if (purchaseProductTypeTaxes.Where(p => p.tax.TaxTypeID == tax.TaxTypeID).Count() > 0)
+                    purchaseProductTypeTaxes.Remove(purchaseProductTypeTaxes.Where(p => p.tax.TaxTypeID == tax.TaxTypeID).First());
+            }
+        }
+
+        public void SetPurchaseSpecialTax(int num)
+        {
+            Tax tax = db.Taxes.Where(t => t.TaxID == num).First();
+            if (purchaseProductTypeSpecialTaxes.Where(p => p.TaxID == num).Count() == 0)
+            {
+                purchaseProductTypeSpecialTaxes.Add(new ProductTypeTax
+                {
+                    TaxID = num,
+                    tax = tax,
+                    ProductTypeID = productType.ProductTypeID,
+                    Input = 1
+                });
+
+                if (purchaseProductTypeSpecialTaxes.Where(p => p.tax.TaxTypeID == tax.TaxTypeID).Count() > 0)
+                    purchaseProductTypeSpecialTaxes.Remove(purchaseProductTypeSpecialTaxes.Where(p => p.tax.TaxTypeID == tax.TaxTypeID).First());
+            }
+        }
+
+        public void SetSaleTax(int num)
+        {
+            Tax tax = db.Taxes.Where(t => t.TaxID == num).First();
+            if (saleProductTypeTaxes.Where(p => p.TaxID == num).Count() == 0)
+            {
+                saleProductTypeTaxes.Add(new ProductTypeTax
+                {
+                    TaxID = num,
+                    tax = tax,
+                    ProductTypeID = productType.ProductTypeID,
+                    Input = 0
+                });
+
+                if (saleProductTypeTaxes.Where(p => p.tax.TaxTypeID == tax.TaxTypeID).Count() > 0)
+                    saleProductTypeTaxes.Remove(saleProductTypeTaxes.Where(p => p.tax.TaxTypeID == tax.TaxTypeID).First());
+            }
+        }
+
+        public void SetSaleSpecialTax(int num)
+        {
+            Tax tax = db.Taxes.Where(t => t.TaxID == num).First();
+            if (saleProductTypeSpecialTaxes.Where(p => p.TaxID == num).Count() == 0)
+            {
+                saleProductTypeSpecialTaxes.Add(new ProductTypeTax
+                {
+                    TaxID = num,
+                    tax = tax,
+                    ProductTypeID = productType.ProductTypeID,
+                    Input = 0
+                });
+
+                if (saleProductTypeSpecialTaxes.Where(p => p.tax.TaxTypeID == tax.TaxTypeID).Count() > 0)
+                    saleProductTypeSpecialTaxes.Remove(saleProductTypeSpecialTaxes.Where(p => p.tax.TaxTypeID == tax.TaxTypeID).First());
+            }
         }
 
         public override void EV_ActivateSaveButton(bool verificated)
@@ -196,30 +268,74 @@ namespace GestCloudv2.Files.Nodes.ProductTypes.ProductTypeItem.ProductTypeItem_L
             return false;
         }
 
-        public void SaveNewStore()
+        public void SaveLoadProductType()
         {
-            /*Store store1 = db.Stores.Where(c => c.StoreID == store.StoreID).First();
-            store1.Code = store.Code;
-            store1.Name = store.Name;
-            db.Stores.Update(store1);
+            ProductType productTypeFinal = db.ProductTypes.Where(p => p.ProductTypeID == productType.ProductTypeID).First();
+            productTypeFinal.Code = productType.Code;
+            productTypeFinal.Name = productType.Name;
 
-            List<CompanyStore> companyStores = db.CompaniesStores.Where(c => c.StoreID == store.StoreID).Include(c => c.company).ToList();
-            foreach (CompanyStore companyStore in companyStores)
+            db.ProductTypes.Update(productTypeFinal);
+
+            foreach(ProductTypeTax item in purchaseProductTypeTaxes)
             {
-                if (!companies.Contains(companyStore.company))
+                if(item.ProductTypeTaxID <= 0)
                 {
-                    db.CompaniesStores.Remove(db.CompaniesStores.Where(c => c.CompanyStoreID == companyStore.CompanyStoreID).First());
+                    if (db.ProductTypesTaxes.Where(pt => pt.Input == 1 && pt.ProductTypeID == item.ProductTypeID && pt.tax.TaxTypeID == item.tax.TaxTypeID).Count() > 0)
+                        db.ProductTypesTaxes.Remove(db.ProductTypesTaxes.Where(pt => pt.Input == 1 && pt.ProductTypeID == productType.ProductTypeID && pt.tax.TaxTypeID == item.tax.TaxTypeID).First());
+
+                    db.ProductTypesTaxes.Add(new ProductTypeTax
+                    {
+                        Input = 1,
+                        TaxID = item.TaxID,
+                        ProductTypeID = item.ProductTypeID
+                    });
                 }
             }
 
-            foreach (Company company in companies)
+            foreach (ProductTypeTax item in purchaseProductTypeSpecialTaxes)
             {
-                if (db.CompaniesStores.Where(c => c.CompanyID == company.CompanyID && c.StoreID == store.StoreID).ToList().Count == 0)
+                if (item.ProductTypeTaxID <= 0)
                 {
-                    db.CompaniesStores.Add(new CompanyStore
+                    if (db.ProductTypesTaxes.Where(pt => pt.Input == 1 && pt.ProductTypeID == item.ProductTypeID && pt.tax.TaxTypeID == item.tax.TaxTypeID).Count() > 0)
+                        db.ProductTypesTaxes.Remove(db.ProductTypesTaxes.Where(pt => pt.Input == 1 && pt.ProductTypeID == productType.ProductTypeID && pt.tax.TaxTypeID == item.tax.TaxTypeID).First());
+
+                    db.ProductTypesTaxes.Add(new ProductTypeTax
                     {
-                        store = store,
-                        company = company
+                        Input = 1,
+                        TaxID = item.TaxID,
+                        ProductTypeID = item.ProductTypeID
+                    });
+                }
+            }
+
+            foreach (ProductTypeTax item in saleProductTypeTaxes)
+            {
+                if (item.ProductTypeTaxID <= 0)
+                {
+                    if (db.ProductTypesTaxes.Where(pt => pt.Input == 0 && pt.ProductTypeID == item.ProductTypeID && pt.tax.TaxTypeID == item.tax.TaxTypeID).Count() > 0)
+                        db.ProductTypesTaxes.Remove(db.ProductTypesTaxes.Where(pt => pt.Input == 0 && pt.ProductTypeID == productType.ProductTypeID && pt.tax.TaxTypeID == item.tax.TaxTypeID).First());
+
+                    db.ProductTypesTaxes.Add(new ProductTypeTax
+                    {
+                        Input = 0,
+                        TaxID = item.TaxID,
+                        ProductTypeID = item.ProductTypeID
+                    });
+                }
+            }
+
+            foreach (ProductTypeTax item in saleProductTypeSpecialTaxes)
+            {
+                if (item.ProductTypeTaxID <= 0)
+                {
+                    if (db.ProductTypesTaxes.Where(pt => pt.Input == 0 && pt.ProductTypeID == item.ProductTypeID && pt.tax.TaxTypeID == item.tax.TaxTypeID).Count() > 0)
+                        db.ProductTypesTaxes.Remove(db.ProductTypesTaxes.Where(pt => pt.Input == 0 && pt.ProductTypeID == productType.ProductTypeID && pt.tax.TaxTypeID == item.tax.TaxTypeID).First());
+
+                    db.ProductTypesTaxes.Add(new ProductTypeTax
+                    {
+                        Input = 0,
+                        TaxID = item.TaxID,
+                        ProductTypeID = item.ProductTypeID
                     });
                 }
             }
@@ -228,7 +344,7 @@ namespace GestCloudv2.Files.Nodes.ProductTypes.ProductTypeItem.ProductTypeItem_L
             MessageBox.Show("Datos guardados correctamente");
 
             Information["fieldEmpty"] = 0;
-            CT_Menu();*/
+            CT_Menu();
         }
 
         public void CT_Menu()

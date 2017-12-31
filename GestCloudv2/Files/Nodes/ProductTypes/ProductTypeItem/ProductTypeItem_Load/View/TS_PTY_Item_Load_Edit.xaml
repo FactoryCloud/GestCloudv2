@@ -16,8 +16,8 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <Button Name="BT_StoreSave" Grid.Column="1" Grid.Row="0" Margin="20" Click="EV_CompanySave" IsEnabled="False">
-            <TextBlock TextAlignment="Center">Guardar<LineBreak/>Almacén</TextBlock>
+        <Button Name="BT_ProductTypeSave" Grid.Column="1" Grid.Row="0" Margin="20" Click="EV_ProductTypeSave" IsEnabled="False">
+            <TextBlock TextAlignment="Center">Guardar<LineBreak/>Tipo de Producto</TextBlock>
         </Button>
     </Grid>
 </Page>

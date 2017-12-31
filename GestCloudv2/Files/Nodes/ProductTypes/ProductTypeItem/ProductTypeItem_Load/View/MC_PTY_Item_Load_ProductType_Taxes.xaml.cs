@@ -29,6 +29,10 @@ namespace GestCloudv2.Files.Nodes.ProductTypes.ProductTypeItem.ProductTypeItem_L
 
             CB_PurchaseTaxPeriod.SelectionChanged += new SelectionChangedEventHandler(EV_CB_PurchasePeriod);
             CB_SaleTaxPeriod.SelectionChanged += new SelectionChangedEventHandler(EV_CB_SalePeriod);
+            CB_PurchaseTax.SelectionChanged += new SelectionChangedEventHandler(EV_CB_PurchaseTax);
+            CB_PurchaseSpecialTax.SelectionChanged += new SelectionChangedEventHandler(EV_CB_PurchaseSpecialTax);
+            CB_SaleTax.SelectionChanged += new SelectionChangedEventHandler(EV_CB_SaleTax);
+            CB_SaleSpecialTax.SelectionChanged += new SelectionChangedEventHandler(EV_CB_SaleSpecialTax);
             this.Loaded += new RoutedEventHandler(EV_Start);  
         }
 
@@ -117,6 +121,9 @@ namespace GestCloudv2.Files.Nodes.ProductTypes.ProductTypeItem.ProductTypeItem_L
                 GetController().SetPurchaseTaxTypeSelected(Convert.ToInt32(temp1.Name.Replace("PurchaseTaxType", "")));
             }
 
+            CB_PurchaseTax.Items.Clear();
+            CB_PurchaseSpecialTax.Items.Clear();
+
             List<Tax> taxes = GetController().GetTaxes();
             List<Tax> equiSurs = GetController().GetEquiSurs();
             List<Tax> specTaxes = GetController().GetSpecTaxes();
@@ -176,6 +183,9 @@ namespace GestCloudv2.Files.Nodes.ProductTypes.ProductTypeItem.ProductTypeItem_L
             {
                 GetController().SetSaleTaxTypeSelected(Convert.ToInt32(temp1.Name.Replace("SaleTaxType", "")));
             }
+
+            CB_SaleTax.Items.Clear();
+            CB_SaleSpecialTax.Items.Clear();
 
             List<Tax> taxes = GetController().GetSaleTaxes();
             List<Tax> equiSurs = GetController().GetSaleEquiSurs();
@@ -245,6 +255,42 @@ namespace GestCloudv2.Files.Nodes.ProductTypes.ProductTypeItem.ProductTypeItem_L
 
             TextBox TB_SaleSpecialTax = (TextBox)this.FindName($"TB_SaleSpecialTax");
             TB_SaleSpecialTax.Text = $"{((ComboBoxItem)CB_SaleSpecialTax.SelectedItem).Content}";
+        }
+
+        private void EV_CB_PurchaseTax(object sender, RoutedEventArgs e)
+        {
+            ComboBoxItem temp1 = (ComboBoxItem)CB_PurchaseTax.SelectedItem;
+            if (temp1 != null)
+            {
+                GetController().SetPurchaseTax(Convert.ToInt32(temp1.Name.Replace("PurchaseTax", "")));
+            }
+        }
+
+        private void EV_CB_PurchaseSpecialTax(object sender, RoutedEventArgs e)
+        {
+            ComboBoxItem temp1 = (ComboBoxItem)CB_PurchaseSpecialTax.SelectedItem;
+            if (temp1 != null)
+            {
+                GetController().SetPurchaseSpecialTax(Convert.ToInt32(temp1.Name.Replace("PurchaseSpecialTax", "")));
+            }
+        }
+
+        private void EV_CB_SaleTax(object sender, RoutedEventArgs e)
+        {
+            ComboBoxItem temp1 = (ComboBoxItem)CB_SaleTax.SelectedItem;
+            if (temp1 != null)
+            {
+                GetController().SetSaleTax(Convert.ToInt32(temp1.Name.Replace("SaleTax", "")));
+            }
+        }
+
+        private void EV_CB_SaleSpecialTax(object sender, RoutedEventArgs e)
+        {
+            ComboBoxItem temp1 = (ComboBoxItem)CB_SaleSpecialTax.SelectedItem;
+            if (temp1 != null)
+            {
+                GetController().SetSaleSpecialTax(Convert.ToInt32(temp1.Name.Replace("SaleSpecialTax", "")));
+            }
         }
 
         private Controller.CT_PTY_Item_Load GetController()

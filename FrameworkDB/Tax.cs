@@ -20,9 +20,6 @@ namespace FrameworkDB.V1
         public int Type { get; set; }
         public decimal Percentage { get; set; }
 
-        public virtual List<Movement> movements { get; set; }
-        public virtual List<ProductType> productTypes { get; set; }
-        public virtual List<Product> products { get; set; }
         public virtual List<ProductTypeTax> productTypesTaxes { get; set; }
         public virtual List<ProductTax> productsTaxes { get; set; }
         public virtual List<MovementTax> movementsTaxes { get; set; }

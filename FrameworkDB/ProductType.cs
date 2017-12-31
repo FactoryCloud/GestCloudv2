@@ -10,7 +10,6 @@ namespace FrameworkDB.V1
 {
     public class ProductType
     {
-        [Key]
         public int ProductTypeID { get; set; }
 
         public int Code { get; set; }

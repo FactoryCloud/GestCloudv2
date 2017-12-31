@@ -25,10 +25,6 @@ namespace FrameworkDB.V1
         public int? CompanyID { get; set; }
         public virtual Company company { get; set; }
 
-        [ForeignKey("FK_Products_TaxID_Taxes")]
-        public int? TaxID { get; set; }
-        public virtual Tax tax { get; set; }
-
         public int? ExternalID { get; set; }
 
         [Column(TypeName = "money")]

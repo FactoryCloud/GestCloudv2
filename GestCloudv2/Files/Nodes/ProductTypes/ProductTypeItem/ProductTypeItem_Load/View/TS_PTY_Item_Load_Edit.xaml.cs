@@ -29,13 +29,13 @@ namespace GestCloudv2.Files.Nodes.ProductTypes.ProductTypeItem.ProductTypeItem_L
 
             if(num >= 1)
             {
-                BT_StoreSave.IsEnabled = true;
+                BT_ProductTypeSave.IsEnabled = true;
             }
         }
 
-        private void EV_CompanySave(object sender, RoutedEventArgs e)
+        private void EV_ProductTypeSave(object sender, RoutedEventArgs e)
         {
-            GetController().SaveNewStore();
+            GetController().SaveLoadProductType();
         }
 
         private Controller.CT_PTY_Item_Load GetController()

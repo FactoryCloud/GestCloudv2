@@ -87,12 +87,6 @@ namespace FrameworkDB.V1
                 .HasForeignKey(a => a.ProductTypeID)
                 .HasConstraintName("FK_Products_ProductTypeID_ProductTypes");
 
-            modelBuilder.Entity<Product>()
-               .HasOne(a => a.tax)
-               .WithMany(b => b.products)
-               .HasForeignKey(a => a.TaxID)
-               .HasConstraintName("FK_Product_TaxID_Taxes");
-
             modelBuilder.Entity<UserAccessControl>()
                 .HasKey(a => new { a.UserAccessControlID });
 
@@ -146,12 +140,6 @@ namespace FrameworkDB.V1
                 .WithMany(b => b.Movements)
                 .HasForeignKey(a => a.ConditionID)
                 .HasConstraintName("FK_Movements_ConditionID_Conditions");
-
-            modelBuilder.Entity<Movement>()
-               .HasOne(a => a.tax)
-               .WithMany(b => b.movements)
-               .HasForeignKey(a => a.TaxID)
-               .HasConstraintName("FK_Movements_TaxID_Taxes");
 
             modelBuilder.Entity<Movement>()
                 .HasOne(a => a.store)
@@ -286,32 +274,32 @@ namespace FrameworkDB.V1
                .HasOne(a => a.tax)
                .WithMany(b => b.productTypesTaxes)
                .HasForeignKey(a => a.TaxID)
-               .HasConstraintName("FK_ProductTypesTaxes_TaxTypeID_TaxTypes");
+               .HasConstraintName("FK_ProductTypesTaxes_TaxID_Taxes");
 
 
             modelBuilder.Entity<ProductTax>()
                .HasOne(a => a.product)
                .WithMany(b => b.productsTaxes)
                .HasForeignKey(a => a.ProductTaxID)
-               .HasConstraintName("FK_ProductsTaxes_TaxTypeID_TaxTypes");
+               .HasConstraintName("FK_ProductsTaxes_ProductID_Products");
 
             modelBuilder.Entity<ProductTax>()
                .HasOne(a => a.tax)
                .WithMany(b => b.productsTaxes)
                .HasForeignKey(a => a.TaxID)
-               .HasConstraintName("FK_ProductsTaxes_ProductID_Products");
+               .HasConstraintName("FK_ProductsTaxes_TaxID_Taxes");
 
             modelBuilder.Entity<MovementTax>()
                .HasOne(a => a.movement)
                .WithMany(b => b.movementsTaxes)
                .HasForeignKey(a => a.MovementTaxID)
-               .HasConstraintName("FK_MovementsTaxes_TaxID_Taxes");
+               .HasConstraintName("FK_MovementsTaxes_MovementID_Movements");
 
             modelBuilder.Entity<MovementTax>()
                .HasOne(a => a.tax)
                .WithMany(b => b.movementsTaxes)
                .HasForeignKey(a => a.TaxID)
-               .HasConstraintName("FK_MovementsTaxes_MovementID_Movements");
+               .HasConstraintName("FK_MovementsTaxes_TaxID_Taxes");
 
             modelBuilder.Entity<TaxType>()
                .HasOne(a => a.company)
