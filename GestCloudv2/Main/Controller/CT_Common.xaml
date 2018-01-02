@@ -8,14 +8,21 @@
       d:DesignHeight="300" d:DesignWidth="300"
       Title="CT_Common">
 
-    <Grid Name="GR_Content">
+    <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="4*"/>
+            <RowDefinition Height="5*"/>
             <RowDefinition Height="0.25*"/>
         </Grid.RowDefinitions>
-        <Frame Name="TopSide"/>
-        <Frame Grid.Row="1" Name="FR_Subcontent" NavigationUIVisibility="Hidden"/>
+        <Grid Name="GR_Content">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="4*"/>
+            </Grid.RowDefinitions>
+            <Grid>
+                <Frame Name="TopSide"/>
+            </Grid>
+            <Frame Grid.Row="1" Name="FR_Subcontent" NavigationUIVisibility="Hidden"/>
+        </Grid>
         <Frame Grid.Row="2" Name="BotSide" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Page>

@@ -29,12 +29,12 @@ namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_New.View
 
         private void EV_MD_User(object sender, RoutedEventArgs e)
         {
-            GetController().MD_Change(1);
+            GetController().MD_Change(1,0);
         }
 
         private void EV_MD_Entity(object sender, RoutedEventArgs e)
         {
-            GetController().MD_Change(2);
+            GetController().MD_Change(2,0);
         }
 
         private void EV_CT_Menu(object sender, RoutedEventArgs e)

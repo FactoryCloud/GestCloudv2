@@ -29,17 +29,17 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_Load.View
 
         private void EV_MD_Company(object sender, RoutedEventArgs e)
         {
-            GetController().MD_Change(1);
+            GetController().MD_Change(1,0);
         }
 
         private void EV_MD_Stores(object sender, RoutedEventArgs e)
         {
-            GetController().MD_Change(2);
+            GetController().MD_Change(2,0);
         }
 
         private void EV_MD_Taxes(object sender, RoutedEventArgs e)
         {
-            GetController().MD_Change(3);
+            GetController().MD_Change(3,0);
         }
 
         private void EV_CT_Menu(object sender, RoutedEventArgs e)
