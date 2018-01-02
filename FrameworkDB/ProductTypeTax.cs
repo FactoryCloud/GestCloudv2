@@ -20,6 +20,6 @@ namespace FrameworkDB.V1
         public int? TaxID { get; set; }
         public virtual Tax tax { get; set; }
 
-        public int Input { get; set; }
+        public int? Input { get; set; }
     }
 }

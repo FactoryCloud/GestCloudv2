@@ -61,7 +61,7 @@ namespace GestCloudv2.FloatWindows
             TB_SalePrice.KeyUp += new KeyEventHandler(EV_SalePriceChange);
             DG_Products.MouseLeftButtonUp += new MouseButtonEventHandler(EV_ProductsSelect);
 
-            productsView = new ProductsView(option);
+            productsView = new ProductsView();
             movement = new Movement();
             movementSelected = 0;
             UpdateData();
@@ -90,7 +90,7 @@ namespace GestCloudv2.FloatWindows
             TB_SalePrice.KeyUp += new KeyEventHandler(EV_SalePriceChange);
             DG_Products.MouseLeftButtonUp += new MouseButtonEventHandler(EV_ProductsSelect);
 
-            productsView = new ProductsView(option);
+            productsView = new ProductsView();
             movement = new Movement();
             movementSelected = mov;
             this.movements = movements;

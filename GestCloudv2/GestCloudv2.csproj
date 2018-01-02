@@ -240,6 +240,49 @@
     <Compile Include="Files\Nodes\Entities\View\MC_Entity_Load_Select.xaml.cs">
       <DependentUpon>MC_Entity_Load_Select.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Files\Nodes\Products\ProductItem\ProductItem_Load\Controller\CT_PDT_Item_Load.cs">
+      <Generator>MSBuild:Compile</Generator>
+    </Compile>
+    <Compile Include="Files\Nodes\Products\ProductItem\ProductItem_Load\View\MC_PDT_Item_Load_Product.xaml.cs">
+      <DependentUpon>MC_PDT_Item_Load_Product.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Nodes\Products\ProductItem\ProductItem_Load\View\MC_PDT_Item_Load_Product_Taxes.xaml.cs">
+      <DependentUpon>MC_PDT_Item_Load_Product_Taxes.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Nodes\Products\ProductItem\ProductItem_Load\View\NV_PDT_Item_Load.xaml.cs">
+      <DependentUpon>NV_PDT_Item_Load.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Nodes\Products\ProductItem\ProductItem_Load\View\TS_PDT_Item_Load.xaml.cs">
+      <DependentUpon>TS_PDT_Item_Load.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Nodes\Products\ProductItem\ProductItem_Load\View\TS_PDT_Item_Load_Edit.xaml.cs">
+      <DependentUpon>TS_PDT_Item_Load_Edit.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Nodes\Products\ProductItem\ProductItem_New\Controller\CT_PDT_Item_New.cs">
+      <Generator>MSBuild:Compile</Generator>
+    </Compile>
+    <Compile Include="Files\Nodes\Products\ProductItem\ProductItem_New\View\MC_PDT_Item_New_Product.xaml.cs">
+      <DependentUpon>MC_PDT_Item_New_Product.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Nodes\Products\ProductItem\ProductItem_New\View\MC_PDT_Item_New_Product_Taxes.xaml.cs">
+      <DependentUpon>MC_PDT_Item_New_Product_Taxes.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Nodes\Products\ProductItem\ProductItem_New\View\NV_PDT_Item_New.xaml.cs">
+      <DependentUpon>NV_PDT_Item_New.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Nodes\Products\ProductItem\ProductItem_New\View\TS_PDT_Item_New.xaml.cs">
+      <DependentUpon>TS_PDT_Item_New.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Nodes\Products\ProductMenu\Controller\CT_ProductMenu.cs" />
+    <Compile Include="Files\Nodes\Products\ProductMenu\View\MC_PDT_Menu.xaml.cs">
+      <DependentUpon>MC_PDT_Menu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Nodes\Products\ProductMenu\View\NV_PDT_Menu.xaml.cs">
+      <DependentUpon>NV_PDT_Menu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Nodes\Products\ProductMenu\View\TS_PDT_Menu.xaml.cs">
+      <DependentUpon>TS_PDT_Menu.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Files\Nodes\ProductTypes\ProductTypeItem\ProductTypeItem_Load\Controller\CT_PTY_Item_Load.cs">
       <Generator>MSBuild:Compile</Generator>
     </Compile>
@@ -811,6 +854,54 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Files\Nodes\Entities\View\MC_Entity_Load_Select.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Files\Nodes\Products\ProductItem\ProductItem_Load\View\MC_PDT_Item_Load_Product.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Files\Nodes\Products\ProductItem\ProductItem_Load\View\MC_PDT_Item_Load_Product_Taxes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Files\Nodes\Products\ProductItem\ProductItem_Load\View\NV_PDT_Item_Load.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Files\Nodes\Products\ProductItem\ProductItem_Load\View\TS_PDT_Item_Load.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Files\Nodes\Products\ProductItem\ProductItem_Load\View\TS_PDT_Item_Load_Edit.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Files\Nodes\Products\ProductItem\ProductItem_New\View\MC_PDT_Item_New_Product.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Files\Nodes\Products\ProductItem\ProductItem_New\View\MC_PDT_Item_New_Product_Taxes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Files\Nodes\Products\ProductItem\ProductItem_New\View\NV_PDT_Item_New.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Files\Nodes\Products\ProductItem\ProductItem_New\View\TS_PDT_Item_New.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Files\Nodes\Products\ProductMenu\View\MC_PDT_Menu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Files\Nodes\Products\ProductMenu\View\NV_PDT_Menu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Files\Nodes\Products\ProductMenu\View\TS_PDT_Menu.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

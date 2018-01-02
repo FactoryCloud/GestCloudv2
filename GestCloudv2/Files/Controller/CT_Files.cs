@@ -40,6 +40,12 @@ namespace GestCloudv2.Files.Controller
             UpdateComponents();
         }
 
+        public void CT_Products()
+        {
+            Information["controller"] = 1;
+            ChangeController();
+        }
+
         public void CT_ProductTypes()
         {
             Information["controller"] = 2;
@@ -106,6 +112,11 @@ namespace GestCloudv2.Files.Controller
                 case 0:
                     Main.View.MainWindow a = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
                     a.MainFrame.Content = new Main.Controller.CT_Main();
+                    break;
+
+                case 1:
+                    Main.View.MainWindow g = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
+                    g.MainFrame.Content = new Files.Nodes.Products.ProductMenu.Controller.CT_ProductMenu();
                     break;
 
                 case 2:
