@@ -81,12 +81,12 @@ namespace GestCloudv2.Files.Nodes.Providers.ProviderItem.ProviderItem_New.Contro
         override public void MD_EntityNew()
         {
             Information["entityLoaded"] = 2;
-            MD_Change(3);
+            MD_Change(3,0);
         }
 
         public override void MD_EntityLoaded()
         {
-            MD_Change(4);
+            MD_Change(4,0);
         }
 
         public override void EV_ActivateSaveButton(bool verificated)

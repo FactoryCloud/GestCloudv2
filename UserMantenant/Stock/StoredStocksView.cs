@@ -69,7 +69,7 @@ namespace FrameworkView.V1
 
         public void SetProductType(int num)
         {
-            productType = db.ProductTypes.First(ex => ex.ProductTypeID == num);
+            productType = db.ProductTypes.Where(ex => ex.ProductTypeID == num).First();
         }
 
         public void SetStore(int num)

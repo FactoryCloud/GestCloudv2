@@ -97,12 +97,12 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseDeliveries.PurchaseDeliveryItem.Pu
 
         private void EV_MD_Headboard(object sender, RoutedEventArgs e)
         {
-            GetController().MD_Change(1);
+            GetController().MD_Change(1,0);
         }
 
         private void EV_MD_Movements(object sender, RoutedEventArgs e)
         {
-            GetController().MD_Change(2);
+            GetController().MD_Change(2,0);
         }
 
         private void EV_CT_Menu(object sender, RoutedEventArgs e)

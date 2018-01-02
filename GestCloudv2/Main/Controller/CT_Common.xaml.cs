@@ -133,7 +133,7 @@ namespace GestCloudv2.Main.Controller
         public void MD_Submenu(int option)
         {
             Information["externalActivated"] = 1;
-            CT_Submenu.Subcontroller.MD_Change(option);
+            CT_Submenu.Subcontroller.MD_Change(option, Information["externalActivated"]);
             FR_Subcontent.Content = CT_Submenu.Subcontroller;
         }
 
@@ -196,7 +196,7 @@ namespace GestCloudv2.Main.Controller
 
         }
 
-        public void MD_Change(int i)
+        public void MD_Change(int i, int external)
         {
             Information["oldmode"] = Information["mode"];
             Information["mode"] = i;
@@ -210,13 +210,13 @@ namespace GestCloudv2.Main.Controller
                 
 
             if (Information["externalActivated"] == 1)
-                EV_SubcontentClear(i);
+                EV_SubcontentClear();
 
             else
                 UpdateComponents();
         }
 
-        protected void EV_SubcontentClear(int i)
+        protected void EV_SubcontentClear()
         {
             FR_Subcontent.Content = new CT_Common_Subcontent();
             CT_Submenu = null;
@@ -232,7 +232,7 @@ namespace GestCloudv2.Main.Controller
             MainContent = ((CT_Common_Subcontent)FR_Subcontent.Content).MainContent;
             RightSide = ((CT_Common_Subcontent)FR_Subcontent.Content).RightSide;
             FR_Subcontent.LoadCompleted -= EV_SubcontentLoaded;
-            MD_Change(Information["mode"]);
+            MD_Change(Information["mode"], 0);
         }
 
         protected void ChangeComponents()

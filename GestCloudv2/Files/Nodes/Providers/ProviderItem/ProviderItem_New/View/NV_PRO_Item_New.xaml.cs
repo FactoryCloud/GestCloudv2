@@ -55,7 +55,7 @@ namespace GestCloudv2.Files.Nodes.Providers.ProviderItem.ProviderItem_New.View
 
         private void EV_MD_Submenu(object sender, RoutedEventArgs e)
         {
-            GetController().MD_Change(Convert.ToInt16(((Button)sender).Tag));
+            GetController().MD_Change(Convert.ToInt16(((Button)sender).Tag),1);
         }
 
         private void EV_CT_Menu(object sender, RoutedEventArgs e)
@@ -65,12 +65,12 @@ namespace GestCloudv2.Files.Nodes.Providers.ProviderItem.ProviderItem_New.View
 
         private void EV_MD_Provider(object sender, RoutedEventArgs e)
         {
-            GetController().MD_Change(1);
+            GetController().MD_Change(1,0);
         }
 
         private void EV_MD_Entity(object sender, RoutedEventArgs e)
         {
-            GetController().MD_Change(2);
+            GetController().MD_Change(2,0);
         }
 
         private ProviderItem_New.Controller.CT_PRO_Item_New GetController()

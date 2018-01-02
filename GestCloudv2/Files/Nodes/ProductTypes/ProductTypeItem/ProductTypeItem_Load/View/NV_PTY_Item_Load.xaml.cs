@@ -59,7 +59,7 @@ namespace GestCloudv2.Files.Nodes.ProductTypes.ProductTypeItem.ProductTypeItem_L
 
         private void EV_MD_Submenu(object sender, RoutedEventArgs e)
         {
-            GetController().MD_Change(Convert.ToInt16(((Button)sender).Tag));
+            GetController().MD_Change(Convert.ToInt16(((Button)sender).Tag),1);
         }
 
         private void EV_CT_Menu(object sender, RoutedEventArgs e)

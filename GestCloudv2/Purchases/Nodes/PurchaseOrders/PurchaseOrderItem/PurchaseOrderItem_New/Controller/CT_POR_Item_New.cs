@@ -49,11 +49,6 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
             TopSide.Content = NV_Page;
         }
 
-        public List<Company> GetCompanies()
-        {
-            return db.Companies.ToList();
-        }
-
         public List<Store> GetStores()
         {
             List<Store> stores = new List<Store>();

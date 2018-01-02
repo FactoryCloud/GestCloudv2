@@ -43,7 +43,6 @@ namespace GestCloudv2.Files.Nodes.Stores.StoreItem.StoreItem_Load.Controller
                 companies.Add(compsto.company);
             }
 
-            Information["editable"] = editable;
             this.store = store;
         }
 
@@ -62,18 +61,12 @@ namespace GestCloudv2.Files.Nodes.Stores.StoreItem.StoreItem_Load.Controller
                 companies.Add(compsto.company);
             }
 
-            Information["editable"] = editable;
             this.store = store;
         }
 
         override public void EV_Start(object sender, RoutedEventArgs e)
         {
             UpdateComponents();
-        }
-
-        public List<Company> GetCompanies()
-        {
-            return db.Companies.ToList();
         }
 
         public List<Store> GetStores()
