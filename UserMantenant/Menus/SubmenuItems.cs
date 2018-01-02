@@ -12,6 +12,23 @@ namespace FrameworkView.V1
         {
             switch(option)
             {
+                case 1:
+                    return new List<SubmenuItem>
+                    {
+                        new SubmenuItem
+                        {
+                            Name = "BT_Product",
+                            Content = "Producto",
+                            Option = 1
+                        },
+                        new SubmenuItem
+                        {
+                            Name = "BT_Comercial",
+                            Content = "Comercial",
+                            Option = 2
+                        }
+                    };
+
                 case 2:
                     return new List<SubmenuItem>
                     {

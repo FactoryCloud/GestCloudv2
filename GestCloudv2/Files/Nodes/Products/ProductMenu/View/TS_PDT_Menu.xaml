@@ -1,0 +1,33 @@
+﻿<Page x:Class="GestCloudv2.Files.Nodes.Products.ProductMenu.View.TS_PDT_Menu"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:GestCloudv2.Files.Nodes.Products.ProductMenu.View"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300"
+      Title="TS_PDT_Menu">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Button Margin="10" Click="EV_ProductNew">
+            <TextBlock TextAlignment="Center">Nuevo<LineBreak/>producto</TextBlock>
+        </Button>
+        <Button Name="BT_ProductLoad" IsEnabled="false" Margin="10" Grid.Column="1" Click="EV_CT_ProductLoad">
+            <TextBlock TextAlignment="Center">Examinar<LineBreak/>producto</TextBlock>
+        </Button>
+        <Button Name="BT_ProductLoadEdit" IsEnabled="False" Margin="10" Grid.Row="1" Click="EV_CT_ProductLoadEditable">
+            <TextBlock TextAlignment="Center">Editar<LineBreak/>producto</TextBlock>
+        </Button>
+    </Grid>
+</Page>

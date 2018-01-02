@@ -17,6 +17,17 @@ namespace FrameworkDB.V1
         [StringLength(300)]
         public string Name { get; set; }
 
+        public int? Code { get; set; }
+
+        public decimal? SaleDiscount1 { get; set; }
+        public decimal? SaleDiscount2 { get; set; }
+        public decimal? SalePrice1 { get; set; }
+        public decimal? SalePrice2 { get; set; }
+        public decimal? PurchaseDiscount1 { get; set; }
+        public decimal? PurchaseDiscount2 { get; set; }
+        public decimal? PurchasePrice1 { get; set; }
+        public decimal? PurchasePrice2 { get; set; }
+
         [ForeignKey("FK_Products_ProductTypeID_ProductTypes")]
         public int? ProductTypeID { get; set; }
         public virtual ProductType productType { get; set; }

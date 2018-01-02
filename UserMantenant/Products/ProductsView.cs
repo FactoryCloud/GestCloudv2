@@ -17,7 +17,7 @@ namespace FrameworkView.V1
         public string ProductName { get; set; }
         public GestCloudDB db;
 
-        int option;
+        //int option;
         public Product product;
         public FrameworkDB.V1.Condition condition;
         public ProductType productType;
@@ -31,19 +31,20 @@ namespace FrameworkView.V1
         public decimal SalePrice;
         private DataTable dt;
 
-        public ProductsView(int option)
+        public ProductsView()
         {
             db = new GestCloudDB();
             dt = new DataTable();
+            product = new Product();
             productType = new ProductType();
             ProductName = "";
 
-            this.option = option;
+            //this.option = option;
 
-            dt.Columns.Add("ID", typeof(int));
+            dt.Columns.Add("Codigo", typeof(int));
             dt.Columns.Add("Nombre", typeof(string));
-            dt.Columns.Add("Tipo Producto", typeof(string));
-            dt.Columns.Add("Precio", typeof(decimal));
+            dt.Columns.Add("Precio de compra", typeof(decimal));
+            dt.Columns.Add("Precio de venta", typeof(decimal));
         }
 
         public void SetExpansion(int num)
@@ -101,7 +102,7 @@ namespace FrameworkView.V1
             return movement;
         }
 
-        public void UpdateTable()
+        /*public void UpdateTable()
         {
             List<Product> products = new List<Product>();
             if (productType.ProductTypeID > 0)
@@ -129,7 +130,7 @@ namespace FrameworkView.V1
                                 }
                             }
                         }*/
-                        break;
+        /*                break;
                 }
 
                 products.OrderBy(p => p.Name);
@@ -139,6 +140,17 @@ namespace FrameworkView.V1
                 {
                     dt.Rows.Add(item.ProductID, item.Name, item.productType.Name, item.Price);
                 }
+            }
+        }*/
+
+        public void UpdateTable()
+        {
+            products = db.Products.ToList();
+
+            dt.Clear();
+            foreach (Product product in products)
+            {
+                dt.Rows.Add(product.Code, product.Name, product.PurchasePrice1, product.SalePrice1);
             }
         }
 
