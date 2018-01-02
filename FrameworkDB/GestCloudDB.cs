@@ -75,6 +75,9 @@ namespace FrameworkDB.V1
             modelBuilder.Entity<User>()
                 .HasKey(u => u.UserID);
 
+            modelBuilder.Entity<ProductTax>()
+                .HasKey(m => m.ProductTaxID);
+
             modelBuilder.Entity<MTGCard>()
                 .HasOne(a => a.expansion)
                 .WithMany(b => b.MTGCards)
@@ -280,7 +283,7 @@ namespace FrameworkDB.V1
             modelBuilder.Entity<ProductTax>()
                .HasOne(a => a.product)
                .WithMany(b => b.productsTaxes)
-               .HasForeignKey(a => a.ProductTaxID)
+               .HasForeignKey(a => a.ProductID)
                .HasConstraintName("FK_ProductsTaxes_ProductID_Products");
 
             modelBuilder.Entity<ProductTax>()
