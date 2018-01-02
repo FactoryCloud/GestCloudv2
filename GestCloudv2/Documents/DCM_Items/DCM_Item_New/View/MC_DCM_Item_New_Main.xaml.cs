@@ -15,15 +15,15 @@ using System.Windows.Shapes;
 using FrameworkDB.V1;
 using FrameworkView.V1;
 
-namespace GestCloudv2.Documents.DCM_Items.DCM_Items_New.View
+namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.View
 {
     /// <summary>
-    /// Interaction logic for MC_DCM_Items_New_Main.xaml
+    /// Interaction logic for MC_DCM_Item_New_Main.xaml
     /// </summary>
-    public partial class MC_DCM_Items_New_Main : Page
+    public partial class MC_DCM_Item_New_Main : Page
     {
 
-        public MC_DCM_Items_New_Main()
+        public MC_DCM_Item_New_Main()
         {
 
             InitializeComponent();
@@ -260,11 +260,11 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Items_New.View
             GetController().MD_ProviderSelect();
         }
 
-        private Controller.CT_POR_Item_New GetController()
+        private Controller.CT_DCM_Item_New GetController()
         {
             Window mainWindow = Application.Current.MainWindow;
             var a = (Main.View.MainWindow)mainWindow;
-            return (Controller.CT_POR_Item_New)a.MainFrame.Content;
+            return (Controller.CT_DCM_Item_New)a.MainFrame.Content;
         }
     }
 }

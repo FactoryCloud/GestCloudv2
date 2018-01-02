@@ -184,11 +184,8 @@
     <Compile Include="Documents\DCM_Items\DCM_Item_New\View\NV_DCM_Item_New_Main.xaml.cs">
       <DependentUpon>NV_DCM_Item_New_Main.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Documents\DCM_Items\DCM_Item_New\View\TS_POR_Item_New_PurchaseOrder.xaml.cs">
-      <DependentUpon>TS_POR_Item_New_PurchaseOrder.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Documents\DCM_Items\DCM_Item_New\View\TS_POR_Item_New_PurchaseOrder_Movements.xaml.cs">
-      <DependentUpon>TS_POR_Item_New_PurchaseOrder_Movements.xaml</DependentUpon>
+    <Compile Include="Documents\DCM_Items\DCM_Item_New\View\TS_DCM_Item_New_Main.xaml.cs">
+      <DependentUpon>TS_DCM_Item_New_Main.xaml</DependentUpon>
     </Compile>
     <Compile Include="Files\Controller\CT_Files.cs" />
     <Compile Include="Files\Nodes\Clients\ClientItem\ClientItem_New\View\FW_CLI_Item_Load_Entity.cs" />
@@ -774,11 +771,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Documents\DCM_Items\DCM_Item_New\View\TS_POR_Item_New_PurchaseOrder.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Documents\DCM_Items\DCM_Item_New\View\TS_POR_Item_New_PurchaseOrder_Movements.xaml">
+    <Page Include="Documents\DCM_Items\DCM_Item_New\View\TS_DCM_Item_New_Main.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

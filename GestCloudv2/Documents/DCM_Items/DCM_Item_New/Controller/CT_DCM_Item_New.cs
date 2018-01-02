@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace GestCloudv2.Documents.DCM_Items.DCM_Items_New.Controller
+namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.Controller
 {
     public partial class CT_DCM_Item_New : Main.Controller.CT_Common
     {
@@ -45,7 +45,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Items_New.Controller
                     break;
             }
 
-            NV_Page = new View.NV_POR_Item_New_PurchaseOrder();
+            NV_Page = new View.NV_DCM_Item_New_Main();
             TopSide.Content = NV_Page;
         }
 
@@ -107,14 +107,14 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Items_New.Controller
 
         public void MD_ProviderSelect()
         {
-            View.FW_POR_Item_New_SelectProvider floatWindow = new View.FW_POR_Item_New_SelectProvider();
-            floatWindow.Show();
+            //View.FW_POR_Item_New_SelectProvider floatWindow = new View.FW_POR_Item_New_SelectProvider();
+            //floatWindow.Show();
         }
 
         public void MD_StoredStock_Increase()
         {
-            View.FW_POR_Item_New_IncreaseStock floatWindow = new View.FW_POR_Item_New_IncreaseStock(1, movementsView.movements);
-            floatWindow.Show();
+            //View.FW_POR_Item_New_IncreaseStock floatWindow = new View.FW_POR_Item_New_IncreaseStock(1, movementsView.movements);
+            //floatWindow.Show();
         }
 
         public void MD_StoredStock_Remove()
@@ -128,7 +128,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Items_New.Controller
         {
             provider = db.Providers.Where(p => p.ProviderID == num).Include(e => e.entity).First();
             EV_UpdateSubMenu(7);
-            MC_Page = new View.MC_POR_Item_New_PurchaseOrder();
+            MC_Page = new View.MC_DCM_Item_New_Main();
             MainContent.Content = MC_Page;
         }
 
@@ -184,11 +184,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Items_New.Controller
             }
 
 
-            if (Information["mode"] == 1)
-                TS_Page = new View.TS_POR_Item_New_PurchaseOrder(Information["minimalInformation"]);
-
-            if (Information["mode"] == 2)
-                TS_Page = new View.TS_POR_Item_New_PurchaseOrder_Movements(Information["minimalInformation"]);
+            TS_Page = new View.TS_DCM_Item_New_Main(Information["minimalInformation"]);
 
             LeftSide.Content = TS_Page;
         }
@@ -248,16 +244,16 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Items_New.Controller
                     break;
 
                 case 1:
-                    NV_Page = new View.NV_POR_Item_New_PurchaseOrder();
-                    TS_Page = new View.TS_POR_Item_New_PurchaseOrder(Information["minimalInformation"]);
-                    MC_Page = new View.MC_POR_Item_New_PurchaseOrder();
+                    NV_Page = new View.NV_DCM_Item_New_Main();
+                    TS_Page = new View.TS_DCM_Item_New_Main(Information["minimalInformation"]);
+                    MC_Page = new View.MC_DCM_Item_New_Main();
                     ChangeComponents();
                     break;
 
                 case 2:
-                    NV_Page = new View.NV_POR_Item_New_PurchaseOrder();
-                    TS_Page = new View.TS_POR_Item_New_PurchaseOrder_Movements(Information["minimalInformation"]);
-                    MC_Page = new View.MC_POR_Item_New_PurchaseOrder_Movements();
+                    NV_Page = new View.NV_DCM_Item_New_Main();
+                    TS_Page = new View.TS_DCM_Item_New_Main(Information["minimalInformation"]);
+                    MC_Page = new View.MC_DCM_Item_New_Movements();
                     ChangeComponents();
                     break;
             }

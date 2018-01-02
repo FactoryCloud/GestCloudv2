@@ -16,14 +16,14 @@ using GestCloudv2;
 using FrameworkDB.V1;
 using FrameworkView.V1;
 
-namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseOrderItem_New.View
+namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.View
 {
     /// <summary>
-    /// Interaction logic for NV_POR_Item_New_PurchaseOrder.xaml
+    /// Interaction logic for NV_DCM_Item_New_Main.xaml
     /// </summary>
-    public partial class NV_POR_Item_New_PurchaseOrder : Page
+    public partial class NV_DCM_Item_New_Main : Page
     {
-        public NV_POR_Item_New_PurchaseOrder()
+        public NV_DCM_Item_New_Main()
         {
             InitializeComponent();
             if (GetController().Information["submenu"] == 1)
@@ -110,11 +110,11 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
             GetController().CT_Menu();
         }
 
-        private Controller.CT_POR_Item_New GetController()
+        private Controller.CT_DCM_Item_New GetController()
         {
             Window mainWindow = Application.Current.MainWindow;
             var a = (Main.View.MainWindow)mainWindow;
-            return (Controller.CT_POR_Item_New)a.MainFrame.Content;
+            return (Controller.CT_DCM_Item_New)a.MainFrame.Content;
         }
     }
 }
