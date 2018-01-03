@@ -110,7 +110,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.View
             GetController().CT_Menu();
         }
 
-        private Controller.CT_DCM_Item_New GetController()
+        virtual public Controller.CT_DCM_Item_New GetController()
         {
             Window mainWindow = Application.Current.MainWindow;
             var a = (Main.View.MainWindow)mainWindow;

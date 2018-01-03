@@ -1,33 +1,75 @@
-﻿using FrameworkDB.V1;
-using FrameworkView.V1;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+using FrameworkDB.V1;
+using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography;
+using FrameworkView.V1;
 
-namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.Controller
+namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.Controller
 {
-    public partial class CT_DCM_Item_New : Main.Controller.CT_Common
+    /// <summary>
+    /// Interaction logic for CT_DCM_Item_Load.xaml
+    /// </summary>
+    public partial class CT_DCM_Item_Load : Main.Controller.CT_Common
     {
-        public int lastCode;
+        public StockAdjust stockAdjust;
+        public int lastStockAdjustsCod;
         public Movement movementSelected;
         public MovementsView movementsView;
+        public ProvidersView providersView;
         public Store store;
-        public Provider provider;
+        public List<StockAdjust> stocksAdjust;
+        public List<Movement> movements;
+        public int MovementLastID;
 
-        public CT_DCM_Item_New()
+        public CT_DCM_Item_Load(int editable)
         {
-            provider = new Provider();
+            providersView = new ProvidersView();
             movementsView = new MovementsView();
             Information.Add("minimalInformation", 0);
+            Information.Add("editable",editable);
+            Information.Add("old_editable", 0);
+
+            Information["entityValid"] = 1;
+            Information["editable"] = editable;
         }
 
         override public void EV_Start(object sender, RoutedEventArgs e)
         {
+            MovementLastID = movements.OrderBy(m => m.MovementID).Last().MovementID;
+
+            foreach (Movement item in movements)
+            {
+                movementsView.MovementAdd(item);
+            }
             UpdateComponents();
+        }
+
+        public virtual void SetMC(int i)
+        {
+
+        }
+
+        public virtual void SetTS()
+        {
+
+        }
+
+        public virtual void SetNV()
+        {
+
         }
 
         public override void SetSubmenu(int option)
@@ -39,7 +81,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.Controller
                     break;
 
                 case 7:
-                    CT_Submenu = new Model.CT_Submenu(provider, option);
+                    CT_Submenu = new Model.CT_Submenu(GetProvider(), option);
                     break;
             }
 
@@ -47,7 +89,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.Controller
             TopSide.Content = NV_Page;
         }
 
-        virtual public List<Store> GetStores()
+        public List<Store> GetStores()
         {
             List<Store> stores = new List<Store>();
             List<CompanyStore> companyStores = db.CompaniesStores.Where(c => c.CompanyID == ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID).Include(z => z.store).ToList();
@@ -58,14 +100,19 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.Controller
             return stores;
         }
 
-        virtual public DateTime GetDate()
+        virtual public Provider GetProvider()
         {
-           return DateTime.Today;
+            return new Provider();
         }
 
         virtual public string GetCode()
         {
             return "0";
+        }
+
+        virtual public DateTime GetDate()
+        {
+            return DateTime.Today;
         }
 
         virtual public void CleanCode()
@@ -76,7 +123,11 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.Controller
         public void SetMovementSelected(int num)
         {
             movementSelected = movementsView.movements.Where(u => u.MovementID == num).First();
-            UpdateComponents();
+            if (Information["editable"] == 1)
+            {
+                SetNV();
+                LeftSide.Content = TS_Page;
+            }
         }
 
         public void SetStore(int num)
@@ -95,14 +146,9 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.Controller
             TestMinimalInformation();
         }
 
-
-        virtual public string GetLastCode()
+        virtual public int LastCode()
         {
-            return "0";
-        }
-
-        virtual public void MD_ProviderSelect()
-        {
+            return 1;
         }
 
         virtual public void MD_MovementAdd()
@@ -116,30 +162,26 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.Controller
             UpdateComponents();
         }
 
-        public override void EV_SetProvider(int num)
+        virtual public void MD_MovementEdit()
         {
-            provider = db.Providers.Where(p => p.ProviderID == num).Include(e => e.entity).First();
-            EV_UpdateSubMenu(7);
-            SetMC(1);
-            MainContent.Content = MC_Page;
         }
 
         public override void EV_MovementAdd(Movement movement)
         {
-            movement.MovementID = movementsView.MovementNextID();
+            movement.MovementID = movementsView.MovementNextID(MovementLastID);
             movementsView.MovementAdd(movement);
             movementSelected = null;
             UpdateComponents();
         }
 
-        public virtual Boolean CodeExist(string test)
+        virtual public Boolean CodeExist(string stocksAdjust)
         {
             return false;
         }
 
         public override void EV_ActivateSaveButton(bool verificated)
         {
-            if (verificated)
+            if(verificated)
             {
                 Information["entityValid"] = 1;
             }
@@ -152,14 +194,13 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.Controller
             TestMinimalInformation();
         }
 
-        public virtual void TestMinimalInformation()
+        private void TestMinimalInformation()
         {
             SetTS();
-
             LeftSide.Content = TS_Page;
         }
 
-        public virtual void SaveDocument()
+        virtual public void SaveDocument()
         {
             db.SaveChanges();
             MessageBox.Show("Datos guardados correctamente");
@@ -172,21 +213,6 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.Controller
         {
             Information["controller"] = 0;
             ChangeController();
-        }
-
-        public virtual void SetMC(int i)
-        {
-
-        }
-
-        public virtual void SetTS()
-        {
-
-        }
-
-        public virtual void SetNV()
-        {
-
         }
 
         override public void UpdateComponents()

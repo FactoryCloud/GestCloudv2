@@ -13,25 +13,30 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.View
+namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.View
 {
     /// <summary>
-    /// Interaction logic for TS_DCM_Item_New_Main.xaml
+    /// Interaction logic for TS_DCM_Item_Load_Main.xaml
     /// </summary>
-    public partial class TS_DCM_Item_New_Main : Page
+    public partial class TS_DCM_Item_Load_Main : Page
     {
-        public TS_DCM_Item_New_Main(int num, int mode)
+        public TS_DCM_Item_Load_Main(int num)
         {
             InitializeComponent();
 
-            if(mode == 1)
+            if (GetController().Information["editable"] == 0)
+            {
+                BT_Save.Visibility = Visibility.Hidden;
+            }
+
+            if (GetController().Information["mode"] == 1 || GetController().Information["editable"] == 0)
             {
                 BT_MovementAdd.Visibility = Visibility.Hidden;
                 BT_MovementDelete.Visibility = Visibility.Hidden;
                 BT_MovementEdit.Visibility = Visibility.Hidden;
             }
 
-            if(GetController().movementSelected != null)
+            if (GetController().movementSelected != null)
             {
                 BT_MovementDelete.IsEnabled = true;
                 if (GetController().movementSelected.documentType == null)
@@ -46,9 +51,19 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.View
             }
         }
 
-        private void EV_MovementAdd (object sender, RoutedEventArgs e)
+        private void EV_MovementAdd(object sender, RoutedEventArgs e)
         {
             GetController().MD_MovementAdd();
+        }
+
+        private void EV_MovementEdit(object sender, RoutedEventArgs e)
+        {
+            GetController().MD_MovementEdit();
+        }
+
+        private void EV_MovementDelete(object sender, RoutedEventArgs e)
+        {
+            GetController().MD_MovementDelete();
         }
 
         private void EV_Save(object sender, RoutedEventArgs e)
@@ -56,11 +71,11 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.View
             GetController().SaveDocument();
         }
 
-        virtual public Controller.CT_DCM_Item_New GetController()
+        virtual public Controller.CT_DCM_Item_Load GetController()
         {
             Window mainWindow = Application.Current.MainWindow;
             var a = (Main.View.MainWindow)mainWindow;
-            return (Controller.CT_DCM_Item_New)a.MainFrame.Content;
+            return (Controller.CT_DCM_Item_Load)a.MainFrame.Content;
         }
     }
 }

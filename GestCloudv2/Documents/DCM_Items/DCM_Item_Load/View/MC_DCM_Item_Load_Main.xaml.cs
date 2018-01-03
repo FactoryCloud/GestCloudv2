@@ -15,17 +15,16 @@ using System.Windows.Shapes;
 using FrameworkDB.V1;
 using FrameworkView.V1;
 
-namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseOrderItem_Load.View
+namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.View
 {
     /// <summary>
-    /// Interaction logic for MC_STA_Item_New_StockAdjust.xaml
+    /// Interaction logic for MC_POR_Item_Load_Main.xaml
     /// </summary>
-    public partial class MC_POR_Item_Load_PurchaseOrder : Page
+    public partial class MC_DCM_Item_Load_Main : Page
     {
 
-        public MC_POR_Item_Load_PurchaseOrder()
+        public MC_DCM_Item_Load_Main()
         {
-
             InitializeComponent();
             this.Loaded += new RoutedEventHandler(EV_Start);
             CB_Stores.SelectionChanged += new SelectionChangedEventHandler(EV_StoreSelect);
@@ -41,18 +40,17 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
             GR_Store.MouseLeftButtonUp += new MouseButtonEventHandler(EV_MouseClick);
 
             SetSelected();
-
         }
 
         private void EV_Start(object sender, RoutedEventArgs e)
         {
-            TB_PurchaseOrderCode.Text = GetController().purchaseOrder.Code.Trim();
-            TB_ProviderCode.Text = GetController().purchaseOrder.ProviderID.ToString();
-            TB_ProviderName.Text = GetController().purchaseOrder.provider.entity.Name;
+            TB_Code.Text = GetController().GetCode();
+            TB_ProviderCode.Text = GetController().GetProvider().ProviderID.ToString();
+            TB_ProviderName.Text = GetController().GetProvider().entity.Name;
 
             if (GetController().Information["editable"] == 0)
             {
-                TB_PurchaseOrderCode.IsReadOnly = true;
+                TB_Code.IsReadOnly = true;
 
                 Thickness margin = new Thickness(20);
 
@@ -71,7 +69,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
 
                 TextBox TB_DateStockAdjust = new TextBox();
                 TB_DateStockAdjust.Name = "TB_DateStockAdjust";
-                TB_DateStockAdjust.Text = $"{String.Format("{0:dd/MM/yyyy}", GetController().purchaseOrder.Date)}"; ;
+                TB_DateStockAdjust.Text = $"{String.Format("{0:dd/MM/yyyy}", GetController().GetDate())}"; ;
                 TB_DateStockAdjust.VerticalAlignment = VerticalAlignment.Center;
                 TB_DateStockAdjust.TextAlignment = TextAlignment.Center;
                 TB_DateStockAdjust.Margin = margin;
@@ -87,7 +85,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
 
             else
             {
-                DP_Date.SelectedDate = Convert.ToDateTime(GetController().purchaseOrder.Date);
+                DP_Date.SelectedDate = Convert.ToDateTime(GetController().GetDate());
                 List<Store> stores = GetController().GetStores();
                 //CB_Stores.SelectedIndex = Convert.ToInt16(GetController().store.Code);
                 List<int> nums = new List<int>();
@@ -132,7 +130,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
         private void EV_MouseChange(object sender, RoutedEventArgs e)
         {
             SetTransparentAll();
-            if (GetController().purchaseOrder.provider.ProviderID > 0)
+            if (GetController().GetProvider().ProviderID > 0)
             {
                 if (GR_Provider.IsMouseOver)
                 {
@@ -153,7 +151,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
         private void EV_MouseClick(object sender, RoutedEventArgs e)
         {
 
-            if (GetController().purchaseOrder.provider.ProviderID > 0)
+            if (GetController().GetProvider().ProviderID > 0)
             {
                 if (GR_Provider.IsMouseOver)
                 {
@@ -197,28 +195,15 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
             var picker = sender as DatePicker;
 
             DateTime? date = picker.SelectedDate;
-            if (date == null)
-            {
-                this.Title = "Sin fecha";
-                GetController().purchaseOrder.Date = null;
-            }
-            else
-            {
-                this.Title = date.Value.ToShortDateString();
-                GetController().SetAdjustDate(date.Value);
-            }
+            this.Title = date.Value.ToShortDateString();
+            GetController().SetDate(date.Value);
         }
 
-        private Controller.CT_POR_Item_Load GetController()
+        virtual public Controller.CT_DCM_Item_Load GetController()
         {
             Window mainWindow = Application.Current.MainWindow;
             var a = (Main.View.MainWindow)mainWindow;
-            return (Controller.CT_POR_Item_Load)a.MainFrame.Content;
-        }
-
-        private void DP_Date_IsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-
+            return (Controller.CT_DCM_Item_Load)a.MainFrame.Content;
         }
     }
 }

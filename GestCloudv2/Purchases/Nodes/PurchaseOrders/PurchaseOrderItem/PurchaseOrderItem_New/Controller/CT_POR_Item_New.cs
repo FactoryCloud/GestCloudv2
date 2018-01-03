@@ -10,144 +10,97 @@ using System.Windows;
 
 namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseOrderItem_New.Controller
 {
-    public partial class CT_POR_Item_New : Main.Controller.CT_Common
+    public partial class CT_POR_Item_New : Documents.DCM_Items.DCM_Item_New.Controller.CT_DCM_Item_New
     {
         public PurchaseOrder purchaseOrder;
-        public int lastPurchaseOrderCode;
-        public Movement movementSelected;
-        public MovementsView movementsView;
-        public Store store;
-        public Provider provider;
 
-        public CT_POR_Item_New()
+        public CT_POR_Item_New():base()
         {
-            provider = new Provider();
             purchaseOrder = new PurchaseOrder();
-            movementsView = new MovementsView();
-            Information.Add("minimalInformation", 0);
+            purchaseOrder.Code = GetLastCode();
         }
 
-        override public void EV_Start(object sender, RoutedEventArgs e)
-        {
-            UpdateComponents();
-        }
-
-        public override void SetSubmenu(int option)
-        {
-            switch (option)
-            {
-                case 4:
-                    CT_Submenu = new Model.CT_Submenu(store, option);
-                    break;
-
-                case 7:
-                    CT_Submenu = new Model.CT_Submenu(provider, option);
-                    break;
-            }
-
-            NV_Page = new View.NV_POR_Item_New_PurchaseOrder();
-            TopSide.Content = NV_Page;
-        }
-
-        public List<Store> GetStores()
-        {
-            List<Store> stores = new List<Store>();
-            List<CompanyStore> companyStores = db.CompaniesStores.Where(c => c.CompanyID == ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID).Include(z => z.store).ToList();
-            foreach (CompanyStore e in companyStores)
-            {
-                stores.Add(e.store);
-            }
-            return stores;
-        }
-
-        public void CleanOrderCode()
+        override public void CleanCode()
         {
             purchaseOrder.Code = "";
             TestMinimalInformation();
         }
 
-        public void SetMovementSelected(int num)
-        {
-            movementSelected = movementsView.movements.Where(u => u.MovementID == num).First();
-            UpdateComponents();
-        }
-
-        public void SetStore(int num)
-        {
-            store = db.Stores.Where(s => s.StoreID == num).First();
-            TestMinimalInformation();
-        }
-
-        public void EV_ProductsSelect(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        public void SetOrderDate(DateTime date)
+        override public void SetDate(DateTime date)
         {
             purchaseOrder.Date = date;
             TestMinimalInformation();
         }
 
+        override public void SetMC(int i)
+        {
+            switch (i)
+            {
+                case 1:
+                    MC_Page = new View.MC_POR_Item_New_PurchaseOrder();
+                    break;
 
-        public string GetLastOrderCode()
+                case 2:
+                    MC_Page = new View.MC_POR_Item_New_PurchaseOrder_Movements();
+                    break;
+            }
+        }
+
+        override public void SetTS()
+        {
+            TS_Page = new View.TS_POR_Item_New_PurchaseOrder(Information["minimalInformation"], Information["mode"]);
+        }
+
+        override public void SetNV()
+        {
+            NV_Page = new View.NV_POR_Item_New_PurchaseOrder();
+        }
+
+        public override DateTime GetDate()
+        {
+            return (DateTime)purchaseOrder.Date;
+        }
+
+        public override string GetCode()
+        {
+            return $"{purchaseOrder.Code}";
+        }
+
+        override public string GetLastCode()
         {
             if (db.PurchaseOrders.ToList().Count > 0)
             {
-                lastPurchaseOrderCode = db.PurchaseOrders.OrderBy(u => u.PurchaseOrderID).Last().PurchaseOrderID + 1;
+                lastCode = db.PurchaseOrders.OrderBy(u => u.PurchaseOrderID).Last().PurchaseOrderID + 1;
             }
             else
             {
-                lastPurchaseOrderCode = 1;
+                lastCode = 1;
             }
 
-            purchaseOrder.Code = lastPurchaseOrderCode.ToString();
-            return lastPurchaseOrderCode.ToString();
+            purchaseOrder.Code = lastCode.ToString();
+            return lastCode.ToString();
         }
 
-        public void MD_ProviderSelect()
+        override public void MD_ProviderSelect()
         {
             View.FW_POR_Item_New_SelectProvider floatWindow = new View.FW_POR_Item_New_SelectProvider();
             floatWindow.Show();
         }
 
-        public void MD_StoredStock_Increase()
+        override public void MD_MovementAdd()
         {
             View.FW_POR_Item_New_IncreaseStock floatWindow = new View.FW_POR_Item_New_IncreaseStock(1, movementsView.movements);
             floatWindow.Show();
         }
 
-        public void MD_StoredStock_Remove()
-        {
-            movementsView.MovementDelete(movementSelected.MovementID);
-            movementSelected = null;
-            UpdateComponents();
-        }
-
-        public override void EV_SetProvider(int num)
-        {
-            provider = db.Providers.Where(p => p.ProviderID == num).Include(e => e.entity).First();
-            EV_UpdateSubMenu(7);
-            MC_Page = new View.MC_POR_Item_New_PurchaseOrder();
-            MainContent.Content = MC_Page;
-        }
-
-        public override void EV_MovementAdd(Movement movement)
-        {
-            movement.MovementID = movementsView.MovementNextID();
-            movementsView.MovementAdd(movement);
-            movementSelected = null;
-            UpdateComponents();
-        }
-
-        public Boolean PurchaseOrderExist(string test)
+        override public Boolean CodeExist(string test)
         {
             List<PurchaseOrder> purchaseOrders = db.PurchaseOrders.ToList();
             foreach (var item in purchaseOrders)
             {
                 if (item.Code.Contains(test) || test.Length == 0)
                 {
-                    CleanOrderCode();
+                    CleanCode();
                     return true;
                 }
             }
@@ -156,22 +109,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
             return false;
         }
 
-        public override void EV_ActivateSaveButton(bool verificated)
-        {
-            if (verificated)
-            {
-                Information["entityValid"] = 1;
-            }
-
-            else
-            {
-                Information["entityValid"] = 0;
-            }
-
-            TestMinimalInformation();
-        }
-
-        private void TestMinimalInformation()
+        override public void TestMinimalInformation()
         {
             if (purchaseOrder.Date != null && Information["entityValid"] == 1)
             {
@@ -184,16 +122,12 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
             }
 
 
-            if (Information["mode"] == 1)
-                TS_Page = new View.TS_POR_Item_New_PurchaseOrder(Information["minimalInformation"]);
-
-            if (Information["mode"] == 2)
-                TS_Page = new View.TS_POR_Item_New_PurchaseOrder_Movements(Information["minimalInformation"]);
+            TS_Page = new View.TS_POR_Item_New_PurchaseOrder(Information["minimalInformation"], Information["mode"]);
 
             LeftSide.Content = TS_Page;
         }
 
-        public void SaveNewStockAdjust()
+        override public void SaveDocument()
         {
             purchaseOrder.CompanyID = ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID;
             purchaseOrder.ProviderID = provider.ProviderID;
@@ -233,37 +167,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
             CT_Menu();
         }
 
-        public void CT_Menu()
-        {
-            Information["controller"] = 0;
-            ChangeController();
-        }
-
-        override public void UpdateComponents()
-        {
-            switch (Information["mode"])
-            {
-                case 0:
-                    ChangeComponents();
-                    break;
-
-                case 1:
-                    NV_Page = new View.NV_POR_Item_New_PurchaseOrder();
-                    TS_Page = new View.TS_POR_Item_New_PurchaseOrder(Information["minimalInformation"]);
-                    MC_Page = new View.MC_POR_Item_New_PurchaseOrder();
-                    ChangeComponents();
-                    break;
-
-                case 2:
-                    NV_Page = new View.NV_POR_Item_New_PurchaseOrder();
-                    TS_Page = new View.TS_POR_Item_New_PurchaseOrder_Movements(Information["minimalInformation"]);
-                    MC_Page = new View.MC_POR_Item_New_PurchaseOrder_Movements();
-                    ChangeComponents();
-                    break;
-            }
-        }
-
-        private void ChangeController()
+        override public void ChangeController()
         {
             switch (Information["controller"])
             {
@@ -279,17 +183,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
                     Main.View.MainWindow a = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
                     a.MainFrame.Content = new Purchases.Nodes.PurchaseOrders.PurchaseOrderMenu.Controller.CT_PurchaseOrderMenu();
                     break;
-
-                case 1:
-                    /*MainWindow b = (MainWindow)System.Windows.Application.Current.MainWindow;
-                    b.MainFrame.Content = new Main.Controller.MainController();*/
-                    break;
             }
-        }
-
-        public void ControlFieldChangeButton(bool verificated)
-        {
-            TestMinimalInformation();
         }
     }
 }

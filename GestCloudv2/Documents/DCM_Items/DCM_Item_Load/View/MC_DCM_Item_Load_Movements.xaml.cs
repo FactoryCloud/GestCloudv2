@@ -15,14 +15,14 @@ using System.Windows.Shapes;
 using FrameworkDB.V1;
 using System.Data;
 
-namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseOrderItem_Load.View
-{ 
+namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.View
+{
     /// <summary>
-    /// Interaction logic for MC_STA_Item_New_StockAdjust_Movements.xaml
+    /// Interaction logic for MC_DM_Item_Load_Movements.xaml
     /// </summary>
-    public partial class MC_POR_Item_Load_PurchaseOrder_Movements : Page 
+    public partial class MC_DCM_Item_Load_Movements : Page 
     {
-        public MC_POR_Item_Load_PurchaseOrder_Movements()
+        public MC_DCM_Item_Load_Movements()
         {
             InitializeComponent();
 
@@ -53,11 +53,11 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
             DG_Movements.ItemsSource = GetController().movementsView.GetTable();
         }
 
-        private Controller.CT_POR_Item_Load GetController()
+        virtual public Controller.CT_DCM_Item_Load GetController()
         {
             Window mainWindow = Application.Current.MainWindow;
             var a = (Main.View.MainWindow)mainWindow;
-            return (Controller.CT_POR_Item_Load)a.MainFrame.Content;
+            return (Controller.CT_DCM_Item_Load)a.MainFrame.Content;
         }
     }
 }

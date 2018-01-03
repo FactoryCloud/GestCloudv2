@@ -28,8 +28,6 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.View
 
             InitializeComponent();
             this.Loaded += new RoutedEventHandler(EV_Start);
-            //TB_StockAdjustReference.KeyUp += new KeyEventHandler(EV_OrderReference);
-            //TB_StockAdjustReference.Loaded += new RoutedEventHandler(EV_OrderReference);
             TB_Code.KeyUp += new KeyEventHandler(EV_Code);
             TB_Code.Loaded += new RoutedEventHandler(EV_Code);
             CB_Stores.SelectionChanged += new SelectionChangedEventHandler(EV_StoreSelect);
@@ -50,7 +48,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.View
         private void EV_Start(object sender, RoutedEventArgs e)
         {
             DP_Date.SelectedDate = DateTime.Now;
-            TB_Code.Text = GetController().GetLastOrderCode();
+            TB_Code.Text = GetController().GetCode();
             List<Store> stores = GetController().GetStores();
             foreach (Store st in stores)
             {
@@ -154,7 +152,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.View
                     message.HorizontalAlignment = HorizontalAlignment.Center;
                     SP_Code.Children.Add(message);
                 }
-                GetController().CleanOrderCode();
+                GetController().CleanCode();
                 TB_Code.Text = "";
             }
             else if (TB_Code.Text.Any(x => Char.IsWhiteSpace(x)))
@@ -177,10 +175,10 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.View
                     message.HorizontalAlignment = HorizontalAlignment.Center;
                     SP_Code.Children.Add(message);
                 }
-                GetController().CleanOrderCode();
+                GetController().CleanCode();
             }
 
-             else if (GetController().PurchaseOrderExist(TB_Code.Text))
+             else if (GetController().CodeExist(TB_Code.Text))
              {
                  if (SP_Code.Children.Count == 1)
                  {
@@ -216,7 +214,6 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.View
         private void EV_Cancel(object sender, KeyEventArgs e)
         {
                 e.Handled = true;
-                //MessageBox.Show("SI");
         }
 
         private void EV_OrderReference(object sender, RoutedEventArgs e)
@@ -238,21 +235,9 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.View
             var picker = sender as DatePicker;
 
             DateTime? date = picker.SelectedDate;
-            if (date == null)
-            {
-                this.Title = "Sin fecha";
-                GetController().purchaseOrder.Date = null;
-            }
-            else
-            {
-                this.Title = date.Value.ToShortDateString();
-                GetController().SetOrderDate(date.Value);
-            }
-        }
 
-        private void DP_Date_IsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-
+            this.Title = date.Value.ToShortDateString();
+            GetController().SetDate(date.Value);
         }
 
         private void EV_ProviderSelect(object sender, RoutedEventArgs e)
@@ -260,7 +245,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.View
             GetController().MD_ProviderSelect();
         }
 
-        private Controller.CT_DCM_Item_New GetController()
+        virtual public Controller.CT_DCM_Item_New GetController()
         {
             Window mainWindow = Application.Current.MainWindow;
             var a = (Main.View.MainWindow)mainWindow;

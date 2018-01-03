@@ -16,16 +16,17 @@ using GestCloudv2;
 using FrameworkDB.V1;
 using FrameworkView.V1;
 
-namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseOrderItem_New.View
+namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.View
 {
     /// <summary>
-    /// Interaction logic for NV_POR_Item_New_PurchaseOrder.xaml
+    /// Interaction logic for NV_DCM_Item_Load_Main.xaml
     /// </summary>
-    public partial class NV_POR_Item_New_PurchaseOrder : Page
+    public partial class NV_DCM_Item_Load_Main : Page
     {
-        public NV_POR_Item_New_PurchaseOrder()
+        public NV_DCM_Item_Load_Main()
         {
             InitializeComponent();
+
             if (GetController().Information["submenu"] == 1)
             {
                 RowDefinition row1 = new RowDefinition();
@@ -95,7 +96,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
             GetController().MD_Submenu(Convert.ToInt16(((Button)sender).Tag));
         }
 
-        private void EV_MD_Headboard(object sender, RoutedEventArgs e)
+        private void EV_MD_PurchaseOrder(object sender, RoutedEventArgs e)
         {
             GetController().MD_Change(1,0);
         }
@@ -110,11 +111,11 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
             GetController().CT_Menu();
         }
 
-        private Controller.CT_POR_Item_New GetController()
+        virtual public Controller.CT_DCM_Item_Load GetController()
         {
             Window mainWindow = Application.Current.MainWindow;
             var a = (Main.View.MainWindow)mainWindow;
-            return (Controller.CT_POR_Item_New)a.MainFrame.Content;
+            return (Controller.CT_DCM_Item_Load)a.MainFrame.Content;
         }
     }
 }

@@ -87,17 +87,17 @@ namespace GestCloudv2.Main.Controller
             this.Loaded += new RoutedEventHandler(EV_PreStartNoNavigation);
         }
 
-        public List<Company> GetCompanies()
+        virtual public List<Company> GetCompanies()
         {
             return db.Companies.ToList();
         }
 
-        public List<User> GetUsers()
+        virtual public List<User> GetUsers()
         {
             return db.Users.ToList();
         }
 
-        public List<FiscalYear> GetFiscalYears()
+        virtual public List<FiscalYear> GetFiscalYears()
         {
             return db.FiscalYears.ToList();
         }

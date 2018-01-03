@@ -32,10 +32,6 @@ namespace FrameworkDB.V1
         public int? ProductID { get; set; }
         public virtual Product product { get; set; }
 
-        [ForeignKey("FK_Movements_TaxID_Taxes")]
-        public int? TaxID { get; set; }
-        public virtual Tax tax { get; set; }
-
         [ForeignKey("FK_Movements_DocumentTypeID_DocumentTypes")]
         public int? DocumentTypeID { get; set; }
         public virtual DocumentType documentType { get; set; }
