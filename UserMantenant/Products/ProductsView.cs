@@ -35,7 +35,7 @@ namespace FrameworkView.V1
         {
             db = new GestCloudDB();
             dt = new DataTable();
-            product = new Product();
+            //product = new Product();
             productType = new ProductType();
             ProductName = "";
 
@@ -150,7 +150,7 @@ namespace FrameworkView.V1
             dt.Clear();
             foreach (Product product in products)
             {
-                dt.Rows.Add(product.Code, product.Name, product.PurchasePrice1, product.SalePrice1);
+                dt.Rows.Add(product.ProductID, product.Name, product.PurchasePrice1, product.SalePrice1);
             }
         }
 

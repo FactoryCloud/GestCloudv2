@@ -56,7 +56,7 @@ namespace GestCloudv2.Files.Nodes.Products.ProductMenu.Controller
 
         public void SetProduct(int num)
         {
-            product = db.Products.Where(c => c.Code == num).First();
+            product = db.Products.Where(c => c.ProductID == num).First();
             TS_Page = new View.TS_PDT_Menu();
             LeftSide.Content = TS_Page;
         }

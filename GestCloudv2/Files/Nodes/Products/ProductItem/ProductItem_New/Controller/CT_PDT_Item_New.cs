@@ -343,14 +343,14 @@ namespace GestCloudv2.Files.Nodes.Products.ProductItem.ProductItem_New.Controlle
         public void SaveNewProduct()
         {
             db.Products.Add(product);
-            db.SaveChanges();
+           // db.SaveChanges();
 
             if (purchaseTaxSelected != null)
             {
                 db.ProductsTaxes.Add(
                     new ProductTax
                     {
-                        ProductID = product.ProductID,
+                        product = product,
                         TaxID = purchaseTaxSelected.TaxID,
                         Input = 1
                     });
@@ -361,7 +361,7 @@ namespace GestCloudv2.Files.Nodes.Products.ProductItem.ProductItem_New.Controlle
                 db.ProductsTaxes.Add(
                     new ProductTax
                     {
-                        ProductID = product.ProductID,
+                        product = product,
                         TaxID = purchaseSpecialTaxSelected.TaxID,
                         Input = 1
                     });
@@ -372,7 +372,7 @@ namespace GestCloudv2.Files.Nodes.Products.ProductItem.ProductItem_New.Controlle
                 db.ProductsTaxes.Add(
                     new ProductTax
                     {
-                        ProductID = product.ProductID,
+                        product = product,
                         TaxID = saleTaxSelected.TaxID,
                         Input = 0
                     });
@@ -383,7 +383,7 @@ namespace GestCloudv2.Files.Nodes.Products.ProductItem.ProductItem_New.Controlle
                 db.ProductsTaxes.Add(
                     new ProductTax
                     {
-                        ProductID = product.ProductID,
+                        product = product,
                         TaxID = saleSpecialTaxSelected.TaxID,
                         Input = 0
                     });

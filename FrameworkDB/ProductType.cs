@@ -13,6 +13,7 @@ namespace FrameworkDB.V1
         public int ProductTypeID { get; set; }
 
         public int Code { get; set; }
+        public int External { get; set; }
 
         public decimal? SaleDiscount1 { get; set; }
         public decimal? SaleDiscount2 { get; set; }

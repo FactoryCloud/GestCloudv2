@@ -42,6 +42,7 @@ namespace GestCloudv2.Files.Nodes.ProductTypes.ProductTypeItem.ProductTypeItem_N
             submenuItems = new SubmenuItems();
             productType = new ProductType();
             productType.Code = LastProductType();
+            productType.External = 0;
             Information.Add("minimalInformation", 0);
             Information["entityValid"] = 1;
         }

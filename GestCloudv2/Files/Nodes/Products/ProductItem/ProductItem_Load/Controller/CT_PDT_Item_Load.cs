@@ -28,15 +28,20 @@ namespace GestCloudv2.Files.Nodes.Products.ProductItem.ProductItem_Load.Controll
         public SubmenuItems submenuItems;
         public TaxType purchaseTaxTypeSelected;
         public TaxType saleTaxTypeSelected;
+        //public ProductType productType;
         public List<ProductTax> purchaseProductTaxes;
         public List<ProductTax> saleProductTaxes;
         public List<ProductTax> purchaseProductSpecialTaxes;
         public List<ProductTax> saleProductSpecialTaxes;
+        public List<ProductTypeTax> purchaseProductTypeTaxes;
+        public List<ProductTypeTax> saleProductTypeTaxes;
+        public List<ProductTypeTax> purchaseProductTypeSpecialTaxes;
+        public List<ProductTypeTax> saleProductTypeSpecialTaxes;
 
         public CT_PDT_Item_Load(Product product, int editable)
         {
             submenuItems = new SubmenuItems();
-
+            this.product = db.Products.Where(pt => pt.ProductID == product.ProductID).Include(pt => pt.productType).First();
             purchaseTaxTypeSelected = GetTaxTypes().OrderByDescending(t => t.StartDate).First();
             saleTaxTypeSelected = GetTaxTypes().OrderByDescending(t => t.StartDate).First();
 
@@ -45,6 +50,19 @@ namespace GestCloudv2.Files.Nodes.Products.ProductItem.ProductItem_Load.Controll
             purchaseProductSpecialTaxes = db.ProductsTaxes.Where(pt => pt.tax.taxType.CompanyID == ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID && pt.Input == 1 && pt.ProductID == product.ProductID && pt.tax.taxType.Name.Contains("ST")).Include(c => c.tax).Include(d => d.tax.taxType).ToList();
             saleProductSpecialTaxes = db.ProductsTaxes.Where(pt => pt.tax.taxType.CompanyID == ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID && pt.Input == 0 && pt.ProductID == product.ProductID && pt.tax.taxType.Name.Contains("ST")).Include(c => c.tax).Include(d => d.tax.taxType).ToList();
 
+
+            if (product.productType != null)
+            {
+                if (product.productType.External == 1)
+                {
+                    purchaseProductTypeTaxes = db.ProductTypesTaxes.Where(pt => pt.tax.taxType.CompanyID == ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID && pt.Input == 1 && pt.ProductTypeID == product.ProductTypeID && pt.tax.taxType.Name.Contains("IVA")).Include(c => c.tax).Include(d => d.tax.taxType).ToList();
+                    saleProductTypeTaxes = db.ProductTypesTaxes.Where(pt => pt.tax.taxType.CompanyID == ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID && pt.Input == 0 && pt.ProductTypeID == product.ProductTypeID && pt.tax.taxType.Name.Contains("IVA")).Include(c => c.tax).Include(d => d.tax.taxType).ToList();
+                    purchaseProductTypeSpecialTaxes = db.ProductTypesTaxes.Where(pt => pt.tax.taxType.CompanyID == ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID && pt.Input == 1 && pt.ProductTypeID == product.ProductTypeID && pt.tax.taxType.Name.Contains("ST")).Include(c => c.tax).Include(d => d.tax.taxType).ToList();
+                    saleProductTypeSpecialTaxes = db.ProductTypesTaxes.Where(pt => pt.tax.taxType.CompanyID == ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID && pt.Input == 0 && pt.ProductTypeID == product.ProductTypeID && pt.tax.taxType.Name.Contains("ST")).Include(c => c.tax).Include(d => d.tax.taxType).ToList();
+                }
+            }
+
+
             Information.Add("editable", editable);
             Information.Add("old_editable", 0);
             Information.Add("minimalInformation", 0);
@@ -52,7 +70,7 @@ namespace GestCloudv2.Files.Nodes.Products.ProductItem.ProductItem_Load.Controll
             Information["entityValid"] = 1;
 
             Information["editable"] = editable;
-            this.product = product;
+
         }
 
         public CT_PDT_Item_Load(Product product, int editable, int external):base(external)

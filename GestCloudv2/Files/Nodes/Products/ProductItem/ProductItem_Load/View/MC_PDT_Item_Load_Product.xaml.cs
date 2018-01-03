@@ -40,7 +40,7 @@ namespace GestCloudv2.Files.Nodes.Products.ProductItem.ProductItem_Load.View
         private void EV_Start(object sender, RoutedEventArgs e)
         {
             TB_ProductName.Text = GetController().product.Name;
-            TB_ProductCode.Text = $"{GetController().product.Code}";
+            TB_ProductCode.Text = $"{GetController().product.ProductID}";
 
             if (GetController().Information["editable"] == 0)
             {

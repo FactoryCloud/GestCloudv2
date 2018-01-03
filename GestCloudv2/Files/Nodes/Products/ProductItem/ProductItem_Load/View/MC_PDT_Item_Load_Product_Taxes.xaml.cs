@@ -115,6 +115,7 @@ namespace GestCloudv2.Files.Nodes.Products.ProductItem.ProductItem_Load.View
 
         private void EV_CB_PurchasePeriod(object sender, RoutedEventArgs e)
         {
+            int valid;
             ComboBoxItem temp1 = (ComboBoxItem)CB_PurchaseTaxPeriod.SelectedItem;
             if (temp1 != null)
             {
@@ -124,39 +125,84 @@ namespace GestCloudv2.Files.Nodes.Products.ProductItem.ProductItem_Load.View
             CB_PurchaseTax.Items.Clear();
             CB_PurchaseSpecialTax.Items.Clear();
 
-            List<Tax> taxes = GetController().GetTaxes();
-            List<Tax> equiSurs = GetController().GetEquiSurs();
-            List<Tax> specTaxes = GetController().GetSpecTaxes();
-            foreach (Tax tx in taxes)
+            if (GetController().product.productType != null)
             {
-                ComboBoxItem temp = new ComboBoxItem();
-                if (equiSurs.Where(t => t.Type == tx.Type).Count() >= 1)
+                if (GetController().product.productType.External == 1)
                 {
-                    temp.Content = $"Tipo {tx.Type}: IVA {tx.Percentage.ToString("0.##")}% - RE {equiSurs.Where(t => t.Type == tx.Type).First().Percentage.ToString("0.##")}%";
+                    valid = 0;
+
+                    ProductTypeTax purchaseTax = GetController().purchaseProductTypeTaxes.Where(c => c.tax.taxType.StartDate == GetController().purchaseTaxTypeSelected.StartDate && c.tax.taxType.EndDate == GetController().purchaseTaxTypeSelected.EndDate && c.ProductTypeID == GetController().product.ProductTypeID).First();
+                    foreach (ComboBoxItem item in CB_PurchaseTax.Items)
+                    {
+                        if (Convert.ToInt16(item.Name.Replace("PurchaseTax", "")) == purchaseTax.tax.TaxID)
+                        {
+                            TB_PurchaseTax.Text = $"{((ComboBoxItem)CB_PurchaseTax.SelectedItem).Content}";
+                            //CB_PurchaseTax.SelectedValue = item;
+                            break;
+                        }
+                    }
                 }
                 else
                 {
-                    temp.Content = $"Tipo {tx.Type}: IVA {tx.Percentage.ToString("0.##")}%";
+                    valid = 1;
                 }
-                temp.Name = $"PurchaseTax{tx.TaxID}";
-                CB_PurchaseTax.Items.Add(temp);
             }
-            foreach (Tax tx in specTaxes)
+            else
             {
-                ComboBoxItem temp = new ComboBoxItem();
-                temp.Content = $"Tipo {tx.Type}: {tx.Percentage.ToString("0.##")}%";
-                temp.Name = $"PurchaseSpecialTax{tx.TaxID}";
-                CB_PurchaseSpecialTax.Items.Add(temp);
+                valid = 1;
             }
 
-            ProductTax purchaseTax = GetController().purchaseProductTaxes.Where(c => c.tax.taxType.StartDate == GetController().purchaseTaxTypeSelected.StartDate && c.tax.taxType.EndDate== GetController().purchaseTaxTypeSelected.EndDate).First();
-            foreach (ComboBoxItem item in CB_PurchaseTax.Items)
+            if (valid == 1)
             {
-                if (Convert.ToInt16(item.Name.Replace("PurchaseTax", "")) == purchaseTax.tax.TaxID)
+                List<Tax> taxes = GetController().GetTaxes();
+                List<Tax> equiSurs = GetController().GetEquiSurs();
+                List<Tax> specTaxes = GetController().GetSpecTaxes();
+
+                foreach (Tax tx in taxes)
                 {
-                    CB_PurchaseTax.SelectedValue = item;
-                    break;
+                    ComboBoxItem temp = new ComboBoxItem();
+                    if (equiSurs.Where(t => t.Type == tx.Type).Count() >= 1)
+                    {
+                        temp.Content = $"Tipo {tx.Type}: IVA {tx.Percentage.ToString("0.##")}% - RE {equiSurs.Where(t => t.Type == tx.Type).First().Percentage.ToString("0.##")}%";
+                    }
+                    else
+                    {
+                        temp.Content = $"Tipo {tx.Type}: IVA {tx.Percentage.ToString("0.##")}%";
+                    }
+                    temp.Name = $"PurchaseTax{tx.TaxID}";
+                    CB_PurchaseTax.Items.Add(temp);
                 }
+
+                foreach (Tax tx in specTaxes)
+                {
+                    ComboBoxItem temp = new ComboBoxItem();
+                    temp.Content = $"Tipo {tx.Type}: {tx.Percentage.ToString("0.##")}%";
+                    temp.Name = $"PurchaseSpecialTax{tx.TaxID}";
+                    CB_PurchaseSpecialTax.Items.Add(temp);
+                }
+
+                ProductTax purchaseTax = GetController().purchaseProductTaxes.Where(c => c.tax.taxType.StartDate == GetController().purchaseTaxTypeSelected.StartDate && c.tax.taxType.EndDate == GetController().purchaseTaxTypeSelected.EndDate).First();
+                foreach (ComboBoxItem item in CB_PurchaseTax.Items)
+                {
+                    if (Convert.ToInt16(item.Name.Replace("PurchaseTax", "")) == purchaseTax.tax.TaxID)
+                    {
+                        CB_PurchaseTax.SelectedValue = item;
+                        break;
+                    }
+                }
+            }
+
+            if (GetController().product.productType != null)
+            {
+                if (GetController().product.productType.External == 1)
+                {
+                    
+                }
+            }
+
+            else
+            {
+                
             }
 
             ProductTax purchaseSpecialTax = GetController().purchaseProductSpecialTaxes.Where(c => c.tax.taxType.StartDate == GetController().purchaseTaxTypeSelected.StartDate && c.tax.taxType.EndDate == GetController().purchaseTaxTypeSelected.EndDate).First();
