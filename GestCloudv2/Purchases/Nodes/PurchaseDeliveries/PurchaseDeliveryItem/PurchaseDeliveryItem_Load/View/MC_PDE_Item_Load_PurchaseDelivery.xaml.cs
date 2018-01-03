@@ -205,7 +205,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseDeliveries.PurchaseDeliveryItem.Pu
             else
             {
                 this.Title = date.Value.ToShortDateString();
-                GetController().SetAdjustDate(date.Value);
+                GetController().SetDate(date.Value);
             }
         }
 

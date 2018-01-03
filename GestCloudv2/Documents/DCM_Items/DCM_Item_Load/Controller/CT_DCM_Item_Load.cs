@@ -25,7 +25,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.Controller
     public partial class CT_DCM_Item_Load : Main.Controller.CT_Common
     {
         public StockAdjust stockAdjust;
-        public int lastStockAdjustsCod;
+        public int lastCode;
         public Movement movementSelected;
         public MovementsView movementsView;
         public ProvidersView providersView;
@@ -176,6 +176,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.Controller
 
         virtual public Boolean CodeExist(string stocksAdjust)
         {
+            TestMinimalInformation();
             return false;
         }
 
@@ -194,7 +195,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.Controller
             TestMinimalInformation();
         }
 
-        private void TestMinimalInformation()
+        virtual public void TestMinimalInformation()
         {
             SetTS();
             LeftSide.Content = TS_Page;

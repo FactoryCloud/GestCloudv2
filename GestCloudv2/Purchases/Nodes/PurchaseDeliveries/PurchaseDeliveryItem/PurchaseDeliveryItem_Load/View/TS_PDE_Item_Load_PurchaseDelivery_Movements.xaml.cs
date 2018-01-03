@@ -39,29 +39,24 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseDeliveries.PurchaseDeliveryItem.Pu
             }
         }
 
-        private void EV_StoredStock_Reduce(object sender, RoutedEventArgs e)
+        private void EV_MovementAdd(object sender, RoutedEventArgs e)
         {
-            GetController().MD_StoredStock_Reduce();
+            GetController().MD_MovementAdd();
         }
 
-        private void EV_StoredStock_Increase(object sender, RoutedEventArgs e)
+        private void EV_MovementEdit(object sender, RoutedEventArgs e)
         {
-            GetController().MD_StoredStock_Increase();
+            GetController().MD_MovementEdit();
         }
 
-        private void EV_StoredStock_Edit(object sender, RoutedEventArgs e)
+        private void EV_MovementDelete (object sender, RoutedEventArgs e)
         {
-            GetController().MD_StoredStock_Edit();
+            GetController().MD_MovementDelete();
         }
 
-        private void EV_StoredStock_Remove(object sender, RoutedEventArgs e)
+        private void EV_Save(object sender, RoutedEventArgs e)
         {
-            GetController().MD_StoredStock_Remove();
-        }
-
-        private void EV_StockAdjustSave(object sender, RoutedEventArgs e)
-        {
-            GetController().SaveNewStockAdjust();
+            GetController().SaveDocument();
         }
 
         private Controller.CT_PDE_Item_Load GetController()

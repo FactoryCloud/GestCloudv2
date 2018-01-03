@@ -20,16 +20,16 @@
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
-        <Button Name="BT_MovementIncreaseNew" Margin="20" Click="EV_StoredStock_Increase">
+        <Button Name="BT_MovementIncreaseNew" Margin="20" Click="EV_MovementAdd">
             <TextBlock TextAlignment="Center">Nuevo<LineBreak/>albarán</TextBlock>
         </Button>
-        <Button Name="BT_MovementEdit" Grid.Column="1" Margin="20" IsEnabled="False" Click="EV_StoredStock_Edit">
+        <Button Name="BT_MovementEdit" Grid.Column="1" Margin="20" IsEnabled="False" Click="EV_MovementEdit">
             <TextBlock TextAlignment="Center">Editar<LineBreak/>Línea</TextBlock>
         </Button>
-        <Button Name="BT_MovementDelete" Grid.Row="1" Margin="20" IsEnabled="False" Click="EV_StoredStock_Remove">
+        <Button Name="BT_MovementDelete" Grid.Row="1" Margin="20" IsEnabled="False" Click="EV_MovementDelete">
             <TextBlock TextAlignment="Center">Eliminar<LineBreak/>Línea</TextBlock>
         </Button>
-        <Button Name="BT_StockAdjustSave" Grid.Column="1" Grid.Row="4" Margin="20" Click="EV_StockAdjustSave" IsEnabled="False">
+        <Button Name="BT_StockAdjustSave" Grid.Column="1" Grid.Row="4" Margin="20" Click="EV_Save" IsEnabled="False">
             <TextBlock TextAlignment="Center">Guardar albarán</TextBlock>
         </Button>
     </Grid>

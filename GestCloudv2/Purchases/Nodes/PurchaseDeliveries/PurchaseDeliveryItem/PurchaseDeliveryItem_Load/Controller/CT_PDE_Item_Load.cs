@@ -22,33 +22,14 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseDeliveries.PurchaseDeliveryItem.Pu
     /// <summary>
     /// Interaction logic for CT_STA_Item_New.xaml
     /// </summary>
-    public partial class CT_PDE_Item_Load : Main.Controller.CT_Common
+    public partial class CT_PDE_Item_Load : Documents.DCM_Items.DCM_Item_Load.Controller.CT_DCM_Item_Load
     {
-        public StockAdjust stockAdjust;
-        public int lastStockAdjustsCod;
         public PurchaseDelivery purchaseDelivery;
-        public Movement movementSelected;
-        public MovementsView movementsView;
-        public ProvidersView providersView;
-        public Store store;
-        public List<StockAdjust> stocksAdjust;
-        public List<Movement> movements;
-        public int MovementLastID;
 
-        public CT_PDE_Item_Load(PurchaseDelivery purchaseDelivery, int editable)
+        public CT_PDE_Item_Load(PurchaseDelivery purchaseDelivery, int editable):base(editable)
         {
             this.purchaseDelivery = db.PurchaseDeliveries.Where(c => c.PurchaseDeliveryID == purchaseDelivery.PurchaseDeliveryID).Include(e => e.provider).Include(i => i.provider.entity).First();
-            providersView = new ProvidersView();
-            movementsView = new MovementsView();
-            Information.Add("minimalInformation", 0);
-            Information.Add("editable",editable);
-            Information.Add("old_editable", 0);
-
-            Information["entityValid"] = 1;
-            Information["editable"] = editable;
-
             List<DocumentType> documentTypes = db.DocumentTypes.Where(i => i.Name.Contains("Delivery")).ToList();
-
             store = db.Movements.Where(u => u.DocumentID == purchaseDelivery.PurchaseDeliveryID && (documentTypes[0].DocumentTypeID == u.DocumentTypeID || documentTypes[1].DocumentTypeID == u.DocumentTypeID)).Include(u => u.store).First().store;
 
         }
@@ -68,159 +49,64 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseDeliveries.PurchaseDeliveryItem.Pu
             UpdateComponents();
         }
 
-        public override void SetSubmenu(int option)
-        {
-            switch (option)
-            {
-                case 4:
-                    CT_Submenu = new Model.CT_Submenu(store, option);
-                    break;
-
-                case 7:
-                    CT_Submenu = new Model.CT_Submenu(purchaseDelivery.provider, option);
-                    break;
-            }
-
-            NV_Page = new View.NV_PDE_Item_Load_PurchaseDelivery();
-            TopSide.Content = NV_Page;
-        }
-
-        public List<Company> GetCompanies()
-        {
-            return db.Companies.ToList();
-        }
-
-        public List<Store> GetStores()
-        {
-            List<Store> stores = new List<Store>();
-            List<CompanyStore> companyStores = db.CompaniesStores.Where(c => c.CompanyID == ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID).Include(z => z.store).ToList();
-            foreach (CompanyStore e in companyStores)
-            {
-                stores.Add(e.store);
-            }
-            return stores;
-        }
-
-        public void CleanStockCode()
+        override public void CleanCode()
         {
             purchaseDelivery.Code = "";
-            TestMinimalInformation();
+            base.CleanCode();
         }
 
-        public void SetMovementSelected(int num)
-        {
-            movementSelected = movementsView.movements.Where(u => u.MovementID == num).First();
-            if (Information["editable"] == 1)
-            {
-                if (Information["mode"] == 1)
-                    TS_Page = new View.TS_PDE_Item_Load_PurchaseDelivery(Information["minimalInformation"]);
-
-                if (Information["mode"] == 2)
-                    TS_Page = new View.TS_PDE_Item_Load_PurchaseDelivery_Movements(Information["minimalInformation"]);
-
-                LeftSide.Content = TS_Page;
-            }
-        }
-
-        public void SetStore(int num)
-        {
-            store = db.Stores.Where(s => s.StoreID == num).First();
-            TestMinimalInformation();
-        }
-
-        public void EV_ProductsSelect(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        public void SetAdjustDate(DateTime date)
+        override public void SetDate(DateTime date)
         {
             purchaseDelivery.Date = date;
-            TestMinimalInformation();
+            base.SetDate(date);
         }
 
 
-        public int LastStockAdjustCod()
+        override public int LastCode()
         {
-            if (db.StockAdjusts.ToList().Count > 0)
+            if (db.PurchaseDeliveries.ToList().Count > 0)
             {
-                lastStockAdjustsCod = db.StockAdjusts.OrderBy(u => u.StockAdjustID).Last().StockAdjustID + 1;
-                stockAdjust.Code = lastStockAdjustsCod.ToString();
-                return lastStockAdjustsCod;
+                lastCode = db.PurchaseDeliveries.OrderBy(u => u.PurchaseDeliveryID).Last().PurchaseDeliveryID + 1;
+                stockAdjust.Code = lastCode.ToString();
+                return lastCode;
             }
             else
             {
                 stockAdjust.Code = $"1";
-                return lastStockAdjustsCod = 1;
+                return lastCode = 1;
             }
         }
 
-        public void MD_StoredStock_Reduce()
+        override public void MD_MovementAdd()
         {
-            View.FW_PDE_Item_Load_ReduceStock floatWindow = new View.FW_PDE_Item_Load_ReduceStock(1, movementsView.movements);
+            View.FW_PDE_Item_Load_Movements floatWindow = new View.FW_PDE_Item_Load_Movements(1, movementsView.movements);
             floatWindow.Show();
         }
 
-        public void MD_StoredStock_Increase()
+        override public void MD_MovementEdit()
         {
-            View.FW_PDE_Item_Load_IncreaseStock floatWindow = new View.FW_PDE_Item_Load_IncreaseStock(1, movementsView.movements);
+            View.FW_PDE_Item_Load_Movements floatWindow = new View.FW_PDE_Item_Load_Movements(1, movementsView.movements, movementSelected.MovementID);
             floatWindow.Show();
         }
 
-        public void MD_StoredStock_Remove()
+        override public Boolean CodeExist(string code)
         {
-            movementsView.MovementDelete(movementSelected.MovementID);
-            movementSelected = null;
-            UpdateComponents();
-        }
-
-        public void MD_StoredStock_Edit()
-        {
-            View.FW_PDE_Item_Load_IncreaseStock floatWindow = new View.FW_PDE_Item_Load_IncreaseStock(1, movementsView.movements, movementSelected.MovementID);
-            floatWindow.Show();
-        }
-
-        public override void EV_MovementAdd(Movement movement)
-        {
-            //MessageBox.Show(movement.Base.ToString());
-            movement.MovementID = movementsView.MovementNextID(MovementLastID);
-            movementsView.MovementAdd(movement);
-            movementSelected = null;
-            UpdateComponents();
-        }
-
-        public Boolean StockAdjustExist(string stocksAdjust)
-        {
-            List<StockAdjust> stocks = db.StockAdjusts.ToList();
-            foreach (var item in stocks)
+            List<PurchaseDelivery> deliveries = db.PurchaseDeliveries.ToList();
+            foreach (var item in deliveries)
             {
-                if (item.Code.Contains(stocksAdjust) || stocksAdjust.Length == 0)
+                if (item.Code.Contains(code) || code.Length == 0)
                 {
-                    CleanStockCode();
+                    CleanCode();
                     return true;
                 }
             }
-            stockAdjust.Code = stocksAdjust;
-            TestMinimalInformation();
+            purchaseDelivery.Code = code;
+
+            base.CodeExist(code);
             return false;
         }
 
-        public override void EV_ActivateSaveButton(bool verificated)
-        {
-            if(verificated)
-            {
-                Information["entityValid"] = 1;
-            }
-
-            else
-            {
-                Information["entityValid"] = 0;
-            }
-
-            TestMinimalInformation();
-        }
-
-        private void TestMinimalInformation()
+        override public void TestMinimalInformation()
         {
             if(purchaseDelivery.Date != null && Information["entityValid"] == 1)
             {
@@ -232,21 +118,11 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseDeliveries.PurchaseDeliveryItem.Pu
                 Information["minimalInformation"] = 0;
             }
 
-            if (Information["mode"] == 1)
-                TS_Page = new View.TS_PDE_Item_Load_PurchaseDelivery(Information["minimalInformation"]);
-
-            if (Information["mode"] == 2)
-                TS_Page = new View.TS_PDE_Item_Load_PurchaseDelivery_Movements(Information["minimalInformation"]);
-
-            LeftSide.Content = TS_Page;
+            base.TestMinimalInformation();
         }
 
-        public void SaveNewStockAdjust()
+        override public void SaveDocument()
         {
-            /*stockAdjust.CompanyID = ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID;
-            db.StockAdjusts.Add(stockAdjust);
-            db.SaveChanges();*/
-
             foreach (Movement movement in movementsView.movements)
             {
                 if (!movements.Contains(movement))
@@ -295,50 +171,10 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseDeliveries.PurchaseDeliveryItem.Pu
                     db.Movements.Remove(mov);
             }
 
-            db.SaveChanges();
-            MessageBox.Show("Datos guardados correctamente");
-
-            Information["fieldEmpty"] = 0;
-            CT_Menu();
+            base.SaveDocument();
         }
 
-        public void CT_Menu()
-        {
-            Information["controller"] = 0;
-            ChangeController();
-        }
-
-        override public void UpdateComponents()
-        {
-            switch (Information["mode"])
-            {
-                case 0:
-                    ChangeComponents();
-                    break;
-
-                case 1:
-                    NV_Page = new View.NV_PDE_Item_Load_PurchaseDelivery();
-                    if (Information["editable"] == 0)
-                        TS_Page = new View.TS_PDE_Item_Load_PurchaseDelivery(Information["minimalInformation"]);
-                    else
-                        TS_Page = new View.TS_PDE_Item_Load_PurchaseDelivery(Information["minimalInformation"]);
-                    MC_Page = new View.MC_PDE_Item_Load_PurchaseDelivery();
-                    ChangeComponents();
-                    break;
-
-                case 2:
-                    NV_Page = new View.NV_PDE_Item_Load_PurchaseDelivery();
-                    if (Information["editable"] == 0)
-                        TS_Page = new View.TS_PDE_Item_Load_PurchaseDelivery(Information["minimalInformation"]);
-                    else
-                        TS_Page = new View.TS_PDE_Item_Load_PurchaseDelivery_Movements(Information["minimalInformation"]);
-                    MC_Page = new View.MC_PDE_Item_Load_PurchaseDelivery_Movements();
-                    ChangeComponents();
-                    break;
-            }
-        }
-
-        private void ChangeController()
+        override public void ChangeController()
         {
             switch (Information["controller"])
             {
@@ -354,17 +190,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseDeliveries.PurchaseDeliveryItem.Pu
                     Main.View.MainWindow a = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
                     a.MainFrame.Content = new Purchases.Nodes.PurchaseDeliveries.PurchaseDeliveryMenu.Controller.CT_PurchaseDeliveryMenu();
                     break;
-
-                case 1:
-                    /*MainWindow b = (MainWindow)System.Windows.Application.Current.MainWindow;
-                    b.MainFrame.Content = new Main.Controller.MainController();*/
-                    break;
             }
-        }
-
-        public void ControlFieldChangeButton(bool verificated)
-        {
-            TestMinimalInformation();
         }
     }
 }

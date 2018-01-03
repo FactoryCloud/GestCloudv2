@@ -33,7 +33,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseDeliveries.PurchaseDeliveryItem.Pu
 
         private void EV_CompanySave(object sender, RoutedEventArgs e)
         {
-            GetController().SaveNewStockAdjust();
+            GetController().SaveDocument();
         }
 
         private Controller.CT_PDE_Item_Load GetController()

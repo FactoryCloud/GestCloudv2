@@ -86,6 +86,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
         {
             return (DateTime)purchaseOrder.Date;
         }
+
         override public void CleanCode()
         {
             purchaseOrder.Code = "";
@@ -103,14 +104,14 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
         {
             if (db.StockAdjusts.ToList().Count > 0)
             {
-                lastStockAdjustsCod = db.StockAdjusts.OrderBy(u => u.StockAdjustID).Last().StockAdjustID + 1;
-                stockAdjust.Code = lastStockAdjustsCod.ToString();
-                return lastStockAdjustsCod;
+                lastCode = db.StockAdjusts.OrderBy(u => u.StockAdjustID).Last().StockAdjustID + 1;
+                stockAdjust.Code = lastCode.ToString();
+                return lastCode;
             }
             else
             {
                 stockAdjust.Code = $"1";
-                return lastStockAdjustsCod = 1;
+                return lastCode = 1;
             }
         }
 
