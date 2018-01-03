@@ -44,9 +44,9 @@ namespace GestCloudv2.Files.Nodes.Products.ProductItem.ProductItem_Load.Controll
             submenuItems = new SubmenuItems();
             this.product = db.Products.Where(pt => pt.ProductID == product.ProductID).Include(pt => pt.productType).First();
 
-            if (product.productType != null)
+            if (this.product.productType != null)
             {
-                if (product.productType.External == 1)
+                if (this.product.productType.External == 1)
                 {
                     Information["validProduct"] = 0;
                 }
@@ -63,18 +63,18 @@ namespace GestCloudv2.Files.Nodes.Products.ProductItem.ProductItem_Load.Controll
             purchaseTaxTypeSelected = GetTaxTypes().OrderByDescending(t => t.StartDate).First();
             saleTaxTypeSelected = GetTaxTypes().OrderByDescending(t => t.StartDate).First();
 
-            purchaseProductTaxes = db.ProductsTaxes.Where(pt => pt.tax.taxType.CompanyID == ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID && pt.Input == 1 && pt.ProductID == product.ProductID && pt.tax.taxType.Name.Contains("IVA")).Include(c => c.tax).Include(d => d.tax.taxType).ToList();
-            saleProductTaxes = db.ProductsTaxes.Where(pt => pt.tax.taxType.CompanyID == ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID && pt.Input == 0 && pt.ProductID == product.ProductID && pt.tax.taxType.Name.Contains("IVA")).Include(c => c.tax).Include(d => d.tax.taxType).ToList();
-            purchaseProductSpecialTaxes = db.ProductsTaxes.Where(pt => pt.tax.taxType.CompanyID == ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID && pt.Input == 1 && pt.ProductID == product.ProductID && pt.tax.taxType.Name.Contains("ST")).Include(c => c.tax).Include(d => d.tax.taxType).ToList();
-            saleProductSpecialTaxes = db.ProductsTaxes.Where(pt => pt.tax.taxType.CompanyID == ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID && pt.Input == 0 && pt.ProductID == product.ProductID && pt.tax.taxType.Name.Contains("ST")).Include(c => c.tax).Include(d => d.tax.taxType).ToList();
+            purchaseProductTaxes = db.ProductsTaxes.Where(pt => pt.tax.taxType.CompanyID == ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID && pt.Input == 1 && pt.ProductID == this.product.ProductID && pt.tax.taxType.Name.Contains("IVA")).Include(c => c.tax).Include(d => d.tax.taxType).ToList();
+            saleProductTaxes = db.ProductsTaxes.Where(pt => pt.tax.taxType.CompanyID == ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID && pt.Input == 0 && pt.ProductID == this.product.ProductID && pt.tax.taxType.Name.Contains("IVA")).Include(c => c.tax).Include(d => d.tax.taxType).ToList();
+            purchaseProductSpecialTaxes = db.ProductsTaxes.Where(pt => pt.tax.taxType.CompanyID == ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID && pt.Input == 1 && pt.ProductID == this.product.ProductID && pt.tax.taxType.Name.Contains("ST")).Include(c => c.tax).Include(d => d.tax.taxType).ToList();
+            saleProductSpecialTaxes = db.ProductsTaxes.Where(pt => pt.tax.taxType.CompanyID == ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID && pt.Input == 0 && pt.ProductID == this.product.ProductID && pt.tax.taxType.Name.Contains("ST")).Include(c => c.tax).Include(d => d.tax.taxType).ToList();
 
 
             if (Information["validProduct"] == 0)
             {
-                purchaseProductTypeTaxes = db.ProductTypesTaxes.Where(pt => pt.tax.taxType.CompanyID == ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID && pt.Input == 1 && pt.ProductTypeID == product.ProductTypeID && pt.tax.taxType.Name.Contains("IVA")).Include(c => c.tax).Include(d => d.tax.taxType).ToList();
-                saleProductTypeTaxes = db.ProductTypesTaxes.Where(pt => pt.tax.taxType.CompanyID == ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID && pt.Input == 0 && pt.ProductTypeID == product.ProductTypeID && pt.tax.taxType.Name.Contains("IVA")).Include(c => c.tax).Include(d => d.tax.taxType).ToList();
-                purchaseProductTypeSpecialTaxes = db.ProductTypesTaxes.Where(pt => pt.tax.taxType.CompanyID == ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID && pt.Input == 1 && pt.ProductTypeID == product.ProductTypeID && pt.tax.taxType.Name.Contains("ST")).Include(c => c.tax).Include(d => d.tax.taxType).ToList();
-                saleProductTypeSpecialTaxes = db.ProductTypesTaxes.Where(pt => pt.tax.taxType.CompanyID == ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID && pt.Input == 0 && pt.ProductTypeID == product.ProductTypeID && pt.tax.taxType.Name.Contains("ST")).Include(c => c.tax).Include(d => d.tax.taxType).ToList();
+                purchaseProductTypeTaxes = db.ProductTypesTaxes.Where(pt => pt.tax.taxType.CompanyID == ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID && pt.Input == 1 && pt.ProductTypeID == this.product.ProductTypeID && pt.tax.taxType.Name.Contains("IVA")).Include(c => c.tax).Include(d => d.tax.taxType).ToList();
+                saleProductTypeTaxes = db.ProductTypesTaxes.Where(pt => pt.tax.taxType.CompanyID == ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID && pt.Input == 0 && pt.ProductTypeID == this.product.ProductTypeID && pt.tax.taxType.Name.Contains("IVA")).Include(c => c.tax).Include(d => d.tax.taxType).ToList();
+                purchaseProductTypeSpecialTaxes = db.ProductTypesTaxes.Where(pt => pt.tax.taxType.CompanyID == ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID && pt.Input == 1 && pt.ProductTypeID == this.product.ProductTypeID && pt.tax.taxType.Name.Contains("ST")).Include(c => c.tax).Include(d => d.tax.taxType).ToList();
+                saleProductTypeSpecialTaxes = db.ProductTypesTaxes.Where(pt => pt.tax.taxType.CompanyID == ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID && pt.Input == 0 && pt.ProductTypeID == this.product.ProductTypeID && pt.tax.taxType.Name.Contains("ST")).Include(c => c.tax).Include(d => d.tax.taxType).ToList();
             }
 
 
