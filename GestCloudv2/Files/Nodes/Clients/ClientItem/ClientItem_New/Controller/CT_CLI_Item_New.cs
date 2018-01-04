@@ -43,6 +43,7 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_New.Controller
 
         public void SaveNewClient()
         {
+
             if (Information["entityLoaded"] == 2)
             {
                 if (db.Clients.ToList().Count > 0)
@@ -59,6 +60,35 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_New.Controller
 
             client.entity = entity;
             db.Clients.Add(client);
+            /*if (normalTax >= 0)
+            {
+                db.ClientsTaxes.Add(
+                    new ClientTax
+                    {
+                        client = client,
+                        NormalTax = normalTax
+                    });
+            }
+
+            if (specialTax >= 0)
+            {
+                db.ClientsTaxes.Add(
+                    new ClientTax
+                    {
+                        client = client,
+                        SpecialTax = specialTax
+                    });
+            }
+
+            if (equivalenceSurcharge >= 0)
+            {
+                db.ClientsTaxes.Add(
+                    new ClientTax
+                    {
+                        client = client,
+                        EquivalenceSurcharge = equivalenceSurcharge
+                    });
+            }*/
             db.SaveChanges();
             MessageBox.Show("Datos guardados correctamente");
 

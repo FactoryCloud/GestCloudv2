@@ -21,5 +21,7 @@ namespace FrameworkDB.V1
         public virtual List<SaleDelivery> SaleDeliveries { get; set; }
         public virtual List<SaleInvoice> SaleInvoices { get; set; }
         public virtual List<SaleOrder> SaleOrders { get; set; }
+
+        public virtual List<ClientTax> clientTaxes { get; set; }
     }
 }

@@ -15,6 +15,7 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.5*"/>
@@ -26,5 +27,14 @@
         <StackPanel Name="SP_ClientCod" Grid.Column="2" Grid.Row="1" VerticalAlignment="Center">
             <TextBox Name="TB_ClientCod" Grid.Column="2" Grid.Row="1" VerticalAlignment="Center" TextAlignment="Center" Margin="20"></TextBox>
         </StackPanel>
+
+        <Label VerticalAlignment="Center" HorizontalAlignment=" Center" Grid.Row="2" Grid.Column="1">Impuesto normal</Label>
+        <ComboBox Grid.Column="2"  Grid.Row="2" VerticalAlignment="Center" Name="CB_NormalTax" Margin="20,0,20,0"></ComboBox>
+
+        <Label VerticalAlignment="Center" HorizontalAlignment=" Center" Grid.Row="3" Grid.Column="1">Impuesto especial</Label>
+        <ComboBox Grid.Column="2"  Grid.Row="3" VerticalAlignment="Center" Name="CB_SpecialTax" Margin="20,0,20,0"></ComboBox>
+
+        <Label VerticalAlignment="Center" HorizontalAlignment=" Center" Grid.Row="4" Grid.Column="1">Rec. Equivalencia</Label>
+        <ComboBox Grid.Column="2"  Grid.Row="4" VerticalAlignment="Center" Name="CB_EquivalenceSurcharge" Margin="20,0,20,0"></ComboBox>
     </Grid>
 </Page>
