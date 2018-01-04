@@ -467,6 +467,7 @@
     <Compile Include="Purchases\Nodes\PurchaseDeliveries\PurchaseDeliveryItem\PurchaseDeliveryItem_Load\View\MC_PDE_Item_Load_Movements.cs" />
     <Compile Include="Purchases\Nodes\PurchaseDeliveries\PurchaseDeliveryItem\PurchaseDeliveryItem_Load\View\MC_PDE_Item_Load_PurchaseDelivery.cs" />
     <Compile Include="Purchases\Nodes\PurchaseDeliveries\PurchaseDeliveryItem\PurchaseDeliveryItem_Load\View\NV_PDE_Item_Load_PurchaseDelivery.cs" />
+    <Compile Include="Purchases\Nodes\PurchaseDeliveries\PurchaseDeliveryItem\PurchaseDeliveryItem_Load\View\SC_PDE_Item_Load_PurchaseDelivery.cs" />
     <Compile Include="Purchases\Nodes\PurchaseDeliveries\PurchaseDeliveryItem\PurchaseDeliveryItem_Load\View\TS_PDE_Item_Load_PurchaseDelivery.cs" />
     <Compile Include="Purchases\Nodes\PurchaseDeliveries\PurchaseDeliveryItem\PurchaseDeliveryItem_New\Controller\CT_PDE_Item_New.cs" />
     <Compile Include="Purchases\Nodes\PurchaseDeliveries\PurchaseDeliveryItem\PurchaseDeliveryItem_New\View\FW_PDE_Item_New_IncreaseStock.cs" />
@@ -474,6 +475,7 @@
     <Compile Include="Purchases\Nodes\PurchaseDeliveries\PurchaseDeliveryItem\PurchaseDeliveryItem_New\View\MC_PDE_Item_New_Movements.cs" />
     <Compile Include="Purchases\Nodes\PurchaseDeliveries\PurchaseDeliveryItem\PurchaseDeliveryItem_New\View\MC_PDE_Item_New_PurchaseDelivery.cs" />
     <Compile Include="Purchases\Nodes\PurchaseDeliveries\PurchaseDeliveryItem\PurchaseDeliveryItem_New\View\NV_PDE_Item_New_PurchaseDelivery.cs" />
+    <Compile Include="Purchases\Nodes\PurchaseDeliveries\PurchaseDeliveryItem\PurchaseDeliveryItem_New\View\SC_POR_Item_New_PurchaseOrder.cs" />
     <Compile Include="Purchases\Nodes\PurchaseDeliveries\PurchaseDeliveryItem\PurchaseDeliveryItem_New\View\TS_PDE_Item_New_PurchaseDelivery.cs" />
     <Compile Include="Purchases\Nodes\PurchaseDeliveries\PurchaseDeliveryMenu\Controller\CT_PurchaseDeliveryMenu.cs" />
     <Compile Include="Purchases\Nodes\PurchaseDeliveries\PurchaseDeliveryMenu\View\MC_PDE_Menu.cs" />
@@ -484,6 +486,7 @@
     <Compile Include="Purchases\Nodes\PurchaseInvoices\PurchaseInvoiceItem\PurchaseInvoiceItem_Load\View\MC_PIN_Item_Load_Movements.cs" />
     <Compile Include="Purchases\Nodes\PurchaseInvoices\PurchaseInvoiceItem\PurchaseInvoiceItem_Load\View\MC_PIN_Item_Load_PurchaseInvoice.cs" />
     <Compile Include="Purchases\Nodes\PurchaseInvoices\PurchaseInvoiceItem\PurchaseInvoiceItem_Load\View\NV_PIN_Item_Load_PurchaseInvoice.cs" />
+    <Compile Include="Purchases\Nodes\PurchaseInvoices\PurchaseInvoiceItem\PurchaseInvoiceItem_Load\View\SC_PIN_Item_Load_PurchaseOrder.cs" />
     <Compile Include="Purchases\Nodes\PurchaseInvoices\PurchaseInvoiceItem\PurchaseInvoiceItem_Load\View\TS_PIN_Item_Load_PurchaseInvoice.cs" />
     <Compile Include="Purchases\Nodes\PurchaseInvoices\PurchaseInvoiceItem\PurchaseInvoiceItem_New\Controller\CT_PIN_Item_New.cs" />
     <Compile Include="Purchases\Nodes\PurchaseInvoices\PurchaseInvoiceItem\PurchaseInvoiceItem_New\View\FW_PIN_Item_New_Movements.cs" />
@@ -491,6 +494,7 @@
     <Compile Include="Purchases\Nodes\PurchaseInvoices\PurchaseInvoiceItem\PurchaseInvoiceItem_New\View\MC_PIN_Item_New_Movements.cs" />
     <Compile Include="Purchases\Nodes\PurchaseInvoices\PurchaseInvoiceItem\PurchaseInvoiceItem_New\View\MC_PIN_Item_New_PurchaseInvoice.cs" />
     <Compile Include="Purchases\Nodes\PurchaseInvoices\PurchaseInvoiceItem\PurchaseInvoiceItem_New\View\NV_PIN_Item_New_PurchaseInvoice.cs" />
+    <Compile Include="Purchases\Nodes\PurchaseInvoices\PurchaseInvoiceItem\PurchaseInvoiceItem_New\View\SC_PIN_Item_New_PurchaseOrder.cs" />
     <Compile Include="Purchases\Nodes\PurchaseInvoices\PurchaseInvoiceItem\PurchaseInvoiceItem_New\View\TS_PIN_Item_New_PurchaseInvoice.cs" />
     <Compile Include="Purchases\Nodes\PurchaseInvoices\PurchaseInvoiceMenu\Controller\CT_PurchaseInvoiceMenu.cs" />
     <Compile Include="Purchases\Nodes\PurchaseInvoices\PurchaseInvoiceMenu\View\MC_PIN_Menu.cs" />

@@ -56,6 +56,11 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseDeliveries.PurchaseDeliveryItem.Pu
             NV_Page = new View.NV_PDE_Item_New_PurchaseDelivery();
         }
 
+        public override void SetSC()
+        {
+            SC_Page = new View.SC_PDE_Item_New_PurchaseOrder();
+        }
+
         public override string GetCode()
         {
             return purchaseDelivery.Code;
