@@ -33,6 +33,17 @@ namespace GestCloudv2.Files.Nodes.Products.ProductItem.ProductItem_Load.View
             CB_PurchaseSpecialTax.SelectionChanged += new SelectionChangedEventHandler(EV_CB_PurchaseSpecialTax);
             CB_SaleTax.SelectionChanged += new SelectionChangedEventHandler(EV_CB_SaleTax);
             CB_SaleSpecialTax.SelectionChanged += new SelectionChangedEventHandler(EV_CB_SaleSpecialTax);
+
+            TB_PurchaseDiscount1.KeyUp += new KeyEventHandler(EV_PurchaseDiscount1Update);
+            TB_PurchaseDiscount2.KeyUp += new KeyEventHandler(EV_PurchaseDiscount2Update);
+            TB_SaleDiscount1.KeyUp += new KeyEventHandler(EV_SaleDiscount1Update);
+            TB_SaleDiscount2.KeyUp += new KeyEventHandler(EV_SaleDiscount2Update);
+
+            TB_SalePrice1.KeyUp += new KeyEventHandler(EV_SalePrice1Update);
+            TB_SalePrice2.KeyUp += new KeyEventHandler(EV_SalePrice2Update);
+            TB_PurchasePrice1.KeyUp += new KeyEventHandler(EV_PurchasePrice1Update);
+            TB_PurchasePrice2.KeyUp += new KeyEventHandler(EV_PurchasePrice2Update);
+
             this.Loaded += new RoutedEventHandler(EV_Start);  
         }
 
@@ -110,6 +121,70 @@ namespace GestCloudv2.Files.Nodes.Products.ProductItem.ProductItem_Load.View
                 TB_SaleSpecialTax.Text = $"{((ComboBoxItem)CB_SaleSpecialTax.SelectedItem).Content}";
                 TB_SaleSpecialTax.Visibility = Visibility.Visible;
                 CB_SaleSpecialTax.Visibility = Visibility.Hidden;
+            }
+        }
+
+        private void EV_PurchaseDiscount1Update(object sender, KeyEventArgs e)
+        {
+            if (TB_PurchaseDiscount1.Text.Length > 0)
+            {
+                GetController().product.PurchaseDiscount1 = Convert.ToDecimal(TB_PurchaseDiscount1.Text.Replace(",", "."));
+            }
+        }
+
+        private void EV_PurchaseDiscount2Update(object sender, KeyEventArgs e)
+        {
+            if (TB_PurchaseDiscount2.Text.Length > 0)
+            {
+                GetController().product.PurchaseDiscount2 = Convert.ToDecimal(TB_PurchaseDiscount2.Text.Replace(",", "."));
+            }
+        }
+
+        private void EV_SaleDiscount1Update(object sender, KeyEventArgs e)
+        {
+            if (TB_SaleDiscount1.Text.Length > 0)
+            {
+                GetController().product.SaleDiscount1 = Convert.ToDecimal(TB_SaleDiscount1.Text.Replace(",", "."));
+            }
+        }
+
+        private void EV_SaleDiscount2Update(object sender, KeyEventArgs e)
+        {
+            if (TB_SaleDiscount2.Text.Length > 0)
+            {
+                GetController().product.SaleDiscount2 = Convert.ToDecimal(TB_SaleDiscount1.Text.Replace(",", "."));
+            }
+        }
+
+        private void EV_PurchasePrice1Update(object sender, KeyEventArgs e)
+        {
+            if (TB_PurchasePrice1.Text.Length > 0)
+            {
+                GetController().product.PurchasePrice1 = Convert.ToDecimal(TB_PurchasePrice1.Text.Replace(",", "."));
+            }
+        }
+
+        private void EV_PurchasePrice2Update(object sender, KeyEventArgs e)
+        {
+            if (TB_PurchasePrice2.Text.Length > 0)
+            {
+                GetController().product.PurchasePrice2 = Convert.ToDecimal(TB_PurchasePrice2.Text.Replace(",", "."));
+            }
+        }
+
+        private void EV_SalePrice1Update(object sender, KeyEventArgs e)
+        {
+            if (TB_SalePrice1.Text.Length > 0)
+            {
+                GetController().product.SalePrice1 = Convert.ToDecimal(TB_SalePrice1.Text.Replace(",", "."));
+            }
+        }
+
+        private void EV_SalePrice2Update(object sender, KeyEventArgs e)
+        {
+            if (TB_SalePrice2.Text.Length > 0)
+            {
+                GetController().product.SalePrice2 = Convert.ToDecimal(TB_SalePrice2.Text.Replace(",", "."));
             }
         }
 
@@ -207,6 +282,7 @@ namespace GestCloudv2.Files.Nodes.Products.ProductItem.ProductItem_Load.View
             List<Tax> taxes = GetController().GetSaleTaxes();
             List<Tax> equiSurs = GetController().GetSaleEquiSurs();
             List<Tax> specTaxes = GetController().GetSaleSpecTaxes();
+
             foreach (Tax tx in taxes)
             {
                 ComboBoxItem temp = new ComboBoxItem();
@@ -221,6 +297,7 @@ namespace GestCloudv2.Files.Nodes.Products.ProductItem.ProductItem_Load.View
                 temp.Name = $"SaleTax{tx.TaxID}";
                 CB_SaleTax.Items.Add(temp);
             }
+
             foreach (Tax tx in specTaxes)
             {
                 ComboBoxItem temp = new ComboBoxItem();
@@ -229,31 +306,44 @@ namespace GestCloudv2.Files.Nodes.Products.ProductItem.ProductItem_Load.View
                 CB_SaleSpecialTax.Items.Add(temp);
             }
 
-            ProductTax saleTax = GetController().saleProductTaxes.Where(c => c.tax.taxType.StartDate == GetController().saleTaxTypeSelected.StartDate && c.tax.taxType.EndDate == GetController().saleTaxTypeSelected.EndDate).First();
+            Tax saleTax;
+            Tax saleSpecialTax;
+
+            if (GetController().Information["validProduct"] == 1)
+            {
+                saleTax = GetController().saleProductTaxes.Where(c => c.tax.taxType.StartDate == GetController().saleTaxTypeSelected.StartDate && c.tax.taxType.EndDate == GetController().saleTaxTypeSelected.EndDate).First().tax;
+                saleSpecialTax = GetController().saleProductSpecialTaxes.Where(c => c.tax.taxType.StartDate == GetController().saleTaxTypeSelected.StartDate && c.tax.taxType.EndDate == GetController().saleTaxTypeSelected.EndDate).First().tax;
+            }
+
+            else
+            {
+                saleTax = GetController().saleProductTypeTaxes.Where(c => c.tax.taxType.StartDate == GetController().saleTaxTypeSelected.StartDate && c.tax.taxType.EndDate == GetController().saleTaxTypeSelected.EndDate).First().tax;
+                saleSpecialTax = GetController().saleProductTypeSpecialTaxes.Where(c => c.tax.taxType.StartDate == GetController().saleTaxTypeSelected.StartDate && c.tax.taxType.EndDate == GetController().saleTaxTypeSelected.EndDate).First().tax;
+
+            }
+
             foreach (ComboBoxItem item in CB_SaleTax.Items)
             {
-                if (Convert.ToInt16(item.Name.Replace("SaleTax", "")) == saleTax.tax.TaxID)
+                if (Convert.ToInt16(item.Name.Replace("SaleTax", "")) == saleTax.TaxID)
                 {
                     CB_SaleTax.SelectedValue = item;
                     break;
                 }
             }
 
-            ProductTax saleSpecialTax = GetController().saleProductSpecialTaxes.Where(c => c.tax.taxType.StartDate == GetController().saleTaxTypeSelected.StartDate && c.tax.taxType.EndDate == GetController().saleTaxTypeSelected.EndDate).First();
             foreach (ComboBoxItem item in CB_SaleSpecialTax.Items)
             {
-                if (Convert.ToInt16(item.Name.Replace("SaleSpecialTax", "")) == saleSpecialTax.tax.TaxID)
+                if (Convert.ToInt16(item.Name.Replace("SaleSpecialTax", "")) == saleSpecialTax.TaxID)
                 {
                     CB_SaleSpecialTax.SelectedValue = item;
                     break;
                 }
             }
+
             if (GetController().Information["editable"] == 0 && (TextBox)this.FindName("TB_SaleTax") != null)
             {
-                //MessageBox.Show("SI");
                 EV_NonEditableSale();
             }
-
         }
 
         private void EV_NonEditablePurchase()

@@ -48,12 +48,12 @@ namespace GestCloudv2.Files.Nodes.Products.ProductMenu.View
         private void EV_FileSelected(object sender, MouseButtonEventArgs e)
         {
             int num = DG_Products.SelectedIndex;
-            //MessageBox.Show($"{DG_Products.SelectedIndex}");
             if (num >= 0)
             {
                 DataGridRow row = (DataGridRow)DG_Products.ItemContainerGenerator.ContainerFromIndex(num);
                 DataRowView dr = row.Item as DataRowView;
                 GetController().SetProduct(Int32.Parse(dr.Row.ItemArray[0].ToString()));
+                MessageBox.Show($"{Int32.Parse(dr.Row.ItemArray[0].ToString())}");
             }
         }
 
