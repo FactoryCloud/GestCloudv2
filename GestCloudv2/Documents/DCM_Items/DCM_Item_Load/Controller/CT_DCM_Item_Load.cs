@@ -76,6 +76,11 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.Controller
 
         }
 
+        public virtual void SetSC()
+        {
+
+        }
+
         public override void SetSubmenu(int option)
         {
             switch (option)
@@ -232,6 +237,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.Controller
                     SetNV();
                     SetTS();
                     SetMC(1);
+                    SetSC();
                     ChangeComponents();
                     break;
 
@@ -239,6 +245,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.Controller
                     SetNV();
                     SetTS();
                     SetMC(2);
+                    SetSC();
                     ChangeComponents();
                     break;
             }

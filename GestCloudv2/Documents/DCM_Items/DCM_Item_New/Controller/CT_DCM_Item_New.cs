@@ -188,6 +188,11 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.Controller
 
         }
 
+        public virtual void SetSC()
+        {
+
+        }
+
         override public void UpdateComponents()
         {
             switch (Information["mode"])
@@ -200,6 +205,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.Controller
                     SetNV();
                     SetTS();
                     SetMC(1);
+                    SetSC();
                     ChangeComponents();
                     break;
 
@@ -207,6 +213,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.Controller
                     SetNV();
                     SetTS();
                     SetMC(2);
+                    SetSC();
                     ChangeComponents();
                     break;
             }

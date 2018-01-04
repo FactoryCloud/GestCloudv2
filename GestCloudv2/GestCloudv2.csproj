@@ -504,6 +504,7 @@
     <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_Load\View\MC_POR_Item_Load_Movements.cs" />
     <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_Load\View\MC_POR_Item_Load_PurchaseOrder.cs" />
     <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_Load\View\NV_POR_Item_Load_PurchaseOrder.cs" />
+    <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_Load\View\SC_POR_Item_Load_PurchaseOrder.cs" />
     <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_Load\View\TS_POR_Item_Load_PurchaseOrder.cs" />
     <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_New\Controller\CT_POR_Item_New.cs" />
     <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_New\View\FW_POR_Item_New_SelectProvider.cs" />
@@ -511,6 +512,7 @@
     <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_New\View\MC_POR_Item_New_PurchaseOrder.cs" />
     <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_New\View\MC_POR_Item_New_Movements.cs" />
     <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_New\View\NV_POR_Item_New_PurchaseOrder.cs" />
+    <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_New\View\SC_POR_Item_New_PurchaseOrder.cs" />
     <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_New\View\TS_POR_Item_New_PurchaseOrder.cs" />
     <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderMenu\View\MC_POR_Menu.cs" />
     <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderMenu\View\NV_POR_Menu.cs" />

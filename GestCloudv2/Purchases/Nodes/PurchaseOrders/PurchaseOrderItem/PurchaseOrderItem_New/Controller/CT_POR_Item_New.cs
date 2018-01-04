@@ -56,6 +56,11 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
             NV_Page = new View.NV_POR_Item_New_PurchaseOrder();
         }
 
+        public override void SetSC()
+        {
+            SC_Page = new View.SC_POR_Item_New_PurchaseOrder();
+        }
+
         public override DateTime GetDate()
         {
             return (DateTime)purchaseOrder.Date;

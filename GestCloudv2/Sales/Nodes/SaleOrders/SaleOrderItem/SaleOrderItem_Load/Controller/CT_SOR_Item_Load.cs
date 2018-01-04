@@ -85,11 +85,6 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_Load.Co
             TopSide.Content = NV_Page;
         }
 
-        public List<Company> GetCompanies()
-        {
-            return db.Companies.ToList();
-        }
-
         public List<Store> GetStores()
         {
             List<Store> stores = new List<Store>();
