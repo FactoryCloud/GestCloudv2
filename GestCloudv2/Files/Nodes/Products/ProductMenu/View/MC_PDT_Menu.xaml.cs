@@ -53,7 +53,6 @@ namespace GestCloudv2.Files.Nodes.Products.ProductMenu.View
                 DataGridRow row = (DataGridRow)DG_Products.ItemContainerGenerator.ContainerFromIndex(num);
                 DataRowView dr = row.Item as DataRowView;
                 GetController().SetProduct(Int32.Parse(dr.Row.ItemArray[0].ToString()));
-                MessageBox.Show($"{Int32.Parse(dr.Row.ItemArray[0].ToString())}");
             }
         }
 

@@ -122,6 +122,25 @@ namespace GestCloudv2.Files.Nodes.Products.ProductItem.ProductItem_Load.View
                 TB_SaleSpecialTax.Visibility = Visibility.Visible;
                 CB_SaleSpecialTax.Visibility = Visibility.Hidden;
             }
+
+            else if (GetController().Information["validProduct"] == 0)
+            {
+                TB_PurchaseTax.Text = $"{((ComboBoxItem)CB_PurchaseTax.SelectedItem).Content}";
+                TB_PurchaseTax.Visibility = Visibility.Visible;
+                CB_PurchaseTax.Visibility = Visibility.Hidden;
+
+                TB_PurchaseSpecialTax.Text = $"{((ComboBoxItem)CB_PurchaseSpecialTax.SelectedItem).Content}";
+                TB_PurchaseSpecialTax.Visibility = Visibility.Visible;
+                CB_PurchaseSpecialTax.Visibility = Visibility.Hidden;
+
+                TB_SaleTax.Text = $"{((ComboBoxItem)CB_SaleTax.SelectedItem).Content}";
+                TB_SaleTax.Visibility = Visibility.Visible;
+                CB_SaleTax.Visibility = Visibility.Hidden;
+
+                TB_SaleSpecialTax.Text = $"{((ComboBoxItem)CB_SaleSpecialTax.SelectedItem).Content}";
+                TB_SaleSpecialTax.Visibility = Visibility.Visible;
+                CB_SaleSpecialTax.Visibility = Visibility.Hidden;
+            }
         }
 
         private void EV_PurchaseDiscount1Update(object sender, KeyEventArgs e)
@@ -251,6 +270,8 @@ namespace GestCloudv2.Files.Nodes.Products.ProductItem.ProductItem_Load.View
                 }
             }
 
+            TB_PurchaseTax.Text = $"{((ComboBoxItem)CB_PurchaseTax.SelectedItem).Content}";
+
             foreach (ComboBoxItem item in CB_PurchaseSpecialTax.Items)
             {
                 if (Convert.ToInt16(item.Name.Replace("PurchaseSpecialTax", "")) == purchaseSpecialTax.TaxID)
@@ -259,6 +280,8 @@ namespace GestCloudv2.Files.Nodes.Products.ProductItem.ProductItem_Load.View
                     break;
                 }
             }
+
+            TB_PurchaseSpecialTax.Text = $"{((ComboBoxItem)CB_PurchaseSpecialTax.SelectedItem).Content}";
 
             if (GetController().Information["editable"]==0 && (TextBox)this.FindName("TB_PurchaseTax") != null)
             {
@@ -331,6 +354,8 @@ namespace GestCloudv2.Files.Nodes.Products.ProductItem.ProductItem_Load.View
                 }
             }
 
+            TB_SaleTax.Text = $"{((ComboBoxItem)CB_SaleTax.SelectedItem).Content}";
+
             foreach (ComboBoxItem item in CB_SaleSpecialTax.Items)
             {
                 if (Convert.ToInt16(item.Name.Replace("SaleSpecialTax", "")) == saleSpecialTax.TaxID)
@@ -339,6 +364,8 @@ namespace GestCloudv2.Files.Nodes.Products.ProductItem.ProductItem_Load.View
                     break;
                 }
             }
+
+            TB_SaleSpecialTax.Text = $"{((ComboBoxItem)CB_SaleSpecialTax.SelectedItem).Content}";
 
             if (GetController().Information["editable"] == 0 && (TextBox)this.FindName("TB_SaleTax") != null)
             {

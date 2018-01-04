@@ -180,8 +180,8 @@ namespace GestCloudv2.Files.Nodes.Products.ProductItem.ProductItem_Load.Controll
                     Input = 1
                 });
 
-                if (purchaseProductTaxes.Where(p => p.tax.TaxTypeID == tax.TaxTypeID).Count() > 0)
-                    purchaseProductTaxes.Remove(purchaseProductTaxes.Where(p => p.tax.TaxTypeID == tax.TaxTypeID).First());
+                if (purchaseProductTaxes.Where(p => p.tax.TaxTypeID == tax.TaxTypeID).Count() > 1)
+                    purchaseProductTaxes.Remove(purchaseProductTaxes.Where(p => p.tax.TaxTypeID == tax.TaxTypeID && p.tax.TaxID != tax.TaxID).First());
             }
         }
 
@@ -198,8 +198,8 @@ namespace GestCloudv2.Files.Nodes.Products.ProductItem.ProductItem_Load.Controll
                     Input = 1
                 });
 
-                if (purchaseProductSpecialTaxes.Where(p => p.tax.TaxTypeID == tax.TaxTypeID).Count() > 0)
-                    purchaseProductSpecialTaxes.Remove(purchaseProductSpecialTaxes.Where(p => p.tax.TaxTypeID == tax.TaxTypeID).First());
+                if (purchaseProductSpecialTaxes.Where(p => p.tax.TaxTypeID == tax.TaxTypeID).Count() > 1)
+                    purchaseProductSpecialTaxes.Remove(purchaseProductSpecialTaxes.Where(p => p.tax.TaxTypeID == tax.TaxTypeID && p.tax.TaxID != tax.TaxID).First());
             }
         }
 
@@ -216,8 +216,8 @@ namespace GestCloudv2.Files.Nodes.Products.ProductItem.ProductItem_Load.Controll
                     Input = 0
                 });
 
-                if (saleProductTaxes.Where(p => p.tax.TaxTypeID == tax.TaxTypeID).Count() > 0)
-                    saleProductTaxes.Remove(saleProductTaxes.Where(p => p.tax.TaxTypeID == tax.TaxTypeID).First());
+                if (saleProductTaxes.Where(p => p.tax.TaxTypeID == tax.TaxTypeID).Count() > 1)
+                    saleProductTaxes.Remove(saleProductTaxes.Where(p => p.tax.TaxTypeID == tax.TaxTypeID && p.tax.TaxID != tax.TaxID).First());
             }
         }
 
@@ -234,8 +234,8 @@ namespace GestCloudv2.Files.Nodes.Products.ProductItem.ProductItem_Load.Controll
                     Input = 0
                 });
 
-                if (saleProductSpecialTaxes.Where(p => p.tax.TaxTypeID == tax.TaxTypeID).Count() > 0)
-                    saleProductSpecialTaxes.Remove(saleProductSpecialTaxes.Where(p => p.tax.TaxTypeID == tax.TaxTypeID).First());
+                if (saleProductSpecialTaxes.Where(p => p.tax.TaxTypeID == tax.TaxTypeID).Count() > 1)
+                    saleProductSpecialTaxes.Remove(saleProductSpecialTaxes.Where(p => p.tax.TaxTypeID == tax.TaxTypeID && p.tax.TaxID != tax.TaxID).First());
             }
         }
 
