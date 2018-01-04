@@ -64,7 +64,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
 
         public override void SetTS()
         {
-            TS_Page = new View.TS_POR_Item_Load_PurchaseOrder(Information["minimalInformation"]);
+            TS_Page = new View.TS_POR_Item_Load_PurchaseOrder();
         }
 
         public override void SetNV()
@@ -158,9 +158,9 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
             TestMinimalInformation();
         }
 
-        private void TestMinimalInformation()
+        override public void TestMinimalInformation()
         {
-            if(purchaseOrder.Date != null && Information["entityValid"] == 1)
+            if(purchaseOrder.Date != null && purchaseOrder.provider.ProviderID > 0 && store.StoreID > 0)
             {
                 Information["minimalInformation"] = 1;
             }

@@ -96,9 +96,8 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.Controller
         }
 
 
-        virtual public string GetLastCode()
+        virtual public void GetLastCode()
         {
-            return "0";
         }
 
         virtual public void MD_ProviderSelect()

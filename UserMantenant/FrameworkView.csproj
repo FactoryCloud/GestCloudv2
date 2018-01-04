@@ -107,11 +107,13 @@
     <Compile Include="Entities\EntitiesView.cs" />
     <Compile Include="Menus\SubmenuItem.cs" />
     <Compile Include="Menus\SubmenuItems.cs" />
+    <Compile Include="Model\ItemsView.cs" />
     <Compile Include="Providers\ProvidersView.cs" />
     <Compile Include="Providers\ProviderView.cs" />
     <Compile Include="Clients\ClientsView.cs" />
     <Compile Include="Clients\ClientView.cs" />
     <Compile Include="PurchaseDeliveries\PurchaseDeliveriesView.cs" />
+    <Compile Include="PurchaseInvoices\PurchaseInvoicesView.cs" />
     <Compile Include="PurchaseOrder\PurchaseOrdersView.cs" />
     <Compile Include="SaleOrder\SaleOrdersView.cs" />
     <Compile Include="Stock\StoredStocksView.cs" />

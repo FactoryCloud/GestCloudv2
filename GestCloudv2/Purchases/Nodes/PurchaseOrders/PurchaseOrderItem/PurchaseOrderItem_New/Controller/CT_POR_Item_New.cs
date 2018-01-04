@@ -17,7 +17,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
         public CT_POR_Item_New():base()
         {
             purchaseOrder = new PurchaseOrder();
-            purchaseOrder.Code = GetLastCode();
+            GetLastCode();
         }
 
         override public void CleanCode()
@@ -41,14 +41,14 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
                     break;
 
                 case 2:
-                    MC_Page = new View.MC_POR_Item_New_PurchaseOrder_Movements();
+                    MC_Page = new View.MC_POR_Item_New_Movements();
                     break;
             }
         }
 
         override public void SetTS()
         {
-            TS_Page = new View.TS_POR_Item_New_PurchaseOrder(Information["minimalInformation"], Information["mode"]);
+            TS_Page = new View.TS_POR_Item_New_PurchaseOrder();
         }
 
         override public void SetNV()
@@ -66,7 +66,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
             return $"{purchaseOrder.Code}";
         }
 
-        override public string GetLastCode()
+        override public void GetLastCode()
         {
             if (db.PurchaseOrders.ToList().Count > 0)
             {
@@ -78,7 +78,6 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
             }
 
             purchaseOrder.Code = lastCode.ToString();
-            return lastCode.ToString();
         }
 
         override public void MD_ProviderSelect()
@@ -89,7 +88,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
 
         override public void MD_MovementAdd()
         {
-            View.FW_POR_Item_New_IncreaseStock floatWindow = new View.FW_POR_Item_New_IncreaseStock(1, movementsView.movements);
+            View.FW_POR_Item_New_MovementAdd floatWindow = new View.FW_POR_Item_New_MovementAdd(1, movementsView.movements);
             floatWindow.Show();
         }
 
@@ -111,7 +110,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
 
         override public void TestMinimalInformation()
         {
-            if (purchaseOrder.Date != null && Information["entityValid"] == 1)
+            if (purchaseOrder.Date != null && provider.ProviderID > 0 && store.StoreID > 0)
             {
                 Information["minimalInformation"] = 1;
             }
@@ -121,10 +120,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
                 Information["minimalInformation"] = 0;
             }
 
-
-            TS_Page = new View.TS_POR_Item_New_PurchaseOrder(Information["minimalInformation"], Information["mode"]);
-
-            LeftSide.Content = TS_Page;
+            base.TestMinimalInformation();
         }
 
         override public void SaveDocument()

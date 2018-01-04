@@ -57,6 +57,10 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.Controller
             UpdateComponents();
         }
 
+        public virtual void SetCode(string code)
+        {
+
+        }
         public virtual void SetMC(int i)
         {
 

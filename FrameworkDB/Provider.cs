@@ -21,6 +21,5 @@ namespace FrameworkDB.V1
         public virtual List<PurchaseDelivery> PurchaseDeliveries { get; set; }
         public virtual List<PurchaseInvoice> PurchaseInvoices { get; set; }
         public virtual List<PurchaseOrder> PurchaseOrders { get; set; }
-        //public virtual List<Entity> entities { get; set; }
     }
 }

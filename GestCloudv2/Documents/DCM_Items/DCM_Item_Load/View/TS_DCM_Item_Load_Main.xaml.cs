@@ -20,7 +20,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.View
     /// </summary>
     public partial class TS_DCM_Item_Load_Main : Page
     {
-        public TS_DCM_Item_Load_Main(int num)
+        public TS_DCM_Item_Load_Main()
         {
             InitializeComponent();
 
@@ -45,7 +45,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.View
                 }
             }
 
-            if (GetController().movementsView.movements.Count > 0)
+            if (GetController().movementsView.movements.Count > 0 && GetController().Information["minimalInformation"] == 1)
             {
                 BT_Save.IsEnabled = true;
             }

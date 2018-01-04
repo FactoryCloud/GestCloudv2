@@ -10,59 +10,14 @@ using System.Windows;
 
 namespace GestCloudv2.Purchases.Nodes.PurchaseDeliveries.PurchaseDeliveryItem.PurchaseDeliveryItem_New.Controller
 {
-    public partial class CT_PDE_Item_New : Main.Controller.CT_Common
+    public partial class CT_PDE_Item_New : Documents.DCM_Items.DCM_Item_New.Controller.CT_DCM_Item_New
     {
         public PurchaseDelivery purchaseDelivery;
-        public int lastPurchaseDeliveryCode;
-        public Movement movementSelected;
-        public MovementsView movementsView;
-        public Store store;
-        public Provider provider;
 
-        public CT_PDE_Item_New()
+        public CT_PDE_Item_New():base()
         {
-            provider = new Provider();
             purchaseDelivery = new PurchaseDelivery();
-            movementsView = new MovementsView();
-            Information.Add("minimalInformation", 0);
-        }
-
-        override public void EV_Start(object sender, RoutedEventArgs e)
-        {
-            UpdateComponents();
-        }
-
-        public override void SetSubmenu(int option)
-        {
-            switch (option)
-            {
-                case 4:
-                    CT_Submenu = new Model.CT_Submenu(store, option);
-                    break;
-
-                case 7:
-                    CT_Submenu = new Model.CT_Submenu(provider, option);
-                    break;
-            }
-
-            NV_Page = new View.NV_PDE_Item_New_PurchaseDelivery();
-            TopSide.Content = NV_Page;
-        }
-
-        public List<Company> GetCompanies()
-        {
-            return db.Companies.ToList();
-        }
-
-        public List<Store> GetStores()
-        {
-            List<Store> stores = new List<Store>();
-            List<CompanyStore> companyStores = db.CompaniesStores.Where(c => c.CompanyID == ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID).Include(z => z.store).ToList();
-            foreach (CompanyStore e in companyStores)
-            {
-                stores.Add(e.store);
-            }
-            return stores;
+            GetLastCode();
         }
 
         public void CleanPurchaseCode()
@@ -71,114 +26,86 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseDeliveries.PurchaseDeliveryItem.Pu
             TestMinimalInformation();
         }
 
-        public void SetMovementSelected(int num)
-        {
-            movementSelected = movementsView.movements.Where(u => u.MovementID == num).First();
-            UpdateComponents();
-        }
-
-        public void SetStore(int num)
-        {
-            store = db.Stores.Where(s => s.StoreID == num).First();
-            TestMinimalInformation();
-        }
-
-        public void EV_ProductsSelect(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        public void SetDeliveryDate(DateTime date)
+        override public void SetDate(DateTime date)
         {
             purchaseDelivery.Date = date;
             TestMinimalInformation();
         }
 
+        public override void SetMC(int i)
+        {
+            switch (i)
+            {
+                case 1:
+                    MC_Page = new View.MC_PDE_Item_New_PurchaseDelivery();
+                    break;
 
-        public string GetLastDeliveryCode()
+                case 2:
+                    MC_Page = new View.MC_PDE_Item_New_Movements();
+                    break;
+            }
+        }
+
+        public override void SetTS()
+        {
+            TS_Page = new View.TS_PDE_Item_New_PurchaseDelivery();
+        }
+
+        public override void SetNV()
+        {
+            NV_Page = new View.NV_PDE_Item_New_PurchaseDelivery();
+        }
+
+        public override string GetCode()
+        {
+            return purchaseDelivery.Code;
+        }
+
+        override public void GetLastCode()
         {
             if (db.PurchaseDeliveries.ToList().Count > 0)
             {
-                lastPurchaseDeliveryCode = db.PurchaseDeliveries.OrderBy(u => u.PurchaseDeliveryID).Last().PurchaseDeliveryID + 1;
+                lastCode = db.PurchaseDeliveries.OrderBy(u => u.PurchaseDeliveryID).Last().PurchaseDeliveryID + 1;
             }
             else
             {
-                lastPurchaseDeliveryCode = 1;
+                lastCode = 1;
             }
 
-            purchaseDelivery.Code = lastPurchaseDeliveryCode.ToString();
-            return lastPurchaseDeliveryCode.ToString();
+            purchaseDelivery.Code = lastCode.ToString();
         }
 
-        public void MD_ProviderSelect()
+        override public void MD_ProviderSelect()
         {
             View.FW_PDE_Item_New_SelectProvider floatWindow = new View.FW_PDE_Item_New_SelectProvider();
             floatWindow.Show();
         }
 
-        public void MD_StoredStock_Increase()
+        override public void MD_MovementAdd()
         {
             View.FW_PDE_Item_New_IncreaseStock floatWindow = new View.FW_PDE_Item_New_IncreaseStock(1, movementsView.movements);
             floatWindow.Show();
         }
 
-        public void MD_StoredStock_Remove()
-        {
-            movementsView.MovementDelete(movementSelected.MovementID);
-            movementSelected = null;
-            UpdateComponents();
-        }
-
-        public override void EV_SetProvider(int num)
-        {
-            provider = db.Providers.Where(p => p.ProviderID == num).Include(e => e.entity).First();
-            EV_UpdateSubMenu(7);
-            MC_Page = new View.MC_PDE_Item_New_PurchaseDelivery();
-            MainContent.Content = MC_Page;
-        }
-
-        public override void EV_MovementAdd(Movement movement)
-        {
-            movement.MovementID = movementsView.MovementNextID();
-            movementsView.MovementAdd(movement);
-            movementSelected = null;
-            UpdateComponents();
-        }
-
-        public Boolean PurchaseDeliveryExist(string test)
+        override public Boolean CodeExist(string code)
         {
             List<PurchaseDelivery> purchaseDeliveries = db.PurchaseDeliveries.ToList();
             foreach (var item in purchaseDeliveries)
             {
-                if (item.Code.Contains(test) || test.Length == 0)
+                if (item.Code.Contains(code) || code.Length == 0)
                 {
                     CleanPurchaseCode();
                     return true;
                 }
             }
-            purchaseDelivery.Code = test;
-            TestMinimalInformation();
+            purchaseDelivery.Code = code;
+            base.CodeExist(code);
             return false;
         }
 
-        public override void EV_ActivateSaveButton(bool verificated)
+        override public void TestMinimalInformation()
         {
-            if (verificated)
-            {
-                Information["entityValid"] = 1;
-            }
-
-            else
-            {
-                Information["entityValid"] = 0;
-            }
-
-            TestMinimalInformation();
-        }
-
-        private void TestMinimalInformation()
-        {
-            if (purchaseDelivery.Date != null && Information["entityValid"] == 1)
+            if (purchaseDelivery.Date != null && provider.ProviderID > 0 && store.StoreID > 0)
             {
                 Information["minimalInformation"] = 1;
             }
@@ -188,17 +115,10 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseDeliveries.PurchaseDeliveryItem.Pu
                 Information["minimalInformation"] = 0;
             }
 
-
-            if (Information["mode"] == 1)
-                TS_Page = new View.TS_PDE_Item_New_PurchaseDelivery(Information["minimalInformation"]);
-
-            if (Information["mode"] == 2)
-                TS_Page = new View.TS_PDE_Item_New_PurchaseDelivery_Movements(Information["minimalInformation"]);
-
-            LeftSide.Content = TS_Page;
+            base.TestMinimalInformation();
         }
 
-        public void SaveNewPurchaseDelivery()
+        override public void SaveDocument()
         {
             purchaseDelivery.CompanyID = ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID;
             purchaseDelivery.ProviderID = provider.ProviderID;
@@ -231,44 +151,10 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseDeliveries.PurchaseDeliveryItem.Pu
                 db.Movements.Add(movement);
             }
 
-            db.SaveChanges();
-            MessageBox.Show("Datos guardados correctamente");
-
-            Information["fieldEmpty"] = 0;
-            CT_Menu();
+            base.SaveDocument();
         }
 
-        public void CT_Menu()
-        {
-            Information["controller"] = 0;
-            ChangeController();
-        }
-
-        override public void UpdateComponents()
-        {
-            switch (Information["mode"])
-            {
-                case 0:
-                    ChangeComponents();
-                    break;
-
-                case 1:
-                    NV_Page = new View.NV_PDE_Item_New_PurchaseDelivery();
-                    TS_Page = new View.TS_PDE_Item_New_PurchaseDelivery(Information["minimalInformation"]);
-                    MC_Page = new View.MC_PDE_Item_New_PurchaseDelivery();
-                    ChangeComponents();
-                    break;
-
-                case 2:
-                    NV_Page = new View.NV_PDE_Item_New_PurchaseDelivery();
-                    TS_Page = new View.TS_PDE_Item_New_PurchaseDelivery_Movements(Information["minimalInformation"]);
-                    MC_Page = new View.MC_PDE_Item_New_PurchaseDelivery_Movements();
-                    ChangeComponents();
-                    break;
-            }
-        }
-
-        private void ChangeController()
+        override public void ChangeController()
         {
             switch (Information["controller"])
             {
@@ -284,17 +170,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseDeliveries.PurchaseDeliveryItem.Pu
                     Main.View.MainWindow a = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
                     a.MainFrame.Content = new Purchases.Nodes.PurchaseDeliveries.PurchaseDeliveryMenu.Controller.CT_PurchaseDeliveryMenu();
                     break;
-
-                case 1:
-                    /*MainWindow b = (MainWindow)System.Windows.Application.Current.MainWindow;
-                    b.MainFrame.Content = new Main.Controller.MainController();*/
-                    break;
             }
-        }
-
-        public void ControlFieldChangeButton(bool verificated)
-        {
-            TestMinimalInformation();
         }
     }
 }

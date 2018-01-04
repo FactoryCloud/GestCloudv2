@@ -55,24 +55,62 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseDeliveries.PurchaseDeliveryItem.Pu
             base.CleanCode();
         }
 
+        override public void SetCode(string code)
+        {
+            purchaseDelivery.Code = code;
+        }
+
         override public void SetDate(DateTime date)
         {
             purchaseDelivery.Date = date;
             base.SetDate(date);
         }
 
+        public override void SetMC(int i)
+        {
+            switch (i)
+            {
+                case 1:
+                    MC_Page = new View.MC_PDE_Item_Load_PurchaseDelivery();
+                    break;
+
+                case 2:
+                    MC_Page = new View.MC_PDE_Item_Load_Movements();
+                    break;
+            }
+        }
+
+        public override void SetTS()
+        {
+            TS_Page = new View.TS_PDE_Item_Load_PurchaseDelivery();
+        }
+
+        public override void SetNV()
+        {
+            NV_Page = new View.NV_PDE_Item_Load_PurchaseDelivery();
+        }
+
+        public override string GetCode()
+        {
+            return purchaseDelivery.Code;
+        }
+
+        public override Provider GetProvider()
+        {
+            return purchaseDelivery.provider;
+        }
 
         override public int LastCode()
         {
             if (db.PurchaseDeliveries.ToList().Count > 0)
             {
                 lastCode = db.PurchaseDeliveries.OrderBy(u => u.PurchaseDeliveryID).Last().PurchaseDeliveryID + 1;
-                stockAdjust.Code = lastCode.ToString();
+                purchaseDelivery.Code = lastCode.ToString();
                 return lastCode;
             }
             else
             {
-                stockAdjust.Code = $"1";
+                purchaseDelivery.Code = $"1";
                 return lastCode = 1;
             }
         }
@@ -108,7 +146,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseDeliveries.PurchaseDeliveryItem.Pu
 
         override public void TestMinimalInformation()
         {
-            if(purchaseDelivery.Date != null && Information["entityValid"] == 1)
+            if(purchaseDelivery.Date != null && purchaseDelivery.provider.ProviderID > 0 && store.StoreID > 0)
             {
                 Information["minimalInformation"] = 1;
             }

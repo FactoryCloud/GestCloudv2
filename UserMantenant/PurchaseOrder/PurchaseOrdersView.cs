@@ -10,24 +10,18 @@ using System.Threading.Tasks;
 
 namespace FrameworkView.V1
 {
-    public class PurchaseOrdersView
+    public class PurchaseOrdersView:ItemsView
     {
         List<PurchaseOrder> purchaseOrders { get; set; }
-        GestCloudDB db;
-        private DataTable dt;
 
         public PurchaseOrdersView()
         {
-            db = new GestCloudDB();
-            dt = new DataTable();
-
             dt.Columns.Add("ID", typeof(int));
             dt.Columns.Add("Nombre", typeof(string));
             dt.Columns.Add("Fecha", typeof(string));
-            //dt.Columns.Add("Almacén", typeof(string));
         }
 
-        public void UpdateTable()
+        override public void UpdateTable()
         {
             purchaseOrders = db.PurchaseOrders.Include(e => e.provider.entity).ToList();
 
@@ -36,12 +30,6 @@ namespace FrameworkView.V1
             {
                 dt.Rows.Add(purchaseOrder.PurchaseOrderID,purchaseOrder.provider.entity.Name, $"{String.Format("{0:dd/MM/yyyy}", purchaseOrder.Date)}");
             }
-        }
-
-        public IEnumerable GetTable()
-        {
-            UpdateTable();
-            return dt.DefaultView;
         }
     }
 }

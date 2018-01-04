@@ -21,16 +21,16 @@
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
         <Button Name="BT_MovementAdd" Margin="20" Click="EV_MovementAdd">
-            <TextBlock TextAlignment="Center">Nuevo<LineBreak/>pedido</TextBlock>
+            <TextBlock TextAlignment="Center">Nueva<LineBreak/>Línea</TextBlock>
         </Button>
-        <Button Name="BT_MovementEdit" Grid.Row="1" Margin="20" IsEnabled="False">
+        <Button Name="BT_MovementEdit" Grid.Column="1" Margin="20" IsEnabled="False">
             <TextBlock TextAlignment="Center">Editar<LineBreak/>Línea</TextBlock>
         </Button>
-        <Button Name="BT_MovementDelete" Grid.Column="1" Grid.Row="1" Margin="20" IsEnabled="False">
+        <Button Name="BT_MovementDelete" Grid.Row="1" Margin="20" IsEnabled="False">
             <TextBlock TextAlignment="Center">Eliminar<LineBreak/>Línea</TextBlock>
         </Button>
         <Button Name="BT_Save" Grid.Column="1" Grid.Row="4" Margin="20" IsEnabled="False" Click="EV_Save">
-            <TextBlock TextAlignment="Center">Guardar pedido</TextBlock>
+            <TextBlock TextAlignment="Center">Guardar<LineBreak/>Documento</TextBlock>
         </Button>
     </Grid>
 </Page>

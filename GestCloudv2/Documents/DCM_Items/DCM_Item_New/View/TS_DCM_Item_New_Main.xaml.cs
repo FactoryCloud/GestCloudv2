@@ -20,11 +20,11 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.View
     /// </summary>
     public partial class TS_DCM_Item_New_Main : Page
     {
-        public TS_DCM_Item_New_Main(int num, int mode)
+        public TS_DCM_Item_New_Main()
         {
             InitializeComponent();
 
-            if(mode == 1)
+            if(GetController().Information["mode"] == 1)
             {
                 BT_MovementAdd.Visibility = Visibility.Hidden;
                 BT_MovementDelete.Visibility = Visibility.Hidden;
@@ -40,7 +40,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.View
                 }
             }
 
-            if (GetController().movementsView.movements.Count > 0)
+            if (GetController().movementsView.movements.Count > 0 && GetController().Information["minimalInformation"] == 1)
             {
                 BT_Save.IsEnabled = true;
             }

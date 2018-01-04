@@ -9,11 +9,6 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
 {
     class TS_POR_Item_New_PurchaseOrder : Documents.DCM_Items.DCM_Item_New.View.TS_DCM_Item_New_Main
     {
-        public TS_POR_Item_New_PurchaseOrder(int num, int mode):base(num, mode)
-        {
-
-        }
-
         override public Documents.DCM_Items.DCM_Item_New.Controller.CT_DCM_Item_New GetController()
         {
             Window mainWindow = Application.Current.MainWindow;

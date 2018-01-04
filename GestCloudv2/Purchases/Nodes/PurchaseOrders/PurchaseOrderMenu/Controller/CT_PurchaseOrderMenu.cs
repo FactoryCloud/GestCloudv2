@@ -10,108 +10,59 @@ using System.Windows;
 
 namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderMenu.Controller
 {
-    public partial class CT_PurchaseOrderMenu : Main.Controller.CT_Common
+    public partial class CT_PurchaseOrderMenu : Documents.DCM_Menu.Controller.CT_DCM_Menu
     {
-        public PurchaseOrdersView purchaseOrdersView;
         public PurchaseOrder purchaseOrder;
-        public StockAdjust stockAdjust;
 
         public CT_PurchaseOrderMenu()
         {
-            purchaseOrdersView = new PurchaseOrdersView();
+            itemsView = new PurchaseOrdersView();
         }
 
-        public void SetPurchaseOrder(int num)
+        public override void SetMC(int i)
         {
-            purchaseOrder = db.PurchaseOrders.Where(c => c.PurchaseOrderID== num).Include(c => c.company).First();
+            MC_Page = new View.MC_POR_Menu();
+        }
+
+        public override void SetTS()
+        {
             TS_Page = new View.TS_POR_Menu();
-            LeftSide.Content = TS_Page;
         }
 
-        override public void EV_Start(object sender, RoutedEventArgs e)
+        public override void SetNV()
         {
-            UpdateComponents();
+            NV_Page = new View.NV_POR_Menu();
         }
 
-        public void EV_CT_OrderPurchaseNew()
+        public override Main.Controller.CT_Common SetItemOriginal()
         {
-            Information["controller"] = 1;
-            ChangeController();
+            return new Purchases.Controller.CT_Purchases();
         }
 
-        public void EV_CT_StockAdjustLoad()
+        public override Documents.DCM_Items.DCM_Item_New.Controller.CT_DCM_Item_New SetItemNew()
         {
-            Information["controller"] = 2;
-            ChangeController();
+            return new PurchaseOrderItem.PurchaseOrderItem_New.Controller.CT_POR_Item_New();
         }
 
-        public void EV_CT_PurchaseOrderLoadEditable()
+        public override Documents.DCM_Items.DCM_Item_Load.Controller.CT_DCM_Item_Load SetItemLoad()
         {
-            Information["controller"] = 3;
-            ChangeController();
+            return new PurchaseOrderItem.PurchaseOrderItem_Load.Controller.CT_POR_Item_Load(purchaseOrder, 0);
         }
 
-        public void CT_Main()
+        public override Documents.DCM_Items.DCM_Item_Load.Controller.CT_DCM_Item_Load SetItemLoadEditable()
         {
-            Information["controller"] = 0;
-            ChangeController();
+            return new PurchaseOrderItem.PurchaseOrderItem_Load.Controller.CT_POR_Item_Load(purchaseOrder, 1);
         }
 
-        public override void UpdateComponents()
+        override public bool SelectedItem()
         {
-            switch (Information["mode"])
-            {
-                case 0:
-                    ChangeComponents();
-                    break;
-
-                case 1:
-                    NV_Page = new View.NV_POR_Menu();
-                    TS_Page = new View.TS_POR_Menu();
-                    MC_Page = new View.MC_POR_Menu();
-                    ChangeComponents();
-                    break;
-
-                case 2:
-                    ChangeComponents();
-                    break;
-
-                case 3:
-                    ChangeComponents();
-                    break;
-
-                case 4:
-                    ChangeComponents();
-                    break;
-            }
+            return purchaseOrder != null;
         }
 
-        private void ChangeController()
+        override public void SetItem(int num)
         {
-            switch (Information["controller"])
-            {
-                case 0:
-                    Main.View.MainWindow a = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
-                    a.MainFrame.Content = new Purchases.Controller.CT_Purchases();
-                    break;
-
-                case 1:
-                    Main.View.MainWindow b = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
-                    b.MainFrame.Content = new PurchaseOrderItem.PurchaseOrderItem_New.Controller.CT_POR_Item_New();
-                    break;
-
-                case 2:
-                    Main.View.MainWindow c = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
-                    c.MainFrame.Content = new PurchaseOrderItem.PurchaseOrderItem_Load.Controller.CT_POR_Item_Load(purchaseOrder,0);
-                    break;
-
-                case 3:
-                    Main.View.MainWindow d = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
-                    d.MainFrame.Content = new PurchaseOrderItem.PurchaseOrderItem_Load.Controller.CT_POR_Item_Load(purchaseOrder, 1);
-                    break;
-            
-            }
-
+            purchaseOrder = db.PurchaseOrders.Where(c => c.PurchaseOrderID == num).Include(c => c.company).First();
+            base.SetItem(num);
         }
     }
 }

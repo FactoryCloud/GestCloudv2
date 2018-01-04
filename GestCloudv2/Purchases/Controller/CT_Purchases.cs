@@ -19,15 +19,21 @@ namespace GestCloudv2.Purchases.Controller
             UpdateComponents();
         }
 
-        public void CT_PurchaseAdjusts()
+        public void CT_PurchaseOrders()
         {
-            Information["controller"] = 3;
+            Information["controller"] = 1;
             ChangeController();
         }
 
-        public void CT_PurchaseDeliveryAdjusts()
+        public void CT_PurchaseDeliveries()
         {
-            Information["controller"] = 4;
+            Information["controller"] = 2;
+            ChangeController();
+        }
+
+        public void CT_PurchaseInvoices()
+        {
+            Information["controller"] = 3;
             ChangeController();
         }
 
@@ -56,21 +62,23 @@ namespace GestCloudv2.Purchases.Controller
 
         private void ChangeController()
         {
+            Main.View.MainWindow a = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
             switch (Information["controller"])
             {
                 case 0:
-                    Main.View.MainWindow a = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
                     a.MainFrame.Content = new Main.Controller.CT_Main();
                     break;
 
-                case 3:
-                    Main.View.MainWindow d = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
-                    d.MainFrame.Content = new Nodes.PurchaseOrders.PurchaseOrderMenu.Controller.CT_PurchaseOrderMenu();
+                case 1:
+                    a.MainFrame.Content = new Nodes.PurchaseOrders.PurchaseOrderMenu.Controller.CT_PurchaseOrderMenu();
                     break;
 
-                case 4:
-                    Main.View.MainWindow e = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
-                    e.MainFrame.Content = new Nodes.PurchaseDeliveries.PurchaseDeliveryMenu.Controller.CT_PurchaseDeliveryMenu();
+                case 2:
+                    a.MainFrame.Content = new Nodes.PurchaseDeliveries.PurchaseDeliveryMenu.Controller.CT_PurchaseDeliveryMenu();
+                    break;
+
+                case 3:
+                    a.MainFrame.Content = new Nodes.PurchaseInvoices.PurchaseInvoiceMenu.Controller.CT_PurchaseInvoiceMenu();
                     break;
             }
         }

@@ -10,38 +10,25 @@ using System.Threading.Tasks;
 
 namespace FrameworkView.V1
 {
-    public class PurchaseDeliveriesView
+    public class PurchaseDeliveriesView: ItemsView
     {
-        List<PurchaseDelivery> purchaseDeliveries { get; set; }
-        GestCloudDB db;
-        private DataTable dt;
-
-        public PurchaseDeliveriesView()
+        List<PurchaseDelivery> items;
+        public PurchaseDeliveriesView():base()
         {
-            db = new GestCloudDB();
-            dt = new DataTable();
-
             dt.Columns.Add("ID", typeof(int));
             dt.Columns.Add("Nombre", typeof(string));
             dt.Columns.Add("Fecha", typeof(string));
-            //dt.Columns.Add("Almacén", typeof(string));
         }
 
-        public void UpdateTable()
+        override public void UpdateTable()
         {
-            purchaseDeliveries = db.PurchaseDeliveries.Include(e => e.provider.entity).ToList();
+            items = db.PurchaseDeliveries.Include(e => e.provider.entity).ToList();
 
             dt.Clear();
-            foreach (PurchaseDelivery purchaseDelivery in purchaseDeliveries)
+            foreach (PurchaseDelivery purchaseDelivery in items)
             {
                 dt.Rows.Add(purchaseDelivery.PurchaseDeliveryID,purchaseDelivery.provider.entity.Name, $"{String.Format("{0:dd/MM/yyyy}", purchaseDelivery.Date)}");
             }
-        }
-
-        public IEnumerable GetTable()
-        {
-            UpdateTable();
-            return dt.DefaultView;
         }
     }
 }
