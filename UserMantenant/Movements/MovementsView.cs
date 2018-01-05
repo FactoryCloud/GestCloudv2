@@ -259,6 +259,7 @@ namespace FrameworkView.V1
             dt.Clear();
             foreach (Movement item in movements)
             {
+                item.product = db.Products.Where(p => p.ProductID == item.ProductID).First();
                 switch(option)
                 {
                     case 1:
