@@ -8,18 +8,17 @@ using System.Threading.Tasks;
 
 namespace FrameworkDB.V1
 {
-    public class ProductTax
+    public class ClientTax
     {
-        public int ProductTaxID { get; set; }
+        public int ClientTaxID { get; set; }
 
-        [ForeignKey("FK_ProductsTaxes_ProductID_Products")]
-        public int? ProductID { get; set; }
-        public virtual Product product { get; set; }
+        [ForeignKey("FK_ClientsTaxes_ClientID_Clients")]
+        public int? ClientID { get; set; }
+        public virtual Client client { get; set; }
 
-        [ForeignKey("FK_ProductsTaxes_TaxID_Taxes")]
+        [ForeignKey("FK_ClientsTaxes_TaxID_Taxess")]
         public int? TaxID { get; set; }
         public virtual Tax tax { get; set; }
 
-        public int? Input { get; set; }
     }
 }

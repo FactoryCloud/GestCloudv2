@@ -53,6 +53,8 @@ namespace FrameworkDB.V1
         public DbSet<SaleOrder> SaleOrders { get; set; }
         public DbSet<EntityType> EntityTypes { get; set; }
 
+        public DbSet<ClientTax> ClientsTaxes { get; set; }
+        public DbSet<ProviderTax> ProvidersTaxes { get; set; }
         public DbSet<ProductTypeTax> ProductTypesTaxes { get; set; }
         public DbSet<ProductTax> ProductsTaxes { get; set; }
         public DbSet<MovementTax> MovementsTaxes { get; set; }
@@ -272,6 +274,30 @@ namespace FrameworkDB.V1
                .WithMany(b => b.productTypesTaxes)
                .HasForeignKey(a => a.ProductTypeID)
                .HasConstraintName("FK_ProductTypesTaxes_ProductTypeID_ProductTypes");
+
+            modelBuilder.Entity<ClientTax>()
+               .HasOne(a => a.client)
+               .WithMany(b => b.clientTaxes)
+               .HasForeignKey(a => a.ClientID)
+               .HasConstraintName("FK_ClientsTaxes_ClientID_Clients");
+
+            modelBuilder.Entity<ClientTax>()
+               .HasOne(a => a.client)
+               .WithMany(b => b.clientTaxes)
+               .HasForeignKey(a => a.TaxID)
+               .HasConstraintName("FK_ClientsTaxes_ClientID_Clients");
+
+            modelBuilder.Entity<ProviderTax>()
+               .HasOne(a => a.provider)
+               .WithMany(b => b.providerTaxes)
+               .HasForeignKey(a => a.ProviderID)
+               .HasConstraintName("FK_ProvidersTaxes_ProviderID_Providers");
+
+            modelBuilder.Entity<ProviderTax>()
+               .HasOne(a => a.provider)
+               .WithMany(b => b.providerTaxes)
+               .HasForeignKey(a => a.TaxID)
+               .HasConstraintName("FK_ProvidersTaxes_ProviderID_Providers");
 
             modelBuilder.Entity<ProductTypeTax>()
                .HasOne(a => a.tax)

@@ -29,11 +29,18 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_New.View
             client = new Client();
             this.Loaded += new RoutedEventHandler(EV_Start);
             TB_ClientCod.KeyUp += new KeyEventHandler(EV_ClientCod);
+
+            //CB_NormalTax.SelectionChanged += new SelectionChangedEventHandler(EV_CB_NormalTaxUpdate);
+            //CB_SpecialTax.SelectionChanged += new SelectionChangedEventHandler(EV_CB_SpecialTaxUpdate);
+            //CB_EquivalenceSurcharge.SelectionChanged += new SelectionChangedEventHandler(EV_CB_EquivalenceSurchargeUpdate);
         }
 
         public void EV_Start(object sender, RoutedEventArgs e)
         {
             TB_ClientCod.Text = GetController().LastClientCod().ToString();
+            //CB_NormalTax.SelectedIndex = GetController().normalTax;
+            //CB_SpecialTax.SelectedIndex = GetController().specialTax;
+            //CB_EquivalenceSurcharge.SelectedIndex = GetController().equivalenceSurcharge;
         }
 
         private void EV_ClientCod(object sender, RoutedEventArgs e)
@@ -92,6 +99,47 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_New.View
                 }
             }
         }
+
+        /*private void EV_CB_NormalTaxUpdate(object sender, RoutedEventArgs e)
+        {
+            if (CB_NormalTax.SelectedIndex == 1)
+            {
+                MessageBox.Show("Vale 1");
+                GetController().normalTax = 1; //NO
+            }
+
+            else
+            {
+                MessageBox.Show("Vale 0");
+                GetController().normalTax = 0; //SI
+            }
+        }
+
+        private void EV_CB_SpecialTaxUpdate(object sender, RoutedEventArgs e)
+        {
+            if (CB_SpecialTax.SelectedIndex == 1)
+            {
+                GetController().specialTax = 1; //NO
+            }
+
+            else
+            {
+                GetController().specialTax = 0; //SI
+            }
+        }
+
+        private void EV_CB_EquivalenceSurchargeUpdate(object sender, RoutedEventArgs e)
+        {
+            if (CB_EquivalenceSurcharge.SelectedIndex == 1)
+            {
+                GetController().equivalenceSurcharge = 1; //NO
+            }
+
+            else
+            {
+                GetController().equivalenceSurcharge = 0; //SI
+            }
+        }*/
 
         private ClientItem_New.Controller.CT_CLI_Item_New GetController()
         {
