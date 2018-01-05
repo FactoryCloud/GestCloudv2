@@ -29,7 +29,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
         override public void SetDate(DateTime date)
         {
             purchaseOrder.Date = date;
-            TestMinimalInformation();
+            base.SetDate(date);
         }
 
         override public void SetMC(int i)

@@ -33,7 +33,7 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
         public CT_STA_Item_New()
         {
             stockAdjust = new StockAdjust();
-            movementsView = new MovementsView();
+            movementsView = new MovementsView(((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany);
             Information.Add("minimalInformation", 0);
         }
 

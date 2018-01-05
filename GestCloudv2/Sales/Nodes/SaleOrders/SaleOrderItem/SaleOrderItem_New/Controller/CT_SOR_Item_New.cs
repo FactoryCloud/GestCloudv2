@@ -24,7 +24,7 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_New.Con
         {
             saleOrder = new SaleOrder();
             client = new Client();
-            movementsView = new MovementsView();
+            movementsView = new MovementsView(((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany);
             clientsView = new ClientsView();
             Information.Add("minimalInformation", 0);
         }

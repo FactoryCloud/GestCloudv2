@@ -39,7 +39,7 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_Load.Co
         {
             this.saleOrder = db.SaleOrders.Where(c => c.SaleOrderID == saleOrder.SaleOrderID).Include(e => e.client).Include(i => i.client.entity).First();
             clientsView = new ClientsView();
-            movementsView = new MovementsView();
+            movementsView = new MovementsView(((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany);
             Information.Add("minimalInformation", 0);
             Information.Add("editable",editable);
             Information.Add("old_editable", 0);

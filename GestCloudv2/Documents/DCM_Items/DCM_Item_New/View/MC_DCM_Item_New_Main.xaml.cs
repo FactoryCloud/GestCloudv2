@@ -47,7 +47,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.View
 
         private void EV_Start(object sender, RoutedEventArgs e)
         {
-            DP_Date.SelectedDate = DateTime.Now;
+            DP_Date.SelectedDate = GetController().GetDate();
             TB_Code.Text = GetController().GetCode();
             List<Store> stores = GetController().GetStores();
             foreach (Store st in stores)

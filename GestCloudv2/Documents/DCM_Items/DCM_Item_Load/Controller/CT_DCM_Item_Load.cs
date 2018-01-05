@@ -37,7 +37,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.Controller
         public CT_DCM_Item_Load(int editable)
         {
             providersView = new ProvidersView();
-            movementsView = new MovementsView();
+            movementsView = new MovementsView(((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany);
             Information.Add("minimalInformation", 0);
             Information.Add("editable",editable);
             Information.Add("old_editable", 0);

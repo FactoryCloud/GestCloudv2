@@ -34,6 +34,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.View
         {
             GetController().EV_UpdateSubMenu(0);
             UpdateData();
+            UpdateBottom();
         }
 
         public void EV_MovementsSelect(object sender, RoutedEventArgs e)
@@ -52,6 +53,15 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.View
         {
             DG_Movements.ItemsSource = null;
             DG_Movements.ItemsSource = GetController().movementsView.GetTable();
+        }
+
+        public void UpdateBottom()
+        {
+            LB_GrossPrice.Content = $"{GetController().movementsView.GetPurchaseGrossPrice().ToString("0.00")} €";
+            LB_Discount.Content = $"{GetController().movementsView.GetPurchaseDiscount().ToString("0.00")} €";
+            LB_TaxBase.Content = $"{GetController().movementsView.GetPurchaseTaxBase().ToString("0.00")} €";
+            LB_TaxAmount.Content = $"{GetController().movementsView.GetPurchaseTaxAmount().ToString("0.00")} €";
+            LB_FinalPrice.Content = $"{GetController().movementsView.GetPurchaseFinalPrice().ToString("0.00")} €";
         }
 
         virtual public Controller.CT_DCM_Item_New GetController()

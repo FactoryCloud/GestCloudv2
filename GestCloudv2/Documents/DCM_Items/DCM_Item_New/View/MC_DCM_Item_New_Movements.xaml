@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:GestCloudv2.Documents.DCM_Items.DCM_Item_New.View"
       mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="300"
+      d:DesignHeight="700" d:DesignWidth="1200"
       Title="MC_DCM_Item_New_Movements">
 
     <Grid>
@@ -16,17 +16,100 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
-            <RowDefinition Height="5*"/>
+            <RowDefinition Height="8*"/>
+            <RowDefinition Height="1.5*"/>
         </Grid.RowDefinitions>
         <Grid Grid.Column="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
-            <Label Grid.Column="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">Búsqueda:</Label>
-            <TextBox Name="TB_SearchName"  Grid.Column="1" VerticalContentAlignment="Center" Margin="20" MaxHeight="30"></TextBox>
+            <Label Grid.Column="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="10">Búsqueda:</Label>
+            <TextBox Name="TB_SearchName"  Grid.Column="1" VerticalContentAlignment="Center" Margin="10,0,0,0" MaxHeight="30"></TextBox>
         </Grid>
         <DataGrid Name="DG_Movements" Grid.ColumnSpan="4" Grid.Row="1" FontSize="14" IsReadOnly="True" SelectionMode="Single" CanUserResizeRows="False" CanUserReorderColumns="False"
-                  HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" ColumnWidth="*" Margin="20"/>
+                  HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" ColumnWidth="*" Margin="0,10,0,10"/>
+        <Grid Grid.Row="2" Grid.ColumnSpan="3" Margin="0,0,0,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Border BorderThickness="1" BorderBrush="Black">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="2*"/>
+                    </Grid.RowDefinitions>
+                    <Label VerticalAlignment="Center" HorizontalAlignment="Center">Bruto</Label>
+                    <Border Grid.Row="1" BorderThickness="0,1,0,0" BorderBrush="Black">
+                        <Label Name="LB_GrossPrice" VerticalAlignment="Center" HorizontalAlignment="Center">€</Label>
+                    </Border>
+                </Grid>
+            </Border>
+            <Border Grid.Column="1" BorderThickness="0,1,1,1" BorderBrush="Black">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="2*"/>
+                    </Grid.RowDefinitions>
+                    <Label VerticalAlignment="Center" HorizontalAlignment="Center">Descuento</Label>
+                    <Border Grid.Row="1" BorderThickness="0,1,0,0" BorderBrush="Black">
+                        <Label Name="LB_Discount" VerticalAlignment="Center" HorizontalAlignment="Center">€</Label>
+                    </Border>
+                </Grid>
+            </Border>
+            <Border Grid.Column="2" BorderThickness="0,1,1,1" BorderBrush="Black">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="2*"/>
+                    </Grid.RowDefinitions>
+                    <Label VerticalAlignment="Center" HorizontalAlignment="Center">Base Imponible</Label>
+                    <Border Grid.Row="1" BorderThickness="0,1,0,0" BorderBrush="Black">
+                        <Label Name="LB_TaxBase" VerticalAlignment="Center" HorizontalAlignment="Center">€</Label>
+                    </Border>
+                </Grid>
+            </Border>
+            <Border Grid.Column="3" BorderThickness="0,1,1,1" BorderBrush="Black">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="2*"/>
+                    </Grid.RowDefinitions>
+                    <Label VerticalAlignment="Center" HorizontalAlignment="Center">Total IVA</Label>
+                    <Border Grid.Row="1" BorderThickness="0,1,0,0" BorderBrush="Black">
+                        <Label Name="LB_TaxAmount" VerticalAlignment="Center" HorizontalAlignment="Center">€</Label>
+                    </Border>
+                </Grid>
+            </Border>
+            <Border Grid.Column="4" BorderThickness="0,1,1,1" BorderBrush="Black">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="2*"/>
+                    </Grid.RowDefinitions>
+                    <Label VerticalAlignment="Center" HorizontalAlignment="Center">Total R.E.</Label>
+                    <Border Grid.Row="1" BorderThickness="0,1,0,0" BorderBrush="Black">
+                        <Label Name="LB_EqSurAmount" VerticalAlignment="Center" HorizontalAlignment="Center">€</Label>
+                    </Border>
+                </Grid>
+            </Border>
+            <Border Grid.Column="5" BorderThickness="0,1,1,1" BorderBrush="Black">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="2*"/>
+                    </Grid.RowDefinitions>
+                    <Label VerticalAlignment="Center" HorizontalAlignment="Center">Importe Final</Label>
+                    <Border Grid.Row="1" BorderThickness="0,1,0,0" BorderBrush="Black">
+                        <Label Name="LB_FinalPrice" VerticalAlignment="Center" HorizontalAlignment="Center">€</Label>
+                    </Border>
+                </Grid>
+            </Border>
+        </Grid>
     </Grid>
 </Page>

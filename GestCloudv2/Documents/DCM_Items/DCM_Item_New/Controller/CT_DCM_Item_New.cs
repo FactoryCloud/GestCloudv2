@@ -21,12 +21,14 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.Controller
         public CT_DCM_Item_New()
         {
             provider = new Provider();
-            movementsView = new MovementsView();
+            movementsView = new MovementsView(((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany);
+            movementsView.SetDate(DateTime.Today);
             Information.Add("minimalInformation", 0);
         }
 
         override public void EV_Start(object sender, RoutedEventArgs e)
         {
+            SetDate(DateTime.Today);
             UpdateComponents();
         }
 
@@ -68,9 +70,9 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.Controller
             return "0";
         }
 
-        virtual public void CleanCode()
+        virtual public void GetLastCode()
         {
-            TestMinimalInformation();
+
         }
 
         public void SetMovementSelected(int num)
@@ -85,23 +87,50 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.Controller
             TestMinimalInformation();
         }
 
+        virtual public void SetDate(DateTime date)
+        {
+            movementsView.SetDate(date);
+            TestMinimalInformation();
+        }
+
+        public virtual void SetMC(int i)
+        {
+
+        }
+
+        public virtual void SetTS()
+        {
+
+        }
+
+        public virtual void SetNV()
+        {
+
+        }
+
+        public virtual void SetSC()
+        {
+
+        }
+
+        public virtual void SetSB()
+        {
+
+        }
+
+        virtual public void CleanCode()
+        {
+            TestMinimalInformation();
+        }
+
         public void EV_ProductsSelect(object sender, RoutedEventArgs e)
         {
 
         }
 
-        virtual public void SetDate(DateTime date)
-        {
-            TestMinimalInformation();
-        }
-
-
-        virtual public void GetLastCode()
-        {
-        }
-
         virtual public void MD_ProviderSelect()
         {
+
         }
 
         virtual public void MD_MovementAdd()
@@ -171,26 +200,6 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.Controller
         {
             Information["controller"] = 0;
             ChangeController();
-        }
-
-        public virtual void SetMC(int i)
-        {
-
-        }
-
-        public virtual void SetTS()
-        {
-
-        }
-
-        public virtual void SetNV()
-        {
-
-        }
-
-        public virtual void SetSC()
-        {
-
         }
 
         override public void UpdateComponents()
