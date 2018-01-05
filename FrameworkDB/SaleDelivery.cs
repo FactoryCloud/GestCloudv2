@@ -12,10 +12,15 @@ namespace FrameworkDB.V1
     {
         public int SaleDeliveryID { get; set; }
 
+        public string Code { get; set; }
         public DateTime? Date { get; set; }
 
         [ForeignKey("FK_SaleDeliveries_CompanyID_Companies")]
         public int? CompanyID { get; set; }
         public virtual Company company { get; set; }
+
+        [ForeignKey("FK_SaleDeliveries_ClientID_Clients")]
+        public int? ClientID { get; set; }
+        public virtual Client client { get; set; }
     }
 }

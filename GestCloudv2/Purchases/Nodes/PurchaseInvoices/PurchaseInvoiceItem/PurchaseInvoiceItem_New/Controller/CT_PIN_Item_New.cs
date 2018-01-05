@@ -18,6 +18,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseInvoices.PurchaseInvoiceItem.Purch
         {
             purchaseInvoice = new PurchaseInvoice();
             GetLastCode();
+            Information["operationType"] = 1;
         }
 
         public void CleanPurchaseCode()

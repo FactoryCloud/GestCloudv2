@@ -139,13 +139,13 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_New.Controller
             List<Client> clients = db.Clients.ToList();
             foreach (var item in clients)
             {
-                if (item.Cod == clientCod)
+                if (item.Code == clientCod)
                 {
-                    client.Cod = 0;
+                    client.Code = 0;
                     return true;
                 }
             }
-            client.Cod = clientCod;
+            client.Code = clientCod;
             TestMinimalInformation();
             return false;
         }
@@ -154,13 +154,13 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_New.Controller
         {
             if (db.Clients.ToList().Count > 0)
             {
-                lastClientCod = db.Clients.OrderBy(u => u.Cod).Last().Cod + 1;
-                client.Cod = lastClientCod;
+                lastClientCod = db.Clients.OrderBy(u => u.Code).Last().Code + 1;
+                client.Code = lastClientCod;
                 return lastClientCod;
             }
             else
             {
-                client.Cod = 1;
+                client.Code = 1;
                 return lastClientCod = 1;
 
             }
@@ -168,7 +168,7 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_New.Controller
 
         public void TestMinimalInformation()
         {
-            if (client.Cod > 0 && Information["entityValid"] == 1)
+            if (client.Code > 0 && Information["entityValid"] == 1)
             {
                 Information["minimalInformation"] = 1;
             }

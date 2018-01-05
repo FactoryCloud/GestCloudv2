@@ -17,6 +17,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseDeliveries.PurchaseDeliveryItem.Pu
         public CT_PDE_Item_New():base()
         {
             purchaseDelivery = new PurchaseDelivery();
+            Information["operationType"] = 1;
             GetLastCode();
         }
 

@@ -13,12 +13,12 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_New.Vie
 {
     public partial class FW_SOR_Item_New_SelectClient : FloatWindows.ClientSelectWindow
     {
-        public FW_SOR_Item_New_SelectClient(int option, List<Client> clients) : base(option, clients)
+        public FW_SOR_Item_New_SelectClient(int option) : base(option)
         {
             
         }
 
-        public FW_SOR_Item_New_SelectClient(int option, List<Client> clients, int cli) : base(option, clients, cli)
+        public FW_SOR_Item_New_SelectClient(int option, int cli) : base(option, cli)
         {
 
         }

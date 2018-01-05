@@ -28,7 +28,6 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.Controller
         public int lastCode;
         public Movement movementSelected;
         public MovementsView movementsView;
-        public ProvidersView providersView;
         public Store store;
         public List<StockAdjust> stocksAdjust;
         public List<Movement> movements;
@@ -36,11 +35,10 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.Controller
 
         public CT_DCM_Item_Load(int editable)
         {
-            providersView = new ProvidersView();
-            movementsView = new MovementsView(((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany);
             Information.Add("minimalInformation", 0);
             Information.Add("editable",editable);
             Information.Add("old_editable", 0);
+            Information.Add("operationType", 0);
 
             Information["entityValid"] = 1;
             Information["editable"] = editable;
@@ -48,6 +46,8 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.Controller
 
         override public void EV_Start(object sender, RoutedEventArgs e)
         {
+            movementsView = new MovementsView(((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany, Information["operationType"]);
+            movementsView.SetDate(GetDate());
             MovementLastID = movements.OrderBy(m => m.MovementID).Last().MovementID;
 
             foreach (Movement item in movements)
@@ -89,6 +89,10 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.Controller
                     CT_Submenu = new Model.CT_Submenu(store, option);
                     break;
 
+                case 6:
+                    CT_Submenu = new Model.CT_Submenu(GetClient(), option);
+                    break;
+
                 case 7:
                     CT_Submenu = new Model.CT_Submenu(GetProvider(), option);
                     break;
@@ -112,6 +116,11 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.Controller
         virtual public Provider GetProvider()
         {
             return new Provider();
+        }
+
+        virtual public Client GetClient()
+        {
+            return new Client();
         }
 
         virtual public string GetCode()
@@ -152,6 +161,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.Controller
 
         virtual public void SetDate(DateTime date)
         {
+            movementsView.SetDate(date);
             TestMinimalInformation();
         }
 

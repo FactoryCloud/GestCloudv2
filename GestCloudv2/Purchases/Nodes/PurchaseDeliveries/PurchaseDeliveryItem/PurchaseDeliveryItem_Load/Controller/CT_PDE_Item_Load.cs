@@ -31,7 +31,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseDeliveries.PurchaseDeliveryItem.Pu
             this.purchaseDelivery = db.PurchaseDeliveries.Where(c => c.PurchaseDeliveryID == purchaseDelivery.PurchaseDeliveryID).Include(e => e.provider).Include(i => i.provider.entity).First();
             List<DocumentType> documentTypes = db.DocumentTypes.Where(i => i.Name.Contains("Delivery")).ToList();
             store = db.Movements.Where(u => u.DocumentID == purchaseDelivery.PurchaseDeliveryID && (documentTypes[0].DocumentTypeID == u.DocumentTypeID || documentTypes[1].DocumentTypeID == u.DocumentTypeID)).Include(u => u.store).First().store;
-
+            Information["operationType"] = 1;
         }
 
         override public void EV_Start(object sender, RoutedEventArgs e)
@@ -40,13 +40,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseDeliveries.PurchaseDeliveryItem.Pu
             movements = db.Movements.Where(u => u.DocumentID == purchaseDelivery.PurchaseDeliveryID && (documentType.DocumentTypeID == u.DocumentTypeID)).Include(u => u.store)
                 .Include(i => i.product).Include(z => z.condition).Include(i => i.product.productType).ToList();
 
-            MovementLastID = movements.OrderBy(m => m.MovementID).Last().MovementID;
-
-            foreach (Movement item in movements)
-            {
-                movementsView.MovementAdd(item);
-            }
-            UpdateComponents();
+            base.EV_Start(sender, e);
         }
 
         override public void CleanCode()
@@ -103,6 +97,11 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseDeliveries.PurchaseDeliveryItem.Pu
         public override Provider GetProvider()
         {
             return purchaseDelivery.provider;
+        }
+
+        public override DateTime GetDate()
+        {
+            return Convert.ToDateTime(purchaseDelivery.Date);
         }
 
         override public int LastCode()

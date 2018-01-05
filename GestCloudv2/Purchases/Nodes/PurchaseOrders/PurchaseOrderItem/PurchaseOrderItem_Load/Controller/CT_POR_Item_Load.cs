@@ -31,6 +31,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
             this.purchaseOrder = db.PurchaseOrders.Where(c => c.PurchaseOrderID == purchaseOrder.PurchaseOrderID).Include(e => e.provider).Include(i => i.provider.entity).First();
             List<DocumentType> documentTypes = db.DocumentTypes.Where(i => i.Name.Contains("Order")).ToList();
             store = db.Movements.Where(u => u.DocumentID == purchaseOrder.PurchaseOrderID && (documentTypes[0].DocumentTypeID == u.DocumentTypeID || documentTypes[1].DocumentTypeID == u.DocumentTypeID)).Include(u => u.store).First().store;
+            Information["operationType"] = 1;
         }
 
         override public void EV_Start(object sender, RoutedEventArgs e)
@@ -39,13 +40,19 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
             movements = db.Movements.Where(u => u.DocumentID == purchaseOrder.PurchaseOrderID && (documentType.DocumentTypeID == u.DocumentTypeID)).Include(u => u.store)
                 .Include(i => i.product).Include(z => z.condition).Include(i => i.product.productType).ToList();
 
-            MovementLastID = movements.OrderBy(m => m.MovementID).Last().MovementID;
+            base.EV_Start(sender, e);
+        }
 
-            foreach (Movement item in movements)
-            {
-                movementsView.MovementAdd(item);
-            }
-            UpdateComponents();
+        public override void SetCode(string code)
+        {
+            purchaseOrder.Code = code;
+            base.SetCode(code);
+        }
+
+        override public void SetDate(DateTime date)
+        {
+            purchaseOrder.Date = date;
+            base.SetDate(date);
         }
 
         public override void SetMC(int i)
@@ -97,13 +104,6 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
             purchaseOrder.Code = "";
             base.CleanCode();
         }
-
-        override public void SetDate(DateTime date)
-        {
-            purchaseOrder.Date = date;
-            base.SetDate(date);
-        }
-
 
         override public int LastCode()
         {

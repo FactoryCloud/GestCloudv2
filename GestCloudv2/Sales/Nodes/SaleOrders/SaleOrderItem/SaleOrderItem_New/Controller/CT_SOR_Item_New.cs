@@ -24,7 +24,7 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_New.Con
         {
             saleOrder = new SaleOrder();
             client = new Client();
-            movementsView = new MovementsView(((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany);
+            movementsView = new MovementsView(((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany,2);
             clientsView = new ClientsView();
             Information.Add("minimalInformation", 0);
         }
@@ -123,7 +123,7 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_New.Con
 
         public void MD_ClientSelect()
         {
-            View.FW_SOR_Item_New_SelectClient floatWindow = new View.FW_SOR_Item_New_SelectClient(1, clientsView.clients);
+            View.FW_SOR_Item_New_SelectClient floatWindow = new View.FW_SOR_Item_New_SelectClient(1);
             floatWindow.Show();
         }
 

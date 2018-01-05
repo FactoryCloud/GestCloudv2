@@ -25,7 +25,6 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.View
 
         public MC_DCM_Item_New_Main()
         {
-
             InitializeComponent();
             this.Loaded += new RoutedEventHandler(EV_Start);
             TB_Code.KeyUp += new KeyEventHandler(EV_Code);
@@ -38,6 +37,10 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.View
             GR_Provider.MouseLeave += new MouseEventHandler(EV_MouseChange);
             GR_Provider.MouseLeftButtonUp += new MouseButtonEventHandler(EV_MouseClick);
 
+            GR_Client.MouseEnter += new MouseEventHandler(EV_MouseChange);
+            GR_Client.MouseLeave += new MouseEventHandler(EV_MouseChange);
+            GR_Client.MouseLeftButtonUp += new MouseButtonEventHandler(EV_MouseClick);
+
             GR_Store.MouseEnter += new MouseEventHandler(EV_MouseChange);
             GR_Store.MouseLeave += new MouseEventHandler(EV_MouseChange);
             GR_Store.MouseLeftButtonUp += new MouseButtonEventHandler(EV_MouseClick);
@@ -47,6 +50,17 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.View
 
         private void EV_Start(object sender, RoutedEventArgs e)
         {
+            switch (GetController().Information["operationType"])
+            {
+                case 1:
+                    GR_Provider.Visibility = Visibility.Visible;
+                    break;
+
+                case 2:
+                    GR_Client.Visibility = Visibility.Visible;
+                    break;
+            }
+
             DP_Date.SelectedDate = GetController().GetDate();
             TB_Code.Text = GetController().GetCode();
             List<Store> stores = GetController().GetStores();
@@ -65,12 +79,19 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.View
                 TB_ProviderName.Text = GetController().provider.entity.Name;
                 TB_ProviderCode.Text = GetController().provider.ProviderID.ToString();
             }
+
+            if (GetController().client.entity != null)
+            {
+                TB_ClientName.Text = GetController().client.entity.Name;
+                TB_ClientCode.Text = GetController().client.ClientID.ToString();
+            }
         }
 
         private void SetTransparentAll()
         {
             GR_Store.Background = new SolidColorBrush(Colors.Transparent);
             GR_Provider.Background = new SolidColorBrush(Colors.Transparent);
+            GR_Client.Background = new SolidColorBrush(Colors.Transparent);
         }
 
         private void SetSelected()
@@ -79,6 +100,10 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.View
             {
                 case 4:
                     GR_Store.Background = new SolidColorBrush(Colors.Green);
+                    break;
+
+                case 6:
+                    GR_Client.Background = new SolidColorBrush(Colors.Green);
                     break;
 
                 case 7:
@@ -95,6 +120,14 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.View
                 if (GR_Provider.IsMouseOver)
                 {
                     GR_Provider.Background = new SolidColorBrush(Colors.Red);
+                }
+            }
+
+            if (GetController().client.ClientID > 0)
+            {
+                if (GR_Client.IsMouseOver)
+                {
+                    GR_Client.Background = new SolidColorBrush(Colors.Red);
                 }
             }
 
@@ -116,6 +149,14 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.View
                 if (GR_Provider.IsMouseOver)
                 {
                     GetController().EV_UpdateSubMenu(7);
+                }
+            }
+
+            if (GetController().client.ClientID > 0)
+            {
+                if (GR_Client.IsMouseOver)
+                {
+                    GetController().EV_UpdateSubMenu(6);
                 }
             }
 
@@ -243,6 +284,11 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.View
         private void EV_ProviderSelect(object sender, RoutedEventArgs e)
         {
             GetController().MD_ProviderSelect();
+        }
+
+        private void EV_ClientSelect(object sender, RoutedEventArgs e)
+        {
+            GetController().MD_ClientSelect();
         }
 
         virtual public Controller.CT_DCM_Item_New GetController()

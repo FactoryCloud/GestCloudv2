@@ -95,7 +95,7 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_New.View
 
                 if (int.TryParse(TB_ClientCod.Text, out int d))
                 {
-                    client.Cod = int.Parse(TB_ClientCod.Text);
+                    client.Code = int.Parse(TB_ClientCod.Text);
                 }
             }
         }

@@ -15,15 +15,17 @@ namespace FrameworkView.V1
         public List<Movement> movements { get; set; }
         public GestCloudDB db;
         private Company company;
+        private int option;
         private FiscalYear fiscalYear;
         private DateTime date;
         private DataTable dt;
 
-        public MovementsView(Company company)
+        public MovementsView(Company company, int option)
         {
             db = new GestCloudDB();
 
             this.company = company;
+            this.option = option;
 
             movements = new List<Movement>();
 
@@ -77,11 +79,11 @@ namespace FrameworkView.V1
                 decimal tax = 0;
                 TaxType taxType = db.TaxTypes.Where(tt => tt.CompanyID == company.CompanyID && tt.StartDate <= date
                     && tt.EndDate >= date && tt.Name.Contains("IVA")).First();
-                if(db.ProductsTaxes.Where(pt => pt.ProductID == item.product.ProductID && pt.tax.TaxTypeID == taxType.TaxTypeID).Include(p => p.tax).Count() > 0)
-                    tax = db.ProductsTaxes.Where(pt => pt.ProductID == item.product.ProductID && pt.tax.TaxTypeID == taxType.TaxTypeID).Include(p => p.tax).First().tax.Percentage;
+                if(db.ProductsTaxes.Where(pt => pt.ProductID == item.product.ProductID && pt.tax.TaxTypeID == taxType.TaxTypeID && pt.Input == 1).Include(p => p.tax).Count() > 0)
+                    tax = db.ProductsTaxes.Where(pt => pt.ProductID == item.product.ProductID && pt.tax.TaxTypeID == taxType.TaxTypeID && pt.Input == 1).Include(p => p.tax).First().tax.Percentage;
 
                 else
-                    tax = db.ProductTypesTaxes.Where(pt => pt.ProductTypeID == item.product.ProductTypeID && pt.tax.TaxTypeID == taxType.TaxTypeID).Include(p => p.tax).First().tax.Percentage;
+                    tax = db.ProductTypesTaxes.Where(pt => pt.ProductTypeID == item.product.ProductTypeID && pt.tax.TaxTypeID == taxType.TaxTypeID && pt.Input == 1).Include(p => p.tax).First().tax.Percentage;
 
                 taxAmount = taxAmount + (tax * Convert.ToDecimal(item.PurchasePrice) * Convert.ToDecimal(item.Quantity) / 100);
             }
@@ -91,20 +93,88 @@ namespace FrameworkView.V1
         public decimal GetPurchaseFinalPrice()
         {
             decimal taxAmount = 0;
-            DateTime today = Convert.ToDateTime("31/12/2017");
             foreach (Movement item in movements)
             {
                 decimal tax = 0;
-                TaxType taxType = db.TaxTypes.Where(tt => tt.CompanyID == company.CompanyID && tt.StartDate >= fiscalYear.StartDate
-                    && tt.EndDate <= fiscalYear.EndDate && tt.Name.Contains("IVA")).OrderByDescending(tt => tt.EndDate).First();
-                if (db.ProductsTaxes.Where(pt => pt.ProductID == item.product.ProductID && pt.tax.TaxTypeID == taxType.TaxTypeID).Include(p => p.tax).Count() > 0)
-                    tax = db.ProductsTaxes.Where(pt => pt.ProductID == item.product.ProductID && pt.tax.TaxTypeID == taxType.TaxTypeID).Include(p => p.tax).First().tax.Percentage;
+                TaxType taxType = db.TaxTypes.Where(tt => tt.CompanyID == company.CompanyID && tt.StartDate <= date
+                    && tt.EndDate >= date && tt.Name.Contains("IVA")).First();
+                if (db.ProductsTaxes.Where(pt => pt.ProductID == item.product.ProductID && pt.tax.TaxTypeID == taxType.TaxTypeID && pt.Input == 1).Include(p => p.tax).Count() > 0)
+                    tax = db.ProductsTaxes.Where(pt => pt.ProductID == item.product.ProductID && pt.tax.TaxTypeID == taxType.TaxTypeID && pt.Input == 1).Include(p => p.tax).First().tax.Percentage;
 
                 else
                     tax = db.ProductTypesTaxes.Where(pt => pt.ProductTypeID == item.product.ProductTypeID && pt.tax.TaxTypeID == taxType.TaxTypeID && pt.Input == 1).Include(p => p.tax).First().tax.Percentage;
 
                 taxAmount = taxAmount + (tax * Convert.ToDecimal(item.PurchasePrice) * Convert.ToDecimal(item.Quantity) / 100)
                     + ((Convert.ToDecimal(item.PurchasePrice) * Convert.ToDecimal(item.Quantity))) - (Convert.ToDecimal(item.product.PurchaseDiscount1) * Convert.ToDecimal(item.PurchasePrice) * Convert.ToDecimal(item.Quantity));
+            }
+            return taxAmount;
+        }
+
+        public decimal GetSaleGrossPrice()
+        {
+            decimal grossPrice = 0;
+            foreach (Movement item in movements)
+            {
+                grossPrice = grossPrice + (Convert.ToDecimal(item.SalePrice) * Convert.ToDecimal(item.Quantity));
+            }
+            return grossPrice;
+        }
+
+        public decimal GetSaleDiscount()
+        {
+            decimal discount = 0;
+            foreach (Movement item in movements)
+            {
+                discount = discount + (Convert.ToDecimal(item.product.SaleDiscount1) * Convert.ToDecimal(item.SalePrice) * Convert.ToDecimal(item.Quantity) / 100);
+            }
+            return discount;
+        }
+
+        public decimal GetSaleTaxBase()
+        {
+            decimal taxBase = 0;
+            foreach (Movement item in movements)
+            {
+                taxBase = taxBase + ((Convert.ToDecimal(item.SalePrice) * Convert.ToDecimal(item.Quantity))) - (Convert.ToDecimal(item.product.SaleDiscount1) * Convert.ToDecimal(item.SalePrice) * Convert.ToDecimal(item.Quantity));
+            }
+            return taxBase;
+        }
+
+        public decimal GetSaleTaxAmount()
+        {
+            decimal taxAmount = 0;
+            foreach (Movement item in movements)
+            {
+                decimal tax = 0;
+                TaxType taxType = db.TaxTypes.Where(tt => tt.CompanyID == company.CompanyID && tt.StartDate <= date
+                    && tt.EndDate >= date && tt.Name.Contains("IVA")).First();
+                if (db.ProductsTaxes.Where(pt => pt.ProductID == item.product.ProductID && pt.tax.TaxTypeID == taxType.TaxTypeID && pt.Input == 0).Include(p => p.tax).Count() > 0)
+                    tax = db.ProductsTaxes.Where(pt => pt.ProductID == item.product.ProductID && pt.tax.TaxTypeID == taxType.TaxTypeID && pt.Input == 0).Include(p => p.tax).First().tax.Percentage;
+
+                else
+                    tax = db.ProductTypesTaxes.Where(pt => pt.ProductTypeID == item.product.ProductTypeID && pt.tax.TaxTypeID == taxType.TaxTypeID && pt.Input == 0).Include(p => p.tax).First().tax.Percentage;
+
+                taxAmount = taxAmount + (tax * Convert.ToDecimal(item.SalePrice) * Convert.ToDecimal(item.Quantity) / 100);
+            }
+            return taxAmount;
+        }
+
+        public decimal GetSaleFinalPrice()
+        {
+            decimal taxAmount = 0;
+            foreach (Movement item in movements)
+            {
+                decimal tax = 0;
+                TaxType taxType = db.TaxTypes.Where(tt => tt.CompanyID == company.CompanyID && tt.StartDate <= date
+                    && tt.EndDate >= date && tt.Name.Contains("IVA")).First();
+                if (db.ProductsTaxes.Where(pt => pt.ProductID == item.product.ProductID && pt.tax.TaxTypeID == taxType.TaxTypeID && pt.Input == 0).Include(p => p.tax).Count() > 0)
+                    tax = db.ProductsTaxes.Where(pt => pt.ProductID == item.product.ProductID && pt.tax.TaxTypeID == taxType.TaxTypeID && pt.Input == 0).Include(p => p.tax).First().tax.Percentage;
+
+                else
+                    tax = db.ProductTypesTaxes.Where(pt => pt.ProductTypeID == item.product.ProductTypeID && pt.tax.TaxTypeID == taxType.TaxTypeID && pt.Input == 0).Include(p => p.tax).First().tax.Percentage;
+
+                taxAmount = taxAmount + (tax * Convert.ToDecimal(item.SalePrice) * Convert.ToDecimal(item.Quantity) / 100)
+                    + ((Convert.ToDecimal(item.SalePrice) * Convert.ToDecimal(item.Quantity))) - (Convert.ToDecimal(item.product.SaleDiscount1) * Convert.ToDecimal(item.SalePrice) * Convert.ToDecimal(item.Quantity));
             }
             return taxAmount;
         }
@@ -189,12 +259,27 @@ namespace FrameworkView.V1
             dt.Clear();
             foreach (Movement item in movements)
             {
-                if (item.store != null)
-                    dt.Rows.Add(item.MovementID, item.product.Code, item.product.Name, ((decimal)item.Quantity).ToString("0.##"),
-                        ((decimal)item.PurchasePrice).ToString("0.00"), ((decimal)0).ToString("0.00"), ((decimal)0).ToString("0.00"), ((decimal)(item.PurchasePrice * item.Quantity)).ToString("0.00"));
-                else
-                    dt.Rows.Add(item.MovementID, item.product.Code, item.product.Name, ((decimal)item.Quantity).ToString("0.##"),
-                        ((decimal)item.PurchasePrice).ToString("0.00"), ((decimal)0).ToString("0.00"), ((decimal)0).ToString("0.00"), ((decimal)(item.PurchasePrice * item.Quantity)).ToString("0.00"));
+                switch(option)
+                {
+                    case 1:
+                        if (item.store != null)
+                            dt.Rows.Add(item.MovementID, item.product.Code, item.product.Name, ((decimal)item.Quantity).ToString("0.##"),
+                                ((decimal)item.PurchasePrice).ToString("0.00"), ((decimal)0).ToString("0.00"), ((decimal)0).ToString("0.00"), ((decimal)(item.PurchasePrice * item.Quantity)).ToString("0.00"));
+                        else
+                            dt.Rows.Add(item.MovementID, item.product.Code, item.product.Name, ((decimal)item.Quantity).ToString("0.##"),
+                                ((decimal)item.PurchasePrice).ToString("0.00"), ((decimal)0).ToString("0.00"), ((decimal)0).ToString("0.00"), ((decimal)(item.PurchasePrice * item.Quantity)).ToString("0.00"));
+
+                        break;
+
+                    case 2:
+                        if (item.store != null)
+                            dt.Rows.Add(item.MovementID, item.product.Code, item.product.Name, ((decimal)item.Quantity).ToString("0.##"),
+                                ((decimal)item.SalePrice).ToString("0.00"), ((decimal)0).ToString("0.00"), ((decimal)0).ToString("0.00"), ((decimal)(item.SalePrice * item.Quantity)).ToString("0.00"));
+                        else
+                            dt.Rows.Add(item.MovementID, item.product.Code, item.product.Name, ((decimal)item.Quantity).ToString("0.##"),
+                                ((decimal)item.SalePrice).ToString("0.00"), ((decimal)0).ToString("0.00"), ((decimal)0).ToString("0.00"), ((decimal)(item.SalePrice * item.Quantity)).ToString("0.00"));
+                        break;
+                }
             }
         }
 

@@ -16,13 +16,13 @@
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
-        <Button IsEnabled="True" Name="BT_Orders" Margin="20" Click="EV_Invoice">
+        <Button IsEnabled="True" Name="BT_Orders" Margin="20" Click="EV_Orders">
             <TextBlock TextAlignment="Center">Pedidos</TextBlock>
         </Button>
-        <Button IsEnabled="False" Name="BT_DeliveryNotes" Margin="20" Grid.Column="1">
+        <Button Name="BT_DeliveryNotes" Margin="20" Grid.Column="1" Click="EV_Deliveries">
             <TextBlock TextAlignment="Center">Albaranes</TextBlock>
         </Button>
-        <Button Name="BT_Invoice" Margin="20" Grid.Column="2" IsEnabled="False">
+        <Button Name="BT_Invoice" Margin="20" Grid.Column="2" Click="EV_Invoices">
             <TextBlock TextAlignment="Center">Facturas</TextBlock>
         </Button>
         <Button Name="BT_Close" Margin="20" Grid.Column="5" Click="EV_CT_Back">Volver</Button>

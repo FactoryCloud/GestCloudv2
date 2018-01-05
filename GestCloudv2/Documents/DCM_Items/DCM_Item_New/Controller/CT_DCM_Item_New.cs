@@ -17,17 +17,20 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.Controller
         public MovementsView movementsView;
         public Store store;
         public Provider provider;
+        public Client client;
 
         public CT_DCM_Item_New()
         {
             provider = new Provider();
-            movementsView = new MovementsView(((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany);
-            movementsView.SetDate(DateTime.Today);
+            client = new Client();
             Information.Add("minimalInformation", 0);
+            Information.Add("operationType", 0);
         }
 
         override public void EV_Start(object sender, RoutedEventArgs e)
         {
+            movementsView = new MovementsView(((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany, Information["operationType"]);
+            movementsView.SetDate(DateTime.Today);
             SetDate(DateTime.Today);
             UpdateComponents();
         }
@@ -38,6 +41,10 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.Controller
             {
                 case 4:
                     CT_Submenu = new Model.CT_Submenu(store, option);
+                    break;
+
+                case 6:
+                    CT_Submenu = new Model.CT_Submenu(client, option);
                     break;
 
                 case 7:
@@ -133,6 +140,11 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.Controller
 
         }
 
+        virtual public void MD_ClientSelect()
+        {
+
+        }
+
         virtual public void MD_MovementAdd()
         {
         }
@@ -148,6 +160,14 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.Controller
         {
             provider = db.Providers.Where(p => p.ProviderID == num).Include(e => e.entity).First();
             EV_UpdateSubMenu(7);
+            SetMC(1);
+            MainContent.Content = MC_Page;
+        }
+
+        public override void EV_SetClient(int num)
+        {
+            client = db.Clients.Where(p => p.ClientID == num).Include(e => e.entity).First();
+            EV_UpdateSubMenu(6);
             SetMC(1);
             MainContent.Content = MC_Page;
         }

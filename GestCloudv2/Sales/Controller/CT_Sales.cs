@@ -26,7 +26,19 @@ namespace GestCloudv2.Sales.Controller
             RightSide.Content = SC_Page;
         }
 
-        public void CT_SalesAdjusts()
+        public void CT_Orders()
+        {
+            Information["controller"] = 1;
+            ChangeController();
+        }
+
+        public void CT_Deliveries()
+        {
+            Information["controller"] = 2;
+            ChangeController();
+        }
+
+        public void CT_Invoices()
         {
             Information["controller"] = 3;
             ChangeController();
@@ -58,16 +70,23 @@ namespace GestCloudv2.Sales.Controller
 
         private void ChangeController()
         {
+            Main.View.MainWindow a = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
             switch (Information["controller"])
             {
                 case 0:
-                    Main.View.MainWindow a = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
                     a.MainFrame.Content = new Main.Controller.CT_Main();
                     break;
 
+                case 1:
+                    a.MainFrame.Content = new Nodes.SaleOrders.SaleOrderMenu.Controller.CT_SaleOrderMenu();
+                    break;
+
+                case 2:
+                    a.MainFrame.Content = new Nodes.SaleDeliveries.SaleDeliveryMenu.Controller.CT_SaleDeliveryMenu();
+                    break;
+
                 case 3:
-                    Main.View.MainWindow d = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
-                    d.MainFrame.Content = new Nodes.SaleOrders.SaleOrderMenu.Controller.CT_SaleOrderMenu();
+                    a.MainFrame.Content = new Nodes.SaleInvoices.SaleInvoiceMenu.Controller.CT_SaleInvoiceMenu();
                     break;
             }
         }

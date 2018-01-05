@@ -32,7 +32,9 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.View
 
         private void EV_Start(object sender, RoutedEventArgs e)
         {
+            GetController().EV_UpdateSubMenu(0);
             UpdateData();
+            UpdateBottom();
         }
 
         public void EV_MovementsSelect(object sender, RoutedEventArgs e)
@@ -51,6 +53,29 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.View
         {
             DG_Movements.ItemsSource = null;
             DG_Movements.ItemsSource = GetController().movementsView.GetTable();
+        }
+
+        public void UpdateBottom()
+        {
+            switch (GetController().Information["operationType"])
+            {
+                case 1:
+                    LB_GrossPrice.Content = $"{GetController().movementsView.GetPurchaseGrossPrice().ToString("0.00")} €";
+                    LB_Discount.Content = $"{GetController().movementsView.GetPurchaseDiscount().ToString("0.00")} €";
+                    LB_TaxBase.Content = $"{GetController().movementsView.GetPurchaseTaxBase().ToString("0.00")} €";
+                    LB_TaxAmount.Content = $"{GetController().movementsView.GetPurchaseTaxAmount().ToString("0.00")} €";
+                    LB_FinalPrice.Content = $"{GetController().movementsView.GetPurchaseFinalPrice().ToString("0.00")} €";
+                    break;
+
+                case 2:
+                    LB_GrossPrice.Content = $"{GetController().movementsView.GetSaleGrossPrice().ToString("0.00")} €";
+                    LB_Discount.Content = $"{GetController().movementsView.GetSaleDiscount().ToString("0.00")} €";
+                    LB_TaxBase.Content = $"{GetController().movementsView.GetSaleTaxBase().ToString("0.00")} €";
+                    LB_TaxAmount.Content = $"{GetController().movementsView.GetSaleTaxAmount().ToString("0.00")} €";
+                    LB_FinalPrice.Content = $"{GetController().movementsView.GetSaleFinalPrice().ToString("0.00")} €";
+                    break;
+            }
+
         }
 
         virtual public Controller.CT_DCM_Item_Load GetController()

@@ -35,6 +35,10 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.View
             GR_Provider.MouseLeave += new MouseEventHandler(EV_MouseChange);
             GR_Provider.MouseLeftButtonUp += new MouseButtonEventHandler(EV_MouseClick);
 
+            GR_Client.MouseEnter += new MouseEventHandler(EV_MouseChange);
+            GR_Client.MouseLeave += new MouseEventHandler(EV_MouseChange);
+            GR_Client.MouseLeftButtonUp += new MouseButtonEventHandler(EV_MouseClick);
+
             GR_Store.MouseEnter += new MouseEventHandler(EV_MouseChange);
             GR_Store.MouseLeave += new MouseEventHandler(EV_MouseChange);
             GR_Store.MouseLeftButtonUp += new MouseButtonEventHandler(EV_MouseClick);
@@ -44,9 +48,23 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.View
 
         private void EV_Start(object sender, RoutedEventArgs e)
         {
+            switch (GetController().Information["operationType"])
+            {
+                case 1:
+                    GR_Provider.Visibility = Visibility.Visible;
+                    TB_ProviderCode.Text = GetController().GetProvider().ProviderID.ToString();
+                    TB_ProviderName.Text = GetController().GetProvider().entity.Name;
+                    break;
+
+                case 2:
+                    GR_Client.Visibility = Visibility.Visible;
+                    TB_ClientCode.Text = GetController().GetClient().Code.ToString();
+                    TB_ClientName.Text = GetController().GetClient().entity.Name;
+                    break;
+            }
             TB_Code.Text = GetController().GetCode();
-            TB_ProviderCode.Text = GetController().GetProvider().ProviderID.ToString();
-            TB_ProviderName.Text = GetController().GetProvider().entity.Name;
+            
+            DP_Date.SelectedDate = Convert.ToDateTime(GetController().GetDate());
 
             if (GetController().Information["editable"] == 0)
             {
@@ -85,7 +103,6 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.View
 
             else
             {
-                DP_Date.SelectedDate = Convert.ToDateTime(GetController().GetDate());
                 List<Store> stores = GetController().GetStores();
                 //CB_Stores.SelectedIndex = Convert.ToInt16(GetController().store.Code);
                 List<int> nums = new List<int>();
@@ -111,6 +128,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.View
         {
             GR_Store.Background = new SolidColorBrush(Colors.Transparent);
             GR_Provider.Background = new SolidColorBrush(Colors.Transparent);
+            GR_Client.Background = new SolidColorBrush(Colors.Transparent);
         }
 
         private void SetSelected()
@@ -119,6 +137,10 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.View
             {
                 case 4:
                     GR_Store.Background = new SolidColorBrush(Colors.Green);
+                    break;
+
+                case 6:
+                    GR_Client.Background = new SolidColorBrush(Colors.Green);
                     break;
 
                 case 7:
@@ -135,6 +157,14 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.View
                 if (GR_Provider.IsMouseOver)
                 {
                     GR_Provider.Background = new SolidColorBrush(Colors.Red);
+                }
+            }
+
+            if (GetController().GetClient().ClientID > 0)
+            {
+                if (GR_Client.IsMouseOver)
+                {
+                    GR_Client.Background = new SolidColorBrush(Colors.Red);
                 }
             }
 
@@ -156,6 +186,14 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.View
                 if (GR_Provider.IsMouseOver)
                 {
                     GetController().EV_UpdateSubMenu(7);
+                }
+            }
+
+            if (GetController().GetClient().ClientID > 0)
+            {
+                if (GR_Client.IsMouseOver)
+                {
+                    GetController().EV_UpdateSubMenu(6);
                 }
             }
 

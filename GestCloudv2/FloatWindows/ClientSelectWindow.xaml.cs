@@ -28,38 +28,30 @@ namespace GestCloudv2.FloatWindows
     {
         public ClientsView clientView;
         public Client client;
-        //public List<Client> clients;
         public int clientSelected;
 
         public ClientSelectWindow()
         {
         } 
 
-        public ClientSelectWindow(int option, List<Client> clients)
+        public ClientSelectWindow(int option)
         {
             InitializeComponent();
 
             this.Loaded += new RoutedEventHandler(EV_Start);
-
-            //this.Closed += new EventHandler(EV_Close);
             DG_ClientsView.MouseLeftButtonUp += new MouseButtonEventHandler(EV_ClientsViewSelect);
             clientSelected = 0;
             clientView = new ClientsView();
-
         }
 
-        public ClientSelectWindow(int option, List<Client> clients, int cli)
+        public ClientSelectWindow(int option, int client)
         {
             InitializeComponent();
 
             this.Loaded += new RoutedEventHandler(EV_Start);
-
-            //this.Closed += new EventHandler(EV_Close);
             DG_ClientsView.MouseLeftButtonUp += new MouseButtonEventHandler(EV_ClientsViewSelect);
-            clientSelected = cli;
+            clientSelected = client;
             clientView = new ClientsView();
-            //this.clients = clients;
-            
         }
         protected void EV_Start(object sender, RoutedEventArgs e)
         {

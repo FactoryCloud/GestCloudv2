@@ -60,7 +60,7 @@
             <ComboBox FontSize="12" Grid.Column="2" Grid.Row="3" VerticalAlignment="Center" Margin="10,0,10,0" Name="CB_Stores"></ComboBox>
         </Grid>
 
-        <Grid Name="GR_Provider" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="4" Background="Transparent">
+        <Grid Name="GR_Provider" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="4" Background="Transparent" Visibility="Hidden">
             <Grid Grid.Column="2" Grid.Row="4">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*"/>
@@ -77,6 +77,28 @@
                         </Grid.ColumnDefinitions>
                         <TextBox Name="TB_ProviderCode"  VerticalAlignment="Center"></TextBox>
                         <TextBox Name="TB_ProviderName" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,10,0"></TextBox>
+                    </Grid>
+                </StackPanel>
+            </Grid>
+        </Grid>
+
+        <Grid Name="GR_Client" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="4" Background="Transparent" Tag="6" Visibility="Hidden">
+            <Grid Grid.Column="2" Grid.Row="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                <Label VerticalAlignment="Center" HorizontalAlignment="Center">Cliente</Label>
+                <Button Name="TB_ClientReference" Grid.Column="1"  Margin="10,0,0,0" VerticalAlignment="Center" Click="EV_ClientSelect">Seleccionar</Button>
+                <StackPanel Name="SP_ClientCode" Grid.Column="2" Grid.Row="1" VerticalAlignment="Center">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="3*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox Name="TB_ClientCode"  VerticalAlignment="Center"></TextBox>
+                        <TextBox Name="TB_ClientName" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,10,0"></TextBox>
                     </Grid>
                 </StackPanel>
             </Grid>

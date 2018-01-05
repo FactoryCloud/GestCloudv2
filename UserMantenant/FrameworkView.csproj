@@ -115,6 +115,8 @@
     <Compile Include="PurchaseDeliveries\PurchaseDeliveriesView.cs" />
     <Compile Include="PurchaseInvoices\PurchaseInvoicesView.cs" />
     <Compile Include="PurchaseOrder\PurchaseOrdersView.cs" />
+    <Compile Include="SaleDeliveries\SaleDeliveriesView.cs" />
+    <Compile Include="SaleInvoices\SaleInvoicesView.cs" />
     <Compile Include="SaleOrder\SaleOrdersView.cs" />
     <Compile Include="Stock\StoredStocksView.cs" />
     <Compile Include="Stock\StockAdjustsView.cs" />

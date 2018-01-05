@@ -24,7 +24,7 @@ namespace FrameworkView.V1
             db = new GestCloudDB();
             dt = new DataTable();
             dt.Columns.Add("Codigo", typeof(int));
-            dt.Columns.Add("Nombre Comerical", typeof(string));
+            dt.Columns.Add("Nombre Comercial", typeof(string));
             dt.Columns.Add("Subnombre", typeof(string));
             dt.Columns.Add("Número", typeof(string));
         }

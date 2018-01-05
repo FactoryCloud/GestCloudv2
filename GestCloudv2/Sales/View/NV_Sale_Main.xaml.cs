@@ -25,9 +25,19 @@ namespace GestCloudv2.Sales.View
             InitializeComponent();
         }
 
-        private void EV_Invoice(object sender, RoutedEventArgs e)
+        private void EV_Orders(object sender, RoutedEventArgs e)
         {
-            GetController().CT_SalesAdjusts();
+            GetController().CT_Orders();
+        }
+
+        private void EV_Deliveries(object sender, RoutedEventArgs e)
+        {
+            GetController().CT_Deliveries();
+        }
+
+        private void EV_Invoices(object sender, RoutedEventArgs e)
+        {
+            GetController().CT_Invoices();
         }
 
         private void EV_CT_Back(object sender, RoutedEventArgs e)

@@ -18,6 +18,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
         {
             purchaseOrder = new PurchaseOrder();
             GetLastCode();
+            Information["operationType"] = 1;
         }
 
         override public void CleanCode()

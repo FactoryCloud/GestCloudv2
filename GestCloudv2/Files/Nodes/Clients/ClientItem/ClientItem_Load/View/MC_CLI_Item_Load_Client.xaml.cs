@@ -36,7 +36,7 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_Load.View
 
         private void EV_Start(object sender, RoutedEventArgs e)
         {
-            TB_ClientCod.Text = $"{GetController().client.Cod}";
+            TB_ClientCod.Text = $"{GetController().client.Code}";
 
             if (GetController().Information["editable"] == 0)
             {

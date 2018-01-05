@@ -59,12 +59,12 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_Load.Controller
 
         public List<Client> GetClients()
         {
-            return db.Clients.OrderBy(u => u.Cod).ToList();
+            return db.Clients.OrderBy(u => u.Code).ToList();
         }
 
         public void SetClientCod(int num)
         {
-            client.Cod = num;
+            client.Code = num;
             TestMinimalInformation();
         }
 
@@ -85,29 +85,29 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_Load.Controller
 
         public void CleanCod()
         {
-            client.Cod = 0;
+            client.Code = 0;
             TestMinimalInformation();
         }
 
-        public Boolean UserControlExist(int cod)
+        public Boolean UserControlExist(int code)
         {
             List<Client> clients = db.Clients.ToList();
             foreach (var item in clients)
             {
-                if ((item.Cod == cod && client.Cod != cod)|| cod == 0)
+                if ((item.Code == code && client.Code != code)|| code == 0)
                 {
                     CleanCod();
                     return true;
                 }
             }
-            client.Cod = cod;
+            client.Code = code;
             TestMinimalInformation();
             return false;
         }
 
         private void TestMinimalInformation()
         {
-            if (client.Cod > 0 && Information["entityValid"] == 1)
+            if (client.Code > 0 && Information["entityValid"] == 1)
             {
                 Information["minimalInformation"] = 1;
             }
@@ -131,7 +131,7 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_Load.Controller
             }
             
             Client client1 = db.Clients.Where(u => u.ClientID == client.ClientID).First();
-            client1.Cod= client.Cod;
+            client1.Code= client.Code;
             client1.EntityID = entity.EntityID;
 
             db.Clients.Update(client1);
