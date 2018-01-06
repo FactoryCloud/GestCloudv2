@@ -7,14 +7,16 @@ using System.Windows;
 
 namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderMenu.View
 {
-    public class SC_SOR_Menu : Main.View.SC_Common
+    class TS_SOR_Menu : Documents.DCM_Menu.View.TS_DCM_Menu
     {
-        public SC_SOR_Menu():base()
+        public TS_SOR_Menu() : base()
         {
-            BT_Minimize.IsEnabled = false;
+            LB_New.Content = "Pedido";
+            LB_Load.Content = "Pedido";
+            LB_LoadEditable.Content = "Pedido";
         }
 
-        public override Main.Controller.CT_Common GetController()
+        override public Documents.DCM_Menu.Controller.CT_DCM_Menu GetController()
         {
             Window mainWindow = Application.Current.MainWindow;
             var a = (Main.View.MainWindow)mainWindow;

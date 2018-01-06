@@ -11,14 +11,14 @@ using System.Windows.Input;
 
 namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_New.View
 {
-    public partial class FW_SOR_Item_New_IncreaseStock : FloatWindows.ProductSelectWindow
+    public partial class FW_SOR_Item_New_Movements : FloatWindows.ProductSelectWindow
     {
-        public FW_SOR_Item_New_IncreaseStock(int option, List<Movement> movements) : base(option, movements)
+        public FW_SOR_Item_New_Movements(int option, List<Movement> movements) : base(option, movements)
         {
             
         }
 
-        public FW_SOR_Item_New_IncreaseStock(int option, List<Movement> movements, int mov) : base(option, movements, mov)
+        public FW_SOR_Item_New_Movements(int option, List<Movement> movements, int mov) : base(option, movements, mov)
         {
 
         }
@@ -27,7 +27,7 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_New.Vie
         {
             Window mainWindow = Application.Current.MainWindow;
             var a = (Main.View.MainWindow)mainWindow;
-            return (SaleOrderItem_New.Controller.CT_SOR_Item_New)a.MainFrame.Content;
+            return (Controller.CT_SOR_Item_New)a.MainFrame.Content;
         }
     }
 }

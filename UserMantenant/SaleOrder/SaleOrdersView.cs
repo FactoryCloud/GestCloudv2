@@ -10,38 +10,25 @@ using System.Threading.Tasks;
 
 namespace FrameworkView.V1
 {
-    public class SaleOrdersView
+    public class SaleOrdersView : ItemsView
     {
-        List<SaleOrder> saleOrders { get; set; }
-        GestCloudDB db;
-        private DataTable dt;
-
-        public SaleOrdersView()
+        List<SaleOrder> items;
+        public SaleOrdersView():base()
         {
-            db = new GestCloudDB();
-            dt = new DataTable();
-
             dt.Columns.Add("ID", typeof(int));
             dt.Columns.Add("Nombre", typeof(string));
             dt.Columns.Add("Fecha", typeof(string));
-            //dt.Columns.Add("Almacén", typeof(string));
         }
 
-        public void UpdateTable()
+        override public void UpdateTable()
         {
-            saleOrders = db.SaleOrders.Include(e => e.client.entity).ToList();
+            items = db.SaleOrders.Include(e => e.client.entity).ToList();
 
             dt.Clear();
-            foreach (SaleOrder saleOrder in saleOrders)
+            foreach (SaleOrder saleOrder in items)
             {
-                dt.Rows.Add(saleOrder.SaleOrderID,saleOrder.client.entity.Name, $"{String.Format("{0:dd/MM/yyyy}", saleOrder.Date)}");
+                dt.Rows.Add(saleOrder.SaleOrderID, saleOrder.client.entity.Name, $"{String.Format("{0:dd/MM/yyyy}", saleOrder.Date)}");
             }
-        }
-
-        public IEnumerable GetTable()
-        {
-            UpdateTable();
-            return dt.DefaultView;
         }
     }
 }

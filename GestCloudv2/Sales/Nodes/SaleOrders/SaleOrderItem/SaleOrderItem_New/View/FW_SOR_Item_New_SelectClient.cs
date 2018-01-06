@@ -27,7 +27,7 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_New.Vie
         {
             Window mainWindow = Application.Current.MainWindow;
             var a = (Main.View.MainWindow)mainWindow;
-            return (SaleOrderItem_New.Controller.CT_SOR_Item_New)a.MainFrame.Content;
+            return (Controller.CT_SOR_Item_New)a.MainFrame.Content;
         }
     }
 }

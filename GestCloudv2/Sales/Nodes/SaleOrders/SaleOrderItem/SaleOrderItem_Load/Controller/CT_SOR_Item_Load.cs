@@ -22,209 +22,135 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_Load.Co
     /// <summary>
     /// Interaction logic for CT_STA_Item_New.xaml
     /// </summary>
-    public partial class CT_SOR_Item_Load : Main.Controller.CT_Common
+    public partial class CT_SOR_Item_Load : Documents.DCM_Items.DCM_Item_Load.Controller.CT_DCM_Item_Load
     {
-        public StockAdjust stockAdjust;
-        public int lastStockAdjustsCod;
         public SaleOrder saleOrder;
-        public Movement movementSelected;
-        public MovementsView movementsView;
-        public ClientsView clientsView;
-        public Store store;
-        public List<StockAdjust> stocksAdjust;
-        public List<Movement> movements;
-        public int MovementLastID;
 
-        public CT_SOR_Item_Load(SaleOrder saleOrder, int editable)
+        public CT_SOR_Item_Load(SaleOrder saleOrder, int editable):base(editable)
         {
             this.saleOrder = db.SaleOrders.Where(c => c.SaleOrderID == saleOrder.SaleOrderID).Include(e => e.client).Include(i => i.client.entity).First();
-            clientsView = new ClientsView();
-            movementsView = new MovementsView(((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany,2);
-            Information.Add("minimalInformation", 0);
-            Information.Add("editable",editable);
-            Information.Add("old_editable", 0);
-
-            Information["entityValid"] = 1;
-            Information["editable"] = editable;
-
-            List<DocumentType> documentTypes = db.DocumentTypes.Where(i => i.Name.Contains("Order")).ToList();
-
-            store = db.Movements.Where(u => u.DocumentID == saleOrder.SaleOrderID&& (documentTypes[0].DocumentTypeID == u.DocumentTypeID || documentTypes[1].DocumentTypeID == u.DocumentTypeID)).Include(u => u.store).First().store;
-
+            DocumentType documentType = db.DocumentTypes.Where(i => i.Name.Contains("Order") && i.Input == 0).First();
+            store = db.Movements.Where(u => u.DocumentID == saleOrder.SaleOrderID && documentType.DocumentTypeID == u.DocumentTypeID).Include(u => u.store).First().store;
+            Information["operationType"] = 2;
         }
 
         override public void EV_Start(object sender, RoutedEventArgs e)
         {
             DocumentType documentType = db.DocumentTypes.Where(i => i.Name.Contains("Order") && i.Input == 0).First();
-            movements = db.Movements.Where(u => u.DocumentID == saleOrder.SaleOrderID&& (documentType.DocumentTypeID == u.DocumentTypeID)).Include(u => u.store)
+            movements = db.Movements.Where(u => u.DocumentID == saleOrder.SaleOrderID && (documentType.DocumentTypeID == u.DocumentTypeID)).Include(u => u.store)
                 .Include(i => i.product).Include(z => z.condition).Include(i => i.product.productType).ToList();
 
-            MovementLastID = movements.OrderBy(m => m.MovementID).Last().MovementID;
-
-            foreach (Movement item in movements)
-            {
-                movementsView.MovementAdd(item);
-            }
-            UpdateComponents();
+            base.EV_Start(sender, e);
         }
 
-        public override void SetSubmenu(int option)
-        {
-            switch (option)
-            {
-                case 4:
-                    CT_Submenu = new Model.CT_Submenu(store, option);
-                    break;
-
-                case 6:
-                    CT_Submenu = new Model.CT_Submenu(saleOrder.client, option);
-                    break;
-            }
-
-            NV_Page = new View.NV_SOR_Item_Load_SaleOrder();
-            TopSide.Content = NV_Page;
-        }
-
-        public List<Store> GetStores()
-        {
-            List<Store> stores = new List<Store>();
-            List<CompanyStore> companyStores = db.CompaniesStores.Where(c => c.CompanyID == ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID).Include(z => z.store).ToList();
-            foreach (CompanyStore e in companyStores)
-            {
-                stores.Add(e.store);
-            }
-            return stores;
-        }
-
-        public void CleanStockCode()
+        override public void CleanCode()
         {
             saleOrder.Code = "";
-            TestMinimalInformation();
+            base.CleanCode();
         }
 
-        public void SetMovementSelected(int num)
+        override public void SetCode(string code)
         {
-            movementSelected = movementsView.movements.Where(u => u.MovementID == num).First();
-            if (Information["editable"] == 1)
+            saleOrder.Code = code;
+        }
+
+        override public void SetDate(DateTime date)
+        {
+            saleOrder.Date = date;
+            base.SetDate(date);
+        }
+
+        public override void SetMC(int i)
+        {
+            switch (i)
             {
-                if (Information["mode"] == 1)
-                    TS_Page = new View.TS_SOR_Item_Load_SaleOrder(Information["minimalInformation"]);
+                case 1:
+                    MC_Page = new View.MC_SOR_Item_Load_SaleOrder();
+                    break;
 
-                if (Information["mode"] == 2)
-                    TS_Page = new View.TS_SOR_Item_Load_SaleOrder_Movements(Information["minimalInformation"]);
-
-                LeftSide.Content = TS_Page;
+                case 2:
+                    MC_Page = new View.MC_SOR_Item_Load_Movements();
+                    break;
             }
         }
 
-        public void SetStore(int num)
+        public override void SetTS()
         {
-            store = db.Stores.Where(s => s.StoreID == num).First();
-            TestMinimalInformation();
+            TS_Page = new View.TS_SOR_Item_Load_PurchaseDelivery();
         }
 
-        public void EV_ProductsSelect(object sender, RoutedEventArgs e)
+        public override void SetNV()
         {
-
+            NV_Page = new View.NV_SOR_Item_Load_SaleOrder();
         }
 
-        public override void EV_UpdateShortcutDocuments(int option)
+        public override void SetSC()
         {
-            base.EV_UpdateShortcutDocuments(option);
             SC_Page = new View.SC_SOR_Item_Load_SaleOrder();
-            RightSide.Content = SC_Page;
         }
 
-        public void SetAdjustDate(DateTime date)
+        public override string GetCode()
         {
-            saleOrder.Date = date;
-            TestMinimalInformation();
+            return saleOrder.Code;
         }
 
-
-        public int LastStockAdjustCod()
+        public override Client GetClient()
         {
-            if (db.StockAdjusts.ToList().Count > 0)
+            return saleOrder.client;
+        }
+
+        public override DateTime GetDate()
+        {
+            return Convert.ToDateTime(saleOrder.Date);
+        }
+
+        override public int LastCode()
+        {
+            if (db.SaleOrders.ToList().Count > 0)
             {
-                lastStockAdjustsCod = db.StockAdjusts.OrderBy(u => u.StockAdjustID).Last().StockAdjustID + 1;
-                stockAdjust.Code = lastStockAdjustsCod.ToString();
-                return lastStockAdjustsCod;
+                lastCode = db.SaleOrders.OrderBy(u => u.SaleOrderID).Last().SaleOrderID + 1;
+                saleOrder.Code = lastCode.ToString();
+                return lastCode;
             }
             else
             {
-                stockAdjust.Code = $"1";
-                return lastStockAdjustsCod = 1;
+                saleOrder.Code = $"1";
+                return lastCode = 1;
             }
         }
 
-        public void MD_StoredStock_Reduce()
+        override public void MD_MovementAdd()
         {
-            View.FW_SOR_Item_Load_ReduceStock floatWindow = new View.FW_SOR_Item_Load_ReduceStock(1, movementsView.movements);
+            View.FW_SOR_Item_Load_Movements floatWindow = new View.FW_SOR_Item_Load_Movements(1, movementsView.movements);
             floatWindow.Show();
         }
 
-        public void MD_StoredStock_Increase()
+        override public void MD_MovementEdit()
         {
-            View.FW_SOR_Item_Load_IncreaseStock floatWindow = new View.FW_SOR_Item_Load_IncreaseStock(1, movementsView.movements);
+            View.FW_SOR_Item_Load_Movements floatWindow = new View.FW_SOR_Item_Load_Movements(1, movementsView.movements, movementSelected.MovementID);
             floatWindow.Show();
         }
 
-        public void MD_StoredStock_Remove()
+        override public Boolean CodeExist(string code)
         {
-            movementsView.MovementDelete(movementSelected.MovementID);
-            movementSelected = null;
-            UpdateComponents();
-        }
-
-        public void MD_StoredStock_Edit()
-        {
-            View.FW_SOR_Item_Load_IncreaseStock floatWindow = new View.FW_SOR_Item_Load_IncreaseStock(1, movementsView.movements, movementSelected.MovementID);
-            floatWindow.Show();
-        }
-
-        public override void EV_MovementAdd(Movement movement)
-        {
-            //MessageBox.Show(movement.Base.ToString());
-            movement.MovementID = movementsView.MovementNextID(MovementLastID);
-            movementsView.MovementAdd(movement);
-            movementSelected = null;
-            UpdateComponents();
-        }
-
-        public Boolean StockAdjustExist(string stocksAdjust)
-        {
-            List<StockAdjust> stocks = db.StockAdjusts.ToList();
-            foreach (var item in stocks)
+            List<SaleOrder> invoices = db.SaleOrders.ToList();
+            foreach (var item in invoices)
             {
-                if (item.Code.Contains(stocksAdjust) || stocksAdjust.Length == 0)
+                if (item.Code.Contains(code) || code.Length == 0)
                 {
-                    CleanStockCode();
+                    CleanCode();
                     return true;
                 }
             }
-            stockAdjust.Code = stocksAdjust;
-            TestMinimalInformation();
+            saleOrder.Code = code;
+
+            base.CodeExist(code);
             return false;
         }
 
-        public override void EV_ActivateSaveButton(bool verificated)
+        override public void TestMinimalInformation()
         {
-            if(verificated)
-            {
-                Information["entityValid"] = 1;
-            }
-
-            else
-            {
-                Information["entityValid"] = 0;
-            }
-
-            TestMinimalInformation();
-        }
-
-        private void TestMinimalInformation()
-        {
-            if(saleOrder.Date != null && Information["entityValid"] == 1)
+            if(saleOrder.Date != null && saleOrder.client.ClientID > 0 && store.StoreID > 0)
             {
                 Information["minimalInformation"] = 1;
             }
@@ -234,21 +160,11 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_Load.Co
                 Information["minimalInformation"] = 0;
             }
 
-            if (Information["mode"] == 1)
-                TS_Page = new View.TS_SOR_Item_Load_SaleOrder(Information["minimalInformation"]);
-
-            if (Information["mode"] == 2)
-                TS_Page = new View.TS_SOR_Item_Load_SaleOrder_Movements(Information["minimalInformation"]);
-
-            LeftSide.Content = TS_Page;
+            base.TestMinimalInformation();
         }
 
-        public void SaveNewStockAdjust()
+        override public void SaveDocument()
         {
-            /*stockAdjust.CompanyID = ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID;
-            db.StockAdjusts.Add(stockAdjust);
-            db.SaveChanges();*/
-
             foreach (Movement movement in movementsView.movements)
             {
                 if (!movements.Contains(movement))
@@ -258,18 +174,8 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_Load.Co
                     movement.condition = null;
                     movement.ProductID = movement.product.ProductID;
                     movement.product = null;
-
-                    if (movement.store == null)
-                    {
-                        movement.DocumentTypeID = db.DocumentTypes.Where(c => c.Name == "Order" && c.Input == 0).First().DocumentTypeID;
-                        movement.StoreID = store.StoreID;
-                    }
-
-                    else
-                    {
-                        movement.DocumentTypeID = movement.documentType.DocumentTypeID;
-                        movement.documentType = null;
-                    }
+                    movement.DocumentTypeID = db.DocumentTypes.Where(c => c.Name == "Invoice" && c.Input == 0).First().DocumentTypeID;
+                    movement.StoreID = store.StoreID;
 
                     movement.DocumentID = saleOrder.SaleOrderID;
                     db.Movements.Add(movement);
@@ -288,7 +194,7 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_Load.Co
                     temp.IsPlayset = movement.IsPlayset;
                     temp.IsSigned = movement.IsSigned;
                     db.Movements.Update(temp);
-                }   
+                }
             }
 
             foreach (Movement mov in movements)
@@ -297,52 +203,10 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_Load.Co
                     db.Movements.Remove(mov);
             }
 
-            db.SaveChanges();
-            MessageBox.Show("Datos guardados correctamente");
-
-            Information["fieldEmpty"] = 0;
-            CT_Menu();
+            base.SaveDocument();
         }
 
-        public void CT_Menu()
-        {
-            Information["controller"] = 0;
-            ChangeController();
-        }
-
-        override public void UpdateComponents()
-        {
-            switch (Information["mode"])
-            {
-                case 0:
-                    ChangeComponents();
-                    break;
-
-                case 1:
-                    NV_Page = new View.NV_SOR_Item_Load_SaleOrder();
-                    if (Information["editable"] == 0)
-                        TS_Page = new View.TS_SOR_Item_Load_SaleOrder(Information["minimalInformation"]);
-                    else
-                        TS_Page = new View.TS_SOR_Item_Load_SaleOrder(Information["minimalInformation"]);
-                    MC_Page = new View.MC_SOR_Item_Load_SaleOrder();
-                    SC_Page = new View.SC_SOR_Item_Load_SaleOrder();
-                    ChangeComponents();
-                    break;
-
-                case 2:
-                    NV_Page = new View.NV_SOR_Item_Load_SaleOrder();
-                    if (Information["editable"] == 0)
-                        TS_Page = new View.TS_SOR_Item_Load_SaleOrder(Information["minimalInformation"]);
-                    else
-                        TS_Page = new View.TS_SOR_Item_Load_SaleOrder_Movements(Information["minimalInformation"]);
-                    MC_Page = new View.MC_SOR_Item_Load_SaleOrder_Movements();
-                    SC_Page = new View.SC_SOR_Item_Load_SaleOrder();
-                    ChangeComponents();
-                    break;
-            }
-        }
-
-        private void ChangeController()
+        override public void ChangeController()
         {
             switch (Information["controller"])
             {
@@ -358,17 +222,7 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_Load.Co
                     Main.View.MainWindow a = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
                     a.MainFrame.Content = new Sales.Nodes.SaleOrders.SaleOrderMenu.Controller.CT_SaleOrderMenu();
                     break;
-
-                case 1:
-                    /*MainWindow b = (MainWindow)System.Windows.Application.Current.MainWindow;
-                    b.MainFrame.Content = new Main.Controller.MainController();*/
-                    break;
             }
-        }
-
-        public void ControlFieldChangeButton(bool verificated)
-        {
-            TestMinimalInformation();
         }
     }
 }

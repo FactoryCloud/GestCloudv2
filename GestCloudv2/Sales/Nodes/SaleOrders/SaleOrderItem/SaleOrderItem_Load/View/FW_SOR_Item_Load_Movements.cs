@@ -11,17 +11,23 @@ using System.Windows.Input;
 
 namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_Load.View
 {
-    public partial class FW_SOR_Item_Load_ReduceStock : FloatWindows.StoredStockSelectWindow
+    public partial class FW_SOR_Item_Load_Movements : FloatWindows.ProductSelectWindow
     {
-        public FW_SOR_Item_Load_ReduceStock(int option, List<Movement> movements):base(option, movements)
+        public FW_SOR_Item_Load_Movements(int option, List<Movement> movements) : base(option, movements)
         {
+            
+        }
+
+        public FW_SOR_Item_Load_Movements(int option, List<Movement> movements, int mov) : base(option, movements, mov)
+        {
+
         }
 
         override public Main.Controller.CT_Common GetController()
         {
             Window mainWindow = Application.Current.MainWindow;
             var a = (Main.View.MainWindow)mainWindow;
-            return (SaleOrderItem_Load.Controller.CT_SOR_Item_Load)a.MainFrame.Content;
+            return (Controller.CT_SOR_Item_Load)a.MainFrame.Content;
         }
     }
 }

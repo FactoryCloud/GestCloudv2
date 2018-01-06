@@ -90,6 +90,7 @@ namespace FrameworkView.V1
         public Movement UpdateMovement(Movement movement)
         {
             movement.product = product;
+            movement.ProductID = product.ProductID;
             movement.condition = condition;
             movement.Quantity = Convert.ToDecimal(Quantity);
             movement.IsAltered = Convert.ToInt16(Altered);

@@ -25,7 +25,7 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_Load.Vi
             ((Main.View.MainWindow)Application.Current.MainWindow).shortcutDocuments.Add(new Shortcuts.ShortcutDocument
             {
                 Id = num,
-                Name = $"Pedido de Venta ({((Controller.CT_SOR_Item_Load)GetController()).saleOrder.Code})",
+                Name = $"Pedido de Venta ({((Controller.CT_SOR_Item_Load)GetController()).GetCode()})",
                 Controller = GetController()
             });
 
