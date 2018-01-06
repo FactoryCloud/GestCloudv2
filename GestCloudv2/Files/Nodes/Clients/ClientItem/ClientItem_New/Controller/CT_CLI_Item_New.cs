@@ -27,13 +27,29 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_New.Controller
         public Client client;
         public int lastClientCod;
         public SubmenuItems submenuItems;
+        public TaxType taxTypeSelected;
+        public Dictionary<int, int> InformationTaxes;
+        public Dictionary<int, int> InformationEquivalenceSurcharges;
+        public Dictionary<int, int> InformationSpecialTaxes;
 
         public CT_CLI_Item_New()
         {
+            List<TaxType> taxTypes = GetTaxTypes().OrderByDescending(t => t.StartDate).ToList();
+            InformationTaxes = new Dictionary<int, int>();
+            InformationEquivalenceSurcharges = new Dictionary<int, int>();
+            InformationSpecialTaxes = new Dictionary<int, int>();
+            taxTypeSelected = taxTypes.First();
             submenuItems = new SubmenuItems();
             entity = new Entity();
             client = new Client();
             Information.Add("minimalInformation", 0);
+
+            foreach (TaxType tx in taxTypes)
+            {
+                InformationTaxes.Add(tx.TaxTypeID, 1);
+                InformationEquivalenceSurcharges.Add(tx.TaxTypeID, 0);
+                InformationSpecialTaxes.Add(tx.TaxTypeID, 0);
+            }
         }
 
         override public void EV_Start(object sender, RoutedEventArgs e)
@@ -60,35 +76,49 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_New.Controller
 
             client.entity = entity;
             db.Clients.Add(client);
-            /*if (normalTax >= 0)
+            db.SaveChanges();
+
+            List<TaxType> taxTypes = GetTaxTypes().OrderByDescending(t => t.StartDate).ToList();
+
+            foreach (TaxType tx in taxTypes)
             {
-                db.ClientsTaxes.Add(
-                    new ClientTax
+                if (InformationTaxes[tx.TaxTypeID] == 1)
+                {
+                    List<Tax> taxes = db.Taxes.Where(t => t.TaxTypeID == tx.TaxTypeID).ToList();
+                    foreach (Tax t in taxes)
                     {
-                        client = client,
-                        NormalTax = normalTax
+                        db.ClientsTaxes.Add(new ClientTax
+                        {
+                            ClientID = client.ClientID,
+                            TaxID = t.TaxID
+                        });
+                    }
+                }
+
+                if (InformationEquivalenceSurcharges[tx.TaxTypeID] == 1)
+                {
+                    TaxType taxType = db.TaxTypes.Where(t => t.StartDate == taxTypeSelected.StartDate && t.EndDate == taxTypeSelected.EndDate && t.CompanyID == taxTypeSelected.CompanyID && t.Name.Contains("RE")).First();
+                    List<Tax> taxes = db.Taxes.Where(t => t.TaxTypeID == taxType.TaxTypeID).ToList();
+                    foreach (Tax t in taxes)
+                    {
+                        db.ClientsTaxes.Add(new ClientTax
+                        {
+                            ClientID = client.ClientID,
+                            TaxID = t.TaxID
+                        });
+                    }
+                }
+
+                if (InformationSpecialTaxes[tx.TaxTypeID] >= 1)
+                {
+                    db.ClientsTaxes.Add(new ClientTax
+                    {
+                        ClientID = client.ClientID,
+                        TaxID = InformationSpecialTaxes[tx.TaxTypeID]
                     });
+                }
             }
 
-            if (specialTax >= 0)
-            {
-                db.ClientsTaxes.Add(
-                    new ClientTax
-                    {
-                        client = client,
-                        SpecialTax = specialTax
-                    });
-            }
-
-            if (equivalenceSurcharge >= 0)
-            {
-                db.ClientsTaxes.Add(
-                    new ClientTax
-                    {
-                        client = client,
-                        EquivalenceSurcharge = equivalenceSurcharge
-                    });
-            }*/
             db.SaveChanges();
             MessageBox.Show("Datos guardados correctamente");
 
@@ -100,6 +130,23 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_New.Controller
         {
             Information["controller"] = 0;
             ChangeController();
+        }
+
+        public List<TaxType> GetTaxTypes()
+        {
+            return db.TaxTypes.Where(t => t.StartDate >= ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedFiscalYear.StartDate && t.EndDate <= ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedFiscalYear.EndDate
+            && t.company.CompanyID == ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID && t.Name.Contains("IVA")).ToList();
+        }
+
+        public List<Tax> GetSpecTaxes()
+        {
+            TaxType taxType = db.TaxTypes.Where(t => t.StartDate == taxTypeSelected.StartDate && t.EndDate == taxTypeSelected.EndDate && t.CompanyID == taxTypeSelected.CompanyID && t.Name.Contains("ST")).First();
+            return db.Taxes.Where(t => t.TaxTypeID == taxType.TaxTypeID).ToList();
+        }
+
+        public void SetTaxTypeSelected(int num)
+        {
+            taxTypeSelected = db.TaxTypes.Where(t => t.TaxTypeID == num).First();
         }
 
         override public void MD_EntityLoad()

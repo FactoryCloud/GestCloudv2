@@ -29,101 +29,186 @@ namespace GestCloudv2.Files.Nodes.Providers.ProviderItem.ProviderItem_Load.View
             this.external = external;
 
             this.Loaded += new RoutedEventHandler(EV_Start);
-            TB_ProviderCod.KeyUp += new KeyEventHandler(EV_ClientCod);
-            TB_ProviderCod.Loaded += new RoutedEventHandler(EV_ClientCod);
+            TB_ProviderCode.KeyUp += new KeyEventHandler(EV_ProviderCode);
+            TB_ProviderCode.Loaded += new RoutedEventHandler(EV_ProviderCode);
+            CB_TaxPeriod.SelectionChanged += new SelectionChangedEventHandler(EV_PeriodUpdate);
         }
 
         private void EV_Start(object sender, RoutedEventArgs e)
         {
-            TB_ProviderCod.Text = $"{GetController().provider.Cod}";
+            TB_ProviderCode.Text = $"{GetController().provider.Cod}";
 
-            if (GetController().Information["editable"] == 0)
+            List<TaxType> taxTypes = GetController().GetTaxTypes();
+            foreach (TaxType tx in taxTypes)
             {
-                TB_ProviderCod.IsReadOnly = true;
+                ComboBoxItem temp = new ComboBoxItem();
+                temp.Content = $"{tx.StartDate.ToString("dd/MM/yyyy")} - {tx.EndDate.ToString("dd/MM/yyyy")}";
+                temp.Name = $"TaxPeriod{tx.TaxTypeID}";
+                CB_TaxPeriod.Items.Add(temp);
+            }
+
+            foreach (ComboBoxItem item in CB_TaxPeriod.Items)
+            {
+                if (Convert.ToInt16(item.Name.Replace("TaxPeriod", "")) == GetController().taxTypeSelected.TaxTypeID)
+                {
+                    CB_TaxPeriod.SelectedValue = item;
+                    break;
+                }
             }
         }
 
-        private void EV_ClientCod(object sender, RoutedEventArgs e)
+        private void EV_ProviderCode(object sender, RoutedEventArgs e)
         {
             if (GetController().Information["editable"] == 1)
             {
-                if (TB_ProviderCod.Text.Length == 0)
+                if (TB_ProviderCode.Text.Length == 0)
                 {
-                    if (SP_ProviderCod.Children.Count == 1)
+                    if (SP_ProviderCode.Children.Count == 1)
                     {
                         TextBlock message = new TextBlock();
                         message.TextWrapping = TextWrapping.WrapWithOverflow;
                         message.Text = "Este campo no puede estar vacio";
                         message.HorizontalAlignment = HorizontalAlignment.Center;
-                        SP_ProviderCod.Children.Add(message);
+                        SP_ProviderCode.Children.Add(message);
                     }
 
-                    else if (SP_ProviderCod.Children.Count == 2)
+                    else if (SP_ProviderCode.Children.Count == 2)
                     {
-                        SP_ProviderCod.Children.RemoveAt(SP_ProviderCod.Children.Count - 1);
+                        SP_ProviderCode.Children.RemoveAt(SP_ProviderCode.Children.Count - 1);
                         TextBlock message = new TextBlock();
                         message.TextWrapping = TextWrapping.WrapWithOverflow;
                         message.Text = "Este campo no puede estar vacio";
                         message.HorizontalAlignment = HorizontalAlignment.Center;
-                        SP_ProviderCod.Children.Add(message);
+                        SP_ProviderCode.Children.Add(message);
                     }
                     GetController().CleanCod();
                 }
 
-                else if (TB_ProviderCod.Text.Any(x => Char.IsWhiteSpace(x)))
+                else if (TB_ProviderCode.Text.Any(x => Char.IsWhiteSpace(x)))
                 {
-                    if (SP_ProviderCod.Children.Count == 1)
+                    if (SP_ProviderCode.Children.Count == 1)
                     {
                         TextBlock message = new TextBlock();
                         message.TextWrapping = TextWrapping.WrapWithOverflow;
                         message.Text = "Este campo no puede contener espacios";
                         message.HorizontalAlignment = HorizontalAlignment.Center;
-                        SP_ProviderCod.Children.Add(message);
+                        SP_ProviderCode.Children.Add(message);
                     }
 
-                    else if (SP_ProviderCod.Children.Count == 2)
+                    else if (SP_ProviderCode.Children.Count == 2)
                     {
-                        SP_ProviderCod.Children.RemoveAt(SP_ProviderCod.Children.Count - 1);
+                        SP_ProviderCode.Children.RemoveAt(SP_ProviderCode.Children.Count - 1);
                         TextBlock message = new TextBlock();
                         message.TextWrapping = TextWrapping.WrapWithOverflow;
                         message.Text = "Este campo no puede contener espacios";
                         message.HorizontalAlignment = HorizontalAlignment.Center;
-                        SP_ProviderCod.Children.Add(message);
+                        SP_ProviderCode.Children.Add(message);
                     }
                     GetController().CleanCod();
                 }
                 
-                else if (GetController().ProviderControlExist(Convert.ToInt32(TB_ProviderCod.Text)))
+                else if (GetController().ProviderControlExist(Convert.ToInt32(TB_ProviderCode.Text)))
                 {
-                    if (SP_ProviderCod.Children.Count == 1)
+                    if (SP_ProviderCode.Children.Count == 1)
                     {
                         TextBlock message = new TextBlock();
                         message.TextWrapping = TextWrapping.WrapWithOverflow;
                         message.Text = "Este usuario ya existe";
                         message.HorizontalAlignment = HorizontalAlignment.Center;
-                        SP_ProviderCod.Children.Add(message);
+                        SP_ProviderCode.Children.Add(message);
                     }
 
-                    else if (SP_ProviderCod.Children.Count == 2)
+                    else if (SP_ProviderCode.Children.Count == 2)
                     {
-                        SP_ProviderCod.Children.RemoveAt(SP_ProviderCod.Children.Count - 1);
+                        SP_ProviderCode.Children.RemoveAt(SP_ProviderCode.Children.Count - 1);
                         TextBlock message = new TextBlock();
                         message.TextWrapping = TextWrapping.WrapWithOverflow;
                         message.Text = "Este usuario ya existe";
                         message.HorizontalAlignment = HorizontalAlignment.Center;
-                        SP_ProviderCod.Children.Add(message);
+                        SP_ProviderCode.Children.Add(message);
                     }
                     GetController().EV_UpdateIfNotEmpty(true);
                 }
 
                 else
                 {
-                    if (SP_ProviderCod.Children.Count == 2)
+                    if (SP_ProviderCode.Children.Count == 2)
                     {
-                        SP_ProviderCod.Children.RemoveAt(SP_ProviderCod.Children.Count - 1);
+                        SP_ProviderCode.Children.RemoveAt(SP_ProviderCode.Children.Count - 1);
                     }
                     GetController().EV_UpdateIfNotEmpty(true);
                 }
+            }
+        }
+
+        public void EV_PeriodUpdate(object sender, SelectionChangedEventArgs e)
+        {
+
+            ComboBoxItem temp1 = (ComboBoxItem)CB_TaxPeriod.SelectedItem;
+            if (temp1 != null)
+            {
+                GetController().SetTaxTypeSelected(Convert.ToInt32(temp1.Name.Replace("TaxPeriod", "")));
+            }
+
+            foreach (ComboBoxItem item in CB_Tax.Items)
+            {
+                if (Convert.ToInt16(item.Name.Replace("Tax", "")) == GetController().InformationTaxes[Convert.ToInt32(temp1.Name.Replace("TaxPeriod", ""))])
+                {
+                    CB_Tax.SelectedValue = item;
+                    break;
+                }
+            }
+
+            foreach (ComboBoxItem item in CB_EquivalenceSurcharge.Items)
+            {
+                if (Convert.ToInt16(item.Name.Replace("EquiSur", "")) == GetController().InformationEquivalenceSurcharges[Convert.ToInt32(temp1.Name.Replace("TaxPeriod", ""))])
+                {
+                    CB_EquivalenceSurcharge.SelectedValue = item;
+                    break;
+                }
+            }
+
+            CB_SpecialTax.Items.Clear();
+
+            List<Tax> specTaxes = GetController().GetSpecTaxes();
+
+            ComboBoxItem defaultSpecTax = new ComboBoxItem();
+            defaultSpecTax.Content = $"No";
+            defaultSpecTax.Name = $"SpecialTax0";
+            CB_SpecialTax.Items.Add(defaultSpecTax);
+
+            foreach (Tax tx in specTaxes)
+            {
+                ComboBoxItem temp = new ComboBoxItem();
+                temp.Content = $"Tipo {tx.Type}: {tx.Percentage.ToString("0.##")}%";
+                temp.Name = $"SpecialTax{tx.TaxID}";
+                CB_SpecialTax.Items.Add(temp);
+            }
+
+            foreach (ComboBoxItem item in CB_SpecialTax.Items)
+            {
+                if (Convert.ToInt16(item.Name.Replace("SpecialTax", "")) == GetController().InformationSpecialTaxes[Convert.ToInt32(temp1.Name.Replace("TaxPeriod", ""))])
+                {
+                    CB_SpecialTax.SelectedValue = item;
+                    break;
+                }
+            }
+
+            if (GetController().Information["editable"] == 0)
+            {
+                TB_ProviderCode.IsReadOnly = true;
+
+                TB_Tax.Text = $"{((ComboBoxItem)CB_Tax.SelectedItem).Content}";
+                TB_Tax.Visibility = Visibility.Visible;
+                CB_Tax.Visibility = Visibility.Hidden;
+
+                TB_EquivalenceSurcharge.Text = $"{((ComboBoxItem)CB_EquivalenceSurcharge.SelectedItem).Content}";
+                TB_EquivalenceSurcharge.Visibility = Visibility.Visible;
+                CB_EquivalenceSurcharge.Visibility = Visibility.Hidden;
+
+                TB_SpecialTax.Text = $"{((ComboBoxItem)CB_SpecialTax.SelectedItem).Content}";
+                TB_SpecialTax.Visibility = Visibility.Visible;
+                CB_SpecialTax.Visibility = Visibility.Hidden;
             }
         }
 

@@ -29,11 +29,34 @@ namespace GestCloudv2.Files.Nodes.Providers.ProviderItem.ProviderItem_New.View
             provider = new Provider();
             this.Loaded += new RoutedEventHandler(EV_Start);
             TB_ProviderCod.KeyUp += new KeyEventHandler(EV_ClientCod);
+
+            CB_TaxPeriod.SelectionChanged += new SelectionChangedEventHandler(EV_CB_TaxPeriodUpdate);
+            CB_Tax.SelectionChanged += new SelectionChangedEventHandler(EV_CB_TaxUpdate);
+            CB_SpecialTax.SelectionChanged += new SelectionChangedEventHandler(EV_CB_TaxUpdate);
+            CB_EquivalenceSurcharge.SelectionChanged += new SelectionChangedEventHandler(EV_CB_TaxUpdate);
         }
 
         public void EV_Start(object sender, RoutedEventArgs e)
         {
             TB_ProviderCod.Text = GetController().LastProviderCod().ToString();
+
+            List<TaxType> taxTypes = GetController().GetTaxTypes();
+            foreach (TaxType tx in taxTypes)
+            {
+                ComboBoxItem temp = new ComboBoxItem();
+                temp.Content = $"{tx.StartDate.ToString("dd/MM/yyyy")} - {tx.EndDate.ToString("dd/MM/yyyy")}";
+                temp.Name = $"TaxPeriod{tx.TaxTypeID}";
+                CB_TaxPeriod.Items.Add(temp);
+            }
+
+            foreach (ComboBoxItem item in CB_TaxPeriod.Items)
+            {
+                if (Convert.ToInt16(item.Name.Replace("TaxPeriod", "")) == GetController().taxTypeSelected.TaxTypeID)
+                {
+                    CB_TaxPeriod.SelectedValue = item;
+                    break;
+                }
+            }
         }
 
         private void EV_ClientCod(object sender, RoutedEventArgs e)
@@ -89,6 +112,80 @@ namespace GestCloudv2.Files.Nodes.Providers.ProviderItem.ProviderItem_New.View
                 if (int.TryParse(TB_ProviderCod.Text, out int d))
                 {
                     provider.Cod = int.Parse(TB_ProviderCod.Text);
+                }
+            }
+        }
+
+        private void EV_CB_TaxPeriodUpdate(object sender, RoutedEventArgs e)
+        {
+            ComboBoxItem temp1 = (ComboBoxItem)CB_TaxPeriod.SelectedItem;
+            if (temp1 != null)
+            {
+                GetController().SetTaxTypeSelected(Convert.ToInt32(temp1.Name.Replace("TaxPeriod", "")));
+            }
+
+            foreach (ComboBoxItem item in CB_Tax.Items)
+            {
+                if (Convert.ToInt16(item.Name.Replace("Tax", "")) == GetController().InformationTaxes[Convert.ToInt32(temp1.Name.Replace("TaxPeriod", ""))])
+                {
+                    CB_Tax.SelectedValue = item;
+                    break;
+                }
+            }
+
+            foreach (ComboBoxItem item in CB_EquivalenceSurcharge.Items)
+            {
+                if (Convert.ToInt16(item.Name.Replace("EquiSur", "")) == GetController().InformationEquivalenceSurcharges[Convert.ToInt32(temp1.Name.Replace("TaxPeriod", ""))])
+                {
+                    CB_EquivalenceSurcharge.SelectedValue = item;
+                    break;
+                }
+            }
+
+            CB_SpecialTax.Items.Clear();
+
+            List<Tax> specTaxes = GetController().GetSpecTaxes();
+
+            ComboBoxItem defaultSpecTax = new ComboBoxItem();
+            defaultSpecTax.Content = $"No";
+            defaultSpecTax.Name = $"SpecialTax0";
+            CB_SpecialTax.Items.Add(defaultSpecTax);
+
+            foreach (Tax tx in specTaxes)
+            {
+                ComboBoxItem temp = new ComboBoxItem();
+                temp.Content = $"Tipo {tx.Type}: {tx.Percentage.ToString("0.##")}%";
+                temp.Name = $"SpecialTax{tx.TaxID}";
+                CB_SpecialTax.Items.Add(temp);
+            }
+
+            foreach (ComboBoxItem item in CB_SpecialTax.Items)
+            {
+                if (Convert.ToInt16(item.Name.Replace("SpecialTax", "")) == GetController().InformationSpecialTaxes[Convert.ToInt32(temp1.Name.Replace("TaxPeriod", ""))])
+                {
+                    CB_SpecialTax.SelectedValue = item;
+                    break;
+                }
+            }
+        }
+
+        private void EV_CB_TaxUpdate(object sender, RoutedEventArgs e)
+        {
+            ComboBoxItem temp1 = (ComboBoxItem)((ComboBox)sender).SelectedItem;
+            if (temp1 != null)
+            {
+                switch (Convert.ToInt32(((ComboBox)sender).Tag))
+                {
+                    case 1:
+                        GetController().InformationTaxes[GetController().taxTypeSelected.TaxTypeID] = (Convert.ToInt32(temp1.Name.Replace("Tax", "")));
+                        break;
+
+                    case 2:
+                        GetController().InformationEquivalenceSurcharges[GetController().taxTypeSelected.TaxTypeID] = (Convert.ToInt32(temp1.Name.Replace("EquiSur", "")));
+                        break;
+                    case 3:
+                        GetController().InformationSpecialTaxes[GetController().taxTypeSelected.TaxTypeID] = (Convert.ToInt32(temp1.Name.Replace("SpecialTax", "")));
+                        break;
                 }
             }
         }

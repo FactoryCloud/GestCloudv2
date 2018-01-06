@@ -27,13 +27,30 @@ namespace GestCloudv2.Files.Nodes.Providers.ProviderItem.ProviderItem_New.Contro
         public Provider provider;
         public int lastProviderCod;
         public SubmenuItems submenuItems;
+        public TaxType taxTypeSelected;
+        public Dictionary<int, int> InformationTaxes;
+        public Dictionary<int, int> InformationEquivalenceSurcharges;
+        public Dictionary<int, int> InformationSpecialTaxes;
 
         public CT_PRO_Item_New()
         {
+            List<TaxType> taxTypes = GetTaxTypes().OrderByDescending(t => t.StartDate).ToList();
+            InformationTaxes = new Dictionary<int, int>();
+            InformationEquivalenceSurcharges = new Dictionary<int, int>();
+            InformationSpecialTaxes = new Dictionary<int, int>();
+            taxTypeSelected = taxTypes.First();
+
             submenuItems = new SubmenuItems();
             entity = new Entity();
             provider = new Provider();
             Information.Add("minimalInformation", 0);
+
+            foreach (TaxType tx in taxTypes)
+            {
+                InformationTaxes.Add(tx.TaxTypeID, 1);
+                InformationEquivalenceSurcharges.Add(tx.TaxTypeID, 0);
+                InformationSpecialTaxes.Add(tx.TaxTypeID, 0);
+            }
         }
 
         override public void EV_Start(object sender, RoutedEventArgs e)
@@ -60,6 +77,48 @@ namespace GestCloudv2.Files.Nodes.Providers.ProviderItem.ProviderItem_New.Contro
             provider.entity = entity;
             db.Providers.Add(provider);
             db.SaveChanges();
+
+            List<TaxType> taxTypes = GetTaxTypes().OrderByDescending(t => t.StartDate).ToList();
+
+            foreach (TaxType tx in taxTypes)
+            {
+                if (InformationTaxes[tx.TaxTypeID] == 1)
+                {
+                    List<Tax> taxes = db.Taxes.Where(t => t.TaxTypeID == tx.TaxTypeID).ToList();
+                    foreach (Tax t in taxes)
+                    {
+                        db.ProvidersTaxes.Add(new ProviderTax
+                        {
+                            ProviderID = provider.ProviderID,
+                            TaxID = t.TaxID
+                        });
+                    }
+                }
+
+                if (InformationEquivalenceSurcharges[tx.TaxTypeID] == 1)
+                {
+                    TaxType taxType = db.TaxTypes.Where(t => t.StartDate == taxTypeSelected.StartDate && t.EndDate == taxTypeSelected.EndDate && t.CompanyID == taxTypeSelected.CompanyID && t.Name.Contains("RE")).First();
+                    List<Tax> taxes = db.Taxes.Where(t => t.TaxTypeID == taxType.TaxTypeID).ToList();
+                    foreach (Tax t in taxes)
+                    {
+                        db.ProvidersTaxes.Add(new ProviderTax
+                        {
+                            ProviderID = provider.ProviderID,
+                            TaxID = t.TaxID
+                        });
+                    }
+                }
+
+                if (InformationSpecialTaxes[tx.TaxTypeID] >= 1)
+                {
+                    db.ProvidersTaxes.Add(new ProviderTax
+                    {
+                        ProviderID = provider.ProviderID,
+                        TaxID = InformationSpecialTaxes[tx.TaxTypeID]
+                    });
+                }
+            }
+            db.SaveChanges();
             MessageBox.Show("Datos guardados correctamente");
 
             Information["fieldEmpty"] = 0;
@@ -70,6 +129,23 @@ namespace GestCloudv2.Files.Nodes.Providers.ProviderItem.ProviderItem_New.Contro
         {
             Information["controller"] = 0;
             ChangeController();
+        }
+
+        public List<TaxType> GetTaxTypes()
+        {
+            return db.TaxTypes.Where(t => t.StartDate >= ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedFiscalYear.StartDate && t.EndDate <= ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedFiscalYear.EndDate
+            && t.company.CompanyID == ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID && t.Name.Contains("IVA")).ToList();
+        }
+
+        public List<Tax> GetSpecTaxes()
+        {
+            TaxType taxType = db.TaxTypes.Where(t => t.StartDate == taxTypeSelected.StartDate && t.EndDate == taxTypeSelected.EndDate && t.CompanyID == taxTypeSelected.CompanyID && t.Name.Contains("ST")).First();
+            return db.Taxes.Where(t => t.TaxTypeID == taxType.TaxTypeID).ToList();
+        }
+
+        public void SetTaxTypeSelected(int num)
+        {
+            taxTypeSelected = db.TaxTypes.Where(t => t.TaxTypeID == num).First();
         }
 
         override public void MD_EntityLoad()
