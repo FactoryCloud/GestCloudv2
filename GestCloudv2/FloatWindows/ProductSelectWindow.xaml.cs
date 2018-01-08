@@ -170,6 +170,8 @@ namespace GestCloudv2.FloatWindows
                     TB_Quantity.IsEnabled = true;
                     TB_PurchasePrice.IsEnabled = true;
                     TB_SalePrice.IsEnabled = true;
+
+                    movement.condition = productsView.GetConditionDefault();
                 }
             }
 
