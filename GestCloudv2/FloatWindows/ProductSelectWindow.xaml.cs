@@ -183,6 +183,24 @@ namespace GestCloudv2.FloatWindows
 
         protected void EV_NumberLeft(object sender, RoutedEventArgs e)
         {
+            if((sender as TextBox).Text.Length == 0)
+            {
+                switch (Convert.ToInt16((sender as TextBox).Tag))
+                {
+                    case 1:
+                        (sender as TextBox).Text = Convert.ToDecimal(0).ToString("0.##");
+                        break;
+
+                    case 2:
+                        (sender as TextBox).Text = Convert.ToDecimal(0).ToString("0.00");
+                        break;
+
+                    case 3:
+                        (sender as TextBox).Text = Convert.ToDecimal(0).ToString("0.00");
+                        break;
+                }
+            }
+
             switch(Convert.ToInt16((sender as TextBox).Tag))
             {
                 case 1:
