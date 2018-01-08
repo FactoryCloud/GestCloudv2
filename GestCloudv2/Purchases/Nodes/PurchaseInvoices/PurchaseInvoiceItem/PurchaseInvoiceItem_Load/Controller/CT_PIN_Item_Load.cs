@@ -28,18 +28,12 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseInvoices.PurchaseInvoiceItem.Purch
 
         public CT_PIN_Item_Load(PurchaseInvoice purchaseInvoice, int editable):base(editable)
         {
-            this.purchaseInvoice = db.PurchaseInvoices.Where(c => c.PurchaseInvoiceID == purchaseInvoice.PurchaseInvoiceID).Include(e => e.provider).Include(i => i.provider.entity).First();
-            List<DocumentType> documentTypes = db.DocumentTypes.Where(i => i.Name.Contains("Invoice")).ToList();
-            store = db.Movements.Where(u => u.DocumentID == purchaseInvoice.PurchaseInvoiceID && (documentTypes[0].DocumentTypeID == u.DocumentTypeID || documentTypes[1].DocumentTypeID == u.DocumentTypeID)).Include(u => u.store).First().store;
+            this.purchaseInvoice = db.PurchaseInvoices.Where(c => c.PurchaseInvoiceID == purchaseInvoice.PurchaseInvoiceID).Include(e => e.provider).Include(i => i.provider.entity).Include(p => p.store).First();
             Information["operationType"] = 1;
         }
 
         override public void EV_Start(object sender, RoutedEventArgs e)
         {
-            DocumentType documentType = db.DocumentTypes.Where(i => i.Name.Contains("Invoice") && i.Input == 1).First();
-            movements = db.Movements.Where(u => u.DocumentID == purchaseInvoice.PurchaseInvoiceID && (documentType.DocumentTypeID == u.DocumentTypeID)).Include(u => u.store)
-                .Include(i => i.product).Include(z => z.condition).Include(i => i.product.productType).ToList();
-
             base.EV_Start(sender, e);
         }
 
@@ -58,6 +52,17 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseInvoices.PurchaseInvoiceItem.Purch
         {
             purchaseInvoice.Date = date;
             base.SetDate(date);
+        }
+
+        public override void SetStore(int num)
+        {
+            purchaseInvoice.store = db.Stores.Where(s => s.StoreID == num).First();
+            base.SetStore(num);
+        }
+
+        public override Store GetStore()
+        {
+            return purchaseInvoice.store;
         }
 
         public override void SetMC(int i)
@@ -102,6 +107,16 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseInvoices.PurchaseInvoiceItem.Purch
         public override DateTime GetDate()
         {
             return Convert.ToDateTime(purchaseInvoice.Date);
+        }
+
+        public override int GetDocumentID()
+        {
+            return purchaseInvoice.PurchaseInvoiceID;
+        }
+
+        public override DocumentType GetDocumentType()
+        {
+            return db.DocumentTypes.Where(d => d.Input == 1 && d.Name.Contains("Invoice")).First();
         }
 
         override public int LastCode()
@@ -150,7 +165,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseInvoices.PurchaseInvoiceItem.Purch
 
         override public void TestMinimalInformation()
         {
-            if(purchaseInvoice.Date != null && purchaseInvoice.provider.ProviderID > 0 && store.StoreID > 0)
+            if(purchaseInvoice.Date != null && purchaseInvoice.provider.ProviderID > 0 && GetStore().StoreID > 0)
             {
                 Information["minimalInformation"] = 1;
             }
@@ -165,7 +180,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseInvoices.PurchaseInvoiceItem.Purch
 
         override public void SaveDocument()
         {
-            foreach (Movement movement in movementsView.movements)
+            /*foreach (Movement movement in movementsView.movements)
             {
                 if (!movements.Contains(movement))
                 {
@@ -178,7 +193,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseInvoices.PurchaseInvoiceItem.Purch
                     if (movement.store == null)
                     {
                         movement.DocumentTypeID = db.DocumentTypes.Where(c => c.Name == "Invoice" && c.Input == 1).First().DocumentTypeID;
-                        movement.StoreID = store.StoreID;
+                        movement.StoreID = GetStore().StoreID;
                     }
 
                     else
@@ -211,7 +226,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseInvoices.PurchaseInvoiceItem.Purch
             {
                 if (!movementsView.movements.Contains(mov))
                     db.Movements.Remove(mov);
-            }
+            }*/
 
             base.SaveDocument();
         }

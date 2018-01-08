@@ -29,16 +29,11 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
         public CT_POR_Item_Load(PurchaseOrder purchaseOrder, int editable):base(editable)
         {
             this.purchaseOrder = db.PurchaseOrders.Where(c => c.PurchaseOrderID == purchaseOrder.PurchaseOrderID).Include(e => e.provider).Include(i => i.provider.entity).First();
-            List<DocumentType> documentTypes = db.DocumentTypes.Where(i => i.Name.Contains("Order")).ToList();
-            store = db.Movements.Where(u => u.DocumentID == purchaseOrder.PurchaseOrderID && (documentTypes[0].DocumentTypeID == u.DocumentTypeID || documentTypes[1].DocumentTypeID == u.DocumentTypeID)).Include(u => u.store).First().store;
             Information["operationType"] = 1;
         }
 
         override public void EV_Start(object sender, RoutedEventArgs e)
         {
-            DocumentType documentType = db.DocumentTypes.Where(i => i.Name.Contains("Order") && i.Input == 1).First();
-            
-
             base.EV_Start(sender, e);
         }
 
@@ -52,6 +47,17 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
         {
             purchaseOrder.Date = date;
             base.SetDate(date);
+        }
+
+        public override void SetStore(int num)
+        {
+            purchaseOrder.store = db.Stores.Where(s => s.StoreID == num).First();
+            base.SetStore(num);
+        }
+
+        public override Store GetStore()
+        {
+            return purchaseOrder.store;
         }
 
         public override void SetMC(int i)
@@ -174,7 +180,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
 
         override public void TestMinimalInformation()
         {
-            if(purchaseOrder.Date != null && purchaseOrder.provider.ProviderID > 0 && store.StoreID > 0)
+            if(purchaseOrder.Date != null && purchaseOrder.provider.ProviderID > 0 && GetStore().StoreID > 0)
             {
                 Information["minimalInformation"] = 1;
             }
@@ -203,7 +209,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
                     if (movement.store == null)
                     {
                         movement.DocumentTypeID = db.DocumentTypes.Where(c => c.Name == "Order" && c.Input == 1).First().DocumentTypeID;
-                        movement.StoreID = store.StoreID;
+                        movement.StoreID = GetStore().StoreID;
                     }
 
                     else

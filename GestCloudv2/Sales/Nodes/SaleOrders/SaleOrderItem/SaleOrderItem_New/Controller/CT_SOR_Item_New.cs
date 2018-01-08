@@ -93,6 +93,12 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_New.Con
             floatWindow.Show();
         }
 
+        override public void MD_MovementEdit()
+        {
+            View.FW_SOR_Item_New_Movements floatWindow = new View.FW_SOR_Item_New_Movements(new Movement(movementSelected));
+            floatWindow.Show();
+        }
+
         override public Boolean CodeExist(string code)
         {
             List<SaleOrder> purchaseDeliveries = db.SaleOrders.ToList();
@@ -128,6 +134,7 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_New.Con
         {
             saleOrder.CompanyID = ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID;
             saleOrder.ClientID = client.ClientID;
+            saleOrder.store = db.Stores.Where(s => s.StoreID == store.StoreID).First();
             db.SaleOrders.Add(saleOrder);
             db.SaveChanges();
 

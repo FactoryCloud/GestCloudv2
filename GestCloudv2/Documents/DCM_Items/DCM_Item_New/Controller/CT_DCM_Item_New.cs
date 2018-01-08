@@ -15,7 +15,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.Controller
         public int lastCode;
         public Movement movementSelected;
         public MovementsView movementsView;
-        List<Movement> movements;
+        public List<Movement> movements;
         public Store store;
         public Provider provider;
         public Client client;
@@ -100,7 +100,8 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.Controller
         public void SetMovementSelected(int num)
         {
             movementSelected = movementsView.movements.Where(u => u.MovementID == num).First();
-            UpdateComponents();
+            SetTS();
+            LeftSide.Content = TS_Page;
         }
 
         public void SetStore(int num)
@@ -165,13 +166,26 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.Controller
 
         }
 
+        public bool MovementExists(Movement movement)
+        {
+            if (movements.Where(m => m.MovementID == movement.MovementID).ToList().Count > 0)
+                return true;
+
+            else
+                return false;
+        }
+
         virtual public void MD_MovementAdd()
         {
         }
 
-        public void MD_MovementDelete()
+        virtual public void MD_MovementEdit()
         {
-            movementsView.MovementDelete(movementSelected.MovementID);
+        }
+
+        public void MD_MovementRemove()
+        {
+            movements.Remove(movements.Where(m => m.MovementID == movementSelected.MovementID).First());
             movementSelected = null;
             UpdateComponents();
         }
@@ -194,9 +208,21 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.Controller
 
         public override void EV_MovementAdd(Movement movement)
         {
-            movement.MovementID = GetMovementNextID();
-            movements.Add(movement);
+            if (!MovementExists(movement))
+            {
+                movement.MovementID = GetMovementNextID();
+                movements.Add(movement);
+            }
+
+            else
+            {
+                movements.Remove(movements.Where(m => m.MovementID == movement.MovementID).First());
+                movements.Add(movement);
+                movements.OrderBy(m => m.MovementID);
+            }
+
             movementSelected = null;
+
             UpdateComponents();
         }
 
@@ -223,7 +249,6 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.Controller
         public virtual void TestMinimalInformation()
         {
             SetTS();
-
             LeftSide.Content = TS_Page;
         }
 

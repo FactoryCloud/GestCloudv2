@@ -45,7 +45,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.View
                 }
             }
 
-            if (GetController().movementsView.movements.Count > 0 && GetController().Information["minimalInformation"] == 1)
+            if ((GetController().movements.Count > 0 || GetController().movementsOld.Count > 0) && GetController().Information["minimalInformation"] == 1)
             {
                 BT_Save.IsEnabled = true;
             }

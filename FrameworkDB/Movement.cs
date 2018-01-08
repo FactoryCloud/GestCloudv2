@@ -44,5 +44,30 @@ namespace FrameworkDB.V1
         public virtual Store store { get; set; }
 
         public virtual List<MovementTax> movementsTaxes { get; set; }
+
+        public Movement()
+        {
+
+        }
+
+        public Movement(Movement movement)
+        {
+            this.MovementID = movement.MovementID;
+            this.DocumentID = movement.DocumentID;
+            this.DocumentTypeID = movement.DocumentTypeID;
+            this.documentType = movement.documentType;
+            this.Quantity = movement.Quantity;
+            this.PurchasePrice = movement.PurchasePrice;
+            this.SalePrice = movement.SalePrice;
+            this.product = movement.product;
+            this.ProductID = movement.ProductID;
+            this.condition = movement.condition;
+            this.ConditionID = movement.ConditionID;
+
+            this.IsAltered = movement.IsAltered;
+            this.IsFoil = movement.IsFoil;
+            this.IsPlayset = movement.IsPlayset;
+            this.IsSigned = movement.IsSigned;
+        }
     }
 }

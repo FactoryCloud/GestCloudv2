@@ -93,6 +93,12 @@ namespace GestCloudv2.Sales.Nodes.SaleInvoices.SaleInvoiceItem.SaleInvoiceItem_N
             floatWindow.Show();
         }
 
+        override public void MD_MovementEdit()
+        {
+            View.FW_SIN_Item_New_Movements floatWindow = new View.FW_SIN_Item_New_Movements(new Movement(movementSelected));
+            floatWindow.Show();
+        }
+
         override public Boolean CodeExist(string code)
         {
             List<SaleInvoice> purchaseDeliveries = db.SaleInvoices.ToList();
@@ -128,6 +134,7 @@ namespace GestCloudv2.Sales.Nodes.SaleInvoices.SaleInvoiceItem.SaleInvoiceItem_N
         {
             saleInvoice.CompanyID = ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID;
             saleInvoice.ClientID = client.ClientID;
+            saleInvoice.store = db.Stores.Where(s => s.StoreID == store.StoreID).First();
             db.SaleInvoices.Add(saleInvoice);
             db.SaveChanges();
 

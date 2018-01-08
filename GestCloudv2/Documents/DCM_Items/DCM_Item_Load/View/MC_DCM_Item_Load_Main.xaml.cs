@@ -74,7 +74,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.View
 
                 TextBox TB_StoreCode = new TextBox();
                 TB_StoreCode.Name = "TB_StoreCode";
-                TB_StoreCode.Text = $"{GetController().store.Code}";
+                TB_StoreCode.Text = $"{GetController().GetStore().Code}";
                 TB_StoreCode.VerticalAlignment = VerticalAlignment.Center;
                 TB_StoreCode.TextAlignment = TextAlignment.Center;
                 TB_StoreCode.Margin = margin;
@@ -111,7 +111,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.View
 
                 TextBox TB_StoreCode = new TextBox();
                 TB_StoreCode.Name = "TB_StoreCode";
-                TB_StoreCode.Text = $"{GetController().store.Code}";
+                TB_StoreCode.Text = $"{GetController().GetStore().Code}";
                 TB_StoreCode.VerticalAlignment = VerticalAlignment.Center;
                 TB_StoreCode.TextAlignment = TextAlignment.Center;
                 TB_StoreCode.Margin = margin;
@@ -168,7 +168,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.View
                 }
             }
 
-            if (GetController().store.StoreID > 0)
+            if (GetController().GetStore().StoreID > 0)
             {
                 if (GR_Store.IsMouseOver)
                 {
@@ -197,7 +197,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.View
                 }
             }
 
-            if (GetController().store.StoreID > 0)
+            if (GetController().GetStore().StoreID > 0)
             {
                 if (GR_Store.IsMouseOver)
                 {

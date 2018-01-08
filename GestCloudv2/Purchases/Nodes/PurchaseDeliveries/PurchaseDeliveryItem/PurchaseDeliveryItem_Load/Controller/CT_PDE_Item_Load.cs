@@ -28,18 +28,12 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseDeliveries.PurchaseDeliveryItem.Pu
 
         public CT_PDE_Item_Load(PurchaseDelivery purchaseDelivery, int editable):base(editable)
         {
-            this.purchaseDelivery = db.PurchaseDeliveries.Where(c => c.PurchaseDeliveryID == purchaseDelivery.PurchaseDeliveryID).Include(e => e.provider).Include(i => i.provider.entity).First();
-            List<DocumentType> documentTypes = db.DocumentTypes.Where(i => i.Name.Contains("Delivery")).ToList();
-            store = db.Movements.Where(u => u.DocumentID == purchaseDelivery.PurchaseDeliveryID && (documentTypes[0].DocumentTypeID == u.DocumentTypeID || documentTypes[1].DocumentTypeID == u.DocumentTypeID)).Include(u => u.store).First().store;
+            this.purchaseDelivery = db.PurchaseDeliveries.Where(c => c.PurchaseDeliveryID == purchaseDelivery.PurchaseDeliveryID).Include(e => e.provider).Include(i => i.provider.entity).Include(p => p.store).First();
             Information["operationType"] = 1;
         }
 
         override public void EV_Start(object sender, RoutedEventArgs e)
         {
-            DocumentType documentType = db.DocumentTypes.Where(i => i.Name.Contains("Delivery") && i.Input == 1).First();
-            movements = db.Movements.Where(u => u.DocumentID == purchaseDelivery.PurchaseDeliveryID && (documentType.DocumentTypeID == u.DocumentTypeID)).Include(u => u.store)
-                .Include(i => i.product).Include(z => z.condition).Include(i => i.product.productType).ToList();
-
             base.EV_Start(sender, e);
         }
 
@@ -58,6 +52,17 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseDeliveries.PurchaseDeliveryItem.Pu
         {
             purchaseDelivery.Date = date;
             base.SetDate(date);
+        }
+
+        public override void SetStore(int num)
+        {
+            purchaseDelivery.store = db.Stores.Where(s => s.StoreID == num).First();
+            base.SetStore(num);
+        }
+
+        public override Store GetStore()
+        {
+            return purchaseDelivery.store;
         }
 
         public override void SetMC(int i)
@@ -102,6 +107,16 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseDeliveries.PurchaseDeliveryItem.Pu
         public override DateTime GetDate()
         {
             return Convert.ToDateTime(purchaseDelivery.Date);
+        }
+
+        public override int GetDocumentID()
+        {
+            return purchaseDelivery.PurchaseDeliveryID;
+        }
+
+        public override DocumentType GetDocumentType()
+        {
+            return db.DocumentTypes.Where(d => d.Input == 1 && d.Name.Contains("Delivery")).First();
         }
 
         override public int LastCode()
@@ -150,7 +165,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseDeliveries.PurchaseDeliveryItem.Pu
 
         override public void TestMinimalInformation()
         {
-            if(purchaseDelivery.Date != null && purchaseDelivery.provider.ProviderID > 0 && store.StoreID > 0)
+            if(purchaseDelivery.Date != null && purchaseDelivery.provider.ProviderID > 0 && GetStore().StoreID > 0)
             {
                 Information["minimalInformation"] = 1;
             }
@@ -165,7 +180,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseDeliveries.PurchaseDeliveryItem.Pu
 
         override public void SaveDocument()
         {
-            foreach (Movement movement in movementsView.movements)
+            /*foreach (Movement movement in movementsView.movements)
             {
                 if (!movements.Contains(movement))
                 {
@@ -178,7 +193,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseDeliveries.PurchaseDeliveryItem.Pu
                     if (movement.store == null)
                     {
                         movement.DocumentTypeID = db.DocumentTypes.Where(c => c.Name == "Delivery" && c.Input == 1).First().DocumentTypeID;
-                        movement.StoreID = store.StoreID;
+                        movement.StoreID = GetStore().StoreID;
                     }
 
                     else
@@ -211,7 +226,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseDeliveries.PurchaseDeliveryItem.Pu
             {
                 if (!movementsView.movements.Contains(mov))
                     db.Movements.Remove(mov);
-            }
+            }*/
 
             base.SaveDocument();
         }

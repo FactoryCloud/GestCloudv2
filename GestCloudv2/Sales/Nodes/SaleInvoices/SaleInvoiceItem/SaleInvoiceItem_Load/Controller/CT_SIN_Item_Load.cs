@@ -28,18 +28,12 @@ namespace GestCloudv2.Sales.Nodes.SaleInvoices.SaleInvoiceItem.SaleInvoiceItem_L
 
         public CT_SIN_Item_Load(SaleInvoice saleInvoice, int editable):base(editable)
         {
-            this.saleInvoice = db.SaleInvoices.Where(c => c.SaleInvoiceID == saleInvoice.SaleInvoiceID).Include(e => e.client).Include(i => i.client.entity).First();
-            DocumentType documentType = db.DocumentTypes.Where(i => i.Name.Contains("Invoice") && i.Input == 0).First();
-            store = db.Movements.Where(u => u.DocumentID == saleInvoice.SaleInvoiceID && documentType.DocumentTypeID == u.DocumentTypeID).Include(u => u.store).First().store;
+            this.saleInvoice = db.SaleInvoices.Where(c => c.SaleInvoiceID == saleInvoice.SaleInvoiceID).Include(e => e.client).Include(i => i.client.entity).Include(s => s.store).First();
             Information["operationType"] = 2;
         }
 
         override public void EV_Start(object sender, RoutedEventArgs e)
         {
-            DocumentType documentType = db.DocumentTypes.Where(i => i.Name.Contains("Invoice") && i.Input == 0).First();
-            movements = db.Movements.Where(u => u.DocumentID == saleInvoice.SaleInvoiceID && (documentType.DocumentTypeID == u.DocumentTypeID)).Include(u => u.store)
-                .Include(i => i.product).Include(z => z.condition).Include(i => i.product.productType).ToList();
-
             base.EV_Start(sender, e);
         }
 
@@ -58,6 +52,17 @@ namespace GestCloudv2.Sales.Nodes.SaleInvoices.SaleInvoiceItem.SaleInvoiceItem_L
         {
             saleInvoice.Date = date;
             base.SetDate(date);
+        }
+
+        public override void SetStore(int num)
+        {
+            saleInvoice.store = db.Stores.Where(s => s.StoreID == num).First();
+            base.SetStore(num);
+        }
+
+        public override Store GetStore()
+        {
+            return saleInvoice.store;
         }
 
         public override void SetMC(int i)
@@ -102,6 +107,16 @@ namespace GestCloudv2.Sales.Nodes.SaleInvoices.SaleInvoiceItem.SaleInvoiceItem_L
         public override DateTime GetDate()
         {
             return Convert.ToDateTime(saleInvoice.Date);
+        }
+
+        public override int GetDocumentID()
+        {
+            return saleInvoice.SaleInvoiceID;
+        }
+
+        public override DocumentType GetDocumentType()
+        {
+            return db.DocumentTypes.Where(d => d.Input == 0 && d.Name.Contains("Invoice")).First();
         }
 
         override public int LastCode()
@@ -150,7 +165,7 @@ namespace GestCloudv2.Sales.Nodes.SaleInvoices.SaleInvoiceItem.SaleInvoiceItem_L
 
         override public void TestMinimalInformation()
         {
-            if(saleInvoice.Date != null && saleInvoice.client.ClientID > 0 && store.StoreID > 0)
+            if(saleInvoice.Date != null && saleInvoice.client.ClientID > 0 && GetStore().StoreID > 0)
             {
                 Information["minimalInformation"] = 1;
             }
@@ -165,7 +180,7 @@ namespace GestCloudv2.Sales.Nodes.SaleInvoices.SaleInvoiceItem.SaleInvoiceItem_L
 
         override public void SaveDocument()
         {
-            foreach (Movement movement in movementsView.movements)
+            /*foreach (Movement movement in movementsView.movements)
             {
                 if (!movements.Contains(movement))
                 {
@@ -175,7 +190,7 @@ namespace GestCloudv2.Sales.Nodes.SaleInvoices.SaleInvoiceItem.SaleInvoiceItem_L
                     movement.ProductID = movement.product.ProductID;
                     movement.product = null;
                     movement.DocumentTypeID = db.DocumentTypes.Where(c => c.Name == "Invoice" && c.Input == 0).First().DocumentTypeID;
-                    movement.StoreID = store.StoreID;
+                    movement.StoreID = GetStore().StoreID;
 
                     movement.DocumentID = saleInvoice.SaleInvoiceID;
                     db.Movements.Add(movement);
@@ -201,7 +216,7 @@ namespace GestCloudv2.Sales.Nodes.SaleInvoices.SaleInvoiceItem.SaleInvoiceItem_L
             {
                 if (!movementsView.movements.Contains(mov))
                     db.Movements.Remove(mov);
-            }
+            }*/
 
             base.SaveDocument();
         }

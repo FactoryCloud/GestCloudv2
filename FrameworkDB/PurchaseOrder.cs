@@ -22,5 +22,9 @@ namespace FrameworkDB.V1
         [ForeignKey("FK_PurchaseOrders_ProviderID_Providers")]
         public int? ProviderID { get; set; }
         public virtual Provider provider { get; set; }
+
+        [ForeignKey("FK_PurchaseOrders_StoreID_Stores")]
+        public int? StoreID { get; set; }
+        public virtual Store store { get; set; }
     }
 }

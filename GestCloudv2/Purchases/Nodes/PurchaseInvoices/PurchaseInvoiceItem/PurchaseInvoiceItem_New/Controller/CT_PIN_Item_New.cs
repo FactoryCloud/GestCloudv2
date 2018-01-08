@@ -93,6 +93,12 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseInvoices.PurchaseInvoiceItem.Purch
             floatWindow.Show();
         }
 
+        override public void MD_MovementEdit()
+        {
+            View.FW_PIN_Item_New_Movements floatWindow = new View.FW_PIN_Item_New_Movements(new Movement(movementSelected));
+            floatWindow.Show();
+        }
+
         override public Boolean CodeExist(string code)
         {
             List<PurchaseDelivery> purchaseDeliveries = db.PurchaseDeliveries.ToList();
@@ -128,6 +134,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseInvoices.PurchaseInvoiceItem.Purch
         {
             purchaseInvoice.CompanyID = ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID;
             purchaseInvoice.ProviderID = provider.ProviderID;
+            purchaseInvoice.store = db.Stores.Where(s => s.StoreID == store.StoreID).First();
             db.PurchaseInvoices.Add(purchaseInvoice);
             db.SaveChanges();
 

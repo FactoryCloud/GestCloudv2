@@ -29,17 +29,11 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_Load.Co
         public CT_SOR_Item_Load(SaleOrder saleOrder, int editable):base(editable)
         {
             this.saleOrder = db.SaleOrders.Where(c => c.SaleOrderID == saleOrder.SaleOrderID).Include(e => e.client).Include(i => i.client.entity).First();
-            DocumentType documentType = db.DocumentTypes.Where(i => i.Name.Contains("Order") && i.Input == 0).First();
-            store = db.Movements.Where(u => u.DocumentID == saleOrder.SaleOrderID && documentType.DocumentTypeID == u.DocumentTypeID).Include(u => u.store).First().store;
             Information["operationType"] = 2;
         }
 
         override public void EV_Start(object sender, RoutedEventArgs e)
         {
-            DocumentType documentType = db.DocumentTypes.Where(i => i.Name.Contains("Order") && i.Input == 0).First();
-            movements = db.Movements.Where(u => u.DocumentID == saleOrder.SaleOrderID && (documentType.DocumentTypeID == u.DocumentTypeID)).Include(u => u.store)
-                .Include(i => i.product).Include(z => z.condition).Include(i => i.product.productType).ToList();
-
             base.EV_Start(sender, e);
         }
 
@@ -58,6 +52,17 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_Load.Co
         {
             saleOrder.Date = date;
             base.SetDate(date);
+        }
+
+        public override void SetStore(int num)
+        {
+            saleOrder.store = db.Stores.Where(s => s.StoreID == num).First();
+            base.SetStore(num);
+        }
+
+        public override Store GetStore()
+        {
+            return saleOrder.store;
         }
 
         public override void SetMC(int i)
@@ -102,6 +107,16 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_Load.Co
         public override DateTime GetDate()
         {
             return Convert.ToDateTime(saleOrder.Date);
+        }
+
+        public override int GetDocumentID()
+        {
+            return saleOrder.SaleOrderID;
+        }
+
+        public override DocumentType GetDocumentType()
+        {
+            return db.DocumentTypes.Where(d => d.Input == 0 && d.Name.Contains("Order")).First();
         }
 
         override public int LastCode()
@@ -150,7 +165,7 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_Load.Co
 
         override public void TestMinimalInformation()
         {
-            if(saleOrder.Date != null && saleOrder.client.ClientID > 0 && store.StoreID > 0)
+            if(saleOrder.Date != null && saleOrder.client.ClientID > 0 && GetStore().StoreID > 0)
             {
                 Information["minimalInformation"] = 1;
             }
@@ -165,7 +180,7 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_Load.Co
 
         override public void SaveDocument()
         {
-            foreach (Movement movement in movementsView.movements)
+            /*foreach (Movement movement in movementsView.movements)
             {
                 if (!movements.Contains(movement))
                 {
@@ -175,7 +190,7 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_Load.Co
                     movement.ProductID = movement.product.ProductID;
                     movement.product = null;
                     movement.DocumentTypeID = db.DocumentTypes.Where(c => c.Name == "Invoice" && c.Input == 0).First().DocumentTypeID;
-                    movement.StoreID = store.StoreID;
+                    movement.StoreID = GetStore().StoreID;
 
                     movement.DocumentID = saleOrder.SaleOrderID;
                     db.Movements.Add(movement);
@@ -201,7 +216,7 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_Load.Co
             {
                 if (!movementsView.movements.Contains(mov))
                     db.Movements.Remove(mov);
-            }
+            }*/
 
             base.SaveDocument();
         }

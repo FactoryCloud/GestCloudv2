@@ -93,6 +93,12 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseDeliveries.PurchaseDeliveryItem.Pu
             floatWindow.Show();
         }
 
+        override public void MD_MovementEdit()
+        {
+            View.FW_PDE_Item_New_Movements floatWindow = new View.FW_PDE_Item_New_Movements(new Movement(movementSelected));
+            floatWindow.Show();
+        }
+
         override public Boolean CodeExist(string code)
         {
             List<PurchaseDelivery> purchaseDeliveries = db.PurchaseDeliveries.ToList();
@@ -128,6 +134,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseDeliveries.PurchaseDeliveryItem.Pu
         {
             purchaseDelivery.CompanyID = ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID;
             purchaseDelivery.ProviderID = provider.ProviderID;
+            purchaseDelivery.store = db.Stores.Where(s => s.StoreID == store.StoreID).First();
             db.PurchaseDeliveries.Add(purchaseDelivery);
             db.SaveChanges();
 

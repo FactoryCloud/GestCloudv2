@@ -54,7 +54,7 @@ namespace GestCloudv2.FloatWindows
             CH_IsSigned.Checked += new RoutedEventHandler(EV_CheckChange);
             CB_ProductType.SelectionChanged += new SelectionChangedEventHandler(EV_Search);
             CB_Expansion.SelectionChanged += new SelectionChangedEventHandler(EV_Search);
-            CB_Condition.SelectionChanged += new SelectionChangedEventHandler(EV_ConditionSelect);
+            CB_Condition.SelectionChanged += new SelectionChangedEventHandler(EV_SetCondition);
             TB_ProductName.KeyUp += new KeyEventHandler(EV_Search);
             TB_Quantity.KeyUp += new KeyEventHandler(EV_NumberChange);
             TB_PurchasePrice.KeyUp += new KeyEventHandler(EV_NumberChange);
@@ -80,7 +80,7 @@ namespace GestCloudv2.FloatWindows
             
         }
 
-        public ProductSelectWindow(Movement mov):base()
+        public ProductSelectWindow(Movement mov):this()
         {
             movement = mov;
         }
@@ -97,75 +97,51 @@ namespace GestCloudv2.FloatWindows
                 CB_ProductType.Items.Add(temp);
             }
 
+            if(movement.product != null)
+            {
+                foreach (ComboBoxItem item in CB_ProductType.Items)
+                {
+                    if (Convert.ToInt16(item.Name.Replace("productType", "")) == movement.product.ProductTypeID)
+                    {
+                        CB_ProductType.SelectedValue = item;
+                        break;
+                    }
+                }
+                TB_ProductName.Text = movement.product.Name;
+                TB_Quantity.Text = Convert.ToDecimal(movement.Quantity).ToString("0.##");
+                TB_PurchasePrice.Text = Convert.ToDecimal(movement.PurchasePrice).ToString("0.00");
+                TB_SalePrice.Text = Convert.ToDecimal(movement.SalePrice).ToString("0.00");
+
+                productsView.ProductName = movement.product.Name;
+
+                TB_Quantity.IsEnabled = true;
+                TB_PurchasePrice.IsEnabled = true;
+                TB_SalePrice.IsEnabled = true;
+
+                EV_ActivateButton();
+            }
+
             UpdateData();
 
-            /*if (movementSelected > 0)
-            {
-                Movement mov = movements.Where(m => m.MovementID == movementSelected).First();
-                TB_ProductName.Text = mov.product.Name;
-                TB_Quantity.Text = mov.Quantity.ToString();
-                TB_PurchasePrice.Text = mov.PurchasePrice.ToString();
-                TB_SalePrice.Text = mov.SalePrice.ToString();
-                productsView.movement.product = mov.product;
-                productsView.movement.Quantity = Convert.ToDecimal(mov.Quantity);
-                productsView.movement.PurchasePrice = Convert.ToDecimal(mov.PurchasePrice);
-
-                if (mov.IsAltered == 1)
-                    CH_IsAltered.IsChecked = true;
-
-                if (mov.IsFoil == 1)
-                    CH_IsFoil.IsChecked = true;
-
-                if (mov.IsPlayset == 1)
-                    CH_IsPlayset.IsChecked = true;
-
-                if (mov.IsSigned == 1)
-                    CH_IsSigned.IsChecked = true;
-
-                int productType = Convert.ToInt32(movements.Where(m => m.MovementID == movementSelected).First().product.ProductTypeID);
-                foreach (ComboBoxItem cmbItem in CB_ProductType.Items)
-                {
-                    if (Convert.ToInt32(cmbItem.Name.Replace("productType", "")) == productType)
-                    {
-                        CB_ProductType.SelectedValue = cmbItem;
-                    }
-                }
-
-                int expansion = productsView.GetExpansion(Convert.ToInt32(movements.Where(m => m.MovementID == movementSelected).First().product.ExternalID)).Id;
-                foreach (ComboBoxItem cmbItem in CB_Expansion.Items)
-                {
-                    if (Convert.ToInt32(cmbItem.Name.Replace("expansion", "")) == expansion)
-                    {
-                        CB_Expansion.SelectedValue = cmbItem;
-                    }
-                }
-
-                int condition = Convert.ToInt32(movements.Where(m => m.MovementID == movementSelected).First().condition.ConditionID);
-                foreach (ComboBoxItem cmbItem in CB_Condition.Items)
-                {
-                    if (Convert.ToInt32(cmbItem.Name.Replace("condition", "")) == condition)
-                    {
-                        CB_Condition.SelectedValue = cmbItem;
-                    }
-                }
-            }*/
+            if(movement.product != null)
+                DG_Products.SelectedIndex = 0;
         }
 
         public void EV_CheckChange(object sender, RoutedEventArgs e)
         {
-            productsView.movement.IsAltered = Convert.ToInt16(CH_IsAltered.IsChecked);
-            productsView.movement.IsSigned = Convert.ToInt16(CH_IsSigned.IsChecked);
-            productsView.movement.IsPlayset = Convert.ToInt16(CH_IsPlayset.IsChecked);
-            productsView.movement.IsFoil = Convert.ToInt16(CH_IsFoil.IsChecked);
+            movement.IsAltered = Convert.ToInt16(CH_IsAltered.IsChecked);
+            movement.IsSigned = Convert.ToInt16(CH_IsSigned.IsChecked);
+            movement.IsPlayset = Convert.ToInt16(CH_IsPlayset.IsChecked);
+            movement.IsFoil = Convert.ToInt16(CH_IsFoil.IsChecked);
         }
 
-        public void EV_ConditionSelect(object sender, RoutedEventArgs e)
+        public void EV_SetCondition(object sender, RoutedEventArgs e)
         {
-            ComboBoxItem temp1 = (ComboBoxItem)CB_Condition.SelectedItem;
+            ComboBoxItem temp = (ComboBoxItem)CB_Condition.SelectedItem;
 
-            if (CB_Condition.SelectedIndex >= 0)
+            if (temp != null)
             {
-                productsView.movement.condition = productsView.GetCondition(Convert.ToInt32(temp1.Name.Replace("condition", "")));
+                movement.condition = productsView.GetCondition(Convert.ToInt32(temp.Name.Replace("condition", "")));
             }
         }
 
@@ -181,17 +157,20 @@ namespace GestCloudv2.FloatWindows
                 movement.ProductID = Convert.ToInt32(dr.Row.ItemArray[0].ToString());
                 TB_ProductName.Text = movement.product.Name;
 
-                movement.Quantity = Convert.ToDecimal(1);
-                movement.PurchasePrice = Convert.ToDecimal(movement.product.PurchasePrice1);
-                movement.SalePrice = Convert.ToDecimal(movement.product.SalePrice1);
+                if (movement.Quantity == null || movement.PurchasePrice == null || movement.SalePrice == null)
+                {
+                    movement.Quantity = Convert.ToDecimal(1);
+                    movement.PurchasePrice = Convert.ToDecimal(movement.product.PurchasePrice1);
+                    movement.SalePrice = Convert.ToDecimal(movement.product.SalePrice1);
 
-                TB_Quantity.Text = ((decimal)movement.Quantity).ToString("0.##");
-                TB_PurchasePrice.Text = ((decimal)movement.PurchasePrice).ToString("0.00");
-                TB_SalePrice.Text = ((decimal)movement.SalePrice).ToString("0.00");
+                    TB_Quantity.Text = ((decimal)movement.Quantity).ToString("0.##");
+                    TB_PurchasePrice.Text = ((decimal)movement.PurchasePrice).ToString("0.00");
+                    TB_SalePrice.Text = ((decimal)movement.SalePrice).ToString("0.00");
 
-                TB_Quantity.IsEnabled = true;
-                TB_PurchasePrice.IsEnabled = true;
-                TB_SalePrice.IsEnabled = true;
+                    TB_Quantity.IsEnabled = true;
+                    TB_PurchasePrice.IsEnabled = true;
+                    TB_SalePrice.IsEnabled = true;
+                }
             }
 
             EV_ActivateButton();
@@ -204,24 +183,20 @@ namespace GestCloudv2.FloatWindows
 
         protected void EV_NumberLeft(object sender, RoutedEventArgs e)
         {
-            if((sender as TextBox).Text.Length == 0)
+            switch(Convert.ToInt16((sender as TextBox).Tag))
             {
-                switch(Convert.ToInt16((sender as TextBox).Tag))
-                {
-                    case 1:
-                        (sender as TextBox).Text = Convert.ToDecimal(0).ToString("0.##");
-                        break;
+                case 1:
+                    (sender as TextBox).Text = Convert.ToDecimal((sender as TextBox).Text).ToString("0.##");
+                    break;
 
-                    case 2:
-                        (sender as TextBox).Text = Convert.ToDecimal(0).ToString("0.00");
-                        break;
+                case 2:
+                    (sender as TextBox).Text = Convert.ToDecimal((sender as TextBox).Text).ToString("0.00");
+                    break;
 
-                    case 3:
-                        (sender as TextBox).Text = Convert.ToDecimal(0).ToString("0.00");
-                        break;
-                }
+                case 3:
+                    (sender as TextBox).Text = Convert.ToDecimal((sender as TextBox).Text).ToString("0.00");
+                    break;
             }
-            
         }
 
         protected void EV_NumberChange(object sender, RoutedEventArgs e)
@@ -321,12 +296,31 @@ namespace GestCloudv2.FloatWindows
                                     CB_Expansion.Items.Add(expansion);
                                 }
 
-                                CB_Expansion.SelectedIndex = 0;
+                                if (movement.product != null)
+                                {
+                                    if (movement.product.ProductTypeID == productsView.productType.ProductTypeID)
+                                    {
+                                        int num = productsView.GetExpansion(Convert.ToInt32(movement.product.ExternalID)).Id;
+                                        foreach (ComboBoxItem item in CB_Expansion.Items)
+                                        {
+                                            if (Convert.ToInt16(item.Name.Replace("expansion", "")) == num)
+                                            {
+                                                CB_Expansion.SelectedValue = item;
+                                                break;
+                                            }
+                                        }
+                                    }
+
+                                    else
+                                        CB_Expansion.SelectedIndex = 0;
+                                }
+
+                                else
+                                    CB_Expansion.SelectedIndex = 0;
                             }
 
                             if (CB_Condition.Items.Count == 0)
                             {
-                                movement.condition = productsView.GetConditionDefault();
                                 List<FrameworkDB.V1.Condition> conditions = productsView.GetConditions();
 
                                 foreach (FrameworkDB.V1.Condition ct in conditions)
@@ -336,6 +330,15 @@ namespace GestCloudv2.FloatWindows
                                     condition.Name = $"condition{ct.ConditionID}";
                                     CB_Condition.Items.Add(condition);
                                 }
+
+                                if (movement.product != null)
+                                {
+                                    if (movement.product.ProductTypeID != productsView.productType.ProductTypeID)
+                                        movement.condition = productsView.GetConditionDefault();
+                                }
+
+                                else
+                                    movement.condition = productsView.GetConditionDefault();
 
                                 foreach (ComboBoxItem item in CB_Condition.Items)
                                 {
@@ -398,7 +401,7 @@ namespace GestCloudv2.FloatWindows
 
         public void EV_ActivateButton()
         {
-            if (movement.product != null && movement.Quantity != null && movement.PurchasePrice != null && movement.SalePrice != null)
+                if (movement.product != null && movement.Quantity != null && movement.PurchasePrice != null && movement.SalePrice != null)
                 BT_SaveMovement.IsEnabled = true;
 
             else

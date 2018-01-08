@@ -57,7 +57,7 @@ namespace FrameworkView.V1
 
         public Expansion GetExpansion(int num)
         {
-            return db.MTGCards.Where(c => c.ProductID == num).First().expansion;
+            return db.MTGCards.Where(c => c.ProductID == num).Include(c => c.expansion).First().expansion;
         }
 
         public List<ProductType> GetProductTypes()

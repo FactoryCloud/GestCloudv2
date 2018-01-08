@@ -19,8 +19,12 @@ namespace FrameworkDB.V1
         public int? CompanyID { get; set; }
         public virtual Company company { get; set; }
 
-        [ForeignKey("FK_PurchaseDelivery_ProviderID_Providers")]
+        [ForeignKey("FK_PurchaseDeliveries_ProviderID_Providers")]
         public int? ProviderID { get; set; }
         public virtual Provider provider { get; set; }
+
+        [ForeignKey("FK_PurchaseDeliveries_StoreID_Stores")]
+        public int? StoreID { get; set; }
+        public virtual Store store { get; set; }
     }
 }

@@ -29,7 +29,6 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.Controller
         public Movement movementSelected;
         public MovementsView movementsView;
         public List<Movement> movements;
-        public Store store;
         public List<StockAdjust> stocksAdjust;
         public List<Movement> movementsOld;
         public int MovementLastID;
@@ -74,9 +73,8 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.Controller
             }
         }
 
-        public void SetStore(int num)
+        public virtual void SetStore(int num)
         {
-            store = db.Stores.Where(s => s.StoreID == num).First();
             TestMinimalInformation();
         }
 
@@ -115,7 +113,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.Controller
             switch (option)
             {
                 case 4:
-                    CT_Submenu = new Model.CT_Submenu(store, option);
+                    CT_Submenu = new Model.CT_Submenu(GetStore(), option);
                     break;
 
                 case 6:
@@ -159,7 +157,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.Controller
 
         virtual public Store GetStore()
         {
-            return store;
+            return new Store();
         }
 
         virtual public DateTime GetDate()
@@ -289,7 +287,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.Controller
                 db.Movements.Add(new Movement
                 {
                     ProductID = mov.ProductID,
-                    StoreID = store.StoreID,
+                    StoreID = GetStore().StoreID,
                     DocumentID = GetDocumentID(),
                     DocumentTypeID = GetDocumentType().DocumentTypeID,
                     Quantity = Convert.ToDecimal(mov.Quantity),

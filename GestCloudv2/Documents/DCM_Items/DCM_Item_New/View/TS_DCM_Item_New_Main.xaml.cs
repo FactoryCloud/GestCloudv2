@@ -27,20 +27,20 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.View
             if(GetController().Information["mode"] == 1)
             {
                 BT_MovementAdd.Visibility = Visibility.Hidden;
-                BT_MovementDelete.Visibility = Visibility.Hidden;
+                BT_MovementRemove.Visibility = Visibility.Hidden;
                 BT_MovementEdit.Visibility = Visibility.Hidden;
             }
 
             if(GetController().movementSelected != null)
             {
-                BT_MovementDelete.IsEnabled = true;
+                BT_MovementRemove.IsEnabled = true;
                 if (GetController().movementSelected.documentType == null)
                 {
                     BT_MovementEdit.IsEnabled = true;
                 }
             }
 
-            if (GetController().movementsView.movements.Count > 0 && GetController().Information["minimalInformation"] == 1)
+            if (GetController().movements.Count > 0 && GetController().Information["minimalInformation"] == 1)
             {
                 BT_Save.IsEnabled = true;
             }
@@ -49,6 +49,16 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.View
         private void EV_MovementAdd (object sender, RoutedEventArgs e)
         {
             GetController().MD_MovementAdd();
+        }
+
+        private void EV_MovementRemove(object sender, RoutedEventArgs e)
+        {
+            GetController().MD_MovementRemove();
+        }
+
+        private void EV_MovementEdit(object sender, RoutedEventArgs e)
+        {
+            GetController().MD_MovementEdit();
         }
 
         private void EV_Save(object sender, RoutedEventArgs e)
