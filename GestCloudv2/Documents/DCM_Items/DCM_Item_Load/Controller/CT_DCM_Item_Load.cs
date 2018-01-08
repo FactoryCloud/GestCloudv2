@@ -28,13 +28,16 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.Controller
         public int lastCode;
         public Movement movementSelected;
         public MovementsView movementsView;
+        public List<Movement> movements;
         public Store store;
         public List<StockAdjust> stocksAdjust;
-        public List<Movement> movements;
+        public List<Movement> movementsOld;
         public int MovementLastID;
 
         public CT_DCM_Item_Load(int editable)
         {
+            movements = new List<Movement>();
+            movementsOld = new List<Movement>();
             Information.Add("minimalInformation", 0);
             Information.Add("editable",editable);
             Information.Add("old_editable", 0);
@@ -48,13 +51,39 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.Controller
         {
             movementsView = new MovementsView(((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany, Information["operationType"]);
             movementsView.SetDate(GetDate());
-            MovementLastID = movements.OrderBy(m => m.MovementID).Last().MovementID;
 
-            foreach (Movement item in movements)
-            {
-                movementsView.MovementAdd(item);
-            }
+            movementsOld = db.Movements.Where(u => u.DocumentID == GetDocumentID() && (GetDocumentType().DocumentTypeID == u.DocumentTypeID)).Include(u => u.store)
+                .Include(i => i.product).Include(z => z.condition).Include(i => i.product.productType).ToList();
+
             UpdateComponents();
+            this.Loaded -= EV_PreStart;
+        }
+
+        public void SetMovementSelected(int num)
+        {
+            if(num > 0)
+                movementSelected = movementsOld.Where(m => m.MovementID == num).First();
+            
+            else
+                movementSelected = movements.Where(m => m.MovementID == num).First();
+
+            if (Information["editable"] == 1)
+            {
+                SetTS();
+                LeftSide.Content = TS_Page;
+            }
+        }
+
+        public void SetStore(int num)
+        {
+            store = db.Stores.Where(s => s.StoreID == num).First();
+            TestMinimalInformation();
+        }
+
+        virtual public void SetDate(DateTime date)
+        {
+            movementsView.SetDate(date);
+            TestMinimalInformation();
         }
 
         public virtual void SetCode(string code)
@@ -128,29 +157,45 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.Controller
             return "0";
         }
 
+        virtual public Store GetStore()
+        {
+            return store;
+        }
+
         virtual public DateTime GetDate()
         {
             return DateTime.Today;
         }
 
+        virtual public int GetDocumentID()
+        {
+            return 0;
+        }
+
+        virtual public DocumentType GetDocumentType()
+        {
+            return new DocumentType();
+        }
+
+        public int GetMovementNextID()
+        {
+            if (movements.Count > 0)
+            {
+                movements.OrderBy(m => m.MovementID);
+                return movements.First().MovementID - 1;
+            }
+
+            else
+                return -1;
+        }
+
+        virtual public int LastCode()
+        {
+            return 1;
+        }
+
         virtual public void CleanCode()
         {
-            TestMinimalInformation();
-        }
-
-        public void SetMovementSelected(int num)
-        {
-            movementSelected = movementsView.movements.Where(u => u.MovementID == num).First();
-            if (Information["editable"] == 1)
-            {
-                SetNV();
-                LeftSide.Content = TS_Page;
-            }
-        }
-
-        public void SetStore(int num)
-        {
-            store = db.Stores.Where(s => s.StoreID == num).First();
             TestMinimalInformation();
         }
 
@@ -159,16 +204,23 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.Controller
 
         }
 
-        virtual public void SetDate(DateTime date)
+        public override void EV_MovementAdd(Movement movement)
         {
-            movementsView.SetDate(date);
-            TestMinimalInformation();
+            movement.MovementID = GetMovementNextID();
+            movements.Add(movement);
+            movementSelected = null;
+            UpdateComponents();
         }
 
-        virtual public int LastCode()
+        public void EV_MovementsUpdate()
         {
-            return 1;
+            List<Movement> allMovements = new List<Movement>();
+            allMovements.AddRange(movementsOld);
+            allMovements.AddRange(movements);
+            movementsView.SetMovements(allMovements);
         }
+
+        
 
         virtual public void MD_MovementAdd()
         {
@@ -176,21 +228,18 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.Controller
 
         public void MD_MovementDelete()
         {
-            movementsView.MovementDelete(movementSelected.MovementID);
+            if(movementSelected.MovementID > 0)
+                movementsOld.Remove(movementsOld.Where(m => m.MovementID == movementSelected.MovementID).First());
+
+            else
+                movements.Remove(movements.Where(m => m.MovementID == movementSelected.MovementID).First());
+
             movementSelected = null;
             UpdateComponents();
         }
 
         virtual public void MD_MovementEdit()
         {
-        }
-
-        public override void EV_MovementAdd(Movement movement)
-        {
-            movement.MovementID = movementsView.MovementNextID(MovementLastID);
-            movementsView.MovementAdd(movement);
-            movementSelected = null;
-            UpdateComponents();
         }
 
         virtual public Boolean CodeExist(string stocksAdjust)
@@ -222,7 +271,35 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.Controller
 
         virtual public void SaveDocument()
         {
+            db.Dispose();
+
+            db = new GestCloudDB();
+
+            List<Movement> movementsTemp = db.Movements.Where(u => u.DocumentID == GetDocumentID() && (GetDocumentType().DocumentTypeID == u.DocumentTypeID)).Include(u => u.store)
+                .Include(i => i.product).Include(z => z.condition).Include(i => i.product.productType).ToList();
+
+            foreach (Movement mov in movementsTemp)
+            {
+                if (movementsOld.Where(m => m.MovementID == mov.MovementID).ToList().Count == 0)
+                    db.Movements.Remove(db.Movements.Where(m => m.MovementID == mov.MovementID).First());
+            }
+
+            foreach(Movement mov in movements)
+            {
+                db.Movements.Add(new Movement
+                {
+                    ProductID = mov.ProductID,
+                    StoreID = store.StoreID,
+                    DocumentID = GetDocumentID(),
+                    DocumentTypeID = GetDocumentType().DocumentTypeID,
+                    Quantity = Convert.ToDecimal(mov.Quantity),
+                    PurchasePrice = Convert.ToDecimal(mov.PurchasePrice),
+                    SalePrice = Convert.ToDecimal(mov.SalePrice)
+                });
+            }
+
             db.SaveChanges();
+
             MessageBox.Show("Datos guardados correctamente");
 
             Information["fieldEmpty"] = 0;

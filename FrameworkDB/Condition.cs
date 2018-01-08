@@ -10,7 +10,7 @@ namespace FrameworkDB.V1
     {
         public int ConditionID { get; set; }
         public string Name { get; set; }
-        public string Cod { get; set; }
+        public string Code { get; set; }
 
         public virtual List<Movement> Movements { get; set; }
     }

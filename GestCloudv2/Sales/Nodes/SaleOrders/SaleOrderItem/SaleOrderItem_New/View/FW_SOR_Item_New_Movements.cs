@@ -13,12 +13,12 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_New.Vie
 {
     public partial class FW_SOR_Item_New_Movements : FloatWindows.ProductSelectWindow
     {
-        public FW_SOR_Item_New_Movements(int option, List<Movement> movements) : base(option, movements)
+        public FW_SOR_Item_New_Movements() : base()
         {
-            
+
         }
 
-        public FW_SOR_Item_New_Movements(int option, List<Movement> movements, int mov) : base(option, movements, mov)
+        public FW_SOR_Item_New_Movements(Movement mov) : base(mov)
         {
 
         }

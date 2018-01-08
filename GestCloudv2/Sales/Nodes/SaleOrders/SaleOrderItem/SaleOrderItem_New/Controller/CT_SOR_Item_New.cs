@@ -89,7 +89,7 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_New.Con
 
         override public void MD_MovementAdd()
         {
-            View.FW_SOR_Item_New_Movements floatWindow = new View.FW_SOR_Item_New_Movements(1, movementsView.movements);
+            View.FW_SOR_Item_New_Movements floatWindow = new View.FW_SOR_Item_New_Movements();
             floatWindow.Show();
         }
 

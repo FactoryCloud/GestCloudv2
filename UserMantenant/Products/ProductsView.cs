@@ -15,31 +15,23 @@ namespace FrameworkView.V1
     {
         List<Product> products { get; set; }
         public string ProductName { get; set; }
-        public GestCloudDB db;
-
-        //int option;
-        public Product product;
-        public FrameworkDB.V1.Condition condition;
         public ProductType productType;
         public Expansion expansion;
-        public bool Altered;
-        public bool Signed;
-        public bool Foil;
-        public bool Playset;
-        public decimal Quantity;
-        public decimal PurchasePrice;
-        public decimal SalePrice;
+        public GestCloudDB db;
+
+        //public int option;
+        public Movement movement;
         private DataTable dt;
 
         public ProductsView()
         {
             db = new GestCloudDB();
             dt = new DataTable();
-            //product = new Product();
-            productType = new ProductType();
+            //option = 0;
             ProductName = "";
 
-            //this.option = option;
+            movement = new Movement();
+            movement.condition = db.Conditions.Where(c => c.Code.Contains("NM")).First();
 
             dt.Columns.Add("Codigo", typeof(int));
             dt.Columns.Add("Nombre", typeof(string));
@@ -49,7 +41,8 @@ namespace FrameworkView.V1
 
         public void SetExpansion(int num)
         {
-            expansion = db.Expansions.First(ex => ex.Id == num);
+            if (num > 0)
+                expansion = db.Expansions.First(ex => ex.Id == num);
         }
 
         public void SetProductType(int num)
@@ -77,6 +70,11 @@ namespace FrameworkView.V1
             return db.Conditions.Where(ex => ex.ConditionID == num).First();
         }
 
+        public FrameworkDB.V1.Condition GetConditionDefault()
+        {
+            return db.Conditions.Where(c => c.Code.Contains("NM")).First();
+        }
+
         public Product GetProduct(int num)
         {
             return db.Products.Where(ex => ex.ProductID == num).Include(pt => pt.productType).First();
@@ -89,64 +87,45 @@ namespace FrameworkView.V1
 
         public Movement UpdateMovement(Movement movement)
         {
-            movement.product = product;
-            movement.ProductID = product.ProductID;
-            movement.condition = condition;
-            movement.Quantity = Convert.ToDecimal(Quantity);
-            movement.IsAltered = Convert.ToInt16(Altered);
-            movement.IsFoil = Convert.ToInt16(Foil);
-            movement.IsPlayset = Convert.ToInt16(Playset);
-            movement.IsSigned = Convert.ToInt16(Signed);
-            movement.PurchasePrice = Convert.ToDecimal(PurchasePrice);
-            movement.SalePrice = Convert.ToDecimal(SalePrice);
+            movement.product = this.movement.product;
+            movement.ProductID = this.movement.product.ProductID;
+            movement.condition = this.movement.condition;
+            movement.Quantity = Convert.ToDecimal(this.movement.Quantity);
+            movement.IsAltered = Convert.ToInt16(this.movement.IsAltered);
+            movement.IsFoil = Convert.ToInt16(this.movement.IsFoil);
+            movement.IsPlayset = Convert.ToInt16(this.movement.IsPlayset);
+            movement.IsSigned = Convert.ToInt16(this.movement.IsSigned);
+            movement.PurchasePrice = Convert.ToDecimal(this.movement.PurchasePrice);
+            movement.SalePrice = Convert.ToDecimal(this.movement.SalePrice);
 
             return movement;
         }
 
-        /*public void UpdateTable()
-        {
-            List<Product> products = new List<Product>();
-            if (productType.ProductTypeID > 0)
-            {
-                switch(productType.ProductTypeID)
-                {
-                    case 1:
-                        if (expansion != null)
-                            products = db.Products.Where(pr => pr.Name.ToLower()
-                                .Contains($"({expansion.Abbreviation.ToLower()})") &&
-                                pr.Name.ToLower().Contains(ProductName.ToLower())).ToList();
-
-                        else
-                            products = db.Products.Where(pr => 
-                                pr.Name.ToLower().Contains(ProductName.ToLower())).ToList();
-                        /*else
-                        {
-                            List<MTGCard> cards = CardFilter();
-                            if (cards != null)
-                            {
-                                foreach (MTGCard item in cards)
-                                {
-                                    Product temp = db.Products.First(p => p.ExternalID == item.ProductID);
-                                    products.Add(temp);
-                                }
-                            }
-                        }*/
-        /*                break;
-                }
-
-                products.OrderBy(p => p.Name);
-                dt.Clear();
-                
-                foreach (Product item in products)
-                {
-                    dt.Rows.Add(item.ProductID, item.Name, item.productType.Name, item.Price);
-                }
-            }
-        }*/
-
         public void UpdateTable()
         {
-            products = db.Products.ToList();
+            if (productType != null)
+            {
+                switch (productType.Name)
+                {
+                    case "MTGCard":
+                        if (expansion != null || ProductName.Length > 3)
+                            products = db.Products.Where(pr => pr.Name.ToLower()
+                                .Contains($"({expansion.Abbreviation.ToLower()})") &&
+                                pr.Name.ToLower().Contains(ProductName.ToLower())).OrderBy(p => p.Name).ToList();
+
+                        else
+                            products = new List<Product>();
+                        break;
+
+                    default:
+                        products = db.Products.Where(p => p.productType.ProductTypeID == productType.ProductTypeID
+                            && p.Name.ToLower().Contains(ProductName.ToLower())).OrderBy(p => p.Name).ToList();
+                        break;
+                }
+            }
+
+            else
+                EV_FilterName(0);
 
             dt.Clear();
             foreach (Product product in products)
@@ -155,30 +134,24 @@ namespace FrameworkView.V1
             }
         }
 
-        private List<MTGCard> CardFilter()
+        public void EV_FilterName(int option)
         {
-            if (ProductName.Length == 0 && expansion == null)
+            switch(option)
             {
-                return null;
-            }
+                case 0:
+                    if (ProductName.Length > 3)
+                        products = db.Products.Where(p => p.Name.ToLower().Contains(ProductName.ToLower())).OrderBy(p => p.Name).ToList();
 
-            else if (ProductName.Length > 0 && expansion == null)
-            {
-                return db.MTGCards.Where(c => c.EnName.ToLower().Contains(ProductName.ToLower())).ToList();
-            }
+                    else
+                        products = new List<Product>();
 
-            else if (ProductName.Length > 0 && expansion.ExpansionID > 0)
-            {
-                return db.MTGCards.Where(c => c.ExpansionID == expansion.Id && c.EnName.ToLower().Contains(ProductName.ToLower())).ToList();
-            }
+                    break;
 
-            else if (ProductName.Length == 0 && expansion.ExpansionID > 0)
-            {
-                return db.MTGCards.Where(c => c.ExpansionID == expansion.Id).ToList();
+                case 1:
+                        products = products.Where(p => p.Name.ToLower().Contains(ProductName.ToLower())).OrderBy(p => p.Name).ToList();
+                    break;
             }
-
-            else
-                return null;
+            
         }
 
         public IEnumerable GetTable()

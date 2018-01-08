@@ -13,12 +13,12 @@ namespace GestCloudv2.Sales.Nodes.SaleInvoices.SaleInvoiceItem.SaleInvoiceItem_L
 {
     public partial class FW_SIN_Item_Load_Movements : FloatWindows.ProductSelectWindow
     {
-        public FW_SIN_Item_Load_Movements(int option, List<Movement> movements) : base(option, movements)
+        public FW_SIN_Item_Load_Movements() : base()
         {
-            
+
         }
 
-        public FW_SIN_Item_Load_Movements(int option, List<Movement> movements, int mov) : base(option, movements, mov)
+        public FW_SIN_Item_Load_Movements(Movement mov) : base(mov)
         {
 
         }

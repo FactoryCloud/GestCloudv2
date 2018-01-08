@@ -19,6 +19,7 @@ using System.ComponentModel;
 using System.Windows.Threading;
 using System.Windows.Controls.Primitives;
 using Microsoft.EntityFrameworkCore;
+using System.Text.RegularExpressions;
 
 namespace GestCloudv2.FloatWindows
 {
@@ -27,19 +28,18 @@ namespace GestCloudv2.FloatWindows
     /// </summary>
     public partial class ProductSelectWindow : Window
     {
-
-        public Movement movement;
-        private List<Movement> movements;
         public ProductsView productsView;
-        public int movementSelected;
-        string type { get; set; }
+        public Movement movement;
+
+        public static string ReplaceLastOccurrence(string Source, string Find, string Replace)
+        {
+            int Place = Source.LastIndexOf(Find);
+            string result = Source.Remove(Place, Find.Length).Insert(Place, Replace);
+            return result;
+        }
 
         public ProductSelectWindow()
-        {
-        }
-
-        public ProductSelectWindow(int option, List<Movement> movements)
-        {
+        { 
             InitializeComponent();
 
             this.Loaded += new RoutedEventHandler(EV_Start);
@@ -56,60 +56,38 @@ namespace GestCloudv2.FloatWindows
             CB_Expansion.SelectionChanged += new SelectionChangedEventHandler(EV_Search);
             CB_Condition.SelectionChanged += new SelectionChangedEventHandler(EV_ConditionSelect);
             TB_ProductName.KeyUp += new KeyEventHandler(EV_Search);
-            TB_Quantity.KeyUp += new KeyEventHandler(EV_QuantityChange);
-            TB_PurchasePrice.KeyUp += new KeyEventHandler(EV_PurchaseChange);
-            TB_SalePrice.KeyUp += new KeyEventHandler(EV_SalePriceChange);
+            TB_Quantity.KeyUp += new KeyEventHandler(EV_NumberChange);
+            TB_PurchasePrice.KeyUp += new KeyEventHandler(EV_NumberChange);
+            TB_SalePrice.KeyUp += new KeyEventHandler(EV_NumberChange);
+
+            TB_Quantity.GotMouseCapture += new MouseEventHandler(EV_NumberEnter);
+            TB_PurchasePrice.GotMouseCapture += new MouseEventHandler(EV_NumberEnter);
+            TB_SalePrice.GotMouseCapture += new MouseEventHandler(EV_NumberEnter);
+
+            TB_Quantity.GotKeyboardFocus += new KeyboardFocusChangedEventHandler(EV_NumberEnter);
+            TB_PurchasePrice.GotKeyboardFocus += new KeyboardFocusChangedEventHandler(EV_NumberEnter);
+            TB_SalePrice.GotKeyboardFocus += new KeyboardFocusChangedEventHandler(EV_NumberEnter);
+
+            TB_Quantity.LostFocus += new RoutedEventHandler(EV_NumberLeft);
+            TB_PurchasePrice.LostFocus += new RoutedEventHandler(EV_NumberLeft);
+            TB_SalePrice.LostFocus += new RoutedEventHandler(EV_NumberLeft);
+
             DG_Products.MouseLeftButtonUp += new MouseButtonEventHandler(EV_ProductsSelect);
 
             productsView = new ProductsView();
+
             movement = new Movement();
-            movementSelected = 0;
-            UpdateData();
+            
         }
 
-        public ProductSelectWindow(int option, List<Movement> movements, int mov)
+        public ProductSelectWindow(Movement mov):base()
         {
-            InitializeComponent();
-
-            this.Loaded += new RoutedEventHandler(EV_Start);
-
-            CH_IsAltered.Unchecked += new RoutedEventHandler(EV_CheckChange);
-            CH_IsFoil.Unchecked += new RoutedEventHandler(EV_CheckChange);
-            CH_IsPlayset.Unchecked += new RoutedEventHandler(EV_CheckChange);
-            CH_IsSigned.Unchecked += new RoutedEventHandler(EV_CheckChange);
-            CH_IsAltered.Checked += new RoutedEventHandler(EV_CheckChange);
-            CH_IsFoil.Checked += new RoutedEventHandler(EV_CheckChange);
-            CH_IsPlayset.Checked += new RoutedEventHandler(EV_CheckChange);
-            CH_IsSigned.Checked += new RoutedEventHandler(EV_CheckChange);
-            CB_ProductType.SelectionChanged += new SelectionChangedEventHandler(EV_Search);
-            CB_Expansion.SelectionChanged += new SelectionChangedEventHandler(EV_Search);
-            CB_Condition.SelectionChanged += new SelectionChangedEventHandler(EV_ConditionSelect);
-            TB_ProductName.KeyUp += new KeyEventHandler(EV_Search);
-            TB_Quantity.KeyUp += new KeyEventHandler(EV_QuantityChange);
-            TB_PurchasePrice.KeyUp += new KeyEventHandler(EV_PurchaseChange);
-            TB_SalePrice.KeyUp += new KeyEventHandler(EV_SalePriceChange);
-            DG_Products.MouseLeftButtonUp += new MouseButtonEventHandler(EV_ProductsSelect);
-
-            productsView = new ProductsView();
-            movement = new Movement();
-            movementSelected = mov;
-            this.movements = movements;
-            UpdateData();
+            movement = mov;
         }
 
         protected void EV_Start(object sender, RoutedEventArgs e)
         {
-            List<Expansion> expansions = productsView.GetExpansions();
             List<ProductType> productTypes = productsView.GetProductTypes();
-            List<FrameworkDB.V1.Condition> conditions = productsView.GetConditions();
-
-            foreach (Expansion exp in expansions)
-            {
-                ComboBoxItem temp = new ComboBoxItem();
-                temp.Content = $"{exp.EnName} ({exp.Abbreviation})";
-                temp.Name = $"expansion{exp.Id}";
-                CB_Expansion.Items.Add(temp);
-            }
 
             foreach (ProductType pt in productTypes)
             {
@@ -119,24 +97,18 @@ namespace GestCloudv2.FloatWindows
                 CB_ProductType.Items.Add(temp);
             }
 
-            foreach (FrameworkDB.V1.Condition ct in conditions)
-            {
-                ComboBoxItem temp = new ComboBoxItem();
-                temp.Content = $"{ct.Name}";
-                temp.Name = $"condition{ct.ConditionID}";
-                CB_Condition.Items.Add(temp);
-            }
+            UpdateData();
 
-            if (movementSelected > 0)
+            /*if (movementSelected > 0)
             {
                 Movement mov = movements.Where(m => m.MovementID == movementSelected).First();
                 TB_ProductName.Text = mov.product.Name;
                 TB_Quantity.Text = mov.Quantity.ToString();
                 TB_PurchasePrice.Text = mov.PurchasePrice.ToString();
                 TB_SalePrice.Text = mov.SalePrice.ToString();
-                productsView.product = mov.product;
-                productsView.Quantity = Convert.ToDecimal(mov.Quantity);
-                productsView.PurchasePrice = Convert.ToDecimal(mov.Base);
+                productsView.movement.product = mov.product;
+                productsView.movement.Quantity = Convert.ToDecimal(mov.Quantity);
+                productsView.movement.PurchasePrice = Convert.ToDecimal(mov.PurchasePrice);
 
                 if (mov.IsAltered == 1)
                     CH_IsAltered.IsChecked = true;
@@ -176,27 +148,15 @@ namespace GestCloudv2.FloatWindows
                         CB_Condition.SelectedValue = cmbItem;
                     }
                 }
-            }
-
-            else
-            {
-                foreach (ComboBoxItem cmbItem in CB_ProductType.Items)
-                {
-                    if (Convert.ToInt32(cmbItem.Name.Replace("productType", "")) == 1)
-                    {
-                        CB_ProductType.SelectedValue = cmbItem;
-                    }
-                }
-                CB_Condition.SelectedIndex = 0;
-            }
+            }*/
         }
 
         public void EV_CheckChange(object sender, RoutedEventArgs e)
         {
-            productsView.Altered = Convert.ToBoolean(CH_IsAltered.IsChecked);
-            productsView.Signed = Convert.ToBoolean(CH_IsSigned.IsChecked);
-            productsView.Playset = Convert.ToBoolean(CH_IsPlayset.IsChecked);
-            productsView.Foil = Convert.ToBoolean(CH_IsFoil.IsChecked);
+            productsView.movement.IsAltered = Convert.ToInt16(CH_IsAltered.IsChecked);
+            productsView.movement.IsSigned = Convert.ToInt16(CH_IsSigned.IsChecked);
+            productsView.movement.IsPlayset = Convert.ToInt16(CH_IsPlayset.IsChecked);
+            productsView.movement.IsFoil = Convert.ToInt16(CH_IsFoil.IsChecked);
         }
 
         public void EV_ConditionSelect(object sender, RoutedEventArgs e)
@@ -205,7 +165,7 @@ namespace GestCloudv2.FloatWindows
 
             if (CB_Condition.SelectedIndex >= 0)
             {
-                productsView.condition = productsView.GetCondition(Convert.ToInt32(temp1.Name.Replace("condition", "")));
+                productsView.movement.condition = productsView.GetCondition(Convert.ToInt32(temp1.Name.Replace("condition", "")));
             }
         }
 
@@ -217,137 +177,232 @@ namespace GestCloudv2.FloatWindows
             {
                 DataGridRow row = (DataGridRow)DG_Products.ItemContainerGenerator.ContainerFromIndex(product);
                 DataRowView dr = row.Item as DataRowView;
-                productsView.product = productsView.GetProduct(Int32.Parse(dr.Row.ItemArray[0].ToString()));
-                TB_ProductName.Text = productsView.product.Name;
+                movement.product = productsView.GetProduct(Convert.ToInt32(dr.Row.ItemArray[0].ToString()));
+                movement.ProductID = Convert.ToInt32(dr.Row.ItemArray[0].ToString());
+                TB_ProductName.Text = movement.product.Name;
+
+                movement.Quantity = Convert.ToDecimal(1);
+                movement.PurchasePrice = Convert.ToDecimal(movement.product.PurchasePrice1);
+                movement.SalePrice = Convert.ToDecimal(movement.product.SalePrice1);
+
+                TB_Quantity.Text = ((decimal)movement.Quantity).ToString("0.##");
+                TB_PurchasePrice.Text = ((decimal)movement.PurchasePrice).ToString("0.00");
+                TB_SalePrice.Text = ((decimal)movement.SalePrice).ToString("0.00");
+
+                TB_Quantity.IsEnabled = true;
+                TB_PurchasePrice.IsEnabled = true;
+                TB_SalePrice.IsEnabled = true;
             }
+
+            EV_ActivateButton();
         }
 
-        protected void EV_QuantityChange(object sender, RoutedEventArgs e)
+        protected void EV_NumberEnter(object sender, RoutedEventArgs e)
         {
-            if (System.Text.RegularExpressions.Regex.IsMatch(TB_Quantity.Text, "[^0-9]"))
-            {
-                if (SP_Quantity.Children.Count == 1)
-                {
-                    TextBlock message = new TextBlock();
-                    message.TextWrapping = TextWrapping.WrapWithOverflow;
-                    message.Text = "Solo se permiten números";
-                    SP_Quantity.Children.Add(message);
-                }
-                TB_Quantity.Text = TB_Quantity.Text.Remove(TB_Quantity.Text.Length - 1);
-            }
-
-            else
-            {
-                if (SP_Quantity.Children.Count == 2)
-                {
-                    SP_Quantity.Children.RemoveAt(SP_Quantity.Children.Count - 1);
-                }
-            }
-
-            if (decimal.TryParse(TB_Quantity.Text, out decimal d))
-            {
-                productsView.Quantity = decimal.Parse(TB_Quantity.Text);
-            }
+            (sender as TextBox).SelectAll();
         }
 
-        protected void EV_PurchaseChange(object sender, RoutedEventArgs e)
+        protected void EV_NumberLeft(object sender, RoutedEventArgs e)
         {
-            if (System.Text.RegularExpressions.Regex.IsMatch(TB_Quantity.Text, "[^0-9]"))
+            if((sender as TextBox).Text.Length == 0)
             {
-                if (SP_PurchasePrice.Children.Count == 1)
+                switch(Convert.ToInt16((sender as TextBox).Tag))
                 {
-                    TextBlock message = new TextBlock();
-                    message.TextWrapping = TextWrapping.WrapWithOverflow;
-                    message.Text = "Solo se permiten números";
-                    SP_PurchasePrice.Children.Add(message);
-                }
-                TB_PurchasePrice.Text = TB_PurchasePrice.Text.Remove(TB_PurchasePrice.Text.Length - 1);
-            }
+                    case 1:
+                        (sender as TextBox).Text = Convert.ToDecimal(0).ToString("0.##");
+                        break;
 
-            else
-            {
-                if (SP_PurchasePrice.Children.Count == 2)
-                {
-                    SP_PurchasePrice.Children.RemoveAt(SP_PurchasePrice.Children.Count - 1);
+                    case 2:
+                        (sender as TextBox).Text = Convert.ToDecimal(0).ToString("0.00");
+                        break;
+
+                    case 3:
+                        (sender as TextBox).Text = Convert.ToDecimal(0).ToString("0.00");
+                        break;
                 }
             }
-
-            if (decimal.TryParse(TB_PurchasePrice.Text, out decimal d))
-            {
-                productsView.PurchasePrice = decimal.Parse(TB_PurchasePrice.Text);
-            }
+            
         }
 
-        protected void EV_SalePriceChange(object sender, RoutedEventArgs e)
+        protected void EV_NumberChange(object sender, RoutedEventArgs e)
         {
-            if (System.Text.RegularExpressions.Regex.IsMatch(TB_Quantity.Text, "[^0-9]"))
+            if (Regex.Matches(((TextBox)sender).Text, "[^0-9,]").Count > 0)
             {
-                if (SP_SalePrice.Children.Count == 1)
-                {
-                    TextBlock message = new TextBlock();
-                    message.TextWrapping = TextWrapping.WrapWithOverflow;
-                    message.Text = "Solo se permiten números";
-                    SP_SalePrice.Children.Add(message);
-                }
-                TB_SalePrice.Text = TB_SalePrice.Text.Remove(TB_SalePrice.Text.Length - 1);
+                ((TextBox)sender).Text = Regex.Replace(((TextBox)sender).Text, "[.]", ",");
+                ((TextBox)sender).Text = Regex.Replace(((TextBox)sender).Text, "[^0-9,]", "");
+                ((TextBox)sender).SelectionStart = ((TextBox)sender).Text.Length;
             }
 
-            else
+            if (Regex.Matches(((TextBox)sender).Text, "[.,]").Count > 1)
             {
-                if (SP_SalePrice.Children.Count == 2)
-                {
-                    SP_SalePrice.Children.RemoveAt(SP_SalePrice.Children.Count - 1);
-                }
+                ((TextBox)sender).Text = ReplaceLastOccurrence(((TextBox)sender).Text, ",", "");
+                ((TextBox)sender).SelectionStart = ((TextBox)sender).Text.Length;
             }
 
-            if (decimal.TryParse(TB_SalePrice.Text, out decimal d))
+            switch (Convert.ToInt16(((TextBox)sender).Tag))
             {
-                productsView.SalePrice = decimal.Parse(TB_SalePrice.Text);
+                case 1:
+                    if (TB_Quantity.Text.Length > 0)
+                        movement.Quantity = Convert.ToDecimal(TB_Quantity.Text);
+
+                    else
+                    {
+                        TB_Quantity.Text = Convert.ToDecimal(0).ToString("#.##");
+                        movement.Quantity = Convert.ToDecimal(0);
+                    }
+                    break;
+
+                case 2:
+                    if(TB_PurchasePrice.Text.Length > 0)
+                        movement.PurchasePrice = Convert.ToDecimal(TB_PurchasePrice.Text);
+
+                    else
+                    {
+                        TB_PurchasePrice.Text = Convert.ToDecimal(0).ToString("#.##");
+                        TB_SalePrice.SelectionStart = 0;
+                        movement.PurchasePrice = Convert.ToDecimal(0);
+                    }
+                    break;
+
+                case 3:
+                    if (TB_SalePrice.Text.Length > 0)
+                        movement.SalePrice = Convert.ToDecimal(TB_SalePrice.Text);
+
+                    else
+                    {
+                        TB_SalePrice.Text = Convert.ToDecimal(0).ToString("#.##");
+                        TB_SalePrice.SelectionStart = 0;
+                        movement.SalePrice = Convert.ToDecimal(0);
+                    }
+                    break;
             }
+
+            EV_ActivateButton();
         }
 
         protected void EV_SaveMovement(object sender, RoutedEventArgs e)
         {
-            if (movementSelected > 0)
-            {
-                productsView.UpdateMovement(movements.Where(m => m.MovementID == movementSelected).First());
-                GetController().UpdateComponents();
-            }
-
-            else
-            {
-                movement = productsView.UpdateMovement(movement);
-                GetController().EV_MovementAdd(movement);
-            }
+            GetController().EV_MovementAdd(movement);
 
             this.Close();
         }
 
         protected void EV_Search(object sender, RoutedEventArgs e)
         {
-            productsView.ProductName = TB_ProductName.Text;
-
-            ComboBoxItem temp1 = (ComboBoxItem)CB_ProductType.SelectedItem;
-            ComboBoxItem temp2 = (ComboBoxItem)CB_Expansion.SelectedItem;
-
-            if (CB_ProductType.SelectedIndex >= 0)
+            if(sender.GetType() == typeof(ComboBox))
             {
-                productsView.SetProductType(Convert.ToInt32(temp1.Name.Replace("productType", "")));
+                ComboBoxItem temp;
+                switch (Convert.ToInt16(((ComboBox)sender).Tag))
+                {
+                    // productType
+                    case 1:
+                        temp = (ComboBoxItem)CB_ProductType.SelectedItem;
+                        if (temp != null)
+                        {
+                            productsView.SetProductType(Convert.ToInt32(temp.Name.Replace("productType", "")));
+                        }
+
+                        if(productsView.productType.Name.Contains("MTGCard"))
+                        {
+                            if (CB_Expansion.Items.Count == 0)
+                            {
+                                List<Expansion> expansions = productsView.GetExpansions();
+
+                                ComboBoxItem expansionDefault = new ComboBoxItem();
+                                expansionDefault.Content = $"";
+                                expansionDefault.Name = $"expansion0";
+                                CB_Expansion.Items.Add(expansionDefault);
+
+                                foreach (Expansion exp in expansions)
+                                {
+                                    ComboBoxItem expansion = new ComboBoxItem();
+                                    expansion.Content = $"{exp.EnName} ({exp.Abbreviation})";
+                                    expansion.Name = $"expansion{exp.Id}";
+                                    CB_Expansion.Items.Add(expansion);
+                                }
+
+                                CB_Expansion.SelectedIndex = 0;
+                            }
+
+                            if (CB_Condition.Items.Count == 0)
+                            {
+                                movement.condition = productsView.GetConditionDefault();
+                                List<FrameworkDB.V1.Condition> conditions = productsView.GetConditions();
+
+                                foreach (FrameworkDB.V1.Condition ct in conditions)
+                                {
+                                    ComboBoxItem condition = new ComboBoxItem();
+                                    condition.Content = $"{ct.Name}";
+                                    condition.Name = $"condition{ct.ConditionID}";
+                                    CB_Condition.Items.Add(condition);
+                                }
+
+                                foreach (ComboBoxItem item in CB_Condition.Items)
+                                {
+                                    if (Convert.ToInt16(item.Name.Replace("condition", "")) == movement.condition.ConditionID)
+                                    {
+                                        CB_Condition.SelectedValue = item;
+                                        break;
+                                    }
+                                }
+                            }
+                            GB_MTGCard.Visibility = Visibility.Visible;
+                        }
+
+                        else
+                        {
+                            productsView.expansion = null;
+                            movement.condition = null;
+
+                            CB_Expansion.Items.Clear();
+                            CB_Condition.Items.Clear();
+
+                            GB_MTGCard.Visibility = Visibility.Hidden;
+                        }
+                        break;
+                    
+                    // expansion
+                    case 2:
+                        temp = (ComboBoxItem)CB_Expansion.SelectedItem;
+                        if (temp != null)
+                        {
+                            productsView.SetExpansion(Convert.ToInt32(temp.Name.Replace("expansion", "")));
+                        }
+                        break;
+                }
             }
 
-            if (CB_Expansion.SelectedIndex >= 0)
+            else if(sender.GetType() == typeof(TextBox))
             {
-                productsView.SetExpansion(Convert.ToInt32(temp2.Name.Replace("expansion", "")));
+                switch (Convert.ToInt16(((TextBox)sender).Tag))
+                {
+                    // productName
+                    case 1:
+                        productsView.ProductName = TB_ProductName.Text;
+                        break;
+
+                    // expansion
+                    case 2:
+                        break;
+                }
             }
 
-            if(TB_ProductName.Text.Length >= 4 || CB_Expansion.SelectedIndex >= 0)
-                UpdateData();
+            UpdateData();
         }
 
         public void UpdateData()
         {
             DG_Products.ItemsSource = null;
             DG_Products.ItemsSource = productsView.GetTable();
+        }
+
+        public void EV_ActivateButton()
+        {
+            if (movement.product != null && movement.Quantity != null && movement.PurchasePrice != null && movement.SalePrice != null)
+                BT_SaveMovement.IsEnabled = true;
+
+            else
+                BT_SaveMovement.IsEnabled = false;
         }
 
         virtual public Main.Controller.CT_Common GetController()

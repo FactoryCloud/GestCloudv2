@@ -121,13 +121,13 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseInvoices.PurchaseInvoiceItem.Purch
 
         override public void MD_MovementAdd()
         {
-            View.FW_PIN_Item_Load_Movements floatWindow = new View.FW_PIN_Item_Load_Movements(1, movementsView.movements);
+            View.FW_PIN_Item_Load_Movements floatWindow = new View.FW_PIN_Item_Load_Movements();
             floatWindow.Show();
         }
 
         override public void MD_MovementEdit()
         {
-            View.FW_PIN_Item_Load_Movements floatWindow = new View.FW_PIN_Item_Load_Movements(1, movementsView.movements, movementSelected.MovementID);
+            View.FW_PIN_Item_Load_Movements floatWindow = new View.FW_PIN_Item_Load_Movements(movementSelected);
             floatWindow.Show();
         }
 

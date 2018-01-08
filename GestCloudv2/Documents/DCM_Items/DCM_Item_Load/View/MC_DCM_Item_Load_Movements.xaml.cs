@@ -32,6 +32,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.View
 
         private void EV_Start(object sender, RoutedEventArgs e)
         {
+            GetController().EV_MovementsUpdate();
             GetController().EV_UpdateSubMenu(0);
             UpdateData();
             UpdateBottom();
@@ -39,11 +40,9 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.View
 
         public void EV_MovementsSelect(object sender, RoutedEventArgs e)
         {
-            int movement = DG_Movements.SelectedIndex;
-
-            if (movement >= 0)
+            if (DG_Movements.SelectedIndex >= 0)
             {
-                DataGridRow row = (DataGridRow)DG_Movements.ItemContainerGenerator.ContainerFromIndex(movement);
+                DataGridRow row = (DataGridRow)DG_Movements.ItemContainerGenerator.ContainerFromIndex(DG_Movements.SelectedIndex);
                 DataRowView dr = row.Item as DataRowView;
                 GetController().SetMovementSelected(Int32.Parse(dr.Row.ItemArray[0].ToString()));
             }

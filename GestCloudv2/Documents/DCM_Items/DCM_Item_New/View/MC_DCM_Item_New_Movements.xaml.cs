@@ -26,8 +26,10 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.View
         {
             InitializeComponent();
 
-            this.Loaded += new RoutedEventHandler(EV_Start);
             DG_Movements.MouseLeftButtonUp += new MouseButtonEventHandler(EV_MovementsSelect);
+            GetController().EV_MovementsUpdate();
+
+            this.Loaded += new RoutedEventHandler(EV_Start);
         }
 
         private void EV_Start(object sender, RoutedEventArgs e)

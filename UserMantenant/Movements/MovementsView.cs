@@ -186,6 +186,15 @@ namespace FrameworkView.V1
             && fy.EndDate >= date).First();
         }
 
+        public void SetMovements(List<Movement> movements)
+        {
+            this.movements.Clear();
+            foreach(Movement mov in movements)
+            {
+                this.movements.Add(mov);
+            }
+        }
+
         public void MovementAdd(Movement mov)
         {
             movements.Add(mov);

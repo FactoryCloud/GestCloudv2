@@ -15,6 +15,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.Controller
         public int lastCode;
         public Movement movementSelected;
         public MovementsView movementsView;
+        List<Movement> movements;
         public Store store;
         public Provider provider;
         public Client client;
@@ -23,6 +24,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.Controller
         {
             provider = new Provider();
             client = new Client();
+            movements = new List<Movement>();
             Information.Add("minimalInformation", 0);
             Information.Add("operationType", 0);
         }
@@ -33,6 +35,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.Controller
             movementsView.SetDate(DateTime.Today);
             SetDate(DateTime.Today);
             UpdateComponents();
+            this.Loaded -= EV_PreStart;
         }
 
         public override void SetSubmenu(int option)
@@ -80,6 +83,18 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.Controller
         virtual public void GetLastCode()
         {
 
+        }
+
+        public int GetMovementNextID()
+        {
+            if (movements.Count > 0)
+            {
+                movements.OrderBy(m => m.MovementID);
+                return movements.First().MovementID - 1;
+            }
+
+            else
+                return -1;
         }
 
         public void SetMovementSelected(int num)
@@ -130,6 +145,11 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.Controller
             TestMinimalInformation();
         }
 
+        public void EV_MovementsUpdate()
+        {
+            movementsView.SetMovements(movements);
+        }
+
         public void EV_ProductsSelect(object sender, RoutedEventArgs e)
         {
 
@@ -174,8 +194,8 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.Controller
 
         public override void EV_MovementAdd(Movement movement)
         {
-            movement.MovementID = movementsView.MovementNextID();
-            movementsView.MovementAdd(movement);
+            movement.MovementID = GetMovementNextID();
+            movements.Add(movement);
             movementSelected = null;
             UpdateComponents();
         }

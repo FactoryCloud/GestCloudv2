@@ -37,8 +37,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
         override public void EV_Start(object sender, RoutedEventArgs e)
         {
             DocumentType documentType = db.DocumentTypes.Where(i => i.Name.Contains("Order") && i.Input == 1).First();
-            movements = db.Movements.Where(u => u.DocumentID == purchaseOrder.PurchaseOrderID && (documentType.DocumentTypeID == u.DocumentTypeID)).Include(u => u.store)
-                .Include(i => i.product).Include(z => z.condition).Include(i => i.product.productType).ToList();
+            
 
             base.EV_Start(sender, e);
         }
@@ -94,6 +93,16 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
             return $"{purchaseOrder.Code}";
         }
 
+        public override int GetDocumentID()
+        {
+            return purchaseOrder.PurchaseOrderID;
+        }
+
+        public override DocumentType GetDocumentType()
+        {
+            return db.DocumentTypes.Where(d => d.Input == 1 && d.Name.Contains("Order")).First();
+        }
+
         public override DateTime GetDate()
         {
             return (DateTime)purchaseOrder.Date;
@@ -122,13 +131,13 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
 
         override public void MD_MovementAdd()
         {
-            View.FW_POR_Item_Load_IncreaseStock floatWindow = new View.FW_POR_Item_Load_IncreaseStock(1, movementsView.movements);
+            View.FW_POR_Item_Load_Movements floatWindow = new View.FW_POR_Item_Load_Movements();
             floatWindow.Show();
         }
 
         override public void MD_MovementEdit()
         {
-            View.FW_POR_Item_Load_IncreaseStock floatWindow = new View.FW_POR_Item_Load_IncreaseStock(1, movementsView.movements, movementSelected.MovementID);
+            View.FW_POR_Item_Load_Movements floatWindow = new View.FW_POR_Item_Load_Movements(movementSelected);
             floatWindow.Show();
         }
 

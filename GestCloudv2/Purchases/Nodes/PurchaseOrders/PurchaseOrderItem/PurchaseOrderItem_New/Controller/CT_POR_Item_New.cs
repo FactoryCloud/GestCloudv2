@@ -94,7 +94,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
 
         override public void MD_MovementAdd()
         {
-            View.FW_POR_Item_New_MovementAdd floatWindow = new View.FW_POR_Item_New_MovementAdd(1, movementsView.movements);
+            View.FW_POR_Item_New_Movements floatWindow = new View.FW_POR_Item_New_Movements();
             floatWindow.Show();
         }
 

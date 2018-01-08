@@ -11,14 +11,14 @@ using System.Windows.Input;
 
 namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseOrderItem_Load.View
 {
-    public partial class FW_POR_Item_Load_IncreaseStock : FloatWindows.ProductSelectWindow
+    public partial class FW_POR_Item_Load_Movements : FloatWindows.ProductSelectWindow
     {
-        public FW_POR_Item_Load_IncreaseStock(int option, List<Movement> movements) : base(option, movements)
+        public FW_POR_Item_Load_Movements() : base()
         {
-            
+
         }
 
-        public FW_POR_Item_Load_IncreaseStock(int option, List<Movement> movements, int mov) : base(option, movements, mov)
+        public FW_POR_Item_Load_Movements(Movement mov) : base(mov)
         {
 
         }

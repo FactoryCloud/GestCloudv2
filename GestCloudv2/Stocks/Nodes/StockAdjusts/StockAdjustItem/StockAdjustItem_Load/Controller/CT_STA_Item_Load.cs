@@ -153,7 +153,7 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
 
         public void MD_StoredStock_Increase()
         {
-            View.FW_STA_Item_Load_IncreaseStock floatWindow = new View.FW_STA_Item_Load_IncreaseStock(1, movementsView.movements);
+            View.FW_STA_Item_Load_Movements floatWindow = new View.FW_STA_Item_Load_Movements();
             floatWindow.Show();
         }
 
@@ -166,7 +166,7 @@ namespace GestCloudv2.Stocks.Nodes.StockAdjusts.StockAdjustItem.StockAdjustItem_
 
         public void MD_StoredStock_Edit()
         {
-            View.FW_STA_Item_Load_IncreaseStock floatWindow = new View.FW_STA_Item_Load_IncreaseStock(1, movementsView.movements, movementSelected.MovementID);
+            View.FW_STA_Item_Load_Movements floatWindow = new View.FW_STA_Item_Load_Movements(movementSelected);
             floatWindow.Show();
         }
 
