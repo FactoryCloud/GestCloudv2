@@ -63,6 +63,8 @@ namespace FrameworkDB.V1
             this.ProductID = movement.ProductID;
             this.condition = movement.condition;
             this.ConditionID = movement.ConditionID;
+            this.store = movement.store;
+            this.StoreID = movement.StoreID;
 
             this.IsAltered = movement.IsAltered;
             this.IsFoil = movement.IsFoil;

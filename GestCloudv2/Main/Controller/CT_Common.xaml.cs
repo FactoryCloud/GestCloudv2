@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using FrameworkDB.V1;
+using Microsoft.EntityFrameworkCore;
 
 namespace GestCloudv2.Main.Controller
 {
@@ -90,6 +91,22 @@ namespace GestCloudv2.Main.Controller
         virtual public List<Company> GetCompanies()
         {
             return db.Companies.ToList();
+        }
+
+        virtual public List<Store> GetStores()
+        {
+            List<Store> stores = new List<Store>();
+            List<CompanyStore> companyStores = db.CompaniesStores.Where(c => c.CompanyID == ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID).Include(z => z.store).ToList();
+            foreach (CompanyStore e in companyStores)
+            {
+                stores.Add(e.store);
+            }
+            return stores;
+        }
+
+        virtual public Store GetStore()
+        {
+            return new Store();
         }
 
         virtual public List<User> GetUsers()

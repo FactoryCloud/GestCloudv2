@@ -129,17 +129,6 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.Controller
             TopSide.Content = NV_Page;
         }
 
-        public List<Store> GetStores()
-        {
-            List<Store> stores = new List<Store>();
-            List<CompanyStore> companyStores = db.CompaniesStores.Where(c => c.CompanyID == ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID).Include(z => z.store).ToList();
-            foreach (CompanyStore e in companyStores)
-            {
-                stores.Add(e.store);
-            }
-            return stores;
-        }
-
         virtual public Provider GetProvider()
         {
             return new Provider();
@@ -155,7 +144,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.Controller
             return "0";
         }
 
-        virtual public Store GetStore()
+        override public Store GetStore()
         {
             return new Store();
         }
@@ -202,11 +191,42 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.Controller
 
         }
 
+        public bool MovementExists(Movement movement)
+        {
+            if (movements.Where(m => m.MovementID == movement.MovementID).ToList().Count > 0 || movementsOld.Where(m => m.MovementID == movement.MovementID).ToList().Count > 0)
+                return true;
+
+            else
+                return false;
+        }
+
         public override void EV_MovementAdd(Movement movement)
         {
-            movement.MovementID = GetMovementNextID();
-            movements.Add(movement);
+            if (!MovementExists(movement))
+            {
+                movement.MovementID = GetMovementNextID();
+                movements.Add(movement);
+            }
+
+            else
+            {
+                if (movements.Where(m => m.MovementID == movement.MovementID).ToList().Count > 0)
+                {
+                    movements.Remove(movements.Where(m => m.MovementID == movement.MovementID).First());
+                    movements.Add(movement);
+                    movements.OrderBy(m => m.MovementID);
+                }
+
+                if (movementsOld.Where(m => m.MovementID == movement.MovementID).ToList().Count > 0)
+                {
+                    movementsOld.Remove(movementsOld.Where(m => m.MovementID == movement.MovementID).First());
+                    movementsOld.Add(movement);
+                    movementsOld.OrderBy(m => m.MovementID);
+                }
+            }
+
             movementSelected = null;
+
             UpdateComponents();
         }
 
@@ -276,10 +296,22 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.Controller
             List<Movement> movementsTemp = db.Movements.Where(u => u.DocumentID == GetDocumentID() && (GetDocumentType().DocumentTypeID == u.DocumentTypeID)).Include(u => u.store)
                 .Include(i => i.product).Include(z => z.condition).Include(i => i.product.productType).ToList();
 
+            List<Movement> movementsEdit = new List<Movement>();
+
             foreach (Movement mov in movementsTemp)
             {
                 if (movementsOld.Where(m => m.MovementID == mov.MovementID).ToList().Count == 0)
                     db.Movements.Remove(db.Movements.Where(m => m.MovementID == mov.MovementID).First());
+
+                else
+                {
+                    Movement temp = movementsOld.Where(m => m.MovementID == mov.MovementID).First();
+                    if (temp.ProductID != mov.ProductID || temp.Quantity != mov.Quantity || temp.PurchasePrice != mov.PurchasePrice || temp.SalePrice != mov.SalePrice
+                        || temp.StoreID != mov.StoreID || temp.ConditionID != mov.ConditionID)
+                    {
+                        movementsEdit.Add(temp);
+                    }
+                }
             }
 
             foreach(Movement mov in movements)
@@ -294,6 +326,24 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.Controller
                     PurchasePrice = Convert.ToDecimal(mov.PurchasePrice),
                     SalePrice = Convert.ToDecimal(mov.SalePrice)
                 });
+            }
+
+            db.SaveChanges();
+
+            db.Dispose();
+
+            db = new GestCloudDB();
+
+            foreach(Movement item in movementsEdit)
+            {
+                Movement final = db.Movements.Where(m => m.MovementID == item.MovementID).First();
+                final.ProductID = item.ProductID;
+                final.ConditionID = item.ConditionID;
+                final.StoreID = item.StoreID;
+                final.Quantity = item.Quantity;
+                final.PurchasePrice = item.PurchasePrice;
+                final.SalePrice = item.Quantity;
+                db.Movements.Update(final);
             }
 
             db.SaveChanges();

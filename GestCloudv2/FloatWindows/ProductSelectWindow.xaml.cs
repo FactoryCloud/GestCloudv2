@@ -55,6 +55,7 @@ namespace GestCloudv2.FloatWindows
             CB_ProductType.SelectionChanged += new SelectionChangedEventHandler(EV_Search);
             CB_Expansion.SelectionChanged += new SelectionChangedEventHandler(EV_Search);
             CB_Condition.SelectionChanged += new SelectionChangedEventHandler(EV_SetCondition);
+            CB_Store.SelectionChanged += new SelectionChangedEventHandler(EV_SetStore);
             TB_ProductName.KeyUp += new KeyEventHandler(EV_Search);
             TB_Quantity.KeyUp += new KeyEventHandler(EV_NumberChange);
             TB_PurchasePrice.KeyUp += new KeyEventHandler(EV_NumberChange);
@@ -97,7 +98,26 @@ namespace GestCloudv2.FloatWindows
                 CB_ProductType.Items.Add(temp);
             }
 
-            if(movement.product != null)
+            List<Store> stores = GetController().GetStores();
+
+            foreach (Store st in stores)
+            {
+                ComboBoxItem temp = new ComboBoxItem();
+                temp.Content = $"{st.Code} - {st.Name}";
+                temp.Name = $"store{st.StoreID}";
+                CB_Store.Items.Add(temp);
+            }
+
+            foreach (ComboBoxItem item in CB_Store.Items)
+            {
+                if (Convert.ToInt16(item.Name.Replace("store", "")) == GetController().GetStore().StoreID)
+                {
+                    CB_Store.SelectedValue = item;
+                    break;
+                }
+            }
+
+            if (movement.product != null)
             {
                 foreach (ComboBoxItem item in CB_ProductType.Items)
                 {
@@ -107,6 +127,16 @@ namespace GestCloudv2.FloatWindows
                         break;
                     }
                 }
+
+                foreach (ComboBoxItem item in CB_Store.Items)
+                {
+                    if (Convert.ToInt16(item.Name.Replace("store", "")) == movement.StoreID)
+                    {
+                        CB_Store.SelectedValue = item;
+                        break;
+                    }
+                }
+
                 TB_ProductName.Text = movement.product.Name;
                 TB_Quantity.Text = Convert.ToDecimal(movement.Quantity).ToString("0.##");
                 TB_PurchasePrice.Text = Convert.ToDecimal(movement.PurchasePrice).ToString("0.00");
@@ -135,6 +165,16 @@ namespace GestCloudv2.FloatWindows
             movement.IsFoil = Convert.ToInt16(CH_IsFoil.IsChecked);
         }
 
+        public void EV_SetStore(object sender, RoutedEventArgs e)
+        {
+            ComboBoxItem temp = (ComboBoxItem)CB_Store.SelectedItem;
+
+            if (temp != null)
+            {
+                movement.StoreID = Convert.ToInt32(temp.Name.Replace("store", ""));
+            }
+        }
+
         public void EV_SetCondition(object sender, RoutedEventArgs e)
         {
             ComboBoxItem temp = (ComboBoxItem)CB_Condition.SelectedItem;
@@ -142,6 +182,7 @@ namespace GestCloudv2.FloatWindows
             if (temp != null)
             {
                 movement.condition = productsView.GetCondition(Convert.ToInt32(temp.Name.Replace("condition", "")));
+                movement.ConditionID = Convert.ToInt32(temp.Name.Replace("condition", ""));
             }
         }
 

@@ -28,7 +28,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
 
         public CT_POR_Item_Load(PurchaseOrder purchaseOrder, int editable):base(editable)
         {
-            this.purchaseOrder = db.PurchaseOrders.Where(c => c.PurchaseOrderID == purchaseOrder.PurchaseOrderID).Include(e => e.provider).Include(i => i.provider.entity).First();
+            this.purchaseOrder = db.PurchaseOrders.Where(c => c.PurchaseOrderID == purchaseOrder.PurchaseOrderID).Include(e => e.provider).Include(i => i.provider.entity).Include(p => p.store).First();
             Information["operationType"] = 1;
         }
 
@@ -143,7 +143,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
 
         override public void MD_MovementEdit()
         {
-            View.FW_POR_Item_Load_Movements floatWindow = new View.FW_POR_Item_Load_Movements(movementSelected);
+            View.FW_POR_Item_Load_Movements floatWindow = new View.FW_POR_Item_Load_Movements(new Movement(movementSelected));
             floatWindow.Show();
         }
 
@@ -194,9 +194,9 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
             LeftSide.Content = TS_Page;
         }
 
-        public void SaveNewStockAdjust()
+        public override void SaveDocument()
         {
-            foreach (Movement movement in movementsView.movements)
+            /*foreach (Movement movement in movementsView.movements)
             {
                 if (!movements.Contains(movement))
                 {
@@ -242,13 +242,9 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
             {
                 if (!movementsView.movements.Contains(mov))
                     db.Movements.Remove(mov);
-            }
+            }*/
 
-            db.SaveChanges();
-            MessageBox.Show("Datos guardados correctamente");
-
-            Information["fieldEmpty"] = 0;
-            CT_Menu();
+            base.SaveDocument();
         }
 
         override public void ChangeController()

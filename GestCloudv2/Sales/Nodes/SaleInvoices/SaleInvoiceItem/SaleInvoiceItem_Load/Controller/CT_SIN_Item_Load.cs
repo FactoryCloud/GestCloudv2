@@ -142,7 +142,7 @@ namespace GestCloudv2.Sales.Nodes.SaleInvoices.SaleInvoiceItem.SaleInvoiceItem_L
 
         override public void MD_MovementEdit()
         {
-            View.FW_SIN_Item_Load_Movements floatWindow = new View.FW_SIN_Item_Load_Movements(movementSelected);
+            View.FW_SIN_Item_Load_Movements floatWindow = new View.FW_SIN_Item_Load_Movements(new Movement(movementSelected));
             floatWindow.Show();
         }
 

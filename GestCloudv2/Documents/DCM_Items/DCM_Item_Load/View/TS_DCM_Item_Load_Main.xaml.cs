@@ -39,10 +39,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.View
             if (GetController().movementSelected != null)
             {
                 BT_MovementDelete.IsEnabled = true;
-                if (GetController().movementSelected.documentType == null)
-                {
-                    BT_MovementEdit.IsEnabled = true;
-                }
+                BT_MovementEdit.IsEnabled = true;
             }
 
             if ((GetController().movements.Count > 0 || GetController().movementsOld.Count > 0) && GetController().Information["minimalInformation"] == 1)

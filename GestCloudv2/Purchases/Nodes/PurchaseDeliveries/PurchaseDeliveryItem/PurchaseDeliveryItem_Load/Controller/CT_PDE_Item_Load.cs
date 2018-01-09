@@ -142,7 +142,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseDeliveries.PurchaseDeliveryItem.Pu
 
         override public void MD_MovementEdit()
         {
-            View.FW_PDE_Item_Load_Movements floatWindow = new View.FW_PDE_Item_Load_Movements(movementSelected);
+            View.FW_PDE_Item_Load_Movements floatWindow = new View.FW_PDE_Item_Load_Movements(new Movement(movementSelected));
             floatWindow.Show();
         }
 

@@ -59,15 +59,9 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.Controller
             TopSide.Content = NV_Page;
         }
 
-        virtual public List<Store> GetStores()
+        public override Store GetStore()
         {
-            List<Store> stores = new List<Store>();
-            List<CompanyStore> companyStores = db.CompaniesStores.Where(c => c.CompanyID == ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID).Include(z => z.store).ToList();
-            foreach (CompanyStore e in companyStores)
-            {
-                stores.Add(e.store);
-            }
-            return stores;
+            return store;
         }
 
         virtual public DateTime GetDate()
