@@ -27,10 +27,10 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_Load.View
             this.external = external;
         }
 
-        private void EV_ClientSave(object sender, RoutedEventArgs e)
+        /*private void EV_ClientSave(object sender, RoutedEventArgs e)
         {
-            GetController().SaveNewClient();
-        }
+            GetController().SaveLoadClient();
+        }*/
 
         private Controller.CT_CLI_Item_Load GetController()
         {

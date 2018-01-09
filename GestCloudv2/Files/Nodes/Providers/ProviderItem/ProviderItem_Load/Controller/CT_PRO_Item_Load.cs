@@ -30,11 +30,15 @@ namespace GestCloudv2.Files.Nodes.Providers.ProviderItem.ProviderItem_Load.Contr
         public Dictionary<int, int> InformationTaxes;
         public Dictionary<int, int> InformationEquivalenceSurcharges;
         public Dictionary<int, int> InformationSpecialTaxes;
+        public List<ProviderTax> providerTaxes;
+        public List<ProviderTax> providerSpecialTaxes;
 
         public CT_PRO_Item_Load(Provider provider, int editable)
         {
             submenuItems = new SubmenuItems();
             List<TaxType> taxTypes = GetTaxTypes().OrderByDescending(t => t.StartDate).ToList();
+            providerTaxes = db.ProvidersTaxes.Where(pt => pt.tax.taxType.CompanyID == ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID && pt.ProviderID == provider.ProviderID && pt.tax.taxType.Name.Contains("IVA")).Include(c => c.tax).Include(d => d.tax.taxType).ToList();
+            providerSpecialTaxes = db.ProvidersTaxes.Where(pt => pt.tax.taxType.CompanyID == ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID && pt.ProviderID== provider.ProviderID && pt.tax.taxType.Name.Contains("ST")).Include(c => c.tax).Include(d => d.tax.taxType).ToList();
 
             InformationTaxes = new Dictionary<int, int>();
             InformationEquivalenceSurcharges = new Dictionary<int, int>();
@@ -136,6 +140,13 @@ namespace GestCloudv2.Files.Nodes.Providers.ProviderItem.ProviderItem_Load.Contr
             TestMinimalInformation();
         }
 
+        override public void SetEntity(int num)
+        {
+            provider.EntityID = num;
+            provider.entity = db.Entities.Where(e => e.EntityID == num).First();
+            entity = db.Entities.Where(e => e.EntityID == num).First();
+        }
+
         public override void EV_ActivateSaveButton(bool verificated)
         {
             if(verificated)
@@ -193,16 +204,152 @@ namespace GestCloudv2.Files.Nodes.Providers.ProviderItem.ProviderItem_Load.Contr
 
         public void SaveNewProvider()
         {
-            if (Information["entityLoaded"] == 2)
-            {
-                db.Entities.Update(entity);
-            }
-            
-            Provider provider1 = db.Providers.Where(u => u.ProviderID == provider.ProviderID).First();
-            provider1.Cod= provider.Cod;
-            provider1.EntityID = entity.EntityID;
+            Provider providerTMP = db.Providers.Where(c => c.ProviderID == provider.ProviderID).Include(c => c.entity).First();
+            Provider providerFinal = db.Providers.Where(p => p.ProviderID == provider.ProviderID).Include(c => c.entity).First();
 
-            db.Providers.Update(provider1);
+            if (providerTMP.EntityID == provider.EntityID)
+            {
+                providerTMP.entity.Name = provider.entity.Name;
+                providerTMP.entity.Subname = provider.entity.Subname;
+                providerTMP.entity.Phone1 = provider.entity.Phone1;
+                providerTMP.entity.NIF = provider.entity.NIF;
+
+                db.Entities.Update(providerTMP.entity);
+            }
+
+            else
+            {
+                providerTMP.entity.Name = provider.entity.Name;
+                providerTMP.entity.Subname = provider.entity.Subname;
+                providerTMP.entity.Phone1 = provider.entity.Phone1;
+                providerTMP.entity.NIF = provider.entity.NIF;
+                providerFinal.EntityID = provider.EntityID;
+
+                db.Entities.Update(providerTMP.entity);
+            }
+
+            providerFinal.Cod = provider.Cod;
+
+            db.Providers.Update(providerFinal);
+            db.SaveChanges();
+
+            List<TaxType> taxTypes = GetTaxTypes().OrderByDescending(t => t.StartDate).ToList();
+
+            Dictionary<int, int> InformationTaxesTMP = new Dictionary<int, int>();
+            Dictionary<int, int> InformationEquivalenceSurchargesTMP = new Dictionary<int, int>();
+            Dictionary<int, int> InformationSpecialTaxesTMP = new Dictionary<int, int>();
+
+
+            foreach (TaxType tx in taxTypes)
+            {
+                List<ProviderTax> providerTaxes = db.ProvidersTaxes.Where(c => c.ProviderID == provider.ProviderID && c.tax.TaxTypeID == tx.TaxTypeID).ToList();
+
+                if (providerTaxes.Count > 0)
+                {
+                    InformationTaxesTMP.Add(tx.TaxTypeID, 1);
+                }
+
+                else
+                {
+                    InformationTaxesTMP.Add(tx.TaxTypeID, 0);
+                }
+
+                TaxType taxType = db.TaxTypes.Where(tt => tt.CompanyID == tx.CompanyID && tt.StartDate == tx.StartDate && tt.EndDate == tx.EndDate && tt.Name.Contains("RE")).First();
+                List<ProviderTax> providerEquiSurs = db.ProvidersTaxes.Where(c => c.ProviderID == provider.ProviderID && c.tax.TaxTypeID == taxType.TaxTypeID).ToList();
+                if (providerEquiSurs.Count > 0)
+                {
+                    InformationEquivalenceSurchargesTMP.Add(tx.TaxTypeID, 1);
+                }
+                else
+                {
+                    InformationEquivalenceSurchargesTMP.Add(tx.TaxTypeID, 0);
+                }
+
+                TaxType specialTaxType = db.TaxTypes.Where(tt => tt.CompanyID == tx.CompanyID && tt.StartDate == tx.StartDate && tt.EndDate == tx.EndDate && tt.Name.Contains("ST")).First();
+                List<ProviderTax> providerSpecialTaxes = db.ProvidersTaxes.Where(c => c.ProviderID == provider.ProviderID && c.tax.TaxTypeID == specialTaxType.TaxTypeID).ToList();
+
+                if (providerSpecialTaxes.Count > 0)
+                {
+                    InformationSpecialTaxesTMP.Add(tx.TaxTypeID, Convert.ToInt32(providerSpecialTaxes.First().TaxID));
+                }
+
+                else
+                {
+                    InformationSpecialTaxesTMP.Add(tx.TaxTypeID, 0);
+                }
+
+                if (InformationTaxes[tx.TaxTypeID] != InformationTaxesTMP[tx.TaxTypeID])
+                {
+                    if (InformationTaxes[tx.TaxTypeID] == 0)
+                    {
+                        db.ProvidersTaxes.RemoveRange(db.ProvidersTaxes.Where(t => t.ProviderID == provider.ProviderID && t.tax.TaxTypeID == tx.TaxTypeID).ToList());
+                    }
+
+                    else
+                    {
+                        List<Tax> taxes = db.Taxes.Where(t => t.TaxTypeID == tx.TaxTypeID).ToList();
+                        foreach (Tax t in taxes)
+                        {
+                            db.ProvidersTaxes.Add(new ProviderTax
+                            {
+                                ProviderID = provider.ProviderID,
+                                TaxID = t.TaxID
+                            });
+                        }
+                    }
+                }
+
+                if (InformationEquivalenceSurcharges[tx.TaxTypeID] != InformationEquivalenceSurchargesTMP[tx.TaxTypeID])
+                {
+                    TaxType equivalenceSurchargeTaxType = db.TaxTypes.Where(t => t.StartDate == taxTypeSelected.StartDate && t.EndDate == taxTypeSelected.EndDate && t.CompanyID == taxTypeSelected.CompanyID && t.Name.Contains("RE")).First();
+                    if (InformationEquivalenceSurcharges[tx.TaxTypeID] == 0)
+                    {
+                        db.ProvidersTaxes.RemoveRange(db.ProvidersTaxes.Where(t => t.ProviderID== provider.ProviderID&& t.tax.TaxTypeID == equivalenceSurchargeTaxType.TaxTypeID).ToList());
+                    }
+
+                    else
+                    {
+                        List<Tax> taxes = db.Taxes.Where(t => t.TaxTypeID == equivalenceSurchargeTaxType.TaxTypeID).ToList();
+                        foreach (Tax t in taxes)
+                        {
+                            db.ProvidersTaxes.Add(new ProviderTax
+                            {
+                                ProviderID = provider.ProviderID,
+                                TaxID = t.TaxID
+                            });
+                        }
+                    }
+                }
+
+                if (InformationSpecialTaxes[tx.TaxTypeID] != InformationSpecialTaxesTMP[tx.TaxTypeID])
+                {
+                    if (InformationSpecialTaxes[tx.TaxTypeID] == 0)
+                    {
+                        db.ProvidersTaxes.RemoveRange(db.ProvidersTaxes.Where(t => t.ProviderID == provider.ProviderID && t.TaxID == InformationSpecialTaxesTMP[tx.TaxTypeID]).ToList());
+                    }
+
+                    else
+                    {
+                        if (db.ProvidersTaxes.Where(t => t.ProviderID == provider.ProviderID && t.TaxID == InformationSpecialTaxesTMP[tx.TaxTypeID]).ToList().Count > 0)
+                        {
+                            ProviderTax providerTax = db.ProvidersTaxes.Where(t => t.ProviderID == provider.ProviderID && t.TaxID == InformationSpecialTaxesTMP[tx.TaxTypeID]).First();
+
+                            providerTax.TaxID = InformationSpecialTaxes[tx.TaxTypeID];
+                            db.ProvidersTaxes.Update(providerTax);
+                        }
+                        else
+                        {
+                            db.ProvidersTaxes.Add(new ProviderTax
+                            {
+                                ProviderID = provider.ProviderID,
+                                TaxID = InformationSpecialTaxes[tx.TaxTypeID]
+                            });
+                        }
+                    }
+                }
+            }
+
+            //db.Providers.Update(provider1);
             db.SaveChanges();
             MessageBox.Show("Datos guardados correctamente");
 

@@ -28,10 +28,10 @@ namespace GestCloudv2.Files.Nodes.Providers.ProviderItem.ProviderItem_Load.View
             this.external = external;
         }
 
-        private void EV_ClientSave(object sender, RoutedEventArgs e)
+        /*private void EV_ClientSave(object sender, RoutedEventArgs e)
         {
             GetController().SaveNewProvider();
-        }
+        }*/
 
         private Controller.CT_PRO_Item_Load GetController()
         {

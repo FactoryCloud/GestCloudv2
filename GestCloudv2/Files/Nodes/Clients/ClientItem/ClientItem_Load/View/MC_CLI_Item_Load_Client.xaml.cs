@@ -33,6 +33,9 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_Load.View
             TB_ClientCode.KeyUp += new KeyEventHandler(EV_ClientCode);
             TB_ClientCode.Loaded += new RoutedEventHandler(EV_ClientCode);
             CB_TaxPeriod.SelectionChanged += new SelectionChangedEventHandler(EV_PeriodUpdate);
+            CB_Tax.SelectionChanged += new SelectionChangedEventHandler(EV_CB_TaxUpdate);
+            CB_SpecialTax.SelectionChanged += new SelectionChangedEventHandler(EV_CB_TaxUpdate);
+            CB_EquivalenceSurcharge.SelectionChanged += new SelectionChangedEventHandler(EV_CB_TaxUpdate);
         }
 
         private void EV_Start(object sender, RoutedEventArgs e)
@@ -210,6 +213,27 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_Load.View
                 TB_SpecialTax.Text = $"{((ComboBoxItem)CB_SpecialTax.SelectedItem).Content}";
                 TB_SpecialTax.Visibility = Visibility.Visible;
                 CB_SpecialTax.Visibility = Visibility.Hidden;
+            }
+        }
+
+        private void EV_CB_TaxUpdate(object sender, RoutedEventArgs e)
+        {
+            ComboBoxItem temp1 = (ComboBoxItem)((ComboBox)sender).SelectedItem;
+            if (temp1 != null)
+            {
+                switch (Convert.ToInt32(((ComboBox)sender).Tag))
+                {
+                    case 1:
+                        GetController().InformationTaxes[GetController().taxTypeSelected.TaxTypeID] = (Convert.ToInt32(temp1.Name.Replace("Tax", "")));
+                        break;
+
+                    case 2:
+                        GetController().InformationEquivalenceSurcharges[GetController().taxTypeSelected.TaxTypeID] = (Convert.ToInt32(temp1.Name.Replace("EquiSur", "")));
+                        break;
+                    case 3:
+                        GetController().InformationSpecialTaxes[GetController().taxTypeSelected.TaxTypeID] = (Convert.ToInt32(temp1.Name.Replace("SpecialTax", "")));
+                        break;
+                }
             }
         }
 
