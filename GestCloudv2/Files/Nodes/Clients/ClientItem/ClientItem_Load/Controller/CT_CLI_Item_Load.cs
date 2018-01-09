@@ -27,6 +27,8 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_Load.Controller
         public Client client;
         public SubmenuItems submenuItems;
         public TaxType taxTypeSelected;
+        public List<ClientTax> clientTaxes;
+        public List<ClientTax> clientSpecialTaxes;
         public Dictionary<int, int> InformationTaxes;
         public Dictionary<int, int> InformationEquivalenceSurcharges;
         public Dictionary<int, int> InformationSpecialTaxes;
@@ -35,6 +37,9 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_Load.Controller
         {
             submenuItems = new SubmenuItems();
             List<TaxType> taxTypes = GetTaxTypes().OrderByDescending(t => t.StartDate).ToList();
+            clientTaxes = db.ClientsTaxes.Where(pt => pt.tax.taxType.CompanyID == ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID &&  pt.ClientID == client.ClientID && pt.tax.taxType.Name.Contains("IVA")).Include(c => c.tax).Include(d => d.tax.taxType).ToList();
+            clientSpecialTaxes = db.ClientsTaxes.Where(pt => pt.tax.taxType.CompanyID == ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID && pt.ClientID == client.ClientID && pt.tax.taxType.Name.Contains("ST")).Include(c => c.tax).Include(d => d.tax.taxType).ToList();
+
 
             InformationTaxes = new Dictionary<int, int>();
             InformationEquivalenceSurcharges = new Dictionary<int, int>();
@@ -192,16 +197,151 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_Load.Controller
 
         public void SaveNewClient()
         {
-            if (Information["entityLoaded"] == 2)
-            {
-                db.Entities.Update(entity);
-            }
-            
-            Client client1 = db.Clients.Where(u => u.ClientID == client.ClientID).First();
-            client1.Code= client.Code;
-            client1.EntityID = entity.EntityID;
+            Client clientTMP = db.Clients.Where(c => c.ClientID == client.ClientID).Include(c=> c.entity).First();
+            Client clientFinal = db.Clients.Where(p => p.ClientID == client.ClientID).Include(c => c.entity).First();
 
-            db.Clients.Update(client1);
+            if (clientTMP.EntityID == client.EntityID)
+            {
+                clientTMP.entity.Name = client.entity.Name;
+                clientTMP.entity.Subname = client.entity.Subname;
+                clientTMP.entity.Phone1 = client.entity.Phone1;
+                clientTMP.entity.NIF = client.entity.NIF;
+
+                db.Entities.Update(clientTMP.entity);
+            }
+
+            else
+            {
+                clientTMP.entity.Name = client.entity.Name;
+                clientTMP.entity.Subname = client.entity.Subname;
+                clientTMP.entity.Phone1 = client.entity.Phone1;
+                clientTMP.entity.NIF = client.entity.NIF;
+                clientFinal.EntityID = client.EntityID;
+
+                db.Entities.Update(clientTMP.entity);
+            }
+
+            clientFinal.Code = client.Code;
+
+            db.Clients.Update(clientFinal);
+            db.SaveChanges();
+
+            List<TaxType> taxTypes = GetTaxTypes().OrderByDescending(t => t.StartDate).ToList();
+
+            Dictionary<int, int> InformationTaxesTMP = new Dictionary<int, int> ();
+            Dictionary<int, int> InformationEquivalenceSurchargesTMP = new Dictionary<int, int>();
+            Dictionary<int, int> InformationSpecialTaxesTMP = new Dictionary<int, int>();
+
+
+            foreach (TaxType tx in taxTypes)
+            {
+                List<ClientTax> clientTaxes = db.ClientsTaxes.Where(c => c.ClientID == client.ClientID && c.tax.TaxTypeID == tx.TaxTypeID).ToList();
+
+                if (clientTaxes.Count > 0)
+                {
+                    InformationTaxesTMP.Add(tx.TaxTypeID, 1);
+                }
+
+                else
+                {
+                    InformationTaxesTMP.Add(tx.TaxTypeID, 0);
+                }
+
+                TaxType taxType = db.TaxTypes.Where(tt => tt.CompanyID == tx.CompanyID && tt.StartDate == tx.StartDate && tt.EndDate == tx.EndDate && tt.Name.Contains("RE")).First();
+                List<ClientTax> clientEquiSurs = db.ClientsTaxes.Where(c => c.ClientID == client.ClientID && c.tax.TaxTypeID == taxType.TaxTypeID).ToList();
+                if (clientEquiSurs.Count > 0)
+                {
+                    InformationEquivalenceSurchargesTMP.Add(tx.TaxTypeID, 1);
+                }
+                else
+                {
+                    InformationEquivalenceSurchargesTMP.Add(tx.TaxTypeID, 0);
+                }
+
+                TaxType specialTaxType = db.TaxTypes.Where(tt => tt.CompanyID == tx.CompanyID && tt.StartDate == tx.StartDate && tt.EndDate == tx.EndDate && tt.Name.Contains("ST")).First();
+                List<ClientTax> clientSpecialTaxes = db.ClientsTaxes.Where(c => c.ClientID == client.ClientID && c.tax.TaxTypeID == specialTaxType.TaxTypeID).ToList();
+
+                if (clientSpecialTaxes.Count > 0)
+                {
+                    InformationSpecialTaxesTMP.Add(tx.TaxTypeID, Convert.ToInt32(clientSpecialTaxes.First().TaxID));
+                }
+
+                else
+                {
+                    InformationSpecialTaxesTMP.Add(tx.TaxTypeID, 0);
+                }
+
+                if (InformationTaxes[tx.TaxTypeID] != InformationTaxesTMP[tx.TaxTypeID])
+                {
+                    if (InformationTaxes[tx.TaxTypeID] == 0)
+                    {
+                        db.ClientsTaxes.RemoveRange(db.ClientsTaxes.Where(t => t.ClientID == client.ClientID && t.tax.TaxTypeID == tx.TaxTypeID).ToList());
+                    }
+
+                    else
+                    {
+                        List<Tax> taxes = db.Taxes.Where(t => t.TaxTypeID == tx.TaxTypeID).ToList();
+                        foreach (Tax t in taxes)
+                        {
+                            db.ClientsTaxes.Add(new ClientTax
+                            {
+                                ClientID = client.ClientID,
+                                TaxID = t.TaxID
+                            });
+                        }
+                    }
+                }
+
+                if (InformationEquivalenceSurcharges[tx.TaxTypeID] != InformationEquivalenceSurchargesTMP[tx.TaxTypeID])
+                {
+                    TaxType equivalenceSurchargeTaxType = db.TaxTypes.Where(t => t.StartDate == taxTypeSelected.StartDate && t.EndDate == taxTypeSelected.EndDate && t.CompanyID == taxTypeSelected.CompanyID && t.Name.Contains("RE")).First();
+                    if (InformationEquivalenceSurcharges[tx.TaxTypeID] == 0)
+                    {
+                        db.ClientsTaxes.RemoveRange(db.ClientsTaxes.Where(t => t.ClientID == client.ClientID && t.tax.TaxTypeID == equivalenceSurchargeTaxType.TaxTypeID).ToList());
+                    }
+
+                    else
+                    {
+                        List<Tax> taxes = db.Taxes.Where(t => t.TaxTypeID == equivalenceSurchargeTaxType.TaxTypeID).ToList();
+                        foreach (Tax t in taxes)
+                        {
+                            db.ClientsTaxes.Add(new ClientTax
+                            {
+                                ClientID = client.ClientID,
+                                TaxID = t.TaxID
+                            });
+                        }
+                    }
+                }
+
+                if (InformationSpecialTaxes[tx.TaxTypeID] != InformationSpecialTaxesTMP[tx.TaxTypeID])
+                {
+                    if (InformationSpecialTaxes[tx.TaxTypeID] == 0)
+                    {
+                        db.ClientsTaxes.RemoveRange(db.ClientsTaxes.Where(t => t.ClientID == client.ClientID && t.TaxID == InformationSpecialTaxesTMP[tx.TaxTypeID]).ToList());
+                    }
+
+                    else
+                    {
+                        if (db.ClientsTaxes.Where(t => t.ClientID == client.ClientID && t.TaxID == InformationSpecialTaxesTMP[tx.TaxTypeID]).ToList().Count > 0)
+                        {
+                            ClientTax clientTax = db.ClientsTaxes.Where(t => t.ClientID == client.ClientID && t.TaxID == InformationSpecialTaxesTMP[tx.TaxTypeID]).First();
+
+                            clientTax.TaxID = InformationSpecialTaxes[tx.TaxTypeID];
+                            db.ClientsTaxes.Update(clientTax);
+                        }
+                        else
+                        {
+                            db.ClientsTaxes.Add(new ClientTax
+                            {
+                                ClientID = client.ClientID,
+                                TaxID = InformationSpecialTaxes[tx.TaxTypeID]
+                            });
+                        }
+                    }
+                }
+            }
+
             db.SaveChanges();
             MessageBox.Show("Datos guardados correctamente");
 
@@ -220,6 +360,14 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_Load.Controller
             View.FW_CLI_Item_Load_Entity floatWindow = new View.FW_CLI_Item_Load_Entity(4);
             floatWindow.Show();
         }
+
+        override public void SetEntity(int num)
+        {
+            client.EntityID = num;
+            client.entity = db.Entities.Where(e => e.EntityID == num).First();
+            entity = db.Entities.Where(e => e.EntityID == num).First();
+        }
+
 
         public override void MD_EntityLoaded()
         {

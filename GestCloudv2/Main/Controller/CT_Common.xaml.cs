@@ -119,7 +119,7 @@ namespace GestCloudv2.Main.Controller
             return db.FiscalYears.ToList();
         }
 
-        public void SetEntity(int num)
+        public virtual void SetEntity(int num)
         {
             entity = db.Entities.Where(e => e.EntityID == num).First();
             Information["entityLoaded"] = 1;
