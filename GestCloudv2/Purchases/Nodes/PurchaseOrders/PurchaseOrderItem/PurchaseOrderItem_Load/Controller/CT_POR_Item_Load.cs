@@ -71,6 +71,10 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
                 case 2:
                     MC_Page = new View.MC_POR_Item_Load_Movements();
                     break;
+
+                case 3:
+                    MC_Page = new View.MC_POR_Item_Load_Summary();
+                    break;
             }
         }
 

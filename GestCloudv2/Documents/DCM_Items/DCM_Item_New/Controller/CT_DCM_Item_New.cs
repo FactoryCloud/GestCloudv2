@@ -284,6 +284,14 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.Controller
                     SetSC();
                     ChangeComponents();
                     break;
+
+                case 3:
+                    SetNV();
+                    SetTS();
+                    SetMC(3);
+                    SetSC();
+                    ChangeComponents();
+                    break;
             }
         }
 

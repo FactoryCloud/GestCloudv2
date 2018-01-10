@@ -19,6 +19,7 @@
         </Grid.ColumnDefinitions>
         <Button Grid.Column="0" Margin="20" Click="EV_MD_PurchaseOrder">Datos Cabecera</Button>
         <Button Grid.Column="1" Margin="20" Click="EV_MD_Movements">Movimientos</Button>
+        <Button Grid.Column="2" Margin="20" Click="EV_MD_Summary">Resumen</Button>
         <Button Grid.Column="7" Margin="20" Click="EV_CT_Menu">Volver</Button>
     </Grid>
 </Page>

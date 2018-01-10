@@ -174,7 +174,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Documents\DCM_Items\DCM_Item_Load\View\MC_DCM_Item_Load_Summary.xaml.cs">
+      <DependentUpon>MC_DCM_Item_Load_Summary.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Documents\DCM_Items\DCM_Item_New\Controller\CT_DCM_Item_New.cs" />
+    <Compile Include="Documents\DCM_Items\DCM_Item_New\View\MC_DCM_Item_New_Summary.xaml.cs">
+      <DependentUpon>MC_DCM_Item_New_Summary.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Documents\DCM_Items\DCM_Item_New\View\MC_DCM_Item_New_Main.xaml.cs">
       <DependentUpon>MC_DCM_Item_New_Main.xaml</DependentUpon>
     </Compile>
@@ -505,6 +511,7 @@
     </Compile>
     <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_Load\View\FW_POR_Item_Load_IncreaseStock.cs" />
     <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_Load\View\FW_POR_Item_Load_ReduceStock.cs" />
+    <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_Load\View\MC_POR_Item_Load_Summary.cs" />
     <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_Load\View\MC_POR_Item_Load_Movements.cs" />
     <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_Load\View\MC_POR_Item_Load_PurchaseOrder.cs" />
     <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_Load\View\NV_POR_Item_Load_PurchaseOrder.cs" />
@@ -513,6 +520,7 @@
     <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_New\Controller\CT_POR_Item_New.cs" />
     <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_New\View\FW_POR_Item_New_SelectProvider.cs" />
     <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_New\View\FW_POR_Item_New_MovementAdd.cs" />
+    <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_New\View\MC_POR_Item_New_Summary.cs" />
     <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_New\View\MC_POR_Item_New_PurchaseOrder.cs" />
     <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_New\View\MC_POR_Item_New_Movements.cs" />
     <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_New\View\NV_POR_Item_New_PurchaseOrder.cs" />
@@ -799,6 +807,14 @@
     <Compile Include="Stocks\View\NV_Stock_Main.xaml.cs">
       <DependentUpon>NV_Stock_Main.xaml</DependentUpon>
     </Compile>
+    <Page Include="Documents\DCM_Items\DCM_Item_Load\View\MC_DCM_Item_Load_Summary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Documents\DCM_Items\DCM_Item_New\View\MC_DCM_Item_New_Summary.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Documents\DCM_Items\DCM_Item_New\View\MC_DCM_Item_New_Main.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

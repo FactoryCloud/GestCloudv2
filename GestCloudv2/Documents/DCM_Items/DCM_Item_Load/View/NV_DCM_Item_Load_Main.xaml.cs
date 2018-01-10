@@ -106,6 +106,11 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.View
             GetController().MD_Change(2,0);
         }
 
+        private void EV_MD_Summary(object sender, RoutedEventArgs e)
+        {
+            GetController().MD_Change(3, 0);
+        }
+
         private void EV_CT_Menu(object sender, RoutedEventArgs e)
         {
             GetController().CT_Menu();
