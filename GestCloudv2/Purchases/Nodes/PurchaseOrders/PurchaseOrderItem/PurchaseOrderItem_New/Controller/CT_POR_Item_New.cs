@@ -147,7 +147,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
             db.PurchaseOrders.Add(purchaseOrder);
             db.SaveChanges();
 
-            foreach (Movement movement in movementsView.movements)
+            foreach (Movement movement in movements)
             {
                 movement.MovementID = 0;
                 movement.ConditionID = movement.condition.ConditionID;

@@ -19,6 +19,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.Controller
         public Store store;
         public Provider provider;
         public Client client;
+        public DocumentContent documentContent;
 
         public CT_DCM_Item_New()
         {
@@ -34,6 +35,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.Controller
             movementsView = new MovementsView(((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany, Information["operationType"]);
             movementsView.SetDate(DateTime.Today);
             SetDate(DateTime.Today);
+            documentContent = new DocumentContent(Information["operationType"], ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany, GetDate(), new List<Movement>());
             UpdateComponents();
             this.Loaded -= EV_PreStart;
         }
@@ -142,7 +144,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.Controller
 
         public void EV_MovementsUpdate()
         {
-            movementsView.SetMovements(movements);
+            documentContent = new DocumentContent(Information["operationType"], ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany, GetDate(), movements);
         }
 
         public void EV_ProductsSelect(object sender, RoutedEventArgs e)
@@ -216,7 +218,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.Controller
             }
 
             movementSelected = null;
-
+            EV_MovementsUpdate();
             UpdateComponents();
         }
 

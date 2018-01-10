@@ -27,7 +27,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.View
             InitializeComponent();
 
             DG_Movements.MouseLeftButtonUp += new MouseButtonEventHandler(EV_MovementsSelect);
-            GetController().EV_MovementsUpdate();
+            //GetController().EV_MovementsUpdate();
 
             this.Loaded += new RoutedEventHandler(EV_Start);
         }
@@ -54,7 +54,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.View
         public void UpdateData()
         {
             DG_Movements.ItemsSource = null;
-            DG_Movements.ItemsSource = GetController().movementsView.GetTable();
+            DG_Movements.ItemsSource = GetController().documentContent.GetTable();
         }
 
         public void UpdateBottom()
@@ -62,19 +62,19 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.View
             switch(GetController().Information["operationType"])
             {
                 case 1:
-                    LB_GrossPrice.Content = $"{GetController().movementsView.GetPurchaseGrossPrice().ToString("0.00")} €";
-                    LB_Discount.Content = $"{GetController().movementsView.GetPurchaseDiscount().ToString("0.00")} €";
-                    LB_TaxBase.Content = $"{GetController().movementsView.GetPurchaseTaxBase().ToString("0.00")} €";
-                    LB_TaxAmount.Content = $"{GetController().movementsView.GetPurchaseTaxAmount().ToString("0.00")} €";
-                    LB_FinalPrice.Content = $"{GetController().movementsView.GetPurchaseFinalPrice().ToString("0.00")} €";
+                    LB_GrossPrice.Content = $"{GetController().documentContent.PurchaseGrossPrice.ToString("0.00")} €";
+                    LB_Discount.Content = $"{GetController().documentContent.PurchaseDiscount.ToString("0.00")} €";
+                    LB_TaxBase.Content = $"{GetController().documentContent.PurchaseTaxBase.ToString("0.00")} €";
+                    LB_TaxAmount.Content = $"{GetController().documentContent.PurchaseTaxAmount.ToString("0.00")} €";
+                    LB_FinalPrice.Content = $"{GetController().documentContent.PurchaseFinalPrice.ToString("0.00")} €";
                     break;
 
                 case 2:
-                    LB_GrossPrice.Content = $"{GetController().movementsView.GetSaleGrossPrice().ToString("0.00")} €";
-                    LB_Discount.Content = $"{GetController().movementsView.GetSaleDiscount().ToString("0.00")} €";
-                    LB_TaxBase.Content = $"{GetController().movementsView.GetSaleTaxBase().ToString("0.00")} €";
-                    LB_TaxAmount.Content = $"{GetController().movementsView.GetSaleTaxAmount().ToString("0.00")} €";
-                    LB_FinalPrice.Content = $"{GetController().movementsView.GetSaleFinalPrice().ToString("0.00")} €";
+                    LB_GrossPrice.Content = $"{GetController().documentContent.SaleGrossPrice.ToString("0.00")} €";
+                    LB_Discount.Content = $"{GetController().documentContent.SaleDiscount.ToString("0.00")} €";
+                    LB_TaxBase.Content = $"{GetController().documentContent.SaleTaxBase.ToString("0.00")} €";
+                    LB_TaxAmount.Content = $"{GetController().documentContent.SaleTaxAmount.ToString("0.00")} €";
+                    LB_FinalPrice.Content = $"{GetController().documentContent.SaleFinalPrice.ToString("0.00")} €";
                     break;
             }
             

@@ -7,6 +7,7 @@ using FrameworkDB.V1;
 using System.Data;
 using System.Collections;
 using Microsoft.EntityFrameworkCore;
+using System.Windows;
 
 namespace FrameworkView.V1
 {
@@ -45,7 +46,8 @@ namespace FrameworkView.V1
             decimal grossPrice = 0;
             foreach(Movement item in movements)
             {
-                grossPrice = grossPrice +(Convert.ToDecimal(item.PurchasePrice) * Convert.ToDecimal(item.Quantity)); 
+                //grossPrice = grossPrice + (decimal)(item.PurchasePrice * item.Quantity) - ((decimal)(item.PurchasePrice * item.Quantity) * ((decimal)(item.Discount) / 100)); MI LINEA, MAL
+                grossPrice = grossPrice +(Convert.ToDecimal(item.PurchasePrice) * Convert.ToDecimal(item.Quantity));
             }
             return grossPrice;
         }
@@ -55,7 +57,8 @@ namespace FrameworkView.V1
             decimal discount = 0;
             foreach (Movement item in movements)
             {
-                discount = discount + (Convert.ToDecimal(item.product.PurchaseDiscount1) * Convert.ToDecimal(item.PurchasePrice) * Convert.ToDecimal(item.Quantity) / 100);
+                discount = discount + (Convert.ToDecimal(item.Discount) * Convert.ToDecimal(item.PurchasePrice) * Convert.ToDecimal(item.Quantity) / 100);
+                //discount = discount + (Convert.ToDecimal(item.product.PurchaseDiscount1) * Convert.ToDecimal(item.PurchasePrice) * Convert.ToDecimal(item.Quantity) / 100); TU LINEA
             }
             return discount;
         }
@@ -63,16 +66,50 @@ namespace FrameworkView.V1
         public decimal GetPurchaseTaxBase()
         {
             decimal taxBase = 0;
+            decimal grossPrice = 0;
+            decimal discount = 0;
+            foreach (Movement item in movements)
+            {
+                discount = discount + (Convert.ToDecimal(item.Discount) * Convert.ToDecimal(item.PurchasePrice) * Convert.ToDecimal(item.Quantity) / 100);
+                grossPrice = grossPrice + (Convert.ToDecimal(item.PurchasePrice) * Convert.ToDecimal(item.Quantity));
+                taxBase = grossPrice - discount;
+            }
+            return taxBase;
+
+            //TU CODIGO
+            /*decimal taxBase = 0;
             foreach (Movement item in movements)
             {
                 taxBase = taxBase + ((Convert.ToDecimal(item.PurchasePrice) * Convert.ToDecimal(item.Quantity))) - (Convert.ToDecimal(item.product.PurchaseDiscount1) * Convert.ToDecimal(item.PurchasePrice) * Convert.ToDecimal(item.Quantity) / 100);
             }
-            return taxBase;
+            return taxBase;*/
         }
 
         public decimal GetPurchaseTaxAmount()
         {
             decimal taxAmount = 0;
+            decimal taxBase = 0;
+            decimal grossPrice = 0;
+            decimal discount = 0;
+            foreach (Movement item in movements)
+            {
+                decimal tax = 0;
+                discount = discount + (Convert.ToDecimal(item.Discount) * Convert.ToDecimal(item.PurchasePrice) * Convert.ToDecimal(item.Quantity) / 100);
+                grossPrice = grossPrice + (Convert.ToDecimal(item.PurchasePrice) * Convert.ToDecimal(item.Quantity));
+                taxBase = grossPrice - discount;
+                TaxType taxType = db.TaxTypes.Where(tt => tt.CompanyID == company.CompanyID && tt.StartDate <= date
+                    && tt.EndDate >= date && tt.Name.Contains("IVA")).First();
+                if (db.ProductsTaxes.Where(pt => pt.ProductID == item.product.ProductID && pt.tax.TaxTypeID == taxType.TaxTypeID && pt.Input == 1).Include(p => p.tax).Count() > 0)
+                    tax = db.ProductsTaxes.Where(pt => pt.ProductID == item.product.ProductID && pt.tax.TaxTypeID == taxType.TaxTypeID && pt.Input == 1).Include(p => p.tax).First().tax.Percentage;
+
+                else
+                    tax = db.ProductTypesTaxes.Where(pt => pt.ProductTypeID == item.product.ProductTypeID && pt.tax.TaxTypeID == taxType.TaxTypeID && pt.Input == 1).Include(p => p.tax).First().tax.Percentage;
+
+                taxAmount = taxAmount + ((tax * taxBase) / 100);
+            }
+            return taxAmount;
+            //TU CODIGO
+            /*decimal taxAmount = 0;
             foreach (Movement item in movements)
             {
                 decimal tax = 0;
@@ -86,14 +123,16 @@ namespace FrameworkView.V1
 
                 taxAmount = taxAmount + (tax * Convert.ToDecimal(item.PurchasePrice) * Convert.ToDecimal(item.Quantity) / 100);
             }
-            return taxAmount;
+            return taxAmount;*/
         }
 
         public decimal GetPurchaseFinalPrice()
         {
+            decimal discount = 0;
             decimal taxAmount = 0;
             foreach (Movement item in movements)
             {
+                discount = discount + (Convert.ToDecimal(item.Discount) * Convert.ToDecimal(item.PurchasePrice) * Convert.ToDecimal(item.Quantity) / 100);
                 decimal tax = 0;
                 TaxType taxType = db.TaxTypes.Where(tt => tt.CompanyID == company.CompanyID && tt.StartDate <= date
                     && tt.EndDate >= date && tt.Name.Contains("IVA")).First();
@@ -103,8 +142,21 @@ namespace FrameworkView.V1
                 else
                     tax = db.ProductTypesTaxes.Where(pt => pt.ProductTypeID == item.product.ProductTypeID && pt.tax.TaxTypeID == taxType.TaxTypeID && pt.Input == 1).Include(p => p.tax).First().tax.Percentage;
 
+                taxAmount = taxAmount + (tax * (Convert.ToDecimal(item.PurchasePrice) * Convert.ToDecimal(item.Quantity) - discount) / 100)
+                    + ((Convert.ToDecimal(item.PurchasePrice) * Convert.ToDecimal(item.Quantity))) - (Convert.ToDecimal(item.Discount) * Convert.ToDecimal(item.PurchasePrice) * Convert.ToDecimal(item.Quantity) / 100);
+
+                //TU CODIGO
+                /*decimal tax = 0;
+                TaxType taxType = db.TaxTypes.Where(tt => tt.CompanyID == company.CompanyID && tt.StartDate <= date
+                    && tt.EndDate >= date && tt.Name.Contains("IVA")).First();
+                if (db.ProductsTaxes.Where(pt => pt.ProductID == item.product.ProductID && pt.tax.TaxTypeID == taxType.TaxTypeID && pt.Input == 1).Include(p => p.tax).Count() > 0)
+                    tax = db.ProductsTaxes.Where(pt => pt.ProductID == item.product.ProductID && pt.tax.TaxTypeID == taxType.TaxTypeID && pt.Input == 1).Include(p => p.tax).First().tax.Percentage;
+
+                else
+                    tax = db.ProductTypesTaxes.Where(pt => pt.ProductTypeID == item.product.ProductTypeID && pt.tax.TaxTypeID == taxType.TaxTypeID && pt.Input == 1).Include(p => p.tax).First().tax.Percentage;
+
                 taxAmount = taxAmount + (tax * Convert.ToDecimal(item.PurchasePrice) * Convert.ToDecimal(item.Quantity) / 100)
-                    + ((Convert.ToDecimal(item.PurchasePrice) * Convert.ToDecimal(item.Quantity))) - (Convert.ToDecimal(item.product.PurchaseDiscount1) * Convert.ToDecimal(item.PurchasePrice) * Convert.ToDecimal(item.Quantity) / 100);
+                    + ((Convert.ToDecimal(item.PurchasePrice) * Convert.ToDecimal(item.Quantity))) - (Convert.ToDecimal(item.product.PurchaseDiscount1) * Convert.ToDecimal(item.PurchasePrice) * Convert.ToDecimal(item.Quantity) / 100);*/
             }
             return taxAmount;
         }
@@ -265,29 +317,52 @@ namespace FrameworkView.V1
         public void UpdateTable()
         {
             dt.Clear();
+            decimal total = 0;
+            
             foreach (Movement item in movements)
             {
+                total = (decimal)(item.PurchasePrice * item.Quantity) - ((decimal)(item.PurchasePrice * item.Quantity) * ((decimal)(item.Discount)/100));
                 item.product = db.Products.Where(p => p.ProductID == item.ProductID).First();
                 switch(option)
                 {
                     case 1:
                         if (item.store != null)
                             dt.Rows.Add(item.MovementID, item.product.Code, item.product.Name, ((decimal)item.Quantity).ToString("0.##"),
-                                ((decimal)item.PurchasePrice).ToString("0.00"), (Convert.ToDecimal(item.product.PurchaseDiscount1)).ToString("0.00"), (Convert.ToDecimal(item.product.PurchaseDiscount2)).ToString("0.00"), ((decimal)(item.PurchasePrice * item.Quantity)).ToString("0.00"));
+                                ((decimal)item.PurchasePrice).ToString("0.00"), (Convert.ToDecimal(item.Discount)).ToString("0.00"), total.ToString("0.00"));
                         else
                             dt.Rows.Add(item.MovementID, item.product.Code, item.product.Name, ((decimal)item.Quantity).ToString("0.##"),
-                                ((decimal)item.PurchasePrice).ToString("0.00"), (Convert.ToDecimal(item.product.PurchaseDiscount1)).ToString("0.00"), (Convert.ToDecimal(item.product.PurchaseDiscount2)).ToString("0.00"), ((decimal)(item.PurchasePrice * item.Quantity)).ToString("0.00"));
+                                ((decimal)item.PurchasePrice).ToString("0.00"), (Convert.ToDecimal(item.Discount)).ToString("0.00"), total.ToString("0.00"));
 
                         break;
 
                     case 2:
                         if (item.store != null)
                             dt.Rows.Add(item.MovementID, item.product.Code, item.product.Name, ((decimal)item.Quantity).ToString("0.##"),
-                                ((decimal)item.SalePrice).ToString("0.00"), (Convert.ToDecimal(item.product.SaleDiscount1)).ToString("0.00"), (Convert.ToDecimal(item.product.SaleDiscount2)).ToString("0.00"), ((decimal)(item.SalePrice * item.Quantity)).ToString("0.00"));
+                                ((decimal)item.SalePrice).ToString("0.00"), (Convert.ToDecimal(item.product.SaleDiscount1)).ToString("0.00"), ((decimal)(item.SalePrice * item.Quantity)).ToString("0.00"));
                         else
                             dt.Rows.Add(item.MovementID, item.product.Code, item.product.Name, ((decimal)item.Quantity).ToString("0.##"),
-                                ((decimal)item.SalePrice).ToString("0.00"), (Convert.ToDecimal(item.product.SaleDiscount1)).ToString("0.00"), (Convert.ToDecimal(item.product.SaleDiscount2)).ToString("0.00"), ((decimal)(item.SalePrice * item.Quantity)).ToString("0.00"));
+                                ((decimal)item.SalePrice).ToString("0.00"), (Convert.ToDecimal(item.product.SaleDiscount1)).ToString("0.00"),  ((decimal)(item.SalePrice * item.Quantity)).ToString("0.00"));
                         break;
+
+                        //ESTE ERA TU CODIGO
+                        /*case 1:
+                            if (item.store != null)
+                                dt.Rows.Add(item.MovementID, item.product.Code, item.product.Name, ((decimal)item.Quantity).ToString("0.##"),
+                                    ((decimal)item.PurchasePrice).ToString("0.00"), (Convert.ToDecimal(item.product.PurchaseDiscount1)).ToString("0.00"), (Convert.ToDecimal(item.product.PurchaseDiscount2)).ToString("0.00"), ((decimal)(item.PurchasePrice * item.Quantity)).ToString("0.00"));
+                            else
+                                dt.Rows.Add(item.MovementID, item.product.Code, item.product.Name, ((decimal)item.Quantity).ToString("0.##"),
+                                    ((decimal)item.PurchasePrice).ToString("0.00"), (Convert.ToDecimal(item.product.PurchaseDiscount1)).ToString("0.00"), (Convert.ToDecimal(item.product.PurchaseDiscount2)).ToString("0.00"), ((decimal)(item.PurchasePrice * item.Quantity)).ToString("0.00"));
+
+                            break;
+
+                        case 2:
+                            if (item.store != null)
+                                dt.Rows.Add(item.MovementID, item.product.Code, item.product.Name, ((decimal)item.Quantity).ToString("0.##"),
+                                    ((decimal)item.SalePrice).ToString("0.00"), (Convert.ToDecimal(item.product.SaleDiscount1)).ToString("0.00"), (Convert.ToDecimal(item.product.SaleDiscount2)).ToString("0.00"), ((decimal)(item.SalePrice * item.Quantity)).ToString("0.00"));
+                            else
+                                dt.Rows.Add(item.MovementID, item.product.Code, item.product.Name, ((decimal)item.Quantity).ToString("0.##"),
+                                    ((decimal)item.SalePrice).ToString("0.00"), (Convert.ToDecimal(item.product.SaleDiscount1)).ToString("0.00"), (Convert.ToDecimal(item.product.SaleDiscount2)).ToString("0.00"), ((decimal)(item.SalePrice * item.Quantity)).ToString("0.00"));
+                            break;*/
                 }
             }
         }

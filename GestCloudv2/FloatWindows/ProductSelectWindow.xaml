@@ -77,11 +77,16 @@
                     <TextBox Name="TB_SalePrice" FontSize="9" VerticalAlignment="Center" Margin="20,0,20,0" Tag="3" IsEnabled="False"/>
                 </StackPanel>
 
-                <Label FontSize="9" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="4">Descuento</Label>
-                <StackPanel Name="SP_Discount" VerticalAlignment="Center" Grid.Row="5">
-                    <TextBox Name="TB_Discount" FontSize="9" VerticalAlignment="Center" Margin="20,0,20,0" Tag="4" IsEnabled="False"/>
+                <Label FontSize="9" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="4">Descuento de compra</Label>
+                <StackPanel Name="SP_PurchaseDiscount" VerticalAlignment="Center" Grid.Row="5">
+                    <TextBox Name="TB_PurchaseDiscount" FontSize="9" VerticalAlignment="Center" Margin="20,0,20,0" Tag="4" IsEnabled="False"/>
                 </StackPanel>
 
+                <Label FontSize="9" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="4" Grid.Column="1">Descuento de venta</Label>
+                <StackPanel Name="SP_SaleDiscount" VerticalAlignment="Center" Grid.Row="5" Grid.Column="1">
+                    <TextBox Name="TB_SaleDiscount" FontSize="9" VerticalAlignment="Center" Margin="20,0,20,0" Tag="5" IsEnabled="False"/>
+                </StackPanel>
+                
                 <Grid Grid.Row="6" Grid.RowSpan="2" Grid.Column="1">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*"/>

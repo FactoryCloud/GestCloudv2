@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using FrameworkDB.V1;
 using Microsoft.EntityFrameworkCore;
 
@@ -152,7 +153,8 @@ namespace FrameworkView.V1
                 documentLine.Name = item.product.Name;
                 documentLine.Quantity = Convert.ToDecimal(item.Quantity);
                 documentLine.product = item.product;
-                documentLine.PurchaseDiscount1Percentage = Convert.ToDecimal(item.product.PurchaseDiscount1);
+                documentLine.PurchaseDiscount1Percentage = Convert.ToDecimal(item.Discount);
+                //documentLine.PurchaseDiscount1Percentage = Convert.ToDecimal(item.product.PurchaseDiscount1); TU LINEA
 
                 // Calculate Previous
 
@@ -178,12 +180,14 @@ namespace FrameworkView.V1
                 documentLine.PurchaseGrossPrice = PurchaseGrossPriceTemp;
 
                 decimal PurchaseGrossPriceFinalTemp = (Convert.ToDecimal(item.PurchasePrice) * Convert.ToDecimal(item.Quantity));
+
                 PurchaseGrossPriceFinal = PurchaseGrossPriceFinal + PurchaseGrossPriceFinalTemp;
 
                 documentLine.PurchaseGrossPriceFinal = PurchaseGrossPriceFinalTemp;
 
                 // calculate Discount Amount
-                decimal PurchaseDiscountTemp = (Convert.ToDecimal(item.product.PurchaseDiscount1) * PurchaseGrossPriceTemp / 100);
+                decimal PurchaseDiscountTemp = (Convert.ToDecimal(item.Discount) * PurchaseGrossPriceTemp / 100);
+                //decimal PurchaseDiscountTemp = (Convert.ToDecimal(item.product.PurchaseDiscount1) * PurchaseGrossPriceTemp / 100); TU LINEA
                 PurchaseDiscount = PurchaseDiscount + PurchaseDiscountTemp;
 
                 documentLine.PurchaseDiscount1Amount = PurchaseDiscountTemp;
