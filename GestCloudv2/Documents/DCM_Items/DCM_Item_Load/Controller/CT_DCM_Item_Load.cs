@@ -24,14 +24,11 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.Controller
     /// </summary>
     public partial class CT_DCM_Item_Load : Main.Controller.CT_Common
     {
-        public StockAdjust stockAdjust;
         public int lastCode;
         public Movement movementSelected;
-        public MovementsView movementsView;
         public List<Movement> movements;
-        public List<StockAdjust> stocksAdjust;
         public List<Movement> movementsOld;
-        public int MovementLastID;
+        public DocumentContent documentContent;
 
         public CT_DCM_Item_Load(int editable)
         {
@@ -48,12 +45,10 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.Controller
 
         override public void EV_Start(object sender, RoutedEventArgs e)
         {
-            movementsView = new MovementsView(((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany, Information["operationType"]);
-            movementsView.SetDate(GetDate());
-
             movementsOld = db.Movements.Where(u => u.DocumentID == GetDocumentID() && (GetDocumentType().DocumentTypeID == u.DocumentTypeID)).Include(u => u.store)
                 .Include(i => i.product).Include(z => z.condition).Include(i => i.product.productType).ToList();
 
+            documentContent = new DocumentContent(Information["operationType"],((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany, GetDate(), movementsOld);
             UpdateComponents();
             this.Loaded -= EV_PreStart;
         }
@@ -80,7 +75,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.Controller
 
         virtual public void SetDate(DateTime date)
         {
-            movementsView.SetDate(date);
+            documentContent.SetDate(date);
             TestMinimalInformation();
         }
 
@@ -227,6 +222,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.Controller
 
             movementSelected = null;
 
+            EV_MovementsUpdate();
             UpdateComponents();
         }
 
@@ -235,10 +231,8 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.Controller
             List<Movement> allMovements = new List<Movement>();
             allMovements.AddRange(movementsOld);
             allMovements.AddRange(movements);
-            movementsView.SetMovements(allMovements);
+            documentContent = new DocumentContent(Information["operationType"], ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany, GetDate(), allMovements);
         }
-
-        
 
         virtual public void MD_MovementAdd()
         {
@@ -253,6 +247,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.Controller
                 movements.Remove(movements.Where(m => m.MovementID == movementSelected.MovementID).First());
 
             movementSelected = null;
+            EV_MovementsUpdate();
             UpdateComponents();
         }
 

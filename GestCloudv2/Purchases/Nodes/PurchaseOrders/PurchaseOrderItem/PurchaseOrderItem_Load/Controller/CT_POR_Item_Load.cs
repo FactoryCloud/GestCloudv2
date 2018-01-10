@@ -126,17 +126,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
 
         override public int LastCode()
         {
-            if (db.StockAdjusts.ToList().Count > 0)
-            {
-                lastCode = db.StockAdjusts.OrderBy(u => u.StockAdjustID).Last().StockAdjustID + 1;
-                stockAdjust.Code = lastCode.ToString();
-                return lastCode;
-            }
-            else
-            {
-                stockAdjust.Code = $"1";
-                return lastCode = 1;
-            }
+            return lastCode;
         }
 
         override public void MD_MovementAdd()

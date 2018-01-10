@@ -7,8 +7,8 @@
     <ProjectGuid>{E3973619-C229-4CCE-91B4-923D4FD9D660}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UserMantenant</RootNamespace>
-    <AssemblyName>UserMantenant</AssemblyName>
+    <RootNamespace>FrameworkView</RootNamespace>
+    <AssemblyName>FrameworkView</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -104,6 +104,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cards\CardsView.cs" />
+    <Compile Include="Documents\DocumentContent.cs" />
+    <Compile Include="Documents\DocumentLine.cs" />
     <Compile Include="Entities\EntitiesView.cs" />
     <Compile Include="Menus\SubmenuItem.cs" />
     <Compile Include="Menus\SubmenuItems.cs" />
