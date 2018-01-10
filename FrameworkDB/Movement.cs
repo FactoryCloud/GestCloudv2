@@ -16,6 +16,8 @@ namespace FrameworkDB.V1
 
         public decimal? Quantity { get; set; }
 
+        public decimal? Discount { get; set; }
+
         [Column(TypeName = "money")]
         public decimal? PurchasePrice { get; set; }
 
@@ -52,6 +54,7 @@ namespace FrameworkDB.V1
 
         public Movement(Movement movement)
         {
+            this.Discount = movement.Discount;
             this.MovementID = movement.MovementID;
             this.DocumentID = movement.DocumentID;
             this.DocumentTypeID = movement.DocumentTypeID;

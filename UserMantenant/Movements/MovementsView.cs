@@ -36,8 +36,7 @@ namespace FrameworkView.V1
             dt.Columns.Add("Nombre", typeof(string));
             dt.Columns.Add("Cantidad", typeof(int));
             dt.Columns.Add("Precio", typeof(decimal));
-            dt.Columns.Add("Dto1", typeof(decimal));
-            dt.Columns.Add("Dto2", typeof(decimal));
+            dt.Columns.Add("Dto", typeof(decimal));
             dt.Columns.Add("Importe", typeof(decimal));
         }
 

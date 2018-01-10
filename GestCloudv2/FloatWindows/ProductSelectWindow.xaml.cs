@@ -60,18 +60,22 @@ namespace GestCloudv2.FloatWindows
             TB_Quantity.KeyUp += new KeyEventHandler(EV_NumberChange);
             TB_PurchasePrice.KeyUp += new KeyEventHandler(EV_NumberChange);
             TB_SalePrice.KeyUp += new KeyEventHandler(EV_NumberChange);
+            TB_Discount.KeyUp += new KeyEventHandler(EV_NumberChange);
 
             TB_Quantity.GotMouseCapture += new MouseEventHandler(EV_NumberEnter);
             TB_PurchasePrice.GotMouseCapture += new MouseEventHandler(EV_NumberEnter);
             TB_SalePrice.GotMouseCapture += new MouseEventHandler(EV_NumberEnter);
+            TB_Discount.GotMouseCapture += new MouseEventHandler(EV_NumberEnter);
 
             TB_Quantity.GotKeyboardFocus += new KeyboardFocusChangedEventHandler(EV_NumberEnter);
             TB_PurchasePrice.GotKeyboardFocus += new KeyboardFocusChangedEventHandler(EV_NumberEnter);
             TB_SalePrice.GotKeyboardFocus += new KeyboardFocusChangedEventHandler(EV_NumberEnter);
+            TB_Discount.GotKeyboardFocus += new KeyboardFocusChangedEventHandler(EV_NumberEnter);
 
             TB_Quantity.LostFocus += new RoutedEventHandler(EV_NumberLeft);
             TB_PurchasePrice.LostFocus += new RoutedEventHandler(EV_NumberLeft);
             TB_SalePrice.LostFocus += new RoutedEventHandler(EV_NumberLeft);
+            TB_Discount.LostFocus += new RoutedEventHandler(EV_NumberLeft);
 
             DG_Products.MouseLeftButtonUp += new MouseButtonEventHandler(EV_ProductsSelect);
 
@@ -241,6 +245,10 @@ namespace GestCloudv2.FloatWindows
                     case 3:
                         (sender as TextBox).Text = Convert.ToDecimal(0).ToString("0.00");
                         break;
+
+                    case 4:
+                        (sender as TextBox).Text = Convert.ToDecimal(0).ToString("0.00");
+                        break;
                 }
             }
 
@@ -255,6 +263,10 @@ namespace GestCloudv2.FloatWindows
                     break;
 
                 case 3:
+                    (sender as TextBox).Text = Convert.ToDecimal((sender as TextBox).Text).ToString("0.00");
+                    break;
+
+                case 4:
                     (sender as TextBox).Text = Convert.ToDecimal((sender as TextBox).Text).ToString("0.00");
                     break;
             }
@@ -309,6 +321,18 @@ namespace GestCloudv2.FloatWindows
                         TB_SalePrice.Text = Convert.ToDecimal(0).ToString("#.##");
                         TB_SalePrice.SelectionStart = 0;
                         movement.SalePrice = Convert.ToDecimal(0);
+                    }
+                    break;
+
+                case 4:
+                    if (TB_Discount.Text.Length > 0)
+                        movement.Discount = Convert.ToDecimal(TB_Discount.Text);
+
+                    else
+                    {
+                        TB_Discount.Text = Convert.ToDecimal(0).ToString("#.##");
+                        TB_Discount.SelectionStart = 0;
+                        movement.Discount = Convert.ToDecimal(0);
                     }
                     break;
             }
