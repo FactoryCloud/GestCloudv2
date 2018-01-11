@@ -115,21 +115,6 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseInvoices.PurchaseInvoiceItem.Purch
             return false;
         }
 
-        override public void TestMinimalInformation()
-        {
-            if (purchaseInvoice.Date != null && provider.ProviderID > 0 && store.StoreID > 0)
-            {
-                Information["minimalInformation"] = 1;
-            }
-
-            else
-            {
-                Information["minimalInformation"] = 0;
-            }
-
-            base.TestMinimalInformation();
-        }
-
         override public void SaveDocument()
         {
             purchaseInvoice.CompanyID = ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID;

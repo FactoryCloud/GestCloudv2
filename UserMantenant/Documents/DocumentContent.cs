@@ -14,7 +14,6 @@ namespace FrameworkView.V1
     public class DocumentContent
     {
         public List<DocumentLine> Lines { get; set; }
-        
 
         // Purchase Information
         public decimal PurchaseGrossPrice { get; set; }
@@ -153,8 +152,7 @@ namespace FrameworkView.V1
                 documentLine.Name = item.product.Name;
                 documentLine.Quantity = Convert.ToDecimal(item.Quantity);
                 documentLine.product = item.product;
-                documentLine.PurchaseDiscount1Percentage = Convert.ToDecimal(item.Discount);
-                //documentLine.PurchaseDiscount1Percentage = Convert.ToDecimal(item.product.PurchaseDiscount1); TU LINEA
+                documentLine.PurchaseDiscount1Percentage = Convert.ToDecimal(item.PurchaseDiscount1);
 
                 // Calculate Previous
 
@@ -186,8 +184,7 @@ namespace FrameworkView.V1
                 documentLine.PurchaseGrossPriceFinal = PurchaseGrossPriceFinalTemp;
 
                 // calculate Discount Amount
-                decimal PurchaseDiscountTemp = (Convert.ToDecimal(item.Discount) * PurchaseGrossPriceTemp / 100);
-                //decimal PurchaseDiscountTemp = (Convert.ToDecimal(item.product.PurchaseDiscount1) * PurchaseGrossPriceTemp / 100); TU LINEA
+                decimal PurchaseDiscountTemp = (Convert.ToDecimal(item.PurchaseDiscount1) * PurchaseGrossPriceTemp / 100);
                 PurchaseDiscount = PurchaseDiscount + PurchaseDiscountTemp;
 
                 documentLine.PurchaseDiscount1Amount = PurchaseDiscountTemp;
@@ -230,6 +227,14 @@ namespace FrameworkView.V1
         {
             foreach (Movement item in Movements)
             {
+                DocumentLine documentLine = new DocumentLine();
+
+                documentLine.Code = $"{item.MovementID}";
+                documentLine.Name = item.product.Name;
+                documentLine.Quantity = Convert.ToDecimal(item.Quantity);
+                documentLine.product = item.product;
+                documentLine.SaleDiscount1Percentage = Convert.ToDecimal(item.SaleDiscount1);
+
                 // Calculate Previous
 
                 Tax saleTax;
@@ -246,32 +251,54 @@ namespace FrameworkView.V1
                     saleTax = new Tax { Percentage = 0, Type = 1 };
 
                 // Calculate Gross Price
-                decimal SaleGrossPriceTemp = (Convert.ToDecimal(item.SalePrice) * Convert.ToDecimal(item.Quantity));
+                decimal SaleGrossPriceTemp = Convert.ToDecimal(item.SalePrice);
                 SaleGrossPrice = SaleGrossPrice + SaleGrossPriceTemp;
 
+                documentLine.SaleGrossPrice = SaleGrossPriceTemp;
+
+                decimal SaleGrossPriceFinalTemp = (Convert.ToDecimal(item.SalePrice) * Convert.ToDecimal(item.Quantity));
+
+                SaleGrossPriceFinal = SaleGrossPriceFinal + SaleGrossPriceFinalTemp;
+
+                documentLine.SaleGrossPriceFinal = SaleGrossPriceFinalTemp;
+
                 // calculate Discount Amount
-                decimal SaleDiscountTemp = Convert.ToDecimal(item.product.SaleDiscount1) * SaleGrossPriceTemp / 100;
+                decimal SaleDiscountTemp = (Convert.ToDecimal(item.SaleDiscount1) * SaleGrossPriceTemp / 100);
                 SaleDiscount = SaleDiscount + SaleDiscountTemp;
 
+                documentLine.SaleDiscount1Amount = SaleDiscountTemp;
+
                 // Calculate Tax Base
-                decimal SaleTaxBaseTemp = SaleGrossPriceTemp - SaleDiscountTemp;
+                decimal SaleTaxBaseTemp = (SaleGrossPriceTemp - SaleDiscountTemp);
                 SaleTaxBase = SaleTaxBase + SaleTaxBaseTemp;
 
-                SaleTaxBases[saleTax.Type] = SaleTaxAmounts[saleTax.Type] + SaleTaxBaseTemp;
+                decimal SaleTaxBaseFinalTemp = (SaleGrossPriceTemp - SaleDiscountTemp) * Convert.ToDecimal(item.Quantity);
+                SaleTaxBaseFinal = SaleTaxBaseFinal + SaleTaxBaseFinalTemp;
+                SaleTaxBases[saleTax.Type] = SaleTaxBases[saleTax.Type] + SaleTaxBaseFinalTemp;
+
+                documentLine.SaleTaxBase = SaleTaxBaseTemp;
+                documentLine.SaleTaxBaseFinal = SaleTaxBaseFinalTemp;
 
                 // Calculate IVA
-                decimal SaleTaxAmountTemp = saleTax.Percentage * SaleTaxBase / 100;
+
+                decimal SaleTaxAmountTemp = saleTax.Percentage * SaleTaxBaseFinalTemp / 100;
                 SaleTaxAmount = SaleTaxAmount + SaleTaxAmountTemp;
 
                 SaleTaxAmounts[saleTax.Type] = SaleTaxAmounts[saleTax.Type] + SaleTaxAmountTemp;
 
+                documentLine.SaleTaxAmount = SaleTaxAmountTemp;
+
                 // Calculate RE
 
                 // Calculate Final Price
-                decimal SaleFinalPriceTemp = SaleTaxBaseTemp + SaleTaxBaseTemp;
+                decimal SaleFinalPriceTemp = SaleTaxBaseFinalTemp + SaleTaxAmountTemp;
                 SaleFinalPrice = SaleFinalPrice + SaleFinalPriceTemp;
 
                 SaleFinalPrices[saleTax.Type] = SaleFinalPrices[saleTax.Type] + SaleFinalPriceTemp;
+
+                documentLine.SaleFinalPrice = SaleFinalPriceTemp;
+
+                Lines.Add(documentLine);
             }
         }
 
@@ -296,7 +323,7 @@ namespace FrameworkView.V1
 
                     case 2:
                         dt.Rows.Add(item.Code, item.product.Code, item.product.Name, ((decimal)item.Quantity).ToString("0.##"),
-                            ((decimal)item.PurchaseGrossPrice).ToString("0.00"),$"{(Convert.ToDecimal(item.PurchaseDiscount1Percentage)).ToString("0.##")} %", ((decimal)(item.PurchaseTaxBaseFinal)).ToString("0.00"));
+                            ((decimal)item.SaleGrossPrice).ToString("0.00"),$"{(Convert.ToDecimal(item.SaleDiscount1Percentage)).ToString("0.##")} %", ((decimal)(item.SaleTaxBaseFinal)).ToString("0.00"));
                         break;
                 }
             }

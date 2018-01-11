@@ -57,7 +57,7 @@ namespace FrameworkView.V1
             decimal discount = 0;
             foreach (Movement item in movements)
             {
-                discount = discount + (Convert.ToDecimal(item.Discount) * Convert.ToDecimal(item.PurchasePrice) * Convert.ToDecimal(item.Quantity) / 100);
+                discount = discount + (Convert.ToDecimal(item.PurchaseDiscount1) * Convert.ToDecimal(item.PurchasePrice) * Convert.ToDecimal(item.Quantity) / 100);
                 //discount = discount + (Convert.ToDecimal(item.product.PurchaseDiscount1) * Convert.ToDecimal(item.PurchasePrice) * Convert.ToDecimal(item.Quantity) / 100); TU LINEA
             }
             return discount;
@@ -70,7 +70,7 @@ namespace FrameworkView.V1
             decimal discount = 0;
             foreach (Movement item in movements)
             {
-                discount = discount + (Convert.ToDecimal(item.Discount) * Convert.ToDecimal(item.PurchasePrice) * Convert.ToDecimal(item.Quantity) / 100);
+                discount = discount + (Convert.ToDecimal(item.PurchaseDiscount1) * Convert.ToDecimal(item.PurchasePrice) * Convert.ToDecimal(item.Quantity) / 100);
                 grossPrice = grossPrice + (Convert.ToDecimal(item.PurchasePrice) * Convert.ToDecimal(item.Quantity));
                 taxBase = grossPrice - discount;
             }
@@ -94,7 +94,7 @@ namespace FrameworkView.V1
             foreach (Movement item in movements)
             {
                 decimal tax = 0;
-                discount = discount + (Convert.ToDecimal(item.Discount) * Convert.ToDecimal(item.PurchasePrice) * Convert.ToDecimal(item.Quantity) / 100);
+                discount = discount + (Convert.ToDecimal(item.PurchaseDiscount1) * Convert.ToDecimal(item.PurchasePrice) * Convert.ToDecimal(item.Quantity) / 100);
                 grossPrice = grossPrice + (Convert.ToDecimal(item.PurchasePrice) * Convert.ToDecimal(item.Quantity));
                 taxBase = grossPrice - discount;
                 TaxType taxType = db.TaxTypes.Where(tt => tt.CompanyID == company.CompanyID && tt.StartDate <= date
@@ -132,7 +132,7 @@ namespace FrameworkView.V1
             decimal taxAmount = 0;
             foreach (Movement item in movements)
             {
-                discount = discount + (Convert.ToDecimal(item.Discount) * Convert.ToDecimal(item.PurchasePrice) * Convert.ToDecimal(item.Quantity) / 100);
+                discount = discount + (Convert.ToDecimal(item.PurchaseDiscount1) * Convert.ToDecimal(item.PurchasePrice) * Convert.ToDecimal(item.Quantity) / 100);
                 decimal tax = 0;
                 TaxType taxType = db.TaxTypes.Where(tt => tt.CompanyID == company.CompanyID && tt.StartDate <= date
                     && tt.EndDate >= date && tt.Name.Contains("IVA")).First();
@@ -143,7 +143,7 @@ namespace FrameworkView.V1
                     tax = db.ProductTypesTaxes.Where(pt => pt.ProductTypeID == item.product.ProductTypeID && pt.tax.TaxTypeID == taxType.TaxTypeID && pt.Input == 1).Include(p => p.tax).First().tax.Percentage;
 
                 taxAmount = taxAmount + (tax * (Convert.ToDecimal(item.PurchasePrice) * Convert.ToDecimal(item.Quantity) - discount) / 100)
-                    + ((Convert.ToDecimal(item.PurchasePrice) * Convert.ToDecimal(item.Quantity))) - (Convert.ToDecimal(item.Discount) * Convert.ToDecimal(item.PurchasePrice) * Convert.ToDecimal(item.Quantity) / 100);
+                    + ((Convert.ToDecimal(item.PurchasePrice) * Convert.ToDecimal(item.Quantity))) - (Convert.ToDecimal(item.PurchaseDiscount1) * Convert.ToDecimal(item.PurchasePrice) * Convert.ToDecimal(item.Quantity) / 100);
 
                 //TU CODIGO
                 /*decimal tax = 0;
@@ -321,17 +321,17 @@ namespace FrameworkView.V1
             
             foreach (Movement item in movements)
             {
-                total = (decimal)(item.PurchasePrice * item.Quantity) - ((decimal)(item.PurchasePrice * item.Quantity) * ((decimal)(item.Discount)/100));
+                total = (decimal)(item.PurchasePrice * item.Quantity) - ((decimal)(item.PurchasePrice * item.Quantity) * ((decimal)(item.PurchaseDiscount1) /100));
                 item.product = db.Products.Where(p => p.ProductID == item.ProductID).First();
                 switch(option)
                 {
                     case 1:
                         if (item.store != null)
                             dt.Rows.Add(item.MovementID, item.product.Code, item.product.Name, ((decimal)item.Quantity).ToString("0.##"),
-                                ((decimal)item.PurchasePrice).ToString("0.00"), (Convert.ToDecimal(item.Discount)).ToString("0.00"), total.ToString("0.00"));
+                                ((decimal)item.PurchasePrice).ToString("0.00"), (Convert.ToDecimal(item.PurchaseDiscount1)).ToString("0.00"), total.ToString("0.00"));
                         else
                             dt.Rows.Add(item.MovementID, item.product.Code, item.product.Name, ((decimal)item.Quantity).ToString("0.##"),
-                                ((decimal)item.PurchasePrice).ToString("0.00"), (Convert.ToDecimal(item.Discount)).ToString("0.00"), total.ToString("0.00"));
+                                ((decimal)item.PurchasePrice).ToString("0.00"), (Convert.ToDecimal(item.PurchaseDiscount1)).ToString("0.00"), total.ToString("0.00"));
 
                         break;
 

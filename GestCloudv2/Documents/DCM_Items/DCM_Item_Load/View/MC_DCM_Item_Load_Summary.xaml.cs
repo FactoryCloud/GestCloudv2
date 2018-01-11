@@ -33,7 +33,19 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.View
 
         public void EV_Start(object sender, RoutedEventArgs e)
         {
-            InitializingProvider();
+            switch(GetController().Information["operationType"])
+            {
+                case 1:
+                    InitializingProvider();
+                    GR_Provider.Visibility = Visibility.Visible;
+                    break;
+
+                case 2:
+                    InitializingClient();
+                    GR_Client.Visibility = Visibility.Visible;
+                    break;
+            }
+            
             InitializingStore();
             InitializingCode();
             InitializingDate();
@@ -46,6 +58,12 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.View
         {
             SP_Provider.Width = BT_Provider.ActualWidth;
             ((TextBlock)BT_Provider.Template.FindName("TB_Provider", BT_Provider)).Text = $"Proveedor: {GetController().GetProvider().Cod} / {GetController().GetProvider().entity.Name}";
+        }
+
+        public void InitializingClient()
+        {
+            SP_Client.Width = BT_Client.ActualWidth;
+            ((TextBlock)BT_Client.Template.FindName("TB_Client", BT_Client)).Text = $"Cliente: {GetController().GetClient().Code} / {GetController().GetClient().entity.Name} {GetController().GetClient().entity.Subname}";
         }
 
         public void InitializingStore()
@@ -201,6 +219,84 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.View
                     BR_FinalPrice.Child = LB_FinalPrice;
                     grid.Children.Add(BR_FinalPrice);
                 }
+
+                if (GetController().Information["operationType"] == 2)
+                {
+                    // TaxBase
+
+                    Border BR_TaxBase = new Border();
+                    BR_TaxBase.BorderBrush = new SolidColorBrush(Colors.CadetBlue);
+                    BR_TaxBase.BorderThickness = new Thickness(0, 0, 0, 1);
+                    Grid.SetColumn(BR_TaxBase, 1);
+
+                    Label LB_TaxBase = new Label();
+                    LB_TaxBase.Content = item.SaleTaxBase.ToString("0.00");
+                    LB_TaxBase.Foreground = new SolidColorBrush(Colors.CadetBlue);
+                    LB_TaxBase.HorizontalAlignment = HorizontalAlignment.Center;
+
+                    BR_TaxBase.Child = LB_TaxBase;
+                    grid.Children.Add(BR_TaxBase);
+
+                    // TaxBaseFinal
+
+                    Border BR_TaxBaseFinal = new Border();
+                    BR_TaxBaseFinal.BorderBrush = new SolidColorBrush(Colors.CadetBlue);
+                    BR_TaxBaseFinal.BorderThickness = new Thickness(0, 0, 0, 1);
+                    Grid.SetColumn(BR_TaxBaseFinal, 3);
+
+                    Label LB_TaxBaseFinal = new Label();
+                    LB_TaxBaseFinal.Content = item.SaleTaxBaseFinal.ToString("0.00");
+                    LB_TaxBaseFinal.Foreground = new SolidColorBrush(Colors.CadetBlue);
+                    LB_TaxBaseFinal.HorizontalAlignment = HorizontalAlignment.Center;
+
+                    BR_TaxBaseFinal.Child = LB_TaxBaseFinal;
+                    grid.Children.Add(BR_TaxBaseFinal);
+
+                    // TaxAmount
+
+                    Border BR_TaxAmount = new Border();
+                    BR_TaxAmount.BorderBrush = new SolidColorBrush(Colors.CadetBlue);
+                    BR_TaxAmount.BorderThickness = new Thickness(0, 0, 0, 1);
+                    Grid.SetColumn(BR_TaxAmount, 4);
+
+                    Label LB_TaxAmount = new Label();
+                    LB_TaxAmount.Content = item.SaleTaxAmount.ToString("0.00");
+                    LB_TaxAmount.Foreground = new SolidColorBrush(Colors.CadetBlue);
+                    LB_TaxAmount.HorizontalAlignment = HorizontalAlignment.Center;
+
+                    BR_TaxAmount.Child = LB_TaxAmount;
+                    grid.Children.Add(BR_TaxAmount);
+
+                    // EquSurAmount
+
+                    Border BR_EquSurAmount = new Border();
+                    BR_EquSurAmount.BorderBrush = new SolidColorBrush(Colors.CadetBlue);
+                    BR_EquSurAmount.BorderThickness = new Thickness(0, 0, 0, 1);
+                    Grid.SetColumn(BR_EquSurAmount, 5);
+
+                    Label LB_EquSurAmount = new Label();
+                    LB_EquSurAmount.Content = item.SaleEquSurAmount.ToString("0.00");
+                    LB_EquSurAmount.Foreground = new SolidColorBrush(Colors.CadetBlue);
+                    LB_EquSurAmount.HorizontalAlignment = HorizontalAlignment.Center;
+
+                    BR_EquSurAmount.Child = LB_EquSurAmount;
+                    grid.Children.Add(BR_EquSurAmount);
+
+                    // EquSurAmount
+
+                    Border BR_FinalPrice = new Border();
+                    BR_FinalPrice.BorderBrush = new SolidColorBrush(Colors.CadetBlue);
+                    BR_FinalPrice.BorderThickness = new Thickness(0, 0, 0, 1);
+                    Grid.SetColumn(BR_FinalPrice, 6);
+
+                    Label LB_FinalPrice = new Label();
+                    LB_FinalPrice.Content = item.SaleFinalPrice.ToString("0.00");
+                    LB_FinalPrice.Foreground = new SolidColorBrush(Colors.CadetBlue);
+                    LB_FinalPrice.HorizontalAlignment = HorizontalAlignment.Center;
+
+                    BR_FinalPrice.Child = LB_FinalPrice;
+                    grid.Children.Add(BR_FinalPrice);
+                }
                 // Add Line
 
                 SP_Lines.Children.Add(grid);
@@ -235,7 +331,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.View
                     break;
 
                 case 2:
-                    LB_TaxBase.Content = $"{GetController().documentContent.SaleTaxBase.ToString("0.00")} €";
+                    LB_TaxBase.Content = $"{GetController().documentContent.SaleTaxBaseFinal.ToString("0.00")} €";
                     LB_TaxBase1.Content = $"{GetController().documentContent.SaleTaxBases[1].ToString("0.00")}";
                     LB_TaxBase2.Content = $"{GetController().documentContent.SaleTaxBases[2].ToString("0.00")}";
                     LB_TaxBase3.Content = $"{GetController().documentContent.SaleTaxBases[3].ToString("0.00")}";

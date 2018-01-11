@@ -76,6 +76,10 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseInvoices.PurchaseInvoiceItem.Purch
                 case 2:
                     MC_Page = new View.MC_PIN_Item_Load_Movements();
                     break;
+
+                case 3:
+                    MC_Page = new View.MC_PIN_Item_Load_Summary();
+                    break;
             }
         }
 

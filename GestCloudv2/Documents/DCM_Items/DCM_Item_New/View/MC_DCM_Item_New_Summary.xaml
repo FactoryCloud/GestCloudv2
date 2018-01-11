@@ -13,7 +13,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="5*"/>
-                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2.5*"/>
             </Grid.RowDefinitions>
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -27,12 +27,12 @@
                 </Grid.RowDefinitions>
 
                 <!-- Pestaña de Proveedor -->
-                <Grid  Name="GR_Provider" Background="Transparent" Margin="10,10,10,5">
+                <Grid  Name="GR_Provider" Background="Transparent" Margin="10,10,10,5" Visibility="Hidden">
                     <ToggleButton Name="BT_Provider" Tag="1">
                         <ToggleButton.Template>
                             <ControlTemplate>
                                 <Border Name="BR_Provider" CornerRadius="10" Background="CadetBlue">
-                                    <TextBlock Text="Proveedor: 123 - Jesús Calleja" Foreground="White" 
+                                    <TextBlock Name="TB_Provider" Text="Proveedor: 123 - Jesús Calleja" Foreground="White" 
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
                                             Margin="0,0,0,0"
@@ -67,13 +67,53 @@
                     </Border>
                 </Popup>
 
+                <!-- Pestaña de Client -->
+                <Grid  Name="GR_Client" Background="Transparent" Margin="10,10,10,5" Visibility="Hidden">
+                    <ToggleButton Name="BT_Client" Tag="1">
+                        <ToggleButton.Template>
+                            <ControlTemplate>
+                                <Border Name="BR_Client" CornerRadius="10" Background="CadetBlue">
+                                    <TextBlock Name="TB_Client" Text="Cliente:" Foreground="White" 
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Margin="0,0,0,0"
+                                            FontSize="20"/>
+                                </Border>
+                            </ControlTemplate>
+                        </ToggleButton.Template>
+                    </ToggleButton>
+                </Grid>
+
+                <!-- PopUp de Proveedor -->
+                <Popup Name="PU_Client" AllowsTransparency="True" IsOpen="{Binding IsChecked, ElementName=BT_Client}" Placement="Bottom" PlacementTarget="{Binding ElementName=GR_Client}">
+                    <Border CornerRadius="0,0,10,10" Background="Gray">
+                        <StackPanel Name="SP_Client">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition Width="1*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label FontSize="18" Foreground="White" HorizontalAlignment="Center">Nombre: Muebles Paco S.L.</Label>
+                                <Label FontSize="18" Foreground="White" HorizontalAlignment="Center" Grid.Column="1">N.I.F.: DE12345678</Label>
+                            </Grid>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition Width="1*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label FontSize="18" Foreground="White" HorizontalAlignment="Center">Teléfono: 957 123 456</Label>
+                                <Label FontSize="18" Foreground="White" HorizontalAlignment="Center" Grid.Column="1">Correo: mueblespaco@gmail.com</Label>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+                </Popup>
                 <!-- Pestaña de Almacén -->
                 <Grid  Name="GR_Store" Background="Transparent" Grid.Row="1" Margin="10,5,10,10">
                     <ToggleButton Name="BT_Store" Tag="2">
                         <ToggleButton.Template>
                             <ControlTemplate>
                                 <Border Name="BR_Store" CornerRadius="10" Background="CadetBlue">
-                                    <TextBlock Text="Almacén: A1 - Almacén Principal" Foreground="White" 
+                                    <TextBlock Name="TB_Store" Text="Almacén: A1 - Almacén Principal" Foreground="White" 
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
                                             Margin="0,0,0,0"
@@ -106,7 +146,7 @@
                         <ToggleButton.Template>
                             <ControlTemplate>
                                 <Border Name="BR_Code" CornerRadius="10" Background="CadetBlue">
-                                    <TextBlock Text="Nº Documento: 18/123456" Foreground="White" 
+                                    <TextBlock Name="TB_Code" Text="Nº Documento: 18/123456" Foreground="White" 
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
                                             Margin="0,0,0,0"
@@ -130,7 +170,7 @@
                         <ToggleButton.Template>
                             <ControlTemplate>
                                 <Border Name="BR_PaymentWay" CornerRadius="10" Background="CadetBlue">
-                                    <TextBlock Text="Método Pago: Efectivo" Foreground="White" 
+                                    <TextBlock Name="TB_PaymentWay" Text="Método Pago: Efectivo" Foreground="White" 
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
                                             Margin="0,0,0,0"
@@ -154,15 +194,15 @@
                             <RowDefinition Height="3*"/>
                             <RowDefinition Height="1.1*"/>
                         </Grid.RowDefinitions>
-                        <Label Padding="-5" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontSize="45">15</Label>
-                        <Label Padding="-5" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontSize="10" Grid.Row="1">Enero</Label>
+                        <Label Name="LB_Date1" Padding="-5" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontSize="45">15</Label>
+                        <Label Name="LB_Date2" Padding="-5" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontSize="10" Grid.Row="1">Enero</Label>
                     </Grid>
                 </Border>
             </Grid>
 
             <!-- Datos de líneas -->
             <Border BorderBrush="CadetBlue" Margin="0,20,0,10" Grid.Row="1">
-                <StackPanel CanVerticallyScroll="True">
+                <StackPanel Name="SP_Lines" CanVerticallyScroll="True">
                     <Grid Margin="0,0,0,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="2*"/>
@@ -202,216 +242,6 @@
                             <Label Foreground="White" HorizontalAlignment="Center">Importe Final</Label>
                         </Border>
                     </Grid>
-
-                    <!-- Línea de prueba -->
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="2*"/>
-                            <ColumnDefinition Width="1*"/>
-                            <ColumnDefinition Width="0.5*"/>
-                            <ColumnDefinition Width="1*"/>
-                            <ColumnDefinition Width="1*"/>
-                            <ColumnDefinition Width="1*"/>
-                            <ColumnDefinition Width="1*"/>
-                        </Grid.ColumnDefinitions>
-
-                        <Border BorderBrush="CadetBlue" BorderThickness="0,0,0,1">
-                            <Label Foreground="CadetBlue" HorizontalAlignment="Center">Fatal Push (AER)</Label>
-                        </Border>
-                        <Border BorderBrush="CadetBlue" BorderThickness="0,0,0,1" Grid.Column="1">
-                            <Label Foreground="CadetBlue" HorizontalAlignment="Center">10</Label>
-                        </Border>
-                        <Border BorderBrush="CadetBlue" BorderThickness="0,0,0,1" Grid.Column="2">
-                            <Label Foreground="CadetBlue" HorizontalAlignment="Center">5</Label>
-                        </Border>
-                        <Border BorderBrush="CadetBlue" BorderThickness="0,0,0,1" Grid.Column="3">
-                            <Label Foreground="CadetBlue" HorizontalAlignment="Center">50</Label>
-                        </Border>
-                        <Border BorderBrush="CadetBlue" BorderThickness="0,0,0,1" Grid.Column="4">
-                            <Label Foreground="CadetBlue" HorizontalAlignment="Center">10,5</Label>
-                        </Border>
-                        <Border BorderBrush="CadetBlue" BorderThickness="0,0,0,1" Grid.Column="5">
-                            <Label Foreground="CadetBlue" HorizontalAlignment="Center">2</Label>
-                        </Border>
-                        <Border BorderBrush="CadetBlue" BorderThickness="0,0,0,1" Grid.Column="6">
-                            <Label Foreground="CadetBlue" HorizontalAlignment="Center">62,5</Label>
-                        </Border>
-                    </Grid>
-
-                    <!-- Línea de prueba -->
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="2*"/>
-                            <ColumnDefinition Width="1*"/>
-                            <ColumnDefinition Width="0.5*"/>
-                            <ColumnDefinition Width="1*"/>
-                            <ColumnDefinition Width="1*"/>
-                            <ColumnDefinition Width="1*"/>
-                            <ColumnDefinition Width="1*"/>
-                        </Grid.ColumnDefinitions>
-
-                        <Border BorderBrush="CadetBlue" BorderThickness="0,0,0,1">
-                            <Label Foreground="CadetBlue" HorizontalAlignment="Center">Fatal Push (AER)</Label>
-                        </Border>
-                        <Border BorderBrush="CadetBlue" BorderThickness="0,0,0,1" Grid.Column="1">
-                            <Label Foreground="CadetBlue" HorizontalAlignment="Center">10</Label>
-                        </Border>
-                        <Border BorderBrush="CadetBlue" BorderThickness="0,0,0,1" Grid.Column="2">
-                            <Label Foreground="CadetBlue" HorizontalAlignment="Center">5</Label>
-                        </Border>
-                        <Border BorderBrush="CadetBlue" BorderThickness="0,0,0,1" Grid.Column="3">
-                            <Label Foreground="CadetBlue" HorizontalAlignment="Center">50</Label>
-                        </Border>
-                        <Border BorderBrush="CadetBlue" BorderThickness="0,0,0,1" Grid.Column="4">
-                            <Label Foreground="CadetBlue" HorizontalAlignment="Center">10,5</Label>
-                        </Border>
-                        <Border BorderBrush="CadetBlue" BorderThickness="0,0,0,1" Grid.Column="5">
-                            <Label Foreground="CadetBlue" HorizontalAlignment="Center">2</Label>
-                        </Border>
-                        <Border BorderBrush="CadetBlue" BorderThickness="0,0,0,1" Grid.Column="6">
-                            <Label Foreground="CadetBlue" HorizontalAlignment="Center">62,5</Label>
-                        </Border>
-                    </Grid>
-
-                    <!-- Línea de prueba -->
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="2*"/>
-                            <ColumnDefinition Width="1*"/>
-                            <ColumnDefinition Width="0.5*"/>
-                            <ColumnDefinition Width="1*"/>
-                            <ColumnDefinition Width="1*"/>
-                            <ColumnDefinition Width="1*"/>
-                            <ColumnDefinition Width="1*"/>
-                        </Grid.ColumnDefinitions>
-
-                        <Border BorderBrush="CadetBlue" BorderThickness="0,0,0,1">
-                            <Label Foreground="CadetBlue" HorizontalAlignment="Center">Fatal Push (AER)</Label>
-                        </Border>
-                        <Border BorderBrush="CadetBlue" BorderThickness="0,0,0,1" Grid.Column="1">
-                            <Label Foreground="CadetBlue" HorizontalAlignment="Center">10</Label>
-                        </Border>
-                        <Border BorderBrush="CadetBlue" BorderThickness="0,0,0,1" Grid.Column="2">
-                            <Label Foreground="CadetBlue" HorizontalAlignment="Center">5</Label>
-                        </Border>
-                        <Border BorderBrush="CadetBlue" BorderThickness="0,0,0,1" Grid.Column="3">
-                            <Label Foreground="CadetBlue" HorizontalAlignment="Center">50</Label>
-                        </Border>
-                        <Border BorderBrush="CadetBlue" BorderThickness="0,0,0,1" Grid.Column="4">
-                            <Label Foreground="CadetBlue" HorizontalAlignment="Center">10,5</Label>
-                        </Border>
-                        <Border BorderBrush="CadetBlue" BorderThickness="0,0,0,1" Grid.Column="5">
-                            <Label Foreground="CadetBlue" HorizontalAlignment="Center">2</Label>
-                        </Border>
-                        <Border BorderBrush="CadetBlue" BorderThickness="0,0,0,1" Grid.Column="6">
-                            <Label Foreground="CadetBlue" HorizontalAlignment="Center">62,5</Label>
-                        </Border>
-                    </Grid>
-
-                    <!-- Línea de prueba -->
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="2*"/>
-                            <ColumnDefinition Width="1*"/>
-                            <ColumnDefinition Width="0.5*"/>
-                            <ColumnDefinition Width="1*"/>
-                            <ColumnDefinition Width="1*"/>
-                            <ColumnDefinition Width="1*"/>
-                            <ColumnDefinition Width="1*"/>
-                        </Grid.ColumnDefinitions>
-
-                        <Border BorderBrush="CadetBlue" BorderThickness="0,0,0,1">
-                            <Label Foreground="CadetBlue" HorizontalAlignment="Center">Fatal Push (AER)</Label>
-                        </Border>
-                        <Border BorderBrush="CadetBlue" BorderThickness="0,0,0,1" Grid.Column="1">
-                            <Label Foreground="CadetBlue" HorizontalAlignment="Center">10</Label>
-                        </Border>
-                        <Border BorderBrush="CadetBlue" BorderThickness="0,0,0,1" Grid.Column="2">
-                            <Label Foreground="CadetBlue" HorizontalAlignment="Center">5</Label>
-                        </Border>
-                        <Border BorderBrush="CadetBlue" BorderThickness="0,0,0,1" Grid.Column="3">
-                            <Label Foreground="CadetBlue" HorizontalAlignment="Center">50</Label>
-                        </Border>
-                        <Border BorderBrush="CadetBlue" BorderThickness="0,0,0,1" Grid.Column="4">
-                            <Label Foreground="CadetBlue" HorizontalAlignment="Center">10,5</Label>
-                        </Border>
-                        <Border BorderBrush="CadetBlue" BorderThickness="0,0,0,1" Grid.Column="5">
-                            <Label Foreground="CadetBlue" HorizontalAlignment="Center">2</Label>
-                        </Border>
-                        <Border BorderBrush="CadetBlue" BorderThickness="0,0,0,1" Grid.Column="6">
-                            <Label Foreground="CadetBlue" HorizontalAlignment="Center">62,5</Label>
-                        </Border>
-                    </Grid>
-
-                    <!-- Línea de prueba -->
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="2*"/>
-                            <ColumnDefinition Width="1*"/>
-                            <ColumnDefinition Width="0.5*"/>
-                            <ColumnDefinition Width="1*"/>
-                            <ColumnDefinition Width="1*"/>
-                            <ColumnDefinition Width="1*"/>
-                            <ColumnDefinition Width="1*"/>
-                        </Grid.ColumnDefinitions>
-
-                        <Border BorderBrush="CadetBlue" BorderThickness="0,0,0,1">
-                            <Label Foreground="CadetBlue" HorizontalAlignment="Center">Fatal Push (AER)</Label>
-                        </Border>
-                        <Border BorderBrush="CadetBlue" BorderThickness="0,0,0,1" Grid.Column="1">
-                            <Label Foreground="CadetBlue" HorizontalAlignment="Center">10</Label>
-                        </Border>
-                        <Border BorderBrush="CadetBlue" BorderThickness="0,0,0,1" Grid.Column="2">
-                            <Label Foreground="CadetBlue" HorizontalAlignment="Center">5</Label>
-                        </Border>
-                        <Border BorderBrush="CadetBlue" BorderThickness="0,0,0,1" Grid.Column="3">
-                            <Label Foreground="CadetBlue" HorizontalAlignment="Center">50</Label>
-                        </Border>
-                        <Border BorderBrush="CadetBlue" BorderThickness="0,0,0,1" Grid.Column="4">
-                            <Label Foreground="CadetBlue" HorizontalAlignment="Center">10,5</Label>
-                        </Border>
-                        <Border BorderBrush="CadetBlue" BorderThickness="0,0,0,1" Grid.Column="5">
-                            <Label Foreground="CadetBlue" HorizontalAlignment="Center">2</Label>
-                        </Border>
-                        <Border BorderBrush="CadetBlue" BorderThickness="0,0,0,1" Grid.Column="6">
-                            <Label Foreground="CadetBlue" HorizontalAlignment="Center">62,5</Label>
-                        </Border>
-                    </Grid>
-
-                    <!-- Línea de prueba -->
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="2*"/>
-                            <ColumnDefinition Width="1*"/>
-                            <ColumnDefinition Width="0.5*"/>
-                            <ColumnDefinition Width="1*"/>
-                            <ColumnDefinition Width="1*"/>
-                            <ColumnDefinition Width="1*"/>
-                            <ColumnDefinition Width="1*"/>
-                        </Grid.ColumnDefinitions>
-
-                        <Border BorderBrush="CadetBlue" BorderThickness="0,0,0,1">
-                            <Label Foreground="CadetBlue" HorizontalAlignment="Center">Fatal Push (AER)</Label>
-                        </Border>
-                        <Border BorderBrush="CadetBlue" BorderThickness="0,0,0,1" Grid.Column="1">
-                            <Label Foreground="CadetBlue" HorizontalAlignment="Center">10</Label>
-                        </Border>
-                        <Border BorderBrush="CadetBlue" BorderThickness="0,0,0,1" Grid.Column="2">
-                            <Label Foreground="CadetBlue" HorizontalAlignment="Center">5</Label>
-                        </Border>
-                        <Border BorderBrush="CadetBlue" BorderThickness="0,0,0,1" Grid.Column="3">
-                            <Label Foreground="CadetBlue" HorizontalAlignment="Center">50</Label>
-                        </Border>
-                        <Border BorderBrush="CadetBlue" BorderThickness="0,0,0,1" Grid.Column="4">
-                            <Label Foreground="CadetBlue" HorizontalAlignment="Center">10,5</Label>
-                        </Border>
-                        <Border BorderBrush="CadetBlue" BorderThickness="0,0,0,1" Grid.Column="5">
-                            <Label Foreground="CadetBlue" HorizontalAlignment="Center">2</Label>
-                        </Border>
-                        <Border BorderBrush="CadetBlue" BorderThickness="0,0,0,1" Grid.Column="6">
-                            <Label Foreground="CadetBlue" HorizontalAlignment="Center">62,5</Label>
-                        </Border>
-                    </Grid>
                 </StackPanel>
             </Border>
 
@@ -439,10 +269,12 @@
                                 <RowDefinition Height="2*"/>
                             </Grid.RowDefinitions>
                             <Label Foreground="White" HorizontalAlignment="Center">Base Imponible</Label>
-                            <Label Foreground="LightBlue" HorizontalAlignment="Center" Grid.Row="2">50</Label>
-                            <Label Foreground="LightBlue" HorizontalAlignment="Center" Grid.Row="3">125</Label>
-                            <Label Foreground="LightBlue" HorizontalAlignment="Center" Grid.Row="4">80</Label>
-                            <Label Foreground="White" FontSize="20" HorizontalAlignment="Center" Grid.Row="6">400</Label>
+                            <Label Name="LB_TaxBase1" Foreground="LightBlue" HorizontalAlignment="Center" Grid.Row="1"/>
+                            <Label Name="LB_TaxBase2" Foreground="LightBlue" HorizontalAlignment="Center" Grid.Row="2"/>
+                            <Label Name="LB_TaxBase3" Foreground="LightBlue" HorizontalAlignment="Center" Grid.Row="3"/>
+                            <Label Name="LB_TaxBase4" Foreground="LightBlue" HorizontalAlignment="Center" Grid.Row="4"/>
+                            <Label Name="LB_TaxBase5" Foreground="LightBlue" HorizontalAlignment="Center" Grid.Row="5"/>
+                            <Label Name="LB_TaxBase" Foreground="White" FontSize="20" HorizontalAlignment="Center" Grid.Row="6"/>
                         </Grid>
                     </Border>
 
@@ -468,10 +300,12 @@
                             <Label Foreground="LightBlue" HorizontalAlignment="Center" Grid.Row="3">10 %</Label>
                             <Label Foreground="LightBlue" HorizontalAlignment="Center" Grid.Row="4">21 %</Label>
 
-                            <Label Foreground="LightBlue" HorizontalAlignment="Center" Grid.Row="2" Grid.Column="1">50</Label>
-                            <Label Foreground="LightBlue" HorizontalAlignment="Center" Grid.Row="3" Grid.Column="1">125</Label>
-                            <Label Foreground="LightBlue" HorizontalAlignment="Center" Grid.Row="4" Grid.Column="1">80</Label>
-                            <Label Foreground="White" FontSize="20" HorizontalAlignment="Center" Grid.Row="6" Grid.Column="1">100</Label>
+                            <Label Name="LB_TaxAmount1" Foreground="LightBlue" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="1"/>
+                            <Label Name="LB_TaxAmount2" Foreground="LightBlue" HorizontalAlignment="Center" Grid.Row="2" Grid.Column="1"/>
+                            <Label Name="LB_TaxAmount3" Foreground="LightBlue" HorizontalAlignment="Center" Grid.Row="3" Grid.Column="1"/>
+                            <Label Name="LB_TaxAmount4" Foreground="LightBlue" HorizontalAlignment="Center" Grid.Row="4" Grid.Column="1"/>
+                            <Label Name="LB_TaxAmount5" Foreground="LightBlue" HorizontalAlignment="Center" Grid.Row="5" Grid.Column="1"/>
+                            <Label Name="LB_TaxAmount" Foreground="White" FontSize="20" HorizontalAlignment="Center" Grid.Row="6" Grid.Column="1"/>
                         </Grid>
                     </Border>
 
@@ -497,11 +331,11 @@
                             <Label Foreground="LightBlue" HorizontalAlignment="Center" Grid.Row="3">1,4 %</Label>
                             <Label Foreground="LightBlue" HorizontalAlignment="Center" Grid.Row="4">5,2 %</Label>
 
-                            <Label Foreground="LightBlue" HorizontalAlignment="Center" Grid.Row="2" Grid.Column="1">50</Label>
-                            <Label Foreground="LightBlue" HorizontalAlignment="Center" Grid.Row="3" Grid.Column="1">125</Label>
-                            <Label Foreground="LightBlue" HorizontalAlignment="Center" Grid.Row="4" Grid.Column="1">80</Label>
+                            <Label Foreground="LightBlue" HorizontalAlignment="Center" Grid.Row="2" Grid.Column="1"/>
+                            <Label Foreground="LightBlue" HorizontalAlignment="Center" Grid.Row="3" Grid.Column="1"/>
+                            <Label Foreground="LightBlue" HorizontalAlignment="Center" Grid.Row="4" Grid.Column="1"/>
 
-                            <Label Foreground="White" FontSize="20" HorizontalAlignment="Center" Grid.Row="6" Grid.Column="1">50</Label>
+                            <Label Name="LB_EqSurAmount" Foreground="White" FontSize="20" HorizontalAlignment="Center" Grid.Row="6" Grid.Column="1"/>
                         </Grid>
                     </Border>
 
@@ -518,10 +352,12 @@
                                 <RowDefinition Height="2*"/>
                             </Grid.RowDefinitions>
                             <Label Foreground="White" HorizontalAlignment="Center">Importe Final</Label>
-                            <Label Foreground="LightBlue" HorizontalAlignment="Center" Grid.Row="2">50</Label>
-                            <Label Foreground="LightBlue" HorizontalAlignment="Center" Grid.Row="3">125</Label>
-                            <Label Foreground="LightBlue" HorizontalAlignment="Center" Grid.Row="4">80</Label>
-                            <Label Padding="-5" Foreground="White" FontSize="30" HorizontalAlignment="Center" Grid.Row="6">550 €</Label>
+                            <Label Name="LB_FinalPrice1" Foreground="LightBlue" HorizontalAlignment="Center" Grid.Row="1"/>
+                            <Label Name="LB_FinalPrice2" Foreground="LightBlue" HorizontalAlignment="Center" Grid.Row="2"/>
+                            <Label Name="LB_FinalPrice3" Foreground="LightBlue" HorizontalAlignment="Center" Grid.Row="3"/>
+                            <Label Name="LB_FinalPrice4" Foreground="LightBlue" HorizontalAlignment="Center" Grid.Row="4"/>
+                            <Label Name="LB_FinalPrice5" Foreground="LightBlue" HorizontalAlignment="Center" Grid.Row="5"/>
+                            <Label Name="LB_FinalPrice" Padding="-5" Foreground="White" FontSize="30" HorizontalAlignment="Center" Grid.Row="6"/>
                         </Grid>
                     </Border>
                 </Grid>

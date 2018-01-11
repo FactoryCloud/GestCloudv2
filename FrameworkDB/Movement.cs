@@ -16,7 +16,8 @@ namespace FrameworkDB.V1
 
         public decimal? Quantity { get; set; }
 
-        public decimal? Discount { get; set; }
+        public decimal? PurchaseDiscount1 { get; set; }
+        public decimal? SaleDiscount1 { get; set; }
 
         [Column(TypeName = "money")]
         public decimal? PurchasePrice { get; set; }
@@ -54,7 +55,6 @@ namespace FrameworkDB.V1
 
         public Movement(Movement movement)
         {
-            this.Discount = movement.Discount;
             this.MovementID = movement.MovementID;
             this.DocumentID = movement.DocumentID;
             this.DocumentTypeID = movement.DocumentTypeID;
@@ -62,6 +62,8 @@ namespace FrameworkDB.V1
             this.Quantity = movement.Quantity;
             this.PurchasePrice = movement.PurchasePrice;
             this.SalePrice = movement.SalePrice;
+            this.PurchaseDiscount1 = movement.PurchaseDiscount1;
+            this.SaleDiscount1 = movement.SaleDiscount1;
             this.product = movement.product;
             this.ProductID = movement.ProductID;
             this.condition = movement.condition;

@@ -66,6 +66,16 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
             SC_Page = new View.SC_POR_Item_New_PurchaseOrder();
         }
 
+        public override int GetDocumentID()
+        {
+            return purchaseOrder.PurchaseOrderID;
+        }
+
+        public override DocumentType GetDocumentType()
+        {
+            return db.DocumentTypes.Where(d => d.Input == 1 && d.Name.Contains("Order")).First();
+        }
+
         public override DateTime GetDate()
         {
             return (DateTime)purchaseOrder.Date;
@@ -124,21 +134,6 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
             return false;
         }
 
-        override public void TestMinimalInformation()
-        {
-            if (purchaseOrder.Date != null && provider.ProviderID > 0 && store.StoreID > 0)
-            {
-                Information["minimalInformation"] = 1;
-            }
-
-            else
-            {
-                Information["minimalInformation"] = 0;
-            }
-
-            base.TestMinimalInformation();
-        }
-
         override public void SaveDocument()
         {
             purchaseOrder.CompanyID = ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID;
@@ -147,37 +142,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
             db.PurchaseOrders.Add(purchaseOrder);
             db.SaveChanges();
 
-            foreach (Movement movement in movements)
-            {
-                movement.MovementID = 0;
-                movement.ConditionID = movement.condition.ConditionID;
-                movement.condition = null;
-                movement.ProductID = movement.product.ProductID;
-                movement.product = null;
-
-                if (movement.store == null)
-                {
-                    movement.DocumentTypeID = db.DocumentTypes.Where(c => c.Name == "Order" && c.Input == 1).First().DocumentTypeID;
-                    movement.StoreID = store.StoreID;
-                }
-
-                else
-                {
-                    movement.DocumentTypeID = movement.documentType.DocumentTypeID;
-                    movement.documentType = null;
-                    if (movement.Quantity < 0)
-                        movement.Quantity = movement.Quantity * -1;
-                }
-
-                movement.DocumentID = purchaseOrder.PurchaseOrderID;
-                db.Movements.Add(movement);
-            }
-
-            db.SaveChanges();
-            MessageBox.Show("Datos guardados correctamente");
-
-            Information["fieldEmpty"] = 0;
-            CT_Menu();
+            base.SaveDocument();
         }
 
         override public void ChangeController()

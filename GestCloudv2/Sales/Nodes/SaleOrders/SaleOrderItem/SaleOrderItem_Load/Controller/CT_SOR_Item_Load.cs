@@ -76,6 +76,10 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_Load.Co
                 case 2:
                     MC_Page = new View.MC_SOR_Item_Load_Movements();
                     break;
+
+                case 3:
+                    MC_Page = new View.MC_POR_Item_Load_Summary();
+                    break;
             }
         }
 

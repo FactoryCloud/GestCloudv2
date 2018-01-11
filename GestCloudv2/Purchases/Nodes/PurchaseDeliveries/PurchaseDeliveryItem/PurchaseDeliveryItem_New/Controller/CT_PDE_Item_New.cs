@@ -59,7 +59,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseDeliveries.PurchaseDeliveryItem.Pu
 
         public override void SetSC()
         {
-            SC_Page = new View.SC_PDE_Item_New_PurchaseOrder();
+            SC_Page = new View.SC_PDE_Item_New_PurchaseDelivery();
         }
 
         public override string GetCode()
@@ -113,21 +113,6 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseDeliveries.PurchaseDeliveryItem.Pu
             purchaseDelivery.Code = code;
             base.CodeExist(code);
             return false;
-        }
-
-        override public void TestMinimalInformation()
-        {
-            if (purchaseDelivery.Date != null && provider.ProviderID > 0 && store.StoreID > 0)
-            {
-                Information["minimalInformation"] = 1;
-            }
-
-            else
-            {
-                Information["minimalInformation"] = 0;
-            }
-
-            base.TestMinimalInformation();
         }
 
         override public void SaveDocument()

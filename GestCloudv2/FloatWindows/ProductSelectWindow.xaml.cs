@@ -145,7 +145,7 @@ namespace GestCloudv2.FloatWindows
                 TB_Quantity.Text = Convert.ToDecimal(movement.Quantity).ToString("0.##");
                 TB_PurchasePrice.Text = Convert.ToDecimal(movement.PurchasePrice).ToString("0.00");
                 TB_SalePrice.Text = Convert.ToDecimal(movement.SalePrice).ToString("0.00");
-                TB_PurchaseDiscount.Text = Convert.ToDecimal(movement.Discount).ToString("0.00");
+                TB_PurchaseDiscount.Text = Convert.ToDecimal(movement.PurchaseDiscount1).ToString("0.00");
 
                 productsView.ProductName = movement.product.Name;
 
@@ -204,23 +204,25 @@ namespace GestCloudv2.FloatWindows
                 movement.ProductID = Convert.ToInt32(dr.Row.ItemArray[0].ToString());
                 TB_ProductName.Text = movement.product.Name;
 
-                if (movement.Quantity == null || movement.PurchasePrice == null || movement.SalePrice == null || movement.Discount == null )
+                if (movement.Quantity == null || movement.PurchasePrice == null || movement.SalePrice == null || movement.PurchaseDiscount1 == null || movement.SaleDiscount1 == null)
                 {
                     movement.Quantity = Convert.ToDecimal(1);
                     movement.PurchasePrice = Convert.ToDecimal(movement.product.PurchasePrice1);
                     movement.SalePrice = Convert.ToDecimal(movement.product.SalePrice1);
-                    movement.Discount = Convert.ToDecimal(movement.product.PurchaseDiscount1);
-                    movement.Discount = Convert.ToDecimal(movement.product.SaleDiscount1);
+                    movement.PurchaseDiscount1 = Convert.ToDecimal(movement.product.PurchaseDiscount1);
+                    movement.SaleDiscount1 = Convert.ToDecimal(movement.product.SaleDiscount1);
 
                     TB_Quantity.Text = ((decimal)movement.Quantity).ToString("0.##");
                     TB_PurchasePrice.Text = ((decimal)movement.PurchasePrice).ToString("0.00");
                     TB_SalePrice.Text = ((decimal)movement.SalePrice).ToString("0.00");
-                    TB_PurchaseDiscount.Text = ((decimal)movement.Discount).ToString("0.00");
+                    TB_PurchaseDiscount.Text = ((decimal)movement.PurchaseDiscount1).ToString("0.00");
+                    TB_SaleDiscount.Text = ((decimal)movement.SaleDiscount1).ToString("0.00");
 
                     TB_Quantity.IsEnabled = true;
                     TB_PurchasePrice.IsEnabled = true;
                     TB_SalePrice.IsEnabled = true;
                     TB_PurchaseDiscount.IsEnabled = true;
+                    TB_SaleDiscount.IsEnabled = true;
 
                     movement.condition = productsView.GetConditionDefault();
                 }
@@ -332,13 +334,25 @@ namespace GestCloudv2.FloatWindows
 
                 case 4:
                     if (TB_PurchaseDiscount.Text.Length > 0)
-                        movement.Discount = Convert.ToDecimal(TB_PurchaseDiscount.Text);
+                        movement.PurchaseDiscount1 = Convert.ToDecimal(TB_PurchaseDiscount.Text);
 
                     else
                     {
                         TB_PurchaseDiscount.Text = Convert.ToDecimal(0).ToString("#.##");
                         TB_PurchaseDiscount.SelectionStart = 0;
-                        movement.Discount = Convert.ToDecimal(0);
+                        movement.PurchaseDiscount1 = Convert.ToDecimal(0);
+                    }
+                    break;
+
+                case 5:
+                    if (TB_SaleDiscount.Text.Length > 0)
+                        movement.SaleDiscount1 = Convert.ToDecimal(TB_SaleDiscount.Text);
+
+                    else
+                    {
+                        TB_SaleDiscount.Text = Convert.ToDecimal(0).ToString("#.##");
+                        TB_SaleDiscount.SelectionStart = 0;
+                        movement.SaleDiscount1 = Convert.ToDecimal(0);
                     }
                     break;
             }

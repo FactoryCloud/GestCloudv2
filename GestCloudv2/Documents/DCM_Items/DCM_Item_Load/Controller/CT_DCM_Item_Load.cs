@@ -319,7 +319,9 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.Controller
                     DocumentTypeID = GetDocumentType().DocumentTypeID,
                     Quantity = Convert.ToDecimal(mov.Quantity),
                     PurchasePrice = Convert.ToDecimal(mov.PurchasePrice),
-                    SalePrice = Convert.ToDecimal(mov.SalePrice)
+                    SalePrice = Convert.ToDecimal(mov.SalePrice),
+                    PurchaseDiscount1 = Convert.ToDecimal(mov.PurchaseDiscount1),
+                    SaleDiscount1 = Convert.ToDecimal(mov.SaleDiscount1),
                 });
             }
 
@@ -338,6 +340,8 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.Controller
                 final.Quantity = item.Quantity;
                 final.PurchasePrice = item.PurchasePrice;
                 final.SalePrice = item.Quantity;
+                final.PurchaseDiscount1 = item.PurchaseDiscount1;
+                final.SaleDiscount1 = item.SaleDiscount1;
                 db.Movements.Update(final);
             }
 

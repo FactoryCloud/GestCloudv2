@@ -23,8 +23,6 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.Controller
 
         public CT_DCM_Item_New()
         {
-            provider = new Provider();
-            client = new Client();
             movements = new List<Movement>();
             Information.Add("minimalInformation", 0);
             Information.Add("operationType", 0);
@@ -64,6 +62,26 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.Controller
         public override Store GetStore()
         {
             return store;
+        }
+
+        public virtual Provider GetProvider()
+        {
+            return provider;
+        }
+
+        public virtual Client GetClient()
+        {
+            return client;
+        }
+
+        public virtual DocumentType GetDocumentType()
+        {
+            return new DocumentType();
+        }
+
+        public virtual int GetDocumentID()
+        {
+            return 0;
         }
 
         virtual public DateTime GetDate()
@@ -242,14 +260,53 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.Controller
             TestMinimalInformation();
         }
 
-        public virtual void TestMinimalInformation()
+        public void TestMinimalInformation()
         {
+            switch(Information["operationType"])
+            {
+                case 1:
+                    if (GetDate() != null && GetProvider() != null && GetStore() != null)
+                        Information["minimalInformation"] = 1;
+
+                    else
+                        Information["minimalInformation"] = 0;
+
+                    break;
+
+                case 2:
+                    if (GetDate() != null && GetClient() != null && GetStore() != null)
+                        Information["minimalInformation"] = 1;
+
+                    else
+                        Information["minimalInformation"] = 0;
+
+                    break;
+            }
+
             SetTS();
             LeftSide.Content = TS_Page;
         }
 
+        
+
         public virtual void SaveDocument()
         {
+            foreach (Movement mov in movements)
+            {
+                db.Movements.Add(new Movement
+                {
+                    ProductID = mov.ProductID,
+                    StoreID = mov.StoreID,
+                    DocumentID = GetDocumentID(),
+                    DocumentTypeID = GetDocumentType().DocumentTypeID,
+                    Quantity = Convert.ToDecimal(mov.Quantity),
+                    PurchasePrice = Convert.ToDecimal(mov.PurchasePrice),
+                    SalePrice = Convert.ToDecimal(mov.SalePrice),
+                    PurchaseDiscount1 = Convert.ToDecimal(mov.PurchaseDiscount1),
+                    SaleDiscount1 = Convert.ToDecimal(mov.SaleDiscount1),
+                });
+            }
+
             db.SaveChanges();
             MessageBox.Show("Datos guardados correctamente");
 

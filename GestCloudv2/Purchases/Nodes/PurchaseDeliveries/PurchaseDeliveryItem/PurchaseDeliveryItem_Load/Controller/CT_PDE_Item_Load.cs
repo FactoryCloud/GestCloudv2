@@ -76,6 +76,10 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseDeliveries.PurchaseDeliveryItem.Pu
                 case 2:
                     MC_Page = new View.MC_PDE_Item_Load_Movements();
                     break;
+
+                case 3:
+                    MC_Page = new View.MC_PDE_Item_Load_Summary();
+                    break;
             }
         }
 

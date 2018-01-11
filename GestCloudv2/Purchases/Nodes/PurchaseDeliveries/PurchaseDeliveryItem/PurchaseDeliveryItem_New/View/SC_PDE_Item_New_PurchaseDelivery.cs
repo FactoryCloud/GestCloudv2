@@ -11,7 +11,7 @@ using System.Windows.Input;
 
 namespace GestCloudv2.Purchases.Nodes.PurchaseDeliveries.PurchaseDeliveryItem.PurchaseDeliveryItem_New.View
 {
-    public partial class SC_PDE_Item_New_PurchaseOrder : Main.View.SC_Common
+    public partial class SC_PDE_Item_New_PurchaseDelivery : Main.View.SC_Common
     {
         public override void CT_DocumentMinimize(object sender, RoutedEventArgs e)
         {

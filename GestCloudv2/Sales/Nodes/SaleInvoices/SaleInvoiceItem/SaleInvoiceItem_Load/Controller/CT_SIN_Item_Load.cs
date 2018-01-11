@@ -76,6 +76,10 @@ namespace GestCloudv2.Sales.Nodes.SaleInvoices.SaleInvoiceItem.SaleInvoiceItem_L
                 case 2:
                     MC_Page = new View.MC_SIN_Item_Load_Movements();
                     break;
+
+                case 3:
+                    MC_Page = new View.MC_SIN_Item_Load_Summary();
+                    break;
             }
         }
 

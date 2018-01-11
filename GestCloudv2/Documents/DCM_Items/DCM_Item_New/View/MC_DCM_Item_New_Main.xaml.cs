@@ -74,13 +74,13 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.View
 
             CB_Stores.SelectedIndex = 0;
 
-            if (GetController().provider.entity != null)
+            if (GetController().GetProvider() != null)
             {
                 TB_ProviderName.Text = GetController().provider.entity.Name;
                 TB_ProviderCode.Text = GetController().provider.ProviderID.ToString();
             }
 
-            if (GetController().client.entity != null)
+            if (GetController().GetClient() != null)
             {
                 TB_ClientName.Text = GetController().client.entity.Name;
                 TB_ClientCode.Text = GetController().client.ClientID.ToString();
@@ -115,7 +115,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.View
         private void EV_MouseChange(object sender, RoutedEventArgs e)
         {
             SetTransparentAll();
-            if (GetController().provider.ProviderID > 0)
+            if (GetController().GetProvider() != null)
             {
                 if (GR_Provider.IsMouseOver)
                 {
@@ -123,7 +123,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.View
                 }
             }
 
-            if (GetController().client.ClientID > 0)
+            if (GetController().GetClient() != null)
             {
                 if (GR_Client.IsMouseOver)
                 {
@@ -131,7 +131,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.View
                 }
             }
 
-            if (GetController().store.StoreID > 0)
+            if (GetController().GetStore() != null)
             {
                 if (GR_Store.IsMouseOver)
                 {
@@ -144,7 +144,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.View
         private void EV_MouseClick(object sender, RoutedEventArgs e)
         {
 
-            if (GetController().provider.ProviderID > 0)
+            if (GetController().GetProvider() != null)
             {
                 if (GR_Provider.IsMouseOver)
                 {
@@ -152,7 +152,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.View
                 }
             }
 
-            if (GetController().client.ClientID > 0)
+            if (GetController().GetClient() != null)
             {
                 if (GR_Client.IsMouseOver)
                 {
@@ -160,7 +160,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.View
                 }
             }
 
-            if (GetController().store.StoreID > 0)
+            if (GetController().GetStore() != null)
             {
                 if (GR_Store.IsMouseOver)
                 {

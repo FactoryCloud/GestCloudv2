@@ -44,6 +44,10 @@ namespace GestCloudv2.Sales.Nodes.SaleDeliveries.SaleDeliveryItem.SaleDeliveryIt
                 case 2:
                     MC_Page = new View.MC_SDE_Item_New_Movements();
                     break;
+
+                case 3:
+                    MC_Page = new View.MC_SDE_Item_New_Summary();
+                    break;
             }
         }
 
@@ -113,21 +117,6 @@ namespace GestCloudv2.Sales.Nodes.SaleDeliveries.SaleDeliveryItem.SaleDeliveryIt
             saleDelivery.Code = code;
             base.CodeExist(code);
             return false;
-        }
-
-        override public void TestMinimalInformation()
-        {
-            if (saleDelivery.Date != null && client.ClientID > 0 && store.StoreID > 0)
-            {
-                Information["minimalInformation"] = 1;
-            }
-
-            else
-            {
-                Information["minimalInformation"] = 0;
-            }
-
-            base.TestMinimalInformation();
         }
 
         override public void SaveDocument()

@@ -27,7 +27,7 @@
                 </Grid.RowDefinitions>
 
                 <!-- Pestaña de Proveedor -->
-                <Grid  Name="GR_Provider" Background="Transparent" Margin="10,10,10,5">
+                <Grid  Name="GR_Provider" Background="Transparent" Margin="10,10,10,5" Visibility="Hidden">
                     <ToggleButton Name="BT_Provider" Tag="1">
                         <ToggleButton.Template>
                             <ControlTemplate>
@@ -67,6 +67,46 @@
                     </Border>
                 </Popup>
 
+                <!-- Pestaña de Client -->
+                <Grid  Name="GR_Client" Background="Transparent" Margin="10,10,10,5" Visibility="Hidden">
+                    <ToggleButton Name="BT_Client" Tag="1">
+                        <ToggleButton.Template>
+                            <ControlTemplate>
+                                <Border Name="BR_Client" CornerRadius="10" Background="CadetBlue">
+                                    <TextBlock Name="TB_Client" Text="Cliente:" Foreground="White" 
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Margin="0,0,0,0"
+                                            FontSize="20"/>
+                                </Border>
+                            </ControlTemplate>
+                        </ToggleButton.Template>
+                    </ToggleButton>
+                </Grid>
+
+                <!-- PopUp de Proveedor -->
+                <Popup Name="PU_Client" AllowsTransparency="True" IsOpen="{Binding IsChecked, ElementName=BT_Client}" Placement="Bottom" PlacementTarget="{Binding ElementName=GR_Client}">
+                    <Border CornerRadius="0,0,10,10" Background="Gray">
+                        <StackPanel Name="SP_Client">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition Width="1*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label FontSize="18" Foreground="White" HorizontalAlignment="Center">Nombre: Muebles Paco S.L.</Label>
+                                <Label FontSize="18" Foreground="White" HorizontalAlignment="Center" Grid.Column="1">N.I.F.: DE12345678</Label>
+                            </Grid>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition Width="1*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label FontSize="18" Foreground="White" HorizontalAlignment="Center">Teléfono: 957 123 456</Label>
+                                <Label FontSize="18" Foreground="White" HorizontalAlignment="Center" Grid.Column="1">Correo: mueblespaco@gmail.com</Label>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+                </Popup>
                 <!-- Pestaña de Almacén -->
                 <Grid  Name="GR_Store" Background="Transparent" Grid.Row="1" Margin="10,5,10,10">
                     <ToggleButton Name="BT_Store" Tag="2">
