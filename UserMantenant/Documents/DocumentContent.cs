@@ -126,7 +126,7 @@ namespace FrameworkView.V1
             dt.Columns.Add("Nombre", typeof(string));
             dt.Columns.Add("Cantidad", typeof(int));
             dt.Columns.Add("Importe Bruto", typeof(decimal));
-            dt.Columns.Add("Descuento", typeof(decimal));
+            dt.Columns.Add("Descuento", typeof(string));
             dt.Columns.Add("Importe Imponible", typeof(decimal));
 
             Lines = new List<DocumentLine>();
@@ -289,14 +289,14 @@ namespace FrameworkView.V1
                 switch (Option)
                 {
                     case 1:
-                        dt.Rows.Add(item.Code, item.product.Code, item.product.Name, ((decimal)item.Quantity).ToString("0.##"),
-                            ((decimal)item.PurchaseGrossPrice).ToString("0.00"), (Convert.ToDecimal(item.PurchaseDiscount1Percentage)).ToString("0.00"), ((decimal)(item.PurchaseTaxBaseFinal)).ToString("0.00"));
+                        dt.Rows.Add(item.Code,item.product.Code, item.product.Name,((decimal)item.Quantity).ToString("0.##"),
+                            ((decimal)item.PurchaseGrossPrice).ToString("0.00"), $"{(Convert.ToDecimal(item.PurchaseDiscount1Percentage)).ToString("0.##")} %", ((decimal)(item.PurchaseTaxBaseFinal)).ToString("0.00"));
 
                         break;
 
                     case 2:
                         dt.Rows.Add(item.Code, item.product.Code, item.product.Name, ((decimal)item.Quantity).ToString("0.##"),
-                            ((decimal)item.PurchaseGrossPrice).ToString("0.00"), (Convert.ToDecimal(item.PurchaseDiscount1Percentage)).ToString("0.00"), ((decimal)(item.PurchaseTaxBaseFinal)).ToString("0.00"));
+                            ((decimal)item.PurchaseGrossPrice).ToString("0.00"),$"{(Convert.ToDecimal(item.PurchaseDiscount1Percentage)).ToString("0.##")} %", ((decimal)(item.PurchaseTaxBaseFinal)).ToString("0.00"));
                         break;
                 }
             }
