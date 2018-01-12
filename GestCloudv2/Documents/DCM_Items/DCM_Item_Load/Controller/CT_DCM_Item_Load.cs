@@ -201,6 +201,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.Controller
             {
                 movement.MovementID = GetMovementNextID();
                 movements.Add(movement);
+                MD_MovementAdd();
             }
 
             else

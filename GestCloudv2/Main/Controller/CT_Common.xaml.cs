@@ -43,7 +43,7 @@ namespace GestCloudv2.Main.Controller
             FR_Subcontent.Content = new CT_Common_Subcontent();
 
             db = new GestCloudDB();
-            entity = new Entity();
+            entity = new Entity();            
 
             entity.Name = "";
 

@@ -99,7 +99,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.Controller
         {
             if (movements.Count > 0)
             {
-                movements.OrderBy(m => m.MovementID);
+                movements = movements.OrderBy(m => m.MovementID).ToList();
                 return movements.First().MovementID - 1;
             }
 
@@ -223,6 +223,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.Controller
             {
                 movement.MovementID = GetMovementNextID();
                 movements.Add(movement);
+                MD_MovementAdd();
             }
 
             else

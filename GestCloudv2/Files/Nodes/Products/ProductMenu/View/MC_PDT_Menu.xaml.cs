@@ -59,7 +59,7 @@ namespace GestCloudv2.Files.Nodes.Products.ProductMenu.View
         private void UpdateData()
         {
             DG_Products.ItemsSource = null;
-            DG_Products.ItemsSource = GetController().productsView.GetTable();
+            DG_Products.ItemsSource = GetController().productsView.GetTable(1);
         }
 
         private Files.Nodes.Products.ProductMenu.Controller.CT_ProductMenu GetController()

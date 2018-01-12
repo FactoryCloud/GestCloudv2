@@ -26,5 +26,8 @@ namespace FrameworkDB.V1
         [ForeignKey("FK_PurchaseInvoices_StoreID_Stores")]
         public int? StoreID { get; set; }
         public virtual Store store { get; set; }
+
+        public virtual List<PurchaseDelivery> PurchaseDeliveries { get; set; }
+        public virtual List<PurchaseOrder> PurchaseOrders { get; set; }
     }
 }

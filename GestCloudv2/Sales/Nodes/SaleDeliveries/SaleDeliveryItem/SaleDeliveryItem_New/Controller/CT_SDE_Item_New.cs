@@ -108,7 +108,7 @@ namespace GestCloudv2.Sales.Nodes.SaleDeliveries.SaleDeliveryItem.SaleDeliveryIt
 
         override public void MD_MovementAdd()
         {
-            View.FW_SDE_Item_New_Movements floatWindow = new View.FW_SDE_Item_New_Movements(Information["operationType"]);
+            View.FW_SDE_Item_New_Movements floatWindow = new View.FW_SDE_Item_New_Movements(Information["operationType"], movements);
             floatWindow.Show();
         }
 

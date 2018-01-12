@@ -14,9 +14,11 @@ namespace FrameworkView.V1
     public class ProductsView
     {
         List<Product> products { get; set; }
-        public Dictionary<int, decimal> stock;
         public Dictionary<int, decimal> prices;
         public Dictionary<int, int> times;
+        public Dictionary<int, Dictionary<int, decimal>> stocks;
+        public Dictionary<int, Dictionary<int, decimal>> documentLines;
+        public Dictionary<int, List<Product>> productsStored;
         public string ProductName { get; set; }
         public ProductType productType;
         public Expansion expansion;
@@ -41,17 +43,28 @@ namespace FrameworkView.V1
             dt.Columns.Add("Precio de Venta", typeof(decimal));
         }
 
-        public ProductsView(int OperationType)
+        public ProductsView(int OperationType, List<Movement> Movements):this()
         {
-            db = new GestCloudDB();
-            dt = new DataTable();
-            stock = new Dictionary<int, decimal>();
-            prices = new Dictionary<int, decimal>();
-            times = new Dictionary<int, int>();
-
             this.OperationType = OperationType;
-            ProductName = "";
 
+            documentLines = new Dictionary<int, Dictionary<int, decimal>>();
+
+            List<Store> storesList = db.Stores.ToList();
+
+            foreach (Store item in storesList)
+                documentLines.Add(item.StoreID, new Dictionary<int, decimal>());
+
+            foreach (Movement item in Movements)
+            {
+                if (!documentLines[item.StoreID].ContainsKey(Convert.ToInt16(item.ProductID)))
+                {
+                    documentLines[item.StoreID].Add(Convert.ToInt16(item.ProductID), 0);
+                }
+
+                documentLines[item.StoreID][Convert.ToInt16(item.ProductID)] = documentLines[item.StoreID][Convert.ToInt16(item.ProductID)] + Convert.ToDecimal(item.Quantity);
+            }
+
+            dt.Columns.Clear();
             dt.Columns.Add("Codigo", typeof(int));
             dt.Columns.Add("Nombre", typeof(string));
             dt.Columns.Add("Stock", typeof(string));
@@ -120,41 +133,35 @@ namespace FrameworkView.V1
             return movement;
         }
 
-        public void UpdateTable()
+        public void UpdateTable(int StoreID)
         {
-            if (productType != null && OperationType == 0)
+            if (OperationType > 0)
             {
-                switch (productType.Name)
+                prices = new Dictionary<int, decimal>();
+                times = new Dictionary<int, int>();
+                stocks = new Dictionary<int, Dictionary<int, decimal>>();
+                productsStored = new Dictionary<int, List<Product>>();
+
+                List<Store> storesList = db.Stores.ToList();
+
+                foreach (Store item in storesList)
                 {
-                    case "MTGCard":
-                        if (expansion != null || ProductName.Length > 3)
-                            products = db.Products.Where(pr => pr.Name.ToLower()
-                                .Contains($"({expansion.Abbreviation.ToLower()})") &&
-                                pr.Name.ToLower().Contains(ProductName.ToLower())).OrderBy(p => p.Name).ToList();
-
-                        else
-                            products = new List<Product>();
-                        break;
-
-                    default:
-                        products = db.Products.Where(p => p.productType.ProductTypeID == productType.ProductTypeID
-                            && p.Name.ToLower().Contains(ProductName.ToLower())).OrderBy(p => p.Name).ToList();
-                        break;
+                    stocks.Add(item.StoreID, new Dictionary<int, decimal>());
+                    productsStored.Add(item.StoreID, new List<Product>());
                 }
-            }
 
-            else if(OperationType > 0)
-            {
-                List<Movement> movements = db.Movements.Where(m => m.documentType.Name.Contains("Delivery") || 
+                List<Movement> movements = db.Movements.Where(m => m.documentType.Name.Contains("Delivery") ||
                     m.documentType.Name.Contains("Invoice")).Include(m => m.documentType).Include(m => m.product).ToList();
 
-                products = new List<Product>();
-
-                foreach(Movement item in movements)
+                foreach (Movement item in movements)
                 {
-                    if (!stock.ContainsKey(Convert.ToInt16(item.ProductID)))
+                    if (!stocks[item.StoreID].ContainsKey(Convert.ToInt16(item.ProductID)))
                     {
-                        stock.Add(Convert.ToInt16(item.ProductID), 0);
+                        stocks[item.StoreID].Add(Convert.ToInt16(item.ProductID), 0);
+                    }
+
+                    if (!prices.ContainsKey(Convert.ToInt16(item.ProductID)))
+                    {
                         prices.Add(Convert.ToInt16(item.ProductID), 0);
                         times.Add(Convert.ToInt16(item.ProductID), 0);
                     }
@@ -163,23 +170,64 @@ namespace FrameworkView.V1
                     times[Convert.ToInt16(item.ProductID)] = times[Convert.ToInt16(item.ProductID)] + 1;
 
                     if (item.documentType.Input == 1)
-                        stock[Convert.ToInt16(item.ProductID)] = stock[Convert.ToInt16(item.ProductID)] + Convert.ToDecimal(item.Quantity);
+                        stocks[item.StoreID][Convert.ToInt16(item.ProductID)] = stocks[item.StoreID][Convert.ToInt16(item.ProductID)] + Convert.ToDecimal(item.Quantity);
 
                     else
-                        stock[Convert.ToInt16(item.ProductID)] = stock[Convert.ToInt16(item.ProductID)] - Convert.ToDecimal(item.Quantity);
+                        stocks[item.StoreID][Convert.ToInt16(item.ProductID)] = stocks[item.StoreID][Convert.ToInt16(item.ProductID)] - Convert.ToDecimal(item.Quantity);
 
-                    if(products.Where(p => p.ProductID == item.ProductID).Count() == 0)
-                        products.Add(item.product);
+                    if (productsStored[item.StoreID].Where(p => p.ProductID == item.ProductID).Count() == 0)
+                    {
+                        productsStored[item.StoreID].Add(item.product);
+                        productsStored[item.StoreID].OrderBy(p => p.Name);
+                    }
                 }
-                products.OrderBy(p => p.Name);
+
+            }
+
+            if (productType != null)
+            {
+                switch (productType.Name)
+                {
+                    case "MTGCard":
+                        if ((expansion != null || ProductName.Length > 3) && OperationType == 0)
+                            products = db.Products.Where(pr => pr.Name.ToLower()
+                                .Contains($"({expansion.Abbreviation.ToLower()})") &&
+                                pr.Name.ToLower().Contains(ProductName.ToLower())).OrderBy(p => p.Name).ToList();
+
+                        else if((expansion != null || ProductName.Length > 3) && OperationType != 0)
+                            productsStored[StoreID] = productsStored[StoreID].Where(pr => pr.Name.ToLower()
+                                .Contains($"({expansion.Abbreviation.ToLower()})") &&
+                                pr.Name.ToLower().Contains(ProductName.ToLower())).OrderBy(p => p.Name).ToList();
+
+                        else
+                            products = new List<Product>();
+                        break;
+
+                    default:
+                        if(OperationType == 0)
+                            products = db.Products.Where(p => p.productType.ProductTypeID == productType.ProductTypeID
+                                && p.Name.ToLower().Contains(ProductName.ToLower())).OrderBy(p => p.Name).ToList();
+                        else
+                            productsStored[StoreID] = productsStored[StoreID].Where(p => p.productType.ProductTypeID == productType.ProductTypeID
+                                && p.Name.ToLower().Contains(ProductName.ToLower())).OrderBy(p => p.Name).ToList();
+                        break;
+                }
             }
 
             else
-                EV_FilterName(0);
+            {
+                if(OperationType == 0)
+                    EV_FilterName(0, 0);
+
+                else
+                    EV_FilterName(2, StoreID);
+            }
+                
 
             dt.Clear();
             if (OperationType == 0)
             {
+                products.OrderBy(p => p.Name);
                 foreach (Product product in products)
                 {
                     dt.Rows.Add(product.ProductID, product.Name, product.PurchasePrice1, product.SalePrice1);
@@ -188,14 +236,21 @@ namespace FrameworkView.V1
 
             else
             {
-                foreach (Product product in products)
+                productsStored[StoreID].OrderBy(p => p.Name);
+                foreach (Product product in productsStored[StoreID])
                 {
-                    dt.Rows.Add(product.ProductID, product.Name, stock[product.ProductID].ToString("0.##"), prices[product.ProductID] / times[product.ProductID]);
+                    if(documentLines[StoreID].ContainsKey(Convert.ToInt16(product.ProductID)))
+                        dt.Rows.Add(product.ProductID, product.Name, $"{stocks[StoreID][product.ProductID].ToString("0.##")} ({documentLines[StoreID][product.ProductID].ToString("0.##")})", 
+                            prices[product.ProductID] / times[product.ProductID]);
+
+                    else
+                        dt.Rows.Add(product.ProductID, product.Name, $"{stocks[StoreID][product.ProductID].ToString("0.##")}",
+                            prices[product.ProductID] / times[product.ProductID]);
                 }
             }
         }
 
-        public void EV_FilterName(int option)
+        public void EV_FilterName(int option, int StoreID)
         {
             switch(option)
             {
@@ -211,13 +266,17 @@ namespace FrameworkView.V1
                 case 1:
                         products = products.Where(p => p.Name.ToLower().Contains(ProductName.ToLower())).OrderBy(p => p.Name).ToList();
                     break;
+
+                case 2:
+                        productsStored[StoreID] = productsStored[StoreID].Where(p => p.Name.ToLower().Contains(ProductName.ToLower())).OrderBy(p => p.Name).ToList();
+                    break;
             }
             
         }
 
-        public IEnumerable GetTable()
+        public IEnumerable GetTable(int StoreID)
         {
-            UpdateTable();
+            UpdateTable(StoreID);
             return dt.DefaultView;
         }
     }

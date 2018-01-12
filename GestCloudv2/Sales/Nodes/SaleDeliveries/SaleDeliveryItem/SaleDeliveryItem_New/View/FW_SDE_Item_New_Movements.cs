@@ -23,7 +23,7 @@ namespace GestCloudv2.Sales.Nodes.SaleDeliveries.SaleDeliveryItem.SaleDeliveryIt
 
         }
 
-        public FW_SDE_Item_New_Movements(int OperationType) : base(OperationType)
+        public FW_SDE_Item_New_Movements(int OperationType, List<Movement> Movements) : base(OperationType, Movements)
         {
 
         }
