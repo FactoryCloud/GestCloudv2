@@ -17,6 +17,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
         public CT_POR_Item_New():base()
         {
             purchaseOrder = new PurchaseOrder();
+            purchaseOrder.Date = DateTime.Today;
             GetLastCode();
             Information["operationType"] = 1;
         }

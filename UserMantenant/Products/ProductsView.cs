@@ -14,6 +14,9 @@ namespace FrameworkView.V1
     public class ProductsView
     {
         List<Product> products { get; set; }
+        public Dictionary<int, decimal> stock;
+        public Dictionary<int, decimal> prices;
+        public Dictionary<int, int> times;
         public string ProductName { get; set; }
         public ProductType productType;
         public Expansion expansion;
@@ -22,21 +25,37 @@ namespace FrameworkView.V1
         //public int option;
         public Movement movement;
         private DataTable dt;
+        public int OperationType;
 
         public ProductsView()
         {
             db = new GestCloudDB();
             dt = new DataTable();
-            //option = 0;
-            ProductName = "";
 
-            movement = new Movement();
-            movement.condition = db.Conditions.Where(c => c.Code.Contains("NM")).First();
+            ProductName = "";
+            OperationType = 0;
 
             dt.Columns.Add("Codigo", typeof(int));
             dt.Columns.Add("Nombre", typeof(string));
-            dt.Columns.Add("Precio de compra", typeof(decimal));
-            dt.Columns.Add("Precio de venta", typeof(decimal));
+            dt.Columns.Add("Precio de Compra", typeof(decimal));
+            dt.Columns.Add("Precio de Venta", typeof(decimal));
+        }
+
+        public ProductsView(int OperationType)
+        {
+            db = new GestCloudDB();
+            dt = new DataTable();
+            stock = new Dictionary<int, decimal>();
+            prices = new Dictionary<int, decimal>();
+            times = new Dictionary<int, int>();
+
+            this.OperationType = OperationType;
+            ProductName = "";
+
+            dt.Columns.Add("Codigo", typeof(int));
+            dt.Columns.Add("Nombre", typeof(string));
+            dt.Columns.Add("Stock", typeof(string));
+            dt.Columns.Add("Precio de Venta", typeof(decimal));
         }
 
         public void SetExpansion(int num)
@@ -103,7 +122,7 @@ namespace FrameworkView.V1
 
         public void UpdateTable()
         {
-            if (productType != null)
+            if (productType != null && OperationType == 0)
             {
                 switch (productType.Name)
                 {
@@ -124,13 +143,55 @@ namespace FrameworkView.V1
                 }
             }
 
+            else if(OperationType > 0)
+            {
+                List<Movement> movements = db.Movements.Where(m => m.documentType.Name.Contains("Delivery") || 
+                    m.documentType.Name.Contains("Invoice")).Include(m => m.documentType).Include(m => m.product).ToList();
+
+                products = new List<Product>();
+
+                foreach(Movement item in movements)
+                {
+                    if (!stock.ContainsKey(Convert.ToInt16(item.ProductID)))
+                    {
+                        stock.Add(Convert.ToInt16(item.ProductID), 0);
+                        prices.Add(Convert.ToInt16(item.ProductID), 0);
+                        times.Add(Convert.ToInt16(item.ProductID), 0);
+                    }
+
+                    prices[Convert.ToInt16(item.ProductID)] = prices[Convert.ToInt16(item.ProductID)] + Convert.ToDecimal(item.SalePrice);
+                    times[Convert.ToInt16(item.ProductID)] = times[Convert.ToInt16(item.ProductID)] + 1;
+
+                    if (item.documentType.Input == 1)
+                        stock[Convert.ToInt16(item.ProductID)] = stock[Convert.ToInt16(item.ProductID)] + Convert.ToDecimal(item.Quantity);
+
+                    else
+                        stock[Convert.ToInt16(item.ProductID)] = stock[Convert.ToInt16(item.ProductID)] - Convert.ToDecimal(item.Quantity);
+
+                    if(products.Where(p => p.ProductID == item.ProductID).Count() == 0)
+                        products.Add(item.product);
+                }
+                products.OrderBy(p => p.Name);
+            }
+
             else
                 EV_FilterName(0);
 
             dt.Clear();
-            foreach (Product product in products)
+            if (OperationType == 0)
             {
-                dt.Rows.Add(product.ProductID, product.Name, product.PurchasePrice1, product.SalePrice1);
+                foreach (Product product in products)
+                {
+                    dt.Rows.Add(product.ProductID, product.Name, product.PurchasePrice1, product.SalePrice1);
+                }
+            }
+
+            else
+            {
+                foreach (Product product in products)
+                {
+                    dt.Rows.Add(product.ProductID, product.Name, stock[product.ProductID].ToString("0.##"), prices[product.ProductID] / times[product.ProductID]);
+                }
             }
         }
 

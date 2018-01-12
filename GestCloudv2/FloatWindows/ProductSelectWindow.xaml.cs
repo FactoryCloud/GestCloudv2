@@ -30,6 +30,7 @@ namespace GestCloudv2.FloatWindows
     {
         public ProductsView productsView;
         public Movement movement;
+        int OperationOption;
 
         public static string ReplaceLastOccurrence(string Source, string Find, string Replace)
         {
@@ -82,12 +83,19 @@ namespace GestCloudv2.FloatWindows
             productsView = new ProductsView();
 
             movement = new Movement();
+            OperationOption = 0;
             
         }
 
         public ProductSelectWindow(Movement mov):this()
         {
             movement = mov;
+        }
+
+        public ProductSelectWindow(int OperationOption) : this()
+        {
+            productsView = new ProductsView(OperationOption);
+            this.OperationOption = OperationOption;
         }
 
         protected void EV_Start(object sender, RoutedEventArgs e)
@@ -143,16 +151,24 @@ namespace GestCloudv2.FloatWindows
 
                 TB_ProductName.Text = movement.product.Name;
                 TB_Quantity.Text = Convert.ToDecimal(movement.Quantity).ToString("0.##");
-                TB_PurchasePrice.Text = Convert.ToDecimal(movement.PurchasePrice).ToString("0.00");
-                TB_SalePrice.Text = Convert.ToDecimal(movement.SalePrice).ToString("0.00");
-                TB_PurchaseDiscount.Text = Convert.ToDecimal(movement.PurchaseDiscount1).ToString("0.00");
 
                 productsView.ProductName = movement.product.Name;
 
                 TB_Quantity.IsEnabled = true;
-                TB_PurchasePrice.IsEnabled = true;
+
+                if (OperationOption == 0)
+                {
+                    TB_PurchasePrice.Text = Convert.ToDecimal(movement.PurchasePrice).ToString("0.00");
+                    TB_PurchaseDiscount.Text = Convert.ToDecimal(movement.PurchaseDiscount1).ToString("0.00");
+                    TB_PurchasePrice.IsEnabled = true;
+                    TB_PurchaseDiscount.IsEnabled = true;
+                }
+
+                TB_SalePrice.Text = Convert.ToDecimal(movement.SalePrice).ToString("0.00");
+                TB_SaleDiscount.Text = Convert.ToDecimal(movement.SaleDiscount1).ToString("0.00");
+
                 TB_SalePrice.IsEnabled = true;
-                TB_PurchaseDiscount.IsEnabled = true;
+                TB_SaleDiscount.IsEnabled = true;
 
                 EV_ActivateButton();
             }
@@ -200,31 +216,73 @@ namespace GestCloudv2.FloatWindows
             {
                 DataGridRow row = (DataGridRow)DG_Products.ItemContainerGenerator.ContainerFromIndex(product);
                 DataRowView dr = row.Item as DataRowView;
-                movement.product = productsView.GetProduct(Convert.ToInt32(dr.Row.ItemArray[0].ToString()));
-                movement.ProductID = Convert.ToInt32(dr.Row.ItemArray[0].ToString());
-                TB_ProductName.Text = movement.product.Name;
 
-                if (movement.Quantity == null || movement.PurchasePrice == null || movement.SalePrice == null || movement.PurchaseDiscount1 == null || movement.SaleDiscount1 == null)
+                if (movement.ProductID != Convert.ToInt32(dr.Row.ItemArray[0].ToString()))
                 {
-                    movement.Quantity = Convert.ToDecimal(1);
+                    movement.product = productsView.GetProduct(Convert.ToInt32(dr.Row.ItemArray[0].ToString()));
+                    movement.ProductID = Convert.ToInt32(dr.Row.ItemArray[0].ToString());
+                    TB_ProductName.Text = movement.product.Name;
+
+                    if (OperationOption == 0)
+                    {
+                        movement.Quantity = Convert.ToDecimal(1);
+                        movement.SalePrice = Convert.ToDecimal(movement.product.SalePrice1);
+
+                        TB_Quantity.Text = ((decimal)movement.Quantity).ToString("0.##");
+                        TB_SalePrice.Text = ((decimal)movement.SalePrice).ToString("0.00");
+
+                        TB_Quantity.IsEnabled = true;
+                        TB_PurchasePrice.IsEnabled = true;
+                        TB_PurchaseDiscount.IsEnabled = true;
+                    }
+
+                    else
+                    {
+                        if (productsView.stock[Convert.ToInt32(movement.ProductID)] > 0)
+                        {
+                            movement.Quantity = Convert.ToDecimal(1);
+                            TB_Quantity.Text = ((decimal)movement.Quantity).ToString("0.##");
+                            TB_Quantity.IsEnabled = true;
+                        }
+
+                        movement.SalePrice = productsView.prices[Convert.ToInt32(movement.ProductID)] / productsView.times[Convert.ToInt32(movement.ProductID)];
+                        TB_SalePrice.Text = (productsView.prices[Convert.ToInt32(movement.ProductID)] / productsView.times[Convert.ToInt32(movement.ProductID)]).ToString("0.00");
+                    }
+
                     movement.PurchasePrice = Convert.ToDecimal(movement.product.PurchasePrice1);
-                    movement.SalePrice = Convert.ToDecimal(movement.product.SalePrice1);
                     movement.PurchaseDiscount1 = Convert.ToDecimal(movement.product.PurchaseDiscount1);
                     movement.SaleDiscount1 = Convert.ToDecimal(movement.product.SaleDiscount1);
 
-                    TB_Quantity.Text = ((decimal)movement.Quantity).ToString("0.##");
                     TB_PurchasePrice.Text = ((decimal)movement.PurchasePrice).ToString("0.00");
-                    TB_SalePrice.Text = ((decimal)movement.SalePrice).ToString("0.00");
                     TB_PurchaseDiscount.Text = ((decimal)movement.PurchaseDiscount1).ToString("0.00");
                     TB_SaleDiscount.Text = ((decimal)movement.SaleDiscount1).ToString("0.00");
 
-                    TB_Quantity.IsEnabled = true;
-                    TB_PurchasePrice.IsEnabled = true;
                     TB_SalePrice.IsEnabled = true;
-                    TB_PurchaseDiscount.IsEnabled = true;
                     TB_SaleDiscount.IsEnabled = true;
 
                     movement.condition = productsView.GetConditionDefault();
+
+                    if (OperationOption != 0)
+                    {
+                        if (productsView.stock[Convert.ToInt32(movement.ProductID)] <= 0)
+                        {
+                            movement = new Movement();
+
+                            TB_Quantity.Text = (0).ToString("0.##");
+                            TB_PurchasePrice.Text = (0).ToString("0.00");
+                            TB_PurchaseDiscount.Text = (0).ToString("0.00");
+                            TB_SalePrice.Text = (0).ToString("0.00");
+                            TB_SaleDiscount.Text = (0).ToString("0.00");
+
+                            TB_Quantity.IsEnabled = false;
+                            TB_PurchasePrice.IsEnabled = false;
+                            TB_PurchaseDiscount.IsEnabled = false;
+                            TB_SalePrice.IsEnabled = false;
+                            TB_SaleDiscount.IsEnabled = false;
+
+                            BT_SaveMovement.IsEnabled = false;
+                        }
+                    }
                 }
             }
 
@@ -299,7 +357,19 @@ namespace GestCloudv2.FloatWindows
             {
                 case 1:
                     if (TB_Quantity.Text.Length > 0)
-                        movement.Quantity = Convert.ToDecimal(TB_Quantity.Text);
+                    {
+                        if (OperationOption != 0)
+                        {
+                            if (Convert.ToDecimal((sender as TextBox).Text) > Convert.ToInt32(productsView.stock[Convert.ToInt32(movement.ProductID)]))
+                                (sender as TextBox).Text = Convert.ToDecimal(Convert.ToInt32(productsView.stock[Convert.ToInt32(movement.ProductID)])).ToString("0.##");
+                        }
+
+                        else
+                        {
+                            movement.Quantity = Convert.ToDecimal(TB_Quantity.Text);
+                        }
+                    }
+                        
 
                     else
                     {

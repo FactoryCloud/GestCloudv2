@@ -14,7 +14,6 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.Controller
     {
         public int lastCode;
         public Movement movementSelected;
-        public MovementsView movementsView;
         public List<Movement> movements;
         public Store store;
         public Provider provider;
@@ -30,9 +29,6 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.Controller
 
         override public void EV_Start(object sender, RoutedEventArgs e)
         {
-            movementsView = new MovementsView(((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany, Information["operationType"]);
-            movementsView.SetDate(DateTime.Today);
-            SetDate(DateTime.Today);
             documentContent = new DocumentContent(Information["operationType"], ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany, GetDate(), new List<Movement>());
             UpdateComponents();
             this.Loaded -= EV_PreStart;
@@ -113,7 +109,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.Controller
 
         public void SetMovementSelected(int num)
         {
-            movementSelected = movementsView.movements.Where(u => u.MovementID == num).First();
+            movementSelected = movements.Where(u => u.MovementID == num).First();
             SetTS();
             LeftSide.Content = TS_Page;
         }
@@ -126,7 +122,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.Controller
 
         virtual public void SetDate(DateTime date)
         {
-            movementsView.SetDate(date);
+            documentContent.SetDate(date);
             TestMinimalInformation();
         }
 
@@ -200,6 +196,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.Controller
         public void MD_MovementRemove()
         {
             movements.Remove(movements.Where(m => m.MovementID == movementSelected.MovementID).First());
+            EV_MovementsUpdate();
             movementSelected = null;
             UpdateComponents();
         }
@@ -235,8 +232,9 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.Controller
                 movements.OrderBy(m => m.MovementID);
             }
 
-            movementSelected = null;
             EV_MovementsUpdate();
+            movementSelected = null;
+            
             UpdateComponents();
         }
 

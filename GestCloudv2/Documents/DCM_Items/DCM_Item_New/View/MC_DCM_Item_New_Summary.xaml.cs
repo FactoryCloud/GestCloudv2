@@ -57,25 +57,28 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.View
         public void InitializingProvider()
         {
             SP_Provider.Width = BT_Provider.ActualWidth;
-            ((TextBlock)BT_Provider.Template.FindName("TB_Provider", BT_Provider)).Text = $"Proveedor: {GetController().GetProvider().Cod} / {GetController().GetProvider().entity.Name}";
+            if(GetController().GetProvider() != null )
+                ((TextBlock)BT_Provider.Template.FindName("TB_Provider", BT_Provider)).Text = $"Proveedor: {GetController().GetProvider().Cod} / {GetController().GetProvider().entity.Name}";
         }
 
         public void InitializingClient()
         {
             SP_Client.Width = BT_Client.ActualWidth;
-            ((TextBlock)BT_Client.Template.FindName("TB_Client", BT_Client)).Text = $"Cliente: {GetController().GetClient().Code} / {GetController().GetClient().entity.Name} {GetController().GetClient().entity.Subname}";
+            if(GetController().GetClient() != null)
+                ((TextBlock)BT_Client.Template.FindName("TB_Client", BT_Client)).Text = $"Cliente: {GetController().GetClient().Code} / {GetController().GetClient().entity.Name} {GetController().GetClient().entity.Subname}";
         }
 
         public void InitializingStore()
         {
             SP_Store.Width = BT_Store.ActualWidth;
-            ((TextBlock)BT_Store.Template.FindName("TB_Store", BT_Store)).Text = $"Almacén: {GetController().GetStore().Code} / {GetController().GetStore().Name}";
+            if(GetController().GetStore() != null)
+                ((TextBlock)BT_Store.Template.FindName("TB_Store", BT_Store)).Text = $"Almacén: {GetController().GetStore().Code} / {GetController().GetStore().Name}";
         }
 
         public void InitializingCode()
         {
             SP_Code.Width = BT_Code.ActualWidth;
-            ((TextBlock)BT_Code.Template.FindName("TB_Code", BT_Code)).Text = $"Nº Documento: 18 / {GetController().GetDocumentID()}";
+            ((TextBlock)BT_Code.Template.FindName("TB_Code", BT_Code)).Text = $"Nº Documento: 18 / {GetController().GetCode()}";
         }
 
         public void InitializingDate()

@@ -71,6 +71,21 @@ namespace GestCloudv2.Sales.Nodes.SaleInvoices.SaleInvoiceItem.SaleInvoiceItem_N
             return saleInvoice.Code;
         }
 
+        public override Client GetClient()
+        {
+            return client;
+        }
+
+        public override int GetDocumentID()
+        {
+            return saleInvoice.SaleInvoiceID;
+        }
+
+        public override DocumentType GetDocumentType()
+        {
+            return db.DocumentTypes.Where(d => d.Input == 0 && d.Name.Contains("Invoice")).First();
+        }
+
         override public void GetLastCode()
         {
             if (db.SaleInvoices.ToList().Count > 0)
@@ -126,20 +141,6 @@ namespace GestCloudv2.Sales.Nodes.SaleInvoices.SaleInvoiceItem.SaleInvoiceItem_N
             saleInvoice.store = db.Stores.Where(s => s.StoreID == store.StoreID).First();
             db.SaleInvoices.Add(saleInvoice);
             db.SaveChanges();
-
-            foreach (Movement movement in movementsView.movements)
-            {
-                movement.MovementID = 0;
-                movement.ConditionID = movement.condition.ConditionID;
-                movement.condition = null;
-                movement.ProductID = movement.product.ProductID;
-                movement.product = null;
-                movement.DocumentTypeID = db.DocumentTypes.Where(c => c.Name == "Invoice" && c.Input == 0).First().DocumentTypeID;
-                movement.StoreID = store.StoreID;
-
-                movement.DocumentID = saleInvoice.SaleInvoiceID;
-                db.Movements.Add(movement);
-            }
 
             base.SaveDocument();
         }

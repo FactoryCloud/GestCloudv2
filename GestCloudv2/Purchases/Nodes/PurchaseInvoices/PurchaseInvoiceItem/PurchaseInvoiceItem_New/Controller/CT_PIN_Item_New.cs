@@ -81,6 +81,16 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseInvoices.PurchaseInvoiceItem.Purch
             purchaseInvoice.Code = lastCode.ToString();
         }
 
+        public override int GetDocumentID()
+        {
+            return purchaseInvoice.PurchaseInvoiceID;
+        }
+
+        public override DocumentType GetDocumentType()
+        {
+            return db.DocumentTypes.Where(d => d.Input == 1 && d.Name.Contains("Invoice")).First();
+        }
+
         override public void MD_ProviderSelect()
         {
             View.FW_PIN_Item_New_SelectProvider floatWindow = new View.FW_PIN_Item_New_SelectProvider();
@@ -122,32 +132,6 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseInvoices.PurchaseInvoiceItem.Purch
             purchaseInvoice.store = db.Stores.Where(s => s.StoreID == store.StoreID).First();
             db.PurchaseInvoices.Add(purchaseInvoice);
             db.SaveChanges();
-
-            foreach (Movement movement in movementsView.movements)
-            {
-                movement.MovementID = 0;
-                movement.ConditionID = movement.condition.ConditionID;
-                movement.condition = null;
-                movement.ProductID = movement.product.ProductID;
-                movement.product = null;
-
-                if (movement.store == null)
-                {
-                    movement.DocumentTypeID = db.DocumentTypes.Where(c => c.Name == "Invoice" && c.Input == 1).First().DocumentTypeID;
-                    movement.StoreID = store.StoreID;
-                }
-
-                else
-                {
-                    movement.DocumentTypeID = movement.documentType.DocumentTypeID;
-                    movement.documentType = null;
-                    if (movement.Quantity < 0)
-                        movement.Quantity = movement.Quantity * -1;
-                }
-
-                movement.DocumentID = purchaseInvoice.PurchaseInvoiceID;
-                db.Movements.Add(movement);
-            }
 
             base.SaveDocument();
         }

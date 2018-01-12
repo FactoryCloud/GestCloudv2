@@ -85,6 +85,21 @@ namespace GestCloudv2.Sales.Nodes.SaleDeliveries.SaleDeliveryItem.SaleDeliveryIt
             saleDelivery.Code = lastCode.ToString();
         }
 
+        public override Client GetClient()
+        {
+            return client;
+        }
+
+        public override int GetDocumentID()
+        {
+            return saleDelivery.SaleDeliveryID;
+        }
+
+        public override DocumentType GetDocumentType()
+        {
+            return db.DocumentTypes.Where(d => d.Input == 0 && d.Name.Contains("Delivery")).First();
+        }
+
         override public void MD_ClientSelect()
         {
             View.FW_SDE_Item_New_SelectClient floatWindow = new View.FW_SDE_Item_New_SelectClient(1);
@@ -93,7 +108,7 @@ namespace GestCloudv2.Sales.Nodes.SaleDeliveries.SaleDeliveryItem.SaleDeliveryIt
 
         override public void MD_MovementAdd()
         {
-            View.FW_SDE_Item_New_Movements floatWindow = new View.FW_SDE_Item_New_Movements();
+            View.FW_SDE_Item_New_Movements floatWindow = new View.FW_SDE_Item_New_Movements(Information["operationType"]);
             floatWindow.Show();
         }
 
@@ -126,20 +141,6 @@ namespace GestCloudv2.Sales.Nodes.SaleDeliveries.SaleDeliveryItem.SaleDeliveryIt
             saleDelivery.store = db.Stores.Where(s => s.StoreID == store.StoreID).First();
             db.SaleDeliveries.Add(saleDelivery);
             db.SaveChanges();
-
-            foreach (Movement movement in movementsView.movements)
-            {
-                movement.MovementID = 0;
-                movement.ConditionID = movement.condition.ConditionID;
-                movement.condition = null;
-                movement.ProductID = movement.product.ProductID;
-                movement.product = null;
-                movement.DocumentTypeID = db.DocumentTypes.Where(c => c.Name == "Delivery" && c.Input == 0).First().DocumentTypeID;
-                movement.StoreID = store.StoreID;
-
-                movement.DocumentID = saleDelivery.SaleDeliveryID;
-                db.Movements.Add(movement);
-            }
 
             base.SaveDocument();
         }

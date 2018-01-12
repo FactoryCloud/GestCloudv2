@@ -67,6 +67,16 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseDeliveries.PurchaseDeliveryItem.Pu
             return purchaseDelivery.Code;
         }
 
+        public override int GetDocumentID()
+        {
+            return purchaseDelivery.PurchaseDeliveryID;
+        }
+
+        public override DocumentType GetDocumentType()
+        {
+            return db.DocumentTypes.Where(d => d.Input == 1 && d.Name.Contains("Delivery")).First();
+        }
+
         override public void GetLastCode()
         {
             if (db.PurchaseDeliveries.ToList().Count > 0)
@@ -122,32 +132,6 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseDeliveries.PurchaseDeliveryItem.Pu
             purchaseDelivery.store = db.Stores.Where(s => s.StoreID == store.StoreID).First();
             db.PurchaseDeliveries.Add(purchaseDelivery);
             db.SaveChanges();
-
-            foreach (Movement movement in movementsView.movements)
-            {
-                movement.MovementID = 0;
-                movement.ConditionID = movement.condition.ConditionID;
-                movement.condition = null;
-                movement.ProductID = movement.product.ProductID;
-                movement.product = null;
-
-                if (movement.store == null)
-                {
-                    movement.DocumentTypeID = db.DocumentTypes.Where(c => c.Name == "Delivery" && c.Input == 1).First().DocumentTypeID;
-                    movement.StoreID = store.StoreID;
-                }
-
-                else
-                {
-                    movement.DocumentTypeID = movement.documentType.DocumentTypeID;
-                    movement.documentType = null;
-                    if (movement.Quantity < 0)
-                        movement.Quantity = movement.Quantity * -1;
-                }
-
-                movement.DocumentID = purchaseDelivery.PurchaseDeliveryID;
-                db.Movements.Add(movement);
-            }
 
             base.SaveDocument();
         }
