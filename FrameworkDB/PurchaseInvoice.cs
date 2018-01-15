@@ -12,6 +12,8 @@ namespace FrameworkDB.V1
     {
         public int PurchaseInvoiceID { get; set; }
 
+        public decimal PurchaseInvoiceFinalPrice { get; set; }
+
         public string Code { get; set; }
         public DateTime? Date { get; set; }
 

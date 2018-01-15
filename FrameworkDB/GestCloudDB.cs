@@ -92,6 +92,12 @@ namespace FrameworkDB.V1
                 .HasForeignKey(a => a.ProductTypeID)
                 .HasConstraintName("FK_Products_ProductTypeID_ProductTypes");
 
+            /*modelBuilder.Entity<City>()
+                .HasOne(a => a.country)
+                .WithMany(b => b.entities)
+                .HasForeignKey(a => a.ProductTypeID)
+                .HasConstraintName("FK_Products_ProductTypeID_ProductTypes");*/
+
             modelBuilder.Entity<UserAccessControl>()
                 .HasKey(a => new { a.UserAccessControlID });
 

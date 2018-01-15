@@ -32,6 +32,8 @@ namespace GestCloudv2.Main.Controller
         protected Frame RightSide;
         public Entity entity;
         public Model.CT_Submenu CT_Submenu;
+        //public City citySelected;
+        //public Country countrySelected;
 
         protected GestCloudDB db;
 
@@ -42,6 +44,8 @@ namespace GestCloudv2.Main.Controller
             InitializeComponent();
             FR_Subcontent.Content = new CT_Common_Subcontent();
 
+            //citySelected = GetCities().OrderByDescending(t => t.P_C).First();
+            //countrySelected = GetCountries().OrderByDescending(t => t.CountryID).First();
             db = new GestCloudDB();
             entity = new Entity();            
 
@@ -119,11 +123,31 @@ namespace GestCloudv2.Main.Controller
             return db.FiscalYears.ToList();
         }
 
+        /*virtual public List<City> GetCities()
+        {
+            return db.Cities.ToList();
+        }
+
+        virtual public List<Country> GetCountries()
+        {
+            return db.Countries.ToList();
+        }*/
+
         public virtual void SetEntity(int num)
         {
             entity = db.Entities.Where(e => e.EntityID == num).First();
             Information["entityLoaded"] = 1;
         }
+
+        /*public void SetCitySelected(int num)
+        {
+            citySelected = db.Cities.Where(t => t.CityID == num).First();
+        }
+
+        public void SetCountrySelected(int num)
+        {
+            countrySelected = db.Countries.Where(t => t.CountryID == num).First();
+        }*/
 
         public void EV_UpdateSubMenu(int num)
         {

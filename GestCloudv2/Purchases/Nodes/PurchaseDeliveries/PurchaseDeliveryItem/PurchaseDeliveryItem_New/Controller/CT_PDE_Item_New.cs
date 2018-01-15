@@ -130,6 +130,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseDeliveries.PurchaseDeliveryItem.Pu
             purchaseDelivery.CompanyID = ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID;
             purchaseDelivery.ProviderID = provider.ProviderID;
             purchaseDelivery.store = db.Stores.Where(s => s.StoreID == store.StoreID).First();
+            purchaseDelivery.PurchaseDeliveryFinalPrice = documentContent.PurchaseFinalPrice;
             db.PurchaseDeliveries.Add(purchaseDelivery);
             db.SaveChanges();
 

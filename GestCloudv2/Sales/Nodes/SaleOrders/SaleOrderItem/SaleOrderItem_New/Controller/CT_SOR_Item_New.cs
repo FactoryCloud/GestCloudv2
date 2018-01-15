@@ -139,6 +139,7 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_New.Con
             saleOrder.CompanyID = ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID;
             saleOrder.ClientID = client.ClientID;
             saleOrder.store = db.Stores.Where(s => s.StoreID == store.StoreID).First();
+            saleOrder.SaleOrderFinalPrice = documentContent.SaleFinalPrice;
             db.SaleOrders.Add(saleOrder);
             db.SaveChanges();
 

@@ -139,6 +139,7 @@ namespace GestCloudv2.Sales.Nodes.SaleDeliveries.SaleDeliveryItem.SaleDeliveryIt
             saleDelivery.CompanyID = ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID;
             saleDelivery.ClientID = client.ClientID;
             saleDelivery.store = db.Stores.Where(s => s.StoreID == store.StoreID).First();
+            saleDelivery.SaleDeliveryFinalPrice = documentContent.SaleFinalPrice;
             db.SaleDeliveries.Add(saleDelivery);
             db.SaveChanges();
 

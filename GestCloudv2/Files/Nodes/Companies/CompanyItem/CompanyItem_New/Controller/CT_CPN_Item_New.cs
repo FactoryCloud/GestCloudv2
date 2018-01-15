@@ -167,6 +167,36 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.Controll
             TestMinimalInformation();
         }
 
+        public void CleanCIF()
+        {
+            company.CIF = "";
+            TestMinimalInformation();
+        }
+
+        public void CleanAddress()
+        {
+            company.Address = "";
+            TestMinimalInformation();
+        }
+
+        public void CleanPhone1()
+        {
+            company.Phone1 = 0;
+            TestMinimalInformation();
+        }
+
+        public void CleanPhone2()
+        {
+            company.Phone2 = 0;
+            TestMinimalInformation();
+        }
+
+        public void CleanFax()
+        {
+            company.Fax = 0;
+            TestMinimalInformation();
+        }
+
         public Boolean CompanyControlExist(string name)
         {
             List<Company> companies = db.Companies.ToList();

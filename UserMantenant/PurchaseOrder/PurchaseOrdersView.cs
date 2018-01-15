@@ -19,6 +19,7 @@ namespace FrameworkView.V1
             dt.Columns.Add("ID", typeof(int));
             dt.Columns.Add("Nombre", typeof(string));
             dt.Columns.Add("Fecha", typeof(string));
+            dt.Columns.Add("Importe", typeof(string));
         }
 
         override public void UpdateTable()
@@ -28,7 +29,7 @@ namespace FrameworkView.V1
             dt.Clear();
             foreach (PurchaseOrder purchaseOrder in purchaseOrders)
             {
-                dt.Rows.Add(purchaseOrder.PurchaseOrderID,purchaseOrder.provider.entity.Name, $"{String.Format("{0:dd/MM/yyyy}", purchaseOrder.Date)}");
+                dt.Rows.Add(purchaseOrder.PurchaseOrderID,purchaseOrder.provider.entity.Name, $"{String.Format("{0:dd/MM/yyyy}", purchaseOrder.Date)}",purchaseOrder.PurchaseOrderFinalPrice);
             }
         }
     }

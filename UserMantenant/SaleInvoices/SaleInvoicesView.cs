@@ -18,6 +18,7 @@ namespace FrameworkView.V1
             dt.Columns.Add("ID", typeof(int));
             dt.Columns.Add("Nombre", typeof(string));
             dt.Columns.Add("Fecha", typeof(string));
+            dt.Columns.Add("Importe", typeof(string));
         }
 
         override public void UpdateTable()
@@ -27,7 +28,7 @@ namespace FrameworkView.V1
             dt.Clear();
             foreach (SaleInvoice saleInvoice in items)
             {
-                dt.Rows.Add(saleInvoice.SaleInvoiceID, saleInvoice.client.entity.Name, $"{String.Format("{0:dd/MM/yyyy}", saleInvoice.Date)}");
+                dt.Rows.Add(saleInvoice.SaleInvoiceID, saleInvoice.client.entity.Name, $"{String.Format("{0:dd/MM/yyyy}", saleInvoice.Date)}",saleInvoice.SaleInvoiceFinalPrice);
             }
         }
     }

@@ -12,6 +12,11 @@ namespace FrameworkDB.V1
         public int CompanyID { get; set; }
         public int? Code { get; set; }
         public string Name { get; set; }
+        public string CIF { get; set; }
+        public string Address { get; set; }
+        public int Phone1 { get; set; }
+        public int Phone2 { get; set; }
+        public int Fax { get; set; }
         public int PeriodOption { get; set; }
 
         [ForeignKey("[FK_Companies_FiscalYearID_FiscalYears]")]

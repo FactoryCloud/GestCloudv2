@@ -30,8 +30,13 @@ namespace GestCloudv2.Files.Nodes.Entities.View
         {
             TB_Entity_Name.Text = GetController().entity.Name;
             TB_Entity_SubName.Text = GetController().entity.Subname;
-            TB_Entity_Phone.Text = GetController().entity.Phone1;
+            TB_Entity_Phone1.Text = GetController().entity.Phone1;
+            TB_Entity_Phone2.Text = GetController().entity.Phone2;
+            TB_Entity_Mobile.Text = GetController().entity.Mobile;
+            TB_Entity_Contact.Text = GetController().entity.Contact;
             TB_Entity_NIF.Text = GetController().entity.NIF;
+            TB_Entity_Address.Text = GetController().entity.Address;
+            TB_Entity_Email.Text = GetController().entity.Email;
 
             GetController().EV_ActivateSaveButton(true);
         }

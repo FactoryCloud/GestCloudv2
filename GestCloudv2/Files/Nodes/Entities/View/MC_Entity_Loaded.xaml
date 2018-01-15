@@ -22,6 +22,14 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+
         </Grid.RowDefinitions>
 
         <TextBlock FontSize="20" Grid.Column="1" Grid.Row="1" TextAlignment="Center" VerticalAlignment="Center">Nombre:</TextBlock>
@@ -30,12 +38,33 @@
         <TextBlock FontSize="20" Grid.Column="1" Grid.Row="2" TextAlignment="Center" VerticalAlignment="Center">Subnombre:</TextBlock>
         <TextBox Name="TB_Entity_SubName" FontSize="20" Grid.Column="3" Grid.Row="2" VerticalAlignment="Center" IsReadOnly="True"></TextBox>
 
-        <TextBlock FontSize="20" Grid.Column="1" Grid.Row="3" TextAlignment="Center" VerticalAlignment="Center">Teléfono:</TextBlock>
-        <TextBox Name="TB_Entity_Phone" FontSize="20" Grid.Column="3" Grid.Row="3" VerticalAlignment="Center" IsReadOnly="True"></TextBox>
+        <TextBlock FontSize="20" Grid.Column="1" Grid.Row="3" TextAlignment="Center" VerticalAlignment="Center">Teléfono 1º:</TextBlock>
+        <TextBox Name="TB_Entity_Phone1" FontSize="20" Grid.Column="3" Grid.Row="3" VerticalAlignment="Center" IsReadOnly="True"></TextBox>
 
-        <!--<TextBlock FontSize="20" Grid.Column="1" Grid.Row="4" TextAlignment="Center" VerticalAlignment="Center">Contraseña:</TextBlock>
-        <PasswordBox Name="passwordText" FontSize="20" Grid.Column="3" Grid.Row="4"  VerticalAlignment="Center"></PasswordBox>-->
-        <TextBlock FontSize="20" Grid.Column="1" Grid.Row="4" TextAlignment="Center" VerticalAlignment="Center">N.I.F.</TextBlock>
-        <TextBox Name="TB_Entity_NIF" FontSize="20" Grid.Column="3" Grid.Row="4" VerticalAlignment="Center" IsReadOnly="True"></TextBox>
+        <TextBlock FontSize="20" Grid.Column="1" Grid.Row="4" TextAlignment="Center" VerticalAlignment="Center">Teléfono 2º:</TextBlock>
+        <TextBox Name="TB_Entity_Phone2" FontSize="20" Grid.Column="3" Grid.Row="4" VerticalAlignment="Center" IsReadOnly="True"></TextBox>
+
+        <TextBlock FontSize="20" Grid.Column="1" Grid.Row="5" TextAlignment="Center" VerticalAlignment="Center">Movil:</TextBlock>
+        <TextBox Name="TB_Entity_Mobile" FontSize="20" Grid.Column="3" Grid.Row="5" VerticalAlignment="Center" IsReadOnly="True"></TextBox>
+
+        <TextBlock FontSize="20" Grid.Column="1" Grid.Row="6" TextAlignment="Center" VerticalAlignment="Center">Contacto:</TextBlock>
+        <TextBox Name="TB_Entity_Contact" FontSize="20" Grid.Column="3" Grid.Row="6" VerticalAlignment="Center" IsReadOnly="True"></TextBox>
+
+        <TextBlock FontSize="20" Grid.Column="1" Grid.Row="7" TextAlignment="Center" VerticalAlignment="Center">N.I.F.</TextBlock>
+        <TextBox Name="TB_Entity_NIF" FontSize="20" Grid.Column="3" Grid.Row="7" VerticalAlignment="Center" IsReadOnly="True"></TextBox>
+
+        <TextBlock FontSize="20" Grid.Column="1" Grid.Row="8" TextAlignment="Center" VerticalAlignment="Center">Dirección:</TextBlock>
+        <TextBox Name="TB_Entity_Address" FontSize="20" Grid.Column="3" Grid.Row="8" VerticalAlignment="Center" IsReadOnly="True"></TextBox>
+
+        <TextBlock FontSize="20" Grid.Column="1" Grid.Row="9" TextAlignment="Center" VerticalAlignment="Center">Email:</TextBlock>
+        <TextBox Name="TB_Entity_Email" FontSize="20" Grid.Column="3" Grid.Row="9" VerticalAlignment="Center" IsReadOnly="True"></TextBox>
+        
+        <TextBlock FontSize="20" Grid.Column="1" Grid.Row="10" TextAlignment="Center" VerticalAlignment="Center">Pais:</TextBlock>
+        <ComboBox Name="CB_Entity_Country" FontSize="20" Grid.Column="3" Grid.Row="10" VerticalAlignment="Center"></ComboBox>
+        <TextBox Name="TB_Entity_Country" FontSize="20" Grid.Column="3" Grid.Row="10" VerticalAlignment="Center" IsReadOnly="True" Visibility="Hidden"></TextBox>
+
+        <TextBlock FontSize="20" Grid.Column="1" Grid.Row="11" TextAlignment="Center" VerticalAlignment="Center">Ciudad:</TextBlock>
+        <ComboBox Name="CB_Entity_City" FontSize="20" Grid.Column="3" Grid.Row="11" VerticalAlignment="Center"></ComboBox>
+        <TextBox Name="TB_Entity_City" FontSize="20" Grid.Column="3" Grid.Row="11" VerticalAlignment="Center" IsReadOnly="True" Visibility="Hidden"></TextBox>
     </Grid>
 </Page>
