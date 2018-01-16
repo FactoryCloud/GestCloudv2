@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -35,6 +36,11 @@ namespace GestCloudv2.Files.Nodes.Entities.View
             TB_Entity_NIF.Text = GetController().entity.NIF;
             TB_Entity_Address.Text = GetController().entity.Address;
             TB_Entity_Email.Text = GetController().entity.Email;
+            if (GetController().postalCodeSelected > 0)
+            {
+                TB_Entity_PostalCode.Text = $"{GetController().postalCodeSelected}";
+            }
+
             CB_Entity_City.SelectionChanged += new SelectionChangedEventHandler(EV_CB_City);
             CB_Entity_Country.SelectionChanged += new SelectionChangedEventHandler(EV_CB_Country);
         }
@@ -50,19 +56,12 @@ namespace GestCloudv2.Files.Nodes.Entities.View
             TB_Entity_NIF.KeyUp += new KeyEventHandler(EV_Keys);
             TB_Entity_Address.KeyUp += new KeyEventHandler(EV_Keys);
             TB_Entity_Email.KeyUp += new KeyEventHandler(EV_Keys);
-
-            /*List<City> cities = GetController().GetCities();
-            foreach (City ct in cities)
-            {
-                ComboBoxItem temp = new ComboBoxItem();
-                temp.Content = $"{ct.Name}";
-                temp.Name = $"City{ct.CityID}";
-                CB_Entity_City.Items.Add(temp);
-            }
+            TB_Entity_PostalCode.KeyUp += new KeyEventHandler(EV_PostalCode);
+            EV_Cities();
 
             foreach (ComboBoxItem item in CB_Entity_City.Items)
             {
-                if (Convert.ToInt16(item.Name.Replace("City", "")) == GetController().citySelected.CityID)
+                if (Convert.ToInt64(item.Name.Replace("City", "")) == GetController().citySelected.CityID)
                 {
                     CB_Entity_City.SelectedValue = item;
                     break;
@@ -80,12 +79,12 @@ namespace GestCloudv2.Files.Nodes.Entities.View
 
             foreach (ComboBoxItem item in CB_Entity_Country.Items)
             {
-                if (Convert.ToInt16(item.Name.Replace("Country", "")) == GetController().countrySelected.CountryID)
+                if (Convert.ToInt64(item.Name.Replace("Country", "")) == GetController().countrySelected.CountryID)
                 {
                     CB_Entity_Country.SelectedValue = item;
                     break;
                 }
-            }*/
+            }
         }
 
         public void EV_Keys(object sender, RoutedEventArgs e)
@@ -139,12 +138,36 @@ namespace GestCloudv2.Files.Nodes.Entities.View
             }
         }
 
+        private void EV_PostalCode(object sender, RoutedEventArgs e)
+        {
+            if (Regex.Matches(((TextBox)sender).Text, "[^0-9]").Count > 0)
+            {
+                ((TextBox)sender).Text = Regex.Replace(((TextBox)sender).Text, "[^0-9]", "");
+                ((TextBox)sender).SelectionStart = ((TextBox)sender).Text.Length;
+            }
+            GetController().SetPostalCode(((TextBox)sender).Text);
+            EV_Cities();
+        }
+
+        private void EV_Cities()
+        {
+            List<City> cities = GetController().cities;
+            CB_Entity_City.Items.Clear();
+            foreach (City ct in cities)
+            {
+                ComboBoxItem temp = new ComboBoxItem();
+                temp.Content = $"{ct.Name}";
+                temp.Name = $"City{ct.CityID}";
+                CB_Entity_City.Items.Add(temp);
+            }
+        }
+
         private void EV_CB_City(object sender, RoutedEventArgs e)
         {
             ComboBoxItem temp1 = (ComboBoxItem)CB_Entity_City.SelectedItem;
             if (temp1 != null)
             {
-                //GetController().SetCitySelected(Convert.ToInt32(temp1.Name.Replace("City", "")));
+                GetController().SetCitySelected(Convert.ToInt32(temp1.Name.Replace("City", "")));
             }
         }
 
@@ -153,7 +176,7 @@ namespace GestCloudv2.Files.Nodes.Entities.View
             ComboBoxItem temp2 = (ComboBoxItem)CB_Entity_Country.SelectedItem;
             if (temp2 != null)
             {
-                //GetController().SetCountrySelected(Convert.ToInt32(temp2.Name.Replace("Country", "")));
+                GetController().SetCountrySelected(Convert.ToInt32(temp2.Name.Replace("Country", "")));
             }
         }
 

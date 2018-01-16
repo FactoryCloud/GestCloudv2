@@ -24,9 +24,6 @@ namespace FrameworkDB.V1
         public string Address { get; set; }
         public string Contact { get; set; }
 
-        [ForeignKey("FK_Entity_EntityTypeID_EntityTypes")]
-        public int? EntityTypeID { get; set; }
-        public virtual EntityType entityType { get; set; }
 
         [ForeignKey("FK_Entity_CountryID_Countries")]
         public int? CountryID { get; set; }

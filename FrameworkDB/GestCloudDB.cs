@@ -51,7 +51,6 @@ namespace FrameworkDB.V1
 
         public DbSet<PurchaseOrder> PurchaseOrders { get; set; }
         public DbSet<SaleOrder> SaleOrders { get; set; }
-        public DbSet<EntityType> EntityTypes { get; set; }
 
         public DbSet<ClientTax> ClientsTaxes { get; set; }
         public DbSet<ProviderTax> ProvidersTaxes { get; set; }
@@ -250,12 +249,6 @@ namespace FrameworkDB.V1
                .HasOne(a => a.provider)
                .WithOne(b => b.entity)
                .HasForeignKey<Provider>(c => c.EntityID);
-
-            modelBuilder.Entity<Entity>()
-                .HasOne(a => a.entityType)
-                .WithMany(b => b.entities)
-                .HasForeignKey(a => a.EntityTypeID)
-                .HasConstraintName("FK_Entity_EntityTypeID_EntityTypes");
 
             modelBuilder.Entity<Entity>()
                 .HasOne(a => a.country)

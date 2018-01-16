@@ -7,7 +7,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
       Title="MC_Entity_Loaded">
-    <Grid>
+    <Grid Name="GR_Main">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="2*"/>
@@ -16,6 +16,7 @@
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
@@ -58,13 +59,14 @@
 
         <TextBlock FontSize="20" Grid.Column="1" Grid.Row="9" TextAlignment="Center" VerticalAlignment="Center">Email:</TextBlock>
         <TextBox Name="TB_Entity_Email" FontSize="20" Grid.Column="3" Grid.Row="9" VerticalAlignment="Center" IsReadOnly="True"></TextBox>
-        
+
+        <TextBlock FontSize="20" Grid.Column="1" Grid.Row="11" TextAlignment="Center" VerticalAlignment="Center">Codigo Postal:</TextBlock>
+        <TextBox Name="TB_Entity_PostalCode" FontSize="20" Grid.Column="3" Grid.Row="11" VerticalAlignment="Center"></TextBox>
+
         <TextBlock FontSize="20" Grid.Column="1" Grid.Row="10" TextAlignment="Center" VerticalAlignment="Center">Pais:</TextBlock>
         <ComboBox Name="CB_Entity_Country" FontSize="20" Grid.Column="3" Grid.Row="10" VerticalAlignment="Center"></ComboBox>
-        <TextBox Name="TB_Entity_Country" FontSize="20" Grid.Column="3" Grid.Row="10" VerticalAlignment="Center" IsReadOnly="True" Visibility="Hidden"></TextBox>
 
-        <TextBlock FontSize="20" Grid.Column="1" Grid.Row="11" TextAlignment="Center" VerticalAlignment="Center">Ciudad:</TextBlock>
-        <ComboBox Name="CB_Entity_City" FontSize="20" Grid.Column="3" Grid.Row="11" VerticalAlignment="Center"></ComboBox>
-        <TextBox Name="TB_Entity_City" FontSize="20" Grid.Column="3" Grid.Row="11" VerticalAlignment="Center" IsReadOnly="True" Visibility="Hidden"></TextBox>
+        <TextBlock FontSize="20" Grid.Column="1" Grid.Row="12" TextAlignment="Center" VerticalAlignment="Center">Ciudad:</TextBlock>
+        <ComboBox Name="CB_Entity_City" FontSize="20" Grid.Column="3" Grid.Row="12" VerticalAlignment="Center"></ComboBox>
     </Grid>
 </Page>

@@ -272,7 +272,7 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.View
                 GetController().CleanAddress();
             }
 
-            else if (GetController().CompanyControlExist(TB_CompanyAddress.Text))
+            /*else if (GetController().CompanyAddress(TB_CompanyAddress.Text))
             {
                 if (SP_CompanyAddress.Children.Count == 1)
                 {
@@ -293,7 +293,7 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.View
                     SP_CompanyAddress.Children.Add(message);
                 }
                 GetController().EV_UpdateIfNotEmpty(true);
-            }
+            }*/
 
             else
             {
