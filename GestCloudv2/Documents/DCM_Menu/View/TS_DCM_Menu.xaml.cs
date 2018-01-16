@@ -45,6 +45,11 @@ namespace GestCloudv2.Documents.DCM_Menu.View
             GetController().EV_CT_LoadEditable();
         }
 
+        private void EV_MD_Transfer(object sender, RoutedEventArgs e)
+        {
+            GetController().EV_CT_Transfer();
+        }
+
         virtual public Controller.CT_DCM_Menu GetController()
         {
             Window mainWindow = Application.Current.MainWindow;

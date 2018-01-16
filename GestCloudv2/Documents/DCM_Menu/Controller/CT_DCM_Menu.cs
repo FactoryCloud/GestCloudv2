@@ -59,10 +59,16 @@ namespace GestCloudv2.Documents.DCM_Menu.Controller
         {
             return new DCM_Items.DCM_Item_Load.Controller.CT_DCM_Item_Load(0);
         }
+        
 
         public virtual DCM_Items.DCM_Item_Load.Controller.CT_DCM_Item_Load SetItemLoadEditable()
         {
             return new DCM_Items.DCM_Item_Load.Controller.CT_DCM_Item_Load(1);
+        }
+
+        public virtual DCM_Transfers.Controller.CT_DCM_Transfers SetItemTransfer()
+        {
+            return new DCM_Transfers.Controller.CT_DCM_Transfers();
         }
 
         virtual public bool SelectedItem()
@@ -85,6 +91,12 @@ namespace GestCloudv2.Documents.DCM_Menu.Controller
         public void EV_CT_LoadEditable()
         {
             Information["controller"] = 3;
+            ChangeController();
+        }
+
+        internal void EV_CT_Transfer()
+        {
+            Information["controller"] = 4;
             ChangeController();
         }
 
@@ -113,28 +125,30 @@ namespace GestCloudv2.Documents.DCM_Menu.Controller
 
         private void ChangeController()
         {
+            Main.View.MainWindow a = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
+
             switch (Information["controller"])
             {
                 case 0:
-                    Main.View.MainWindow a = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
                     a.MainFrame.Content = SetItemOriginal();
                     break;
 
                 case 1:
-                    Main.View.MainWindow b = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
-                    b.MainFrame.Content = SetItemNew();
+                    a.MainFrame.Content = SetItemNew();
                     break;
 
                 case 2:
-                    Main.View.MainWindow c = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
-                    c.MainFrame.Content = SetItemLoad();
+                    a.MainFrame.Content = SetItemLoad();
                     break;
 
                 case 3:
-                    Main.View.MainWindow d = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
-                    d.MainFrame.Content = SetItemLoadEditable();
+                    a.MainFrame.Content = SetItemLoadEditable();
                     break;
-            
+
+                case 4:
+                    a.MainFrame.Content = SetItemTransfer();
+                    break;
+
             }
 
         }

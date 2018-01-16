@@ -54,6 +54,11 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseDeliveries.PurchaseDeliveryMenu.Co
             return new PurchaseDeliveryItem.PurchaseDeliveryItem_Load.Controller.CT_PDE_Item_Load(purchaseDelivery, 1);
         }
 
+        public override Documents.DCM_Transfers.Controller.CT_DCM_Transfers SetItemTransfer()
+        {
+            return new PurchaseDeliveryTransfer.Controller.CT_PDE_Transfer();
+        }
+
         override public bool SelectedItem()
         {
             return purchaseDelivery != null;
