@@ -70,7 +70,8 @@ namespace GestCloudv2.Files.Nodes.Clients.ClientItem.ClientItem_New.Controller
                 {
                     entity.Cod = 1;
                 }
-
+                entity.CityID = citySelected.CityID;
+                entity.CountryID = countrySelected.CountryID;
                 db.Entities.Add(entity);
             }
 

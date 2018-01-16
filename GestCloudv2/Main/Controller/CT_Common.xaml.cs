@@ -32,8 +32,10 @@ namespace GestCloudv2.Main.Controller
         protected Frame RightSide;
         public Entity entity;
         public Model.CT_Submenu CT_Submenu;
-        //public City citySelected;
-        //public Country countrySelected;
+        public City citySelected;
+        public int postalCodeSelected;
+        public List<City> cities;
+        public Country countrySelected;
 
         protected GestCloudDB db;
 
@@ -43,11 +45,13 @@ namespace GestCloudv2.Main.Controller
         {
             InitializeComponent();
             FR_Subcontent.Content = new CT_Common_Subcontent();
-
-            //citySelected = GetCities().OrderByDescending(t => t.P_C).First();
-            //countrySelected = GetCountries().OrderByDescending(t => t.CountryID).First();
             db = new GestCloudDB();
-            entity = new Entity();            
+            cities = new List<City>();
+            entity = new Entity();
+            countrySelected = GetCountries().OrderBy(t => t.CountryID).First();
+            citySelected = GetCities(Convert.ToInt32(entity.CityID)).OrderBy(t => t.CityID).First();
+ 
+        
 
             entity.Name = "";
 
@@ -123,15 +127,15 @@ namespace GestCloudv2.Main.Controller
             return db.FiscalYears.ToList();
         }
 
-        /*virtual public List<City> GetCities()
+        virtual public List<City> GetCities(int num)
         {
-            return db.Cities.ToList();
+            return db.Cities.Where(i => i.P_C.Contains(num.ToString()) && i.CountryID == countrySelected.CountryID).ToList();
         }
 
         virtual public List<Country> GetCountries()
         {
             return db.Countries.ToList();
-        }*/
+        }
 
         public virtual void SetEntity(int num)
         {
@@ -139,7 +143,22 @@ namespace GestCloudv2.Main.Controller
             Information["entityLoaded"] = 1;
         }
 
-        /*public void SetCitySelected(int num)
+        public void SetPostalCode(string num)
+        {
+            if (num.Length == 5)
+            {
+                postalCodeSelected = Convert.ToInt32(num);
+                cities = GetCities(postalCodeSelected);
+            }
+            else
+            {
+                cities = new List<City>();
+                postalCodeSelected = 0;
+                citySelected = null;
+            }
+        }
+
+        public void SetCitySelected(int num)
         {
             citySelected = db.Cities.Where(t => t.CityID == num).First();
         }
@@ -147,7 +166,7 @@ namespace GestCloudv2.Main.Controller
         public void SetCountrySelected(int num)
         {
             countrySelected = db.Countries.Where(t => t.CountryID == num).First();
-        }*/
+        }
 
         public void EV_UpdateSubMenu(int num)
         {

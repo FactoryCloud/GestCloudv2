@@ -49,17 +49,7 @@ namespace GestCloudv2.FloatWindows
         }
 
         public void EV_Start(object sender, RoutedEventArgs e)
-        {
-            List<FrameworkDB.V1.EntityType> entityTypes = entitiesView.GetEntityTypes();
-
-            foreach (FrameworkDB.V1.EntityType ent in entityTypes)
-            {
-                ComboBoxItem temp = new ComboBoxItem();
-                temp.Content = $"{ent.Name}";
-                temp.Name = $"entity{ent.EntityTypeID}";
-                CB_EntityType.Items.Add(temp);
-            }
-
+        { 
             UpdateData();
         }
 

@@ -114,7 +114,6 @@
     <Compile Include="CompanyStore.cs" />
     <Compile Include="Condition.cs" />
     <Compile Include="Country.cs" />
-    <Compile Include="EntityType.cs" />
     <Compile Include="Provider.cs" />
     <Compile Include="PurchaseOrder.cs" />
     <Compile Include="PurchaseDelivery.cs" />

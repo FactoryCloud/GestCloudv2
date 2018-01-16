@@ -31,17 +31,13 @@ namespace FrameworkView.V1
             option = opt;
         }
 
-        public List<EntityType> GetEntityTypes()
-        {
-            return db.EntityTypes.OrderBy(e=> e.Name).ToList();
-        }
 
         public void UpdateTable()
         {
             switch(option)
             {
                 case 0:
-                    entities = db.Entities.OrderBy(e => e.Subname).OrderBy(e => e.Name).Include(e => e.entityType).ToList();
+                    entities = db.Entities.OrderBy(e => e.Subname).OrderBy(e => e.Name).ToList();
                     break;
 
                 case 4:
@@ -51,7 +47,7 @@ namespace FrameworkView.V1
                     {
                         userEntities.Add(user.entity);
                     }
-                    entities = db.Entities.OrderBy(e => e.Subname).OrderBy(e => e.Name).Include(e => e.entityType).ToList();
+                    entities = db.Entities.OrderBy(e => e.Subname).OrderBy(e => e.Name).ToList();
                     entities = entities.Except(userEntities).ToList();
                     break;
             }

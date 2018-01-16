@@ -213,6 +213,22 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.Controll
             return false;
         }
 
+        public Boolean CompanyAddress(string address)
+        {
+            List<Company> companies = db.Companies.ToList();
+            foreach (var item in companies)
+            {
+                if (item.Name.ToLower() == address.ToLower() || address.Length == 0)
+                {
+                    CleanName();
+                    return true;
+                }
+            }
+            company.Address = address;
+            TestMinimalInformation();
+            return false;
+        }
+
         private void TestMinimalInformation()
         {
             if(company.Name.Length > 0 && company.Code > 0 && Information["entityValid"] == 1)
