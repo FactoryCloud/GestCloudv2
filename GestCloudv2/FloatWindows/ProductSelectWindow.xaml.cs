@@ -30,7 +30,7 @@ namespace GestCloudv2.FloatWindows
     {
         public ProductsView productsView;
         public Movement movement;
-        int OperationOption;
+        int OperationOption; // 1=Compra, 2=Venta
 
         public static string ReplaceLastOccurrence(string Source, string Find, string Replace)
         {
@@ -390,6 +390,17 @@ namespace GestCloudv2.FloatWindows
                         }
 
                         movement.Quantity = Convert.ToDecimal(TB_Quantity.Text);
+
+                        if (OperationOption == 1)
+                        {
+                            TB_LineTotalPrice.Text = $"{(movement.Quantity * movement.PurchasePrice) - (movement.PurchaseDiscount1 * (movement.Quantity * movement.PurchasePrice) / 100)}";
+                        }
+
+                        if (OperationOption == 2)
+                        {
+                            TB_LineTotalPrice.Text = $"{(movement.Quantity * movement.SalePrice) - (movement.SaleDiscount1 * (movement.Quantity * movement.SalePrice) / 100)}";
+                        }
+
                     }
                         
 
