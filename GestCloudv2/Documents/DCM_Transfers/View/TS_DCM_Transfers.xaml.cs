@@ -13,21 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace GestCloudv2.Documents.DCM_Menu.View
+namespace GestCloudv2.Documents.DCM_Transfers.View
 {
     /// <summary>
     /// Interaction logic for TS_DCM_Menu.xaml
     /// </summary>
-    public partial class TS_DCM_Menu : Page
+    public partial class TS_DCM_Transfers : Page
     {
-        public TS_DCM_Menu()
+        public TS_DCM_Transfers()
         {
             InitializeComponent();
-            if (GetController().SelectedItem())
-            {
-                BT_Load.IsEnabled = true;
-                BT_LoadEditable.IsEnabled = true;
-            }
         }
 
         private void EV_MD_New(object sender, RoutedEventArgs e)
@@ -45,16 +40,11 @@ namespace GestCloudv2.Documents.DCM_Menu.View
             GetController().EV_CT_LoadEditable();
         }
 
-        private void EV_MD_Transfer(object sender, RoutedEventArgs e)
-        {
-            GetController().EV_CT_Transfer();
-        }
-
-        virtual public Controller.CT_DCM_Menu GetController()
+        virtual public Controller.CT_DCM_Transfers GetController()
         {
             Window mainWindow = Application.Current.MainWindow;
             var a = (Main.View.MainWindow)mainWindow;
-            return (Controller.CT_DCM_Menu)a.MainFrame.Content;
+            return (Controller.CT_DCM_Transfers)a.MainFrame.Content;
         }
     }
 }

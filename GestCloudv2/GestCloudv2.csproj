@@ -218,6 +218,16 @@
     <Compile Include="Documents\DCM_Menu\View\TS_DCM_Menu.xaml.cs">
       <DependentUpon>TS_DCM_Menu.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Documents\DCM_Transfers\Controller\CT_DCM_Transfers.cs" />
+    <Compile Include="Documents\DCM_Transfers\View\MC_DCM_Transfers.xaml.cs">
+      <DependentUpon>MC_DCM_Transfers.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Documents\DCM_Transfers\View\NV_DCM_Transfers.xaml.cs">
+      <DependentUpon>NV_DCM_Transfers.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Documents\DCM_Transfers\View\TS_DCM_Transfers.xaml.cs">
+      <DependentUpon>TS_DCM_Transfers.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Files\Controller\CT_Files.cs" />
     <Compile Include="Files\Nodes\Clients\ClientItem\ClientItem_New\View\FW_CLI_Item_Load_Entity.cs" />
     <Compile Include="Files\Nodes\Clients\ClientItem\ClientItem_New\View\MC_CLI_Item_Load_Entity_Loaded.cs" />
@@ -489,6 +499,10 @@
     <Compile Include="Purchases\Nodes\PurchaseDeliveries\PurchaseDeliveryMenu\View\MC_PDE_Menu.cs" />
     <Compile Include="Purchases\Nodes\PurchaseDeliveries\PurchaseDeliveryMenu\View\NV_PDE_Menu.cs" />
     <Compile Include="Purchases\Nodes\PurchaseDeliveries\PurchaseDeliveryMenu\View\TS_PDE_Menu.cs" />
+    <Compile Include="Purchases\Nodes\PurchaseDeliveries\PurchaseDeliveryTransfer\Controller\CT_PDE_Transfer.cs" />
+    <Compile Include="Purchases\Nodes\PurchaseDeliveries\PurchaseDeliveryTransfer\View\MC_PDE_Transfer.cs" />
+    <Compile Include="Purchases\Nodes\PurchaseDeliveries\PurchaseDeliveryTransfer\View\NV_PDE_Transfer.cs" />
+    <Compile Include="Purchases\Nodes\PurchaseDeliveries\PurchaseDeliveryTransfer\View\TS_PDE_Transfer.cs" />
     <Compile Include="Purchases\Nodes\PurchaseInvoices\PurchaseInvoiceItem\PurchaseInvoiceItem_Load\Controller\CT_PIN_Item_Load.cs" />
     <Compile Include="Purchases\Nodes\PurchaseInvoices\PurchaseInvoiceItem\PurchaseInvoiceItem_Load\View\FW_PIN_Item_Load_Movements.cs" />
     <Compile Include="Purchases\Nodes\PurchaseInvoices\PurchaseInvoiceItem\PurchaseInvoiceItem_Load\View\MC_PIN_Item_Load_Movements.cs" />
@@ -864,6 +878,18 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Documents\DCM_Menu\View\TS_DCM_Menu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Documents\DCM_Transfers\View\MC_DCM_Transfers.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Documents\DCM_Transfers\View\NV_DCM_Transfers.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Documents\DCM_Transfers\View\TS_DCM_Transfers.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

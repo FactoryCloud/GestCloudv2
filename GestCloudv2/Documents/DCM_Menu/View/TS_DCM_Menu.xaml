@@ -29,5 +29,8 @@
         <Button Grid.Column="0" Grid.Row="1" IsEnabled="false" Margin="10" Name="BT_LoadEditable" Click="EV_MD_LoadEditable">
             <TextBlock TextAlignment="Center">Editar<LineBreak/><Label Name="LB_LoadEditable">Albarán</Label></TextBlock>
         </Button>
+        <Button Grid.Column="0" Grid.Row="1" IsEnabled="false" Margin="10" Name="BT_Transfer" Click="EV_MD_Transfer">
+            <TextBlock TextAlignment="Center">Generar<LineBreak/><Label Name="LB_Transfer">Traspaso</Label></TextBlock>
+        </Button>
     </Grid>
 </Page>
