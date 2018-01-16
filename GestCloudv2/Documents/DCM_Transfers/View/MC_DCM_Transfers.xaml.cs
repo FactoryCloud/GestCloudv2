@@ -27,8 +27,7 @@ namespace GestCloudv2.Documents.DCM_Transfers.View
 
             this.Loaded += new RoutedEventHandler(EV_Start);
 
-            DG_Items.MouseLeftButtonUp += new MouseButtonEventHandler(EV_FileSelected);
-            DG_Items.MouseDoubleClick += new MouseButtonEventHandler(EV_FileOpen);
+            DG_Items.MouseLeftButtonUp += new MouseButtonEventHandler(EV_DocumentSelected);
         }
 
         private void EV_Start(object sender, RoutedEventArgs e)
@@ -36,16 +35,7 @@ namespace GestCloudv2.Documents.DCM_Transfers.View
             UpdateData();
         }
 
-        private void EV_FileOpen(object sender, MouseButtonEventArgs e)
-        {
-            if (GetController().SelectedItem())
-            {
-                DG_Items.MouseLeftButtonUp -= EV_FileSelected;
-                GetController().EV_CT_Load();
-            }
-        }
-
-        private void EV_FileSelected(object sender, MouseButtonEventArgs e)
+        private void EV_DocumentSelected(object sender, MouseButtonEventArgs e)
         {
             int num = DG_Items.SelectedIndex;
             if (num >= 0)

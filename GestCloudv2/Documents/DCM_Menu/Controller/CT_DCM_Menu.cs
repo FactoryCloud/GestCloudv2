@@ -66,7 +66,7 @@ namespace GestCloudv2.Documents.DCM_Menu.Controller
             return new DCM_Items.DCM_Item_Load.Controller.CT_DCM_Item_Load(1);
         }
 
-        public virtual DCM_Transfers.Controller.CT_DCM_Transfers SetTransfer()
+        public virtual DCM_Transfers.Controller.CT_DCM_Transfers SetItemTransfer()
         {
             return new DCM_Transfers.Controller.CT_DCM_Transfers();
         }
@@ -146,7 +146,7 @@ namespace GestCloudv2.Documents.DCM_Menu.Controller
                     break;
 
                 case 4:
-                    a.MainFrame.Content = SetItemLoadEditable();
+                    a.MainFrame.Content = SetItemTransfer();
                     break;
 
             }

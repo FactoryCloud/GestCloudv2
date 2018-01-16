@@ -12,11 +12,12 @@ namespace GestCloudv2.Documents.DCM_Transfers.Controller
 {
     public partial class CT_DCM_Transfers : Main.Controller.CT_Common
     {
+        
         public ItemsView itemsView;
 
         public CT_DCM_Transfers()
         {
-            itemsView = new ItemsView();
+            //itemsView = new ItemsView();
         }
 
         override public void EV_Start(object sender, RoutedEventArgs e)
@@ -24,13 +25,7 @@ namespace GestCloudv2.Documents.DCM_Transfers.Controller
             UpdateComponents();
         }
 
-        virtual public void SetItem(int num)
-        {
-            SetTS();
-            LeftSide.Content = TS_Page;
-        }
-
-        public virtual void SetMC(int i)
+        public virtual void SetMC()
         {
 
         }
@@ -45,47 +40,14 @@ namespace GestCloudv2.Documents.DCM_Transfers.Controller
 
         }
 
+        public virtual void EV_DocumentAdd()
+        {
+
+        }
+
         public virtual Main.Controller.CT_Common SetItemOriginal()
         {
             return new Main.Controller.CT_Common();
-        }
-
-        public virtual DCM_Items.DCM_Item_New.Controller.CT_DCM_Item_New SetItemNew()
-        {
-            return new DCM_Items.DCM_Item_New.Controller.CT_DCM_Item_New();
-        }
-
-        public virtual DCM_Items.DCM_Item_Load.Controller.CT_DCM_Item_Load SetItemLoad()
-        {
-            return new DCM_Items.DCM_Item_Load.Controller.CT_DCM_Item_Load(0);
-        }
-
-        public virtual DCM_Items.DCM_Item_Load.Controller.CT_DCM_Item_Load SetItemLoadEditable()
-        {
-            return new DCM_Items.DCM_Item_Load.Controller.CT_DCM_Item_Load(1);
-        }
-
-        virtual public bool SelectedItem()
-        {
-            return false;
-        }
-
-        public void EV_CT_New()
-        {
-            Information["controller"] = 1;
-            ChangeController();
-        }
-
-        public void EV_CT_Load()
-        {
-            Information["controller"] = 2;
-            ChangeController();
-        }
-
-        public void EV_CT_LoadEditable()
-        {
-            Information["controller"] = 3;
-            ChangeController();
         }
 
         public void CT_Main()
@@ -105,10 +67,15 @@ namespace GestCloudv2.Documents.DCM_Transfers.Controller
                 case 1:
                     SetNV();
                     SetTS();
-                    SetMC(1);
+                    SetMC();
                     ChangeComponents();
                     break;
             }
+        }
+
+        public virtual void SetItem(int num)
+        {
+            
         }
 
         private void ChangeController()
@@ -118,23 +85,7 @@ namespace GestCloudv2.Documents.DCM_Transfers.Controller
                 case 0:
                     Main.View.MainWindow a = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
                     a.MainFrame.Content = SetItemOriginal();
-                    break;
-
-                case 1:
-                    Main.View.MainWindow b = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
-                    b.MainFrame.Content = SetItemNew();
-                    break;
-
-                case 2:
-                    Main.View.MainWindow c = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
-                    c.MainFrame.Content = SetItemLoad();
-                    break;
-
-                case 3:
-                    Main.View.MainWindow d = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
-                    d.MainFrame.Content = SetItemLoadEditable();
-                    break;
-            
+                    break;            
             }
 
         }

@@ -25,19 +25,9 @@ namespace GestCloudv2.Documents.DCM_Transfers.View
             InitializeComponent();
         }
 
-        private void EV_MD_New(object sender, RoutedEventArgs e)
+        public void EV_DocumentAdd(object sender, RoutedEventArgs e)
         {
-            GetController().EV_CT_New();
-        }
-
-        private void EV_MD_Load(object sender, RoutedEventArgs e)
-        {
-            GetController().EV_CT_Load();
-        }
-
-        private void EV_MD_LoadEditable(object sender, RoutedEventArgs e)
-        {
-            GetController().EV_CT_LoadEditable();
+            GetController().EV_DocumentAdd();
         }
 
         virtual public Controller.CT_DCM_Transfers GetController()
