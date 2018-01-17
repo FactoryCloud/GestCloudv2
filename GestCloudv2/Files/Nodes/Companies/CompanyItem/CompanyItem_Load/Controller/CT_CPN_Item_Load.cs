@@ -268,7 +268,13 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_Load.Control
             Company company1 = db.Companies.Where(c => c.CompanyID == company.CompanyID).First();
             company1.Code = company.Code;
             company1.Name = company.Name;
+            company1.Address = company.Address;
+            company1.CIF = company.CIF;
+            company1.Fax = company.Fax;
+            company1.Phone1 = company.Phone1;
+            company1.Phone2 = company.Phone2;
             company1.PeriodOption = company.PeriodOption;
+
             db.Companies.Update(company1);
 
             List<CompanyStore> companyStores = db.CompaniesStores.Where(c => c.CompanyID == company.CompanyID).Include(c => c.store).ToList();
