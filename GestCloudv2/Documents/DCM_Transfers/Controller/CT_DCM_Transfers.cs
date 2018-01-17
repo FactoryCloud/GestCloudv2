@@ -78,6 +78,11 @@ namespace GestCloudv2.Documents.DCM_Transfers.Controller
             
         }
 
+        public virtual void GenerateTransfer()
+        {
+
+        }
+
         private void ChangeController()
         {
             switch (Information["controller"])

@@ -30,6 +30,11 @@ namespace GestCloudv2.Documents.DCM_Transfers.View
             GetController().EV_DocumentAdd();
         }
 
+        public void EV_generateTransfer(object sender, RoutedEventArgs e)
+        {
+            GetController().GenerateTransfer();
+        }
+
         virtual public Controller.CT_DCM_Transfers GetController()
         {
             Window mainWindow = Application.Current.MainWindow;
