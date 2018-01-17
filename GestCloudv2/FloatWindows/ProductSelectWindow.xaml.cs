@@ -30,7 +30,7 @@ namespace GestCloudv2.FloatWindows
     {
         public ProductsView productsView;
         public Movement movement;
-        int OperationOption;
+        int OperationOption; // 1=Compra, 2=Venta
 
         public static string ReplaceLastOccurrence(string Source, string Find, string Replace)
         {
@@ -390,6 +390,17 @@ namespace GestCloudv2.FloatWindows
                         }
 
                         movement.Quantity = Convert.ToDecimal(TB_Quantity.Text);
+
+                        if (OperationOption == 1)
+                        {
+                            TB_LineTotalPrice.Text = $"{(movement.Quantity * movement.PurchasePrice) - (movement.PurchaseDiscount1 * (movement.Quantity * movement.PurchasePrice) / 100)}";
+                        }
+
+                        if (OperationOption == 2)
+                        {
+                            TB_LineTotalPrice.Text = $"{(movement.Quantity * movement.SalePrice) - (movement.SaleDiscount1 * (movement.Quantity * movement.SalePrice) / 100)}";
+                        }
+
                     }
                         
 
@@ -401,50 +412,130 @@ namespace GestCloudv2.FloatWindows
                     break;
 
                 case 2:
-                    if(TB_PurchasePrice.Text.Length > 0)
+                    if (TB_PurchasePrice.Text.Length > 0)
+                    {
                         movement.PurchasePrice = Convert.ToDecimal(TB_PurchasePrice.Text);
+                        if (OperationOption == 1)
+                        {
+                            TB_LineTotalPrice.Text = $"{(movement.Quantity * movement.PurchasePrice) - (movement.PurchaseDiscount1 * (movement.Quantity * movement.PurchasePrice) / 100)}";
+                        }
+
+                        if (OperationOption == 2)
+                        {
+                            TB_LineTotalPrice.Text = $"{(movement.Quantity * movement.SalePrice) - (movement.SaleDiscount1 * (movement.Quantity * movement.SalePrice) / 100)}";
+                        }
+                    }
 
                     else
                     {
                         TB_PurchasePrice.Text = Convert.ToDecimal(0).ToString("#.##");
                         TB_SalePrice.SelectionStart = 0;
                         movement.PurchasePrice = Convert.ToDecimal(0);
+                        if (OperationOption == 1)
+                        {
+                            TB_LineTotalPrice.Text = $"{(movement.Quantity * movement.PurchasePrice) - (movement.PurchaseDiscount1 * (movement.Quantity * movement.PurchasePrice) / 100)}";
+                        }
+
+                        if (OperationOption == 2)
+                        {
+                            TB_LineTotalPrice.Text = $"{(movement.Quantity * movement.SalePrice) - (movement.SaleDiscount1 * (movement.Quantity * movement.SalePrice) / 100)}";
+                        }
                     }
                     break;
 
                 case 3:
                     if (TB_SalePrice.Text.Length > 0)
+                    {
                         movement.SalePrice = Convert.ToDecimal(TB_SalePrice.Text);
+                        if (OperationOption == 1)
+                        {
+                            TB_LineTotalPrice.Text = $"{(movement.Quantity * movement.PurchasePrice) - (movement.PurchaseDiscount1 * (movement.Quantity * movement.PurchasePrice) / 100)}";
+                        }
+
+                        if (OperationOption == 2)
+                        {
+                            TB_LineTotalPrice.Text = $"{(movement.Quantity * movement.SalePrice) - (movement.SaleDiscount1 * (movement.Quantity * movement.SalePrice) / 100)}";
+                        }
+                    }
 
                     else
                     {
                         TB_SalePrice.Text = Convert.ToDecimal(0).ToString("#.##");
                         TB_SalePrice.SelectionStart = 0;
                         movement.SalePrice = Convert.ToDecimal(0);
+                        if (OperationOption == 1)
+                        {
+                            TB_LineTotalPrice.Text = $"{(movement.Quantity * movement.PurchasePrice) - (movement.PurchaseDiscount1 * (movement.Quantity * movement.PurchasePrice) / 100)}";
+                        }
+
+                        if (OperationOption == 2)
+                        {
+                            TB_LineTotalPrice.Text = $"{(movement.Quantity * movement.SalePrice) - (movement.SaleDiscount1 * (movement.Quantity * movement.SalePrice) / 100)}";
+                        }
                     }
                     break;
 
                 case 4:
                     if (TB_PurchaseDiscount.Text.Length > 0)
+                    {
                         movement.PurchaseDiscount1 = Convert.ToDecimal(TB_PurchaseDiscount.Text);
+                        if (OperationOption == 1)
+                        {
+                            TB_LineTotalPrice.Text = $"{(movement.Quantity * movement.PurchasePrice) - (movement.PurchaseDiscount1 * (movement.Quantity * movement.PurchasePrice) / 100)}";
+                        }
+
+                        if (OperationOption == 2)
+                        {
+                            TB_LineTotalPrice.Text = $"{(movement.Quantity * movement.SalePrice) - (movement.SaleDiscount1 * (movement.Quantity * movement.SalePrice) / 100)}";
+                        }
+                    }
 
                     else
                     {
                         TB_PurchaseDiscount.Text = Convert.ToDecimal(0).ToString("#.##");
                         TB_PurchaseDiscount.SelectionStart = 0;
                         movement.PurchaseDiscount1 = Convert.ToDecimal(0);
+                        if (OperationOption == 1)
+                        {
+                            TB_LineTotalPrice.Text = $"{(movement.Quantity * movement.PurchasePrice) - (movement.PurchaseDiscount1 * (movement.Quantity * movement.PurchasePrice) / 100)}";
+                        }
+
+                        if (OperationOption == 2)
+                        {
+                            TB_LineTotalPrice.Text = $"{(movement.Quantity * movement.SalePrice) - (movement.SaleDiscount1 * (movement.Quantity * movement.SalePrice) / 100)}";
+                        }
                     }
                     break;
 
                 case 5:
                     if (TB_SaleDiscount.Text.Length > 0)
+                    {
                         movement.SaleDiscount1 = Convert.ToDecimal(TB_SaleDiscount.Text);
+                        if (OperationOption == 1)
+                        {
+                            TB_LineTotalPrice.Text = $"{(movement.Quantity * movement.PurchasePrice) - (movement.PurchaseDiscount1 * (movement.Quantity * movement.PurchasePrice) / 100)}";
+                        }
+
+                        if (OperationOption == 2)
+                        {
+                            TB_LineTotalPrice.Text = $"{(movement.Quantity * movement.SalePrice) - (movement.SaleDiscount1 * (movement.Quantity * movement.SalePrice) / 100)}";
+                        }
+                    }
 
                     else
                     {
                         TB_SaleDiscount.Text = Convert.ToDecimal(0).ToString("#.##");
                         TB_SaleDiscount.SelectionStart = 0;
                         movement.SaleDiscount1 = Convert.ToDecimal(0);
+                        if (OperationOption == 1)
+                        {
+                            TB_LineTotalPrice.Text = $"{(movement.Quantity * movement.PurchasePrice) - (movement.PurchaseDiscount1 * (movement.Quantity * movement.PurchasePrice) / 100)}";
+                        }
+
+                        if (OperationOption == 2)
+                        {
+                            TB_LineTotalPrice.Text = $"{(movement.Quantity * movement.SalePrice) - (movement.SaleDiscount1 * (movement.Quantity * movement.SalePrice) / 100)}";
+                        }
                     }
                     break;
             }

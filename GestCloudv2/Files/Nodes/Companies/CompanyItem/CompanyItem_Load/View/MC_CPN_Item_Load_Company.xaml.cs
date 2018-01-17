@@ -53,6 +53,11 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_Load.View
             List<int> startmonthFP = new List<int>();
 
             TB_CompanyName.Text = GetController().company.Name;
+            TB_CompanyCIF.Text = GetController().company.CIF;
+            TB_CompanyAddress.Text = GetController().company.Address;
+            TB_CompanyPhone1.Text = $"{GetController().company.Phone1}";
+            TB_CompanyPhone2.Text = $"{GetController().company.Phone2}";
+            TB_CompanyFax.Text = $"{GetController().company.Fax}";
             PeriodOptions();
 
             for (int i = 1; i <= 31; i++)
@@ -135,6 +140,11 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_Load.View
             if (GetController().Information["editable"] == 0)
             {
                 TB_CompanyName.IsReadOnly = true;
+                TB_CompanyCIF.IsReadOnly = true;
+                TB_CompanyAddress.IsReadOnly = true;
+                TB_CompanyPhone1.IsReadOnly = true;
+                TB_CompanyPhone2.IsReadOnly = true;
+                TB_CompanyFax.IsReadOnly = true;
 
                 Thickness margin = new Thickness(20);
 
@@ -165,6 +175,7 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_Load.View
                 GR_Main.Children.Add(TB_CompanyPeriodOption);
 
                 CB_CompanyPeriod.Visibility = Visibility.Hidden; 
+
             }
 
             else

@@ -197,6 +197,54 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.Controll
             TestMinimalInformation();
         }
 
+        public void SetPhone1(string num)
+        {
+            if (num.Length > 0)
+            {
+                company.Phone1 = Convert.ToInt32(num);
+            }
+            else
+            {
+                company.Phone1 = 0;
+            }
+        }
+
+        public void SetPhone2(string num)
+        {
+            if (num.Length > 0)
+            {
+                company.Phone2 = Convert.ToInt32(num);
+            }
+            else
+            {
+                company.Phone2 = 0;
+            }
+        }
+
+        public void SetFax(string num)
+        {
+            if (num.Length > 0)
+            {
+                company.Fax = Convert.ToInt32(num);
+            }
+            else
+            {
+                company.Fax = 0;
+            }
+        }
+
+        public void SetCompanyCif(string num)
+        {
+            if (num.Length > 0)
+            {
+                company.CIF = num;
+            }
+            else
+            {
+                company.CIF = "";
+            }
+        }
+
         public Boolean CompanyControlExist(string name)
         {
             List<Company> companies = db.Companies.ToList();
@@ -213,18 +261,18 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.Controll
             return false;
         }
 
-        public Boolean CompanyAddress(string address)
+        public Boolean CompanyControlExistCIF(string cif)
         {
             List<Company> companies = db.Companies.ToList();
             foreach (var item in companies)
             {
-                if (item.Name.ToLower() == address.ToLower() || address.Length == 0)
+                if (item.CIF.ToLower() == cif.ToLower() || cif.Length == 0)
                 {
-                    CleanName();
+                    CleanCIF();
                     return true;
                 }
             }
-            company.Address = address;
+            company.CIF = cif;
             TestMinimalInformation();
             return false;
         }

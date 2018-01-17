@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -22,6 +23,8 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.View
     /// </summary>
     public partial class MC_CPN_Item_New_Company : Page
     {
+        public const string CORRESPONDENCIA = "TRWAGMYFPDXBNJZSQVHLCKE";
+
         public MC_CPN_Item_New_Company()
         {
             InitializeComponent();
@@ -34,8 +37,8 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.View
             CB_StartMonthFiscalYear.SelectionChanged += new SelectionChangedEventHandler(EV_CB_StartMonthChanges);
             //CB_EndDayFiscalYear.SelectionChanged += new SelectionChangedEventHandler(EV_CB_EndDayChanges);
             //CB_EndMonthFiscalYear.SelectionChanged += new SelectionChangedEventHandler(EV_CB_EndMonthChanges);
-            TB_CompanyName.KeyUp += new KeyEventHandler(EV_UserName);
-            TB_CompanyName.Loaded += new RoutedEventHandler(EV_UserName);
+            TB_CompanyName.KeyUp += new KeyEventHandler(EV_CompanyName);
+            TB_CompanyName.Loaded += new RoutedEventHandler(EV_CompanyName);
             TB_CompanyCIF.KeyUp += new KeyEventHandler(EV_CIF);
             TB_CompanyCIF.Loaded += new RoutedEventHandler(EV_CIF);
             TB_CompanyAddress.KeyUp += new KeyEventHandler(EV_Address);
@@ -54,9 +57,21 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.View
             TB_CompanyName.Text = GetController().company.Name;
             TB_CompanyCIF.Text = GetController().company.CIF;
             TB_CompanyAddress.Text = GetController().company.Address;
-            TB_CompanyPhone1.Text = $"{GetController().company.Phone1}";
-            TB_CompanyPhone2.Text = $"{GetController().company.Phone2}";
-            TB_CompanyFax.Text = $"{GetController().company.Fax}";
+
+            if (GetController().company.Phone1 > 0)
+            {
+                TB_CompanyPhone1.Text = $"{GetController().company.Phone1}";
+            }
+
+            if (GetController().company.Phone2 > 0)
+            {
+                TB_CompanyPhone2.Text = $"{GetController().company.Phone2}";
+            }
+
+            if (GetController().company.Fax > 0)
+            {
+                TB_CompanyFax.Text = $"{GetController().company.Fax}";
+            }
 
             DateTime month = Convert.ToDateTime("01/01/0001");
 
@@ -131,7 +146,16 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.View
             }
         }
 
-        private void EV_UserName(object sender, RoutedEventArgs e)
+        /*static public char LetraNIF(string dni)
+        {
+            Match match = new Regex(@"\b(\d{8})\b").Match(dni);
+            if (match.Success)
+                return CORRESPONDENCIA[int.Parse(dni) % 23];
+            else
+                throw new ArgumentException("El DNI debe contener 8 dígitos.");
+        }*/
+
+        private void EV_CompanyName(object sender, RoutedEventArgs e)
         {
             if(TB_CompanyName.Text.Length == 0)
             {
@@ -191,7 +215,20 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.View
 
         private void EV_CIF(object sender, RoutedEventArgs e)
         {
-            if (TB_CompanyCIF.Text.Length == 0)
+            if (TB_CompanyCIF.Text.Length == 8)
+            {
+                Match match = new Regex(@"\b(\d{8})\b").Match(TB_CompanyCIF.Text);
+                if (match.Success)
+                {
+                    TB_CompanyCIF.Text = TB_CompanyCIF.Text + "-" + CORRESPONDENCIA[int.Parse(TB_CompanyCIF.Text) % 23].ToString();
+                    GetController().SetCompanyCif(((TextBox)sender).Text);
+                }
+
+                else
+                    throw new ArgumentException("El DNI debe contener 8 dígitos.");
+            }
+
+            /*if (TB_CompanyCIF.Text.Length == 0)
             {
                 if (SP_CompanyCIF.Children.Count == 1)
                 {
@@ -214,7 +251,7 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.View
                 GetController().CleanCIF();
             }
 
-            else if (GetController().CompanyControlExist(TB_CompanyCIF.Text))
+            else if (GetController().CompanyControlExistCIF(TB_CompanyCIF.Text))
             {
                 if (SP_CompanyCIF.Children.Count == 1)
                 {
@@ -244,238 +281,50 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.View
                     SP_CompanyCIF.Children.RemoveAt(SP_CompanyCIF.Children.Count - 1);
                 }
                 GetController().EV_UpdateIfNotEmpty(true);
-            }
+            }*/
         }
 
         private void EV_Address(object sender, RoutedEventArgs e)
         {
-            if (TB_CompanyAddress.Text.Length == 0)
-            {
-                if (SP_CompanyAddress.Children.Count == 1)
-                {
-                    TextBlock message = new TextBlock();
-                    message.TextWrapping = TextWrapping.WrapWithOverflow;
-                    message.Text = "Este campo no puede estar vacio";
-                    message.HorizontalAlignment = HorizontalAlignment.Center;
-                    SP_CompanyAddress.Children.Add(message);
-                }
-
-                else if (SP_CompanyAddress.Children.Count == 2)
-                {
-                    SP_CompanyAddress.Children.RemoveAt(SP_CompanyAddress.Children.Count - 1);
-                    TextBlock message = new TextBlock();
-                    message.TextWrapping = TextWrapping.WrapWithOverflow;
-                    message.Text = "Este campo no puede estar vacio";
-                    message.HorizontalAlignment = HorizontalAlignment.Center;
-                    SP_CompanyAddress.Children.Add(message);
-                }
-                GetController().CleanAddress();
-            }
-
-            /*else if (GetController().CompanyAddress(TB_CompanyAddress.Text))
-            {
-                if (SP_CompanyAddress.Children.Count == 1)
-                {
-                    TextBlock message = new TextBlock();
-                    message.TextWrapping = TextWrapping.WrapWithOverflow;
-                    message.Text = "Esta empresa ya existe";
-                    message.HorizontalAlignment = HorizontalAlignment.Center;
-                    SP_CompanyAddress.Children.Add(message);
-                }
-
-                else if (SP_CompanyAddress.Children.Count == 2)
-                {
-                    SP_CompanyAddress.Children.RemoveAt(SP_CompanyAddress.Children.Count - 1);
-                    TextBlock message = new TextBlock();
-                    message.TextWrapping = TextWrapping.WrapWithOverflow;
-                    message.Text = "Esta empresa ya existe";
-                    message.HorizontalAlignment = HorizontalAlignment.Center;
-                    SP_CompanyAddress.Children.Add(message);
-                }
-                GetController().EV_UpdateIfNotEmpty(true);
-            }*/
-
-            else
-            {
-                if (SP_CompanyAddress.Children.Count == 2)
-                {
-                    SP_CompanyAddress.Children.RemoveAt(SP_CompanyAddress.Children.Count - 1);
-                }
-                GetController().EV_UpdateIfNotEmpty(true);
-            }
+            GetController().company.Address = TB_CompanyAddress.Text;
         }
 
         private void EV_Phone1(object sender, RoutedEventArgs e)
         {
-            if (TB_CompanyPhone1.Text.Length == 0)
+            if (TB_CompanyPhone1.Text.Length > 0)
             {
-                if (SP_CompanyPhone1.Children.Count == 1)
+                if (Regex.Matches(((TextBox)sender).Text, "[^0-9]").Count > 0)
                 {
-                    TextBlock message = new TextBlock();
-                    message.TextWrapping = TextWrapping.WrapWithOverflow;
-                    message.Text = "Este campo no puede estar vacio";
-                    message.HorizontalAlignment = HorizontalAlignment.Center;
-                    SP_CompanyPhone1.Children.Add(message);
+                    ((TextBox)sender).Text = Regex.Replace(((TextBox)sender).Text, "[^0-9]", "");
+                    ((TextBox)sender).SelectionStart = ((TextBox)sender).Text.Length;
                 }
-
-                else if (SP_CompanyPhone1.Children.Count == 2)
-                {
-                    SP_CompanyPhone1.Children.RemoveAt(SP_CompanyPhone1.Children.Count - 1);
-                    TextBlock message = new TextBlock();
-                    message.TextWrapping = TextWrapping.WrapWithOverflow;
-                    message.Text = "Este campo no puede estar vacio";
-                    message.HorizontalAlignment = HorizontalAlignment.Center;
-                    SP_CompanyPhone1.Children.Add(message);
-                }
-                GetController().CleanPhone1();
-            }
-
-            else if (GetController().CompanyControlExist(TB_CompanyPhone1.Text))
-            {
-                if (SP_CompanyPhone1.Children.Count == 1)
-                {
-                    TextBlock message = new TextBlock();
-                    message.TextWrapping = TextWrapping.WrapWithOverflow;
-                    message.Text = "Esta empresa ya existe";
-                    message.HorizontalAlignment = HorizontalAlignment.Center;
-                    SP_CompanyPhone1.Children.Add(message);
-                }
-
-                else if (SP_CompanyPhone1.Children.Count == 2)
-                {
-                    SP_CompanyPhone1.Children.RemoveAt(SP_CompanyPhone1.Children.Count - 1);
-                    TextBlock message = new TextBlock();
-                    message.TextWrapping = TextWrapping.WrapWithOverflow;
-                    message.Text = "Esta empresa ya existe";
-                    message.HorizontalAlignment = HorizontalAlignment.Center;
-                    SP_CompanyPhone1.Children.Add(message);
-                }
-                GetController().EV_UpdateIfNotEmpty(true);
-            }
-
-            else
-            {
-                if (SP_CompanyPhone1.Children.Count == 2)
-                {
-                    SP_CompanyPhone1.Children.RemoveAt(SP_CompanyPhone1.Children.Count - 1);
-                }
-                GetController().EV_UpdateIfNotEmpty(true);
+                GetController().SetPhone1(((TextBox)sender).Text);
             }
         }
 
         private void EV_Phone2(object sender, RoutedEventArgs e)
         {
-            if (TB_CompanyPhone2.Text.Length == 0)
+            if (TB_CompanyPhone2.Text.Length > 0)
             {
-                if (SP_CompanyPhone2.Children.Count == 1)
+                if (Regex.Matches(((TextBox)sender).Text, "[^0-9]").Count > 0)
                 {
-                    TextBlock message = new TextBlock();
-                    message.TextWrapping = TextWrapping.WrapWithOverflow;
-                    message.Text = "Este campo no puede estar vacio";
-                    message.HorizontalAlignment = HorizontalAlignment.Center;
-                    SP_CompanyPhone2.Children.Add(message);
+                    ((TextBox)sender).Text = Regex.Replace(((TextBox)sender).Text, "[^0-9]", "");
+                    ((TextBox)sender).SelectionStart = ((TextBox)sender).Text.Length;
                 }
-
-                else if (SP_CompanyPhone2.Children.Count == 2)
-                {
-                    SP_CompanyPhone2.Children.RemoveAt(SP_CompanyPhone2.Children.Count - 1);
-                    TextBlock message = new TextBlock();
-                    message.TextWrapping = TextWrapping.WrapWithOverflow;
-                    message.Text = "Este campo no puede estar vacio";
-                    message.HorizontalAlignment = HorizontalAlignment.Center;
-                    SP_CompanyPhone2.Children.Add(message);
-                }
-                GetController().CleanPhone2();
-            }
-
-            else if (GetController().CompanyControlExist(TB_CompanyPhone2.Text))
-            {
-                if (SP_CompanyPhone2.Children.Count == 1)
-                {
-                    TextBlock message = new TextBlock();
-                    message.TextWrapping = TextWrapping.WrapWithOverflow;
-                    message.Text = "Esta empresa ya existe";
-                    message.HorizontalAlignment = HorizontalAlignment.Center;
-                    SP_CompanyPhone2.Children.Add(message);
-                }
-
-                else if (SP_CompanyPhone2.Children.Count == 2)
-                {
-                    SP_CompanyPhone2.Children.RemoveAt(SP_CompanyPhone2.Children.Count - 1);
-                    TextBlock message = new TextBlock();
-                    message.TextWrapping = TextWrapping.WrapWithOverflow;
-                    message.Text = "Esta empresa ya existe";
-                    message.HorizontalAlignment = HorizontalAlignment.Center;
-                    SP_CompanyPhone2.Children.Add(message);
-                }
-                GetController().EV_UpdateIfNotEmpty(true);
-            }
-
-            else
-            {
-                if (SP_CompanyPhone2.Children.Count == 2)
-                {
-                    SP_CompanyPhone2.Children.RemoveAt(SP_CompanyPhone2.Children.Count - 1);
-                }
-                GetController().EV_UpdateIfNotEmpty(true);
+                GetController().SetPhone2(((TextBox)sender).Text);
             }
         }
 
         private void EV_Fax(object sender, RoutedEventArgs e)
         {
-            if (TB_CompanyFax.Text.Length == 0)
+            if (TB_CompanyFax.Text.Length > 0)
             {
-                if (SP_CompanyFax.Children.Count == 1)
+                if (Regex.Matches(((TextBox)sender).Text, "[^0-9]").Count > 0)
                 {
-                    TextBlock message = new TextBlock();
-                    message.TextWrapping = TextWrapping.WrapWithOverflow;
-                    message.Text = "Este campo no puede estar vacio";
-                    message.HorizontalAlignment = HorizontalAlignment.Center;
-                    SP_CompanyFax.Children.Add(message);
+                    ((TextBox)sender).Text = Regex.Replace(((TextBox)sender).Text, "[^0-9]", "");
+                    ((TextBox)sender).SelectionStart = ((TextBox)sender).Text.Length;
                 }
-
-                else if (SP_CompanyFax.Children.Count == 2)
-                {
-                    SP_CompanyFax.Children.RemoveAt(SP_CompanyFax.Children.Count - 1);
-                    TextBlock message = new TextBlock();
-                    message.TextWrapping = TextWrapping.WrapWithOverflow;
-                    message.Text = "Este campo no puede estar vacio";
-                    message.HorizontalAlignment = HorizontalAlignment.Center;
-                    SP_CompanyFax.Children.Add(message);
-                }
-                GetController().CleanFax();
-            }
-
-            else if (GetController().CompanyControlExist(TB_CompanyFax.Text))
-            {
-                if (SP_CompanyFax.Children.Count == 1)
-                {
-                    TextBlock message = new TextBlock();
-                    message.TextWrapping = TextWrapping.WrapWithOverflow;
-                    message.Text = "Esta empresa ya existe";
-                    message.HorizontalAlignment = HorizontalAlignment.Center;
-                    SP_CompanyFax.Children.Add(message);
-                }
-
-                else if (SP_CompanyFax.Children.Count == 2)
-                {
-                    SP_CompanyFax.Children.RemoveAt(SP_CompanyFax.Children.Count - 1);
-                    TextBlock message = new TextBlock();
-                    message.TextWrapping = TextWrapping.WrapWithOverflow;
-                    message.Text = "Esta empresa ya existe";
-                    message.HorizontalAlignment = HorizontalAlignment.Center;
-                    SP_CompanyFax.Children.Add(message);
-                }
-                GetController().EV_UpdateIfNotEmpty(true);
-            }
-
-            else
-            {
-                if (SP_CompanyFax.Children.Count == 2)
-                {
-                    SP_CompanyFax.Children.RemoveAt(SP_CompanyFax.Children.Count - 1);
-                }
-                GetController().EV_UpdateIfNotEmpty(true);
+                GetController().SetFax(((TextBox)sender).Text);
             }
         }
 
