@@ -18,6 +18,11 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_Load.Vi
 
         }
 
+        public FW_SOR_Item_Load_Movements(int operationType) : base(operationType)
+        {
+
+        }
+
         public FW_SOR_Item_Load_Movements(Movement mov) : base(mov)
         {
 

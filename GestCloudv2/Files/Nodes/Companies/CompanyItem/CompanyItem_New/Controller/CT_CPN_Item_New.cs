@@ -173,12 +173,6 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.Controll
             TestMinimalInformation();
         }
 
-        public void CleanAddress()
-        {
-            company.Address = "";
-            TestMinimalInformation();
-        }
-
         public void CleanPhone1()
         {
             company.Phone1 = 0;
@@ -242,6 +236,18 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.Controll
             else
             {
                 company.CIF = "";
+            }
+        }
+
+        public void SetCompanyAddress(string num)
+        {
+            if (num.Length > 0)
+            {
+                company.Address = num;
+            }
+            else
+            {
+                company.Address = "";
             }
         }
 
@@ -317,6 +323,8 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.Controll
                     endDate = startDate.AddMonths(1).AddDays(-1);
                     break;
             }
+
+            //company.FiscalYearID = null;
 
             db.Companies.Add(company);
 

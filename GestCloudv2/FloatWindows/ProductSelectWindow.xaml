@@ -89,7 +89,7 @@
 
                 <Label FontSize="9" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="6">Importe</Label>
                 <StackPanel Name="SP_LineTotalPrice" VerticalAlignment="Center" Grid.Row="7">
-                    <TextBox Name="TB_LineTotalPrice" FontSize="9" VerticalAlignment="Center" Margin="20,0,20,0" Tag="6" IsReadOnly="True"/>
+                    <TextBox Name="TB_LineTotalPrice" FontSize="9" VerticalAlignment="Center" Margin="20,0,20,0" Tag="6" IsReadOnly="True" IsEnabled="False"/>
                 </StackPanel>
 
                 <Grid Grid.Row="6" Grid.RowSpan="2" Grid.Column="1">

@@ -112,6 +112,66 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_Load.Control
             company.PeriodOption = num;
         }
 
+        public void SetPhone1(string num)
+        {
+            if (num.Length > 0)
+            {
+                company.Phone1 = Convert.ToInt32(num);
+            }
+            else
+            {
+                company.Phone1 = 0;
+            }
+        }
+
+        public void SetPhone2(string num)
+        {
+            if (num.Length > 0)
+            {
+                company.Phone2 = Convert.ToInt32(num);
+            }
+            else
+            {
+                company.Phone2 = 0;
+            }
+        }
+
+        public void SetFax(string num)
+        {
+            if (num.Length > 0)
+            {
+                company.Fax = Convert.ToInt32(num);
+            }
+            else
+            {
+                company.Fax = 0;
+            }
+        }
+
+        public void SetCompanyCif(string num)
+        {
+            if (num.Length > 0)
+            {
+                company.CIF = num;
+            }
+            else
+            {
+                company.CIF = "";
+            }
+        }
+
+        public void SetCompanyAddress(string num)
+        {
+            if (num.Length > 0)
+            {
+                company.Address = num;
+            }
+            else
+            {
+                company.Address = "";
+            }
+        }
+
         public void AddTaxes(Tax tax, int num)
         {
             TaxType tt = db.TaxTypes.Where(t => t.TaxTypeID == num).First();

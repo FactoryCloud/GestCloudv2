@@ -286,7 +286,10 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.View
 
         private void EV_Address(object sender, RoutedEventArgs e)
         {
-            GetController().company.Address = TB_CompanyAddress.Text;
+            if (TB_CompanyFax.Text.Length > 0)
+            {
+                GetController().SetCompanyAddress(((TextBox)sender).Text);
+            }
         }
 
         private void EV_Phone1(object sender, RoutedEventArgs e)

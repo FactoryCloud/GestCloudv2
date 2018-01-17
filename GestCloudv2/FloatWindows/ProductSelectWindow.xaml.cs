@@ -30,7 +30,7 @@ namespace GestCloudv2.FloatWindows
     {
         public ProductsView productsView;
         public Movement movement;
-        int OperationOption; // 1=Compra, 2=Venta
+        int OperationOption; // 0=Compra, 1=Venta
 
         public static string ReplaceLastOccurrence(string Source, string Find, string Replace)
         {
@@ -94,6 +94,11 @@ namespace GestCloudv2.FloatWindows
         public ProductSelectWindow(Movement mov):this()
         {
             movement = mov;
+        }
+
+        public ProductSelectWindow(int OperationOption) : this()
+        {
+            this.OperationOption = OperationOption;
         }
 
         public ProductSelectWindow(int OperationOption, List<Movement> Movements) : this()
@@ -230,7 +235,7 @@ namespace GestCloudv2.FloatWindows
                     movement.ProductID = Convert.ToInt32(dr.Row.ItemArray[0].ToString());
                     TB_ProductName.Text = movement.product.Name;
 
-                    if (OperationOption == 0)
+                    if (productsView.OperationType == 0)
                     {
                         movement.Quantity = Convert.ToDecimal(1);
                         movement.SalePrice = Convert.ToDecimal(movement.product.SalePrice1);
@@ -269,7 +274,7 @@ namespace GestCloudv2.FloatWindows
 
                     movement.condition = productsView.GetConditionDefault();
 
-                    if (OperationOption != 0)
+                    if (productsView.OperationType != 0)
                     {
                         if (productsView.stocks[movement.StoreID][Convert.ToInt32(movement.ProductID)] <= 0)
                         {
@@ -376,7 +381,7 @@ namespace GestCloudv2.FloatWindows
                 case 1:
                     if (TB_Quantity.Text.Length > 0)
                     {
-                        if (OperationOption != 0)
+                        if (productsView.OperationType != 0)
                         {
                             if (productsView.documentLines[movement.StoreID].ContainsKey(Convert.ToInt32(movement.ProductID)))
                             {
@@ -391,7 +396,7 @@ namespace GestCloudv2.FloatWindows
 
                         movement.Quantity = Convert.ToDecimal(TB_Quantity.Text);
 
-                        if (OperationOption == 1)
+                        if (OperationOption == 0)
                         {
                             TB_LineTotalPrice.Text = $"{(movement.Quantity * movement.PurchasePrice) - (movement.PurchaseDiscount1 * (movement.Quantity * movement.PurchasePrice) / 100)}";
                         }
@@ -415,7 +420,7 @@ namespace GestCloudv2.FloatWindows
                     if (TB_PurchasePrice.Text.Length > 0)
                     {
                         movement.PurchasePrice = Convert.ToDecimal(TB_PurchasePrice.Text);
-                        if (OperationOption == 1)
+                        if (OperationOption == 0)
                         {
                             TB_LineTotalPrice.Text = $"{(movement.Quantity * movement.PurchasePrice) - (movement.PurchaseDiscount1 * (movement.Quantity * movement.PurchasePrice) / 100)}";
                         }
@@ -431,7 +436,7 @@ namespace GestCloudv2.FloatWindows
                         TB_PurchasePrice.Text = Convert.ToDecimal(0).ToString("#.##");
                         TB_SalePrice.SelectionStart = 0;
                         movement.PurchasePrice = Convert.ToDecimal(0);
-                        if (OperationOption == 1)
+                        if (OperationOption == 0)
                         {
                             TB_LineTotalPrice.Text = $"{(movement.Quantity * movement.PurchasePrice) - (movement.PurchaseDiscount1 * (movement.Quantity * movement.PurchasePrice) / 100)}";
                         }
@@ -447,7 +452,7 @@ namespace GestCloudv2.FloatWindows
                     if (TB_SalePrice.Text.Length > 0)
                     {
                         movement.SalePrice = Convert.ToDecimal(TB_SalePrice.Text);
-                        if (OperationOption == 1)
+                        if (OperationOption == 0)
                         {
                             TB_LineTotalPrice.Text = $"{(movement.Quantity * movement.PurchasePrice) - (movement.PurchaseDiscount1 * (movement.Quantity * movement.PurchasePrice) / 100)}";
                         }
@@ -463,7 +468,7 @@ namespace GestCloudv2.FloatWindows
                         TB_SalePrice.Text = Convert.ToDecimal(0).ToString("#.##");
                         TB_SalePrice.SelectionStart = 0;
                         movement.SalePrice = Convert.ToDecimal(0);
-                        if (OperationOption == 1)
+                        if (OperationOption == 0)
                         {
                             TB_LineTotalPrice.Text = $"{(movement.Quantity * movement.PurchasePrice) - (movement.PurchaseDiscount1 * (movement.Quantity * movement.PurchasePrice) / 100)}";
                         }
@@ -479,7 +484,7 @@ namespace GestCloudv2.FloatWindows
                     if (TB_PurchaseDiscount.Text.Length > 0)
                     {
                         movement.PurchaseDiscount1 = Convert.ToDecimal(TB_PurchaseDiscount.Text);
-                        if (OperationOption == 1)
+                        if (OperationOption == 0)
                         {
                             TB_LineTotalPrice.Text = $"{(movement.Quantity * movement.PurchasePrice) - (movement.PurchaseDiscount1 * (movement.Quantity * movement.PurchasePrice) / 100)}";
                         }
@@ -495,7 +500,7 @@ namespace GestCloudv2.FloatWindows
                         TB_PurchaseDiscount.Text = Convert.ToDecimal(0).ToString("#.##");
                         TB_PurchaseDiscount.SelectionStart = 0;
                         movement.PurchaseDiscount1 = Convert.ToDecimal(0);
-                        if (OperationOption == 1)
+                        if (OperationOption == 0)
                         {
                             TB_LineTotalPrice.Text = $"{(movement.Quantity * movement.PurchasePrice) - (movement.PurchaseDiscount1 * (movement.Quantity * movement.PurchasePrice) / 100)}";
                         }
@@ -511,7 +516,7 @@ namespace GestCloudv2.FloatWindows
                     if (TB_SaleDiscount.Text.Length > 0)
                     {
                         movement.SaleDiscount1 = Convert.ToDecimal(TB_SaleDiscount.Text);
-                        if (OperationOption == 1)
+                        if (OperationOption == 0)
                         {
                             TB_LineTotalPrice.Text = $"{(movement.Quantity * movement.PurchasePrice) - (movement.PurchaseDiscount1 * (movement.Quantity * movement.PurchasePrice) / 100)}";
                         }
@@ -527,7 +532,7 @@ namespace GestCloudv2.FloatWindows
                         TB_SaleDiscount.Text = Convert.ToDecimal(0).ToString("#.##");
                         TB_SaleDiscount.SelectionStart = 0;
                         movement.SaleDiscount1 = Convert.ToDecimal(0);
-                        if (OperationOption == 1)
+                        if (OperationOption == 0)
                         {
                             TB_LineTotalPrice.Text = $"{(movement.Quantity * movement.PurchasePrice) - (movement.PurchaseDiscount1 * (movement.Quantity * movement.PurchasePrice) / 100)}";
                         }
