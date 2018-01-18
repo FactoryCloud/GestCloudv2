@@ -21,15 +21,15 @@
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
             <Label Name="LB_Document" VerticalAlignment="Center" HorizontalAlignment="Center">Factura</Label>
-            <Button Name="TB_Document" Grid.Column="1"  Margin="10,0,0,0" VerticalAlignment="Center">Seleccionar</Button>
+            <Button Name="BT_Invoice" IsEnabled="False" Grid.Column="1"  Margin="10,0,0,0" VerticalAlignment="Center" Click="EV_SelectPurchaseInvoice">Seleccionar</Button>
             <StackPanel Name="SP_Document" Grid.Column="2" Grid.Row="1" VerticalAlignment="Center">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="3*"/>
                     </Grid.ColumnDefinitions>
-                    <TextBox Name="TB_DocumentCode"  VerticalAlignment="Center"></TextBox>
-                    <TextBox Name="TB_DocumentInfo" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,10,0"></TextBox>
+                    <TextBox Name="TB_InvoiceCode"  VerticalAlignment="Center"></TextBox>
+                    <TextBox Name="TB_InvoiceInfo" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,10,0"></TextBox>
                 </Grid>
             </StackPanel>
         </Grid>

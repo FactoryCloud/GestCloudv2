@@ -28,11 +28,22 @@ namespace GestCloudv2.Documents.DCM_Transfers.View
             this.Loaded += new RoutedEventHandler(EV_Start);
 
             DG_Items.MouseLeftButtonUp += new MouseButtonEventHandler(EV_DocumentSelected);
+
+            if (GetController().GetDocumentsCount() > 0)
+                BT_Invoice.IsEnabled = true;
+
+            if (GetController().InvoiceExist())
+                TB_InvoiceCode.Text = GetController().GetInvoiceCode();
         }
 
         private void EV_Start(object sender, RoutedEventArgs e)
         {
             UpdateData();
+        }
+
+        private void EV_SelectPurchaseInvoice(object sender, RoutedEventArgs e)
+        {
+            GetController().EV_PurchaseInvoice();
         }
 
         private void EV_DocumentSelected(object sender, MouseButtonEventArgs e)

@@ -453,6 +453,9 @@
     <Compile Include="Files\Nodes\Entities\View\MC_Entity_Select.xaml.cs">
       <DependentUpon>MC_Entity_Select.xaml</DependentUpon>
     </Compile>
+    <Compile Include="FloatWindows\PurchaseInvoiceSelectWindow.xaml.cs">
+      <DependentUpon>PurchaseInvoiceSelectWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="FloatWindows\PurchaseDeliverySelectWindow.xaml.cs">
       <DependentUpon>PurchaseDeliverySelectWindow.xaml</DependentUpon>
     </Compile>
@@ -503,6 +506,7 @@
     <Compile Include="Purchases\Nodes\PurchaseDeliveries\PurchaseDeliveryMenu\View\NV_PDE_Menu.cs" />
     <Compile Include="Purchases\Nodes\PurchaseDeliveries\PurchaseDeliveryMenu\View\TS_PDE_Menu.cs" />
     <Compile Include="Purchases\Nodes\PurchaseDeliveries\PurchaseDeliveryTransfer\Controller\CT_PDE_Transfer.cs" />
+    <Compile Include="Purchases\Nodes\PurchaseDeliveries\PurchaseDeliveryTransfer\View\FW_PDE_Invoices.cs" />
     <Compile Include="Purchases\Nodes\PurchaseDeliveries\PurchaseDeliveryTransfer\View\FW_PDE_Deliveries.cs" />
     <Compile Include="Purchases\Nodes\PurchaseDeliveries\PurchaseDeliveryTransfer\View\MC_PDE_Transfer.cs" />
     <Compile Include="Purchases\Nodes\PurchaseDeliveries\PurchaseDeliveryTransfer\View\NV_PDE_Transfer.cs" />
@@ -1132,6 +1136,10 @@
     <Page Include="Files\Nodes\Entities\View\MC_Entity_Select.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FloatWindows\PurchaseInvoiceSelectWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="FloatWindows\PurchaseDeliverySelectWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

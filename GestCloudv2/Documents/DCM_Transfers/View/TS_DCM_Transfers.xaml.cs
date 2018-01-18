@@ -23,6 +23,9 @@ namespace GestCloudv2.Documents.DCM_Transfers.View
         public TS_DCM_Transfers()
         {
             InitializeComponent();
+
+            if (GetController().GetDocumentsCount() > 0)
+                BT_Transfer.IsEnabled = true;
         }
 
         public void EV_DocumentAdd(object sender, RoutedEventArgs e)
@@ -30,7 +33,7 @@ namespace GestCloudv2.Documents.DCM_Transfers.View
             GetController().EV_DocumentAdd();
         }
 
-        public void EV_generateTransfer(object sender, RoutedEventArgs e)
+        public void EV_GenerateTransfer(object sender, RoutedEventArgs e)
         {
             GetController().GenerateTransfer();
         }

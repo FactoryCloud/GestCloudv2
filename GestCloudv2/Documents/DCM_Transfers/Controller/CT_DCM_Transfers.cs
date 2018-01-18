@@ -12,8 +12,10 @@ namespace GestCloudv2.Documents.DCM_Transfers.Controller
 {
     public partial class CT_DCM_Transfers : Main.Controller.CT_Common
     {
-        
         public ItemsView itemsView;
+
+        public PurchaseInvoice purchaseInvoice;
+        public SaleInvoice saleInvoice;
 
         public CT_DCM_Transfers()
         {
@@ -22,6 +24,12 @@ namespace GestCloudv2.Documents.DCM_Transfers.Controller
 
         override public void EV_Start(object sender, RoutedEventArgs e)
         {
+            UpdateComponents();
+        }
+
+        public void SetPurchaseInvoice(int num)
+        {
+            purchaseInvoice = db.PurchaseInvoices.Where(p => p.PurchaseInvoiceID == num).First();
             UpdateComponents();
         }
 
@@ -40,7 +48,27 @@ namespace GestCloudv2.Documents.DCM_Transfers.Controller
 
         }
 
+        public virtual int GetDocumentsCount()
+        {
+            return 0;
+        }
+
+        public virtual string GetInvoiceCode()
+        {
+            return "";
+        }
+
+        public virtual bool InvoiceExist()
+        {
+            return false;
+        }
+
         public virtual void EV_DocumentAdd()
+        {
+
+        }
+
+        public virtual void EV_PurchaseInvoice()
         {
 
         }
@@ -80,7 +108,10 @@ namespace GestCloudv2.Documents.DCM_Transfers.Controller
 
         public virtual void GenerateTransfer()
         {
+            db.SaveChanges();
+            MessageBox.Show("Transferencia terminada");
 
+            CT_Main();
         }
 
         private void ChangeController()

@@ -51,10 +51,10 @@ namespace FrameworkView.V1
             if(Option == 2)
             {
                 if (provider != null)
-                    items = db.PurchaseDeliveries.Where(p => p.ProviderID == provider.ProviderID).Include(p => p.provider.entity).ToList();
+                    items = db.PurchaseDeliveries.Where(p => p.ProviderID == provider.ProviderID && p.PurchaseInvoiceID == null).Include(p => p.provider.entity).ToList();
 
                 else
-                    items = db.PurchaseDeliveries.Include(e => e.provider.entity).ToList();
+                    items = db.PurchaseDeliveries.Where(p => p.PurchaseInvoiceID == null).Include(e => e.provider.entity).ToList();
 
                 foreach (PurchaseDelivery item in itemsRemoved)
                 {

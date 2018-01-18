@@ -14,6 +14,8 @@ namespace FrameworkView.V1
     {
         List<PurchaseInvoice> items { get; set; }
 
+        public Provider provider;
+
         public PurchaseInvoicesView()
         {
             dt.Columns.Add("ID", typeof(int));
@@ -22,9 +24,18 @@ namespace FrameworkView.V1
             dt.Columns.Add("Importe", typeof(string));
         }
 
+        public PurchaseInvoicesView(Provider provider):this()
+        {
+            this.provider = provider;
+        }
+
         override public void UpdateTable()
         {
-            items = db.PurchaseInvoices.Include(e => e.provider.entity).ToList();
+            if(provider != null)
+                items = db.PurchaseInvoices.Where(p => p.ProviderID == provider.ProviderID).Include(e => e.provider.entity).ToList();
+
+            else
+                items = db.PurchaseInvoices.Include(e => e.provider.entity).ToList();
 
             dt.Clear();
             foreach (PurchaseInvoice item in items)
