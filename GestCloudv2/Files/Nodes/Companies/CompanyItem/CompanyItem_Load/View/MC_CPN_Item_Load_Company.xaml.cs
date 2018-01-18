@@ -22,6 +22,8 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_Load.View
     /// </summary>
     public partial class MC_CPN_Item_Load_Company : Page
     {
+        public const string CORRESPONDENCIA = "TRWAGMYFPDXBNJZSQVHLCKE";
+
         public MC_CPN_Item_Load_Company()
         {
             InitializeComponent();
@@ -273,59 +275,17 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_Load.View
 
         private void EV_CIF(object sender, RoutedEventArgs e)
         {
-            if (TB_CompanyCIF.Text.Length == 0)
+            if (TB_CompanyCIF.Text.Length == 8)
             {
-                if (SP_CompanyCIF.Children.Count == 1)
+                Match match = new Regex(@"\b(\d{8})\b").Match(TB_CompanyCIF.Text);
+                if (match.Success)
                 {
-                    TextBlock message = new TextBlock();
-                    message.TextWrapping = TextWrapping.WrapWithOverflow;
-                    message.Text = "Este campo no puede estar vacio";
-                    message.HorizontalAlignment = HorizontalAlignment.Center;
-                    SP_CompanyCIF.Children.Add(message);
+                    TB_CompanyCIF.Text = TB_CompanyCIF.Text + "-" + CORRESPONDENCIA[int.Parse(TB_CompanyCIF.Text) % 23].ToString();
+                    GetController().SetCompanyCif(((TextBox)sender).Text);
                 }
 
-                else if (SP_CompanyCIF.Children.Count == 2)
-                {
-                    SP_CompanyCIF.Children.RemoveAt(SP_CompanyCIF.Children.Count - 1);
-                    TextBlock message = new TextBlock();
-                    message.TextWrapping = TextWrapping.WrapWithOverflow;
-                    message.Text = "Este campo no puede estar vacio";
-                    message.HorizontalAlignment = HorizontalAlignment.Center;
-                    SP_CompanyCIF.Children.Add(message);
-                }
-                GetController().EV_UpdateIfNotEmpty(true);
-            }
-
-            else if (GetController().CompanyControlExist(TB_CompanyCIF.Text))
-            {
-                if (SP_CompanyCIF.Children.Count == 1)
-                {
-                    TextBlock message = new TextBlock();
-                    message.TextWrapping = TextWrapping.WrapWithOverflow;
-                    message.Text = "Esta empresa ya existe";
-                    message.HorizontalAlignment = HorizontalAlignment.Center;
-                    SP_CompanyCIF.Children.Add(message);
-                }
-
-                else if (SP_CompanyCIF.Children.Count == 2)
-                {
-                    SP_CompanyCIF.Children.RemoveAt(SP_CompanyCIF.Children.Count - 1);
-                    TextBlock message = new TextBlock();
-                    message.TextWrapping = TextWrapping.WrapWithOverflow;
-                    message.Text = "Esta empresa ya existe";
-                    message.HorizontalAlignment = HorizontalAlignment.Center;
-                    SP_CompanyCIF.Children.Add(message);
-                }
-                GetController().EV_UpdateIfNotEmpty(true);
-            }
-
-            else
-            {
-                if (SP_CompanyCIF.Children.Count == 2)
-                {
-                    SP_CompanyCIF.Children.RemoveAt(SP_CompanyCIF.Children.Count - 1);
-                }
-                GetController().EV_UpdateIfNotEmpty(true);
+                else
+                    throw new ArgumentException("El DNI debe contener 8 dígitos.");
             }
         }
 
