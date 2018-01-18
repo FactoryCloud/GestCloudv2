@@ -52,6 +52,9 @@ namespace FrameworkDB.V1
         public DbSet<PurchaseOrder> PurchaseOrders { get; set; }
         public DbSet<SaleOrder> SaleOrders { get; set; }
 
+        public DbSet<PaymentMethod> PaymentMethods { get; set; }
+        public DbSet<CompanyPaymentMethod> CompaniesPaymentMethods { get; set; }
+
         public DbSet<ClientTax> ClientsTaxes { get; set; }
         public DbSet<ProviderTax> ProvidersTaxes { get; set; }
         public DbSet<ProductTypeTax> ProductTypesTaxes { get; set; }
@@ -168,6 +171,18 @@ namespace FrameworkDB.V1
                 .WithMany(b => b.CompaniesStores)
                 .HasForeignKey(a => a.StoreID)
                 .HasConstraintName("FK_CompaniesStores_StoreID_Stores");
+
+            modelBuilder.Entity<CompanyPaymentMethod>()
+                .HasOne(a => a.company)
+                .WithMany(b => b.CompanyPaymentMethods)
+                .HasForeignKey(a => a.CompanyID)
+                .HasConstraintName("FK_CompaniesPaymentMethods_CompanyID_Companies");
+
+            modelBuilder.Entity<CompanyPaymentMethod>()
+                .HasOne(a => a.paymentMethod)
+                .WithMany(b => b.CompaniesPaymentMethod)
+                .HasForeignKey(a => a.PaymentMethodID)
+                .HasConstraintName("FK_CompaniesPaymentMethods_PaymentMethodID_PaymentMethods");
 
             modelBuilder.Entity<StockAdjust>()
                 .HasOne(a => a.company)
