@@ -28,12 +28,14 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.Controller
         public Movement movementSelected;
         public List<Movement> movements;
         public List<Movement> movementsOld;
+        public List<Movement> movementsTransfer;
         public DocumentContent documentContent;
 
         public CT_DCM_Item_Load(int editable)
         {
             movements = new List<Movement>();
             movementsOld = new List<Movement>();
+            movementsTransfer = new List<Movement>();
             Information.Add("minimalInformation", 0);
             Information.Add("editable",editable);
             Information.Add("old_editable", 0);
@@ -48,7 +50,74 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.Controller
             movementsOld = db.Movements.Where(u => u.DocumentID == GetDocumentID() && (GetDocumentType().DocumentTypeID == u.DocumentTypeID)).Include(u => u.store)
                 .Include(i => i.product).Include(z => z.condition).Include(i => i.product.productType).ToList();
 
-            documentContent = new DocumentContent(Information["operationType"],((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany, GetDate(), movementsOld);
+            switch(GetDocumentType().Name)
+            {
+                case "Invoice":
+                    DocumentType docType1 = db.DocumentTypes.Where(d => d.Name.Contains("Delivery") && d.Input == GetDocumentType().Input).First();
+                    DocumentType docType2 = db.DocumentTypes.Where(d => d.Name.Contains("Order") && d.Input == GetDocumentType().Input).First();
+                    if (GetDocumentType().Input == 1)
+                    {
+                        List<PurchaseDelivery> deliveries = db.PurchaseDeliveries.Where(p => p.PurchaseInvoiceID == GetDocumentID()).ToList();
+                        foreach(PurchaseDelivery item in deliveries)
+                        {
+                            movementsTransfer.AddRange(db.Movements.Where(p => p.DocumentTypeID == docType1.DocumentTypeID && p.DocumentID == item.PurchaseDeliveryID).Include(u => u.store)
+                                .Include(i => i.product).Include(z => z.condition).Include(i => i.product.productType).ToList());
+                        }
+
+                        List<PurchaseOrder> orders = db.PurchaseOrders.Where(p => p.PurchaseInvoiceID == GetDocumentID()).ToList();
+                        foreach (PurchaseOrder item in orders)
+                        {
+                            movementsTransfer.AddRange(db.Movements.Where(p => p.DocumentTypeID == docType2.DocumentTypeID && p.DocumentID == item.PurchaseOrderID).Include(u => u.store)
+                                .Include(i => i.product).Include(z => z.condition).Include(i => i.product.productType).ToList());
+                        }
+                    }
+
+                    if (GetDocumentType().Input == 0)
+                    {
+                        List<SaleDelivery> deliveries = db.SaleDeliveries.Where(p => p.SaleInvoiceID == GetDocumentID()).ToList();
+                        foreach (SaleDelivery item in deliveries)
+                        {
+                            movementsTransfer.AddRange(db.Movements.Where(p => p.DocumentTypeID == docType1.DocumentTypeID && p.DocumentID == item.SaleDeliveryID).Include(u => u.store)
+                                .Include(i => i.product).Include(z => z.condition).Include(i => i.product.productType).ToList());
+                        }
+
+                        List<SaleOrder> orders = db.SaleOrders.Where(p => p.SaleInvoiceID == GetDocumentID()).ToList();
+                        foreach (SaleOrder item in orders)
+                        {
+                            movementsTransfer.AddRange(db.Movements.Where(p => p.DocumentTypeID == docType2.DocumentTypeID && p.DocumentID == item.SaleOrderID).Include(u => u.store)
+                                .Include(i => i.product).Include(z => z.condition).Include(i => i.product.productType).ToList());
+                        }
+                    }
+                    break;
+
+                case "Delivery":
+                    DocumentType docType = db.DocumentTypes.Where(d => d.Name.Contains("Order") && d.Input == GetDocumentType().Input).First();
+                    if (GetDocumentType().Input == 1)
+                    {
+                        List<PurchaseOrder> orders = db.PurchaseOrders.Where(p => p.PurchaseDeliveryID == GetDocumentID()).ToList();
+                        foreach (PurchaseOrder item in orders)
+                        {
+                            movementsTransfer.AddRange(db.Movements.Where(p => p.DocumentTypeID == docType.DocumentTypeID && p.DocumentID == item.PurchaseOrderID).Include(u => u.store)
+                                .Include(i => i.product).Include(z => z.condition).Include(i => i.product.productType).ToList());
+                        }
+                    }
+
+                    if (GetDocumentType().Input == 0)
+                    {
+                        List<SaleOrder> orders = db.SaleOrders.Where(p => p.SaleDeliveryID == GetDocumentID()).ToList();
+                        foreach (SaleOrder item in orders)
+                        {
+                            movementsTransfer.AddRange(db.Movements.Where(p => p.DocumentTypeID == docType.DocumentTypeID && p.DocumentID == item.SaleOrderID).Include(u => u.store)
+                                .Include(i => i.product).Include(z => z.condition).Include(i => i.product.productType).ToList());
+                        }
+                    }
+                    break;
+            }
+
+            List<Movement> allMovements = new List<Movement>();
+            allMovements.AddRange(movementsOld);
+            allMovements.AddRange(movementsTransfer);
+            documentContent = new DocumentContent(Information["operationType"],((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany, GetDate(), allMovements);
             UpdateComponents();
             this.Loaded -= EV_PreStart;
         }
@@ -231,6 +300,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.Controller
         {
             List<Movement> allMovements = new List<Movement>();
             allMovements.AddRange(movementsOld);
+            allMovements.AddRange(movementsTransfer);
             allMovements.AddRange(movements);
             documentContent = new DocumentContent(Information["operationType"], ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany, GetDate(), allMovements);
         }

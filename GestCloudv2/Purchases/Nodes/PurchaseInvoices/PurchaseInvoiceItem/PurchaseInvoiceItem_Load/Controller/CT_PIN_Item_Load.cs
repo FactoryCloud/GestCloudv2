@@ -184,54 +184,6 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseInvoices.PurchaseInvoiceItem.Purch
 
         override public void SaveDocument()
         {
-            /*foreach (Movement movement in movementsView.movements)
-            {
-                if (!movements.Contains(movement))
-                {
-                    movement.MovementID = 0;
-                    movement.ConditionID = movement.condition.ConditionID;
-                    movement.condition = null;
-                    movement.ProductID = movement.product.ProductID;
-                    movement.product = null;
-
-                    if (movement.store == null)
-                    {
-                        movement.DocumentTypeID = db.DocumentTypes.Where(c => c.Name == "Invoice" && c.Input == 1).First().DocumentTypeID;
-                        movement.StoreID = GetStore().StoreID;
-                    }
-
-                    else
-                    {
-                        movement.DocumentTypeID = movement.documentType.DocumentTypeID;
-                        movement.documentType = null;
-                    }
-
-                    movement.DocumentID = purchaseInvoice.PurchaseInvoiceID;
-                    db.Movements.Add(movement);
-                }
-
-                else
-                {
-                    Movement temp = db.Movements.Where(m => m.MovementID == movement.MovementID).First();
-                    temp.ConditionID = movement.condition.ConditionID;
-                    temp.ProductID = movement.product.ProductID;
-                    temp.Quantity = movement.Quantity;
-                    temp.PurchasePrice = movement.PurchasePrice;
-                    temp.SalePrice = movement.SalePrice;
-                    temp.IsAltered = movement.IsAltered;
-                    temp.IsFoil = movement.IsFoil;
-                    temp.IsPlayset = movement.IsPlayset;
-                    temp.IsSigned = movement.IsSigned;
-                    db.Movements.Update(temp);
-                }
-            }
-
-            foreach (Movement mov in movements)
-            {
-                if (!movementsView.movements.Contains(mov))
-                    db.Movements.Remove(mov);
-            }*/
-
             base.SaveDocument();
         }
 
