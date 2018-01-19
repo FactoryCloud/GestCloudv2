@@ -98,6 +98,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccessType.cs" />
+    <Compile Include="CompanyPaymentMethod.cs" />
     <Compile Include="ProviderTax.cs" />
     <Compile Include="MovementTax.cs" />
     <Compile Include="ProductTax.cs" />
@@ -105,6 +106,7 @@
     <Compile Include="ClientTax.cs" />
     <Compile Include="ProductTypeTax.cs" />
     <Compile Include="FiscalYear.cs" />
+    <Compile Include="PaymentMethod.cs" />
     <Compile Include="TaxType.cs" />
     <Compile Include="Tax.cs" />
     <Compile Include="Agents.cs" />

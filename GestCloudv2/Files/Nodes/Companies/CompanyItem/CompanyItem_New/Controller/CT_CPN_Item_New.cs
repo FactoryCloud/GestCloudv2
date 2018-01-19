@@ -26,6 +26,7 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.Controll
         public Company company;
         public FiscalYear fiscalYear;
         public List<Store> stores;
+        public List<PaymentMethod> paymentMethods;
         public List<Tax> taxes;
         public List<Tax> equiSurs;
         public List<Tax> specTaxes;
@@ -41,6 +42,7 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.Controll
             taxes = new List<Tax>();
             equiSurs = new List<Tax>();
             specTaxes = new List<Tax>();
+            paymentMethods= new List<PaymentMethod>();
             company = new Company();
             fiscalYear = new FiscalYear();
             startDayDate = 1;
@@ -115,6 +117,11 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.Controll
             return db.Stores.ToList();
         }
 
+        public List<PaymentMethod> GetPaymentMethods()
+        {
+            return db.PaymentMethods.ToList();
+        }
+
         public void SetCompanyName(string name)
         {
             company.Name = name;
@@ -142,6 +149,20 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.Controll
             else
             {
                 stores.Add(db.Stores.Where(c => c.StoreID == num).Include(c => c.CompaniesStores).First());
+            }
+            TestMinimalInformation();
+        }
+
+        public void UpdatePaymentMethod(int num)
+        {
+            if (paymentMethods.Contains(db.PaymentMethods.Where(s => s.PaymentMethodID == num).First()))
+            {
+                paymentMethods.Remove(db.PaymentMethods.Where(c => c.PaymentMethodID== num).First());
+            }
+
+            else
+            {
+                paymentMethods.Add(db.PaymentMethods.Where(c => c.PaymentMethodID== num).First());
             }
             TestMinimalInformation();
         }
@@ -336,6 +357,16 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.Controll
                     company = company
                 });
             }
+
+            foreach (PaymentMethod paymentMethod in paymentMethods)
+            {
+                db.CompaniesPaymentMethods.Add(new CompanyPaymentMethod
+                {
+                    paymentMethod = paymentMethod,
+                    company = company
+                });
+            }
+
             if (startDayDate == 1 && startMonthDate == 1)
             {
                 db.FiscalYears.Add(new FiscalYear
@@ -406,6 +437,18 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.Controll
             MainContent.Content = MC_Page;
         }
 
+        public void MD_PaymentMethodsChange(int num)
+        {
+            if (num == 0)
+                paymentMethods = new List<PaymentMethod>();
+
+            else
+                paymentMethods = db.PaymentMethods.ToList();
+
+            MC_Page = new View.MC_CPN_Item_New_Company_PaymentMethods();
+            MainContent.Content = MC_Page;
+        }
+
         public void CT_Menu()
         {
             Information["controller"] = 0;
@@ -438,6 +481,13 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.Controll
                     NV_Page = new View.NV_CPN_Item_New();
                     TS_Page = new View.TS_CPN_Item_New(Information["minimalInformation"]);
                     MC_Page = new View.MC_CPN_Item_New_Company_Taxes();
+                    ChangeComponents();
+                    break;
+
+                case 4:
+                    NV_Page = new View.NV_CPN_Item_New();
+                    TS_Page = new View.TS_CPN_Item_New(Information["minimalInformation"]);
+                    MC_Page = new View.MC_CPN_Item_New_Company_PaymentMethods();
                     ChangeComponents();
                     break;
             }

@@ -42,6 +42,11 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.View
             GetController().MD_Change(3,0);
         }
 
+        private void EV_MD_PaymentMethods(object sender, RoutedEventArgs e)
+        {
+            GetController().MD_Change(4, 0);
+        }
+
         private void EV_CT_Menu(object sender, RoutedEventArgs e)
         {
             GetController().CT_Menu();
