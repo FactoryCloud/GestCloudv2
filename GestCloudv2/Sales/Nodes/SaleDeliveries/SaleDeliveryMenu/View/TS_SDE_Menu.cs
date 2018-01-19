@@ -9,6 +9,11 @@ namespace GestCloudv2.Sales.Nodes.SaleDeliveries.SaleDeliveryMenu.View
 {
     class TS_SDE_Menu : Documents.DCM_Menu.View.TS_DCM_Menu
     {
+        public TS_SDE_Menu()
+        {
+            BT_DeliveryTransfer.Visibility = Visibility.Hidden;
+        }
+
         override public Documents.DCM_Menu.Controller.CT_DCM_Menu GetController()
         {
             Window mainWindow = Application.Current.MainWindow;

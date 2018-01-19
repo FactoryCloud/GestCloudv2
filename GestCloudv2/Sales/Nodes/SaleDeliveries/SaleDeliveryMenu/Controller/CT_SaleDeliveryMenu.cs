@@ -1,5 +1,6 @@
 ﻿using FrameworkDB.V1;
 using FrameworkView.V1;
+using GestCloudv2.Documents.DCM_Transfers.Controller;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -52,6 +53,11 @@ namespace GestCloudv2.Sales.Nodes.SaleDeliveries.SaleDeliveryMenu.Controller
         public override Documents.DCM_Items.DCM_Item_Load.Controller.CT_DCM_Item_Load SetItemLoadEditable()
         {
             return new SaleDeliveryItem.SaleDeliveryItem_Load.Controller.CT_SDE_Item_Load(saleDelivery, 1);
+        }
+
+        public override CT_DCM_Transfers SetInvoiceTransfer()
+        {
+            return new SaleDeliveries.SaleDeliveryTransfer.Controller.CT_SDE_Transfer();
         }
 
         override public bool SelectedItem()

@@ -14,12 +14,16 @@ namespace GestCloudv2.Documents.DCM_Transfers.Controller
     {
         public ItemsView itemsView;
 
+        public PurchaseDelivery purchaseDelivery;
+        public SaleDelivery saleDelivery;
+
         public PurchaseInvoice purchaseInvoice;
         public SaleInvoice saleInvoice;
 
+        public int Option;
+
         public CT_DCM_Transfers()
         {
-            //itemsView = new ItemsView();
         }
 
         override public void EV_Start(object sender, RoutedEventArgs e)
@@ -30,6 +34,24 @@ namespace GestCloudv2.Documents.DCM_Transfers.Controller
         public void SetPurchaseInvoice(int num)
         {
             purchaseInvoice = db.PurchaseInvoices.Where(p => p.PurchaseInvoiceID == num).First();
+            UpdateComponents();
+        }
+
+        public void SetPurchaseDelivery(int num)
+        {
+            purchaseDelivery = db.PurchaseDeliveries.Where(p => p.PurchaseDeliveryID == num).First();
+            UpdateComponents();
+        }
+
+        public void SetSaleInvoice(int num)
+        {
+            saleInvoice = db.SaleInvoices.Where(p => p.SaleInvoiceID == num).First();
+            UpdateComponents();
+        }
+
+        public void SetSaleDelivery(int num)
+        {
+            saleDelivery = db.SaleDeliveries.Where(p => p.SaleDeliveryID == num).First();
             UpdateComponents();
         }
 
@@ -58,7 +80,17 @@ namespace GestCloudv2.Documents.DCM_Transfers.Controller
             return "";
         }
 
+        public virtual string GetDeliveryCode()
+        {
+            return "";
+        }
+
         public virtual bool InvoiceExist()
+        {
+            return false;
+        }
+
+        public virtual bool DeliveryExist()
         {
             return false;
         }
@@ -69,6 +101,21 @@ namespace GestCloudv2.Documents.DCM_Transfers.Controller
         }
 
         public virtual void EV_PurchaseInvoice()
+        {
+
+        }
+
+        public virtual void EV_PurchaseDelivery()
+        {
+
+        }
+
+        public virtual void EV_SaleInvoice()
+        {
+
+        }
+
+        public virtual void EV_SaleDelivery()
         {
 
         }

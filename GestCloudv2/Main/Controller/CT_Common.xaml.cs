@@ -96,7 +96,19 @@ namespace GestCloudv2.Main.Controller
             this.Loaded += new RoutedEventHandler(EV_PreStartNoNavigation);
         }
 
-        public virtual void EV_PurchaseDeliveryAdd(PurchaseDelivery purchaseDelivery)
+        public virtual void EV_PurchaseOrderAdd(int purchaseOrder)
+        {
+        }
+
+        public virtual void EV_PurchaseDeliveryAdd(int purchaseDelivery)
+        {
+        }
+
+        public virtual void EV_SaleOrderAdd(int purchaseOrder)
+        {
+        }
+
+        public virtual void EV_SaleDeliveryAdd(int purchaseDelivery)
         {
         }
 

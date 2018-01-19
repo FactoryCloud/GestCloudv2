@@ -27,6 +27,11 @@ namespace FrameworkView.V1
             Option = 0;
         }
 
+        public PurchaseDeliveriesView(Provider provider) : this()
+        {
+            this.provider = provider;
+        }
+
         public PurchaseDeliveriesView(List<PurchaseDelivery> Documents) : this()
         {
             items = Documents;
@@ -45,8 +50,14 @@ namespace FrameworkView.V1
 
         override public void UpdateTable()
         {
-            if(Option == 0)
-                items = db.PurchaseDeliveries.Include(e => e.provider.entity).ToList();
+            if (Option == 0)
+            {
+                if (provider != null)
+                    items = db.PurchaseDeliveries.Where(p => p.ProviderID == provider.ProviderID).Include(e => e.provider.entity).ToList();
+
+                else
+                    items = db.PurchaseDeliveries.Include(e => e.provider.entity).ToList();
+            }
 
             if(Option == 2)
             {

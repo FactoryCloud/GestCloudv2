@@ -453,6 +453,18 @@
     <Compile Include="Files\Nodes\Entities\View\MC_Entity_Select.xaml.cs">
       <DependentUpon>MC_Entity_Select.xaml</DependentUpon>
     </Compile>
+    <Compile Include="FloatWindows\SaleDeliverySelectWindow.xaml.cs">
+      <DependentUpon>SaleDeliverySelectWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FloatWindows\SaleInvoiceSelectWindow.xaml.cs">
+      <DependentUpon>SaleInvoiceSelectWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FloatWindows\SaleOrderSelectWindow.xaml.cs">
+      <DependentUpon>SaleOrderSelectWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FloatWindows\PurchaseOrderSelectWindow.xaml.cs">
+      <DependentUpon>PurchaseOrderSelectWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="FloatWindows\PurchaseInvoiceSelectWindow.xaml.cs">
       <DependentUpon>PurchaseInvoiceSelectWindow.xaml</DependentUpon>
     </Compile>
@@ -532,6 +544,18 @@
     <Compile Include="Purchases\Nodes\PurchaseInvoices\PurchaseInvoiceMenu\View\MC_PIN_Menu.cs" />
     <Compile Include="Purchases\Nodes\PurchaseInvoices\PurchaseInvoiceMenu\View\NV_PIN_Menu.cs" />
     <Compile Include="Purchases\Nodes\PurchaseInvoices\PurchaseInvoiceMenu\View\TS_PIN_Menu.cs" />
+    <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderTransfer\POR_Transfer_Delivery\Controller\CT_POR_Transfer_Delivery.cs" />
+    <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderTransfer\POR_Transfer_Delivery\View\FW_POR_Transfer_Delivery_Deliveries.cs" />
+    <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderTransfer\POR_Transfer_Delivery\View\FW_POR_Transfer_Delivery_Orders.cs" />
+    <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderTransfer\POR_Transfer_Delivery\View\MC_POR_Transfer_Delivery.cs" />
+    <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderTransfer\POR_Transfer_Delivery\View\NV_POR_Transfer_Delivery.cs" />
+    <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderTransfer\POR_Transfer_Delivery\View\TS_POR_Transfer_Delivery.cs" />
+    <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderTransfer\POR_Transfer_Invoice\Controller\CT_POR_Transfer_Invoice.cs" />
+    <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderTransfer\POR_Transfer_Invoice\View\FW_POR_Transfer_Invoice_Orders.cs" />
+    <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderTransfer\POR_Transfer_Invoice\View\FW_POR_Transfer_Invoice_Invoices.cs" />
+    <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderTransfer\POR_Transfer_Invoice\View\MC_POR_Transfer_Invoice.cs" />
+    <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderTransfer\POR_Transfer_Invoice\View\NV_POR_Transfer_Invoice.cs" />
+    <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderTransfer\POR_Transfer_Invoice\View\TS_POR_Transfer_Invoice.cs" />
     <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_Load\Controller\CT_POR_Item_Load.cs">
       <Generator>MSBuild:Compile</Generator>
     </Compile>
@@ -555,10 +579,28 @@
     <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderMenu\View\NV_POR_Menu.cs" />
     <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderMenu\View\TS_POR_Menu.cs" />
     <Compile Include="Sales\Controller\CT_Sales.cs" />
+    <Compile Include="Sales\Nodes\SaleDeliveries\SaleDeliveryTransfer\Controller\CT_SDE_Transfer.cs" />
+    <Compile Include="Sales\Nodes\SaleDeliveries\SaleDeliveryTransfer\View\FW_SDE_Deliveries.cs" />
+    <Compile Include="Sales\Nodes\SaleDeliveries\SaleDeliveryTransfer\View\FW_SDE_Invoices.cs" />
+    <Compile Include="Sales\Nodes\SaleDeliveries\SaleDeliveryTransfer\View\MC_SDE_Transfer.cs" />
+    <Compile Include="Sales\Nodes\SaleDeliveries\SaleDeliveryTransfer\View\NV_SDE_Transfer.cs" />
+    <Compile Include="Sales\Nodes\SaleDeliveries\SaleDeliveryTransfer\View\TS_SDE_Transfer.cs" />
     <Compile Include="Sales\Nodes\SaleDeliveries\SaleDeliveryItem\SaleDeliveryItem_Load\View\MC_SDE_Item_Load_Summary.cs" />
     <Compile Include="Sales\Nodes\SaleDeliveries\SaleDeliveryItem\SaleDeliveryItem_New\View\MC_SDE_Item_New_Summary.cs" />
     <Compile Include="Sales\Nodes\SaleInvoices\SaleInvoiceItem\SaleInvoiceItem_Load\View\MC_SIN_Item_Load_Summary.cs" />
     <Compile Include="Sales\Nodes\SaleInvoices\SaleInvoiceItem\SaleInvoiceItem_New\View\MC_SIN_Item_New_Summary.cs" />
+    <Compile Include="Sales\Nodes\SaleOrders\SaleOrderTransfer\SOR_Transfer_Delivery\Controller\CT_SOR_Transfer_Delivery.cs" />
+    <Compile Include="Sales\Nodes\SaleOrders\SaleOrderTransfer\SOR_Transfer_Delivery\View\FW_SOR_Transfer_Delivery_Deliveries.cs" />
+    <Compile Include="Sales\Nodes\SaleOrders\SaleOrderTransfer\SOR_Transfer_Delivery\View\FW_SOR_Transfer_Delivery_Orders.cs" />
+    <Compile Include="Sales\Nodes\SaleOrders\SaleOrderTransfer\SOR_Transfer_Delivery\View\MC_SOR_Transfer_Delivery.cs" />
+    <Compile Include="Sales\Nodes\SaleOrders\SaleOrderTransfer\SOR_Transfer_Delivery\View\NV_SOR_Transfer_Delivery.cs" />
+    <Compile Include="Sales\Nodes\SaleOrders\SaleOrderTransfer\SOR_Transfer_Delivery\View\TS_SOR_Transfer_Delivery.cs" />
+    <Compile Include="Sales\Nodes\SaleOrders\SaleOrderTransfer\SOR_Transfer_Invoice\Controller\CT_SOR_Transfer_Invoice.cs" />
+    <Compile Include="Sales\Nodes\SaleOrders\SaleOrderTransfer\SOR_Transfer_Invoice\View\FW_POR_Transfer_Invoice_Invoices.cs" />
+    <Compile Include="Sales\Nodes\SaleOrders\SaleOrderTransfer\SOR_Transfer_Invoice\View\FW_POR_Transfer_Invoice_Orders.cs" />
+    <Compile Include="Sales\Nodes\SaleOrders\SaleOrderTransfer\SOR_Transfer_Invoice\View\MC_POR_Transfer_Invoice.cs" />
+    <Compile Include="Sales\Nodes\SaleOrders\SaleOrderTransfer\SOR_Transfer_Invoice\View\NV_POR_Transfer_Invoice.cs" />
+    <Compile Include="Sales\Nodes\SaleOrders\SaleOrderTransfer\SOR_Transfer_Invoice\View\TS_POR_Transfer_Invoice.cs" />
     <Compile Include="Sales\Nodes\SaleOrders\SaleOrderItem\SaleOrderItem_Load\Controller\CT_SOR_Item_Load.cs" />
     <Compile Include="Sales\Nodes\SaleOrders\SaleOrderItem\SaleOrderItem_Load\View\FW_SOR_Item_Load_Movements.cs" />
     <Compile Include="Sales\Nodes\SaleOrders\SaleOrderItem\SaleOrderItem_Load\View\MC_SOR_Item_Load_Summary.cs" />
@@ -1136,6 +1178,22 @@
     <Page Include="Files\Nodes\Entities\View\MC_Entity_Select.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FloatWindows\SaleDeliverySelectWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="FloatWindows\SaleInvoiceSelectWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="FloatWindows\SaleOrderSelectWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="FloatWindows\PurchaseOrderSelectWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="FloatWindows\PurchaseInvoiceSelectWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

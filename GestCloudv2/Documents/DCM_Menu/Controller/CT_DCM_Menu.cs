@@ -17,6 +17,7 @@ namespace GestCloudv2.Documents.DCM_Menu.Controller
         public CT_DCM_Menu()
         {
             itemsView = new ItemsView();
+            Information.Add("transferOption", 0);
         }
 
         override public void EV_Start(object sender, RoutedEventArgs e)
@@ -66,7 +67,12 @@ namespace GestCloudv2.Documents.DCM_Menu.Controller
             return new DCM_Items.DCM_Item_Load.Controller.CT_DCM_Item_Load(1);
         }
 
-        public virtual DCM_Transfers.Controller.CT_DCM_Transfers SetItemTransfer()
+        public virtual DCM_Transfers.Controller.CT_DCM_Transfers SetDeliveryTransfer()
+        {
+            return new DCM_Transfers.Controller.CT_DCM_Transfers();
+        }
+
+        public virtual DCM_Transfers.Controller.CT_DCM_Transfers SetInvoiceTransfer()
         {
             return new DCM_Transfers.Controller.CT_DCM_Transfers();
         }
@@ -94,8 +100,9 @@ namespace GestCloudv2.Documents.DCM_Menu.Controller
             ChangeController();
         }
 
-        internal void EV_CT_Transfer()
+        internal void EV_CT_Transfer(int num)
         {
+            Information["transferOption"] = num;
             Information["controller"] = 4;
             ChangeController();
         }
@@ -146,7 +153,11 @@ namespace GestCloudv2.Documents.DCM_Menu.Controller
                     break;
 
                 case 4:
-                    a.MainFrame.Content = SetItemTransfer();
+                    if(Information["transferOption"] == 1)
+                        a.MainFrame.Content = SetDeliveryTransfer();
+
+                    if (Information["transferOption"] == 2)
+                        a.MainFrame.Content = SetInvoiceTransfer();
                     break;
 
             }

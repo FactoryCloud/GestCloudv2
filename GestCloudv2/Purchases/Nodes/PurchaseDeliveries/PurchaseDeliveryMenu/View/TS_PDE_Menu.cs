@@ -9,6 +9,11 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseDeliveries.PurchaseDeliveryMenu.Vi
 {
     class TS_PDE_Menu : Documents.DCM_Menu.View.TS_DCM_Menu
     {
+        public TS_PDE_Menu():base()
+        {
+            BT_DeliveryTransfer.Visibility = Visibility.Hidden;
+        }
+
         override public Documents.DCM_Menu.Controller.CT_DCM_Menu GetController()
         {
             Window mainWindow = Application.Current.MainWindow;

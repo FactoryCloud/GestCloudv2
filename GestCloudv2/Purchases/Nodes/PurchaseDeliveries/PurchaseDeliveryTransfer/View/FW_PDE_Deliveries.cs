@@ -16,7 +16,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseDeliveries.PurchaseDeliveryTransfe
         {
         }
 
-        override public Main.Controller.CT_Common GetController()
+        override public Documents.DCM_Transfers.Controller.CT_DCM_Transfers GetController()
         {
             Window mainWindow = Application.Current.MainWindow;
             var a = (Main.View.MainWindow)mainWindow;

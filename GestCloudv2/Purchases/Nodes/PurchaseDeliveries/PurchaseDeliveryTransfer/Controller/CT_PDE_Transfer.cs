@@ -77,9 +77,9 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseDeliveries.PurchaseDeliveryTransfe
             floatWindow.Show();
         }
 
-        public override void EV_PurchaseDeliveryAdd(PurchaseDelivery purchaseDelivery)
+        public override void EV_PurchaseDeliveryAdd(int purchaseDelivery)
         {
-            Documents.Add(db.PurchaseDeliveries.Where(p => p.PurchaseDeliveryID == purchaseDelivery.PurchaseDeliveryID).Include(p => p.provider).Include(e => e.provider.entity).First());
+            Documents.Add(db.PurchaseDeliveries.Where(p => p.PurchaseDeliveryID == purchaseDelivery).Include(p => p.provider).Include(e => e.provider.entity).First());
             UpdateComponents();
         }
 

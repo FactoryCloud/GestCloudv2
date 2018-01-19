@@ -54,6 +54,16 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderMenu.Controller
             return new SaleOrderItem.SaleOrderItem_Load.Controller.CT_SOR_Item_Load(saleOrder, 1);
         }
 
+        public override Documents.DCM_Transfers.Controller.CT_DCM_Transfers SetInvoiceTransfer()
+        {
+            return new Sales.Nodes.SaleOrders.SaleOrderTransfer.SOR_Transfer_Invoice.Controller.CT_SOR_Transfer_Invoice();
+        }
+
+        public override Documents.DCM_Transfers.Controller.CT_DCM_Transfers SetDeliveryTransfer()
+        {
+            return new Sales.Nodes.SaleOrders.SaleOrderTransfer.SOR_Transfer_Delivery.Controller.CT_SOR_Transfer_Delivery();
+        }
+
         override public bool SelectedItem()
         {
             return saleOrder != null;

@@ -30,10 +30,16 @@ namespace GestCloudv2.Documents.DCM_Transfers.View
             DG_Items.MouseLeftButtonUp += new MouseButtonEventHandler(EV_DocumentSelected);
 
             if (GetController().GetDocumentsCount() > 0)
+            {
+                BT_Delivery.IsEnabled = true;
                 BT_Invoice.IsEnabled = true;
+            }
 
             if (GetController().InvoiceExist())
-                TB_InvoiceCode.Text = GetController().GetInvoiceCode();
+                TB_DocumentCode.Text = GetController().GetInvoiceCode();
+
+            if (GetController().DeliveryExist())
+                TB_DocumentCode.Text = GetController().GetDeliveryCode();
         }
 
         private void EV_Start(object sender, RoutedEventArgs e)
@@ -41,9 +47,16 @@ namespace GestCloudv2.Documents.DCM_Transfers.View
             UpdateData();
         }
 
-        private void EV_SelectPurchaseInvoice(object sender, RoutedEventArgs e)
+        private void EV_SelectInvoice(object sender, RoutedEventArgs e)
         {
             GetController().EV_PurchaseInvoice();
+            GetController().EV_SaleInvoice();
+        }
+
+        private void EV_SelectDelivery(object sender, RoutedEventArgs e)
+        {
+            GetController().EV_PurchaseDelivery();
+            GetController().EV_SaleDelivery();
         }
 
         private void EV_DocumentSelected(object sender, MouseButtonEventArgs e)

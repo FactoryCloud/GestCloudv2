@@ -14,6 +14,8 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseInvoices.PurchaseInvoiceMenu.View
             LB_New.Content = "Factura";
             LB_Load.Content = "Factura";
             LB_LoadEditable.Content = "Factura";
+            BT_DeliveryTransfer.Visibility = Visibility.Hidden;
+            BT_InvoiceTransfer.Visibility = Visibility.Hidden;
         }
 
         override public Documents.DCM_Menu.Controller.CT_DCM_Menu GetController()

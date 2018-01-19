@@ -45,9 +45,14 @@ namespace GestCloudv2.Documents.DCM_Menu.View
             GetController().EV_CT_LoadEditable();
         }
 
-        private void EV_MD_Transfer(object sender, RoutedEventArgs e)
+        private void EV_MD_DeliveryTransfer(object sender, RoutedEventArgs e)
         {
-            GetController().EV_CT_Transfer();
+            GetController().EV_CT_Transfer(1);
+        }
+
+        private void EV_MD_InvoiceTransfer(object sender, RoutedEventArgs e)
+        {
+            GetController().EV_CT_Transfer(2);
         }
 
         virtual public Controller.CT_DCM_Menu GetController()

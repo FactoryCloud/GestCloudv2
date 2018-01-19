@@ -27,12 +27,21 @@ namespace GestCloudv2.FloatWindows
     public partial class PurchaseDeliverySelectWindow : Window
     {
         public PurchaseDeliveriesView purchaseDeliveryView;
-        public PurchaseDelivery purchaseDelivery;
-        public int PurchaseDeliverySelected;
+        public int purchaseDelivery;
 
         public PurchaseDeliverySelectWindow()
         {
-        } 
+        }
+
+        public PurchaseDeliverySelectWindow(Provider provider)
+        {
+            InitializeComponent();
+
+            this.Loaded += new RoutedEventHandler(EV_Start);
+            DG_PurchaseDeliveryView.MouseLeftButtonUp += new MouseButtonEventHandler(EV_PurchaseDeliverysViewSelect);
+            purchaseDelivery = 0;
+            purchaseDeliveryView = new PurchaseDeliveriesView(provider);
+        }
 
         public PurchaseDeliverySelectWindow(List<PurchaseDelivery> Documents, Provider provider)
         {
@@ -40,7 +49,6 @@ namespace GestCloudv2.FloatWindows
 
             this.Loaded += new RoutedEventHandler(EV_Start);
             DG_PurchaseDeliveryView.MouseLeftButtonUp += new MouseButtonEventHandler(EV_PurchaseDeliverysViewSelect);
-            PurchaseDeliverySelected = 0;
             purchaseDeliveryView = new PurchaseDeliveriesView(Documents, provider);
         }
 
@@ -50,7 +58,7 @@ namespace GestCloudv2.FloatWindows
 
             this.Loaded += new RoutedEventHandler(EV_Start);
             DG_PurchaseDeliveryView.MouseLeftButtonUp += new MouseButtonEventHandler(EV_PurchaseDeliverysViewSelect);
-            PurchaseDeliverySelected = PurchaseDelivery;
+            this.purchaseDelivery = PurchaseDelivery;
             purchaseDeliveryView = new PurchaseDeliveriesView();
         }
         protected void EV_Start(object sender, RoutedEventArgs e)
@@ -65,7 +73,7 @@ namespace GestCloudv2.FloatWindows
             {
                 DataGridRow row = (DataGridRow)DG_PurchaseDeliveryView.ItemContainerGenerator.ContainerFromIndex(PurchaseDelivery);
                 DataRowView dr = row.Item as DataRowView;
-                purchaseDelivery = purchaseDeliveryView.GetPurchaseDelivery(Int32.Parse(dr.Row.ItemArray[0].ToString()));
+                purchaseDelivery = Int32.Parse(dr.Row.ItemArray[0].ToString());
                 //TB_ProviderName.Text = PurchaseDeliveryView.PurchaseDelivery.entity.Name;
                 BT_SelectPurchaseDelivery.IsEnabled = true;
             }
@@ -74,6 +82,7 @@ namespace GestCloudv2.FloatWindows
         private void EV_SelectPurchaseDelivery(object sender, RoutedEventArgs e)
         {
             GetController().EV_PurchaseDeliveryAdd(purchaseDelivery);
+            GetController().SetPurchaseDelivery(purchaseDelivery);
             this.Close();
         }
 
@@ -88,9 +97,9 @@ namespace GestCloudv2.FloatWindows
             DG_PurchaseDeliveryView.ItemsSource = purchaseDeliveryView.GetTable();
         }
 
-        virtual public Main.Controller.CT_Common GetController()
+        virtual public Documents.DCM_Transfers.Controller.CT_DCM_Transfers GetController()
         {
-            return new Main.Controller.CT_Common();
+            return new Documents.DCM_Transfers.Controller.CT_DCM_Transfers();
         }
     }
 }
