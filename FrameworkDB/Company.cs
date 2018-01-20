@@ -36,5 +36,6 @@ namespace FrameworkDB.V1
         public virtual List<FiscalYear> FiscalYears { get; set; }
         public virtual List<User> Users { get; set; }
         public virtual List<CompanyPaymentMethod> CompanyPaymentMethods { get; set; }
+        public virtual List<ConfigurationCompany> ConfigurationsCompanies { get; set; }
     }
 }

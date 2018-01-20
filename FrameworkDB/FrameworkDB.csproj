@@ -98,7 +98,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccessType.cs" />
+    <Compile Include="Configuration.cs" />
+    <Compile Include="ConfigurationType.cs" />
     <Compile Include="CompanyPaymentMethod.cs" />
+    <Compile Include="ConfigurationCompany.cs" />
+    <Compile Include="ConfigurationUser.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="ProviderTax.cs" />
     <Compile Include="MovementTax.cs" />
     <Compile Include="ProductTax.cs" />
@@ -143,6 +152,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

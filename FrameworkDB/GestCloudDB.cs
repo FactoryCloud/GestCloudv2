@@ -61,6 +61,11 @@ namespace FrameworkDB.V1
         public DbSet<ProductTax> ProductsTaxes { get; set; }
         public DbSet<MovementTax> MovementsTaxes { get; set; }
 
+        public DbSet<ConfigurationType> ConfigurationTypes { get; set; }
+        public DbSet<Configuration> Configurations { get; set; }
+        public DbSet<ConfigurationCompany> ConfigurationsCompanies { get; set; }
+        public DbSet<ConfigurationUser> ConfigurationsUsers { get; set; }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
