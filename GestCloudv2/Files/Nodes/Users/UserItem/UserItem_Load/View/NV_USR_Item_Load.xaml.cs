@@ -42,6 +42,11 @@ namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_Load.View
             GetController().MD_Change(3,0);
         }
 
+        private void EV_MD_Configuration(object sender, RoutedEventArgs e)
+        {
+            GetController().MD_Change(6, 0);
+        }
+
         private void EV_CT_Menu(object sender, RoutedEventArgs e)
         {
             GetController().CT_Menu();

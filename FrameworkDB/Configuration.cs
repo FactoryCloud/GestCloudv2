@@ -13,6 +13,7 @@ namespace FrameworkDB.V1
 
         public string Name { get; set; }
         public string Description { get; set; }
+        public int DefaultValue { get; set; }
 
         [ForeignKey("FK_Configurations_ConfigurationTypeID_ConfigurationTypes")]
         public int? ConfigurationTypeID { get; set; }

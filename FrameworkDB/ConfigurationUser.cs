@@ -12,6 +12,8 @@ namespace FrameworkDB.V1
     {
         public int ConfigurationUserID { get; set; }
 
+        public int Value { get; set; }
+
         [ForeignKey("FK_ConfigurationsUsers_ConfigurationID_Configurations")]
         public int? ConfigurationID { get; set; }
         public virtual Configuration configuration { get; set; }

@@ -104,6 +104,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cards\CardsView.cs" />
+    <Compile Include="Configuration\ConfigurationsView.cs" />
     <Compile Include="Documents\DocumentContent.cs" />
     <Compile Include="Documents\DocumentLine.cs" />
     <Compile Include="Entities\EntitiesView.cs" />

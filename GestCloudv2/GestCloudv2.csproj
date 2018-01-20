@@ -456,6 +456,9 @@
     <Compile Include="Files\Nodes\Entities\View\MC_Entity_Select.xaml.cs">
       <DependentUpon>MC_Entity_Select.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Files\Nodes\Users\UserItem\UserItem_Load\View\MC_USR_Item_Load_Configuration.xaml.cs">
+      <DependentUpon>MC_USR_Item_Load_Configuration.xaml</DependentUpon>
+    </Compile>
     <Compile Include="FloatWindows\SaleDeliverySelectWindow.xaml.cs">
       <DependentUpon>SaleDeliverySelectWindow.xaml</DependentUpon>
     </Compile>
@@ -1185,6 +1188,10 @@
     <Page Include="Files\Nodes\Entities\View\MC_Entity_Select.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Files\Nodes\Users\UserItem\UserItem_Load\View\MC_USR_Item_Load_Configuration.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="FloatWindows\SaleDeliverySelectWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

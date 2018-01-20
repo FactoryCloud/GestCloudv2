@@ -153,6 +153,20 @@ namespace GestCloudv2.Main.Controller
             return db.Countries.ToList();
         }
 
+        virtual public List<ConfigurationType> GetConfigurationTypes()
+        {
+            return db.ConfigurationTypes.ToList();
+        }
+
+        virtual public List<Configuration> GetConfigurations(int num)
+        {
+            if (num == 0)
+                return db.Configurations.ToList();
+
+            else
+                return db.Configurations.Where(c => c.ConfigurationTypeID == num).ToList();
+        }
+
         public virtual void SetEntity(int num)
         {
             entity = db.Entities.Where(e => e.EntityID == num).First();
