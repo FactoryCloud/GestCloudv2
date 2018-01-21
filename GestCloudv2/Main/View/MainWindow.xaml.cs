@@ -92,6 +92,20 @@ namespace GestCloudv2.Main.View
             this.uac = uac;
         }
 
+        public int GetConfigValue(int num)
+        {
+            Configuration configuration = db.Configurations.Where(c => c.ConfigurationID == num).First();
+
+            if (db.ConfigurationsUsers.Where(c => c.ConfigurationID == configuration.ConfigurationID && c.UserID == selectedUser.UserID).ToList().Count > 0)
+                return db.ConfigurationsUsers.Where(c => c.ConfigurationID == configuration.ConfigurationID && c.UserID == selectedUser.UserID).First().Value;
+
+            else if (db.ConfigurationsCompanies.Where(c => c.ConfigurationID == configuration.ConfigurationID && c.CompanyID == selectedCompany.CompanyID).ToList().Count > 0)
+                return db.ConfigurationsCompanies.Where(c => c.ConfigurationID == configuration.ConfigurationID && c.CompanyID == selectedCompany.CompanyID).First().Value;
+
+            else
+                return configuration.DefaultValue;
+        }
+
         protected override void OnClosing(CancelEventArgs e)
         {
             MessageBoxResult result = MessageBox.Show("¿Esta seguro que desea salir?","Salir", MessageBoxButton.YesNo, MessageBoxImage.Question);

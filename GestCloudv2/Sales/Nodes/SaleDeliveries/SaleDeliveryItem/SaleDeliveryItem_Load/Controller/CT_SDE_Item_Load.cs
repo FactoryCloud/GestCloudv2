@@ -141,6 +141,16 @@ namespace GestCloudv2.Sales.Nodes.SaleDeliveries.SaleDeliveryItem.SaleDeliveryIt
         override public void MD_MovementAdd()
         {
             View.FW_SDE_Item_Load_Movements floatWindow = new View.FW_SDE_Item_Load_Movements();
+            switch (((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).GetConfigValue(db.Configurations.Where(c => c.Name.Contains("LimiteStock")).First().ConfigurationID))
+            {
+                case 0:
+                    floatWindow = new View.FW_SDE_Item_Load_Movements();
+                    break;
+
+                case 1:
+                    floatWindow = new View.FW_SDE_Item_Load_Movements(Information["operationType"], movements);
+                    break;
+            }
             floatWindow.Show();
         }
 

@@ -23,6 +23,11 @@ namespace GestCloudv2.Sales.Nodes.SaleInvoices.SaleInvoiceItem.SaleInvoiceItem_L
 
         }
 
+        public FW_SIN_Item_Load_Movements(int OperationType, List<Movement> Movements) : base(OperationType, Movements)
+        {
+
+        }
+
         override public Main.Controller.CT_Common GetController()
         {
             Window mainWindow = Application.Current.MainWindow;
