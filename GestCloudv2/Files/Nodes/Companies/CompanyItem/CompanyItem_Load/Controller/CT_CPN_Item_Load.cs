@@ -25,6 +25,7 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_Load.Control
     {
         public Company company;
         public List<Store> stores;
+        public List<PaymentMethod> paymentMethods;
         public List<FiscalYear> fiscalYears;
         public List<Tax> taxes;
         public List<Tax> equiSurs;
@@ -36,6 +37,7 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_Load.Control
         public CT_CPN_Item_Load(Company company, int editable)
         {
             stores = new List<Store>();
+            paymentMethods = new List<PaymentMethod>();
             Information.Add("editable", editable);
             Information.Add("old_editable", 0);
             Information.Add("minimalInformation", 0);
@@ -51,6 +53,11 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_Load.Control
             foreach (CompanyStore compsto in db.CompaniesStores.Where(c => c.CompanyID == company.CompanyID).Include(c=> c.store))
             {
                 stores.Add(compsto.store);
+            }
+
+            foreach (CompanyPaymentMethod comppmt in db.CompaniesPaymentMethods.Where(c => c.CompanyID == company.CompanyID).Include(c => c.paymentMethod))
+            {
+                paymentMethods.Add(comppmt.paymentMethod);
             }
 
             Information["editable"] = editable;
@@ -70,6 +77,11 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_Load.Control
         public List<Store> GetStores()
         {
             return db.Stores.ToList();
+        }
+
+        public List<PaymentMethod> GetPaymentMethods()
+        {
+            return db.PaymentMethods.ToList();
         }
 
         public List<TaxType> GetTaxPeriods()
@@ -207,6 +219,20 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_Load.Control
             TestMinimalInformation();
         }
 
+        public void UpdatePaymentMethod(int num)
+        {
+            if (paymentMethods.Contains(db.PaymentMethods.Where(s => s.PaymentMethodID == num).First()))
+            {
+                paymentMethods.Remove(db.PaymentMethods.Where(c => c.PaymentMethodID == num).Include(c => c.CompaniesPaymentMethod).First());
+            }
+
+            else
+            {
+                paymentMethods.Add(db.PaymentMethods.Where(c => c.PaymentMethodID == num).Include(c => c.CompaniesPaymentMethod).First());
+            }
+            TestMinimalInformation();
+        }
+
         public override void EV_ActivateSaveButton(bool verificated)
         {
             if(verificated)
@@ -298,6 +324,27 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_Load.Control
                 }
             }
 
+            List<CompanyPaymentMethod> companyPaymentMethods = db.CompaniesPaymentMethods.Where(c => c.CompanyID == company.CompanyID).Include(c => c.paymentMethod).ToList();
+            foreach (CompanyPaymentMethod companyPaymentMethod in companyPaymentMethods)
+            {
+                if (!paymentMethods.Contains(companyPaymentMethod.paymentMethod))
+                {
+                    db.CompaniesPaymentMethods.Remove(db.CompaniesPaymentMethods.Where(c => c.CompanyPaymentMethodID == companyPaymentMethod.CompanyPaymentMethodID).First());
+                }
+            }
+
+            foreach (PaymentMethod paymentMethod in paymentMethods)
+            {
+                if (db.CompaniesPaymentMethods.Where(c => c.PaymentMethodID == paymentMethod.PaymentMethodID && c.CompanyID == company.CompanyID).ToList().Count == 0)
+                {
+                    db.CompaniesPaymentMethods.Add(new CompanyPaymentMethod
+                    {
+                        paymentMethod = paymentMethod,
+                        company = company
+                    });
+                }
+            }
+
             db.Taxes.AddRange(taxes);
             db.Taxes.AddRange(equiSurs);
             db.Taxes.AddRange(specTaxes);
@@ -318,6 +365,18 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_Load.Control
                 stores = db.Stores.ToList();
 
             MC_Page = new View.MC_CPN_Item_Load_Company_Stores();
+            MainContent.Content = MC_Page;
+        }
+
+        public void MD_PaymentMethodsChange(int num)
+        {
+            if (num == 0)
+                paymentMethods = new List<PaymentMethod>();
+
+            else
+                paymentMethods = db.PaymentMethods.ToList();
+
+            MC_Page = new View.MC_CPN_Item_Load_Company_PaymentMethods();
             MainContent.Content = MC_Page;
         }
 
@@ -362,6 +421,16 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_Load.Control
                     else
                         TS_Page = new View.TS_CPN_Item_Load_Edit(Information["minimalInformation"]);
                     MC_Page = new View.MC_CPN_Item_Load_Company_Taxes();
+                    ChangeComponents();
+                    break;
+
+                case 4:
+                    NV_Page = new View.NV_CPN_Item_Load();
+                    if (Information["editable"] == 0)
+                        TS_Page = new View.TS_CPN_Item_Load(Information["minimalInformation"]);
+                    else
+                        TS_Page = new View.TS_CPN_Item_Load_Edit(Information["minimalInformation"]);
+                    MC_Page = new View.MC_CPN_Item_Load_Company_PaymentMethods();
                     ChangeComponents();
                     break;
             }

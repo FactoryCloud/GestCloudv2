@@ -1,0 +1,33 @@
+﻿<Page x:Class="GestCloudv2.Files.Nodes.PaymentMethods.PaymentMethodMenu.View.TS_PMT_Menu"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:GestCloudv2.Files.Nodes.PaymentMethods.PaymentMethodMenu.View"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300"
+      Title="TS_PMT_Menu">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Button Margin="10" Click="EV_PaymentMethodNew">
+            <TextBlock TextAlignment="Center">Nuevo<LineBreak/>Forma de pago</TextBlock>
+        </Button>
+        <Button Name="BT_PaymentMethodLoad" IsEnabled="false" Margin="10" Grid.Column="1" Click="EV_CT_PaymentMethodLoad">
+            <TextBlock TextAlignment="Center">Examinar<LineBreak/>Forma de pago</TextBlock>
+        </Button>
+        <Button Name="BT_PaymentMethodLoadEdit" IsEnabled="False" Margin="10" Grid.Row="1" Click="EV_CT_PaymentMethodLoadEditable">
+            <TextBlock TextAlignment="Center">Editar<LineBreak/>Forma de pago</TextBlock>
+        </Button>
+    </Grid>
+</Page>
