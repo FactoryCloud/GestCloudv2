@@ -226,6 +226,12 @@ namespace FrameworkView.V1
 
         private void SaleUpdateComponents(List<Movement> Movements)
         {
+            Tax saleTax;
+            TaxType taxType = db.TaxTypes.Where(tt => tt.CompanyID == company.CompanyID && tt.StartDate <= Date
+                && tt.EndDate >= Date && tt.Name.Contains("IVA")).First();
+            List<ProductTax> ProductsTaxes = db.ProductsTaxes.Where(pt => pt.tax.TaxTypeID == taxType.TaxTypeID && pt.Input == 0).Include(p => p.tax).ToList();
+            List<ProductTypeTax> ProductTypesTaxes = db.ProductTypesTaxes.Where(pt => pt.tax.TaxTypeID == taxType.TaxTypeID && pt.Input == 0).Include(p => p.tax).ToList();
+
             foreach (Movement item in Movements)
             {
                 DocumentLine documentLine = new DocumentLine();
@@ -237,16 +243,11 @@ namespace FrameworkView.V1
                 documentLine.SaleDiscount1Percentage = Convert.ToDecimal(item.SaleDiscount1);
 
                 // Calculate Previous
+                if (ProductsTaxes.Where(pt => pt.ProductID == item.product.ProductID).Count() > 0)
+                    saleTax = ProductsTaxes.Where(pt => pt.ProductID == item.product.ProductID).First().tax;
 
-                Tax saleTax;
-                TaxType taxType = db.TaxTypes.Where(tt => tt.CompanyID == company.CompanyID && tt.StartDate <= Date
-                    && tt.EndDate >= Date && tt.Name.Contains("IVA")).First();
-
-                if (db.ProductsTaxes.Where(pt => pt.ProductID == item.product.ProductID && pt.tax.TaxTypeID == taxType.TaxTypeID && pt.Input == 0).Include(p => p.tax).Count() > 0)
-                    saleTax = db.ProductsTaxes.Where(pt => pt.ProductID == item.product.ProductID && pt.tax.TaxTypeID == taxType.TaxTypeID && pt.Input == 0).Include(p => p.tax).First().tax;
-
-                else if (db.ProductTypesTaxes.Where(pt => pt.ProductTypeID == item.product.ProductTypeID && pt.tax.TaxTypeID == taxType.TaxTypeID && pt.Input == 0).Include(p => p.tax).Count() > 0)
-                    saleTax = db.ProductTypesTaxes.Where(pt => pt.ProductTypeID == item.product.ProductTypeID && pt.tax.TaxTypeID == taxType.TaxTypeID && pt.Input == 0).Include(p => p.tax).First().tax;
+                else if (ProductTypesTaxes.Where(pt => pt.ProductTypeID == item.product.ProductTypeID).Count() > 0)
+                    saleTax = ProductTypesTaxes.Where(pt => pt.ProductTypeID == item.product.ProductTypeID).First().tax;
 
                 else
                     saleTax = new Tax { Percentage = 0, Type = 1 };
