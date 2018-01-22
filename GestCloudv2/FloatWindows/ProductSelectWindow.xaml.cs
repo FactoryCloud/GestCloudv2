@@ -107,6 +107,13 @@ namespace GestCloudv2.FloatWindows
             this.OperationOption = OperationOption;
         }
 
+        public ProductSelectWindow(int OperationOption, List<Movement> Movements, Movement mov) : this()
+        {
+            productsView = new ProductsView(OperationOption, Movements, mov);
+            this.OperationOption = OperationOption;
+            movement = new Movement(mov);
+        }
+
         protected void EV_Start(object sender, RoutedEventArgs e)
         {
             List<ProductType> productTypes = productsView.GetProductTypes();
@@ -200,7 +207,7 @@ namespace GestCloudv2.FloatWindows
         {
             ComboBoxItem temp = (ComboBoxItem)CB_Store.SelectedItem;
 
-            if (OperationOption != 0)
+            if (OperationOption != 0 && movement.product == null)
                 EV_CleanSelection();
 
             if (temp != null)
@@ -635,7 +642,7 @@ namespace GestCloudv2.FloatWindows
 
                                 foreach (ComboBoxItem item in CB_Condition.Items)
                                 {
-                                    if (Convert.ToInt16(item.Name.Replace("condition", "")) == movement.condition.ConditionID)
+                                    if (Convert.ToInt16(item.Name.Replace("condition", "")) == movement.ConditionID)
                                     {
                                         CB_Condition.SelectedValue = item;
                                         break;

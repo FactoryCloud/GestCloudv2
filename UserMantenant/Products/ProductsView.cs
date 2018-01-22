@@ -71,6 +71,37 @@ namespace FrameworkView.V1
             dt.Columns.Add("Precio de Venta", typeof(decimal));
         }
 
+        public ProductsView(int OperationType, List<Movement> Movements, Movement movement) : this()
+        {
+            this.OperationType = OperationType;
+
+            documentLines = new Dictionary<int, Dictionary<int, decimal>>();
+
+            List<Store> storesList = db.Stores.ToList();
+
+            foreach (Store item in storesList)
+                documentLines.Add(item.StoreID, new Dictionary<int, decimal>());
+
+            foreach (Movement item in Movements)
+            {
+                if (item.MovementID != movement.MovementID)
+                {
+                    if (!documentLines[item.StoreID].ContainsKey(Convert.ToInt16(item.ProductID)))
+                    {
+                        documentLines[item.StoreID].Add(Convert.ToInt16(item.ProductID), 0);
+                    }
+
+                    documentLines[item.StoreID][Convert.ToInt16(item.ProductID)] = documentLines[item.StoreID][Convert.ToInt16(item.ProductID)] + Convert.ToDecimal(item.Quantity);
+                }
+            }
+
+            dt.Columns.Clear();
+            dt.Columns.Add("Codigo", typeof(int));
+            dt.Columns.Add("Nombre", typeof(string));
+            dt.Columns.Add("Stock", typeof(string));
+            dt.Columns.Add("Precio de Venta", typeof(decimal));
+        }
+
         public void SetExpansion(int num)
         {
             if (num > 0)

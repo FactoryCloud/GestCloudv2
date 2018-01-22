@@ -124,8 +124,20 @@ namespace GestCloudv2.Sales.Nodes.SaleInvoices.SaleInvoiceItem.SaleInvoiceItem_N
 
         override public void MD_MovementEdit()
         {
-            View.FW_SIN_Item_New_Movements floatWindow = new View.FW_SIN_Item_New_Movements(new Movement(movementSelected));
-            floatWindow.Show();
+            View.FW_SIN_Item_New_Movements floatWindow;
+            switch (((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).GetConfigValue(db.Configurations.Where(c => c.Name.Contains("LimiteStock")).First().ConfigurationID))
+            {
+                case 0:
+                    floatWindow = new View.FW_SIN_Item_New_Movements(new Movement(movementSelected));
+                    floatWindow.Show();
+                    break;
+
+                case 1:
+                    floatWindow = new View.FW_SIN_Item_New_Movements(Information["operationType"], movements, new Movement(movementSelected));
+                    floatWindow.Show();
+                    break;
+            }
+            
         }
 
         override public Boolean CodeExist(string code)

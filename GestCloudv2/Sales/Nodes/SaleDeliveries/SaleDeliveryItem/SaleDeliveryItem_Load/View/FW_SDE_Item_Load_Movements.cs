@@ -28,6 +28,11 @@ namespace GestCloudv2.Sales.Nodes.SaleDeliveries.SaleDeliveryItem.SaleDeliveryIt
 
         }
 
+        public FW_SDE_Item_Load_Movements(int OperationType, List<Movement> Movements, Movement movement) : base(OperationType, Movements, movement)
+        {
+
+        }
+
         override public Main.Controller.CT_Common GetController()
         {
             Window mainWindow = Application.Current.MainWindow;
