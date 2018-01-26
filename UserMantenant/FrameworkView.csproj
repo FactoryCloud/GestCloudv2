@@ -108,6 +108,7 @@
     <Compile Include="Documents\DocumentContent.cs" />
     <Compile Include="Documents\DocumentLine.cs" />
     <Compile Include="Entities\EntitiesView.cs" />
+    <Compile Include="InfoCard\InfoCardItem.cs" />
     <Compile Include="Menus\SubmenuItem.cs" />
     <Compile Include="Menus\SubmenuItems.cs" />
     <Compile Include="Model\ItemsView.cs" />

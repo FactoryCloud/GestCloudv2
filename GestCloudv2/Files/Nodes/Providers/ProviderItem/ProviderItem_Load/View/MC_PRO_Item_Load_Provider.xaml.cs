@@ -39,7 +39,7 @@ namespace GestCloudv2.Files.Nodes.Providers.ProviderItem.ProviderItem_Load.View
 
         private void EV_Start(object sender, RoutedEventArgs e)
         {
-            TB_ProviderCode.Text = $"{GetController().provider.Cod}";
+            TB_ProviderCode.Text = $"{GetController().provider.Code}";
 
             List<TaxType> taxTypes = GetController().GetTaxTypes();
             foreach (TaxType tx in taxTypes)

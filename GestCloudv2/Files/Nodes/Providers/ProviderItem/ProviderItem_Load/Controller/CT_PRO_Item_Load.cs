@@ -113,7 +113,7 @@ namespace GestCloudv2.Files.Nodes.Providers.ProviderItem.ProviderItem_Load.Contr
 
         public List<Provider> GetProviders()
         {
-            return db.Providers.OrderBy(u => u.Cod).ToList();
+            return db.Providers.OrderBy(u => u.Code).ToList();
         }
 
         public List<TaxType> GetTaxTypes()
@@ -136,7 +136,7 @@ namespace GestCloudv2.Files.Nodes.Providers.ProviderItem.ProviderItem_Load.Contr
 
         public void SetProviderCod(int num)
         {
-            provider.Cod = num;
+            provider.Code = num;
             TestMinimalInformation();
         }
 
@@ -164,29 +164,29 @@ namespace GestCloudv2.Files.Nodes.Providers.ProviderItem.ProviderItem_Load.Contr
 
         public void CleanCod()
         {
-            provider.Cod = 0;
+            provider.Code = 0;
             TestMinimalInformation();
         }
 
-        public Boolean ProviderControlExist(int cod)
+        public Boolean ProviderControlExist(int Code)
         {
             List<Provider> providers = db.Providers.ToList();
             foreach (var item in providers)
             {
-                if ((item.Cod == cod && provider.Cod != cod)|| cod == 0)
+                if ((item.Code == Code && provider.Code != Code)|| Code == 0)
                 {
                     CleanCod();
                     return true;
                 }
             }
-            provider.Cod = cod;
+            provider.Code = Code;
             TestMinimalInformation();
             return false;
         }
 
         private void TestMinimalInformation()
         {
-            if (provider.Cod > 0 && Information["entityValid"] == 1)
+            if (provider.Code > 0 && Information["entityValid"] == 1)
             {
                 Information["minimalInformation"] = 1;
             }
@@ -228,7 +228,7 @@ namespace GestCloudv2.Files.Nodes.Providers.ProviderItem.ProviderItem_Load.Contr
                 db.Entities.Update(providerTMP.entity);
             }
 
-            providerFinal.Cod = provider.Cod;
+            providerFinal.Code = provider.Code;
 
             db.Providers.Update(providerFinal);
             db.SaveChanges();

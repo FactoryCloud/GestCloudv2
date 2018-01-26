@@ -111,7 +111,7 @@ namespace GestCloudv2.Files.Nodes.Providers.ProviderItem.ProviderItem_New.View
 
                 if (int.TryParse(TB_ProviderCod.Text, out int d))
                 {
-                    provider.Cod = int.Parse(TB_ProviderCod.Text);
+                    provider.Code = int.Parse(TB_ProviderCod.Text);
                 }
             }
         }

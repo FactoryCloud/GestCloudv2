@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GestCloudv2.Shortcuts
 {
-    public class ShortcutFile
+    public class ShortcutInfo
     {
         public int Id { get; set; }
         public string Name { get; set; }

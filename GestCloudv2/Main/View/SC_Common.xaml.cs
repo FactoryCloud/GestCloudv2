@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FrameworkView.V1;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -48,6 +49,12 @@ namespace GestCloudv2.Main.View
                 num++;
             }
 
+            // InfoCard
+            InfoCardItem infoCardItem = ((MainWindow)Application.Current.MainWindow).infoCardItem;
+            LB_InfoCardTitle.Content = infoCardItem.Title;
+            LB_InfoCardLine1.Content = infoCardItem.Content1;
+            LB_InfoCardLine2.Content = infoCardItem.Content2;
+            LB_InfoCardLine3.Content = infoCardItem.Content3;
         }
 
         public virtual void CT_DocumentMinimize(object sender, RoutedEventArgs e)

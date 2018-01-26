@@ -15,6 +15,7 @@ namespace GestCloudv2.Model
         public int buttons;
         public CT_Common Subcontroller;
         public string Name;
+        public InfoCardItem infoCardItem;
 
         public CT_Submenu(object Component, int option)
         {
@@ -25,6 +26,7 @@ namespace GestCloudv2.Model
                     items = new SubmenuItems().GetSubmenuItems(option);
                     buttons = items.Count;
                     Name = "Tipo de producto";
+                    infoCardItem = new InfoCardItem((ProductType)Component);
                     break;
 
                 case 4:
@@ -32,6 +34,7 @@ namespace GestCloudv2.Model
                     items = new SubmenuItems().GetSubmenuItems(option);
                     buttons = items.Count;
                     Name = "Almacén";
+                    infoCardItem = new InfoCardItem((Store)Component);
                     break;
 
                 case 6:
@@ -39,6 +42,7 @@ namespace GestCloudv2.Model
                     items = new SubmenuItems().GetSubmenuItems(option);
                     buttons = items.Count;
                     Name = "Cliente";
+                    infoCardItem = new InfoCardItem((Client)Component);
                     break;
 
                 case 7:
@@ -46,6 +50,7 @@ namespace GestCloudv2.Model
                     items = new SubmenuItems().GetSubmenuItems(option);
                     buttons = items.Count;
                     Name = "Proveedor";
+                    infoCardItem = new InfoCardItem((Provider)Component);
                     break;
             }
         }

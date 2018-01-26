@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using Microsoft.EntityFrameworkCore;
 using FrameworkDB.V1;
 using System.Windows.Controls.Primitives;
+using FrameworkView.V1;
 
 namespace GestCloudv2.Main.View
 {
@@ -28,6 +29,7 @@ namespace GestCloudv2.Main.View
         public Dictionary<string, string> Information;
         public User selectedUser;
         public List<Shortcuts.ShortcutDocument> shortcutDocuments;
+        public InfoCardItem infoCardItem;
         public Company selectedCompany;
         public FiscalYear selectedFiscalYear;
         public UserAccessControl uac;
@@ -41,6 +43,7 @@ namespace GestCloudv2.Main.View
             db = new GestCloudDB();
 
             shortcutDocuments = new List<Shortcuts.ShortcutDocument>();
+            infoCardItem = new InfoCardItem();
             userPermissions = new List<UserPermission>();
             Information = new Dictionary<string, string>();
             this.selectedUser = user;
@@ -104,6 +107,12 @@ namespace GestCloudv2.Main.View
 
             else
                 return configuration.DefaultValue;
+        }
+
+        public void EV_InfoCardUpdate(InfoCardItem infoCardItem)
+        {
+            this.infoCardItem = infoCardItem;
+
         }
 
         protected override void OnClosing(CancelEventArgs e)

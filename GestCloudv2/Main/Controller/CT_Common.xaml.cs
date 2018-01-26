@@ -112,6 +112,26 @@ namespace GestCloudv2.Main.Controller
         {
         }
 
+        public virtual void SetMC(int i)
+        {
+
+        }
+
+        public virtual void SetTS()
+        {
+
+        }
+
+        public virtual void SetNV()
+        {
+
+        }
+
+        public virtual void SetSC()
+        {
+
+        }
+
         virtual public List<Company> GetCompanies()
         {
             return db.Companies.ToList();
@@ -218,6 +238,13 @@ namespace GestCloudv2.Main.Controller
         public virtual void EV_UpdateShortcutDocuments(int option)
         {
             ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).shortcutDocuments.Remove(((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).shortcutDocuments.Where(sd => sd.Id == option).First());
+        }
+
+        public virtual void EV_UpdateInfoCard()
+        {
+            ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).EV_InfoCardUpdate(CT_Submenu.infoCardItem);
+            SetSC();
+            ((CT_Common_Subcontent)FR_Subcontent.Content).RightSide.Content = SC_Page;
         }
 
         public void MD_Submenu(int option)

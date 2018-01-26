@@ -152,25 +152,6 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.Controller
         {
 
         }
-        public virtual void SetMC(int i)
-        {
-
-        }
-
-        public virtual void SetTS()
-        {
-
-        }
-
-        public virtual void SetNV()
-        {
-
-        }
-
-        public virtual void SetSC()
-        {
-
-        }
 
         public override void SetSubmenu(int option)
         {
@@ -191,6 +172,8 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.Controller
 
             SetNV();
             TopSide.Content = NV_Page;
+
+            EV_UpdateInfoCard();
         }
 
         virtual public Provider GetProvider()

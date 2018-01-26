@@ -57,7 +57,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.View
         public void InitializingProvider()
         {
             SP_Provider.Width = BT_Provider.ActualWidth;
-            ((TextBlock)BT_Provider.Template.FindName("TB_Provider", BT_Provider)).Text = $"Proveedor: {GetController().GetProvider().Cod} / {GetController().GetProvider().entity.Name}";
+            ((TextBlock)BT_Provider.Template.FindName("TB_Provider", BT_Provider)).Text = $"Proveedor: {GetController().GetProvider().Code} / {GetController().GetProvider().entity.Name}";
         }
 
         public void InitializingClient()

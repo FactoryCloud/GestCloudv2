@@ -13,7 +13,7 @@ namespace FrameworkDB.V1
         
         public int ProviderID { get; set; }
 
-        public int Cod { get; set; }
+        public int Code { get; set; }
 
         public int EntityID { get; set; }
         public virtual Entity entity { get; set; }

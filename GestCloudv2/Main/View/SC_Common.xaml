@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:GestCloudv2.Main.View"
       mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="300"
+      d:DesignHeight="700" d:DesignWidth="300"
       Title="SC_Main">
     <Grid Margin="20">
         <Grid.RowDefinitions>
@@ -24,8 +24,54 @@
                 </Grid.RowDefinitions>
             </Grid>
         </GroupBox>
-        <GroupBox Grid.Row="2" Header="Fichas" Margin="0,10,0,0">
-            <Grid Name="GR_ShortcutFiles"></Grid>
+        <GroupBox Grid.Row="2" Header="Fichas" Padding="-0" Margin="0,10,0,0" Background="Transparent" BorderThickness="0">
+            <Border CornerRadius="10" Background="LightBlue">
+                <Grid Name="GR_ShortcutInfo" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="3*"/>
+                        <RowDefinition Height="1.5*"/>
+                    </Grid.RowDefinitions>
+
+                    <Border BorderBrush="White" BorderThickness="0,0,0,1" Background="CadetBlue" CornerRadius="10,10,0,0">
+                        <Label Name="LB_InfoCardTitle" Foreground="White" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center">Cliente: 15</Label>
+                    </Border>
+
+                    <Grid Grid.Row="1" Margin="0,15">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                        </Grid.RowDefinitions>
+                        <Label Name="LB_InfoCardLine1" Foreground="CadetBlue" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center">Nombre: Jose Antonio Ceballos Leva</Label>
+                        <Label Name="LB_InfoCardLine2" Foreground="CadetBlue" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1">DNI: 31002977N</Label>
+                        <Label Name="LB_InfoCardLine3" Foreground="CadetBlue" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2">Última Venta: 10/01/2018</Label>
+                    </Grid>
+
+                    <Border BorderBrush="White" BorderThickness="0,1,0,0" Grid.Row="2">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <ToggleButton BorderThickness="0" Background="CadetBlue">
+                                <Image Name="IM_InfoCard1" Height="30" Source="/Images/phone.png"/>
+                            </ToggleButton>
+
+
+                            <ToggleButton BorderThickness="0" Background="CadetBlue" Grid.Column="1">
+                                <Image Name="IM_InfoCard2" Height="30" Source="/Images/mail.png"/>
+                            </ToggleButton>
+
+                            <ToggleButton BorderThickness="0" Background="CadetBlue" Grid.Column="2">
+                                <Image Name="IM_InfoCard3" Height="30" Source="/Images/map.png"/>
+                            </ToggleButton>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </Border>
         </GroupBox>
     </Grid>
 </Page>

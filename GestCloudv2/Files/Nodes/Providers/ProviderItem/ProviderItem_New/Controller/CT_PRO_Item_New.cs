@@ -185,13 +185,13 @@ namespace GestCloudv2.Files.Nodes.Providers.ProviderItem.ProviderItem_New.Contro
             List<Provider> providers = db.Providers.ToList();
             foreach (var item in providers)
             {
-                if (item.Cod == providerCod)
+                if (item.Code == providerCod)
                 {
-                    provider.Cod = 0;
+                    provider.Code = 0;
                     return true;
                 }
             }
-            provider.Cod = providerCod;
+            provider.Code = providerCod;
             TestMinimalInformation();
             return false;
         }
@@ -200,13 +200,13 @@ namespace GestCloudv2.Files.Nodes.Providers.ProviderItem.ProviderItem_New.Contro
         {
             if (db.Providers.ToList().Count > 0)
             {
-                lastProviderCod = db.Providers.OrderBy(u => u.Cod).Last().Cod + 1;
-                provider.Cod = lastProviderCod;
+                lastProviderCod = db.Providers.OrderBy(u => u.Code).Last().Code + 1;
+                provider.Code = lastProviderCod;
                 return lastProviderCod;
             }
             else
             {
-                provider.Cod = 1;
+                provider.Code = 1;
                 return lastProviderCod = 1;
 
             }
@@ -214,7 +214,7 @@ namespace GestCloudv2.Files.Nodes.Providers.ProviderItem.ProviderItem_New.Contro
 
         public void TestMinimalInformation()
         {
-            if (provider.Cod > 0 && Information["entityValid"] == 1)
+            if (provider.Code > 0 && Information["entityValid"] == 1)
             {
                 Information["minimalInformation"] = 1;
             }
