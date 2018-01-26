@@ -63,6 +63,23 @@ namespace FrameworkView.V1
                         }
                     };
 
+                case 5:
+                    return new List<SubmenuItem>
+                    {
+                        new SubmenuItem
+                        {
+                            Name = "BT_PaymentMethod",
+                            Content = "Datos Forma de pago",
+                            Option = 1
+                        },
+                        new SubmenuItem
+                        {
+                            Name = "BT_Companies",
+                            Content = "Compañias",
+                            Option = 2
+                        }
+                    };
+
                 case 6:
                     return new List<SubmenuItem>
                     {

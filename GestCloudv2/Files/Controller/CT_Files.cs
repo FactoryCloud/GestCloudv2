@@ -64,6 +64,12 @@ namespace GestCloudv2.Files.Controller
             ChangeController();
         }
 
+        public void CT_PaymentMethods()
+        {
+            Information["controller"] = 6;
+            ChangeController();
+        }
+
         public void CT_Clients()
         {
             Information["controller"] = 7;
@@ -132,6 +138,11 @@ namespace GestCloudv2.Files.Controller
                 case 5:
                     Main.View.MainWindow f = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
                     f.MainFrame.Content = new Files.Nodes.Companies.CompanyMenu.Controller.CT_CompanyMenu();
+                    break;
+
+                case 6:
+                    Main.View.MainWindow h = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
+                    h.MainFrame.Content = new Files.Nodes.PaymentMethods.PaymentMethodMenu.Controller.CT_PaymentMethodMenu();
                     break;
 
                 case 7:

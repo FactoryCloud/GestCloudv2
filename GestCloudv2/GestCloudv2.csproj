@@ -258,6 +258,9 @@
     <Compile Include="Files\Nodes\Companies\CompanyItem\CompanyItem_Load\View\MC_CPN_Item_Load_Company.xaml.cs">
       <DependentUpon>MC_CPN_Item_Load_Company.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Files\Nodes\Companies\CompanyItem\CompanyItem_Load\View\MC_CPN_Item_Load_Company_PaymentMethods.xaml.cs">
+      <DependentUpon>MC_CPN_Item_Load_Company_PaymentMethods.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Files\Nodes\Companies\CompanyItem\CompanyItem_Load\View\MC_CPN_Item_Load_Company_Stores.xaml.cs">
       <DependentUpon>MC_CPN_Item_Load_Company_Stores.xaml</DependentUpon>
     </Compile>
@@ -455,6 +458,49 @@
     </Compile>
     <Compile Include="Files\Nodes\Entities\View\MC_Entity_Select.xaml.cs">
       <DependentUpon>MC_Entity_Select.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Nodes\PaymentMethods\PaymentMethodItem\PaymentMethodItem_Load\Controller\CT_PMT_Item_Load.cs">
+      <Generator>MSBuild:Compile</Generator>
+    </Compile>
+    <Compile Include="Files\Nodes\PaymentMethods\PaymentMethodItem\PaymentMethodItem_Load\View\MC_PMT_Item_Load_PaymentMethod.xaml.cs">
+      <DependentUpon>MC_PMT_Item_Load_PaymentMethod.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Nodes\PaymentMethods\PaymentMethodItem\PaymentMethodItem_Load\View\MC_PMT_Item_Load_PaymentMethod_Companies.xaml.cs">
+      <DependentUpon>MC_PMT_Item_Load_PaymentMethod_Companies.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Nodes\PaymentMethods\PaymentMethodItem\PaymentMethodItem_Load\View\NV_PMT_Item_Load.xaml.cs">
+      <DependentUpon>NV_PMT_Item_Load.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Nodes\PaymentMethods\PaymentMethodItem\PaymentMethodItem_Load\View\TS_PMT_Item_Load.xaml.cs">
+      <DependentUpon>TS_PMT_Item_Load.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Nodes\PaymentMethods\PaymentMethodItem\PaymentMethodItem_Load\View\TS_PMT_Item_Load_Edit.xaml.cs">
+      <DependentUpon>TS_PMT_Item_Load_Edit.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Nodes\PaymentMethods\PaymentMethodItem\PaymentMethodItem_New\Controller\CT_PMT_Item_New.cs">
+      <Generator>MSBuild:Compile</Generator>
+    </Compile>
+    <Compile Include="Files\Nodes\PaymentMethods\PaymentMethodItem\PaymentMethodItem_New\View\MC_PMT_Item_New_PaymentMethod.xaml.cs">
+      <DependentUpon>MC_PMT_Item_New_PaymentMethod.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Nodes\PaymentMethods\PaymentMethodItem\PaymentMethodItem_New\View\MC_PMT_Item_New_PaymentMethod_Companies.xaml.cs">
+      <DependentUpon>MC_PMT_Item_New_PaymentMethod_Companies.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Nodes\PaymentMethods\PaymentMethodItem\PaymentMethodItem_New\View\NV_PMT_Item_New.xaml.cs">
+      <DependentUpon>NV_PMT_Item_New.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Nodes\PaymentMethods\PaymentMethodItem\PaymentMethodItem_New\View\TS_PMT_Item_New.xaml.cs">
+      <DependentUpon>TS_PMT_Item_New.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Nodes\PaymentMethods\PaymentMethodMenu\Controller\CT_PaymentMethodMenu.cs" />
+    <Compile Include="Files\Nodes\PaymentMethods\PaymentMethodMenu\View\MC_PMT_Menu.xaml.cs">
+      <DependentUpon>MC_PMT_Menu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Nodes\PaymentMethods\PaymentMethodMenu\View\NV_PMT_Menu.xaml.cs">
+      <DependentUpon>NV_PMT_Menu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Nodes\PaymentMethods\PaymentMethodMenu\View\TS_PMT_Menu.xaml.cs">
+      <DependentUpon>TS_PMT_Menu.xaml</DependentUpon>
     </Compile>
     <Compile Include="Files\Nodes\Users\UserItem\UserItem_Load\View\MC_USR_Item_Load_Configuration.xaml.cs">
       <DependentUpon>MC_USR_Item_Load_Configuration.xaml</DependentUpon>
@@ -973,6 +1019,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Files\Nodes\Companies\CompanyItem\CompanyItem_Load\View\MC_CPN_Item_Load_Company_PaymentMethods.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Files\Nodes\Companies\CompanyItem\CompanyItem_Load\View\MC_CPN_Item_Load_Company_Stores.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1188,6 +1238,54 @@
     <Page Include="Files\Nodes\Entities\View\MC_Entity_Select.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Files\Nodes\PaymentMethods\PaymentMethodItem\PaymentMethodItem_Load\View\MC_PMT_Item_Load_PaymentMethod.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Files\Nodes\PaymentMethods\PaymentMethodItem\PaymentMethodItem_Load\View\MC_PMT_Item_Load_PaymentMethod_Companies.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Files\Nodes\PaymentMethods\PaymentMethodItem\PaymentMethodItem_Load\View\NV_PMT_Item_Load.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Files\Nodes\PaymentMethods\PaymentMethodItem\PaymentMethodItem_Load\View\TS_PMT_Item_Load.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Files\Nodes\PaymentMethods\PaymentMethodItem\PaymentMethodItem_Load\View\TS_PMT_Item_Load_Edit.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Files\Nodes\PaymentMethods\PaymentMethodItem\PaymentMethodItem_New\View\MC_PMT_Item_New_PaymentMethod.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Files\Nodes\PaymentMethods\PaymentMethodItem\PaymentMethodItem_New\View\MC_PMT_Item_New_PaymentMethod_Companies.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Files\Nodes\PaymentMethods\PaymentMethodItem\PaymentMethodItem_New\View\NV_PMT_Item_New.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Files\Nodes\PaymentMethods\PaymentMethodItem\PaymentMethodItem_New\View\TS_PMT_Item_New.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Files\Nodes\PaymentMethods\PaymentMethodMenu\View\MC_PMT_Menu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Files\Nodes\PaymentMethods\PaymentMethodMenu\View\NV_PMT_Menu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Files\Nodes\PaymentMethods\PaymentMethodMenu\View\TS_PMT_Menu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Files\Nodes\Users\UserItem\UserItem_Load\View\MC_USR_Item_Load_Configuration.xaml">
       <Generator>MSBuild:Compile</Generator>

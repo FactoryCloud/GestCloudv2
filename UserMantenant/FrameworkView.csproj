@@ -125,6 +125,7 @@
     <Compile Include="Stock\StoredStocksView.cs" />
     <Compile Include="Stock\StockAdjustsView.cs" />
     <Compile Include="ProductTypes\ProductTypesView.cs" />
+    <Compile Include="PaymentMethods\PaymentMethodsView.cs" />
     <Compile Include="Taxes\TaxesView.cs" />
     <Compile Include="Stores\StoresView.cs" />
     <Compile Include="Companies\CompaniesView.cs" />

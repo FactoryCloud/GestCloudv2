@@ -45,6 +45,11 @@ namespace GestCloudv2.Files.View
             GetController().CT_Companies();
         }
 
+        private void EV_CT_PaymentMethods(object sender, RoutedEventArgs e)
+        {
+            GetController().CT_PaymentMethods();
+        }
+
         private void EV_CT_Clients(object sender, RoutedEventArgs e)
         {
             GetController().CT_Clients();
