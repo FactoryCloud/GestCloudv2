@@ -153,39 +153,6 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.Controller
 
         }
 
-        public override void SetSubmenu(int option)
-        {
-            switch (option)
-            {
-                case 4:
-                    CT_Submenu = new Model.CT_Submenu(GetStore(), option);
-                    break;
-
-                case 6:
-                    CT_Submenu = new Model.CT_Submenu(GetClient(), option);
-                    break;
-
-                case 7:
-                    CT_Submenu = new Model.CT_Submenu(GetProvider(), option);
-                    break;
-            }
-
-            SetNV();
-            TopSide.Content = NV_Page;
-
-            EV_UpdateInfoCard();
-        }
-
-        virtual public Provider GetProvider()
-        {
-            return new Provider();
-        }
-
-        virtual public Client GetClient()
-        {
-            return new Client();
-        }
-
         virtual public string GetCode()
         {
             return "0";

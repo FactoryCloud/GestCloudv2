@@ -132,6 +132,49 @@ namespace GestCloudv2.Main.Controller
 
         }
 
+        public virtual void SetSB()
+        {
+
+        }
+
+        public virtual void SetSubmenu(int option)
+        {
+            switch (option)
+            {
+                case 4:
+                    CT_Submenu = new Model.CT_Submenu(GetStore(), option);
+                    break;
+
+                case 6:
+                    CT_Submenu = new Model.CT_Submenu(GetClient(), option);
+                    break;
+
+                case 7:
+                    CT_Submenu = new Model.CT_Submenu(GetProvider(), option);
+                    break;
+            }
+
+            SetNV();
+            TopSide.Content = NV_Page;
+
+            EV_UpdateInfoCard();
+        }
+
+        virtual public Store GetStore()
+        {
+            return new Store();
+        }
+
+        virtual public Provider GetProvider()
+        {
+            return new Provider();
+        }
+
+        virtual public Client GetClient()
+        {
+            return new Client();
+        }
+
         virtual public List<Company> GetCompanies()
         {
             return db.Companies.ToList();
@@ -146,11 +189,6 @@ namespace GestCloudv2.Main.Controller
                 stores.Add(e.store);
             }
             return stores;
-        }
-
-        virtual public Store GetStore()
-        {
-            return new Store();
         }
 
         virtual public List<User> GetUsers()
@@ -269,11 +307,6 @@ namespace GestCloudv2.Main.Controller
         }
 
         public virtual void EV_MovementAdd(Movement movement)
-        {
-
-        }
-
-        public virtual void SetSubmenu(int num)
         {
 
         }

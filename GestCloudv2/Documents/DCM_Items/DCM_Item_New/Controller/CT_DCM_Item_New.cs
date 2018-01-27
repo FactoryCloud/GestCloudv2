@@ -34,42 +34,6 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.Controller
             this.Loaded -= EV_PreStart;
         }
 
-        public override void SetSubmenu(int option)
-        {
-            switch (option)
-            {
-                case 4:
-                    CT_Submenu = new Model.CT_Submenu(store, option);
-                    break;
-
-                case 6:
-                    CT_Submenu = new Model.CT_Submenu(client, option);
-                    break;
-
-                case 7:
-                    CT_Submenu = new Model.CT_Submenu(provider, option);
-                    break;
-            }
-
-            SetNV();
-            TopSide.Content = NV_Page;
-        }
-
-        public override Store GetStore()
-        {
-            return store;
-        }
-
-        public virtual Provider GetProvider()
-        {
-            return provider;
-        }
-
-        public virtual Client GetClient()
-        {
-            return client;
-        }
-
         public virtual DocumentType GetDocumentType()
         {
             return new DocumentType();
@@ -88,6 +52,21 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.Controller
         virtual public string GetCode()
         {
             return "0";
+        }
+
+        public override Store GetStore()
+        {
+            return store;
+        }
+
+        public override Provider GetProvider()
+        {
+            return provider;
+        }
+
+        public override Client GetClient()
+        {
+            return client;
         }
 
         virtual public void GetLastCode()
@@ -124,32 +103,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.Controller
         {
             documentContent.SetDate(date);
             TestMinimalInformation();
-        }
-
-        public virtual void SetMC(int i)
-        {
-
-        }
-
-        public virtual void SetTS()
-        {
-
-        }
-
-        public virtual void SetNV()
-        {
-
-        }
-
-        public virtual void SetSC()
-        {
-
-        }
-
-        public virtual void SetSB()
-        {
-
-        }
+        }        
 
         virtual public void CleanCode()
         {
