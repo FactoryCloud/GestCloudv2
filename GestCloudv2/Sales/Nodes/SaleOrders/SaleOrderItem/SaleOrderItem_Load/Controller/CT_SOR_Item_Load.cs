@@ -93,11 +93,6 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_Load.Co
             NV_Page = new View.NV_SOR_Item_Load_SaleOrder();
         }
 
-        public override void SetSC()
-        {
-            SC_Page = new View.SC_SOR_Item_Load_SaleOrder();
-        }
-
         public override string GetCode()
         {
             return saleOrder.Code;
@@ -121,6 +116,17 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_Load.Co
         public override DocumentType GetDocumentType()
         {
             return db.DocumentTypes.Where(d => d.Input == 0 && d.Name.Contains("Order")).First();
+        }
+
+        public override Shortcuts.ShortcutDocument GetShortcutDocument(int num)
+        {
+            return new Shortcuts.ShortcutDocument
+            {
+                Id = num,
+                Name = $"Pedido de Venta ({GetCode()})",
+                Controller = this
+
+            };
         }
 
         override public int LastCode()

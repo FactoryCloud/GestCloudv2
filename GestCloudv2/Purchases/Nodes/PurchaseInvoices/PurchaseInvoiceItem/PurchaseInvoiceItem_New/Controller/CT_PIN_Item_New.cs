@@ -44,6 +44,10 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseInvoices.PurchaseInvoiceItem.Purch
                 case 2:
                     MC_Page = new View.MC_PIN_Item_New_Movements();
                     break;
+
+                case 3:
+                    MC_Page = new View.MC_PIN_Item_New_Summary();
+                    break;
             }
         }
 
@@ -55,11 +59,6 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseInvoices.PurchaseInvoiceItem.Purch
         public override void SetNV()
         {
             NV_Page = new View.NV_PIN_Item_New_PurchaseInvoice();
-        }
-
-        public override void SetSC()
-        {
-            SC_Page = new View.SC_PIN_Item_New_PurchaseOrder();
         }
 
         public override string GetCode()
@@ -89,6 +88,17 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseInvoices.PurchaseInvoiceItem.Purch
         public override DocumentType GetDocumentType()
         {
             return db.DocumentTypes.Where(d => d.Input == 1 && d.Name.Contains("Invoice")).First();
+        }
+
+        public override Shortcuts.ShortcutDocument GetShortcutDocument(int num)
+        {
+            return new Shortcuts.ShortcutDocument
+            {
+                Id = num,
+                Name = $"Factura de Compra (Nueva)",
+                Controller = this
+
+            };
         }
 
         override public void MD_ProviderSelect()

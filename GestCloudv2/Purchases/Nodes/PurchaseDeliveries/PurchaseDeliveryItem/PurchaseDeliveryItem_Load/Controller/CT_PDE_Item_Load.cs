@@ -65,6 +65,17 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseDeliveries.PurchaseDeliveryItem.Pu
             return purchaseDelivery.store;
         }
 
+        public override Shortcuts.ShortcutDocument GetShortcutDocument(int num)
+        {
+            return new Shortcuts.ShortcutDocument
+            {
+                Id = num,
+                Name = $"Albarán de Compra ({GetCode()})",
+                Controller = this
+
+            };
+        }
+
         public override void SetMC(int i)
         {
             switch (i)
@@ -91,11 +102,6 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseDeliveries.PurchaseDeliveryItem.Pu
         public override void SetNV()
         {
             NV_Page = new View.NV_PDE_Item_Load_PurchaseDelivery();
-        }
-
-        public override void SetSC()
-        {
-            SC_Page = new View.SC_PDE_Item_Load_PurchaseOrder();
         }
 
         public override string GetCode()

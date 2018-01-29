@@ -1,5 +1,6 @@
 ﻿using FrameworkDB.V1;
 using FrameworkView.V1;
+using GestCloudv2.Shortcuts;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -44,6 +45,10 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseDeliveries.PurchaseDeliveryItem.Pu
                 case 2:
                     MC_Page = new View.MC_PDE_Item_New_Movements();
                     break;
+
+                case 3:
+                    MC_Page = new View.MC_PDE_Item_New_Summary();
+                    break;
             }
         }
 
@@ -55,11 +60,6 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseDeliveries.PurchaseDeliveryItem.Pu
         public override void SetNV()
         {
             NV_Page = new View.NV_PDE_Item_New_PurchaseDelivery();
-        }
-
-        public override void SetSC()
-        {
-            SC_Page = new View.SC_PDE_Item_New_PurchaseDelivery();
         }
 
         public override string GetCode()
@@ -89,6 +89,17 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseDeliveries.PurchaseDeliveryItem.Pu
             }
 
             purchaseDelivery.Code = lastCode.ToString();
+        }
+
+        public override ShortcutDocument GetShortcutDocument(int num)
+        {
+            return new Shortcuts.ShortcutDocument
+            {
+                Id = num,
+                Name = $"Albarán de Compra (Nuevo)",
+                Controller = this
+
+            };
         }
 
         override public void MD_ProviderSelect()

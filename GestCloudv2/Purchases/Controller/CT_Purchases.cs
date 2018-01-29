@@ -19,6 +19,11 @@ namespace GestCloudv2.Purchases.Controller
             UpdateComponents();
         }
 
+        public override void SetSC()
+        {
+            SC_Page = new View.SC_Purchase_Main();
+        }
+
         public void CT_PurchaseOrders()
         {
             Information["controller"] = 1;
@@ -55,6 +60,7 @@ namespace GestCloudv2.Purchases.Controller
                     NV_Page = new View.NV_Purchase_Main();
                     TS_Page = null;
                     MC_Page = null;
+                    SetSC();
                     ChangeComponents();
                     break;
             }

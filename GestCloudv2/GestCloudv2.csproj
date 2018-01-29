@@ -177,6 +177,7 @@
     <Compile Include="Documents\DCM_Items\DCM_Item_Load\View\MC_DCM_Item_Load_Summary.xaml.cs">
       <DependentUpon>MC_DCM_Item_Load_Summary.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Documents\DCM_Items\DCM_Item_Load\View\SC_DCM_Item_Load_Main.cs" />
     <Compile Include="Documents\DCM_Items\DCM_Item_New\Controller\CT_DCM_Item_New.cs" />
     <Compile Include="Documents\DCM_Items\DCM_Item_New\View\MC_DCM_Item_New_Summary.xaml.cs">
       <DependentUpon>MC_DCM_Item_New_Summary.xaml</DependentUpon>
@@ -190,6 +191,7 @@
     <Compile Include="Documents\DCM_Items\DCM_Item_New\View\NV_DCM_Item_New_Main.xaml.cs">
       <DependentUpon>NV_DCM_Item_New_Main.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Documents\DCM_Items\DCM_Item_New\View\SC_DCM_Item_New_Main.cs" />
     <Compile Include="Documents\DCM_Items\DCM_Item_New\View\TS_DCM_Item_New_Main.xaml.cs">
       <DependentUpon>TS_DCM_Item_New_Main.xaml</DependentUpon>
     </Compile>
@@ -215,6 +217,7 @@
     <Compile Include="Documents\DCM_Menu\View\NV_DCM_Menu.xaml.cs">
       <DependentUpon>NV_DCM_Menu.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Documents\DCM_Menu\View\SC_DCM_Menu.cs" />
     <Compile Include="Documents\DCM_Menu\View\TS_DCM_Menu.xaml.cs">
       <DependentUpon>TS_DCM_Menu.xaml</DependentUpon>
     </Compile>
@@ -554,7 +557,6 @@
     <Compile Include="Purchases\Nodes\PurchaseDeliveries\PurchaseDeliveryItem\PurchaseDeliveryItem_Load\View\MC_PDE_Item_Load_PurchaseDelivery.cs" />
     <Compile Include="Purchases\Nodes\PurchaseDeliveries\PurchaseDeliveryItem\PurchaseDeliveryItem_Load\View\MC_PDE_Item_Load_Summary.cs" />
     <Compile Include="Purchases\Nodes\PurchaseDeliveries\PurchaseDeliveryItem\PurchaseDeliveryItem_Load\View\NV_PDE_Item_Load_PurchaseDelivery.cs" />
-    <Compile Include="Purchases\Nodes\PurchaseDeliveries\PurchaseDeliveryItem\PurchaseDeliveryItem_Load\View\SC_PDE_Item_Load_PurchaseDelivery.cs" />
     <Compile Include="Purchases\Nodes\PurchaseDeliveries\PurchaseDeliveryItem\PurchaseDeliveryItem_Load\View\TS_PDE_Item_Load_PurchaseDelivery.cs" />
     <Compile Include="Purchases\Nodes\PurchaseDeliveries\PurchaseDeliveryItem\PurchaseDeliveryItem_New\Controller\CT_PDE_Item_New.cs" />
     <Compile Include="Purchases\Nodes\PurchaseDeliveries\PurchaseDeliveryItem\PurchaseDeliveryItem_New\View\FW_PDE_Item_New_IncreaseStock.cs" />
@@ -563,7 +565,6 @@
     <Compile Include="Purchases\Nodes\PurchaseDeliveries\PurchaseDeliveryItem\PurchaseDeliveryItem_New\View\MC_PDE_Item_New_PurchaseDelivery.cs" />
     <Compile Include="Purchases\Nodes\PurchaseDeliveries\PurchaseDeliveryItem\PurchaseDeliveryItem_New\View\MC_PDE_Item_New_Summary.cs" />
     <Compile Include="Purchases\Nodes\PurchaseDeliveries\PurchaseDeliveryItem\PurchaseDeliveryItem_New\View\NV_PDE_Item_New_PurchaseDelivery.cs" />
-    <Compile Include="Purchases\Nodes\PurchaseDeliveries\PurchaseDeliveryItem\PurchaseDeliveryItem_New\View\SC_PDE_Item_New_PurchaseDelivery.cs" />
     <Compile Include="Purchases\Nodes\PurchaseDeliveries\PurchaseDeliveryItem\PurchaseDeliveryItem_New\View\TS_PDE_Item_New_PurchaseDelivery.cs" />
     <Compile Include="Purchases\Nodes\PurchaseDeliveries\PurchaseDeliveryMenu\Controller\CT_PurchaseDeliveryMenu.cs" />
     <Compile Include="Purchases\Nodes\PurchaseDeliveries\PurchaseDeliveryMenu\View\MC_PDE_Menu.cs" />
@@ -581,7 +582,6 @@
     <Compile Include="Purchases\Nodes\PurchaseInvoices\PurchaseInvoiceItem\PurchaseInvoiceItem_Load\View\MC_PIN_Item_Load_PurchaseInvoice.cs" />
     <Compile Include="Purchases\Nodes\PurchaseInvoices\PurchaseInvoiceItem\PurchaseInvoiceItem_Load\View\MC_PIN_Item_Load_Summary.cs" />
     <Compile Include="Purchases\Nodes\PurchaseInvoices\PurchaseInvoiceItem\PurchaseInvoiceItem_Load\View\NV_PIN_Item_Load_PurchaseInvoice.cs" />
-    <Compile Include="Purchases\Nodes\PurchaseInvoices\PurchaseInvoiceItem\PurchaseInvoiceItem_Load\View\SC_PIN_Item_Load_PurchaseOrder.cs" />
     <Compile Include="Purchases\Nodes\PurchaseInvoices\PurchaseInvoiceItem\PurchaseInvoiceItem_Load\View\TS_PIN_Item_Load_PurchaseInvoice.cs" />
     <Compile Include="Purchases\Nodes\PurchaseInvoices\PurchaseInvoiceItem\PurchaseInvoiceItem_New\Controller\CT_PIN_Item_New.cs" />
     <Compile Include="Purchases\Nodes\PurchaseInvoices\PurchaseInvoiceItem\PurchaseInvoiceItem_New\View\FW_PIN_Item_New_Movements.cs" />
@@ -590,7 +590,6 @@
     <Compile Include="Purchases\Nodes\PurchaseInvoices\PurchaseInvoiceItem\PurchaseInvoiceItem_New\View\MC_PIN_Item_New_PurchaseInvoice.cs" />
     <Compile Include="Purchases\Nodes\PurchaseInvoices\PurchaseInvoiceItem\PurchaseInvoiceItem_New\View\MC_PIN_Item_New_Summary.cs" />
     <Compile Include="Purchases\Nodes\PurchaseInvoices\PurchaseInvoiceItem\PurchaseInvoiceItem_New\View\NV_PIN_Item_New_PurchaseInvoice.cs" />
-    <Compile Include="Purchases\Nodes\PurchaseInvoices\PurchaseInvoiceItem\PurchaseInvoiceItem_New\View\SC_PIN_Item_New_PurchaseOrder.cs" />
     <Compile Include="Purchases\Nodes\PurchaseInvoices\PurchaseInvoiceItem\PurchaseInvoiceItem_New\View\TS_PIN_Item_New_PurchaseInvoice.cs" />
     <Compile Include="Purchases\Nodes\PurchaseInvoices\PurchaseInvoiceMenu\Controller\CT_PurchaseInvoiceMenu.cs" />
     <Compile Include="Purchases\Nodes\PurchaseInvoices\PurchaseInvoiceMenu\View\MC_PIN_Menu.cs" />
@@ -616,7 +615,6 @@
     <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_Load\View\MC_POR_Item_Load_Movements.cs" />
     <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_Load\View\MC_POR_Item_Load_PurchaseOrder.cs" />
     <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_Load\View\NV_POR_Item_Load_PurchaseOrder.cs" />
-    <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_Load\View\SC_POR_Item_Load_PurchaseOrder.cs" />
     <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_Load\View\TS_POR_Item_Load_PurchaseOrder.cs" />
     <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_New\Controller\CT_POR_Item_New.cs" />
     <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_New\View\FW_POR_Item_New_SelectProvider.cs" />
@@ -625,11 +623,11 @@
     <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_New\View\MC_POR_Item_New_PurchaseOrder.cs" />
     <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_New\View\MC_POR_Item_New_Movements.cs" />
     <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_New\View\NV_POR_Item_New_PurchaseOrder.cs" />
-    <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_New\View\SC_POR_Item_New_PurchaseOrder.cs" />
     <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderItem\PurchaseOrderItem_New\View\TS_POR_Item_New_PurchaseOrder.cs" />
     <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderMenu\View\MC_POR_Menu.cs" />
     <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderMenu\View\NV_POR_Menu.cs" />
     <Compile Include="Purchases\Nodes\PurchaseOrders\PurchaseOrderMenu\View\TS_POR_Menu.cs" />
+    <Compile Include="Purchases\View\SC_Sale_Main.cs" />
     <Compile Include="Sales\Controller\CT_Sales.cs" />
     <Compile Include="Sales\Nodes\SaleDeliveries\SaleDeliveryTransfer\Controller\CT_SDE_Transfer.cs" />
     <Compile Include="Sales\Nodes\SaleDeliveries\SaleDeliveryTransfer\View\FW_SDE_Deliveries.cs" />
@@ -641,6 +639,7 @@
     <Compile Include="Sales\Nodes\SaleDeliveries\SaleDeliveryItem\SaleDeliveryItem_New\View\MC_SDE_Item_New_Summary.cs" />
     <Compile Include="Sales\Nodes\SaleInvoices\SaleInvoiceItem\SaleInvoiceItem_Load\View\MC_SIN_Item_Load_Summary.cs" />
     <Compile Include="Sales\Nodes\SaleInvoices\SaleInvoiceItem\SaleInvoiceItem_New\View\MC_SIN_Item_New_Summary.cs" />
+    <Compile Include="Sales\Nodes\SaleOrders\SaleOrderItem\SaleOrderItem_New\View\MC_SOR_Item_New_Summary.cs" />
     <Compile Include="Sales\Nodes\SaleOrders\SaleOrderTransfer\SOR_Transfer_Delivery\Controller\CT_SOR_Transfer_Delivery.cs" />
     <Compile Include="Sales\Nodes\SaleOrders\SaleOrderTransfer\SOR_Transfer_Delivery\View\FW_SOR_Transfer_Delivery_Deliveries.cs" />
     <Compile Include="Sales\Nodes\SaleOrders\SaleOrderTransfer\SOR_Transfer_Delivery\View\FW_SOR_Transfer_Delivery_Orders.cs" />
@@ -659,7 +658,6 @@
     <Compile Include="Sales\Nodes\SaleOrders\SaleOrderItem\SaleOrderItem_Load\View\MC_SOR_Item_Load_Movements.cs" />
     <Compile Include="Sales\Nodes\SaleOrders\SaleOrderItem\SaleOrderItem_Load\View\MC_SOR_Item_Load_SaleOrder.cs" />
     <Compile Include="Sales\Nodes\SaleOrders\SaleOrderItem\SaleOrderItem_Load\View\NV_SOR_Item_Load_SaleOrder.cs" />
-    <Compile Include="Sales\Nodes\SaleOrders\SaleOrderItem\SaleOrderItem_Load\View\SC_SOR_Item_Load_SaleOrder.cs" />
     <Compile Include="Sales\Nodes\SaleOrders\SaleOrderItem\SaleOrderItem_Load\View\TS_SOR_Item_Load_SaleOrder.cs" />
     <Compile Include="Sales\Nodes\SaleOrders\SaleOrderItem\SaleOrderItem_New\Controller\CT_SOR_Item_New.cs" />
     <Compile Include="Sales\Nodes\SaleOrders\SaleOrderItem\SaleOrderItem_New\View\FW_SOR_Item_New_Movements.cs" />
@@ -667,7 +665,6 @@
     <Compile Include="Sales\Nodes\SaleOrders\SaleOrderItem\SaleOrderItem_New\View\MC_SOR_Item_New_Movements.cs" />
     <Compile Include="Sales\Nodes\SaleOrders\SaleOrderItem\SaleOrderItem_New\View\MC_SOR_Item_New_SaleOrder.cs" />
     <Compile Include="Sales\Nodes\SaleOrders\SaleOrderItem\SaleOrderItem_New\View\NV_SOR_Item_New_SaleOrder.cs" />
-    <Compile Include="Sales\Nodes\SaleOrders\SaleOrderItem\SaleOrderItem_New\View\SC_SOR_Item_New_SaleOrder.cs" />
     <Compile Include="Sales\Nodes\SaleOrders\SaleOrderItem\SaleOrderItem_New\View\TS_SOR_Item_New_SaleOrder.cs" />
     <Compile Include="Sales\Nodes\SaleOrders\SaleOrderMenu\Controller\CT_SaleOrderMenu.cs" />
     <Compile Include="Sales\Nodes\SaleOrders\SaleOrderMenu\View\MC_SOR_Menu.cs" />
@@ -678,7 +675,6 @@
     <Compile Include="Sales\Nodes\SaleInvoices\SaleInvoiceItem\SaleInvoiceItem_Load\View\MC_SIN_Item_Load_Movements.cs" />
     <Compile Include="Sales\Nodes\SaleInvoices\SaleInvoiceItem\SaleInvoiceItem_Load\View\MC_SIN_Item_Load_SaleInvoice.cs" />
     <Compile Include="Sales\Nodes\SaleInvoices\SaleInvoiceItem\SaleInvoiceItem_Load\View\NV_SIN_Item_Load_SaleInvoice.cs" />
-    <Compile Include="Sales\Nodes\SaleInvoices\SaleInvoiceItem\SaleInvoiceItem_Load\View\SC_SIN_Item_Load_SaleInvoice.cs" />
     <Compile Include="Sales\Nodes\SaleInvoices\SaleInvoiceItem\SaleInvoiceItem_Load\View\TS_SIN_Item_Load_SaleInvoice.cs" />
     <Compile Include="Sales\Nodes\SaleInvoices\SaleInvoiceItem\SaleInvoiceItem_New\Controller\CT_SIN_Item_New.cs" />
     <Compile Include="Sales\Nodes\SaleInvoices\SaleInvoiceItem\SaleInvoiceItem_New\View\FW_SIN_Item_New_Movements.cs" />
@@ -686,7 +682,6 @@
     <Compile Include="Sales\Nodes\SaleInvoices\SaleInvoiceItem\SaleInvoiceItem_New\View\MC_SIN_Item_New_Movements.cs" />
     <Compile Include="Sales\Nodes\SaleInvoices\SaleInvoiceItem\SaleInvoiceItem_New\View\MC_SIN_Item_New_SaleInvoice.cs" />
     <Compile Include="Sales\Nodes\SaleInvoices\SaleInvoiceItem\SaleInvoiceItem_New\View\NV_SIN_Item_New_SaleInvoice.cs" />
-    <Compile Include="Sales\Nodes\SaleInvoices\SaleInvoiceItem\SaleInvoiceItem_New\View\SC_SIN_Item_New_SaleInvoice.cs" />
     <Compile Include="Sales\Nodes\SaleInvoices\SaleInvoiceItem\SaleInvoiceItem_New\View\TS_SIN_Item_New_SaleInvoice.cs" />
     <Compile Include="Sales\Nodes\SaleInvoices\SaleInvoiceMenu\Controller\CT_SaleInvoiceMenu.cs" />
     <Compile Include="Sales\Nodes\SaleInvoices\SaleInvoiceMenu\View\MC_SDE_Menu.cs" />
@@ -697,7 +692,6 @@
     <Compile Include="Sales\Nodes\SaleDeliveries\SaleDeliveryItem\SaleDeliveryItem_Load\View\MC_SDE_Item_Load_Movements.cs" />
     <Compile Include="Sales\Nodes\SaleDeliveries\SaleDeliveryItem\SaleDeliveryItem_Load\View\MC_SDE_Item_Load_SaleDelivery.cs" />
     <Compile Include="Sales\Nodes\SaleDeliveries\SaleDeliveryItem\SaleDeliveryItem_Load\View\NV_SDE_Item_Load_SaleDelivery.cs" />
-    <Compile Include="Sales\Nodes\SaleDeliveries\SaleDeliveryItem\SaleDeliveryItem_Load\View\SC_SDE_Item_Load_SaleDelivery.cs" />
     <Compile Include="Sales\Nodes\SaleDeliveries\SaleDeliveryItem\SaleDeliveryItem_Load\View\TS_SDE_Item_Load_SaleDelivery.cs" />
     <Compile Include="Sales\Nodes\SaleDeliveries\SaleDeliveryItem\SaleDeliveryItem_New\Controller\CT_SDE_Item_New.cs" />
     <Compile Include="Sales\Nodes\SaleDeliveries\SaleDeliveryItem\SaleDeliveryItem_New\View\FW_SDE_Item_New_Movements.cs" />
@@ -705,7 +699,6 @@
     <Compile Include="Sales\Nodes\SaleDeliveries\SaleDeliveryItem\SaleDeliveryItem_New\View\MC_SDE_Item_New_Movements.cs" />
     <Compile Include="Sales\Nodes\SaleDeliveries\SaleDeliveryItem\SaleDeliveryItem_New\View\MC_SDE_Item_New_SaleDelivery.cs" />
     <Compile Include="Sales\Nodes\SaleDeliveries\SaleDeliveryItem\SaleDeliveryItem_New\View\NV_SDE_Item_New_SaleDelivery.cs" />
-    <Compile Include="Sales\Nodes\SaleDeliveries\SaleDeliveryItem\SaleDeliveryItem_New\View\SC_SDE_Item_New_SaleDelivery.cs" />
     <Compile Include="Sales\Nodes\SaleDeliveries\SaleDeliveryItem\SaleDeliveryItem_New\View\TS_SDE_Item_New_SaleDelivery.cs" />
     <Compile Include="Sales\Nodes\SaleDeliveries\SaleDeliveryMenu\Controller\CT_SaleDeliveryMenu.cs" />
     <Compile Include="Sales\Nodes\SaleDeliveries\SaleDeliveryMenu\View\MC_SDE_Menu.cs" />

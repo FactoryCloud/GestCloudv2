@@ -120,6 +120,15 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.Controller
             documentContent = new DocumentContent(Information["operationType"],((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany, GetDate(), allMovements);
             UpdateComponents();
             this.Loaded -= EV_PreStart;
+            this.Loaded += new RoutedEventHandler(EV_ReStart);
+        }
+
+        public override void EV_ReStart(object sender, RoutedEventArgs e)
+        {
+            db.Dispose();
+            db = new GestCloudDB();
+            SetSC();
+            UpdateComponents();
         }
 
         public void SetMovementSelected(int num)
@@ -151,6 +160,11 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.Controller
         public virtual void SetCode(string code)
         {
 
+        }
+
+        public override void SetSC()
+        {
+            SC_Page = new View.SC_DCM_Item_Load_Main();
         }
 
         virtual public string GetCode()

@@ -46,7 +46,7 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_New.Con
                     break;
 
                 case 3:
-                    MC_Page = new View.MC_SDE_Item_New_Summary();
+                    MC_Page = new View.MC_SOR_Item_New_Summary();
                     break;
             }
         }
@@ -59,11 +59,6 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_New.Con
         public override void SetNV()
         {
             NV_Page = new View.NV_SOR_Item_New_SaleOrder();
-        }
-
-        public override void SetSC()
-        {
-            SC_Page = new View.SC_SOR_Item_New_SaleOrder();
         }
 
         public override string GetCode()
@@ -98,6 +93,17 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_New.Con
             }
 
             saleOrder.Code = lastCode.ToString();
+        }
+
+        public override Shortcuts.ShortcutDocument GetShortcutDocument(int num)
+        {
+            return new Shortcuts.ShortcutDocument
+            {
+                Id = num,
+                Name = $"Pedido de Venta (Nuevo)",
+                Controller = this
+
+            };
         }
 
         override public void MD_ClientSelect()

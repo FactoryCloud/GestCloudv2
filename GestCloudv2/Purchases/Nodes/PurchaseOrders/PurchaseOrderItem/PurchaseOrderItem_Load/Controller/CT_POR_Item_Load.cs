@@ -88,11 +88,6 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
             NV_Page = new View.NV_POR_Item_Load_PurchaseOrder();
         }
 
-        public override void SetSC()
-        {
-            SC_Page = new View.SC_POR_Item_Load_PurchaseOrder();
-        }
-
         public override Provider GetProvider()
         {
             return purchaseOrder.provider;
@@ -116,6 +111,17 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
         public override DateTime GetDate()
         {
             return (DateTime)purchaseOrder.Date;
+        }
+
+        public override Shortcuts.ShortcutDocument GetShortcutDocument(int num)
+        {
+            return new Shortcuts.ShortcutDocument
+            {
+                Id = num,
+                Name = $"Pedido de Compra ({GetCode()})",
+                Controller = this
+
+            };
         }
 
         override public void CleanCode()

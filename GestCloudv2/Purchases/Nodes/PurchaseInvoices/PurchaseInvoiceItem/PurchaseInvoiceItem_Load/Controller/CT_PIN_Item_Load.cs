@@ -93,11 +93,6 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseInvoices.PurchaseInvoiceItem.Purch
             NV_Page = new View.NV_PIN_Item_Load_PurchaseInvoice();
         }
 
-        public override void SetSC()
-        {
-            SC_Page = new View.SC_PIN_Item_Load_PurchaseOrder();
-        }
-
         public override string GetCode()
         {
             return purchaseInvoice.Code;
@@ -121,6 +116,17 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseInvoices.PurchaseInvoiceItem.Purch
         public override DocumentType GetDocumentType()
         {
             return db.DocumentTypes.Where(d => d.Input == 1 && d.Name.Contains("Invoice")).First();
+        }
+
+        public override Shortcuts.ShortcutDocument GetShortcutDocument(int num)
+        {
+            return new Shortcuts.ShortcutDocument
+            {
+                Id = num,
+                Name = $"Factura de Compra ({GetCode()})",
+                Controller = this
+
+            };
         }
 
         override public int LastCode()

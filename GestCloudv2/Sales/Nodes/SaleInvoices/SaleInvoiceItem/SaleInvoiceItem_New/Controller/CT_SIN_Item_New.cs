@@ -46,7 +46,7 @@ namespace GestCloudv2.Sales.Nodes.SaleInvoices.SaleInvoiceItem.SaleInvoiceItem_N
                     break;
 
                 case 3:
-                    MC_Page = new View.MC_PIN_Item_New_Summary();
+                    MC_Page = new View.MC_SIN_Item_New_Summary();
                     break;
             }
         }
@@ -59,11 +59,6 @@ namespace GestCloudv2.Sales.Nodes.SaleInvoices.SaleInvoiceItem.SaleInvoiceItem_N
         public override void SetNV()
         {
             NV_Page = new View.NV_SIN_Item_New_SaleInvoice();
-        }
-
-        public override void SetSC()
-        {
-            SC_Page = new View.SC_SIN_Item_New_SaleInvoice();
         }
 
         public override string GetCode()
@@ -98,6 +93,17 @@ namespace GestCloudv2.Sales.Nodes.SaleInvoices.SaleInvoiceItem.SaleInvoiceItem_N
             }
 
             saleInvoice.Code = lastCode.ToString();
+        }
+
+        public override Shortcuts.ShortcutDocument GetShortcutDocument(int num)
+        {
+            return new Shortcuts.ShortcutDocument
+            {
+                Id = num,
+                Name = $"Factura de Venta (Nueva)",
+                Controller = this
+
+            };
         }
 
         override public void MD_ClientSelect()

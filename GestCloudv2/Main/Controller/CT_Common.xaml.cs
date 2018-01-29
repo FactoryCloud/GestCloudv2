@@ -225,6 +225,26 @@ namespace GestCloudv2.Main.Controller
                 return db.Configurations.Where(c => c.ConfigurationTypeID == num).ToList();
         }
 
+        virtual public Shortcuts.ShortcutDocument GetShortcutDocument(int num)
+        {
+            return new Shortcuts.ShortcutDocument();
+        }
+
+        virtual public void AddShortcutDocument()
+        {
+            int num = 0;
+            if (((Main.View.MainWindow)Application.Current.MainWindow).shortcutDocuments.Count == 0)
+                num = 1;
+
+            else
+                num = ((Main.View.MainWindow)Application.Current.MainWindow).shortcutDocuments.OrderBy(sd => sd.Id).Last().Id + 1;
+
+            Shortcuts.ShortcutDocument doc = GetShortcutDocument(num);
+
+            if(!string.IsNullOrEmpty(doc.Name))
+                ((Main.View.MainWindow)Application.Current.MainWindow).shortcutDocuments.Add(GetShortcutDocument(num));
+        }
+
         public virtual void SetEntity(int num)
         {
             entity = db.Entities.Where(e => e.EntityID == num).First();
@@ -302,6 +322,7 @@ namespace GestCloudv2.Main.Controller
         {
             Shortcuts.ShortcutDocument doc = ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).shortcutDocuments.Where(d => d.Id == option).First();
             ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).shortcutDocuments.Remove(((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).shortcutDocuments.Where(sd => sd.Id == option).First());
+            AddShortcutDocument();
             Main.View.MainWindow f = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
             f.MainFrame.Content = doc.Controller;
         }
@@ -420,6 +441,10 @@ namespace GestCloudv2.Main.Controller
         }
 
         virtual public void EV_Start(object sender, RoutedEventArgs e)
+        {
+        }
+
+        virtual public void EV_ReStart(object sender, RoutedEventArgs e)
         {
         }
 

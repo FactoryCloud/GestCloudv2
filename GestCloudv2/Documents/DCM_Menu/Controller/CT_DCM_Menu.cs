@@ -31,19 +31,9 @@ namespace GestCloudv2.Documents.DCM_Menu.Controller
             LeftSide.Content = TS_Page;
         }
 
-        public virtual void SetMC(int i)
+        public override void SetSC()
         {
-
-        }
-
-        public virtual void SetTS()
-        {
-
-        }
-
-        public virtual void SetNV()
-        {
-
+            SC_Page = new View.SC_DCM_Menu();
         }
 
         public virtual Main.Controller.CT_Common SetItemOriginal()
@@ -125,6 +115,7 @@ namespace GestCloudv2.Documents.DCM_Menu.Controller
                     SetNV();
                     SetTS();
                     SetMC(1);
+                    SetSC();
                     ChangeComponents();
                     break;
             }

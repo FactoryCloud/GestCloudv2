@@ -32,7 +32,7 @@
                         <ToggleButton.Template>
                             <ControlTemplate>
                                 <Border Name="BR_Provider" CornerRadius="10" Background="CadetBlue">
-                                    <TextBlock Name="TB_Provider" Text="Proveedor: 123 - Jesús Calleja" Foreground="White" 
+                                    <TextBlock Name="TB_Provider" Text="Proveedor:" Foreground="White" 
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
                                             Margin="0,0,0,0"

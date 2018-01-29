@@ -61,11 +61,6 @@ namespace GestCloudv2.Sales.Nodes.SaleDeliveries.SaleDeliveryItem.SaleDeliveryIt
             NV_Page = new View.NV_SDE_Item_New_SaleDelivery();
         }
 
-        public override void SetSC()
-        {
-            SC_Page = new View.SC_SDE_Item_New_SaleDelivery();
-        }
-
         public override string GetCode()
         {
             return saleDelivery.Code;
@@ -98,6 +93,17 @@ namespace GestCloudv2.Sales.Nodes.SaleDeliveries.SaleDeliveryItem.SaleDeliveryIt
         public override DocumentType GetDocumentType()
         {
             return db.DocumentTypes.Where(d => d.Input == 0 && d.Name.Contains("Delivery")).First();
+        }
+
+        public override Shortcuts.ShortcutDocument GetShortcutDocument(int num)
+        {
+            return new Shortcuts.ShortcutDocument
+            {
+                Id = num,
+                Name = $"Albarán de Venta (Nuevo)",
+                Controller = this
+
+            };
         }
 
         override public void MD_ClientSelect()

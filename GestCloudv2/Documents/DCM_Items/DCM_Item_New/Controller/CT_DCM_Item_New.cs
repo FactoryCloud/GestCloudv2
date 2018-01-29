@@ -32,6 +32,15 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.Controller
             documentContent = new DocumentContent(Information["operationType"], ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany, GetDate(), new List<Movement>());
             UpdateComponents();
             this.Loaded -= EV_PreStart;
+            this.Loaded += new RoutedEventHandler(EV_ReStart);
+        }
+
+        public override void EV_ReStart(object sender, RoutedEventArgs e)
+        {
+            db.Dispose();
+            db = new GestCloudDB();
+            SetSC();
+            UpdateComponents();
         }
 
         public virtual DocumentType GetDocumentType()
@@ -84,6 +93,11 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.Controller
 
             else
                 return -1;
+        }
+
+        public override void SetSC()
+        {
+            SC_Page = new View.SC_DCM_Item_New_Main();
         }
 
         public void SetMovementSelected(int num)

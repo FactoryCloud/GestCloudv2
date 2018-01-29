@@ -93,9 +93,15 @@ namespace GestCloudv2.Sales.Nodes.SaleInvoices.SaleInvoiceItem.SaleInvoiceItem_L
             NV_Page = new View.NV_SIN_Item_Load_PurchaseDelivery();
         }
 
-        public override void SetSC()
+        public override Shortcuts.ShortcutDocument GetShortcutDocument(int num)
         {
-            SC_Page = new View.SC_SIN_Item_Load_PurchaseOrder();
+            return new Shortcuts.ShortcutDocument
+            {
+                Id = num,
+                Name = $"Factura de Venta ({GetCode()})",
+                Controller = this
+
+            };
         }
 
         public override string GetCode()
