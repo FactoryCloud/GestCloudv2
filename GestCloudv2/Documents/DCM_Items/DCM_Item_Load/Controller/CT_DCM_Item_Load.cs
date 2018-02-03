@@ -117,7 +117,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.Controller
             List<Movement> allMovements = new List<Movement>();
             allMovements.AddRange(movementsOld);
             allMovements.AddRange(movementsTransfer);
-            documentContent = new DocumentContent(Information["operationType"],((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany, GetDate(), allMovements);
+            documentContent = new DocumentContent(Information["operationType"],((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany, GetDate(), allMovements, GetClient());
             UpdateComponents();
             this.Loaded -= EV_PreStart;
             this.Loaded += new RoutedEventHandler(EV_ReStart);
@@ -266,7 +266,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.Controller
             allMovements.AddRange(movementsOld);
             allMovements.AddRange(movementsTransfer);
             allMovements.AddRange(movements);
-            documentContent = new DocumentContent(Information["operationType"], ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany, GetDate(), allMovements);
+            documentContent = new DocumentContent(Information["operationType"], ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany, GetDate(), allMovements, GetClient());
         }
 
         virtual public void MD_MovementAdd()

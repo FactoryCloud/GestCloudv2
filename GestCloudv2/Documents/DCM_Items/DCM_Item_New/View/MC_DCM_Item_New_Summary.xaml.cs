@@ -18,7 +18,7 @@ using FrameworkView.V1;
 namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.View
 {
     /// <summary>
-    /// Interaction logic for MC_DCM_Item_Load_Summary.xaml
+    /// Interaction logic for MC_DCM_Item_New_Summary.xaml
     /// </summary>
     public partial class MC_DCM_Item_New_Summary : Page
     {
@@ -57,28 +57,27 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.View
         public void InitializingProvider()
         {
             SP_Provider.Width = BT_Provider.ActualWidth;
-            if(GetController().GetProvider() != null )
+            if(GetController().GetProvider() != null)
                 ((TextBlock)BT_Provider.Template.FindName("TB_Provider", BT_Provider)).Text = $"Proveedor: {GetController().GetProvider().Code} / {GetController().GetProvider().entity.Name}";
         }
 
         public void InitializingClient()
         {
             SP_Client.Width = BT_Client.ActualWidth;
-            if(GetController().GetClient() != null)
+            if (GetController().GetClient() != null)
                 ((TextBlock)BT_Client.Template.FindName("TB_Client", BT_Client)).Text = $"Cliente: {GetController().GetClient().Code} / {GetController().GetClient().entity.Name} {GetController().GetClient().entity.Subname}";
         }
 
         public void InitializingStore()
         {
             SP_Store.Width = BT_Store.ActualWidth;
-            if(GetController().GetStore() != null)
-                ((TextBlock)BT_Store.Template.FindName("TB_Store", BT_Store)).Text = $"Almacén: {GetController().GetStore().Code} / {GetController().GetStore().Name}";
+            ((TextBlock)BT_Store.Template.FindName("TB_Store", BT_Store)).Text = $"Almacén: {GetController().GetStore().Code} / {GetController().GetStore().Name}";
         }
 
         public void InitializingCode()
         {
             SP_Code.Width = BT_Code.ActualWidth;
-            ((TextBlock)BT_Code.Template.FindName("TB_Code", BT_Code)).Text = $"Nº Documento: 18 / {GetController().GetCode()}";
+            ((TextBlock)BT_Code.Template.FindName("TB_Code", BT_Code)).Text = $"Nº Documento: 18 / {GetController().GetDocumentID()}";
         }
 
         public void InitializingDate()
@@ -207,7 +206,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.View
                     BR_EquSurAmount.Child = LB_EquSurAmount;
                     grid.Children.Add(BR_EquSurAmount);
 
-                    // EquSurAmount
+                    // Finalprice
 
                     Border BR_FinalPrice = new Border();
                     BR_FinalPrice.BorderBrush = new SolidColorBrush(Colors.CadetBlue);
@@ -325,6 +324,13 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.View
                     LB_TaxAmount4.Content = $"{GetController().documentContent.PurchaseTaxAmounts[4].ToString("0.00")}";
                     LB_TaxAmount5.Content = $"{GetController().documentContent.PurchaseTaxAmounts[5].ToString("0.00")}";
 
+                    LB_EquSurAmount.Content = $"{GetController().documentContent.PurchaseEquSurAmount.ToString("0.00")} €";
+                    LB_EquSurAmount1.Content = $"{GetController().documentContent.PurchaseEquSurAmounts[1].ToString("0.00")}";
+                    LB_EquSurAmount2.Content = $"{GetController().documentContent.PurchaseEquSurAmounts[2].ToString("0.00")}";
+                    LB_EquSurAmount3.Content = $"{GetController().documentContent.PurchaseEquSurAmounts[3].ToString("0.00")}";
+                    LB_EquSurAmount4.Content = $"{GetController().documentContent.PurchaseEquSurAmounts[4].ToString("0.00")}";
+                    LB_EquSurAmount5.Content = $"{GetController().documentContent.PurchaseEquSurAmounts[5].ToString("0.00")}";
+
                     LB_FinalPrice.Content = $"{GetController().documentContent.PurchaseFinalPrice.ToString("0.00")} €";
                     LB_FinalPrice1.Content = $"{GetController().documentContent.PurchaseFinalPrices[1].ToString("0.00")}";
                     LB_FinalPrice2.Content = $"{GetController().documentContent.PurchaseFinalPrices[2].ToString("0.00")}";
@@ -347,6 +353,13 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.View
                     LB_TaxAmount3.Content = $"{GetController().documentContent.SaleTaxAmounts[3].ToString("0.00")}";
                     LB_TaxAmount4.Content = $"{GetController().documentContent.SaleTaxAmounts[4].ToString("0.00")}";
                     LB_TaxAmount5.Content = $"{GetController().documentContent.SaleTaxAmounts[5].ToString("0.00")}";
+
+                    LB_EquSurAmount.Content = $"{GetController().documentContent.SaleEquSurAmount.ToString("0.00")} €";
+                    LB_EquSurAmount1.Content = $"{GetController().documentContent.SaleEquSurAmounts[1].ToString("0.00")}";
+                    LB_EquSurAmount2.Content = $"{GetController().documentContent.SaleEquSurAmounts[2].ToString("0.00")}";
+                    LB_EquSurAmount3.Content = $"{GetController().documentContent.SaleEquSurAmounts[3].ToString("0.00")}";
+                    LB_EquSurAmount4.Content = $"{GetController().documentContent.SaleEquSurAmounts[4].ToString("0.00")}";
+                    LB_EquSurAmount5.Content = $"{GetController().documentContent.SaleEquSurAmounts[5].ToString("0.00")}";
 
                     LB_FinalPrice.Content = $"{GetController().documentContent.SaleFinalPrice.ToString("0.00")} €";
                     LB_FinalPrice1.Content = $"{GetController().documentContent.SaleFinalPrices[1].ToString("0.00")}";

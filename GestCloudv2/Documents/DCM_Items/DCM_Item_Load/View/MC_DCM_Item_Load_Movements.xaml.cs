@@ -62,6 +62,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.View
                     LB_Discount.Content = $"{GetController().documentContent.PurchaseDiscount.ToString("0.00")} €";
                     LB_TaxBase.Content = $"{GetController().documentContent.PurchaseTaxBaseFinal.ToString("0.00")} €";
                     LB_TaxAmount.Content = $"{GetController().documentContent.PurchaseTaxAmount.ToString("0.00")} €";
+                    LB_EqSurAmount.Content = $"{GetController().documentContent.PurchaseEquSurAmount.ToString("0.00")} €";
                     LB_FinalPrice.Content = $"{GetController().documentContent.PurchaseFinalPrice.ToString("0.00")} €";
                     break;
 
@@ -70,6 +71,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.View
                     LB_Discount.Content = $"{GetController().documentContent.SaleDiscount.ToString("0.00")} €";
                     LB_TaxBase.Content = $"{GetController().documentContent.SaleTaxBaseFinal.ToString("0.00")} €";
                     LB_TaxAmount.Content = $"{GetController().documentContent.SaleTaxAmount.ToString("0.00")} €";
+                    LB_EqSurAmount.Content = $"{GetController().documentContent.SaleEquSurAmount.ToString("0.00")} €";
                     LB_FinalPrice.Content = $"{GetController().documentContent.SaleFinalPrice.ToString("0.00")} €";
                     break;
             }

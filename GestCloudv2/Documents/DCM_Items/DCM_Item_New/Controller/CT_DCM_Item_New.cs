@@ -29,7 +29,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.Controller
 
         override public void EV_Start(object sender, RoutedEventArgs e)
         {
-            documentContent = new DocumentContent(Information["operationType"], ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany, GetDate(), new List<Movement>());
+            documentContent = new DocumentContent(Information["operationType"], ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany, GetDate(), new List<Movement>(), GetClient());
             UpdateComponents();
             this.Loaded -= EV_PreStart;
             this.Loaded += new RoutedEventHandler(EV_ReStart);
@@ -126,7 +126,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.Controller
 
         public void EV_MovementsUpdate()
         {
-            documentContent = new DocumentContent(Information["operationType"], ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany, GetDate(), movements);
+            documentContent = new DocumentContent(Information["operationType"], ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany, GetDate(), movements, GetClient());
         }
 
         public void EV_ProductsSelect(object sender, RoutedEventArgs e)

@@ -57,11 +57,12 @@ namespace FrameworkView.V1
         private GestCloudDB db { get; set; }
         private DataTable dt;
         private int Option { get; set; }
+        private Client client { get; set; }
 
-        public DocumentContent(int option, Company company, DateTime Date, List<Movement> Movements)
+        public DocumentContent(int option, Company company, DateTime Date, List<Movement> Movements, Client client)
         {
-            // purchases dictionaries
-            PurchaseTaxBases = new Dictionary<int, decimal>();
+        // purchases dictionaries
+        PurchaseTaxBases = new Dictionary<int, decimal>();
             PurchaseTaxBases.Add(1, 0);
             PurchaseTaxBases.Add(2, 0);
             PurchaseTaxBases.Add(3, 0);
@@ -131,6 +132,7 @@ namespace FrameworkView.V1
             Lines = new List<DocumentLine>();
 
             this.company = company;
+            this.client = client;
             this.Date = Date;
             this.Option = option;
             db = new GestCloudDB();
@@ -145,11 +147,18 @@ namespace FrameworkView.V1
         private void PurchaseUpdateComponents(List<Movement> Movements)
         {
             Tax purchaseTax;
+            Tax purchaseEquiSur;
+
             TaxType taxType = db.TaxTypes.Where(tt => tt.CompanyID == company.CompanyID && tt.StartDate <= Date
                 && tt.EndDate >= Date && tt.Name.Contains("IVA")).First();
 
+            TaxType equiSurType = db.TaxTypes.Where(tt => tt.CompanyID == company.CompanyID && tt.StartDate <= Date
+                && tt.EndDate >= Date && tt.Name.Contains("RE")).First();
+
             List<ProductTax> ProductsTaxes = db.ProductsTaxes.Where(pt => pt.tax.TaxTypeID == taxType.TaxTypeID && pt.Input == 1).Include(p => p.tax).ToList();
             List<ProductTypeTax> ProductTypesTaxes = db.ProductTypesTaxes.Where(pt => pt.tax.TaxTypeID == taxType.TaxTypeID && pt.Input == 1).Include(p => p.tax).ToList();
+
+            List<Tax> CompanyEquiSurs = db.Taxes.Where(ce => ce.TaxTypeID == equiSurType.TaxTypeID).ToList();
             foreach (Movement item in Movements)
             {
                 DocumentLine documentLine = new DocumentLine();
@@ -170,7 +179,20 @@ namespace FrameworkView.V1
                 else
                     purchaseTax = new Tax { Percentage = 0 , Type = 1};
 
+                if (company.EquiSur == 1)
+                {
+                    if (CompanyEquiSurs.Where(ce => ce.Type == purchaseTax.Type).Count() > 0)
+                        purchaseEquiSur = CompanyEquiSurs.Where(ce => ce.Type == purchaseTax.Type).First();
+
+                    else
+                        purchaseEquiSur = new Tax { Percentage = 0, Type = 1 };
+                }
+
+                else
+                    purchaseEquiSur = new Tax { Percentage = 0, Type = 1 };
+
                 documentLine.PurchaseTaxPercentage = purchaseTax.Percentage;
+                documentLine.PurchaseEquSurPercentage = purchaseEquiSur.Percentage;
 
                 // Calculate Gross Price
                 decimal PurchaseGrossPriceTemp = Convert.ToDecimal(item.PurchasePrice);
@@ -212,8 +234,15 @@ namespace FrameworkView.V1
 
                 // Calculate RE
 
+                decimal purchaseEquiSurAmountTemp = purchaseEquiSur.Percentage * PurchaseTaxBaseFinalTemp / 100;
+                PurchaseEquSurAmount = PurchaseEquSurAmount + purchaseEquiSurAmountTemp;
+
+                PurchaseEquSurAmounts[purchaseEquiSur.Type] = PurchaseEquSurAmounts[purchaseEquiSur.Type] + purchaseEquiSurAmountTemp;
+
+                documentLine.PurchaseEquSurAmount = purchaseEquiSurAmountTemp;
+
                 // Calculate Final Price
-                decimal PurchaseFinalPriceTemp = PurchaseTaxBaseFinalTemp + purchaseTaxAmountTemp;
+                decimal PurchaseFinalPriceTemp = PurchaseTaxBaseFinalTemp + purchaseTaxAmountTemp + purchaseEquiSurAmountTemp;
                 PurchaseFinalPrice = PurchaseFinalPrice + PurchaseFinalPriceTemp;
 
                 PurchaseFinalPrices[purchaseTax.Type] = PurchaseFinalPrices[purchaseTax.Type] + PurchaseFinalPriceTemp;
@@ -227,10 +256,17 @@ namespace FrameworkView.V1
         private void SaleUpdateComponents(List<Movement> Movements)
         {
             Tax saleTax;
+            Tax saleEquiSur;
+
             TaxType taxType = db.TaxTypes.Where(tt => tt.CompanyID == company.CompanyID && tt.StartDate <= Date
                 && tt.EndDate >= Date && tt.Name.Contains("IVA")).First();
+            TaxType equiSurType = db.TaxTypes.Where(tt => tt.CompanyID == company.CompanyID && tt.StartDate <= Date
+                && tt.EndDate >= Date && tt.Name.Contains("RE")).First();
+
             List<ProductTax> ProductsTaxes = db.ProductsTaxes.Where(pt => pt.tax.TaxTypeID == taxType.TaxTypeID && pt.Input == 0).Include(p => p.tax).ToList();
             List<ProductTypeTax> ProductTypesTaxes = db.ProductTypesTaxes.Where(pt => pt.tax.TaxTypeID == taxType.TaxTypeID && pt.Input == 0).Include(p => p.tax).ToList();
+
+            List<ClientTax> ClientEquiSurs = db.ClientsTaxes.Where(ce => ce.ClientID == client.ClientID && ce.tax.TaxTypeID == equiSurType.TaxTypeID).Include(ce => ce.tax).ToList();
 
             foreach (Movement item in Movements)
             {
@@ -251,6 +287,12 @@ namespace FrameworkView.V1
 
                 else
                     saleTax = new Tax { Percentage = 0, Type = 1 };
+
+                if (ClientEquiSurs.Where(ce => ce.tax.Type == saleTax.Type).Count() > 0)
+                    saleEquiSur = ClientEquiSurs.Where(ce => ce.tax.Type == saleTax.Type).First().tax;
+
+                else
+                    saleEquiSur = new Tax { Percentage = 0, Type = 1 };
 
                 // Calculate Gross Price
                 decimal SaleGrossPriceTemp = Convert.ToDecimal(item.SalePrice);
@@ -291,6 +333,13 @@ namespace FrameworkView.V1
                 documentLine.SaleTaxAmount = SaleTaxAmountTemp;
 
                 // Calculate RE
+
+                decimal saleEquiSurAmountTemp = saleEquiSur.Percentage * SaleTaxBaseFinalTemp / 100;
+                SaleEquSurAmount = SaleEquSurAmount + saleEquiSurAmountTemp;
+
+                SaleEquSurAmounts[saleEquiSur.Type] = SaleEquSurAmounts[saleEquiSur.Type] + saleEquiSurAmountTemp;
+
+                documentLine.SaleEquSurAmount = saleEquiSurAmountTemp;
 
                 // Calculate Final Price
                 decimal SaleFinalPriceTemp = SaleTaxBaseFinalTemp + SaleTaxAmountTemp;

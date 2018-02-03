@@ -32,7 +32,7 @@
                         <ToggleButton.Template>
                             <ControlTemplate>
                                 <Border Name="BR_Provider" CornerRadius="10" Background="CadetBlue">
-                                    <TextBlock Name="TB_Provider" Text="Proveedor:" Foreground="White" 
+                                    <TextBlock Name="TB_Provider" Text="Proveedor: 123 - Jesús Calleja" Foreground="White" 
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
                                             Margin="0,0,0,0"
@@ -202,7 +202,7 @@
 
             <!-- Datos de líneas -->
             <Border BorderBrush="CadetBlue" Margin="0,20,0,10" Grid.Row="1">
-                <StackPanel Name="SP_Lines" CanVerticallyScroll="True">
+                <StackPanel>
                     <Grid Margin="0,0,0,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="2*"/>
@@ -242,7 +242,23 @@
                             <Label Foreground="White" HorizontalAlignment="Center">Importe Final</Label>
                         </Border>
                     </Grid>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Hidden" Height="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type Border}},Path=ActualHeight}">
+                        <StackPanel Name="SP_Lines" CanVerticallyScroll="True">
+                            <Grid Margin="0,0,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition Width="0.5*"/>
+                                    <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition Width="1*"/>
+                                </Grid.ColumnDefinitions>
+                            </Grid>
+                        </StackPanel>
+                    </ScrollViewer>
                 </StackPanel>
+                    
             </Border>
 
             <!-- Datos de pie-->
@@ -331,11 +347,13 @@
                             <Label Foreground="LightBlue" HorizontalAlignment="Center" Grid.Row="3">1,4 %</Label>
                             <Label Foreground="LightBlue" HorizontalAlignment="Center" Grid.Row="4">5,2 %</Label>
 
-                            <Label Foreground="LightBlue" HorizontalAlignment="Center" Grid.Row="2" Grid.Column="1"/>
-                            <Label Foreground="LightBlue" HorizontalAlignment="Center" Grid.Row="3" Grid.Column="1"/>
-                            <Label Foreground="LightBlue" HorizontalAlignment="Center" Grid.Row="4" Grid.Column="1"/>
-
-                            <Label Name="LB_EqSurAmount" Foreground="White" FontSize="20" HorizontalAlignment="Center" Grid.Row="6" Grid.Column="1"/>
+                            <Label Name="LB_EquSurAmount1" Foreground="LightBlue" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="1"/>
+                            <Label Name="LB_EquSurAmount2" Foreground="LightBlue" HorizontalAlignment="Center" Grid.Row="2" Grid.Column="1"/>
+                            <Label Name="LB_EquSurAmount3" Foreground="LightBlue" HorizontalAlignment="Center" Grid.Row="3" Grid.Column="1"/>
+                            <Label Name="LB_EquSurAmount4" Foreground="LightBlue" HorizontalAlignment="Center" Grid.Row="4" Grid.Column="1"/>
+                            <Label Name="LB_EquSurAmount5" Foreground="LightBlue" HorizontalAlignment="Center" Grid.Row="5" Grid.Column="1"/>
+                            
+                            <Label Name="LB_EquSurAmount" Foreground="White" FontSize="20" HorizontalAlignment="Center" Grid.Row="6" Grid.Column="1"/>
                         </Grid>
                     </Border>
 

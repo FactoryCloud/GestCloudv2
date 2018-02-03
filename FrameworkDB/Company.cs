@@ -12,6 +12,8 @@ namespace FrameworkDB.V1
         public int CompanyID { get; set; }
         public int? Code { get; set; }
         public string Name { get; set; }
+        public int Tax { get; set; }
+        public int EquiSur { get; set; }
         public string CIF { get; set; }
         public string Address { get; set; }
         public int Phone1 { get; set; }

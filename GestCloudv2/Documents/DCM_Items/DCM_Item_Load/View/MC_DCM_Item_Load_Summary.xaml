@@ -347,11 +347,13 @@
                             <Label Foreground="LightBlue" HorizontalAlignment="Center" Grid.Row="3">1,4 %</Label>
                             <Label Foreground="LightBlue" HorizontalAlignment="Center" Grid.Row="4">5,2 %</Label>
 
-                            <Label Foreground="LightBlue" HorizontalAlignment="Center" Grid.Row="2" Grid.Column="1"/>
-                            <Label Foreground="LightBlue" HorizontalAlignment="Center" Grid.Row="3" Grid.Column="1"/>
-                            <Label Foreground="LightBlue" HorizontalAlignment="Center" Grid.Row="4" Grid.Column="1"/>
-
-                            <Label Name="LB_EqSurAmount" Foreground="White" FontSize="20" HorizontalAlignment="Center" Grid.Row="6" Grid.Column="1"/>
+                            <Label Name="LB_EquSurAmount1" Foreground="LightBlue" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="1"/>
+                            <Label Name="LB_EquSurAmount2" Foreground="LightBlue" HorizontalAlignment="Center" Grid.Row="2" Grid.Column="1"/>
+                            <Label Name="LB_EquSurAmount3" Foreground="LightBlue" HorizontalAlignment="Center" Grid.Row="3" Grid.Column="1"/>
+                            <Label Name="LB_EquSurAmount4" Foreground="LightBlue" HorizontalAlignment="Center" Grid.Row="4" Grid.Column="1"/>
+                            <Label Name="LB_EquSurAmount5" Foreground="LightBlue" HorizontalAlignment="Center" Grid.Row="5" Grid.Column="1"/>
+                            
+                            <Label Name="LB_EquSurAmount" Foreground="White" FontSize="20" HorizontalAlignment="Center" Grid.Row="6" Grid.Column="1"/>
                         </Grid>
                     </Border>
 

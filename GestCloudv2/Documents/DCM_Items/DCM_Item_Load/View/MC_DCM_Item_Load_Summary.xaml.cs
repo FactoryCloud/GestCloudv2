@@ -204,7 +204,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.View
                     BR_EquSurAmount.Child = LB_EquSurAmount;
                     grid.Children.Add(BR_EquSurAmount);
 
-                    // EquSurAmount
+                    // Finalprice
 
                     Border BR_FinalPrice = new Border();
                     BR_FinalPrice.BorderBrush = new SolidColorBrush(Colors.CadetBlue);
@@ -322,6 +322,13 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.View
                     LB_TaxAmount4.Content = $"{GetController().documentContent.PurchaseTaxAmounts[4].ToString("0.00")}";
                     LB_TaxAmount5.Content = $"{GetController().documentContent.PurchaseTaxAmounts[5].ToString("0.00")}";
 
+                    LB_EquSurAmount.Content = $"{GetController().documentContent.PurchaseEquSurAmount.ToString("0.00")} €";
+                    LB_EquSurAmount1.Content = $"{GetController().documentContent.PurchaseEquSurAmounts[1].ToString("0.00")}";
+                    LB_EquSurAmount2.Content = $"{GetController().documentContent.PurchaseEquSurAmounts[2].ToString("0.00")}";
+                    LB_EquSurAmount3.Content = $"{GetController().documentContent.PurchaseEquSurAmounts[3].ToString("0.00")}";
+                    LB_EquSurAmount4.Content = $"{GetController().documentContent.PurchaseEquSurAmounts[4].ToString("0.00")}";
+                    LB_EquSurAmount5.Content = $"{GetController().documentContent.PurchaseEquSurAmounts[5].ToString("0.00")}";
+
                     LB_FinalPrice.Content = $"{GetController().documentContent.PurchaseFinalPrice.ToString("0.00")} €";
                     LB_FinalPrice1.Content = $"{GetController().documentContent.PurchaseFinalPrices[1].ToString("0.00")}";
                     LB_FinalPrice2.Content = $"{GetController().documentContent.PurchaseFinalPrices[2].ToString("0.00")}";
@@ -344,6 +351,13 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.View
                     LB_TaxAmount3.Content = $"{GetController().documentContent.SaleTaxAmounts[3].ToString("0.00")}";
                     LB_TaxAmount4.Content = $"{GetController().documentContent.SaleTaxAmounts[4].ToString("0.00")}";
                     LB_TaxAmount5.Content = $"{GetController().documentContent.SaleTaxAmounts[5].ToString("0.00")}";
+
+                    LB_EquSurAmount.Content = $"{GetController().documentContent.SaleEquSurAmount.ToString("0.00")} €";
+                    LB_EquSurAmount1.Content = $"{GetController().documentContent.SaleEquSurAmounts[1].ToString("0.00")}";
+                    LB_EquSurAmount2.Content = $"{GetController().documentContent.SaleEquSurAmounts[2].ToString("0.00")}";
+                    LB_EquSurAmount3.Content = $"{GetController().documentContent.SaleEquSurAmounts[3].ToString("0.00")}";
+                    LB_EquSurAmount4.Content = $"{GetController().documentContent.SaleEquSurAmounts[4].ToString("0.00")}";
+                    LB_EquSurAmount5.Content = $"{GetController().documentContent.SaleEquSurAmounts[5].ToString("0.00")}";
 
                     LB_FinalPrice.Content = $"{GetController().documentContent.SaleFinalPrice.ToString("0.00")} €";
                     LB_FinalPrice1.Content = $"{GetController().documentContent.SaleFinalPrices[1].ToString("0.00")}";
