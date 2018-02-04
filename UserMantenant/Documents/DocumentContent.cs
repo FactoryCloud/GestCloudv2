@@ -266,7 +266,10 @@ namespace FrameworkView.V1
             List<ProductTax> ProductsTaxes = db.ProductsTaxes.Where(pt => pt.tax.TaxTypeID == taxType.TaxTypeID && pt.Input == 0).Include(p => p.tax).ToList();
             List<ProductTypeTax> ProductTypesTaxes = db.ProductTypesTaxes.Where(pt => pt.tax.TaxTypeID == taxType.TaxTypeID && pt.Input == 0).Include(p => p.tax).ToList();
 
-            List<ClientTax> ClientEquiSurs = db.ClientsTaxes.Where(ce => ce.ClientID == client.ClientID && ce.tax.TaxTypeID == equiSurType.TaxTypeID).Include(ce => ce.tax).ToList();
+            List<ClientTax> ClientEquiSurs = new List<ClientTax>();
+
+            if (client != null)
+                ClientEquiSurs = db.ClientsTaxes.Where(ce => ce.ClientID == client.ClientID && ce.tax.TaxTypeID == equiSurType.TaxTypeID).Include(ce => ce.tax).ToList();
 
             foreach (Movement item in Movements)
             {
