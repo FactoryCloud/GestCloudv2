@@ -95,12 +95,60 @@ namespace GestCloudv2.Files.Nodes.Providers.ProviderItem.ProviderItem_Load.Contr
         public CT_PRO_Item_Load(Provider provider, int editable, int external) : base(external)
         {
             submenuItems = new SubmenuItems();
+            List<TaxType> taxTypes = GetTaxTypes().OrderByDescending(t => t.StartDate).ToList();
+            providerTaxes = db.ProvidersTaxes.Where(pt => pt.tax.taxType.CompanyID == ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID && pt.ProviderID == provider.ProviderID && pt.tax.taxType.Name.Contains("IVA")).Include(c => c.tax).Include(d => d.tax.taxType).ToList();
+            providerSpecialTaxes = db.ProvidersTaxes.Where(pt => pt.tax.taxType.CompanyID == ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID && pt.ProviderID== provider.ProviderID && pt.tax.taxType.Name.Contains("ST")).Include(c => c.tax).Include(d => d.tax.taxType).ToList();
+
+            InformationTaxes = new Dictionary<int, int>();
+            InformationEquivalenceSurcharges = new Dictionary<int, int>();
+            InformationSpecialTaxes = new Dictionary<int, int>();
+            taxTypeSelected = taxTypes.First();
+
             Information.Add("editable", editable);
             Information.Add("old_editable", 0);
             Information.Add("minimalInformation", 0);
             Information.Add("external", 1);
             this.provider = provider;
             Information["entityValid"] = 1;
+
+            foreach (TaxType tx in taxTypes)
+            {
+                List<ProviderTax> providerTaxes = db.ProvidersTaxes.Where(c => c.ProviderID == provider.ProviderID && c.tax.TaxTypeID == tx.TaxTypeID).ToList();
+
+                if (providerTaxes.Count > 0)
+                {
+                    InformationTaxes.Add(tx.TaxTypeID, 1);
+                }
+
+                else
+                {
+                    InformationTaxes.Add(tx.TaxTypeID, 0);
+                }
+
+                TaxType taxType = db.TaxTypes.Where(tt => tt.CompanyID == tx.CompanyID && tt.StartDate == tx.StartDate && tt.EndDate == tx.EndDate && tt.Name.Contains("RE")).First();
+                List<ProviderTax> providerEquiSurs = db.ProvidersTaxes.Where(c => c.ProviderID == provider.ProviderID && c.tax.TaxTypeID == taxType.TaxTypeID).ToList();
+                if (providerEquiSurs.Count > 0)
+                {
+                    InformationEquivalenceSurcharges.Add(tx.TaxTypeID, 1);
+                }
+                else
+                {
+                    InformationEquivalenceSurcharges.Add(tx.TaxTypeID, 0);
+                }
+
+                TaxType specialTaxType = db.TaxTypes.Where(tt => tt.CompanyID == tx.CompanyID && tt.StartDate == tx.StartDate && tt.EndDate == tx.EndDate && tt.Name.Contains("ST")).First();
+                List<ProviderTax> providerSpecialTaxes = db.ProvidersTaxes.Where(c => c.ProviderID == provider.ProviderID && c.tax.TaxTypeID == specialTaxType.TaxTypeID).ToList();
+
+                if (providerSpecialTaxes.Count > 0)
+                {
+                    InformationSpecialTaxes.Add(tx.TaxTypeID, Convert.ToInt32(providerSpecialTaxes.First().TaxID));
+                }
+
+                else
+                {
+                    InformationSpecialTaxes.Add(tx.TaxTypeID, 0);
+                }
+            }
         }
 
         override public void EV_Start(object sender, RoutedEventArgs e)

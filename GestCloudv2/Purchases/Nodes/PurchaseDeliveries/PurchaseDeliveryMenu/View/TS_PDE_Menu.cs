@@ -11,7 +11,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseDeliveries.PurchaseDeliveryMenu.Vi
     {
         public TS_PDE_Menu():base()
         {
-            BT_DeliveryTransfer.Visibility = Visibility.Hidden;
+            BT_DeliveryTransfer.Visibility = Visibility.Hidden;           
         }
 
         override public Documents.DCM_Menu.Controller.CT_DCM_Menu GetController()

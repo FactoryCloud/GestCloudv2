@@ -26,8 +26,12 @@ namespace GestCloudv2.Documents.DCM_Menu.View
             if (GetController().SelectedItem())
             {
                 BT_Load.IsEnabled = true;
-                BT_LoadEditable.IsEnabled = true;
+
+                if (GetController().IsEditable())
+                    BT_LoadEditable.IsEnabled = true;
             }
+
+            
         }
 
         private void EV_MD_New(object sender, RoutedEventArgs e)

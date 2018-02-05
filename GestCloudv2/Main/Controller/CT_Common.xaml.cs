@@ -50,8 +50,6 @@ namespace GestCloudv2.Main.Controller
             entity = new Entity();
             countrySelected = GetCountries().OrderBy(t => t.CountryID).First();
             citySelected = GetCities(Convert.ToInt32(entity.CityID)).OrderBy(t => t.CityID).First();
- 
-        
 
             entity.Name = "";
 
@@ -76,7 +74,10 @@ namespace GestCloudv2.Main.Controller
             FR_Subcontent.Content = new CT_Common_Subcontent();
 
             db = new GestCloudDB();
+            cities = new List<City>();
             entity = new Entity();
+            countrySelected = GetCountries().OrderBy(t => t.CountryID).First();
+            citySelected = GetCities(Convert.ToInt32(entity.CityID)).OrderBy(t => t.CityID).First();
 
             entity.Name = "";
 
@@ -236,7 +237,7 @@ namespace GestCloudv2.Main.Controller
             if (((Main.View.MainWindow)Application.Current.MainWindow).shortcutDocuments.Count == 0)
                 num = 1;
 
-            else
+            else if(num < 4)
                 num = ((Main.View.MainWindow)Application.Current.MainWindow).shortcutDocuments.OrderBy(sd => sd.Id).Last().Id + 1;
 
             Shortcuts.ShortcutDocument doc = GetShortcutDocument(num);

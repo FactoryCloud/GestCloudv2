@@ -70,6 +70,11 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderMenu.Controlle
             return purchaseOrder != null;
         }
 
+        public override bool IsEditable()
+        {
+            return (purchaseOrder.PurchaseInvoiceID == null && purchaseOrder.PurchaseDeliveryID == null);
+        }
+
         override public void SetItem(int num)
         {
             purchaseOrder = db.PurchaseOrders.Where(c => c.PurchaseOrderID == num).Include(c => c.company).First();

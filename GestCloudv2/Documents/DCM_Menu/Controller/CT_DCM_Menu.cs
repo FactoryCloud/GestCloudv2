@@ -67,6 +67,11 @@ namespace GestCloudv2.Documents.DCM_Menu.Controller
             return new DCM_Transfers.Controller.CT_DCM_Transfers();
         }
 
+        virtual public bool IsEditable()
+        {
+            return true;
+        }
+
         virtual public bool SelectedItem()
         {
             return false;

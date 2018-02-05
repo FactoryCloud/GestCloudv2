@@ -64,6 +64,11 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseDeliveries.PurchaseDeliveryMenu.Co
             return purchaseDelivery != null;
         }
 
+        public override bool IsEditable()
+        {
+            return (purchaseDelivery.PurchaseInvoiceID == null);
+        }
+
         override public void SetItem(int num)
         {
             purchaseDelivery = db.PurchaseDeliveries.Where(c => c.PurchaseDeliveryID== num).Include(c => c.company).First();

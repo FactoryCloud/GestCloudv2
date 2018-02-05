@@ -37,32 +37,41 @@ namespace GestCloudv2.Files.Nodes.Entities.View
             TB_Entity_NIF.Text = GetController().entity.NIF;
             TB_Entity_Address.Text = GetController().entity.Address;
             TB_Entity_Email.Text = GetController().entity.Email;
-            TB_Entity_PostalCode.Text = GetController().entity.city.P_C;
+
+            if(GetController().entity.CityID != null)
+                TB_Entity_PostalCode.Text = GetController().entity.city.P_C;
 
             //Thickness margin = new Thickness(20);
 
-            TextBox TB_Entity_City = new TextBox();
-            TB_Entity_City.Name = "TB_Entity_City";
-            TB_Entity_City.FontSize = 20;
-            TB_Entity_City.Text = $"{GetController().entity.city.Name}";
-            TB_Entity_City.VerticalAlignment = VerticalAlignment.Center;
-            //TB_Entity_City.TextAlignment = TextAlignment.Center;
-            TB_Entity_City.IsReadOnly = true;
-            Grid.SetColumn(TB_Entity_City, 3);
-            Grid.SetRow(TB_Entity_City, 12);
+            if (GetController().entity.CityID != null)
+            {
+                TextBox TB_Entity_City = new TextBox();
+                TB_Entity_City.Name = "TB_Entity_City";
+                TB_Entity_City.FontSize = 20;
+                TB_Entity_City.Text = $"{GetController().entity.city.Name}";
+                TB_Entity_City.VerticalAlignment = VerticalAlignment.Center;
+                //TB_Entity_City.TextAlignment = TextAlignment.Center;
+                TB_Entity_City.IsReadOnly = true;
+                Grid.SetColumn(TB_Entity_City, 3);
+                Grid.SetRow(TB_Entity_City, 12);
 
-            TextBox TB_Entity_Country = new TextBox();
-            TB_Entity_Country.Name = "TB_Entity_Country";
-            TB_Entity_Country.FontSize = 20;
-            TB_Entity_Country.Text = $"{GetController().entity.country.Name}";
-            TB_Entity_Country.VerticalAlignment = VerticalAlignment.Center;
-            //TB_Entity_Country.TextAlignment = TextAlignment.Center;
-            TB_Entity_Country.IsReadOnly = true;
-            Grid.SetColumn(TB_Entity_Country, 3);
-            Grid.SetRow(TB_Entity_Country, 10);
+                GR_Main.Children.Add(TB_Entity_City);
+            }
 
-            GR_Main.Children.Add(TB_Entity_City);
-            GR_Main.Children.Add(TB_Entity_Country);
+            if (GetController().entity.CountryID != null)
+            {
+                TextBox TB_Entity_Country = new TextBox();
+                TB_Entity_Country.Name = "TB_Entity_Country";
+                TB_Entity_Country.FontSize = 20;
+                TB_Entity_Country.Text = $"{GetController().entity.country.Name}";
+                TB_Entity_Country.VerticalAlignment = VerticalAlignment.Center;
+                //TB_Entity_Country.TextAlignment = TextAlignment.Center;
+                TB_Entity_Country.IsReadOnly = true;
+                Grid.SetColumn(TB_Entity_Country, 3);
+                Grid.SetRow(TB_Entity_Country, 10);
+
+                GR_Main.Children.Add(TB_Entity_Country);
+            }
 
             CB_Entity_City.Visibility = Visibility.Hidden;
             CB_Entity_Country.Visibility = Visibility.Hidden;

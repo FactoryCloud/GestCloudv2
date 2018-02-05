@@ -13,6 +13,12 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.View
 {
     public partial class SC_DCM_Item_Load_Main : Main.View.SC_Common
     {
+        public SC_DCM_Item_Load_Main()
+        {
+            
+
+        }
+
         public override void CT_DocumentMinimize(object sender, RoutedEventArgs e)
         {
             GetController().AddShortcutDocument();

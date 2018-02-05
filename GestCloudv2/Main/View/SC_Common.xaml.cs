@@ -25,6 +25,9 @@ namespace GestCloudv2.Main.View
         {
             InitializeComponent();
 
+            if (((Main.View.MainWindow)Application.Current.MainWindow).shortcutDocuments.Count == 4)
+                BT_Minimize.IsEnabled = false;
+
             int num = 0;
             foreach(Shortcuts.ShortcutDocument doc in ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).shortcutDocuments)
             {

@@ -65,6 +65,11 @@ namespace GestCloudv2.Sales.Nodes.SaleDeliveries.SaleDeliveryMenu.Controller
             return saleDelivery != null;
         }
 
+        public override bool IsEditable()
+        {
+            return saleDelivery.SaleInvoiceID == null;
+        }
+
         override public void SetItem(int num)
         {
             saleDelivery = db.SaleDeliveries.Where(c => c.SaleDeliveryID== num).Include(c => c.company).First();
