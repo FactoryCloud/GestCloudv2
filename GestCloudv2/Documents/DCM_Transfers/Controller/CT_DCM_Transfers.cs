@@ -24,6 +24,7 @@ namespace GestCloudv2.Documents.DCM_Transfers.Controller
 
         public CT_DCM_Transfers()
         {
+            saleDelivery = new SaleDelivery();
         }
 
         override public void EV_Start(object sender, RoutedEventArgs e)
@@ -53,21 +54,6 @@ namespace GestCloudv2.Documents.DCM_Transfers.Controller
         {
             saleDelivery = db.SaleDeliveries.Where(p => p.SaleDeliveryID == num).First();
             UpdateComponents();
-        }
-
-        public virtual void SetMC()
-        {
-
-        }
-
-        public virtual void SetTS()
-        {
-
-        }
-
-        public virtual void SetNV()
-        {
-
         }
 
         public virtual int GetDocumentsCount()
@@ -142,7 +128,7 @@ namespace GestCloudv2.Documents.DCM_Transfers.Controller
                 case 1:
                     SetNV();
                     SetTS();
-                    SetMC();
+                    SetMC(0);
                     ChangeComponents();
                     break;
             }

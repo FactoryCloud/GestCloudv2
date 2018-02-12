@@ -19,7 +19,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderTransfer.POR_T
             itemsView = new PurchaseOrdersView(Documents);
         }
 
-        public override void SetMC()
+        public override void SetMC(int i)
         {
             MC_Page = new View.MC_POR_Transfer_Invoice();
         }
@@ -86,7 +86,14 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderTransfer.POR_T
         {
             if(purchaseInvoice == null)
             {
-                int code = Convert.ToInt32(db.PurchaseInvoices.Where(p => p.Code != null).OrderBy(p => p.Code).Last().Code) + 1;
+                int code;
+
+                if (db.PurchaseInvoices.Where(p => p.Code != null).Count() > 0)
+                    code = Convert.ToInt32(db.PurchaseInvoices.Where(p => p.Code != null).OrderBy(p => p.Code).Last().Code) + 1;
+
+                else
+                    code = 1;
+
                 purchaseInvoice = new PurchaseInvoice
                 {
                     CompanyID = ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID,

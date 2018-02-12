@@ -19,7 +19,7 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderTransfer.SOR_Transfer_Invo
             itemsView = new SaleOrdersView(Documents);
         }
 
-        public override void SetMC()
+        public override void SetMC(int i)
         {
             MC_Page = new View.MC_SOR_Transfer_Invoice();
         }
@@ -86,7 +86,14 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderTransfer.SOR_Transfer_Invo
         {
             if(saleInvoice == null)
             {
-                int code = Convert.ToInt32(db.SaleInvoices.Where(p => p.Code != null).OrderBy(p => p.Code).Last().Code) + 1;
+                int code;
+
+                if (db.SaleInvoices.Where(p => p.Code != null).Count() > 0)
+                    code = Convert.ToInt32(db.SaleInvoices.Where(p => p.Code != null).OrderBy(p => p.Code).Last().Code) + 1;
+
+                else
+                    code = 1;
+
                 saleInvoice = new SaleInvoice
                 {
                     CompanyID = ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID,
