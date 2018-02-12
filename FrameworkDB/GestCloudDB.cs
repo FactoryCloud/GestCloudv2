@@ -70,6 +70,7 @@ namespace FrameworkDB.V1
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             //optionsBuilder.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=GestCloud;Integrated Security=True");
+            //optionsBuilder.UseSqlServer(@"Data Source=85.214.204.242\GESTCLOUD,49152;Initial Catalog=GestCloudV2;Persist Security Info=True;User ID=sa;Password=FactoryCloud@2810"); //LA OTRA BDD
             optionsBuilder.UseSqlServer(@"Data Source=85.214.204.242\GESTCLOUD,49152;Initial Catalog=GestCloudV1;Persist Security Info=True;User ID=sa;Password=FactoryCloud@2810");
         }
 
