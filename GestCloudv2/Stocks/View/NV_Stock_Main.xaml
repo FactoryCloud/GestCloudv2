@@ -19,10 +19,10 @@
         <Button IsEnabled="false" Name="BT_Products" Margin="20">
             <TextBlock TextAlignment="Center">Comprobación<LineBreak/>de Stock</TextBlock>
         </Button>
-        <Button IsEnabled="False" Name="BT_Providers" Margin="20" Grid.Column="1">
+        <Button Name="BT_StoreTransfers" Margin="20" Grid.Column="1" Click="EV_CT_StoreTransfers">
             <TextBlock TextAlignment="Center">Traspaso entre<LineBreak/>Almacenes</TextBlock>
         </Button>
-        <Button Name="BT_ToFinish" Margin="20" Grid.Column="2" Click="EV_CT_StockAdjusts">
+        <Button Name="BT_StockAdjusts" Margin="20" Grid.Column="2" Click="EV_CT_StockAdjusts">
             <TextBlock TextAlignment="Center">Ajustes de<LineBreak/>Stock</TextBlock>
         </Button>
         <Button Name="BT_Close" Margin="20" Grid.Column="5" Click="EV_CT_Back">Volver</Button>

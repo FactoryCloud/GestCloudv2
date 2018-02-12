@@ -60,6 +60,24 @@
             <ComboBox FontSize="12" Grid.Column="2" Grid.Row="3" VerticalAlignment="Center" Margin="10,0,10,0" Name="CB_Stores"></ComboBox>
         </Grid>
 
+        <Grid Name="GR_StoreFrom" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="3" Background="Transparent" Visibility="Hidden">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <Label VerticalAlignment="Center" HorizontalAlignment="Center">Almacén Origen</Label>
+            <ComboBox FontSize="12" Grid.Column="2" Grid.Row="3" VerticalAlignment="Center" Margin="10,0,10,0" Name="CB_StoresFrom" Tag="storeFrom"></ComboBox>
+        </Grid>
+
+        <Grid Name="GR_StoreTo" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="4" Background="Transparent" Visibility="Hidden">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <Label VerticalAlignment="Center" HorizontalAlignment="Center">Almacén Origen</Label>
+            <ComboBox FontSize="12" Grid.Column="2" Grid.Row="3" VerticalAlignment="Center" Margin="10,0,10,0" Name="CB_StoresTo" Tag="storeTo"></ComboBox>
+        </Grid>
+
         <Grid Name="GR_Provider" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="4" Background="Transparent" Tag="6" Visibility="Hidden">
             <Grid Grid.Column="2" Grid.Row="4">
                 <Grid.ColumnDefinitions>

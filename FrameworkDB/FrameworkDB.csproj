@@ -116,6 +116,7 @@
     <Compile Include="ProductTypeTax.cs" />
     <Compile Include="FiscalYear.cs" />
     <Compile Include="PaymentMethod.cs" />
+    <Compile Include="StoreTransfer.cs" />
     <Compile Include="TaxType.cs" />
     <Compile Include="Tax.cs" />
     <Compile Include="Agents.cs" />

@@ -121,11 +121,12 @@
     <Compile Include="PurchaseOrder\PurchaseOrdersView.cs" />
     <Compile Include="SaleDeliveries\SaleDeliveriesView.cs" />
     <Compile Include="SaleInvoices\SaleInvoicesView.cs" />
-    <Compile Include="SaleOrder\SaleOrdersView.cs" />
+    <Compile Include="SaleOrders\SaleOrdersView.cs" />
     <Compile Include="Stock\StoredStocksView.cs" />
     <Compile Include="Stock\StockAdjustsView.cs" />
     <Compile Include="ProductTypes\ProductTypesView.cs" />
     <Compile Include="PaymentMethods\PaymentMethodsView.cs" />
+    <Compile Include="StoreTransfers\StoreTransfersView.cs" />
     <Compile Include="Taxes\TaxesView.cs" />
     <Compile Include="Stores\StoresView.cs" />
     <Compile Include="Companies\CompaniesView.cs" />

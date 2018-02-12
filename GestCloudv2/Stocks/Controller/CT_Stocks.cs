@@ -32,6 +32,12 @@ namespace GestCloudv2.Stocks.Controller
             UpdateComponents();
         }
 
+        public void CT_StoreTransfers()
+        {
+            Information["controller"] = 2;
+            ChangeController();
+        }
+
         public void CT_StockAdjusts()
         {
             Information["controller"] = 3;
@@ -63,16 +69,20 @@ namespace GestCloudv2.Stocks.Controller
 
         private void ChangeController()
         {
+            Main.View.MainWindow a = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
+
             switch (Information["controller"])
             {
                 case 0:
-                    Main.View.MainWindow a = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
                     a.MainFrame.Content = new Main.Controller.CT_Main();
                     break;
 
+                case 2:
+                    a.MainFrame.Content = new Nodes.StoreTransfers.StoreTransferMenu.Controller.CT_StoreTransferMenu();
+                    break;
+
                 case 3:
-                    Main.View.MainWindow d = (Main.View.MainWindow)System.Windows.Application.Current.MainWindow;
-                    d.MainFrame.Content = new Nodes.StockAdjusts.StockAdjustMenu.Controller.CT_StockAdjustMenu();
+                    a.MainFrame.Content = new Nodes.StockAdjusts.StockAdjustMenu.Controller.CT_StockAdjustMenu();
                     break;
             }
         }

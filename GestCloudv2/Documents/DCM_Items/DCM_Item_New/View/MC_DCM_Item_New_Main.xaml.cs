@@ -48,7 +48,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.View
             SetSelected();
         }
 
-        private void EV_Start(object sender, RoutedEventArgs e)
+        public virtual void EV_Start(object sender, RoutedEventArgs e)
         {
             switch (GetController().Information["operationType"])
             {

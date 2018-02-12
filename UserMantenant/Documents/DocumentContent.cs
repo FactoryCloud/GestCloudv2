@@ -121,14 +121,6 @@ namespace FrameworkView.V1
 
             dt = new DataTable();
 
-            dt.Columns.Add("ID", typeof(int));
-            dt.Columns.Add("Código", typeof(string));
-            dt.Columns.Add("Nombre", typeof(string));
-            dt.Columns.Add("Cantidad", typeof(int));
-            dt.Columns.Add("Importe Bruto", typeof(decimal));
-            dt.Columns.Add("Descuento", typeof(string));
-            dt.Columns.Add("Importe Imponible", typeof(decimal));
-
             Lines = new List<DocumentLine>();
 
             this.company = company;
@@ -137,11 +129,41 @@ namespace FrameworkView.V1
             this.Option = option;
             db = new GestCloudDB();
 
-            if(option == 1)
-                PurchaseUpdateComponents(Movements);
+            switch (Option)
+            {
+                case 1:
+                case 2:
+                    dt.Columns.Add("ID", typeof(int));
+                    dt.Columns.Add("Código", typeof(string));
+                    dt.Columns.Add("Nombre", typeof(string));
+                    dt.Columns.Add("Cantidad", typeof(int));
+                    dt.Columns.Add("Importe Bruto", typeof(decimal));
+                    dt.Columns.Add("Descuento", typeof(string));
+                    dt.Columns.Add("Importe Imponible", typeof(decimal));
+                    break;
 
-            if (option == 2)
-                SaleUpdateComponents(Movements);
+                case 3:
+                    dt.Columns.Add("ID", typeof(int));
+                    dt.Columns.Add("Código", typeof(string));
+                    dt.Columns.Add("Nombre", typeof(string));
+                    dt.Columns.Add("Cantidad", typeof(int));
+                    break;
+            }
+
+            switch(Option)
+            {
+                case 1:
+                    PurchaseUpdateComponents(Movements);
+                    break;
+
+                case 2:
+                    SaleUpdateComponents(Movements);
+                    break;
+
+                case 3:
+                    StoreTransferUpdateComponents(Movements);
+                    break;
+            }
         }
 
         private void PurchaseUpdateComponents(List<Movement> Movements)
@@ -356,6 +378,21 @@ namespace FrameworkView.V1
             }
         }
 
+        private void StoreTransferUpdateComponents(List<Movement> Movements)
+        {
+            foreach (Movement item in Movements)
+            {
+                DocumentLine documentLine = new DocumentLine();
+
+                documentLine.Code = $"{item.MovementID}";
+                documentLine.Name = item.product.Name;
+                documentLine.Quantity = Convert.ToDecimal(item.Quantity);
+                documentLine.product = item.product;
+
+                Lines.Add(documentLine);
+            }
+        }
+
         public void SetDate(DateTime Date)
         {
             this.Date = Date;
@@ -378,6 +415,10 @@ namespace FrameworkView.V1
                     case 2:
                         dt.Rows.Add(item.Code, item.product.Code, item.product.Name, ((decimal)item.Quantity).ToString("0.##"),
                             ((decimal)item.SaleGrossPrice).ToString("0.00"),$"{(Convert.ToDecimal(item.SaleDiscount1Percentage)).ToString("0.##")} %", ((decimal)(item.SaleTaxBaseFinal)).ToString("0.00"));
+                        break;
+
+                    case 3:
+                        dt.Rows.Add(item.Code, item.product.Code, item.product.Name, ((decimal)item.Quantity).ToString("0.##"));
                         break;
                 }
             }

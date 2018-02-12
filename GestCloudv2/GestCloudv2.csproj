@@ -56,7 +56,7 @@
     <ManifestKeyFile>GestCloudv2_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <GenerateManifests>false</GenerateManifests>
+    <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
     <SignManifests>false</SignManifests>
@@ -66,6 +66,9 @@
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>GestCloudv2.App</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.AspNetCore.Hosting.Abstractions, Version=1.1.3.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
@@ -829,6 +832,24 @@
     <Compile Include="Shortcuts\ShortcutDocument.cs" />
     <Compile Include="Shortcuts\ShortcutInfo.cs" />
     <Compile Include="Stocks\Controller\CT_Stocks.cs" />
+    <Compile Include="Stocks\Nodes\StoreTransfers\StoreTransferItem\StoreTransferItem_Load\Controller\CT_STT_Item_Load.cs" />
+    <Compile Include="Stocks\Nodes\StoreTransfers\StoreTransferItem\StoreTransferItem_Load\View\FW_STT_Item_Load_Movements.cs" />
+    <Compile Include="Stocks\Nodes\StoreTransfers\StoreTransferItem\StoreTransferItem_Load\View\MC_STT_Item_Load_Movements.cs" />
+    <Compile Include="Stocks\Nodes\StoreTransfers\StoreTransferItem\StoreTransferItem_Load\View\MC_STT_Item_Load_StoreTransfer.cs" />
+    <Compile Include="Stocks\Nodes\StoreTransfers\StoreTransferItem\StoreTransferItem_Load\View\MC_STT_Item_Load_Summary.cs" />
+    <Compile Include="Stocks\Nodes\StoreTransfers\StoreTransferItem\StoreTransferItem_Load\View\NV_STT_Item_Load_StoreTransfer.cs" />
+    <Compile Include="Stocks\Nodes\StoreTransfers\StoreTransferItem\StoreTransferItem_Load\View\TS_STT_Item_Load_StoreTransfer.cs" />
+    <Compile Include="Stocks\Nodes\StoreTransfers\StoreTransferItem\StoreTransferItem_New\Controller\CT_STT_Item_New.cs" />
+    <Compile Include="Stocks\Nodes\StoreTransfers\StoreTransferItem\StoreTransferItem_New\View\FW_STT_Item_New_Movements.cs" />
+    <Compile Include="Stocks\Nodes\StoreTransfers\StoreTransferItem\StoreTransferItem_New\View\MC_STT_Item_New_Movements.cs" />
+    <Compile Include="Stocks\Nodes\StoreTransfers\StoreTransferItem\StoreTransferItem_New\View\MC_STT_Item_New_StoreTransfer.cs" />
+    <Compile Include="Stocks\Nodes\StoreTransfers\StoreTransferItem\StoreTransferItem_New\View\MC_STT_Item_New_Summary.cs" />
+    <Compile Include="Stocks\Nodes\StoreTransfers\StoreTransferItem\StoreTransferItem_New\View\NV_STT_Item_New_StoreTransfer.cs" />
+    <Compile Include="Stocks\Nodes\StoreTransfers\StoreTransferItem\StoreTransferItem_New\View\TS_STT_Item_New_StoreTransfer.cs" />
+    <Compile Include="Stocks\Nodes\StoreTransfers\StoreTransferMenu\Controller\CT_StoreTransferMenu.cs" />
+    <Compile Include="Stocks\Nodes\StoreTransfers\StoreTransferMenu\View\MC_STT_Menu.cs" />
+    <Compile Include="Stocks\Nodes\StoreTransfers\StoreTransferMenu\View\NV_STT_Menu.cs" />
+    <Compile Include="Stocks\Nodes\StoreTransfers\StoreTransferMenu\View\TS_STT_Menu.cs" />
     <Compile Include="Stocks\Nodes\StockAdjusts\StockAdjustItem\StockAdjustItem_Load\Controller\CT_STA_Item_Load.cs">
       <Generator>MSBuild:Compile</Generator>
     </Compile>

@@ -25,6 +25,11 @@ namespace GestCloudv2.Stocks.View
             InitializeComponent();
         }
 
+        private void EV_CT_StoreTransfers(object sender, RoutedEventArgs e)
+        {
+            GetController().CT_StoreTransfers();
+        }
+
         private void EV_CT_StockAdjusts(object sender, RoutedEventArgs e)
         {
             GetController().CT_StockAdjusts();

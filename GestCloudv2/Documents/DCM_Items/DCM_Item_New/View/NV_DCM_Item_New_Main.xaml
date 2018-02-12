@@ -17,9 +17,9 @@
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
-        <Button Grid.Column="0" Margin="20" Click="EV_MD_Headboard">Cabecera</Button>
-        <Button Grid.Column="1" Margin="20" Click="EV_MD_Movements">Lineas</Button>
-        <Button Grid.Column="2" Margin="20" Click="EV_MD_Summary">Resumen</Button>
-        <Button Grid.Column="7" Margin="20" Click="EV_CT_Menu">Volver</Button>
+        <Button Name="BT_Main" Grid.Column="0" Margin="20" Click="EV_MD_Headboard">Cabecera</Button>
+        <Button Name="BT_Movements" Grid.Column="1" Margin="20" Click="EV_MD_Movements">Lineas</Button>
+        <Button Name="BT_Summary" Grid.Column="2" Margin="20" Click="EV_MD_Summary">Resumen</Button>
+        <Button Name="BT_Back" Grid.Column="7" Margin="20" Click="EV_CT_Menu">Volver</Button>
     </Grid>
 </Page>

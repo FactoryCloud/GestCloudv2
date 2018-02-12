@@ -151,6 +151,16 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.Controller
             TestMinimalInformation();
         }
 
+        public virtual void SetStoreFrom(int num)
+        {
+            TestMinimalInformation();
+        }
+
+        public virtual void SetStoreTo(int num)
+        {
+            TestMinimalInformation();
+        }
+
         virtual public void SetDate(DateTime date)
         {
             documentContent.SetDate(date);
@@ -202,6 +212,16 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.Controller
 
             else
                 return -1;
+        }
+
+        virtual public Store GetStoreFrom()
+        {
+            return new Store();
+        }
+
+        virtual public Store GetStoreTo()
+        {
+            return new Store();
         }
 
         virtual public int LastCode()

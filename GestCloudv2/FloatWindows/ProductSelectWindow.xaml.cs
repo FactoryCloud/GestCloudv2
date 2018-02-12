@@ -116,6 +116,9 @@ namespace GestCloudv2.FloatWindows
 
         protected void EV_Start(object sender, RoutedEventArgs e)
         {
+            if(OperationOption == 3)
+                CB_Store.IsEnabled = false;
+
             List<ProductType> productTypes = productsView.GetProductTypes();
 
             foreach (ProductType pt in productTypes)
@@ -289,7 +292,7 @@ namespace GestCloudv2.FloatWindows
                             TB_SalePrice.Text = (productsView.prices[Convert.ToInt32(movement.ProductID)] / productsView.times[Convert.ToInt32(movement.ProductID)]).ToString("0.00");
                         }
                     }
-                    if (movement.Quantity > 0)
+                    if (movement.Quantity > 0 && OperationOption != 3)
                     {
                         movement.PurchasePrice = Convert.ToDecimal(movement.product.PurchasePrice1);
                         movement.PurchaseDiscount1 = Convert.ToDecimal(movement.product.PurchaseDiscount1);

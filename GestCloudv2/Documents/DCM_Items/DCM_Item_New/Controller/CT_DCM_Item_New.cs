@@ -68,6 +68,16 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.Controller
             return store;
         }
 
+        virtual public Store GetStoreFrom()
+        {
+            return new Store();
+        }
+
+        virtual public Store GetStoreTo()
+        {
+            return new Store();
+        }
+
         public override Provider GetProvider()
         {
             return provider;
@@ -110,6 +120,16 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.Controller
         public void SetStore(int num)
         {
             store = db.Stores.Where(s => s.StoreID == num).First();
+            TestMinimalInformation();
+        }
+
+        public virtual void SetStoreFrom(int num)
+        {
+            TestMinimalInformation();
+        }
+
+        public virtual void SetStoreTo(int num)
+        {
             TestMinimalInformation();
         }
 
