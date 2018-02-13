@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderTransfer.SOR_Transfer_Delivery.Controller
 {
@@ -15,11 +16,13 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderTransfer.SOR_Transfer_Deli
 
         public CT_SOR_Transfer_Delivery():base()
         {
+            Information.Add("saleDelivery", 0);
+            Information.Add("saleInvoice", 0);
             Documents = new List<SaleOrder>();
             itemsView = new SaleOrdersView(Documents);
         }
 
-        public override void SetMC()
+        public override void SetMC(int i)
         {
             MC_Page = new View.MC_SOR_Transfer_Delivery();
         }
@@ -56,7 +59,7 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderTransfer.SOR_Transfer_Deli
 
         public override bool DeliveryExist()
         {
-            if (saleDelivery != null)
+            if (saleDelivery.Code != null)
                 return true;
 
             else
@@ -89,9 +92,15 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderTransfer.SOR_Transfer_Deli
 
         public override void GenerateTransfer()
         {
-            if(saleDelivery == null)
+            if(Information["saleDelivery"] == 0)
             {
-                int code = Convert.ToInt32(db.SaleDeliveries.Where(p => p.Code != null).OrderBy(p => p.Code).Last().Code) + 1;
+                int code;
+                if (db.SaleDeliveries.Where(p => p.Code != null).Count() > 0)
+                    code = Convert.ToInt32(db.SaleDeliveries.Where(p => p.Code != null).OrderBy(p => p.Code).Last().Code) + 1;
+
+                else
+                    code = 1;
+
                 saleDelivery = new SaleDelivery
                 {
                     CompanyID = ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID,
