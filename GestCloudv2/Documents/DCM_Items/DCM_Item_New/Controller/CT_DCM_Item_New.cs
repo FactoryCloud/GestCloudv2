@@ -16,6 +16,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.Controller
         public Movement movementSelected;
         public List<Movement> movements;
         public Store store;
+        public PaymentMethod paymentMethod;
         public Provider provider;
         public Client client;
         public DocumentContent documentContent;
@@ -130,6 +131,12 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.Controller
 
         public virtual void SetStoreTo(int num)
         {
+            TestMinimalInformation();
+        }
+
+        public void SetPaymentMethod(int num)
+        {
+            paymentMethod = db.PaymentMethods.Where(p => p.PaymentMethodID == num).First();
             TestMinimalInformation();
         }
 

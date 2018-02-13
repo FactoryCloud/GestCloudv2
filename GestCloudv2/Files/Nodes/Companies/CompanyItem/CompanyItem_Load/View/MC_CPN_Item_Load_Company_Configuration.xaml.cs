@@ -16,15 +16,15 @@ using System.Windows.Shapes;
 using FrameworkDB.V1;
 using FrameworkView.V1;
 
-namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_Load.View
+namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_Load.View
 {
     /// <summary>
     /// Interaction logic for MC_USR_Item_New_User.xaml
     /// </summary>
-    public partial class MC_USR_Item_Load_Configuration : Page
+    public partial class MC_CPN_Item_Load_Company_Configuration : Page
     {
         ConfigurationsView view = new ConfigurationsView();
-        public MC_USR_Item_Load_Configuration()
+        public MC_CPN_Item_Load_Company_Configuration()
         {
             InitializeComponent();
 
@@ -83,6 +83,7 @@ namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_Load.View
         private void EV_ApplyChanges(object sender, RoutedEventArgs e)
         {
             GetController().SetConfigValue(Convert.ToInt32(((ComboBoxItem)CB_ConfigurationValue.SelectedItem).Tag));
+            MessageBox.Show($"Cambios aplicados, no olvide guardar sus cambios");
         }
 
         private void EV_DefaultValues(object sender, RoutedEventArgs e)
@@ -111,11 +112,11 @@ namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_Load.View
             DG_Configurations.ItemsSource = view.GetTable();
         }
 
-        private Controller.CT_USR_Item_Load GetController()
+        private Controller.CT_CPN_Item_Load GetController()
         {
             Window mainWindow = Application.Current.MainWindow;
             var a = (Main.View.MainWindow)mainWindow;
-            return (Controller.CT_USR_Item_Load)a.MainFrame.Content;
+            return (Controller.CT_CPN_Item_Load)a.MainFrame.Content;
         }
     }
 }

@@ -30,6 +30,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.View
             TB_Code.KeyUp += new KeyEventHandler(EV_Code);
             TB_Code.Loaded += new RoutedEventHandler(EV_Code);
             CB_Stores.SelectionChanged += new SelectionChangedEventHandler(EV_StoreSelect);
+            CB_PaymentMethod.SelectionChanged += new SelectionChangedEventHandler(EV_PaymentMethodSelect);
             DP_Date.KeyDown += new KeyEventHandler(EV_Cancel);
             DP_Date.KeyUp += new KeyEventHandler(EV_Cancel);
 
@@ -44,6 +45,10 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.View
             GR_Store.MouseEnter += new MouseEventHandler(EV_MouseChange);
             GR_Store.MouseLeave += new MouseEventHandler(EV_MouseChange);
             GR_Store.MouseLeftButtonUp += new MouseButtonEventHandler(EV_MouseClick);
+
+            GR_PaymentMethod.MouseEnter += new MouseEventHandler(EV_MouseChange);
+            GR_PaymentMethod.MouseLeave += new MouseEventHandler(EV_MouseChange);
+            GR_PaymentMethod.MouseLeftButtonUp += new MouseButtonEventHandler(EV_MouseClick);
 
             SetSelected();
         }
@@ -71,8 +76,18 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.View
                 temp.Name = $"store{st.StoreID}";
                 CB_Stores.Items.Add(temp);
             }
-
             CB_Stores.SelectedIndex = 0;
+
+            List<PaymentMethod> paymentMethods = GetController().GetPaymentMethods();
+            foreach (PaymentMethod pm in paymentMethods)
+            {
+                ComboBoxItem temp = new ComboBoxItem();
+                temp.Content = $"{pm.Code} - {pm.Name}";
+                temp.Name = $"paymentMethod{pm.PaymentMethodID}";
+                CB_PaymentMethod.Items.Add(temp);
+            }
+
+            CB_PaymentMethod.SelectedIndex = 0;
 
             if (GetController().GetProvider() != null)
             {
@@ -268,6 +283,16 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.View
             if (CB_Stores.SelectedIndex >= 0)
             {
                 GetController().SetStore(Convert.ToInt32(temp1.Name.Replace("store", "")));
+            }
+        }
+
+        protected void EV_PaymentMethodSelect(object sender, RoutedEventArgs e)
+        {
+            ComboBoxItem temp1 = (ComboBoxItem)CB_PaymentMethod.SelectedItem;
+
+            if (CB_PaymentMethod.SelectedIndex >= 0)
+            {
+                GetController().SetPaymentMethod(Convert.ToInt32(temp1.Name.Replace("paymentMethod", "")));
             }
         }
 

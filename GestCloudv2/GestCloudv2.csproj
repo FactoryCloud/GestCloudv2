@@ -273,6 +273,9 @@
     <Compile Include="Files\Nodes\Companies\CompanyItem\CompanyItem_Load\View\MC_CPN_Item_Load_Company_Taxes.xaml.cs">
       <DependentUpon>MC_CPN_Item_Load_Company_Taxes.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Files\Nodes\Companies\CompanyItem\CompanyItem_Load\View\MC_CPN_Item_Load_Company_Configuration.xaml.cs">
+      <DependentUpon>MC_CPN_Item_Load_Company_Configuration.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Files\Nodes\Companies\CompanyItem\CompanyItem_Load\View\NV_CPN_Item_Load.xaml.cs">
       <DependentUpon>NV_CPN_Item_Load.xaml</DependentUpon>
     </Compile>
@@ -296,6 +299,9 @@
     </Compile>
     <Compile Include="Files\Nodes\Companies\CompanyItem\CompanyItem_New\View\MC_CPN_Item_New_Company.xaml.cs">
       <DependentUpon>MC_CPN_Item_New_Company.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Nodes\Companies\CompanyItem\CompanyItem_New\View\MC_CPN_Item_New_Company_Configuration.xaml.cs">
+      <DependentUpon>MC_CPN_Item_New_Company_Configuration.xaml</DependentUpon>
     </Compile>
     <Compile Include="Files\Nodes\Companies\CompanyItem\CompanyItem_New\View\NV_CPN_Item_New.xaml.cs">
       <DependentUpon>NV_CPN_Item_New.xaml</DependentUpon>
@@ -510,6 +516,9 @@
     </Compile>
     <Compile Include="Files\Nodes\Users\UserItem\UserItem_Load\View\MC_USR_Item_Load_Configuration.xaml.cs">
       <DependentUpon>MC_USR_Item_Load_Configuration.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Nodes\Users\UserItem\UserItem_New\View\MC_USR_Item_New_Configuration.xaml.cs">
+      <DependentUpon>MC_USR_Item_New_Configuration.xaml</DependentUpon>
     </Compile>
     <Compile Include="FloatWindows\SaleDeliverySelectWindow.xaml.cs">
       <DependentUpon>SaleDeliverySelectWindow.xaml</DependentUpon>
@@ -1045,6 +1054,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Files\Nodes\Companies\CompanyItem\CompanyItem_Load\View\MC_CPN_Item_Load_Company_Configuration.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Files\Nodes\Companies\CompanyItem\CompanyItem_Load\View\NV_CPN_Item_Load.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1070,6 +1083,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Files\Nodes\Companies\CompanyItem\CompanyItem_New\View\MC_CPN_Item_New_Company.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Files\Nodes\Companies\CompanyItem\CompanyItem_New\View\MC_CPN_Item_New_Company_Configuration.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1302,6 +1319,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Files\Nodes\Users\UserItem\UserItem_Load\View\MC_USR_Item_Load_Configuration.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Files\Nodes\Users\UserItem\UserItem_New\View\MC_USR_Item_New_Configuration.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

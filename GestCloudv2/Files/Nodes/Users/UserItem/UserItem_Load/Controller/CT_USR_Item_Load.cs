@@ -26,6 +26,7 @@ namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_Load.Controller
     {
         public User user;
         public Configuration ConfigSelected;
+        //public ConfigurationUser configurationUser;
         Dictionary<int, int> Configurations;
 
         public CT_USR_Item_Load(User user, int editable)
@@ -74,6 +75,7 @@ namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_Load.Controller
         {
             if (Configurations[ConfigSelected.ConfigurationID] != -1)
                 return Configurations[ConfigSelected.ConfigurationID];
+                //return configurationUser.Value;
 
             else
                 return ConfigSelected.DefaultValue;
@@ -99,6 +101,25 @@ namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_Load.Controller
         public void SetConfigValue(int num)
         {
             Configurations[ConfigSelected.ConfigurationID] = num;
+        }
+
+        public void SetDefaultConfig()
+        {
+            MessageBoxResult result = MessageBox.Show("¿Esta seguro que desea restablecer los valores por defecto?", "Restablecer configuración", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                List<Configuration> AllConfigurations = db.Configurations.ToList();
+                List<ConfigurationUser> UserConfigurations = db.ConfigurationsUsers.Where(c => c.UserID == user.UserID).ToList();
+
+                foreach (Configuration item in AllConfigurations)
+                {
+                    ConfigurationUser temp = db.ConfigurationsUsers.Where(c => c.ConfigurationID == item.ConfigurationID && c.UserID == user.UserID).First();
+                    temp.Value = item.DefaultValue;
+                    db.ConfigurationsUsers.Update(temp);
+                }
+
+                db.SaveChanges();
+            }
         }
 
         public override void EV_ActivateSaveButton(bool verificated)

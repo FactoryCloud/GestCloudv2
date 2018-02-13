@@ -16,15 +16,15 @@ using System.Windows.Shapes;
 using FrameworkDB.V1;
 using FrameworkView.V1;
 
-namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_Load.View
+namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.View
 {
     /// <summary>
     /// Interaction logic for MC_USR_Item_New_User.xaml
     /// </summary>
-    public partial class MC_USR_Item_Load_Configuration : Page
+    public partial class MC_CPN_Item_New_Company_Configuration : Page
     {
         ConfigurationsView view = new ConfigurationsView();
-        public MC_USR_Item_Load_Configuration()
+        public MC_CPN_Item_New_Company_Configuration()
         {
             InitializeComponent();
 
@@ -47,13 +47,6 @@ namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_Load.View
             }
 
             UpdateData();
-
-            if (GetController().Information["editable"] == 0)
-            {
-                CB_ConfigurationValue.Visibility = Visibility.Hidden;
-                TB_ConfigurationValue.Visibility = Visibility.Visible;
-                BT_ConfigurationApply.Visibility = Visibility.Hidden;
-            }
         }        
 
         private void EV_CB_Changes(object sender, RoutedEventArgs e)
@@ -85,12 +78,6 @@ namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_Load.View
             GetController().SetConfigValue(Convert.ToInt32(((ComboBoxItem)CB_ConfigurationValue.SelectedItem).Tag));
         }
 
-        private void EV_DefaultValues(object sender, RoutedEventArgs e)
-        {
-            //GetController().SetConfigValue(Convert.ToInt32(((ComboBoxItem)CB_ConfigurationValue.SelectedItem).Tag));
-            GetController().SetDefaultConfig();
-        }
-
         public void UpdateValue()
         {
             foreach (ComboBoxItem item in CB_ConfigurationValue.Items)
@@ -111,11 +98,11 @@ namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_Load.View
             DG_Configurations.ItemsSource = view.GetTable();
         }
 
-        private Controller.CT_USR_Item_Load GetController()
+        private Controller.CT_CPN_Item_New GetController()
         {
             Window mainWindow = Application.Current.MainWindow;
             var a = (Main.View.MainWindow)mainWindow;
-            return (Controller.CT_USR_Item_Load)a.MainFrame.Content;
+            return (Controller.CT_CPN_Item_New)a.MainFrame.Content;
         }
     }
 }

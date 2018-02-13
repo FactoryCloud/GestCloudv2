@@ -23,6 +23,7 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.Controll
     /// </summary>
     public partial class CT_CPN_Item_New : Main.Controller.CT_Common
     {
+        public Configuration ConfigSelected;
         public Company company;
         public FiscalYear fiscalYear;
         public List<Store> stores;
@@ -33,7 +34,7 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.Controll
         public List<TaxType> taxTypes;
         public int startDayDate;
         public int startMonthDate;
-
+        Dictionary<int, int> Configurations;
 
         public CT_CPN_Item_New()
         {
@@ -45,6 +46,7 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.Controll
             paymentMethods= new List<PaymentMethod>();
             company = new Company();
             fiscalYear = new FiscalYear();
+            Configurations = new Dictionary<int, int>();
             startDayDate = 1;
             startMonthDate = 1;
 
@@ -98,6 +100,14 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.Controll
             {
                 Name = "ST",
             });
+
+            List<Configuration> AllConfigurations = db.Configurations.ToList();
+
+            foreach (Configuration item in AllConfigurations)
+            {
+                    Configurations.Add(item.ConfigurationID, -1);
+            }
+
             Information.Add("minimalInformation", 0);
             Information["entityValid"] = 1;
         }
@@ -122,6 +132,20 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.Controll
             return db.PaymentMethods.ToList();
         }
 
+        public Configuration GetConfiguration()
+        {
+            return db.Configurations.Where(c => c.ConfigurationID == ConfigSelected.ConfigurationID).First();
+        }
+
+        public int GetConfigurationValue()
+        {
+            if (Configurations[ConfigSelected.ConfigurationID] != -1)
+                return Configurations[ConfigSelected.ConfigurationID];
+
+            else
+                return ConfigSelected.DefaultValue;
+        }
+
         public void SetCompanyName(string name)
         {
             company.Name = name;
@@ -137,6 +161,16 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.Controll
         public void SetCompanyPeriodOption(int num)
         {
             company.PeriodOption = num;
+        }
+
+        public void SetConfiguration(int num)
+        {
+            ConfigSelected = db.Configurations.Where(c => c.ConfigurationID == num).First();
+        }
+
+        public void SetConfigValue(int num)
+        {
+            Configurations[ConfigSelected.ConfigurationID] = num;
         }
 
         public void UpdateStore(int num)
@@ -418,6 +452,18 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.Controll
 
             db.Taxes.AddRange(specTaxes);
 
+            List<Configuration> AllConfigurations = db.Configurations.ToList();
+
+            foreach (Configuration item in AllConfigurations)
+            {
+                db.ConfigurationsCompanies.Add(new ConfigurationCompany
+                {
+                    CompanyID = company.CompanyID,
+                    ConfigurationID = item.ConfigurationID,
+                    Value = Configurations[item.ConfigurationID],
+                });
+            }
+
             db.SaveChanges();
             MessageBox.Show("Datos guardados correctamente");
 
@@ -488,6 +534,13 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_New.Controll
                     NV_Page = new View.NV_CPN_Item_New();
                     TS_Page = new View.TS_CPN_Item_New(Information["minimalInformation"]);
                     MC_Page = new View.MC_CPN_Item_New_Company_PaymentMethods();
+                    ChangeComponents();
+                    break;
+
+                case 5:
+                    NV_Page = new View.NV_CPN_Item_New();
+                    TS_Page = new View.TS_CPN_Item_New(Information["minimalInformation"]);
+                    MC_Page = new View.MC_CPN_Item_New_Company_Configuration();
                     ChangeComponents();
                     break;
             }

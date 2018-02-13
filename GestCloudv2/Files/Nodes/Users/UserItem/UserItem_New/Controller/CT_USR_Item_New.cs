@@ -25,15 +25,23 @@ namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_New.Controller
     {
         public User user;
         public UserType userType;
+        public Configuration ConfigSelected;
+        Dictionary<int, int> Configurations;
 
         public CT_USR_Item_New()
         {
             user = new User();
             Information.Add("minimalInformation", 0);
+            Configurations = new Dictionary<int, int>();
         }
 
         override public void EV_Start(object sender, RoutedEventArgs e)
         {
+            List<Configuration> AllConfigurations = db.Configurations.ToList();
+            foreach (Configuration item in AllConfigurations)
+            {
+                Configurations.Add(item.ConfigurationID, -1);
+            }
             UpdateComponents();
         }
 
@@ -47,6 +55,20 @@ namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_New.Controller
             return db.UserTypes.ToList();
         }
 
+        public Configuration GetConfiguration()
+        {
+            return db.Configurations.Where(c => c.ConfigurationID == ConfigSelected.ConfigurationID).First();
+        }
+
+        public int GetConfigurationValue()
+        {
+            if (Configurations[ConfigSelected.ConfigurationID] != -1)
+                return Configurations[ConfigSelected.ConfigurationID];
+
+            else
+                return ConfigSelected.DefaultValue;
+        }
+
         public void SetUserCode(int num)
         {
             user.Code = num;
@@ -57,6 +79,16 @@ namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_New.Controller
         {
             userType = db.UserTypes.Where(c => c.UserTypeID == num).Include(c => c.UserPermissions).First();
             TestMinimalInformation();
+        }
+
+        public void SetConfiguration(int num)
+        {
+            ConfigSelected = db.Configurations.Where(c => c.ConfigurationID == num).First();
+        }
+
+        public void SetConfigValue(int num)
+        {
+            Configurations[ConfigSelected.ConfigurationID] = num;
         }
 
         public override void EV_ActivateSaveButton(bool verificated)
@@ -154,6 +186,19 @@ namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_New.Controller
             user.ActivationCode = user.Code.ToString() + GetUniqueKey(5).ToString();
             user.Enabled = 1;
             db.Users.Add(user);
+
+            List<Configuration> AllConfigurations = db.Configurations.ToList();
+
+            foreach (Configuration item in AllConfigurations)
+            {
+                db.ConfigurationsUsers.Add(new ConfigurationUser
+                {
+                    UserID = user.UserID,
+                    ConfigurationID = item.ConfigurationID,
+                    Value = Configurations[item.ConfigurationID],
+                });
+            }
+
             db.SaveChanges();
             MessageBox.Show("Datos guardados correctamente");
 
@@ -223,6 +268,13 @@ namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_New.Controller
                     NV_Page = new Files.Nodes.Users.UserItem.UserItem_New.View.NV_USR_Item_New();
                     TS_Page = new Files.Nodes.Users.UserItem.UserItem_New.View.TS_USR_Item_New(Information["minimalInformation"]); ;
                     MC_Page = new Files.Nodes.Users.UserItem.UserItem_New.View.MC_USR_Item_New_Entity_Loaded(); ;
+                    ChangeComponents();
+                    break;
+
+                case 5:
+                    NV_Page = new Files.Nodes.Users.UserItem.UserItem_New.View.NV_USR_Item_New();
+                    TS_Page = new Files.Nodes.Users.UserItem.UserItem_New.View.TS_USR_Item_New(Information["minimalInformation"]); ;
+                    MC_Page = new Files.Nodes.Users.UserItem.UserItem_New.View.MC_USR_Item_New_Configuration(); ;
                     ChangeComponents();
                     break;
             }

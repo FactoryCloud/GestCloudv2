@@ -192,6 +192,17 @@ namespace GestCloudv2.Main.Controller
             return stores;
         }
 
+        virtual public List<PaymentMethod> GetPaymentMethods()
+        {
+            List<PaymentMethod> paymentMethods = new List<PaymentMethod>();
+            List<CompanyPaymentMethod> companyPaymentMethods = db.CompaniesPaymentMethods.Where(c => c.CompanyID == ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID).Include(z => z.paymentMethod).ToList();
+            foreach (CompanyPaymentMethod e in companyPaymentMethods)
+            {
+                paymentMethods.Add(e.paymentMethod);
+            }
+            return paymentMethods;
+        }
+
         virtual public List<User> GetUsers()
         {
             return db.Users.ToList();
