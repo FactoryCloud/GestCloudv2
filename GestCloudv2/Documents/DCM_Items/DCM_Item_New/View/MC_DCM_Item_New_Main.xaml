@@ -16,6 +16,7 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.5*"/>
@@ -122,7 +123,7 @@
             </Grid>
         </Grid>
         
-        <Grid Name="GR_PaymentMethod" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="4" Background="Transparent">
+        <Grid Name="GR_PaymentMethod" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="5" Background="Transparent">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="2*"/>

@@ -101,12 +101,6 @@ namespace FrameworkDB.V1
                 .HasForeignKey(a => a.ProductTypeID)
                 .HasConstraintName("FK_Products_ProductTypeID_ProductTypes");
 
-            /*modelBuilder.Entity<City>()
-                .HasOne(a => a.country)
-                .WithMany(b => b.entities)
-                .HasForeignKey(a => a.ProductTypeID)
-                .HasConstraintName("FK_Products_ProductTypeID_ProductTypes");*/
-
             modelBuilder.Entity<UserAccessControl>()
                 .HasKey(a => new { a.UserAccessControlID });
 
@@ -214,6 +208,12 @@ namespace FrameworkDB.V1
                 .WithMany(b => b.PurchaseOrders)
                 .HasForeignKey(a => a.CompanyID)
                 .HasConstraintName("FK_PurchaseOrders_CompanyID_Companies");
+
+            modelBuilder.Entity<PurchaseOrder>()
+                .HasOne(a => a.paymentMethod)
+                .WithMany(b => b.purchaseOrders)
+                .HasForeignKey(a => a.PaymentMethodID)
+                .HasConstraintName("FK_PurchaseOrders_PaymentMethodID_PaymentMethods");
 
             modelBuilder.Entity<SaleDelivery>()
                 .HasOne(a => a.company)
