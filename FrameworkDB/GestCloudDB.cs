@@ -197,11 +197,23 @@ namespace FrameworkDB.V1
                 .HasForeignKey(a => a.CompanyID)
                 .HasConstraintName("FK_PurchaseDeliveries_CompanyID_Companies");
 
+            modelBuilder.Entity<PurchaseDelivery>()
+                .HasOne(a => a.paymentMethod)
+                .WithMany(b => b.purchaseDeliveries)
+                .HasForeignKey(a => a.PaymentMethodID)
+                .HasConstraintName("FK_PurchaseDeliveries_PaymentMethodID_PaymentMethods");
+
             modelBuilder.Entity<PurchaseInvoice>()
                 .HasOne(a => a.company)
                 .WithMany(b => b.PurchaseInvoices)
                 .HasForeignKey(a => a.CompanyID)
                 .HasConstraintName("FK_PurchaseInvoices_CompanyID_Companies");
+
+            modelBuilder.Entity<PurchaseInvoice>()
+               .HasOne(a => a.paymentMethod)
+               .WithMany(b => b.purchaseInvoices)
+               .HasForeignKey(a => a.PaymentMethodID)
+               .HasConstraintName("FK_PurchaseInvoices_PaymentMethodID_PaymentMethods");
 
             modelBuilder.Entity<PurchaseOrder>()
                 .HasOne(a => a.company)
@@ -221,17 +233,35 @@ namespace FrameworkDB.V1
                 .HasForeignKey(a => a.CompanyID)
                 .HasConstraintName("FK_SaleDeliveries_CompanyID_Companies");
 
+            modelBuilder.Entity<SaleDelivery>()
+               .HasOne(a => a.paymentMethod)
+               .WithMany(b => b.saleDeliveries)
+               .HasForeignKey(a => a.PaymentMethodID)
+               .HasConstraintName("FK_SaleDeliveries_PaymentMethodID_PaymentMethods");
+
             modelBuilder.Entity<SaleInvoice>()
                 .HasOne(a => a.company)
                 .WithMany(b => b.SaleInvoices)
                 .HasForeignKey(a => a.CompanyID)
                 .HasConstraintName("FK_SaleInvoices_CompanyID_Companies");
 
+            modelBuilder.Entity<SaleInvoice>()
+               .HasOne(a => a.paymentMethod)
+               .WithMany(b => b.saleInvoices)
+               .HasForeignKey(a => a.PaymentMethodID)
+               .HasConstraintName("FK_SaleInvoices_PaymentMethodID_PaymentMethods");
+
             modelBuilder.Entity<SaleOrder>()
                 .HasOne(a => a.company)
                 .WithMany(b => b.SaleOrders)
                 .HasForeignKey(a => a.CompanyID)
                 .HasConstraintName("FK_SaleOrders_CompanyID_Companies");
+
+            modelBuilder.Entity<SaleOrder>()
+               .HasOne(a => a.paymentMethod)
+               .WithMany(b => b.saleOrders)
+               .HasForeignKey(a => a.PaymentMethodID)
+               .HasConstraintName("FK_SaleOrders_PaymentMethodID_PaymentMethods");
 
             modelBuilder.Entity<PurchaseOrder>()
                 .HasOne(a => a.provider)

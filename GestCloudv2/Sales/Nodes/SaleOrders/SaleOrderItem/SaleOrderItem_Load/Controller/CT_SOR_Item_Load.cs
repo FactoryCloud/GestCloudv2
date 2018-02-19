@@ -28,7 +28,7 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_Load.Co
 
         public CT_SOR_Item_Load(SaleOrder saleOrder, int editable):base(editable)
         {
-            this.saleOrder = db.SaleOrders.Where(c => c.SaleOrderID == saleOrder.SaleOrderID).Include(e => e.client).Include(i => i.client.entity).First();
+            this.saleOrder = db.SaleOrders.Where(c => c.SaleOrderID == saleOrder.SaleOrderID).Include(e => e.client).Include(i => i.client.entity).Include(p => p.paymentMethod).First();
             Information["operationType"] = 2;
         }
 
@@ -60,9 +60,20 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderItem.SaleOrderItem_Load.Co
             base.SetStore(num);
         }
 
+        public override void SetPaymentMethod(int num)
+        {
+            saleOrder.paymentMethod = db.PaymentMethods.Where(s => s.PaymentMethodID == num).First();
+            base.SetPaymentMethod(num);
+        }
+
         public override Store GetStore()
         {
             return saleOrder.store;
+        }
+
+        public override PaymentMethod GetPaymentMethod()
+        {
+            return saleOrder.paymentMethod;
         }
 
         public override void SetMC(int i)

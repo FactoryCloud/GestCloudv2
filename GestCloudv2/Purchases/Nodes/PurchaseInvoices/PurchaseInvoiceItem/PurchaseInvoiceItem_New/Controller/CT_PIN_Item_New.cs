@@ -141,6 +141,8 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseInvoices.PurchaseInvoiceItem.Purch
             purchaseInvoice.ProviderID = provider.ProviderID;
             purchaseInvoice.store = db.Stores.Where(s => s.StoreID == store.StoreID).First();
             purchaseInvoice.PurchaseInvoiceFinalPrice = documentContent.PurchaseFinalPrice;
+            purchaseInvoice.paymentMethod = db.PaymentMethods.Where(p => p.PaymentMethodID == paymentMethod.PaymentMethodID).First();
+
             db.PurchaseInvoices.Add(purchaseInvoice);
             db.SaveChanges();
 

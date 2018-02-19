@@ -28,7 +28,7 @@ namespace GestCloudv2.Sales.Nodes.SaleInvoices.SaleInvoiceItem.SaleInvoiceItem_L
 
         public CT_SIN_Item_Load(SaleInvoice saleInvoice, int editable):base(editable)
         {
-            this.saleInvoice = db.SaleInvoices.Where(c => c.SaleInvoiceID == saleInvoice.SaleInvoiceID).Include(e => e.client).Include(i => i.client.entity).Include(s => s.store).First();
+            this.saleInvoice = db.SaleInvoices.Where(c => c.SaleInvoiceID == saleInvoice.SaleInvoiceID).Include(e => e.client).Include(i => i.client.entity).Include(s => s.store).Include(p => p.paymentMethod).First();
             Information["operationType"] = 2;
         }
 
@@ -60,9 +60,20 @@ namespace GestCloudv2.Sales.Nodes.SaleInvoices.SaleInvoiceItem.SaleInvoiceItem_L
             base.SetStore(num);
         }
 
+        public override void SetPaymentMethod(int num)
+        {
+            saleInvoice.paymentMethod = db.PaymentMethods.Where(s => s.PaymentMethodID == num).First();
+            base.SetPaymentMethod(num);
+        }
+
         public override Store GetStore()
         {
             return saleInvoice.store;
+        }
+
+        public override PaymentMethod GetPaymentMethod()
+        {
+            return saleInvoice.paymentMethod;
         }
 
         public override void SetMC(int i)

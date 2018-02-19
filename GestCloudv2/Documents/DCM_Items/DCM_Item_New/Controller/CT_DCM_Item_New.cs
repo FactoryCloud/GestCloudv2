@@ -69,6 +69,11 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.Controller
             return store;
         }
 
+        public override PaymentMethod GetPaymentMethod()
+        {
+            return paymentMethod;
+        }
+
         virtual public Store GetStoreFrom()
         {
             return new Store();
@@ -124,6 +129,12 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.Controller
             TestMinimalInformation();
         }
 
+        public void SetPaymentMethod(int num)
+        {
+            paymentMethod = db.PaymentMethods.Where(p => p.PaymentMethodID == num).First();
+            TestMinimalInformation();
+        }
+
         public virtual void SetStoreFrom(int num)
         {
             TestMinimalInformation();
@@ -131,12 +142,6 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.Controller
 
         public virtual void SetStoreTo(int num)
         {
-            TestMinimalInformation();
-        }
-
-        public void SetPaymentMethod(int num)
-        {
-            paymentMethod = db.PaymentMethods.Where(p => p.PaymentMethodID == num).First();
             TestMinimalInformation();
         }
 

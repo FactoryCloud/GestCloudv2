@@ -28,7 +28,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
 
         public CT_POR_Item_Load(PurchaseOrder purchaseOrder, int editable):base(editable)
         {
-            this.purchaseOrder = db.PurchaseOrders.Where(c => c.PurchaseOrderID == purchaseOrder.PurchaseOrderID).Include(e => e.provider).Include(i => i.provider.entity).Include(p => p.store).First();
+            this.purchaseOrder = db.PurchaseOrders.Where(c => c.PurchaseOrderID == purchaseOrder.PurchaseOrderID).Include(e => e.provider).Include(i => i.provider.entity).Include(p => p.store).Include(p => p.paymentMethod).First();
             Information["operationType"] = 1;
         }
 
@@ -55,9 +55,20 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderItem.PurchaseO
             base.SetStore(num);
         }
 
+        public override void SetPaymentMethod(int num)
+        {
+            purchaseOrder.paymentMethod = db.PaymentMethods.Where(s => s.PaymentMethodID== num).First();
+            base.SetPaymentMethod(num);
+        }
+
         public override Store GetStore()
         {
             return purchaseOrder.store;
+        }
+
+        public override PaymentMethod GetPaymentMethod()
+        {
+            return purchaseOrder.paymentMethod;
         }
 
         public override void SetMC(int i)

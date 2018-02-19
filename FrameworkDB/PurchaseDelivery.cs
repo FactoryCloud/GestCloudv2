@@ -32,5 +32,10 @@ namespace FrameworkDB.V1
         [ForeignKey("FK_PurchaseDeliveries_PurchaseInvoiceID_PurchaseInvoices")]
         public int? PurchaseInvoiceID { get; set; }
         public virtual PurchaseInvoice purchaseInvoice { get; set; }
+
+        [ForeignKey("FK_PurchaseDeliveries_PaymentMethodID_PaymentMethods")]
+        public int? PaymentMethodID { get; set; }
+        public virtual PaymentMethod paymentMethod { get; set; }
+
     }
 }

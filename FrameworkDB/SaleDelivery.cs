@@ -32,5 +32,9 @@ namespace FrameworkDB.V1
         [ForeignKey("FK_SaleDeliveries_SaleInvoiceID_SaleInvoices")]
         public int? SaleInvoiceID { get; set; }
         public virtual SaleInvoice saleInvoice { get; set; }
+
+        [ForeignKey("FK_SaleDeliveries_PaymentMethodID_PaymentMethods")]
+        public int? PaymentMethodID { get; set; }
+        public virtual PaymentMethod paymentMethod { get; set; }
     }
 }

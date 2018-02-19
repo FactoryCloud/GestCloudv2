@@ -151,6 +151,11 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.Controller
             TestMinimalInformation();
         }
 
+        public virtual void SetPaymentMethod(int num)
+        {
+            TestMinimalInformation();
+        }
+
         public virtual void SetStoreFrom(int num)
         {
             TestMinimalInformation();
@@ -187,6 +192,11 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.Controller
             return new Store();
         }
 
+        override public PaymentMethod GetPaymentMethod()
+        {
+            return new PaymentMethod();
+        }
+
         virtual public DateTime GetDate()
         {
             return DateTime.Today;
@@ -219,9 +229,19 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_Load.Controller
             return new Store();
         }
 
+        virtual public PaymentMethod GetPaymentMethodFrom()
+        {
+            return new PaymentMethod();
+        }
+
         virtual public Store GetStoreTo()
         {
             return new Store();
+        }
+
+        virtual public PaymentMethod GetPaymentMethodTo()
+        {
+            return new PaymentMethod();
         }
 
         virtual public int LastCode()

@@ -28,7 +28,7 @@ namespace GestCloudv2.Sales.Nodes.SaleDeliveries.SaleDeliveryItem.SaleDeliveryIt
 
         public CT_SDE_Item_Load(SaleDelivery saleDelivery, int editable):base(editable)
         {
-            this.saleDelivery = db.SaleDeliveries.Where(c => c.SaleDeliveryID == saleDelivery.SaleDeliveryID).Include(e => e.client).Include(i => i.client.entity).Include(s => s.store).First();
+            this.saleDelivery = db.SaleDeliveries.Where(c => c.SaleDeliveryID == saleDelivery.SaleDeliveryID).Include(e => e.client).Include(i => i.client.entity).Include(s => s.store).Include(p => p.paymentMethod).First();
             Information["operationType"] = 2;
         }
 
@@ -60,9 +60,20 @@ namespace GestCloudv2.Sales.Nodes.SaleDeliveries.SaleDeliveryItem.SaleDeliveryIt
             base.SetStore(num);
         }
 
+        public override void SetPaymentMethod(int num)
+        {
+            saleDelivery.paymentMethod = db.PaymentMethods.Where(s => s.PaymentMethodID == num).First();
+            base.SetPaymentMethod(num);
+        }
+
         public override Store GetStore()
         {
             return saleDelivery.store;
+        }
+
+        public override PaymentMethod GetPaymentMethod()
+        {
+            return saleDelivery.paymentMethod;
         }
 
         public override void SetMC(int i)

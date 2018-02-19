@@ -37,6 +37,14 @@ namespace GestCloudv2.Model
                     infoCardItem = new InfoCardItem((Store)Component);
                     break;
 
+                case 5:
+                    Subcontroller = new Files.Nodes.PaymentMethods.PaymentMethodItem.PaymentMethodItem_Load.Controller.CT_PMT_Item_Load((PaymentMethod)Component, 0, 1);
+                    items = new SubmenuItems().GetSubmenuItems(option);
+                    buttons = items.Count;
+                    Name = "Forma de pago";
+                    infoCardItem = new InfoCardItem((PaymentMethod)Component);
+                    break;
+
                 case 6:
                     Subcontroller = new Files.Nodes.Clients.ClientItem.ClientItem_Load.Controller.CT_CLI_Item_Load((Client)Component, 0, 1);
                     items = new SubmenuItems().GetSubmenuItems(option);

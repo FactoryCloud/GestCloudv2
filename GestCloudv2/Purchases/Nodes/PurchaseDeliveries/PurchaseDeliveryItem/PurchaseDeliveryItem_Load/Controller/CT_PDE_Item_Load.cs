@@ -28,7 +28,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseDeliveries.PurchaseDeliveryItem.Pu
 
         public CT_PDE_Item_Load(PurchaseDelivery purchaseDelivery, int editable):base(editable)
         {
-            this.purchaseDelivery = db.PurchaseDeliveries.Where(c => c.PurchaseDeliveryID == purchaseDelivery.PurchaseDeliveryID).Include(e => e.provider).Include(i => i.provider.entity).Include(p => p.store).First();
+            this.purchaseDelivery = db.PurchaseDeliveries.Where(c => c.PurchaseDeliveryID == purchaseDelivery.PurchaseDeliveryID).Include(e => e.provider).Include(i => i.provider.entity).Include(p => p.store).Include(t => t.paymentMethod).First();
             Information["operationType"] = 1;
         }
 
@@ -60,9 +60,20 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseDeliveries.PurchaseDeliveryItem.Pu
             base.SetStore(num);
         }
 
+        public override void SetPaymentMethod(int num)
+        {
+            purchaseDelivery.paymentMethod = db.PaymentMethods.Where(s => s.PaymentMethodID == num).First();
+            base.SetPaymentMethod(num);
+        }
+
         public override Store GetStore()
         {
             return purchaseDelivery.store;
+        }
+
+        public override PaymentMethod GetPaymentMethod()
+        {
+            return purchaseDelivery.paymentMethod;
         }
 
         public override Shortcuts.ShortcutDocument GetShortcutDocument(int num)

@@ -106,6 +106,7 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderTransfer.SOR_Transfer_Deli
                     CompanyID = ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID,
                     ClientID = Convert.ToInt32(Documents[0].ClientID),
                     StoreID = db.Stores.Where(s => s.StoreID == Convert.ToInt32(Documents[0].StoreID)).First().StoreID,
+                    PaymentMethodID = db.PaymentMethods.Where(s => s.PaymentMethodID== Convert.ToInt32(Documents[0].paymentMethod)).First().PaymentMethodID,
                     Date = DateTime.Today,
                     Code = $"{DateTime.Today.ToString("yy")}/{code}"
                 };

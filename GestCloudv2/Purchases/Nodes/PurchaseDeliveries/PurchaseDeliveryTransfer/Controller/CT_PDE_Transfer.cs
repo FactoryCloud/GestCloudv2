@@ -100,6 +100,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseDeliveries.PurchaseDeliveryTransfe
                     CompanyID = ((Main.View.MainWindow)System.Windows.Application.Current.MainWindow).selectedCompany.CompanyID,
                     ProviderID = Convert.ToInt32(Documents[0].ProviderID),
                     StoreID = db.Stores.Where(s => s.StoreID == Convert.ToInt32(Documents[0].StoreID)).First().StoreID,
+                    PaymentMethodID = db.PaymentMethods.Where(s => s.PaymentMethodID== Convert.ToInt32(Documents[0].PaymentMethodID)).First().PaymentMethodID,
                     Date = DateTime.Today,
                     Code = $"{DateTime.Today.ToString("yy")}/{code}"
                 };

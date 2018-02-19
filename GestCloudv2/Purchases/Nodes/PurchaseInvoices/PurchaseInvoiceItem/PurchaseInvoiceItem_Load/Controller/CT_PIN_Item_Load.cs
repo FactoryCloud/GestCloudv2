@@ -28,7 +28,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseInvoices.PurchaseInvoiceItem.Purch
 
         public CT_PIN_Item_Load(PurchaseInvoice purchaseInvoice, int editable):base(editable)
         {
-            this.purchaseInvoice = db.PurchaseInvoices.Where(c => c.PurchaseInvoiceID == purchaseInvoice.PurchaseInvoiceID).Include(e => e.provider).Include(i => i.provider.entity).Include(p => p.store).First();
+            this.purchaseInvoice = db.PurchaseInvoices.Where(c => c.PurchaseInvoiceID == purchaseInvoice.PurchaseInvoiceID).Include(e => e.provider).Include(i => i.provider.entity).Include(p => p.store).Include(t => t.paymentMethod).First();
             Information["operationType"] = 1;
         }
 
@@ -60,9 +60,20 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseInvoices.PurchaseInvoiceItem.Purch
             base.SetStore(num);
         }
 
+        public override void SetPaymentMethod(int num)
+        {
+            purchaseInvoice.paymentMethod = db.PaymentMethods.Where(s => s.PaymentMethodID == num).First();
+            base.SetPaymentMethod(num);
+        }
+
         public override Store GetStore()
         {
             return purchaseInvoice.store;
+        }
+
+        public override PaymentMethod GetPaymentMethod()
+        {
+            return purchaseInvoice.paymentMethod;
         }
 
         public override void SetMC(int i)

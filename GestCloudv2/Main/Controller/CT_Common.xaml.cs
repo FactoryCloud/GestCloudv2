@@ -146,6 +146,10 @@ namespace GestCloudv2.Main.Controller
                     CT_Submenu = new Model.CT_Submenu(GetStore(), option);
                     break;
 
+                case 5:
+                    CT_Submenu = new Model.CT_Submenu(GetPaymentMethod(), option);
+                    break;
+
                 case 6:
                     CT_Submenu = new Model.CT_Submenu(GetClient(), option);
                     break;
@@ -159,6 +163,11 @@ namespace GestCloudv2.Main.Controller
             TopSide.Content = NV_Page;
 
             EV_UpdateInfoCard();
+        }
+
+        virtual public PaymentMethod GetPaymentMethod()
+        {
+            return new PaymentMethod();
         }
 
         virtual public Store GetStore()

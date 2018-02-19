@@ -168,6 +168,7 @@ namespace GestCloudv2.Sales.Nodes.SaleInvoices.SaleInvoiceItem.SaleInvoiceItem_N
             saleInvoice.ClientID = client.ClientID;
             saleInvoice.store = db.Stores.Where(s => s.StoreID == store.StoreID).First();
             saleInvoice.SaleInvoiceFinalPrice = documentContent.SaleFinalPrice;
+            saleInvoice.paymentMethod = db.PaymentMethods.Where(p => p.PaymentMethodID == paymentMethod.PaymentMethodID).First();
             db.SaleInvoices.Add(saleInvoice);
             db.SaveChanges();
 

@@ -166,6 +166,7 @@ namespace GestCloudv2.Sales.Nodes.SaleDeliveries.SaleDeliveryItem.SaleDeliveryIt
             saleDelivery.ClientID = client.ClientID;
             saleDelivery.store = db.Stores.Where(s => s.StoreID == store.StoreID).First();
             saleDelivery.SaleDeliveryFinalPrice = documentContent.SaleFinalPrice;
+            saleDelivery.paymentMethod = db.PaymentMethods.Where(p => p.PaymentMethodID == paymentMethod.PaymentMethodID).First();
             db.SaleDeliveries.Add(saleDelivery);
             db.SaveChanges();
 

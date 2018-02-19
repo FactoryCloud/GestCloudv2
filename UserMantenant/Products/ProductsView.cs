@@ -56,12 +56,12 @@ namespace FrameworkView.V1
 
             foreach (Movement item in Movements)
             {
-                if (!documentLines[item.StoreID].ContainsKey(Convert.ToInt16(item.ProductID)))
+                if (!documentLines[item.StoreID].ContainsKey(Convert.ToInt32(item.ProductID)))
                 {
-                    documentLines[item.StoreID].Add(Convert.ToInt16(item.ProductID), 0);
+                    documentLines[item.StoreID].Add(Convert.ToInt32(item.ProductID), 0);
                 }
 
-                documentLines[item.StoreID][Convert.ToInt16(item.ProductID)] = documentLines[item.StoreID][Convert.ToInt16(item.ProductID)] + Convert.ToDecimal(item.Quantity);
+                documentLines[item.StoreID][Convert.ToInt32(item.ProductID)] = documentLines[item.StoreID][Convert.ToInt32(item.ProductID)] + Convert.ToDecimal(item.Quantity);
             }
 
             dt.Columns.Clear();
@@ -86,12 +86,12 @@ namespace FrameworkView.V1
             {
                 if (item.MovementID != movement.MovementID)
                 {
-                    if (!documentLines[item.StoreID].ContainsKey(Convert.ToInt16(item.ProductID)))
+                    if (!documentLines[item.StoreID].ContainsKey(Convert.ToInt32(item.ProductID)))
                     {
-                        documentLines[item.StoreID].Add(Convert.ToInt16(item.ProductID), 0);
+                        documentLines[item.StoreID].Add(Convert.ToInt32(item.ProductID), 0);
                     }
 
-                    documentLines[item.StoreID][Convert.ToInt16(item.ProductID)] = documentLines[item.StoreID][Convert.ToInt16(item.ProductID)] + Convert.ToDecimal(item.Quantity);
+                    documentLines[item.StoreID][Convert.ToInt32(item.ProductID)] = documentLines[item.StoreID][Convert.ToInt32(item.ProductID)] + Convert.ToDecimal(item.Quantity);
                 }
             }
 
@@ -154,10 +154,10 @@ namespace FrameworkView.V1
             movement.ProductID = this.movement.product.ProductID;
             movement.condition = this.movement.condition;
             movement.Quantity = Convert.ToDecimal(this.movement.Quantity);
-            movement.IsAltered = Convert.ToInt16(this.movement.IsAltered);
-            movement.IsFoil = Convert.ToInt16(this.movement.IsFoil);
-            movement.IsPlayset = Convert.ToInt16(this.movement.IsPlayset);
-            movement.IsSigned = Convert.ToInt16(this.movement.IsSigned);
+            movement.IsAltered = Convert.ToInt32(this.movement.IsAltered);
+            movement.IsFoil = Convert.ToInt32(this.movement.IsFoil);
+            movement.IsPlayset = Convert.ToInt32(this.movement.IsPlayset);
+            movement.IsSigned = Convert.ToInt32(this.movement.IsSigned);
             movement.PurchasePrice = Convert.ToDecimal(this.movement.PurchasePrice);
             movement.SalePrice = Convert.ToDecimal(this.movement.SalePrice);
 
@@ -186,25 +186,25 @@ namespace FrameworkView.V1
 
                 foreach (Movement item in movements)
                 {
-                    if (!stocks[item.StoreID].ContainsKey(Convert.ToInt16(item.ProductID)))
+                    if (!stocks[item.StoreID].ContainsKey(Convert.ToInt32(item.ProductID)))
                     {
-                        stocks[item.StoreID].Add(Convert.ToInt16(item.ProductID), 0);
+                        stocks[item.StoreID].Add(Convert.ToInt32(item.ProductID), 0);
                     }
 
-                    if (!prices.ContainsKey(Convert.ToInt16(item.ProductID)))
+                    if (!prices.ContainsKey(Convert.ToInt32(item.ProductID)))
                     {
-                        prices.Add(Convert.ToInt16(item.ProductID), 0);
-                        times.Add(Convert.ToInt16(item.ProductID), 0);
+                        prices.Add(Convert.ToInt32(item.ProductID), 0);
+                        times.Add(Convert.ToInt32(item.ProductID), 0);
                     }
 
-                    prices[Convert.ToInt16(item.ProductID)] = prices[Convert.ToInt16(item.ProductID)] + Convert.ToDecimal(item.SalePrice);
-                    times[Convert.ToInt16(item.ProductID)] = times[Convert.ToInt16(item.ProductID)] + 1;
+                    prices[Convert.ToInt32(item.ProductID)] = prices[Convert.ToInt32(item.ProductID)] + Convert.ToDecimal(item.SalePrice);
+                    times[Convert.ToInt32(item.ProductID)] = times[Convert.ToInt32(item.ProductID)] + 1;
 
                     if (item.documentType.Input == 1)
-                        stocks[item.StoreID][Convert.ToInt16(item.ProductID)] = stocks[item.StoreID][Convert.ToInt16(item.ProductID)] + Convert.ToDecimal(item.Quantity);
+                        stocks[item.StoreID][Convert.ToInt32(item.ProductID)] = stocks[item.StoreID][Convert.ToInt32(item.ProductID)] + Convert.ToDecimal(item.Quantity);
 
                     else
-                        stocks[item.StoreID][Convert.ToInt16(item.ProductID)] = stocks[item.StoreID][Convert.ToInt16(item.ProductID)] - Convert.ToDecimal(item.Quantity);
+                        stocks[item.StoreID][Convert.ToInt32(item.ProductID)] = stocks[item.StoreID][Convert.ToInt32(item.ProductID)] - Convert.ToDecimal(item.Quantity);
 
                     if (productsStored[item.StoreID].Where(p => p.ProductID == item.ProductID).Count() == 0)
                     {
@@ -270,7 +270,7 @@ namespace FrameworkView.V1
                 productsStored[StoreID].OrderBy(p => p.Name);
                 foreach (Product product in productsStored[StoreID])
                 {
-                    if(documentLines[StoreID].ContainsKey(Convert.ToInt16(product.ProductID)))
+                    if(documentLines[StoreID].ContainsKey(Convert.ToInt32(product.ProductID)))
                         dt.Rows.Add(product.ProductID, product.Name, $"{stocks[StoreID][product.ProductID].ToString("0.##")} ({documentLines[StoreID][product.ProductID].ToString("0.##")})", 
                             prices[product.ProductID] / times[product.ProductID]);
 

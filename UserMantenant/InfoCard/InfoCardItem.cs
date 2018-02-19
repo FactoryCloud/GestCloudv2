@@ -37,6 +37,11 @@ namespace FrameworkView.V1
             Title = $"Almacén: {store.Code} {store.Name}";
         }
 
+        public InfoCardItem(PaymentMethod paymentMethod)
+        {
+            Title = $"Forma de pago: {paymentMethod.Code} {paymentMethod.Name}";
+        }
+
         public InfoCardItem(Client client)
         {
             Title = $"Cliente: {client.Code} {client.entity.Name}";

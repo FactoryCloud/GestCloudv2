@@ -105,6 +105,7 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.View
         private void SetTransparentAll()
         {
             GR_Store.Background = new SolidColorBrush(Colors.Transparent);
+            GR_PaymentMethod.Background = new SolidColorBrush(Colors.Transparent);
             GR_Provider.Background = new SolidColorBrush(Colors.Transparent);
             GR_Client.Background = new SolidColorBrush(Colors.Transparent);
         }
@@ -115,6 +116,10 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.View
             {
                 case 4:
                     GR_Store.Background = new SolidColorBrush(Colors.Green);
+                    break;
+
+                case 5:
+                    GR_PaymentMethod.Background = new SolidColorBrush(Colors.Green);
                     break;
 
                 case 6:
@@ -153,6 +158,15 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.View
                     GR_Store.Background = new SolidColorBrush(Colors.Red);
                 }
             }
+
+            if (GetController().GetPaymentMethod() != null)
+            {
+                if (GR_PaymentMethod.IsMouseOver)
+                {
+                    GR_PaymentMethod.Background = new SolidColorBrush(Colors.Red);
+                }
+            }
+
             SetSelected();
         }
 
@@ -182,6 +196,15 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.View
                     GetController().EV_UpdateSubMenu(4);
                 }
             }
+
+            if (GetController().GetPaymentMethod() != null)
+            {
+                if (GR_PaymentMethod.IsMouseOver)
+                {
+                    GetController().EV_UpdateSubMenu(5);
+                }
+            }
+
             SetTransparentAll();
             SetSelected();
         }
@@ -288,11 +311,11 @@ namespace GestCloudv2.Documents.DCM_Items.DCM_Item_New.View
 
         protected void EV_PaymentMethodSelect(object sender, RoutedEventArgs e)
         {
-            ComboBoxItem temp1 = (ComboBoxItem)CB_PaymentMethod.SelectedItem;
+            ComboBoxItem temp2 = (ComboBoxItem)CB_PaymentMethod.SelectedItem;
 
             if (CB_PaymentMethod.SelectedIndex >= 0)
             {
-                GetController().SetPaymentMethod(Convert.ToInt32(temp1.Name.Replace("paymentMethod", "")));
+                GetController().SetPaymentMethod(Convert.ToInt32(temp2.Name.Replace("paymentMethod", "")));
             }
         }
 

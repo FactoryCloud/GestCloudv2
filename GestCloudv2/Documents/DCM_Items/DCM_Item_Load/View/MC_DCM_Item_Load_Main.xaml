@@ -16,6 +16,7 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.5*"/>
@@ -117,6 +118,13 @@
                 </StackPanel>
             </Grid>
         </Grid>
-
+        <Grid Name="GR_PaymentMethod" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="5" Background="Transparent" Tag="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Formas <LineBreak/> de pago</TextBlock>
+            <ComboBox FontSize="12" Grid.Column="2" Grid.Row="3" VerticalAlignment="Center" Margin="10,0,10,0" Name="CB_PaymentMethod"></ComboBox>
+        </Grid>
     </Grid>
 </Page>
