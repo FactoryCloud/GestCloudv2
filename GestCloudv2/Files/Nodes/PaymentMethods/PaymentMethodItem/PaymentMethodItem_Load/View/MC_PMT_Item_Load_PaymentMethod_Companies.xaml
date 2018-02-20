@@ -20,8 +20,10 @@
             <ColumnDefinition Width="4*"/>
             <ColumnDefinition Width="0.5*"/>
         </Grid.ColumnDefinitions>
-        <StackPanel Name="SP_CompanyName" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center">
+        <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled" Grid.Column="1" Grid.Row="1">
+            <StackPanel Name="SP_CompanyName" VerticalAlignment="Center" >
         </StackPanel>
+        </ScrollViewer>
         <Grid Grid.Column="1" Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
