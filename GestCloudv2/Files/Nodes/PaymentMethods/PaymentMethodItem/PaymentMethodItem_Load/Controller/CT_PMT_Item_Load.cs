@@ -56,7 +56,7 @@ namespace GestCloudv2.Files.Nodes.PaymentMethods.PaymentMethodItem.PaymentMethod
             Information.Add("external", 1);
             Information["entityValid"] = 1;
 
-            foreach (CompanyPaymentMethod comppmt in db.CompaniesPaymentMethods.Where(c => c.CompanyID== paymentMethod.PaymentMethodID).Include(c => c.company))
+            foreach (CompanyPaymentMethod comppmt in db.CompaniesPaymentMethods.Where(c => c.PaymentMethodID == paymentMethod.PaymentMethodID).Include(c => c.company))
             {
                 companies.Add(comppmt.company);
             }
