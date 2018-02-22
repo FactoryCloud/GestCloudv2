@@ -135,6 +135,11 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_Load.Control
                 return ConfigSelected.DefaultValue;
         }
 
+        public int GetDefaultConfigurationValue()
+        {
+            return ConfigSelected.DefaultValue;
+        }
+
         public void SetCompanyName(string name)
         {
             company.Name = name;

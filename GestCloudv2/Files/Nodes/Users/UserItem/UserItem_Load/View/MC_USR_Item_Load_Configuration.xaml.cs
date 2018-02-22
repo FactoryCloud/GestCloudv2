@@ -38,13 +38,6 @@ namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_Load.View
         private void EV_Start(object sender, RoutedEventArgs e)
         {
             List<ConfigurationType> configTypes = GetController().GetConfigurationTypes();
-            foreach (ConfigurationType item in configTypes)
-            {
-                ComboBoxItem temp = new ComboBoxItem();
-                temp.Content = $"{item.Name}";
-                temp.Name = $"configType{item.ConfigurationTypeID}";
-                CB_ConfigurationType.Items.Add(temp);
-            }
 
             UpdateData();
 
@@ -77,18 +70,36 @@ namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_Load.View
                 TB_ConfigurationDescription.Text = GetController().GetConfiguration().Description;
                 UpdateValue();
                 BT_ConfigurationApply.IsEnabled = true;
+                BT_ConfigurationRestore.IsEnabled = true;
             }
         }
 
         private void EV_ApplyChanges(object sender, RoutedEventArgs e)
         {
             GetController().SetConfigValue(Convert.ToInt32(((ComboBoxItem)CB_ConfigurationValue.SelectedItem).Tag));
+            MessageBox.Show("Valores aplicados correctamente, no olvide guardar los cambios");
+        }
+
+        private void EV_RestoreValue(object sender, RoutedEventArgs e)
+        {
+            int num = DG_Configurations.SelectedIndex;
+            if (num >= 0)
+            {
+                DataGridRow row = (DataGridRow)DG_Configurations.ItemContainerGenerator.ContainerFromIndex(num);
+                DataRowView dr = row.Item as DataRowView;
+                GetController().SetConfiguration(Convert.ToInt32(dr.Row.ItemArray[0].ToString()));
+                TB_ConfigurationDescription.Text = GetController().GetConfiguration().Description;
+                UpdateDefaultValue();
+                BT_ConfigurationApply.IsEnabled = true;
+                BT_ConfigurationRestore.IsEnabled = true;
+            }
+            GetController().SetConfigValue(Convert.ToInt32(((ComboBoxItem)CB_ConfigurationValue.SelectedItem).Tag));
+            MessageBox.Show("Se ha restaurado el valor para esta configuración, no olvide guardar los cambios");
         }
 
         private void EV_DefaultValues(object sender, RoutedEventArgs e)
         {
-            //GetController().SetConfigValue(Convert.ToInt32(((ComboBoxItem)CB_ConfigurationValue.SelectedItem).Tag));
-            GetController().SetDefaultConfig();
+            MessageBox.Show("De momento no hace nada");
         }
 
         public void UpdateValue()
@@ -96,6 +107,19 @@ namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_Load.View
             foreach (ComboBoxItem item in CB_ConfigurationValue.Items)
             {
                 if (Convert.ToInt16(item.Tag) == GetController().GetConfigurationValue())
+                {
+                    CB_ConfigurationValue.SelectedValue = item;
+                    break;
+                }
+            }
+            TB_ConfigurationValue.Text = ((ComboBoxItem)CB_ConfigurationValue.SelectedItem).Content.ToString();
+        }
+
+        public void UpdateDefaultValue()
+        {
+            foreach (ComboBoxItem item in CB_ConfigurationValue.Items)
+            {
+                if (Convert.ToInt16(item.Tag) == GetController().GetDefaultConfigurationValue())
                 {
                     CB_ConfigurationValue.SelectedValue = item;
                     break;

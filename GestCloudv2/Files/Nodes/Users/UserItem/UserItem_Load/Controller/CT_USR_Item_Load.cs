@@ -71,6 +71,11 @@ namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_Load.Controller
             return db.Configurations.Where(c => c.ConfigurationID == ConfigSelected.ConfigurationID).First();
         }
 
+        public int GetDefaultConfigurationValue()
+        {
+                return ConfigSelected.DefaultValue;
+        }
+
         public int GetConfigurationValue()
         {
             if (Configurations[ConfigSelected.ConfigurationID] != -1)
@@ -103,7 +108,12 @@ namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_Load.Controller
             Configurations[ConfigSelected.ConfigurationID] = num;
         }
 
-        public void SetDefaultConfig()
+        public void SetDefaultConfig(int num)
+        {
+            ConfigSelected = db.Configurations.Where(c => c.ConfigurationID == ConfigSelected.ConfigurationID).First();
+        }
+
+        /*public void SetDefaultConfig()
         {
             MessageBoxResult result = MessageBox.Show("¿Esta seguro que desea restablecer los valores por defecto?", "Restablecer configuración", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
@@ -120,7 +130,7 @@ namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_Load.Controller
 
                 db.SaveChanges();
             }
-        }
+        }*/
 
         public override void EV_ActivateSaveButton(bool verificated)
         {

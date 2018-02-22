@@ -77,6 +77,7 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_Load.View
                 TB_ConfigurationDescription.Text = GetController().GetConfiguration().Description;
                 UpdateValue();
                 BT_ConfigurationApply.IsEnabled = true;
+                BT_RestoreConfiguration.IsEnabled = true;
             }
         }
 
@@ -86,10 +87,27 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_Load.View
             MessageBox.Show($"Cambios aplicados, no olvide guardar sus cambios");
         }
 
+        private void EV_RestoreValue(object sender, RoutedEventArgs e)
+        {
+            int num = DG_Configurations.SelectedIndex;
+            if (num >= 0)
+            {
+                DataGridRow row = (DataGridRow)DG_Configurations.ItemContainerGenerator.ContainerFromIndex(num);
+                DataRowView dr = row.Item as DataRowView;
+                GetController().SetConfiguration(Convert.ToInt32(dr.Row.ItemArray[0].ToString()));
+                TB_ConfigurationDescription.Text = GetController().GetConfiguration().Description;
+                UpdateDefaultValue();
+                BT_ConfigurationApply.IsEnabled = true;
+                BT_RestoreConfiguration.IsEnabled = true;
+            }
+            GetController().SetConfigValue(Convert.ToInt32(((ComboBoxItem)CB_ConfigurationValue.SelectedItem).Tag));
+            MessageBox.Show("Se ha restaurado el valor para esta configuración, no olvide guardar los cambios");
+        }
+
         private void EV_DefaultValues(object sender, RoutedEventArgs e)
         {
             //GetController().SetConfigValue(Convert.ToInt32(((ComboBoxItem)CB_ConfigurationValue.SelectedItem).Tag));
-            GetController().SetDefaultConfig();
+            //GetController().SetDefaultConfig();
         }
 
         public void UpdateValue()
@@ -103,6 +121,19 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_Load.View
                 }
             }
 
+            TB_ConfigurationValue.Text = ((ComboBoxItem)CB_ConfigurationValue.SelectedItem).Content.ToString();
+        }
+
+        public void UpdateDefaultValue()
+        {
+            foreach (ComboBoxItem item in CB_ConfigurationValue.Items)
+            {
+                if (Convert.ToInt16(item.Tag) == GetController().GetDefaultConfigurationValue())
+                {
+                    CB_ConfigurationValue.SelectedValue = item;
+                    break;
+                }
+            }
             TB_ConfigurationValue.Text = ((ComboBoxItem)CB_ConfigurationValue.SelectedItem).Content.ToString();
         }
 

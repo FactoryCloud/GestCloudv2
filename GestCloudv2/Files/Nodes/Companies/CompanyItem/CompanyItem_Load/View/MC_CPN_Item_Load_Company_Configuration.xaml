@@ -64,7 +64,14 @@
                         <ComboBoxItem Tag="1">Si</ComboBoxItem>
                     </ComboBox>
                 </Grid>
-                <Button Name="BT_ConfigurationApply" VerticalAlignment="Center" HorizontalAlignment="Center" MinWidth="100" Click="EV_ApplyChanges" IsEnabled="False" Grid.Row="2">Aplicar</Button>
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button Name="BT_ConfigurationApply" VerticalAlignment="Center" HorizontalAlignment="Center" MinWidth="100" Click="EV_ApplyChanges" IsEnabled="False">Aplicar</Button>
+                    <Button Name="BT_RestoreConfiguration" VerticalAlignment="Center" HorizontalAlignment="Center" MinWidth="100" Click="EV_RestoreValue" IsEnabled="False">Restaurar</Button>
+                </Grid>
             </Grid>
         </GroupBox>
         <Grid Grid.Row="2" Grid.Column="1">
