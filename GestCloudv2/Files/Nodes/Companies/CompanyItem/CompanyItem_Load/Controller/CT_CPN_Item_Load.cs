@@ -246,6 +246,19 @@ namespace GestCloudv2.Files.Nodes.Companies.CompanyItem.CompanyItem_Load.Control
             }
         }
 
+        public void DeleteValue()
+        {
+            Configurations[ConfigSelected.ConfigurationID] = -1;
+        }
+
+        public void DeleteAllValues()
+        {
+            foreach (Configuration item in db.Configurations)
+            {
+                Configurations[item.ConfigurationID] = -1;
+            }
+        }
+
         public void AddTaxes(Tax tax, int num)
         {
             TaxType tt = db.TaxTypes.Where(t => t.TaxTypeID == num).First();
