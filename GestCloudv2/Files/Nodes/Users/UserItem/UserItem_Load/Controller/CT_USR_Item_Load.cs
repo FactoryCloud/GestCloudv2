@@ -71,9 +71,14 @@ namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_Load.Controller
             return db.Configurations.Where(c => c.ConfigurationID == ConfigSelected.ConfigurationID).First();
         }
 
+        public Boolean ConfigurationExist(int num)
+        {
+            return Configurations[num] != -1;
+        }
+
         public int GetDefaultConfigurationValue()
         {
-                return ConfigSelected.DefaultValue;
+            return ConfigSelected.DefaultValue;
         }
 
         public int GetConfigurationValue()
@@ -113,24 +118,18 @@ namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_Load.Controller
             ConfigSelected = db.Configurations.Where(c => c.ConfigurationID == ConfigSelected.ConfigurationID).First();
         }
 
-        /*public void SetDefaultConfig()
+        public void DeleteValue()
         {
-            MessageBoxResult result = MessageBox.Show("¿Esta seguro que desea restablecer los valores por defecto?", "Restablecer configuración", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (result == MessageBoxResult.Yes)
+            Configurations[ConfigSelected.ConfigurationID] = -1;
+        }
+
+        public void DeleteAllValues()
+        {
+            foreach (Configuration item in db.Configurations)
             {
-                List<Configuration> AllConfigurations = db.Configurations.ToList();
-                List<ConfigurationUser> UserConfigurations = db.ConfigurationsUsers.Where(c => c.UserID == user.UserID).ToList();
-
-                foreach (Configuration item in AllConfigurations)
-                {
-                    ConfigurationUser temp = db.ConfigurationsUsers.Where(c => c.ConfigurationID == item.ConfigurationID && c.UserID == user.UserID).First();
-                    temp.Value = item.DefaultValue;
-                    db.ConfigurationsUsers.Update(temp);
-                }
-
-                db.SaveChanges();
+                Configurations[item.ConfigurationID] = -1;
             }
-        }*/
+        }
 
         public override void EV_ActivateSaveButton(bool verificated)
         {
@@ -230,9 +229,17 @@ namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_Load.Controller
             {
                 if (UserConfigurations.Where(u => u.ConfigurationID == item.ConfigurationID).ToList().Count > 0)
                 {
-                    ConfigurationUser temp = db.ConfigurationsUsers.Where(c => c.ConfigurationID == item.ConfigurationID && c.UserID == user.UserID).First();
-                    temp.Value = Configurations[item.ConfigurationID];
-                    db.ConfigurationsUsers.Update(temp);
+                    if (Configurations[item.ConfigurationID] != -1)
+                    {
+                        ConfigurationUser temp = db.ConfigurationsUsers.Where(c => c.ConfigurationID == item.ConfigurationID && c.UserID == user.UserID).First();
+                        temp.Value = Configurations[item.ConfigurationID];
+                        db.ConfigurationsUsers.Update(temp);
+                    }
+
+                    else
+                    {
+                        db.ConfigurationsUsers.Remove(db.ConfigurationsUsers.Where(c => c.ConfigurationID == item.ConfigurationID && c.UserID == user.UserID).First());
+                    }
                 }
 
                 else

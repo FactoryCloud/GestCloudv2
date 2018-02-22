@@ -80,7 +80,7 @@
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
             <Label HorizontalAlignment="Center" VerticalAlignment="Center">Restablecer valores por defecto</Label>
-            <Button Name="BT_DefaultValues" VerticalAlignment="Center" HorizontalAlignment="Center" MinWidth="100" MinHeight="20" Grid.Row="1" Click="EV_DefaultValues">Restablecer valores por defecto</Button>
+            <Button Name="BT_RestoreAllValues" VerticalAlignment="Center" HorizontalAlignment="Center" MinWidth="100" MinHeight="20" Grid.Row="1" Click="EV_RestoreAllValues">Restablecer valores por defecto</Button>
         </Grid>
     </Grid>
 </Page>

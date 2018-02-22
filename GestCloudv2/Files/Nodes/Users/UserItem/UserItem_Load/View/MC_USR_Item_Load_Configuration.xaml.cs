@@ -70,7 +70,14 @@ namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_Load.View
                 TB_ConfigurationDescription.Text = GetController().GetConfiguration().Description;
                 UpdateValue();
                 BT_ConfigurationApply.IsEnabled = true;
-                BT_ConfigurationRestore.IsEnabled = true;
+                if (GetController().ConfigurationExist(Convert.ToInt32(dr.Row.ItemArray[0].ToString())))
+                {
+                    BT_ConfigurationRestore.IsEnabled = true;
+                }
+                else
+                {
+                    BT_ConfigurationRestore.IsEnabled = false;
+                }
             }
         }
 
@@ -82,24 +89,19 @@ namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_Load.View
 
         private void EV_RestoreValue(object sender, RoutedEventArgs e)
         {
-            int num = DG_Configurations.SelectedIndex;
-            if (num >= 0)
-            {
-                DataGridRow row = (DataGridRow)DG_Configurations.ItemContainerGenerator.ContainerFromIndex(num);
-                DataRowView dr = row.Item as DataRowView;
-                GetController().SetConfiguration(Convert.ToInt32(dr.Row.ItemArray[0].ToString()));
-                TB_ConfigurationDescription.Text = GetController().GetConfiguration().Description;
-                UpdateDefaultValue();
-                BT_ConfigurationApply.IsEnabled = true;
-                BT_ConfigurationRestore.IsEnabled = true;
-            }
-            GetController().SetConfigValue(Convert.ToInt32(((ComboBoxItem)CB_ConfigurationValue.SelectedItem).Tag));
+            GetController().DeleteValue();
+            UpdateValue();
             MessageBox.Show("Se ha restaurado el valor para esta configuración, no olvide guardar los cambios");
         }
 
-        private void EV_DefaultValues(object sender, RoutedEventArgs e)
+        private void EV_RestoreAllValues(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("De momento no hace nada");
+            GetController().DeleteAllValues();
+            if (GetController().ConfigSelected != null)
+            {
+                UpdateValue();
+            }
+            MessageBox.Show("Se han restaurado los valores para este usuario, no olvide guardar los cambios");
         }
 
         public void UpdateValue()
@@ -112,20 +114,6 @@ namespace GestCloudv2.Files.Nodes.Users.UserItem.UserItem_Load.View
                     break;
                 }
             }
-            TB_ConfigurationValue.Text = ((ComboBoxItem)CB_ConfigurationValue.SelectedItem).Content.ToString();
-        }
-
-        public void UpdateDefaultValue()
-        {
-            foreach (ComboBoxItem item in CB_ConfigurationValue.Items)
-            {
-                if (Convert.ToInt16(item.Tag) == GetController().GetDefaultConfigurationValue())
-                {
-                    CB_ConfigurationValue.SelectedValue = item;
-                    break;
-                }
-            }
-
             TB_ConfigurationValue.Text = ((ComboBoxItem)CB_ConfigurationValue.SelectedItem).Content.ToString();
         }
 
