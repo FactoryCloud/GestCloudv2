@@ -89,7 +89,7 @@ namespace GestCloudv2.Purchases.Nodes.PurchaseOrders.PurchaseOrderTransfer.POR_T
 
         public override void GenerateTransfer()
         {
-            if(purchaseDelivery.Equals(null))
+            if(purchaseDelivery == null)
             {
                 int code;
 

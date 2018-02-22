@@ -92,7 +92,7 @@ namespace GestCloudv2.Sales.Nodes.SaleOrders.SaleOrderTransfer.SOR_Transfer_Deli
 
         public override void GenerateTransfer()
         {
-            if(Information["saleDelivery"] == 0)
+            if(saleDelivery == null)
             {
                 int code;
                 if (db.SaleDeliveries.Where(p => p.Code != null).Count() > 0)
